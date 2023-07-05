@@ -1,0 +1,124 @@
+\documentclass{article}
+
+\usepackage{amsthm, amsmath, amssymb}
+\usepackage{amssymb}
+
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{8.0in}
+\setlength{\hoffset}{-0.75in}
+\setlength{\voffset}{-0.75in}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{1.5\baselineskip}
+
+\title{A Conjecture for Primitive Pythagorean Triples}
+\author{R. Scott McIntire}
+\date{June 19, 2023}
+
+\newtheorem{theorem}{Theorem}\theoremstyle{plain}
+\newtheorem{thm}{Theorem}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+
+\newtheorem{conjecture}{Conjecture}\theoremstyle{plain}
+
+
+\begin{document}
+\maketitle
+
+\section{Definitions}
+After a few definitions we describe a conjecture regarding Primitive Pythagorean Triples.
+We use standard notation to indicate that the natural numbers are represented by the symbol $\mathbb{N}$ and 
+we use the symbol $\mathbb{P}$ to denote the set of prime numbers.
+
+
+\defn{\em Pythagorean Triples\/} denoted, ${\cal T}$, are  triplets of numbers representing the length of the sides of
+right triangles where all the sides are integers. Specifically,
+\begin{eqnarray}
+  {\cal T} & = & \{ (x,y,z) \; | \; (x,y,z) \in \mathbb{N}^3 \; \wedge \; x^2 + y^2 = z^2 \}
+\end{eqnarray}
+The usual definition.
+
+\defn{\em Primitive Pythagorean Triples\/} denoted, ${\cal T}_p$, are Pythagorean Triples which have no common factors. Specifically,
+\begin{eqnarray}
+  {\cal T}_p & = & \{ (x,y,z) \; | \; (x,y,z) \in \mathbb{N}^3 \; \wedge \; \gcd(x,y) = 1 \; \wedge \; x^2 + y^2 = z^2 \}
+\end{eqnarray}
+The usual definition.
+
+\defn{\em Primitive Pythagorean Hypotenuses\/} denoted, ${\cal H}$, defined by:
+\begin{eqnarray}
+  {\cal H} & = & \{ z \; | \; \exists (x,y) \in \mathbb{N}^2, \;  (x,y,z) \in {\cal T}_p \}
+\end{eqnarray}
+This represents the set of all possible lengths of hypotenuses of right triangles with integer sides.
+
+\defn{\em Pythagorean Primes\/} denoted, ${\cal H}_p$, defined by:
+\begin{eqnarray}
+  {\cal H}_p & = & \{ z \; | \; \exists (x,y) \in \mathbb{N}^2, \, (x,y,z) \in {\cal T}_p \; \wedge \; z \in \mathbb{P} \}
+\end{eqnarray}
+This represents the set of all possible lengths of hypotenuses of right triangles with integer sides that are prime.
+
+{\bf Note:} ${\cal H}_p$ is a {\em proper\/} subset of the primes: ${\cal H}_p \subset \mathbb{P}$.
+
+${\bf Note:\/}$ If the sets ${\cal H}$ or ${\cal H}_p$ are treated as lists, they are indexed in sorted order.
+
+\defn{\em The prime parity\/} function, $\Pi$, is defined on any prime, $p$, with $p \ge 5$ by:
+\begin{eqnarray}
+  \Pi(p) = \begin{cases}
+  \hphantom{-}1\hfil & \exists n \in \mathbb{N}, p = 6n + 1 \\
+            -1 \hfil & \exists n \in \mathbb{N}, p = 6n - 1 \\
+             \end{cases} 
+\end{eqnarray}
+
+\defn{\em First Deviation\/} function, $\Delta_p$, is defined by:%
+\footnote{If for a given $n$, 
+$\left\{ m \; \left| \; n \le \left( \sum_{i=1}^m \Pi({\cal H}_p[i]) - \sum_{i=3}^{m+2} \Pi(\mathbb{P}[i]) \right. \right) \right\} = \emptyset$, we set $\Delta_p(n) = \infty$.}
+\begin{eqnarray}
+\Delta_p(n) = \mathop{\rm min}\limits_{m} \left\{ m \; \left| \; n \le \left( \sum_{i=1}^m \Pi({\cal H}_p[i]) - \sum_{i=3}^{m+2} \Pi(\mathbb{P}[i])\right. \right) \right\} 
+\end{eqnarray}
+
+Clearly, $\Delta_p$ is a non-decreasing function.
+
+
+\section{McIntire's Pythagorean Triple Conjectures}
+
+Define ${\cal H}_d$ and ${\cal H}_u$ by:
+\begin{eqnarray}
+  {\cal H}_{d} & = & \{ z \; | \; \exists\, (x_1, x_2, y_1, y_2) \in \mathbb{N}^4, \; 
+      (x_1,y_2,z) \in {\cal T}_p \; \wedge \; (x_2, y_2, z) \in {\cal T}_p \; \wedge \; x_1 \neq x_2 \}  \\
+    {\cal H}_u & = & \{ z \; | \; \exists\,(p,n) \in ({\cal H}_p, \mathbb{N}), \; z = p^n \}
+\end{eqnarray}
+
+It has already been conjectured that the cardinality of ${\cal H}_p$ is infinite: $|{\cal H}_p| = \infty$.
+\conjecture{The the set ${\cal H}_d$ has infinite cardinality:}
+  \begin{enumerate}
+    \item{$|{\cal H}_d| = \infty$.}
+  \end{enumerate}
+
+\conjecture{The set ${\cal H}$ is partitioned by the sets ${\cal H}_d$ and ${\cal H}_u$:}
+\begin{enumerate}
+  \item{$\hphantom{\emptyset}{\cal H} = {\cal H}_{d} \cup {\cal H}_u$;}
+  \item{$\hphantom{\cal H}\emptyset = {\cal H}_{d} \cap {\cal H}_u$.}
+\end{enumerate}
+
+In simple terms the conjecture says that each element of the set of all primitive Pythagorean hypotenuses is either a power of a Pythagorean prime; OR,
+is the length of the hypotenuse of more than one "primitive" right triangle.
+
+\conjecture{Properties of the cumulative parity of ${\cal H}_p$ indicates that it is non-trivial:}
+\begin{enumerate}
+  \item{$\lim\limits_{n \rightarrow \infty} \frac{\sum\limits_{i=1}^n \Pi({\cal H}_p[i])}{n} = 0$;}
+  \item{$\forall n\in \mathbb{N}, \Delta_p(n) < \infty$;}
+  \item{$ \lim\limits_{n \rightarrow \infty} \frac{\Delta_p(n)}{n^{\ln(2 \pi)}} = 41$.}
+\end{enumerate}
+
+These last conjectures suggest that the Pythagorean primes are non-trivial in a way similar to the primes.
+\begin{enumerate}
+  \item{The first conjecture states that the ${\cal H}_p$ primes are "spread out" in a similar way to all primes.}
+  \item{Although it seems that the cumulative parity of ${\cal H}_p$ is "on average" lower than the cumulative parity of all primes, the second and third conjectures say that there 
+      is non-trivial deviation from this rule. This "mixing" of the cumulative parity of ${\cal H}_p$ with that of $\mathbb{P}$ 
+      suggests that the Pythagorean primes are as "complex" as the set of all primes.}
+\end{enumerate}
+
+\end{document}
+
+
