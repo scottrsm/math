@@ -13,7 +13,7 @@
 
 \title{A Conjecture for Primitive Pythagorean Triples}
 \author{R. Scott McIntire}
-\date{June 19, 2023}
+\date{July 5, 2023}
 
 \newtheorem{theorem}{Theorem}\theoremstyle{plain}
 \newtheorem{thm}{Theorem}
@@ -62,7 +62,7 @@ This represents the set of all possible lengths of hypotenuses of right triangle
 
 ${\bf Note:\/}$ If the sets ${\cal H}$ or ${\cal H}_p$ are treated as lists, they are indexed in sorted order.
 
-\defn{\em The prime parity\/} function, $\Pi$, is defined on any prime, $p$, with $p \ge 5$ by:
+\defn{\em The Prime Parity\/} function, $\Pi$, is defined on any prime, $p$, with $p \ge 5$ by:
 \begin{eqnarray}
   \Pi(p) = \begin{cases}
   \hphantom{-}1\hfil & \exists n \in \mathbb{N}, p = 6n + 1 \\
@@ -85,12 +85,12 @@ Clearly, $\Delta_p$ is a non-decreasing function.
 Define ${\cal H}_d$ and ${\cal H}_u$ by:
 \begin{eqnarray}
   {\cal H}_{d} & = & \{ z \; | \; \exists\, (x_1, x_2, y_1, y_2) \in \mathbb{N}^4, \; 
-      (x_1,y_2,z) \in {\cal T}_p \; \wedge \; (x_2, y_2, z) \in {\cal T}_p \; \wedge \; x_1 \neq x_2 \}  \\
+      (x_1,y_1,z) \in {\cal T}_p \; \wedge \; (x_2, y_2, z) \in {\cal T}_p \; \wedge \; x_1 \neq x_2 \}  \\
     {\cal H}_u & = & \{ z \; | \; \exists\,(p,n) \in ({\cal H}_p, \mathbb{N}), \; z = p^n \}
 \end{eqnarray}
 
-It has already been conjectured that the cardinality of ${\cal H}_p$ is infinite: $|{\cal H}_p| = \infty$.
-\conjecture{The the set ${\cal H}_d$ has infinite cardinality:}
+It is a well established {\em conjecture\/} in the mathematical community that the cardinality of ${\cal H}_p$ is infinite: $|{\cal H}_p| = \infty$.
+\conjecture{The set ${\cal H}_d$ has infinite cardinality:}
   \begin{enumerate}
     \item{$|{\cal H}_d| = \infty$.}
   \end{enumerate}
@@ -101,7 +101,7 @@ It has already been conjectured that the cardinality of ${\cal H}_p$ is infinite
   \item{$\hphantom{\cal H}\emptyset = {\cal H}_{d} \cap {\cal H}_u$.}
 \end{enumerate}
 
-In simple terms the conjecture says that each element of the set of all primitive Pythagorean hypotenuses is either a power of a Pythagorean prime; OR,
+In simple terms the conjecture says that each element of the set of all primitive Pythagorean hypotenuses is either a power of a Pythagorean prime; or,
 is the length of the hypotenuse of more than one "primitive" right triangle.
 
 \conjecture{Properties of the cumulative parity of ${\cal H}_p$ indicates that it is non-trivial:}
@@ -113,9 +113,10 @@ is the length of the hypotenuse of more than one "primitive" right triangle.
 
 These last conjectures suggest that the Pythagorean primes are non-trivial in a way similar to the primes.
 \begin{enumerate}
-  \item{The first conjecture states that the ${\cal H}_p$ primes are "spread out" in a similar way to all primes.}
-  \item{Although it seems that the cumulative parity of ${\cal H}_p$ is "on average" lower than the cumulative parity of all primes, the second and third conjectures say that there 
-      is non-trivial deviation from this rule. This "mixing" of the cumulative parity of ${\cal H}_p$ with that of $\mathbb{P}$ 
+  \item{The first conjecture states that the ${\cal H}_p$ primes are "spread out" in a way similar to the set of all primes.}
+  \item{From numerical experiments, its seems that the cumulative parity of ${\cal H}_p$ is "on average" lower than the cumulative parity of all primes.
+      The second and third conjectures suggest that there 
+      are non-trivial deviations from this rule. This "mixing" of the cumulative parity of ${\cal H}_p$ with that of $\mathbb{P}$ 
       suggests that the Pythagorean primes are as "complex" as the set of all primes.}
 \end{enumerate}
 
