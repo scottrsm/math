@@ -27,6 +27,23 @@
 \begin{document}
 \maketitle
 
+
+\section{Overview}
+We list a few conjectures regarding the set, ${\cal H}$, of primitive Pythagorean hypotenuses. 
+This is the set constructed by taking the "hypotenuse" value from all primitive Pythagorean triples -- corresponding to the lengths of the sides of 
+right triangles with integer sides with no common factors.
+
+A related set, ${\cal H}_p$, is the subset of ${\cal H}$ that are primes. That is, primitive Pythagorean hypotenuses that are prime.
+
+Below we list the main conjectures informally, listing them in order of complexity:
+\begin{enumerate}
+  \item{{\bf Structure Theorem of ${\cal H}$:\/} Each element of ${\cal H}$ can be written as a {\em unique\/} product of powers of elements from ${\cal H}_p$.}
+  \item{{\bf Partition of ${\cal H}$:\/} ${\cal H}$ can be {\em partitioned\/} into two disjoint infinite sets: 
+    the set of all powers of Pythagorean primes; and the set of all hypotenuses that come from more than one primitive Pythagorean triple.}
+  \item{{\bf ${\cal H}_p$ is complex:\/} The set of Pythagorean primes, ${\cal H}_p$, is infinite; {\em similar\/}; and as {\em complex\/} as the primes when measured using certain metrics.}
+\end{enumerate}
+
+
 \section{Definitions}
 After a few definitions we describe a conjecture regarding Primitive Pythagorean Triples.
 We use standard notation to indicate that the natural numbers are represented by the symbol $\mathbb{N}$ and 
@@ -58,9 +75,19 @@ This represents the set of all possible hypotenuses of primitive Pythagorean tri
 \end{eqnarray}
 This represents the set of all possible lengths of hypotenuses of right triangles with integer sides that are prime.
 
-{\bf Note:} ${\cal H}_p$ is a {\em proper\/} subset of the primes: ${\cal H}_p \subset \mathbb{P}$.
+\defn{\em Duplicate Primitive Hypotenuses\/} denoted ${\cal H}_d$, defined by:
+\begin{eqnarray}
+  {\cal H}_{d} & = & \{ z \; | \; \exists\, (x_1, x_2, y_1, y_2) \in \mathbb{N}^4, \; 
+      (x_1,y_1,z) \in {\cal T}_p \; \wedge \; (x_2, y_2, z) \in {\cal T}_p \; \wedge \; x_1 \neq x_2 \}  
+\end{eqnarray}
+This represents the set of all primitive hypotenuses that can be found in more than one primitive Pythagorean triple.
 
-${\bf Note:\/}$ If the sets ${\cal H}$ or ${\cal H}_p$ are treated as lists, they are indexed in sorted order.
+\defn{\em  Primitive Hypotenuses Powers\/} denoted ${\cal H}_u$, defined by:
+\begin{eqnarray}
+  {\cal H}_u & = & \{ z \; | \; \exists\,(p,n) \in ({\cal H}_p, \mathbb{N}), \; z = p^n \}
+\end{eqnarray}
+This represents the set of all powers of Pythagorean primes.
+
 
 \defn{\em The Prime Parity\/} function, $\Pi$, is defined on any prime, $p$, with $p \ge 5$ by:
 \begin{eqnarray}
@@ -77,32 +104,33 @@ $\left\{ m \; \left| \; n \le \left( \sum_{i=1}^m \Pi({\cal H}_p[i]) - \sum_{i=3
 \Delta_p(n) = \mathop{\rm min}\limits_{m} \left\{ m \; \left| \; n \le \left( \sum_{i=1}^m \Pi({\cal H}_p[i]) - \sum_{i=3}^{m+2} \Pi(\mathbb{P}[i])\right. \right) \right\} 
 \end{eqnarray}
 
-Clearly, $\Delta_p$ is a non-decreasing function.
+{\bf Notes:} 
+\begin{itemize}
+  \item{The subscript $u$ in the name ${\cal H}_u$ is not yet justified.}
+  \item{${\cal H}_p$ is a {\em proper\/} subset of the primes: ${\cal H}_p \subset \mathbb{P}$.}
+  \item{If the sets above are treated as lists, they are indexed in sorted order.}
+  \item{Clearly, $\Delta_p$ is a non-decreasing function.}
+\end{itemize}
 
 
 \section{McIntire's Pythagorean Triple Conjectures}
 
-Define ${\cal H}_d$ and ${\cal H}_u$ by:
-\begin{eqnarray}
-  {\cal H}_{d} & = & \{ z \; | \; \exists\, (x_1, x_2, y_1, y_2) \in \mathbb{N}^4, \; 
-      (x_1,y_1,z) \in {\cal T}_p \; \wedge \; (x_2, y_2, z) \in {\cal T}_p \; \wedge \; x_1 \neq x_2 \}  \\
-    {\cal H}_u & = & \{ z \; | \; \exists\,(p,n) \in ({\cal H}_p, \mathbb{N}), \; z = p^n \}
-\end{eqnarray}
-
 It is a well established {\em conjecture\/} in the mathematical community that the cardinality of ${\cal H}_p$ is infinite: $|{\cal H}_p| = \infty$.
-\conjecture{The set ${\cal H}_d$ has infinite cardinality:}
-  \begin{enumerate}
-    \item{$|{\cal H}_d| = \infty$.}
-  \end{enumerate}
+\conjecture{The set ${\cal H}$ has a unique factorization in ${\cal H}_p$. That is, each element of ${\cal H}$ can be uniquely written as a product of powers from ${\cal H}_p$.
+  \begin{eqnarray}
+    \forall h \in {\cal H},\, \exists ! N \in \mathbb{N}, \, \exists ! ({\bf p},{\bf k}) \in \left({\cal H}_p^{N}, \mathbb{N}^{N}\right): h = \prod_{i=1}^N p_{i}^{k_i}.
+\end{eqnarray}
+} 
 
 \conjecture{The set ${\cal H}$ is partitioned by the sets ${\cal H}_d$ and ${\cal H}_u$:}
 \begin{enumerate}
-  \item{$\hphantom{\emptyset}{\cal H} = {\cal H}_{d} \cup {\cal H}_u$;}
-  \item{$\hphantom{\cal H}\emptyset = {\cal H}_{d} \cap {\cal H}_u$.}
+  \item{$\hphantom{|{\cal H}_d|}{\cal H} = {\cal H}_{d} \cup {\cal H}_u$;}
+  \item{$\hphantom{|{\cal H}_d|}\emptyset = {\cal H}_{d} \cap {\cal H}_u$};
+  \item{$\hphantom{\emptyset}|{\cal H}_d| = \infty$.}
 \end{enumerate}
 
-In simple terms the conjecture says that each element of the set of all primitive Pythagorean hypotenuses is either a power of a Pythagorean prime; or,
-is the length of the hypotenuse of more than one "primitive" right triangle.
+In simple terms the conjecture says that each element of the set of all primitive Pythagorean hypotenuses is the union of two disjoint infinite sets:
+the set of powers of a Pythagorean primes; and the set of all hypotenuses that come from more than one primitive Pythagorean triple.
 
 \conjecture{Properties of the cumulative parity of ${\cal H}_p$ indicates that it is non-trivial:}
 \begin{enumerate}
