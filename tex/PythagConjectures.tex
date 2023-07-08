@@ -13,7 +13,7 @@
 
 \title{A Conjecture for Primitive Pythagorean Triples}
 \author{R. Scott McIntire}
-\date{July 7, 2023}
+\date{July 8, 2023}
 
 \newtheorem{theorem}{Theorem}\theoremstyle{plain}
 \newtheorem{thm}{Theorem}
@@ -116,11 +116,14 @@ $\left\{ m \; \left| \; n \le \left( \sum_{i=1}^m \Pi({\cal H}_p[i]) - \sum_{i=3
 \section{McIntire's Pythagorean Triple Conjectures}
 
 It is a well established {\em conjecture\/} in the mathematical community that the cardinality of ${\cal H}_p$ is infinite: $|{\cal H}_p| = \infty$.
-\conjecture{The set ${\cal H}$ has a unique factorization in ${\cal H}_p$. That is, each element of ${\cal H}$ can be uniquely written as a product of powers from ${\cal H}_p$.
+It is also known that all prime factors, $p$, of elements in ${\cal H}$ have the property that $p = 1 \; {\rm mod} \; 4$.
+\conjecture{The set ${\cal H}_p = \{ p \; | \; p \in \mathbb{P} \; \wedge \; p = 1 \; {\rm mod}\;  4\}$
+
+Immediate Corollary from this conjecture:
+The set ${\cal H}$ has a unique factorization in ${\cal H}_p$. That is, each element of ${\cal H}$ can be uniquely written as a product of powers from ${\cal H}_p$:
   \begin{eqnarray}
     \forall h \in {\cal H},\, \exists ! N \in \mathbb{N}, \, \exists ! ({\bf p},{\bf k}) \in \left({\cal H}_p^{N}, \mathbb{N}^{N}\right): h = \prod_{i=1}^N p_{i}^{k_i}.
 \end{eqnarray}
-} 
 
 \conjecture{The set ${\cal H}$ is partitioned by the sets ${\cal H}_d$ and ${\cal H}_u$:}
 \begin{enumerate}
