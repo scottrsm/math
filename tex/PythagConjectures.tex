@@ -11,9 +11,9 @@
 \setlength{\parindent}{0.0in}
 \setlength{\parskip}{1.5\baselineskip}
 
-\title{A Conjecture for Primitive Pythagorean Triples}
+\title{Conjectures for Primitive Pythagorean Triples}
 \author{R. Scott McIntire}
-\date{July 8, 2023}
+\date{July 11, 2023}
 
 \newtheorem{theorem}{Theorem}\theoremstyle{plain}
 \newtheorem{thm}{Theorem}
@@ -37,7 +37,6 @@ A related set, ${\cal H}_p$, is the subset of ${\cal H}$ that are primes. That i
 
 Below we list the main conjectures informally, listing them in order of complexity:
 \begin{enumerate}
-  \item{{\bf Structure Theorem of ${\cal H}$:\/} Each element of ${\cal H}$ can be written as a {\em unique\/} product of powers of elements from ${\cal H}_p$.}
   \item{{\bf Partition of ${\cal H}$:\/} ${\cal H}$ can be {\em partitioned\/} into two disjoint infinite sets: 
     the set of all powers of Pythagorean primes; and the set of all hypotenuses that come from more than one primitive Pythagorean triple.}
   \item{{\bf ${\cal H}_p$ is complex:\/} The set of Pythagorean primes, ${\cal H}_p$, is infinite; {\em similar\/}; and as {\em complex\/} as the primes when measured using certain metrics.}
@@ -112,19 +111,31 @@ $\left\{ m \; \left| \; n \le \left( \sum_{i=1}^m \Pi({\cal H}_p[i]) - \sum_{i=3
   \item{Clearly, $\Delta_p$ is a non-decreasing function.}
 \end{itemize}
 
+First we list a few facts and state a couple of known theorems before proceeding:
+\begin{enumerate}
+  \item{The Pythagorean primes are of the form $4n + 1$. 
+      This is a special case of a more general theorem proven by Pierre de Fermat, known as Fermat's theorem on sums of two squares. 
+      According to this theorem, an odd prime number $p$ can be expressed as the sum of two squares if and only if 
+      $p$ is congruent to $1$ modulo $4$, i.e., $p = 4n + 1$ for some positive integer $n$. 
+    \item{Moreover, the distribution of primes of the form $4n + 1$ has been studied extensively.}
+      The German mathematician Peter Gustav Lejeune Dirichlet proved that there are infinitely many primes of the form $4n + 1$, a result known as 
+      Dirichlet's theorem on arithmetic progressions. 
+      This theorem, which generalizes the case of Pythagorean primes, states that for any two positive coprime numbers a and d, 
+      there are infinitely many primes of the form $a + nd$, where $n$ is a non-negative integer.} 
+    \item{In the case of Pythagorean primes, we can take a = 1 and d = 4 to get the form 4n + 1. 
+          Dirichlet's theorem thus guarantees that there are infinitely many Pythagorean primes. 
+        This is a profound result, as it extends the prime number theorem, which states that there are infinitely many prime numbers, to arithmetic progressions.}
+\end{enumerate}
+From these results we get the following structure theorem for Pythagorean hypotenuses:
+\theorem{The set ${\cal H}_p = \{ p \; | \; p \in \mathbb{P} \; \wedge \; p = 1 \; {\rm mod}\;  4\}$}
+\theorem{The set ${\cal H}$ has a unique factorization in ${\cal H}_p$. }
+         That is, each element of ${\cal H}$ can be uniquely written as a product of powers from ${\cal H}_p$:
+         \begin{eqnarray}
+           \forall h \in {\cal H},\, \exists ! N \in \mathbb{N}, \, \exists ! ({\bf p},{\bf k}) \in \left({\cal H}_p^{N}, \mathbb{N}^{N}\right): h = \prod_{i=1}^N p_{i}^{k_i}.
+         \end{eqnarray}
+
 
 \section{McIntire's Pythagorean Triple Conjectures}
-
-It is a well established {\em conjecture\/} in the mathematical community that the cardinality of ${\cal H}_p$ is infinite: $|{\cal H}_p| = \infty$.
-It is also known that all prime factors, $p$, of elements in ${\cal H}$ have the property that $p = 1 \; {\rm mod} \; 4$.
-The first conjecture -- which must be suspected by the mathematical community -- states that such primes constitute the set ${\cal H}_p$. 
-\conjecture{The set ${\cal H}_p = \{ p \; | \; p \in \mathbb{P} \; \wedge \; p = 1 \; {\rm mod}\;  4\}$
-
-Immediate Corollary from this conjecture:
-The set ${\cal H}$ has a unique factorization in ${\cal H}_p$. That is, each element of ${\cal H}$ can be uniquely written as a product of powers from ${\cal H}_p$:
-  \begin{eqnarray}
-    \forall h \in {\cal H},\, \exists ! N \in \mathbb{N}, \, \exists ! ({\bf p},{\bf k}) \in \left({\cal H}_p^{N}, \mathbb{N}^{N}\right): h = \prod_{i=1}^N p_{i}^{k_i}.
-\end{eqnarray}
 
 \conjecture{The set ${\cal H}$ is partitioned by the sets ${\cal H}_d$ and ${\cal H}_u$:}
 \begin{enumerate}
