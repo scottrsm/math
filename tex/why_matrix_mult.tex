@@ -1,0 +1,247 @@
+\documentclass{article}
+% \usepackage{fonttable,textcomp}
+% \usepackage[T1]{fontenc}
+% \usepackage{NewYorker}
+\usepackage{amsmath,amscd}
+
+\title{Origins of Matrix/Vector and Matrix/Matrix Mutiplication}
+\author{R. Scott McIntire}
+\date{\today}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{7.5in}
+\setlength{\hoffset}{-0.75in}
+\setlength{\voffset}{-0.75in}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.5\baselineskip}
+
+
+\begin{document}
+\maketitle
+
+
+\section{Algebraic properties of Matrices}
+Why is matrix/vector and matrix/matrix multiplication defined the way it is?
+One motivation is to try to extend the (albeit trivial) solution of linear
+equations in 1 dimension to n dimensions. To do this, we go through the solution
+of the 1 dimensional case in careful detail.
+
+The scalar problem is:
+\begin{eqnarray}
+  a \, x & = & b \label{scalar-problem}
+\end{eqnarray}
+
+Here is a very explicit solution keeping an eye towards generalization.
+\begin{eqnarray}
+  a \, x & = & b \\
+  a^{-1} ( a \, x ) & = & a^{-1} b \quad \quad \text{(Multiply by Inverse)} \label{inv} \\
+  (a^{-1} a) x & = & a^{-1} b \quad \quad \text{(Use associativity of multiplication)} \label{assoc} \\
+  1 \, x & = & a^{-1} b \quad \quad \text{(What Inverse multiplication does)} \label{inv-mult} \\
+  x & = & a^{-1} b \quad \quad \text{(What identity multiplication does)} \label{identity}
+\end{eqnarray}
+
+The multi-dimensional problem has a lot more variables and coefficients.
+To start, we need to be more systematic about the naming of these coefficients.
+With this in mind, the multi-dimensional linear problem can be written:
+\begin{eqnarray*}
+  a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n & = & b_1 \\
+  a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n & = & b_2 \\
+  \cdots & = & \cdots \\
+  a_{n1} x_1 + a_{n2} x_2 + \cdots + a_{nn} x_n & = & b_n 
+\end{eqnarray*}
+Here, $a_{ij}$ is the coefficient in the $i^{\rm th}$ row and $j^{\rm th}$ column.
+
+To make this look like the 1 dimensional case, we need to think of the $b$'s are
+a single unit. Our single unit will be the {\em vector\/} of the $b$'s.
+
+The the multi-dimensional case can be rewritten in vector terms as:
+\begin{eqnarray}
+  \left[
+  \begin{array}{c}
+  a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n \\
+  a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n \\
+  \cdots  \\
+    a_{n1} x_1 + a_{n2} x_2 + \cdots + a_{nn} x_n
+  \end{array}
+  \right] & = & \left[
+                 \begin{array}{c}
+                   b_1 \\
+                   b_2 \\
+                   \vdots \\
+                   b_n
+                 \end{array}
+   \right] \label{vector-form}
+\end{eqnarray}
+Two things need to be done: treat the $x$'s as a unit -- as we did with the
+$b$'s and separate the $a$ coefficients from the $x$'s. This must be done formally
+and yet have the same meaning as the original problem formulation.
+This is done in the most natural of ways:
+\begin{eqnarray}
+  \left[
+  \begin{array}{cccc}
+    a_{11} & a_{12} & \cdots & a_{1n} \\
+    a_{21} & a_{22} & \cdots & a_{2n} \\
+    \vdots \\
+    a_{n1} & a_{n2} & \cdots & a_{nn} \\
+    \end{array}
+  \right]
+  \left[
+  \begin{array}{c}
+    x_1 \\
+    x_2 \\
+    \vdots \\
+    x_n
+  \end{array}
+  \right] & = &
+                \left[
+                \begin{array}{c}
+                  b_1 \\
+                  b_2 \\
+                  \vdots \\
+                  b_n
+                \end{array}
+  \right] \label{matrix-form}
+\end{eqnarray}
+Taking the (matrix) collection of $a$'s to be $A$; the (vector) collection
+of $x$'s to be ${\bf x}$; and the collection of the $b$'s to be ${\bf b}$;
+we may write $(\ref{matrix-form})$ as:
+\begin{eqnarray}
+  A \, {\bf x} & = & {\bf b} \label{concise-matrix-form}
+\end{eqnarray}
+This now looks like the scalar problem, $(\ref{scalar-problem})$.
+How do we make sense of this matrix/vector syntax? It should have
+the proper meaning; that is, $(\ref{matrix-form})$
+should have the same meaning as $(\ref{vector-form})$.
+
+Examining $(\ref{matrix-form})$ and the left hand side of
+$(\ref{vector-form})$, gives us our definition of matrix/vector multiplication:
+\begin{eqnarray}
+  \left[A \, {\bf x}\right]_i & \equiv & \sum_{j=1}^n A_{ij} x_j
+                                         \label{matrix-vector-mult}
+\end{eqnarray}
+That is, $A$ acts on a vector, ${\bf x}$, to create a new vector, $A \, {\bf x}$,
+whose $i^{\rm th}$ entry is the $i^{\rm th}$ entry of
+the left hand side of $(\ref{vector-form})$.
+
+Another way to write this is:
+\begin{eqnarray}
+  A {\bf x} & = & \sum_{i=1}^n x_i {\bf A}^i
+\end{eqnarray}
+Here, ${\bf A}^i$ is the $i^{\rm th}$ column of $A$. Applying $A$ to the special
+vectors, ${\bf e}_i$
+-- which are $0$ everywhere except at $i$ where they are $1$ --
+we see that $A \, {\bf e}_i = {\bf A}^i$. Consequently, this matrix/vector
+multiplication determines $A$ uniquely
+-- if there is another matrix, its columns would have to match $A$.
+
+To complete the solution outline, matrix/matrix multiplication is needed
+via $(\ref{assoc})$. How must this be defined?
+Well, we need to make sense of:
+\begin{eqnarray}
+  (A^{-1} A) {\bf x} & = & A^{-1} (A \, {\bf x}) \label{mat-mult}
+\end{eqnarray}
+This involves the inverse of the matrix $A$, which we also need to define. Also,
+the above says nothing about arbitrary matrix multiplication between to $n \times n$
+matrices, $A$ and $B$. Let us generalize the requirement of $(\ref{mat-mult})$
+and define matrix multiplication of two $n \times n$ matrices as:%
+\footnote{We know from above that defining how a given matrix acts on all vector
+  via matrix/vector multiplication uniquely determines the matrix. So, this is a proper definition of matrix/matrix multiplication.}
+\begin{eqnarray}
+  (B \, A) {\bf x} & \equiv & B (A \, {\bf x})
+\end{eqnarray}
+This definition would mean that $B \, A$ is a new $n \times n$ matrix whose
+$i^{\rm th}$ entry -- when acting on an arbitrary vector ${\bf x}$ --
+is (using $(\ref{matrix-vector-mult})$ twice):
+\begin{eqnarray}
+  \left[(B \, A) {\bf x}\right]_i &  = & \sum_{k=1}^n B_{ik} \left(\sum_{j=1}^n A_{kj} x_j\right)
+\end{eqnarray}
+Using $(\ref{matrix-vector-mult})$ on the left hand side yields:
+\begin{eqnarray}
+  \sum_{j=1}^n (B \, A)_{ij} x_j &  = & \sum_{k=1}^n B_{ik} \left(\sum_{j=1}^n A_{kj} x_j\right)
+\end{eqnarray}
+Or,
+\begin{eqnarray}
+  \sum_{j=1}^n (B \, A)_{ij} x_j &  = & \sum_{k=1}^n \sum_{j=1}^n B_{ik} A_{kj} x_j
+\end{eqnarray}
+Changing the order of summation on the right hand side, this is:
+\begin{eqnarray}
+  \sum_{j=1}^n (B \, A)_{ij} x_j &  = & \sum_{j=1}^n \left(\sum_{k=1}^n B_{ik} A_{kj}\right) x_j \label{matrix-matrix-deriv}
+\end{eqnarray}
+
+But this says that the $i^{\rm th}, j^{\rm th}$ entry of the matrix $(B \, A)$ is
+given (in terms of $A$ and $B$) as:%
+\begin{eqnarray}
+  (B \, A)_{ij} & = & \sum_{k=1}^n B_{ik} A_{kj} \label{matrix-matrix-mult}
+\end{eqnarray}
+
+To see that this follows, notice that $(\ref{matrix-matrix-deriv})$ must hold for all
+vectors ${\bf x}$. Setting ${\bf x}$ to the successive ${\bf e}_i$ vectors defined
+above yields $(\ref{matrix-matrix-mult})$.
+
+
+By $(\ref{identity})$ we need to identify a $n \times n$ matrix which serves as an
+identity (in terms of matrix/vector multiplication).
+Let us suppose that we have such a matrix and let's call it $I$.
+Then we must have $I \, {\bf x} = {\bf x}$ for all ${\bf x} \in R^n$. 
+Then, it is not hard
+to see that $I \, {\bf e}_{i} = {\bf e}_i$. Also $I \, {\bf e}_i = I^i$. Therefore, $I$
+must have the property that ${\bf I^i} = {\bf e}_i$. Consequently $I$ must have the form:
+\begin{eqnarray}
+  I & = & \left[
+      \begin{array}{cccccc}
+        1 & 0 & 0 & 0 & \cdots & 0 \\
+        0 & 1 & 0 & 0 & \cdots & 0 \\
+        0 & 0 & 1 & 0 & \cdots & 0 \\
+        0 & 0 & 0 & 0 & \ddots & 0 \\
+        0 & 0 & 0 & 0 & \cdots & 1 \\
+      \end{array}
+  \right]
+\end{eqnarray}
+That is $I_{ij} = \delta_{ij}$.%
+\footnote{$\delta_{ij} = \left\{\begin{array}{ll}
+                                 1 & \text{if $i = j$;} \\
+                                 0 & \text{otherwise.}
+                               \end{array} \right.$}
+We have shown that the only candidate matrix that has the identity property, is the
+matrix, $I$. That is, if there is an identity matrix, it must be $I$. Does it satisfy
+the property of being an identity matrix (again, in the matrix/vector multiplication world)?
+Do we have $I \, {\bf x} = {\bf x}$ for all ${\bf x} \in R^n$?
+Using the definition of matrix/vector multiplication, $(\ref{matrix-vector-mult})$, we
+have for any given, $i$:
+\begin{eqnarray}
+  \left[I {\bf x}\right]_i & = & \sum_{i=1}^n I_{ij} x_j \nonumber \\
+                           & = & \sum_{i=1}^n \delta_{ij} x_j \nonumber \\
+                           & = & x_i \nonumber \\
+                           & = & [{\bf x}]_i
+\end{eqnarray}
+One can show that this identity matrix, $I$, is also the identity operator for
+matrix/matrix multiplication.
+
+The only thing left is to know when a matrix inverse exists and how to compute it.
+
+
+\section{Qualitative Features of Solutions}
+Here is what we can say about the scalar problem:
+\begin{description}
+\item[Unique Solution:]{If $a^{-1}$ exists ($a \ne 0$), there is
+    a unique solution.}
+\item[No Solution;]{If $a^{-1}$ does not exist ($a = 0$) {\em AND\/}
+  $b \ne 0$, then there is no solution.}  
+\item[Infinite Solutions;]{If $a^{-1}$ does not exist ($a = 0$) {\em AND\/}
+  $b = 0$, then there are an infinite number of solutions.}  
+\end{description}
+
+Here is the analog of this solution categorization for the multi-dimensional case:
+\begin{description}
+\item[Unique Solution:]{If $A^{-1}$ exists, there is
+    a unique solution.}
+\item[No Solution;]{If $A^{-1}$ does not exist {\em AND\/}
+    ${\bf b} \notin {\cal R}(A)$ (${\bf b} \notin {\cal N}(A^T)^\perp)$,
+    then there is no solution.}  
+\item[No Solution;]{If $A^{-1}$ does not exist {\em AND\/}
+    ${\bf b} \in {\cal R}(A)$ (${\bf b} \in {\cal N}(A^T)^\perp)$,
+    then there are an infinite number of solutions.}  
+\end{description}
+
+\end{document}
+

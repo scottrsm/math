@@ -1,0 +1,488 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{algorithmic}
+
+\title{What is a derivative}
+\author{R. Scott McIntire}
+\date{\today}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{7.5in}
+\setlength{\hoffset}{-0.75in}
+\setlength{\voffset}{-0.75in}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.5\baselineskip}
+
+\begin{document}
+\maketitle
+
+\section{Derivative of a Function, $f: R\rightarrow R$}
+The derivative of a function, $f : R \rightarrow R$ is a linear approximation to
+a function. By placing a straight-edge up against the graph of a function at
+a point we get not just any approximation but the ``best''{} one. Meaning,
+we could do no better with any other linear approximation. So, the error
+from this approximation should be higher order than linear. More specifically,
+we mean:
+\begin{eqnarray}
+f(x + h) & = & f(x) + Df(x)(h) + o(h) \label{simderdef}
+\end{eqnarray}
+Here, $Df(x)$ is the linear function that is this best approximation of $f$ at $x$
+and $o(h)$ is a higher order error ($h^2$, for example) in the sense that
+$\lim_{h\rightarrow 0} \frac{o(h)}{h} = 0$.
+
+Although this geometric concept has been tied to an algebraic equation,
+is not clear how to compute the derivative, $Df(x)$ for every $x$. This seems
+like a great deal of work and when done we have to produce a function for
+every $x$ -- a relatively complicated thing. It turns out that there is a
+{\em representation\/} result	 that says that all linear functions, $L$,
+$L: R \rightarrow R$ can be mapped to a scalar value.
+Specifically, for each linear function, $L$, there is a scalar, $a_L$, so that%
+\footnote{We label the scalar with the index $L$ to indicate the dependency on $L$.}
+\begin{eqnarray}
+  L(h) & = & a_L \, h
+\end{eqnarray}
+This says nothing more than a linear function, $L$, can be completely determined
+by its slope, $a_L$.
+
+For the linear function $Df(x)$ the associated scalar value we label $f^\prime(x)$
+and call it --as an abuse of language -- the derivative of $f$ at $x$.
+To compute this scalar value we use the definition, $(\ref{simderdef})$, at a point $x$:
+\begin{eqnarray}
+  f^\prime(x) h & = & Df(x)(h) = f(x+h) - f(x) + o(h)
+\end{eqnarray}
+So that%
+\footnote{Geometrically, we are approximating the tangent line with lines passing
+through approximating cords to the function, $f$.}
+\begin{eqnarray}
+  f^\prime(x) & = & \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h} + \frac{o(h)}{h} \nonumber \\
+  & = & \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h} + 0 \nonumber \\
+  & = & \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h}
+\end{eqnarray}
+Although this seems like a great deal of work -- for a given function we need to
+compute this limit for each value of $x$ in its domain -- it turns out that for
+many functions there is a {\em formula\/} that works for the given function
+{\em for all\/}
+points in its domain. For example, the derivative of the
+function $f(x) = x^2$ at any point can be computed from the formula:
+$f^\prime(x) = 2\, x$. In order to avoid the limit process one can build a
+{\em calculus\/} of formulas in the following way:
+\begin{enumerate}
+\item{Find formulas for a base collection of functions: polynomials, trig, and log
+functions, etc.}
+\item{Create formulas for computing the derivative of functions formed in certain
+composite ways: sums, products, ratios, powers, and composition of functions.}
+\end{enumerate}
+
+\subsection{Application to Optimization}
+At a local maximum of minimum of a function, $x$, the tangent line to
+the graph of the function at $x$ would be flat. That is the linear function, $Df(x)$,
+should be the zero function; and therefore, $f^\prime(x)$, the corresponding
+slope of the graph of this linear function should be $0$.
+So we have a practical way of finding maxima or minima.
+This makes sense, to find the maxima or minima of a function over an interval, $[a,b]$,
+examine all of the local maxima or minima {\em plus\/} the values of the function
+at $a$ and $b$. This should be a relatively small list. We fund the local maxima
+and minima by solving for all points $x$ such that $f^\prime(x) = 0$.
+
+{\bf Example:\/} Find the point $x^*$ which maximizes the function $f(x) = x(12 - 2x)^2$
+over the interval $[0,6]$. We find all points $x$ such that $f^\prime(x) = 0$.
+It turns out that the $f^\prime(x) = 144 - 96x + 12x^2$. Solving for $x$,
+$144 - 96x + 12x^2 = 0$ (same as $12 - 8x + x^2 = 0$) we have two solutions: $\{2, 6\}$.
+The ``x''{} values that are candidates which produce the maximum value of the function $f$
+are then: $\{0, 2, 6\}$ -- the union of the local maxima and the boundary points.
+Now it is a simple matter to walk this list and find an x which produces the maximum
+value of $f$. In this case, the ``x''{} which produces the maximum value is $x^* = 2$.
+
+We did not show how to compute the derivative, this comes from following the two
+step plan above. Is the example of any practical value? Well, suppose you wanted
+to take a square of sheet metal $12$ inches on a side, and cut out a square in each
+corner so that after folding the sides you made a box with the most volume. Then
+you are really trying to find the length $x$ of the square to cut out so that the
+volume of the resulting box: $f(x) = x(12 - 2 x)^2$ is maximized -- the problem
+above.
+
+
+
+
+\section{Extension to $f:R^n \rightarrow R$}
+\begin{eqnarray}
+  f({\bf x} + {\bf h}) & = & f({\bf x}) + Df({\bf x})({\bf h}) + o({\bf h}) \label{vderdef}
+\end{eqnarray}
+Here, $Df({\bf x})$ is a linear function from $R^n$ to $R$ and
+$o({\bf h})$ is the higher order error term, higher order in the sense that
+$\lim_{{\bf h} \rightarrow {\bf 0}}\frac{o({\bf h})}{\|{\bf h}\|} \rightarrow 0$.
+
+Again, the function $Df({\bf x})$ is a rather abstract and difficult to work with.
+There is as in the scalar case a {\em representation\/} result:
+Any linear function, $L$, from $R^n$ to $R$ can be represented by a vector, ${\bf a}_L$:
+\begin{eqnarray}
+  L({\bf h}) & = & {\bf a}_L {\bf \cdot} {\bf h}
+\end{eqnarray}
+We denote the vector that represents the linear function $Df({\bf x})$ by
+$\nabla f({\bf x})$. Equation $(\ref{vderdef})$ becomes:
+\begin{eqnarray}
+  f({\bf x} + {\bf h}) & = & f({\bf x}) + \nabla f({\bf x}) {\bf \cdot} {\bf h} + o({\bf h}) \label{vderdef2}
+\end{eqnarray}
+As in the scalar case, we use equation $(\ref{vderdef})$
+to compute the components of the vector $\nabla f({\bf x})$ once we chose
+a coordinate system. To this end let ${\bf e}_i$ be a basis for $R^n$. The $i^{\rm th}$
+component in this coordinate system of this vector is
+\begin{eqnarray}
+  \nabla f({\bf x})_i & = &  \nabla f({\bf x}){\bf \cdot} {\bf e_i} =
+  \lim_{h \rightarrow 0} \left( \frac{f({\bf x} + h {\bf e_i}) - f({\bf x})}{h} + \frac{o(h {\bf e_i})}{\|h {\bf e}_i\|}\right) \label{vdercomp}
+\end{eqnarray}
+If ${\tilde f}$
+is the function that takes an $n$ tuple of the components of a vector, ${\bf x}$,
+giving the value of $f({\bf x})$ in such a way that
+${\tilde f}(x_1, x_2, \ldots, x_n) = f({\bf x})$ {\em and\/}
+$f({\bf x} + h {\bf e_i}) = {\tilde f}(x_1, \ldots, x_i + h, \ldots, x_n)$,
+then equation, $(\ref{vdercomp})$ yields:
+\begin{eqnarray}
+  \nabla f({\bf x})_i & = &
+    \lim_{h \rightarrow 0} \left(\frac{{\tilde f}(x_1, \ldots, x_i + h, \ldots, x_n) - {\tilde f}(x_1, \ldots, x_i, \ldots, x_n)}{h}\right)
+    + \lim_{h \rightarrow 0} \frac{o(h {\bf e_i})}{\|h {\bf e}_i\|}
+    \nonumber \\
+& = & \frac{\partial {\tilde f}}{\partial x_i}(x_1, x_2, \ldots, x_n) + 0 \nonumber \\
+& = & \frac{\partial {\tilde f}}{\partial x_i}(x_1, x_2, \ldots, x_n)
+\end{eqnarray}
+ Here, we are using the notional $\frac{\partial {\tilde f}}{\partial x_i}$ to
+``take a derivative''{} in one direction. That is, we leave all of the other ``slots''{}
+of ${\tilde f}$ constant and just compute the change in one slot, $x_i$.%
+\footnote{What does $x$ have to do with the $i^{\rm th}$ slot of ${\tilde f}$. Actually
+nothing, as we can put anything in that slot, $x$, $y$, $z$, 5, etc. Keep this in mind,
+as two sections from now we see the notation: $\frac{\partial F}{\partial y^\prime}$.
+In this case, it simply means take a derivative in the third slot of the function $F$.}
+
+Note, different choices of
+coordinate systems will yield different
+values for the components of $f$. It turns out that in two dimensions if one uses
+polar coordinates and the function ${\tilde f}$ is written using these coordinates
+that the components of the gradient of $f$ are:
+$[\frac{1}{r} \frac{\partial {\tilde f}}{\partial \theta}, \frac{\partial {\tilde f}}{\partial r}]$.
+
+{\bf Note:\/} The ``local''{} direction of maximum increase at a point of the
+$f({\bf x})$ is given by the gradient of $f$. To see this notice that we can
+discuss direction in a unique sense by normalizing to be of unit length.
+That is, we can speak of a vector's direction as its unit vector.
+
+{\bf Question:\/} What is the direction to change a given value $x$ so as
+to increase $f$ as much as possible? So, find a direction, $w$ (unit vector),
+so that for a vector of small enough length $h$, $f({\bf x} + h{\bf w})$ is larger than
+all other vectors of the same length. We claim that the direction of
+maximum increase (locally) is $\nabla f({\bf x})$ (normalized).
+\begin{eqnarray}
+  f({\bf x} + h {\bf w})  - f({\bf x}) & = & \nabla f({\bf x}) {\bf \cdot} h {\bf w} + o(h {\bf w})
+\end{eqnarray}
+But the Cauchy-Schwartz inequality says:
+$|\nabla f({\bf x}) {\bf \cdot} h{\bf w}| \le \|\nabla f({\bf x})\| |h|$.
+The maximum is only achieved if $\nabla f({\bf x})$ and ${\bf w}$ are in the
+same direction. That is ${\bf w} = \frac{\nabla f({\bf x})}{\|\nabla f({\bf x})\|}$.
+
+Therefore, to increase $f$ in the fast possible way (locally) move in the direction
+of $\nabla f({\bf x})$; conversely, to decrease $f$ in the
+fastest possible way (locally) move in the direction of $-\nabla f({\bf x})$
+
+\subsection{Application to Optimization}
+By the same reasoning of the last section in order to find a maximum or minimum
+one should find all of the places where a function is flat; that is, where the linear
+approximation is zero. But this is the place where the gradient is zero -- the
+zero linear function is represented by the ${\bf 0}$ vector. Therefore, find
+all points ${\bf x}$ such that $\nabla f({\bf x}) = {\bf 0}$. Then compare
+these points with any boundary points to see which is the largest or smallest.
+
+This might be hard in general -- true also in the scalar case from the previous
+section.
+How might one go about finding the minimum value of a function, $f({\bf x})$
+when solving for $\nabla f({\bf x}) = {\bf 0}$ is too hard?
+We know that at any point $x$, the ``local''{} direction to move to decrease $f$
+as much as possible is to move along the direction of the negative gradient.
+This suggests a scheme for finding the minimum.
+\begin{algorithmic}
+  \STATE ${\bf x}_0 \leftarrow {\bf x0}$
+  \STATE $n \leftarrow 0$
+  \WHILE{$\left(n = 0 \;{\text or}\; \|{\bf x_n} - {\bf x_{n-1}}\| > \epsilon\right) \;{\text and}\; n < N$}
+  \STATE $n \leftarrow n + 1$
+  \STATE ${\bf x}_n \leftarrow {\bf x}_{n-1} - \eta \nabla f({\bf x}_{n-1})$
+  \ENDWHILE
+  \STATE ${\bf x}^* \leftarrow {\bf x}_n$
+\end{algorithmic}
+This algorithm depends on the parameters: ${\bf x0}$ (initial guess);
+$N$ (maximum number of iterations);
+$\epsilon$ (the error tolerance); and $\eta$ (the ``learning''{} parameter).
+Such schemes are used to train neural networks, for instance.
+
+
+\section{Extension to $f:R^n \rightarrow R^m$}
+\begin{eqnarray}
+  {\bf f}({\bf x} + {\bf h}) & = & {\bf f}({\bf x}) + {\bf Df}({\bf x})({\bf h})
+  + {\bf o}({\bf h}) \label{mderdef}
+\end{eqnarray}
+Here ${\bf Df}({\bf x})$ is a linear function from $R^n$ to $R^m$ and
+${\bf o}({\bf h})$ is a higher order error term, higher order in the sense that
+$\lim_{{\bf h} \rightarrow {\bf 0}}\frac{\|{\bf o}({\bf h})\|}{\|{\bf h}\|} \rightarrow 0$.
+
+There is a {\em representation\/} result that says that any linear map from $R^n$ to $R^m$ can
+be represented by a matrix once coordinates have been chosen.
+
+Using $(\ref{mderdef})$ one can show that using a function,${\tilde f}$
+commensurate with a choice of basis vectors, ${\bf e}_i \quad i \in [1, n]$. Given
+this choice of basis, let ${\tilde f}_j$ be the coordinate functions for ${\bf f}$.
+We claim without proof that the matrix representing the derivative is given by:
+$[{\bf Df}({\bf x})]$
+\begin{eqnarray}
+  [{\bf Df}(x)]_{i,j} & = & \frac{\partial {\tilde {\bf f}}_j}{\partial x_i}
+\end{eqnarray}
+
+Why do we study matrices? One answer is that they represent the linear mappings
+from $R^n \rightarrow R^m$ and so if we want to use calculus on the functions
+from $R^n$ to $R^m$ we need to understand the linear functions, on these
+spaces and their representations -- matrices.
+
+\section{Extension to $f:R^\infty \rightarrow R$}
+Consider the function $J(y) = \int_{a}^b F(x, y(x), y^\prime(x)) \, dx$. $J$ is
+a function from a function space, $H$, to $R$; that is, $J: H \rightarrow R$.
+This is similar to functions,
+$f:R^n \rightarrow R$, where $n$ is infinity. One can show that, for instance, the
+functions $\{\sin(n\, x)\}_{_n=1}^\infty$ are linearly independent; therefore,
+the space $H$ is infinite dimensional.%
+\footnote{The notation $\{\sin(n x)\}_{n=1}^\infty$ is sloppy, we should instead write:
+$\{f_n\}_{n=1}^\infty$ where $f_n$ is the function defined by $f_n(x) = \sin(n x)$.}
+
+We define the derivative of $J$ as before, the best linear approximation:%
+\footnote{We write $o(h)$ as the left over higher order terms and do not create new
+function names, even though from equation to equation, the $o(h)$ functions may change.}
+\begin{eqnarray}
+  J(y + h) = J(y) + DJ(y)(h) + o(h)
+\end{eqnarray}
+Here $DJ(y): H \rightarrow R$; that is, it is a linear function from
+function space to $R$ and $o(h)$ is a
+higher order error term that takes a function, $h$ to a number such that
+$\lim_{h \rightarrow 0}\frac{o(h)}{\|h\|} = 0$. However, its not clear what the
+norm of the function $h$ is. One can define an
+inner product (generalization of a dot product) on the space of
+functions which is a generalization of the dot product for vectors in
+a finite dimensional space. In turn, this inner product defines a norm on the space
+of functions, $H$.
+We define the following inner product function,
+$<\!\cdot, \cdot\!>$ by:
+\begin{eqnarray}
+  <\!f, g\!> & \equiv & \int_a^b f(x) g(x)\, dx \label{inner_prod}
+\end{eqnarray}
+From this, just as with dot products, we can define the norm, or length of a function,
+using this inner product:
+\begin{eqnarray}
+  \|f\| & = & \sqrt{<\!f,f\!>}
+\end{eqnarray}
+As a brief aside we discuss the inner product.
+
+This definition of an inner product seems strange and seems very much removed from the
+dot product in $R^n$. We now show that it follows by looking at finite dimensional
+approximations to $H$. One way to get a finite version of a continuous function, $f$,
+on the interval $[a,b]$ is to sample
+it at, say, $n$ discrete points on $[a,b]$, $\{x_i\}_{i=1}^n$, which
+are evenly spaced points over $[a,b]$.
+We can think of the following vectors as approximations to $f$ and $g$:
+\begin{eqnarray*}
+{\widetilde f} & = & [f(x_1), f(x_2), \ldots, f(x_n)] \\
+{\widetilde g} & = & [g(x_1), g(x_2), \ldots, g(x_n)]
+\end{eqnarray*}
+The natural inner product of these vectors would be the usual dot product.
+As we increase the number of points the approximations get closer to the original
+continuous functions. However, at the same time, due to the increase in the
+number of points, the induced norm of the approximations gets larger and larger.
+We would like an inner product that converged to something finite as the number
+approximations convert to the original function.
+One way to do this is to normalize these dot products so that they would remain
+finite. The simplest thing to do is to divide by the number of points
+in the discretization.
+That is, we define
+an inner product $<\!\!<{\boldsymbol \cdot} ,{\boldsymbol \cdot}>\!\!>$
+for these vectors as:
+\begin{eqnarray}
+  <\!\!<{\widetilde f}, \, {\widetilde g}>\!\!> & \equiv & \frac{1}{n} \sum_{i=1}^n f(x_i) g(x_i)
+\end{eqnarray}
+Taking the limit of the above we can define an inner product for the original functions
+$f$ and $g$. That is, for our function space, define an inner product, $<\!\!<{\boldsymbol \cdot} ,{\boldsymbol \cdot}>\!\!>$ by:
+\begin{eqnarray*}
+  <\!\!<f, g>\!\!> & \equiv & \lim_{n\rightarrow \infty} \frac{1}{n} \sum_{i=1}^n f(x_i) g(x_i) \\
+& = & \frac{1}{b-a} \lim_{n\rightarrow \infty}  \sum_{i=1}^n f(x_i) g(x_i) \frac{b-a}{n} \\
+& = & \frac{1}{b-a} \int_{a}^b f(x) g(x) \, dx
+\end{eqnarray*}
+Now, equation $(\ref{inner_prod})$ should make sense as an analog of a
+dot product for vectors. It is a different inner product than the one we just defined
+ -- but differs only by a constant multiple.
+
+Going back to the problem at hand we note that there is
+a {\em representation\/} result for linear functions on our function space,
+$H$ -- technically, for a Hilbert space.
+All linear functions\footnote{There are some details we won't bother with.}, also called
+functionals, which map the function space to $R$
+can be represented by a function in the function space
+-- a generalization of $R^n$. In $R^n$ we found functionals could be
+represented by a {\em vector\/}. Analogously, for every linear functional, $L$,
+in our function space there is a {\em function\/}, $a_L$, such that:
+\begin{eqnarray}
+L(f) & = & <\!a_L, f\!>
+\end{eqnarray}
+We denote by $\nabla J(y)$ the
+function that represents the derivative, $DJ(f)$. That is
+\begin{eqnarray}
+  DJ(y)(h) & = & <\!\nabla J(y), h\!>
+\end{eqnarray}
+Remember, the
+representation, $\nabla J(y)$, gives us a concrete thing with which we can compute.
+The derivative is somewhat abstract, it is the representative that really
+gives us something to work with in terms of computations. This was the case
+with the derivative of a scalar function as well. There, we represented the derivative.
+a linear function, as a scalar -- the slope of the linear function. The slope, a
+number, is much easier to use in computations.
+
+We now try to compute $\nabla J(y)$.
+To recap, we know
+\begin{eqnarray}
+  DJ(y)(h) & = & J(y+h) - J(y) + o(h)
+\end{eqnarray}
+Since $DJ(y)(h) \; = \; <\!\nabla J(y), h\!>$, we have:
+\begin{eqnarray}
+  <\!\nabla J(y), h\!> & = & J(y+h) - J(y) + o(h) \label{grad_eq}
+\end{eqnarray}
+To find the function $\nabla J(y)$ we need to re-write the RHS of the last equation
+so that it becomes:
+\begin{eqnarray}
+  <\!\nabla J(y), h\!> & = & <\!w, h\!> + \; o(h) \label{uniq}
+\end{eqnarray}
+Then we will have identified our function $\nabla J(y)$, it will be $w$. Why? Because
+equation $(\ref{uniq})$ implies that $w$ and $\nabla J(y)$ must be the same function.
+
+How do we get $h$ to come out of the inside of the functional $J(y+h)$? Answer, use
+Taylor's expansion on $F$. Continuing, substituting the definition of $J$ in equation
+$(\ref{grad_eq})$ and using Taylor's expansion on $F$ we have:%
+\footnote{This is just the definition of the derivative of $F$:
+$F(x + a, f+h, f+h^\prime) - F(x,f,f^\prime) = \nabla F(x,f,f^\prime) {\bf \cdot} [a,h,h^\prime] + o([a,h,h^\prime])$. In our case, $a = 0$.
+}
+\begin{eqnarray}
+  <\!\nabla J(y), h\!>  & = & \int_a^b F(x, (y+h)(x), (y^\prime + h^\prime)(x)) \, dx
+  - \int_a^b F(x, y(x), y^\prime(x)) \, dx  + o(h) \nonumber \\
+& = & \int_a^b \frac{\partial F}{\partial y}(x, y(x), y^\prime(x))h(x)\, dx
++ \int_a^b \frac{\partial F}{\partial y^\prime}(x, y(x), y^\prime(x))h^\prime(x) \, dx
++ o(h) \label{rinfder}
+\end{eqnarray}
+Here, we used Taylor's expansion on $F$:
+\begin{eqnarray}
+  F(x, y+h, y+h^\prime) & = & F(x,y,y^\prime) + \frac{\partial F}{\partial y}(x,y,y^\prime) h + \frac{\partial F}{\partial
+    y^\prime}(x,y,y^\prime) h^\prime + o(h) + o(h^\prime)
+\end{eqnarray}
+If equation $(\ref{rinfder})$ looked instead like
+\begin{eqnarray}
+  <\!\nabla J(y), h\!>  & = &
+ \int_a^b \frac{\partial F}{\partial y}(x, y(x), y^\prime(x))h(x)\, dx
++ o(h) \label{rbadder}
+\end{eqnarray}
+then since $(\ref{rbadder})$ must be true for all $h$ in the function space we must
+have that $\nabla J(f) = \frac{\partial F}{\partial y}(x, y(x), y^\prime(x))$.
+
+Going back to the equation $(\ref{rinfder})$, we need to replace the term involving
+$h^\prime$ with one involving $h$. Using integration by parts, we can rewrite the
+second term in $(\ref{rinfder})$:
+\begin{eqnarray}
+\int_a^b \frac{\partial F}{\partial y^\prime}(x, y(x), y^\prime(x))h^\prime(x) \, dx
+& = &
+\left. \frac{\partial F}{\partial y^\prime}(x, y(x), y^\prime(x))
+  h^\prime(x)\right|_{x=a}^{x=b} \nonumber \\
+& - & \int_a^b \frac{d}{dx}
+\left[
+  \frac{\partial F}{\partial y^\prime}(x, y(x), y^\prime(x))
+  \right]
+  h(x)
+\end{eqnarray}
+If we restrict our function space, $H$, to the functions
+which have the restriction that $h(a) = h(b) = 0$, then
+the previous equation becomes:
+\begin{eqnarray}
+\int_a^b \frac{\partial F}{\partial y^\prime}(x, y(x), y^\prime(x))h^\prime(x) \, dx
+& = &  - \int_a^b \frac{d}{dx}
+\left[
+  \frac{\partial F}{\partial y^\prime}(x, y(x), y^\prime(x))
+  \right]
+  h(x)
+\end{eqnarray}
+we claim that that with this restriction of function, $DJ(y)$ is still unique.
+With this choice of $h$,
+equation $(\ref{rinfder})$ becomes:
+\begin{eqnarray}
+  <\!\nabla J(y), h\!>  & = & \int_a^b F(x, (y+h)(x), (y^\prime + h^\prime)(x) \, dx
+  - \int_a^b F(x, y(x), y^\prime(x)) \, dx  + o(h) \nonumber \\
+  & = & \int_a^b \frac{\partial F}{\partial y}(x, y(x), y^\prime(x))h(x)\, dx
++ \int_a^b \frac{\partial F}{\partial y^\prime}(x, y(x), y^\prime(x))h^\prime(x) \, dx
++ o(h) \nonumber \\
+& = & \int_a^b \left[ \frac{\partial F}{\partial y}(x, y(x), y^\prime(x))h(x) -
+\frac{d}{dx}\frac{\partial F}{\partial y^\prime}(x, y(x), y^\prime(x))\right]h(x)\, dx
++ o(h)
+\end{eqnarray}
+Using $(\ref{uniq})$ we find that
+\begin{eqnarray}
+  (\nabla J(y))(x) & = & \frac{\partial F}{\partial y}(x, y(x), y^\prime(x))
+  - \frac{d}{dx} \left[ \frac{\partial F}{\partial y^\prime}(x, y(x), y^\prime(x))\right]
+                         \label{risz_rep2}
+\end{eqnarray}
+We ignored a few technical details -- when $h$ is small in our distance measure is
+$h^\prime$ small? However, the point is that as far away as we are from the scalar
+case, the essence of the calculations are the same -- identify the linear thing
+acting on a small change to the input, $h$, and show that what remains are
+``higher order''{} terms.
+
+\subsection{Application to Physics}
+Certain systems in physics have the property that the dynamics of the system are
+governed by minimizing (or rendering stationary -- hitting a flat spot)
+a certain functional. In this case,
+the derivative should be ``zero''{}; meaning, in this case, the zero function.%
+\footnote{The zero function is the function which sends all inputs to the value $0$.}
+From this condition we can determine the dynamics of
+the system. That is for certain physical systems, the path trajectory of a particle,
+$y(x)$, is determined by find the function $y$ where the gradient,
+$\nabla J(y)$, is the zero function. Using $(\ref{risz_rep2})$, $\nabla J(y) \equiv 0$
+means:
+\begin{eqnarray}
+  \frac{\partial F}{\partial y}(x, y(x), y^\prime(x))
+  - \frac{d}{dx} \left[ \frac{\partial F}{\partial y^\prime}(x, y(x), y^\prime(x))\right] & = & 0 \label{eulerlagrange}
+\end{eqnarray}
+{\bf Example:\/}
+
+The dynamics of a mass is determined by finding a trajectory
+where the Lagrangian is locally flat -- a place
+where the derivative of the Lagrangian is zero.
+The Lagrangian of a mass hanging from a spring is%
+\footnote{We replace the ``dummy''{} variable $x$ in our equations with $t$.}
+\begin{eqnarray}
+  J(y) & = & \int_0^T \overbrace{\frac{1}{2}  k y(t)^2}^{\text{Potential Energy}}
+                    - \overbrace{\frac{1}{2} m {y^\prime(t)}^2}^{\text{Kinetic Energy}} \, dt
+\end{eqnarray}
+In this case, $F(t, y, y^\prime) = \frac{1}{2} k y^2 - \frac{1}{2} m {y^\prime}^2$.
+Therefore, we need to find a function, $y$, such that $(\nabla J(y))(t) = 0 \quad \forall t \in[0,T]$. This
+equation becomes (using the dummy variable $t$):
+\begin{eqnarray}
+  \frac{\partial F}{\partial y}(t, y(t), y^\prime(t))
+  - \frac{d}{dt} \left[ \frac{\partial F}{\partial y^\prime}(t, y(t), y^\prime(t))\right] & = & 0 \label{example_euler}
+\end{eqnarray}
+The partial derivatives of $F$ are computed as:
+\begin{eqnarray}
+  \frac{\partial F}{\partial y} & = & k y \\
+  \frac{\partial F}{\partial y^\prime} & = & -my^\prime
+\end{eqnarray}
+Substituting into $(\ref{example_euler})$ we have:
+\begin{eqnarray}
+  k y(t) - \frac{d}{dt} \left[ - m y^\prime(t) \right] = 0
+\end{eqnarray}
+Or,
+\begin{eqnarray}
+  m y^{\prime\prime}(t) + k y(t) = 0
+\end{eqnarray}
+This is a second order linear differential equation. Adding initial conditions, one can
+solve for the particle dynamics.
+
+The general form of a solution to this differential equation is:
+\begin{eqnarray}
+  y(t) & = & a_1 \cos(\sqrt{k/m}\, t) + a_2 \sin(\sqrt{k/m}\, t)
+\end{eqnarray}
+Given the initial position and velocity we can determine $a_1$ and $a_2$.
+\end{document}

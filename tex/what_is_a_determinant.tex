@@ -1,0 +1,406 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{algorithmic}
+
+\title{Derivative of the Determinant}
+\author{R. Scott McIntire}
+\date{\today}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{7.5in}
+\setlength{\hoffset}{-0.75in}
+\setlength{\voffset}{-0.75in}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.5\baselineskip}
+
+\begin{document}
+\maketitle
+
+\section{What is the Determinant of a Matrix?}
+The determinant of an $n\times n$ matrix $A$ is the factor by which the volume of
+the unit cube is changed upon the action of $A$. Essentially, the cube is
+transformed into a parallelepiped. The primary edges of the unit cube are the
+vectors: $\{ [1, 0, \ldots], [0, 1, 0, \ldots], \ldots [0, \dots, 1]\}$.
+When $A$ acts on these vectors through matrix multiplication
+produces the column vectors of $A$ -- by the definition of matrix multiplication.
+
+So, to find this factor we need to compute the volume of the parallelepiped formed
+from the column vectors of $A$, since the volume of the unit cube is 1.
+Given $n$ vectors in $R^n$, how do we find a formula for the parallelepiped volume?
+A good way is to use the properties of the function to help find a formula.
+
+Let's call our volume function $V({\bf x}_1, {\bf x}_2, \ldots, {\bf x}_n)$.
+Here's some properties we should agree on:
+\begin{description}
+\item[Multi-linear Property:]{$V$ is linear in each slot. That is,
+    it is a multi-linear function.}
+\item[Degenerate Property:]{If any two edges are the same then the volume is $0$.}
+\item[Volume of Canonical Unit Cube:]{The volume of the unit cube using
+    standard ordering of unit edges, ${\bf e}_1, {\bf e}_2, \ldots , {\bf e}_n$, is 1.}
+\end{description}
+Let's go through each property.
+The first property is true with respect to scaling. If we scale any slot
+(edge) by a factor
+$k$ then the volume should of the resulting parallelepiped should scale by $k$.
+That addition should distribute in each slot takes more thought which we leave
+to the reader.
+
+The degeneracy property is clear, if we have duplicate edges then a parallelogram
+in $R^2$ collapses to a line segment and consequently the area is zero. Similarly
+for higher dimensions.
+
+The third property is clearly true, but why the need to care about the ordering
+of the standard edges? We show why by looking at a property implied by the
+multi-linearity and degeneracy properties.
+    
+Let's focus on $R^3$ as the general case is similar. Notice that
+\begin{eqnarray}
+  V({\bf x}_1 + {\bf x}_2, {\bf x}_1 + {\bf x}_2, {\bf x}_3) = 0 \label{degenerate}
+\end{eqnarray}
+because if the same vector is in two slots the volume is $0$.
+But by the multi-linearity $(\ref{degenerate})$ becomes:
+\begin{eqnarray}
+  0 & = & V({\bf x}_1, {\bf x}_1 + {\bf x}_2, {\bf x}_3)
+      +  V({\bf x}_2, {\bf x}_1 + {\bf x}_2, {\bf x}_3) \nonumber \\
+    & = & V({\bf x}_1, {\bf x}_1 , {\bf x}_3)
+          + V({\bf x}_1, {\bf x}_2, {\bf x}_3)
+          +  V({\bf x}_2, {\bf x}_1, {\bf x}_3)
+          + V({\bf x}_2, {\bf x}_2, {\bf x}_3) \nonumber \\
+  & = & V({\bf x}_1, {\bf x}_2, {\bf x}_3) + V({\bf x}_2, {\bf x}_1, {\bf x}_3)
+\end{eqnarray}
+From this we see that 
+\begin{eqnarray}
+  V({\bf x}_1, {\bf x}_2, {\bf x}_3)  & = & - V({\bf x}_2, {\bf x}_1, {\bf x}_3)
+\end{eqnarray}
+That is, $V$ is {\em anti-symmetric\/}.
+
+
+So, the reason the third property requires the unit cube to be ordered
+is that order matters because of this anti-symmetry property. {\em That is,
+a consequence of our assumptions is that the volume function will be
+signed!\/}
+
+Let's now use these two properties to derive a formula for the volume
+function.
+
+Each of the vectors: ${\bf x}_1$, ${\bf x}_2$, ${\bf x}_3$ can be written in
+terms of an orthonormal basis: ${\bf e}_1$, ${\bf e}_2$, ${\bf e}_3$ as
+\begin{eqnarray*}
+  {\bf x}_1 & = & a_{1,1} {\bf e}_1 + a_{2,1} {\bf e}_2 + a_{3,1} {\bf e}_3 \\
+  {\bf x}_2 & = & a_{1,2} {\bf e}_1 + a_{2,2} {\bf e}_2 + a_{3,2} {\bf e}_3 \\
+  {\bf x}_3 & = & a_{1,3} {\bf e}_1 + a_{2,3} {\bf e}_2 + a_{3,3} {\bf e}_3 \\
+\end{eqnarray*}
+If ${\bf x}_1$, ${\bf x}_2$, ${\bf x}_3$ are the mapping
+${\bf e}_1$, ${\bf e}_2$, ${\bf e}$ by matrix $A$, then $A$ is related to the
+$\{a_{i,j}\}_{i,j=1}^n$ by:
+\begin{eqnarray}
+  A & = & \left[ \begin{array}{ccc}
+                   a_{1,1} & a_{1, 2} & a_{1,3} \\
+                   a_{2,1} & a_{2, 2} & a_{2,3} \\
+                   a_{3,1} & a_{3, 2} & a_{3,3}
+                 \end{array} \right]
+\end{eqnarray}
+So, coming up with a formula for the volume function in terms of the
+$\{a_{i,j}\}_{i,j=1}^n$ will
+translate directly to a formula for the determinant of $A$.
+
+To illustrate the process of finding the volume I will do it for the case
+when $n=2$.
+In this case we have:
+\begin{eqnarray*}
+  V({\bf x}_1, {\bf x_2})
+  & = & V({a_{1,1} \bf e}_1 + a_{2, 1} {\bf e_2}, a_{1, 2}{\bf e}_1 + a_{2, 2}{\bf e}_2) \\
+  & = & V({a_{1,1} {\bf e}_1}, a_{1, 2}{\bf e}_1 + a_{2, 2}{\bf e}_2)
+        + V({a_{2,1} {\bf e}_2}, a_{1, 2}{\bf e}_1 + a_{2, 2}{\bf e}_2) \\
+  & = & V(a_{1,1} {\bf e}_1, a_{1,2}{\bf e}_1) + V(a_{1,1} {\bf e}_1, a_{2,2} {\bf e}_2) \\
+  & + & V(a_{2,1} {\bf e}_2, a_{1,2}{\bf e}_1) + V(a_{2,1} {\bf e}_2, a_{2,2} {\bf e}_2) \\
+  & = & a_{1,1} a_{1,2} V({\bf e}_1, {\bf e}_1) + a_{1,1}a_{2,2} V({\bf e}_1, {\bf e}_2) \\
+  & + & a_{2,1} a_{1,2} V({\bf e}_2, {\bf e}_1) + a_{2,1} a_{2,2} V({\bf e}_2, {\bf e}_2)
+\end{eqnarray*} 
+Notice the we could pull out the $\{a_{i,j}\}_{i,j=1}^n$
+because of multi-linearity -- linearity
+refers not just to addition, but also scalar multiplication. 
+Also, We have shown that the degeneracy condition implies anti-symmetry:
+$V({\bf e}_1, {\bf e}_2) = - V({\bf e}_2, {\bf e}_1)$.
+Finally, we know the volume (area in this case) of $V({\bf e}_1, {\bf e}_2)$. It
+represents the volume of the unit cube (unit square in our case) and its volume is 1.
+Therefore,
+\begin{eqnarray}
+  V({\bf x}_1, {\bf x_2}) & = & a_{1,1} a_{2,2} - a_{1,2} a_{2,1}
+\end{eqnarray}
+This corresponds with the usual definition of the determinant of the matrix $A$.
+
+The general case will have to do all of the permutations of the indices of $a$
+upon re-ordering the base vectors into standard form.
+
+Let's see what this looks like in $R^3$.
+\begin{eqnarray}
+  V({\bf x}_1, {\bf x}_2, {\bf x}_3)
+  & = & V(a_{1,1} {\bf e}_1 + a_{2,1} {\bf e}_2 + a_{3,1} {\bf e}_3, \nonumber \\
+  & & \hphantom{V(}a_{1,2} {\bf e}_1 + a_{2,2} {\bf e}_2 + a_{3,2} {\bf e}_3, \nonumber \\
+  & & \hphantom{V(}a_{1,3} {\bf e}_1 + a_{2,3} {\bf e}_2 + a_{3,3} {\bf e}_3)
+\end{eqnarray}
+By multi-linearity this can be decomposed into the following:
+\begin{eqnarray}
+  V({\bf x}_1, {\bf x}_2, {\bf x}_3)
+  & = & \sum_{i=1}^3\sum_{j=1}^3 \sum_{k=1}^3 a_{i,1} a_{j,2} a_{k,3}
+        V({\bf e}_{i}, {\bf e}_{j}, {\bf e}_{k})
+\end{eqnarray}
+There are $3^3$ terms to consider. In the general case, there will be $n^n$ terms to
+deal with -- this is not looking promising. But notice, not all terms,
+$V({\bf e}_{i}, {\bf e}_{j}, {\bf e}_{k})$ survive. Any such term with
+a duplicate ${\bf e}_i$ will have value $0$ because of the degeneracy condition.
+What terms do survive? The terms
+where the indices, $i$, $j$, $k$, differ. That is, $i$, $j$, $k$ are
+{\em permutations\/}
+of $1, 2, 3$.%
+\footnote{More generally, permutations on $n$ objects are one to one
+  mappings from the set of integers $\{1, 2, \ldots, n\}$ to itself.}
+In the general case this reduces
+the number of terms in the sum from $n^n$ to $n!$. In the general case, the
+sum becomes:\footnote{$S_n$ is the symmetric group of $n$ objects.}
+\begin{eqnarray}
+  V({\bf x}_1, {\bf x}_2, \ldots, {\bf x}_n)
+  & = & \sum_{\sigma \in S_n} a_{\sigma(1), i} a_{\sigma(2),2} \ldots a_{\sigma(n), n}
+        V({\bf e}_{\sigma(1)}, {\bf e}_{\sigma(2)}, \ldots, {\bf e}_{\sigma(n)})
+\end{eqnarray}
+Now, how do we compute each of the terms:
+$V({\bf e}_{\sigma(1)}, {\bf e}_{\sigma(2)}, \ldots, {\bf e}_{\sigma(n)})$?
+We know that we can switch the values of any two of the $n$ slots and the
+value of $V$ will change signs. It turns out that for any permutation one can
+apply some minimal number of these {\em transpositions\/} (switches)
+to get back to the canonical
+ordering $V({\bf e}_1, {\bf e}_2, \ldots, {\bf e}_n)$. So the value of
+$V({\bf e}_{\sigma(1)}, {\bf e}_{\sigma(2)}, \ldots, {\bf e}_{\sigma(n)})$ should be
+the value of $V({\bf e}_1, {\bf e}_2, \ldots, {\bf e}_n)$ times $(-1)^k$, where
+$k$ is the number of minimal transpositions needed to get to the canonical ordering of
+indices. This value, $(-1)^k$, can be represented by the {\em sgn\/}
+of the permutation.%
+\footnote{The mapping, ${\rm sgn\/}$, is a group homomorphism: $S_n \rightarrow Z_2$.}
+The sgn of a permutation is set to 1 if $k$ is odd and set to 0
+if $k$ is even. And since we know the volume of the canonical cube is $1$,
+the formula for the parallelepiped -- and hence the
+determinant of the matrix $A$ -- becomes:
+\begin{eqnarray}
+  |A| & = & V({\bf x}_1, {\bf x}_2, \ldots, {\bf x}_n) \nonumber \\
+  & = & V(a_{1, 1} {\bf e}_1 + a_{2, 1} {\bf e}_2 + \ldots + a_{n,1}{\bf e}_n, \nonumber \\
+      & \hphantom{=} & \hphantom{V(}a_{1, 2} {\bf e}_1 + a_{2, 2} {\bf e}_2
+                       + \ldots + a_{n,2}{\bf e}_n, \nonumber \\
+      & \hphantom{=} & \hphantom{V(} \vdots \nonumber \\
+      & \hphantom{=} & \hphantom{V(} a_{1, n} {\bf e}_1 + a_{2, n} {\bf e}_2
+                       + \ldots + a_{n,n}{\bf e}_n)
+                       \nonumber \quad
+                       \text{(expanding vectors into components)} \nonumber \\   
+      & = & \sum_{j_1=1}^n \sum_{j_2=1}^n \ldots \sum_{j_n=1}^n 
+            a_{j_1,1} a_{j_2, 2} \ldots a_{j_n, n}
+            V({\bf e}_{j_1}, {\bf e}_{j_2}, \, \ldots \, , {\bf e}_{j_n}) 
+            \quad \text{(by the Multi-linearity Property)} \nonumber \\
+  & = & \sum_{\sigma \in S_n} a_{\sigma(1), 1} a_{\sigma(2),2} \ldots a_{\sigma(n), n}
+        V({\bf e}_{\sigma(1)}, {\bf e}_{\sigma(2)}, \, \ldots \, , {\bf e}_{\sigma(n)})
+        \quad \text{(by the Degeneracy Property)} \nonumber \\
+      & = & \sum_{\sigma \in S_n} (-1)^{{\rm sgn}(\sigma)}
+            a_{\sigma(1), 1} a_{\sigma(2),2} \ldots a_{\sigma(n), n}
+        V({\bf e}_{1}, {\bf e}_{2}, \, \ldots \, , {\bf e}_{n})
+        \quad \text{(after placing edges in Canonical Order)}\nonumber \\
+      & = & \sum_{\sigma \in S_n} (-1)^{{\rm sgn}(\sigma)}
+            a_{\sigma(1), 1} a_{\sigma(2),2} \, \ldots \, a_{\sigma(n), n} \quad
+        \text{(Volume of Canonical Unit Cube is $1$)}
+\end{eqnarray}
+
+
+{\bf Note:\/} There is a bug with this process. From our reasoning, it follows that
+the volume of $V({\bf e}_2, {\bf e}_1)$ is -1. It seems like just as valid a way to
+describe the unit square, so why is the area negative? We can fixed this ``bug'' by
+claiming that it is, in fact, a feature. We can claim that we haven't just
+computed the area/volume,
+we have computed the {\em oriented volume\/}.
+If you want the volume you need only take the absolute value of the oriented volume.
+
+We write the final formula down for reference but now with the caveat that
+the determinant of a matrix is not a positive stretching factor -- the amount that the
+volume of the unit cube is stretched under $A$, but a {\em signed\/} stretching
+factor. Again, to find the magnitude of the stretching, take the absolute value
+of the determinant.
+\begin{eqnarray}
+  |A| & = & \sum_{\sigma \in S_n} (-1)^{{\rm sgn}(\sigma)}
+            a_{\sigma(1), 1} a_{\sigma(2),2} \, \ldots \, a_{\sigma(n), n} \label{det_formula}
+\end{eqnarray}
+\subsection{Determinant of $A^T$}
+Notice that the formula $(\ref{det_formula})$ can also be written as:
+\begin{eqnarray}
+  |A| & = & \sum_{\sigma \in S_n} (-1)^{{\rm sgn}(T(\sigma))}
+            a_{T(\sigma)(1), 1} a_{T(\sigma)(2),2} \, \ldots \, a_{T(\sigma)(n), n}
+            \label{det_formula_gen}
+\end{eqnarray}
+Here, $T$ is any one to one mapping from $S_n$ to itself. Why? Because the sum in
+$(\ref{det_formula})$ is the sum over all elements of $S_n$. The mapping $T$ just
+rearranges that sum. One such choice for $T$ is the mapping that sends $\sigma$
+to its inverse, $\sigma^{-1}$. In this case, $(\ref{det_formula_gen})$ becomes:
+\begin{eqnarray}
+  |A| & = & \sum_{\sigma \in S_n} (-1)^{{\rm sgn}(\sigma^{-1})}
+            a_{\sigma^{-1}(1), 1} a_{\sigma^{-1}(2),2} \, \ldots \, a_{\sigma^{-1}(n), n}
+            \label{det_formula_sinv}
+\end{eqnarray}
+But the multiplication can be rearranged in each term to give:
+\begin{eqnarray}
+  |A| & = & \sum_{\sigma \in S_n} (-1)^{{\rm sgn}(\sigma^{-1})}
+            a_{1, \sigma(1)}  a_{2, \sigma(2)} \, \ldots \, a_{n, \sigma(n)}
+            \label{det_formula_sinv2}
+\end{eqnarray}
+For instance, after rearranging the multiplications in $(\ref{det_formula_sinv})$
+there is an index $j$, so that
+$\sigma^{-1}(j) = 1$. So we have the first term in such an ordered product, $a_{1,j}$.
+But what must $j$ be? It must be $\sigma(1)$ -- since $\sigma^{-1}(\sigma(1)) = 1$.
+Similarly, the next term is $a_{2, \sigma(2)}$, etc. Then $(\ref{det_formula_sinv2})$
+can be written as:
+\begin{eqnarray}
+  |A| & = & \sum_{\sigma \in S_n} (-1)^{{\rm sgn}(\sigma^{-1})} a_{\sigma(1),1}^\prime
+            a_{\sigma(2),2}^\prime \, \ldots \, a_{\sigma(n),n}^\prime \label{at_proto}
+\end{eqnarray}
+Here, we define $a_{i,j}^\prime$ as the $i^{\rm th}$, $j^{\rm th}$ element of the $A^T$.
+
+Finally, for any transpositions: $\tau_1, \tau_2, \, \ldots\, , \tau_k$
+that ``unravel'' the
+permutation $\sigma$ back to the identity we have:
+$\tau_k \tau_{k-1} \, \ldots \, \tau_1 \sigma = \epsilon$.%
+\footnote{We are using $\epsilon$ to denote the identity in $S_n$.}
+Here, the multiplication is
+the group multiplication of applying one permutation on another. From this we know,
+$\sigma^{-1} = \tau_1^{-1} \tau_2^{-1} \, \ldots \, \tau_k^{-1}$. That is, for any
+collection of transpositions that returns $\sigma$ to the identity, one can
+find a collection of transpositions {\em of the same number\/} that bring
+$\sigma^{-1}$ back to the identity. Consequently,
+${\rm sgn}(\sigma) = {\rm sgn}(\sigma^{-1})$.%
+\footnote{As mentioned in a previous footnote,
+the mapping ${\rm sgn}: S_n \rightarrow Z_2$
+is a group homomorphism. Therefore,
+\begin{eqnarray*}
+  0 = {\rm sgn}(\epsilon) = {\rm sgn}(\sigma \sigma^{-1})
+  = {\rm sgn}(\sigma) + {\rm sgn}(\sigma^{-1}).
+\end{eqnarray*}
+Consequently, ${\rm sgn}(\sigma^{-1}) = {\rm sgn}(\sigma)$, as they must both be $0$
+or both be $1$ for their sum to be $0$ in $Z_2$.}
+With this, $(\ref{at_proto})$ may be written:
+\begin{eqnarray}
+  |A| & = & \sum_{\sigma \in S_n} (-1)^{{\rm sgn}(\sigma)}
+            a_{\sigma(1),1}^\prime  a_{\sigma(2),2}^\prime \, \ldots \, a_{\sigma(n),n}^\prime
+            \label{det_at}
+\end{eqnarray}
+But this is, by definition, nothing more than the determinant of $A^T$.
+From this we conclude that $|A| = |A^T|$.
+
+\section{Derivative of the Determinant}
+The determinant is a function from the space of matrices to $R$; that is,
+$|{\boldsymbol \cdot}| : R^{n^2} \rightarrow R$.
+Therefore, its derivative at a particular ``point'' $A$, $L_A$, should satisfy:%
+\footnote{Recall that for a function $f: R \rightarrow R$, the derivative at a point
+  $x$ is a linear function, $Df_x: R \rightarrow R$, such that
+  $f(x+h) = f(x) + Df_x(h) + o(h)$.}
+\begin{eqnarray}
+  |A + H| & = & |A| + L_A(H) + o(H)
+\end{eqnarray}
+Here $\lim_{H\rightarrow 0} \frac{\|o(H)\|}{\|H\|}  = 0$, where $\|H\|$ is any matrix norm
+and $L_A$ is a linear mapping from $R^{n^2}$ to $R$.
+
+To start, let's try to find the derivative for an especially simple ``point'',
+the identity matrix, $I$.
+
+\begin{eqnarray}
+  |I + H| & = & \prod_{i=1}^n \left(1 + H_{i,i}\right) + o(H) \label{deriv_I}
+\end{eqnarray}
+In other words, the only $o(H)$ term comes from only one of the $n!$ permutations.
+The reason is that any other permutation will have 2 or more $\{H_{i,j}\}_{i,j=1}^n$ terms.
+To see this, consider any permutation, if it is not the identity then for some index,
+$i$, $a_{\sigma(i), i}$ is off the diagonal, and so its value is $h_{j,i}$ for some $j$.
+Now the value of $\sigma(j)$ can't be $j$, because $i$ is already sent there
+(permutations are one to one mappings).
+Therefore, for this permutation, $\sigma$, the product term contains the product of
+two off diagonal terms times the other $n-2$ terms:
+$h_{i,j} h_{j,k} *\left((n-2){\rm terms}\right)$ which is $o(H)$.
+This product can be further decomposed into a constant term; a linear term in H;
+and $o(H)$ terms:
+\begin{eqnarray}
+  |I + H| & = & 1 + \sum_{i=1}^n H_{i,i} + o(H) \nonumber \\
+  & = & |I| + {\rm tr}(H) + o(H) \label{deriv_Ia}
+\end{eqnarray}
+So, the linear function acting on $H$ to produce a number is the trace operator.
+
+Now, let's do the same computations for a more general ``point'',
+an $n\times n$ matrix, $A$, with the stipulation that $A$ is invertible.
+
+\begin{eqnarray}
+  |A + H| & = & |A\left(I + A^{-1}H\right)| \nonumber \\
+          & = & |A|\, |I + A^{-1}H|
+                \quad \text{(Multiplicative Property of Determinants)} \nonumber \\
+          & = & |A| \left(|I| + {\rm tr}(A^{-1}H) + o(H)\right)
+                \quad \text{(From $(\ref{deriv_Ia})$)} \nonumber \\
+  & = & |A| + |A|{\rm tr}(A^{-1}H) + o(H)
+\end{eqnarray}
+Therefore, the derivative of the determinant at a non-singular ``point'', $A$,
+is the linear function $L_A: R^{n^2} \rightarrow R$ defined by:
+\begin{eqnarray}
+  L_A(B) & = & |A| {\rm tr}(A^{-1}B) \label{det_deriv}
+\end{eqnarray}
+
+{\bf exercise:} Check that $L_A$ is a linear function.
+
+{\bf exercise:} What is the derivative at a ``point'' $A$ where $A$ is singular?
+
+\section{Applications: Liouville's Theorem}
+Suppose that a dynamical system is deforming $n$ vectors in $R^n$ over time by
+the following linear {\em vector differential equations\/}:
+\begin{eqnarray}
+  \frac{d {\bf x}_i(t)}{dt} & = & A {\bf x}_i(t) \quad i \in [1, n] \label{deq_v}\\
+  {\bf x}_i(0) & = & {\bf x0}_i \quad i \in [1,n]
+\end{eqnarray}
+
+{\bf Question:\/} How is the volume of the parallelepiped that these vectors represent
+evolving in time?
+
+To start, we could collect these vector equations into one linear
+{\em matrix differential equation\/}:
+\begin{eqnarray}
+  \frac{d X(t)}{dt} & = & A X(t) \label{deq_m}\\
+  X(0) & = & X0
+\end{eqnarray}
+Here, the $n$ vectors form the columns of the matrix $X(0)$. The columns of
+$X(t)$ represent the vector's evolution in time.
+
+To answer the question posed, 
+we need to track $|X(t)|$. To do this, we find a differential equation
+that $|X(t)|$ satisfies and then solve.
+\begin{eqnarray*}
+  \frac{d |X(t)|}{dt} & = & |X(t)| \, {\rm tr}\left(X(t)^{-1} \frac{d X(t)}{dt}\right)
+  \quad \text{(by $(\ref{det_deriv})$ and the chain rule)} \\
+  \frac{d |X(t)|}{dt} & = & |X(t)| \, {\rm tr}\left(X(t)^{-1} A X\right) \quad
+  \text{(by $(\ref{deq_m})$)} \\
+  \frac{d |X(t)|}{dt} & = & |X(t)| \, {\rm tr}(A) \quad
+  \text{(by the property of trace: ${\rm tr}(ABC) = {\rm tr}(CAB)$)}
+\end{eqnarray*}
+Therefore, $|X(t)|$ satisfies the following linear {\em scalar differential equation\/}:
+\begin{eqnarray}
+  \frac{d |X(t)|}{dt} & = & {\rm tr}(A) \, |X(t)| \\
+  |X(0)| & = & |X0|
+\end{eqnarray}
+This is much easier to solve, the solution is $|X(t)| = |X0| \, e^{{\rm tr}(A)\, t}$.
+
+{\bf Question:\/} What kind of systems (defined by $A$) leave the volumes unchanged?
+
+Notice that if $\left< A {\bf x}, {\bf x} \right> = 0$; that is, $A$ is
+{\em anti-symmetric\/},
+then:
+\begin{eqnarray}
+  \left< {\bf x}(t), \frac{d \, {\bf x}(t)}{dt} \right>
+  = \left< {\bf x}(t), A {\bf x}(t)\right> = 0
+\end{eqnarray}
+This says that an object's
+velocity is perpendicular to its position. In this case, if $\{{\bf e}_i\}_{i=1}^n$ is
+an orthonormal system of vectors then
+${\rm tr(A)} = \sum_{i=1}^n \left< {\bf e}_i, A {\bf e}_i \right> = \sum_{i=1}^n 0 = 0$.
+Therefore, when $A$ is anti-symmetric, the determinant of the evolving
+vectors -- their volume -- under the dynamical system does not change.
+
+{\bf exercise:\/} In this case, what kind of matrix is $X(t)$?
+
+\end{document}
+
