@@ -22,13 +22,18 @@
 \maketitle
 
 \section{Introduction}
-When I was a freshmen in college I was briefly interested in the idea of using the areas of geometric figures to
-produce interesting formulas. The example that inspired me was the way you can derive the Pythagorean formula
+When I was a freshmen in college I was briefly interested in the idea of 
+using the areas of geometric figures to
+produce interesting formulas. The example that inspired me was the way you 
+can derive the Pythagorean formula
 by examining the area of a square sliced into a few pieces.
 
-I tried to do something similar with a more complicated geometric figure and I came up with figure $(\ref{fig_geo})$.
-Using the fact that the radius of a circle is perpendicular to a tangent line, you can see that the larger triangle
-is composed of 2 pairs of identical triangles and a square. The area of these triangles and the square must be
+I tried to do something similar with a more complicated geometric figure and 
+I came up with figure $(\ref{fig_geo})$.
+Using the fact that the radius of a circle is perpendicular to a 
+tangent line, you can see that the larger triangle
+is composed of 2 pairs of identical triangles and a square. 
+The area of these triangles and the square must be
 the same as the area of the larger triangle. 
 
 \section{A Basic Property of Primitive Pythagorean Triples}
@@ -43,32 +48,42 @@ Simplifying, this is:
 r^2 + r(a - r) + r(b-r) = \frac{a\, b}{2} \label{area} 
 \end{eqnarray}
 
-One can solve the quadratic for $r$ or read off from the figure that $(a-r) + (b-r) = c$. Solving this last equation for $r$ gives:
+One can solve the quadratic for $r$ or read off from the figure 
+that $(a-r) + (b-r) = c$. Solving this last equation for $r$ gives:
 \begin{eqnarray}
   r & = & \frac{a + b - c}{2} \label{radius}
 \end{eqnarray}
 
-We now consider primitive Pythagorean triples (the length of sides from right triangles with integer sides and no common factors.)
+We now consider primitive Pythagorean triples (the length of sides from right 
+triangles with integer sides and no common factors.)
 
-What can we say about the even or oddness of the sides when the sides have no common factors? 
+What can we say about the even or oddness of the sides when the sides have no 
+common factors? 
 
-Since we know that $a^2 + b^2 = c^2$, we can reduce the combinations to the following:
+Since we know that $a^2 + b^2 = c^2$, we can reduce the combinations to 
+the following:
 \begin{itemize}
   \item{Both $a$ and $b$ are odd and $c$ is even.}
   \item{One and only one of either $a$ or $b$ is odd and $c$ is odd.}
 \end{itemize}
 
-Regardless of the which choice occurs, equation $(\ref{radius})$ implies that the radius of the circle is an integer.
-Using this fact and equation $(\ref{area})$ we see that the quantity, $\frac{a \, b}{2}$, must be an integer. 
-This knowledge eliminates the first choice; namely, that both $a$ and $b$ are odd. Consequently, one of the sides
+Regardless of the which choice occurs, equation $(\ref{radius})$ implies that 
+the radius of the circle is an integer.
+Using this fact and equation $(\ref{area})$ we see that the quantity, 
+$\frac{a \, b}{2}$, must be an integer. 
+This knowledge eliminates the first choice; namely, that both $a$ and $b$ 
+are odd. Consequently, one of the sides
 is even. Let's say that it is $b$. 
 
-Finally, regardless of whether $r$ is even or odd, the left hand side of $(\ref{area})$ is even. This implies that $\frac{a \, b}{2}$
+Finally, regardless of whether $r$ is even or odd, the left hand side of 
+$(\ref{area})$ is even. This implies that $\frac{a \, b}{2}$
 is even. Again since, $a$ is odd, $b/2$ must be divisible by $2$. 
 
-We have deduced the following properties for Primitive Pythagorean triples, $(a,b,c)$:
+We have deduced the following properties for Primitive Pythagorean triples, 
+$(a,b,c)$:
 \begin{itemize}
-  \item{One of the legs is odd; the other leg is even; and the hypotenuse is odd.}
+  \item{One of the legs is odd; the other leg is even; and the hypotenuse 
+      is odd.}
   \item{The even leg is divisible by $4$.}
 \end{itemize}
 
@@ -122,7 +137,7 @@ We have deduced the following properties for Primitive Pythagorean triples, $(a,
 
 \end{tikzpicture}
 \end{center}
-\caption{Triangle Figure}
+\caption{Dissected Triangle Figure}
 \end{figure}
 
 \end{document}

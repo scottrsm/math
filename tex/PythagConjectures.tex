@@ -29,34 +29,45 @@
 
 
 \section{Overview}
-We list a few conjectures regarding the set, ${\cal H}$, of primitive Pythagorean hypotenuses. 
-This is the set constructed by taking the "hypotenuse" value from all primitive Pythagorean triples -- corresponding to the lengths of the sides of 
-right triangles with integer sides with no common factors.
+We list a few conjectures regarding the set, ${\cal H}$, of primitive 
+Pythagorean hypotenuses. This is the set constructed by taking the 
+``hypotenuse'' value from all primitive Pythagorean triples -- corresponding 
+to the lengths of the sides of right triangles with integer sides with 
+no common factors.
 
-A related set, ${\cal H}_p$, is the subset of ${\cal H}$ that are primes. That is, primitive Pythagorean hypotenuses that are prime.
+A related set, ${\cal H}_p$, is the subset of ${\cal H}$ that are primes. 
+That is, primitive Pythagorean hypotenuses that are prime.
 
-Below we list the main conjectures informally, listing them in order of complexity:
+Below we list the main conjectures informally, listing them in order of 
+complexity:
 \begin{enumerate}
-  \item{{\bf Partition of ${\cal H}$:\/} ${\cal H}$ can be {\em partitioned\/} into two disjoint infinite sets: 
-    the set of all powers of Pythagorean primes; and the set of all hypotenuses that come from more than one primitive Pythagorean triple.}
-  \item{{\bf ${\cal H}_p$ is complex:\/} The set of Pythagorean primes, ${\cal H}_p$, is infinite; {\em similar\/}; and as {\em complex\/} as the primes when measured using certain metrics.}
+  \item{{\bf Partition of ${\cal H}$:\/} ${\cal H}$ can be {\em partitioned\/} 
+      into two disjoint infinite sets: 
+    the set of all powers of Pythagorean primes; and the set of all 
+        hypotenuses that come from more than one primitive Pythagorean triple.}
+  \item{{\bf ${\cal H}_p$ is complex:\/} The set of Pythagorean primes, 
+      ${\cal H}_p$, is infinite; {\em similar\/}; and as {\em complex\/} as 
+        the primes when measured using certain metrics.}
 \end{enumerate}
 
 
 \section{Definitions}
-After a few definitions we describe a conjecture regarding Primitive Pythagorean Triples.
-We use standard notation to indicate that the natural numbers are represented by the symbol $\mathbb{N}$ and 
+After a few definitions we describe a conjecture regarding Primitive 
+Pythagorean Triples. We use standard notation to indicate that the natural 
+numbers are represented by the symbol $\mathbb{N}$ and 
 we use the symbol $\mathbb{P}$ to denote the set of prime numbers.
 
 
-\defn{\em Pythagorean Triples\/} denoted, ${\cal T}$, are  triplets of numbers representing the length of the sides of
+\defn{\em Pythagorean Triples\/} denoted, ${\cal T}$, are  triplets of 
+numbers representing the length of the sides of
 right triangles where all the sides are integers. Specifically,
 \begin{eqnarray}
   {\cal T} & = & \{ (x,y,z) \; | \; (x,y,z) \in \mathbb{N}^3 \; \wedge \; x^2 + y^2 = z^2 \}
 \end{eqnarray}
 The usual definition.
 
-\defn{\em Primitive Pythagorean Triples\/} denoted, ${\cal T}_p$, are Pythagorean Triples which have no common factors. Specifically,
+\defn{\em Primitive Pythagorean Triples\/} denoted, ${\cal T}_p$, are 
+Pythagorean Triples which have no common factors. Specifically,
 \begin{eqnarray}
   {\cal T}_p & = & \{ (x,y,z) \; | \; (x,y,z) \in \mathbb{N}^3 \; \wedge \; \gcd(x,y) = 1 \; \wedge \; x^2 + y^2 = z^2 \}
 \end{eqnarray}
@@ -72,14 +83,16 @@ This represents the set of all possible hypotenuses of primitive Pythagorean tri
 \begin{eqnarray}
   {\cal H}_p & = & \{ z \; | \; \exists (x,y) \in \mathbb{N}^2, \, (x,y,z) \in {\cal T}_p \; \wedge \; z \in \mathbb{P} \}
 \end{eqnarray}
-This represents the set of all possible lengths of hypotenuses of right triangles with integer sides that are prime.
+This represents the set of all possible lengths of hypotenuses of right 
+triangles with integer sides that are prime.
 
 \defn{\em Duplicate Primitive Hypotenuses\/} denoted ${\cal H}_d$, defined by:
 \begin{eqnarray}
   {\cal H}_{d} & = & \{ z \; | \; \exists\, (x_1, x_2, y_1, y_2) \in \mathbb{N}^4, \; 
       (x_1,y_1,z) \in {\cal T}_p \; \wedge \; (x_2, y_2, z) \in {\cal T}_p \; \wedge \; x_1 \neq x_2 \}  
 \end{eqnarray}
-This represents the set of all primitive hypotenuses that can be found in more than one primitive Pythagorean triple.
+This represents the set of all primitive hypotenuses that can be found in 
+more than one primitive Pythagorean triple.
 
 \defn{\em  Primitive Hypotenuses Powers\/} denoted ${\cal H}_u$, defined by:
 \begin{eqnarray}
@@ -114,19 +127,31 @@ $\left\{ m \; \left| \; n \le \left( \sum_{i=1}^m \Pi({\cal H}_p[i]) - \sum_{i=3
 First we list a few facts and state a couple of known theorems before proceeding:
 \begin{enumerate}
   \item{The Pythagorean primes are of the form $4n + 1$. 
-      This is a special case of a more general theorem proven by Pierre de Fermat, known as Fermat's theorem on sums of two squares. 
-      According to this theorem, an odd prime number $p$ can be expressed as the sum of two squares if and only if 
-      $p$ is congruent to $1$ modulo $4$, i.e., $p = 4n + 1$ for some positive integer $n$. 
-    \item{Moreover, the distribution of primes of the form $4n + 1$ has been studied extensively.}
-      The German mathematician Peter Gustav Lejeune Dirichlet proved that there are infinitely many primes of the form $4n + 1$, a result known as 
+      This is a special case of a more general theorem proven by 
+        Pierre de Fermat, known as Fermat's theorem on sums of two squares. 
+      According to this theorem, an odd prime number $p$ can be expressed as 
+        the sum of two squares if and only if 
+      $p$ is congruent to $1$ modulo $4$, i.e., $p = 4n + 1$ for some 
+        positive integer $n$. 
+    \item{Moreover, the distribution of primes of the form $4n + 1$ has 
+        been studied extensively.}
+      The German mathematician Peter Gustav Lejeune Dirichlet proved that 
+        there are infinitely many primes of the form $4n + 1$, a result known as 
       Dirichlet's theorem on arithmetic progressions. 
-      This theorem, which generalizes the case of Pythagorean primes, states that for any two positive coprime numbers a and d, 
-      there are infinitely many primes of the form $a + nd$, where $n$ is a non-negative integer.} 
-    \item{In the case of Pythagorean primes, we can take a = 1 and d = 4 to get the form 4n + 1. 
-          Dirichlet's theorem thus guarantees that there are infinitely many Pythagorean primes. 
-        This is a profound result, as it extends the prime number theorem, which states that there are infinitely many prime numbers, to arithmetic progressions.}
+      This theorem, which generalizes the case of Pythagorean primes, states 
+        that for any two positive coprime numbers a and d, 
+      there are infinitely many primes of the form $a + nd$, where $n$ is a 
+        non-negative integer.} 
+    \item{In the case of Pythagorean primes, we can take a = 1 and d = 4 to 
+        get the form 4n + 1. 
+          Dirichlet's theorem thus guarantees that there are infinitely 
+          many Pythagorean primes. 
+        This is a profound result, as it extends the prime number theorem, 
+        which states that there are infinitely many prime numbers, to 
+        arithmetic progressions.}
 \end{enumerate}
-From these results we get the following structure theorem for Pythagorean hypotenuses:
+From these results we get the following structure theorem for 
+    Pythagorean hypotenuses:
 \theorem{The set ${\cal H}_p = \{ p \; | \; p \in \mathbb{P} \; \wedge \; p = 1 \; {\rm mod}\;  4\}$}
 \theorem{The set ${\cal H}$ has a unique factorization in ${\cal H}_p$. }
          That is, each element of ${\cal H}$ can be uniquely written as a product of powers from ${\cal H}_p$:
@@ -144,23 +169,31 @@ From these results we get the following structure theorem for Pythagorean hypote
   \item{$\hphantom{\emptyset}|{\cal H}_d| = \infty$.}
 \end{enumerate}
 
-In simple terms the conjecture says that each element of the set of all primitive Pythagorean hypotenuses is the union of two disjoint infinite sets:
-the set of powers of a Pythagorean primes; and the set of all hypotenuses that come from more than one primitive Pythagorean triple.
+In simple terms the conjecture says that each element of the set of all 
+primitive Pythagorean hypotenuses is the union of two disjoint infinite sets:
+the set of powers of a Pythagorean primes; and the set of all hypotenuses 
+that come from more than one primitive Pythagorean triple.
 
-\conjecture{Properties of the cumulative parity of ${\cal H}_p$ indicates that it is non-trivial:}
+\conjecture{Properties of the cumulative parity of ${\cal H}_p$ indicates 
+that it is non-trivial:}
 \begin{enumerate}
   \item{$\lim\limits_{n \rightarrow \infty} \frac{\sum\limits_{i=1}^n \Pi({\cal H}_p[i])}{n} = 0$;}
   \item{$\forall n\in \mathbb{N}, \Delta_p(n) < \infty$;}
   \item{$ \lim\limits_{n \rightarrow \infty} \frac{\Delta_p(n)}{n^{\ln(2 \pi)}} = 41$.}
 \end{enumerate}
 
-These last conjectures suggest that the Pythagorean primes are non-trivial in a way similar to the primes.
+These last conjectures suggest that the Pythagorean primes are non-trivial 
+in a way similar to the primes.
 \begin{enumerate}
-  \item{The first conjecture states that the ${\cal H}_p$ primes are "spread out" in a way similar to the set of all primes.}
-  \item{From numerical experiments, its seems that the cumulative parity of ${\cal H}_p$ is "on average" lower than the cumulative parity of all primes.
+  \item{The first conjecture states that the ${\cal H}_p$ primes are 
+      "spread out" in a way similar to the set of all primes.}
+  \item{From numerical experiments, its seems that the cumulative parity 
+      of ${\cal H}_p$ is "on average" lower than the cumulative parity of all primes.
       The second and third conjectures suggest that there 
-      are non-trivial deviations from this rule. This "mixing" of the cumulative parity of ${\cal H}_p$ with that of $\mathbb{P}$ 
-      suggests that the Pythagorean primes are as "complex" as the set of all primes.}
+      are non-trivial deviations from this rule. This "mixing" of the 
+        cumulative parity of ${\cal H}_p$ with that of $\mathbb{P}$ 
+      suggests that the Pythagorean primes are as "complex" as the set of 
+        all primes.}
 \end{enumerate}
 
 \end{document}
