@@ -1,5 +1,5 @@
 # math
-Mathematical Educational Papers and Conjectures
+## Mathematical Educational Papers and Conjectures
 
 **NOTE:** Some of the papers are written in ${\LaTeX}$ and others are written in ${\TeX}$.
           (The ${\TeX}$ papers have an "input macro" statement at the beginning of their files.)
