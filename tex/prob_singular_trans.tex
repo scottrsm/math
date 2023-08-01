@@ -2,7 +2,7 @@
 %%\input epsf
 
 %% My macros.
-\input ../util/macro
+\input macro
 
 %% The length of a page is 10in.
 %%\vsize=10in
@@ -180,8 +180,9 @@ $$
 \, d{\bf x_2} \, d{\bf y}
 $$
 We argue now that the measure ${\bf \mu}$ is absolutely continuous with 
-respect to Lebegue measure\footnote{\ddag}{Since the Lebegue mesaure is regular, any Lebegue measureable set can be approximated by a Borel measureable set.} 
-so that there exists a mesureable function, $P_Y(y)$
+respect to Lebesgue measure%
+\footnote{\ddag}{Since the Lebesgue measure is regular, any Lebesgue measurable set can be approximated by a Borel measurable set.} 
+so that there exists a measurable function, $P_Y(y)$
 such that $\mu(\Omega_Y) = \int_{\Omega_Y} P_Y(y) \, d{\bf y}$.
 So that
 $$
@@ -191,7 +192,7 @@ $$
 \sqrt{ |Df({\bf x}({\bf y}, {\bf x_2})) Df^T({\bf x}({\bf y}, {\bf x_2}))| } }
 \,  d{\bf x_2} \right) \, d{\bf y}
 $$
-Since this is true for all Borel measureable sets, $\Omega_Y$, we have
+Since this is true for all Borel measurable sets, $\Omega_Y$, we have
 $$
 P_Y({\bf y}) =
 \int_{\Omega_{X_2}} 
@@ -214,6 +215,6 @@ $$
 To conclude, in the general case, the we may have a situation like $y = x^2$. 
 Here, there are two manifolds that contribute to the probability distribution of $y$.
 In general, there may be some number of these manifolds which map on to the target variable. 
-In this case we add theor contributions to the distribution of the target variable, $Y$.
+In this case we add the contributions to the distribution of the target variable, $Y$.
 
 \bye
