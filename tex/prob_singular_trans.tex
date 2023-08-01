@@ -217,4 +217,206 @@ Here, there are two manifolds that contribute to the probability distribution of
 In general, there may be some number of these manifolds which map on to the target variable. 
 In this case we add the contributions to the distribution of the target variable, $Y$.
 
+
+\subsection{Applications of Theorem 1.}
+We apply Theorem 1 with various types of singular mappings.
+\medskip
+
+\example{Example 1}{$y = f({\bf x}) = x_1 + x_2 \quad (f:{\bf R}^2 \mapsto R)$}
+
+The set, $f^{-1}(y)$ can be
+parameterized as ${\bf x}_1(\mu; y) = (\mu, y - \mu)^T$ with $\mu \in
+(-\infty, \infty)$. 
+
+$ \sqrt{|D_{\mu}{\bf x}_1^T(\mu; y)
+\; D_{\mu}{\bf x}_1(\mu; y)|}
+= \|(1,-1)\| = \sqrt{2}$. 
+
+Also, $\sqrt{|Df({\bf x}_1(\mu; y)) \;
+Df^T({\bf x}_1(\mu; y))|} = \| \nabla_{\bf x}
+f({\bf x}_1(\mu; y)) \| = \|(1,1)\| = \sqrt{2}$. 
+
+Therefore, by Theorem 1 we have:
+
+$$
+P_Y(y) = \int_{-\infty}^{\infty} P_{X_1 X_2}(\mu, y - \mu) \, d\mu
+$$
+
+\example{Example 2}{$y = f({\bf x}) = x_1 / x_2 \quad (f:{\bf R}^2 \mapsto R)$}
+The set $f^{-1}(y)$ can be
+parameterized as ${\bf x}_1(\mu; y) = (y\mu, \mu)^T$ with $\mu \in
+(-\infty, 0) \cup (0, \infty)$. 
+
+$ \sqrt{|D_{\mu}{\bf x}_1^T(\mu; y)
+\; D_{\mu}{\bf x}_1(\mu; y)|} =
+\|(y,1)\| = \sqrt{1 + y^2}$. And,
+
+$\sqrt{|Df({\bf x}_1(\mu; y)) \;
+Df^T({\bf x}_1(\mu; y))|} = 
+\|\nabla_{\bf x}
+  f({\bf x}_1(\mu; y)) \| = \|
+  (1/x_2(\mu; y), -x_1(\mu; y)/x_2(\mu; y)^2)\| = \sqrt{1 + y^2} / |\mu|$. 
+
+Therefore, Theorem 1 gives:
+$$
+  P_Y(y) = \int_{-\infty}^{\infty} |\mu| \, P_{X_1 X_2}(y\mu, \mu) \, d\mu
+$$
+
+\example{Example 3}{ $y = f({\bf x}) = x_1^2 + x_2^2 \quad 
+(f:{\bf R}^2 \mapsto R)$}
+
+The set $f^{-1}(y)$ is the union of the 
+parameterizations: ${\bf x}_1(\mu; y) = (\mu, \sqrt{y - \mu^2})^T$ 
+
+and 
+${\bf x}_2(\mu; y) = (\mu, - \sqrt{y - \mu^2})^T$ with $\mu \in
+[-\sqrt{y}, \sqrt{y}]$. 
+ 
+$ \sqrt{|D_{\mu}{\bf x}_1^T(\mu; y)
+\; D_{\mu}{\bf x}_1(\mu; y)|} = \|(1, -\mu/\sqrt{y - \mu^2} \| =
+ \sqrt{y/(y - \mu^2)}$. 
+ 
+$ \sqrt{|D_{\mu}{\bf x}_2^T(\mu; y)
+\; D_{\mu}{\bf x}_2(\mu; y)|} = \|(1, \mu/\sqrt{y - \mu^2} \| =
+ \sqrt{y/(y - \mu^2)}$. 
+
+$\sqrt{|Df({\bf x}_1(\mu; y)) \;
+Df^T({\bf x}_1(\mu; y))|} =  2 \| (\mu, \sqrt{y - \mu^2}) \|
+=  2 \sqrt{y}$.
+ 
+$\sqrt{|Df({\bf x}_2(\mu; y)) \;
+Df^T({\bf x}_2(\mu; y))|} = 2 \|(\mu, -\sqrt{y - \mu^2}) \|
+= 2 \sqrt{y}$. 
+
+Therefore, Theorem 1 gives:
+$$
+  P_Y(y) = \cases{ \int_{-\sqrt{y}}^{\sqrt{y}}  \frac{P_{X_1 X_2}(\mu,
+  \sqrt{y - \mu^2}) \; 
++ P_{X_1 X_2}(\mu, -\sqrt{y - \mu^2})}{2 \sqrt{y - \mu^2}} \, d\mu &
+  $y\ge0$ ; \cr
+0 & otherwise.}
+$$
+
+
+\example{Example 4}{$y_1 = x_1 + x_2 + x_3 \;;\; y_2 = x_1 - x_2 \quad
+  (f:{\bf R}^3 \mapsto {\bf R}^2)$}
+The set $f^{-1}({\bf y})$ can be
+parameterized as ${\bf x}_1(\mu; y_1, y_2) = (\mu, \mu - y_2, y_1 +
+y_2 - 2\mu)^T$
+with $\mu \in
+(-\infty, \infty)$. 
+
+$ \sqrt{|D_{\mu}{\bf x}_1^T(\mu; {\bf y})
+\; D_{\mu}{\bf x}_1(\mu; {\bf y})|} =
+\|(1, 1, -2)\| = \sqrt{6}$
+
+And, $\sqrt{|Df({\bf x}_1(\mu; {\bf y})) \;
+Df^T({\bf x}_1(\mu; {\bf y}))|} = 
+\sqrt{\left|\pmatrix{1 & 1 & 1 \cr 1 & -1 & 0\cr} 
+\pmatrix{1 & 1 \cr 1 & -1 \cr 1 & 0 \cr} \right|} = \sqrt{6} $
+
+Therefore, Theorem 1 gives:
+$$
+  P_{Y_1 Y_2}(y_1, y_2) = \int_{-\infty}^{\infty} P_{X_1
+  X_2 X_3}(\mu, \mu - y_2, y_1 + y_2 - 2 \mu) \, d\mu
+$$
+\bigskip
+
+
+\example{Example 5}{$y_1 = x_1 + x_2 + x_3 \;;\; y_2 = x_1 - x_2 + x_4 \quad
+  (f:{\bf R}^4 \mapsto {\bf R}^2)$}
+The set $f^{-1}({\bf y})$ can be
+parameterized as ${\bf x}_1(\mu_1, \mu_2; y_1, y_2) = (\mu_1, \mu_2, y_1 + y_2
+- 2\mu_1, y_2 - y_1 + 2\mu_2)^T $
+with $\mu_1, \mu_2 \in
+(-\infty, \infty) $. 
+
+$ \sqrt{|D_{\mu}{\bf x}_1^T(\mu; {\bf y})
+\; D_{\mu}{\bf x}_1(\mu; {\bf y})|} =
+\sqrt{\left| \pmatrix{1 & 0 & -2 & 0 \cr 0 & 1 & 0 & 2 \cr} 
+\pmatrix{1 & 0 \cr 0 &
+1 \cr -2 & 0 \cr 0 & 2\cr} \right|} = 5$
+
+And, $\sqrt{|Df({\bf x}_1(\mu; {\bf y})) \;
+Df^T({\bf x}_1(\mu; {\bf y}))|} = \sqrt{\left|\pmatrix{1 & 1 &
+1 & 0 \cr 1 & -1 & 0 & 1\cr} \pmatrix{1 & 1 \cr 1 & -1 \cr 1 & 0 \cr 0
+& 1 \cr} \right|} = 3 $
+
+Therefore, Theorem 1 gives:
+$$
+  P_{Y_1 Y_2}(y_1, y_2) = \frac{5}{3} \int_{-\infty}^{\infty} 
+  \int_{-\infty}^{\infty} P_{X_1 X_2 X_3 X_4}
+  (\mu_1, \mu_2, y_1 + y_2 - 2\mu_1, y_2 - y_1 + 2\mu_2)
+  \, d\mu_1 \, d\mu_2
+$$
+
+
+\subsection{Application to the Distribution of the Ratio of Normals}
+We use Theorem 1 to compute the distribution 
+of the ratio of two correlated normals.
+
+If $x_1, x_2$ are Gaussian random variables with joint density function,  
+$P_{X_1 X_2}$, means: $\mu_1, \mu_2$, and positive definite covariance 
+matrix\footnote{\kern 0.5pt *}{If 
+$\Sigma$ is positive definite we have: $a>0, \; c>0, \; ac
+- b^2 > 0$.}: $\Sigma~=~\pmatrix{a & b \cr b & c \cr}$, then
+the density function of the ratio $y = x_1 / x_2$ is given by
+the formula in example 2:
+$$
+P_Y(y) = \int_{-\infty}^{\infty} |s|P_{X_1 X_2}(sy,s) \, ds = 
+\frac{1}{2 \pi \sqrt{ac - b^2}} \int_{-\infty}^{\infty} 
+|s|e^{-\left([sy - \mu_1, s - \mu_2]
+\Sigma^{-1} [sy - \mu_1, s - \mu_2]^T \right)/2} \, ds
+$$
+This may be reduced to:
+$$
+\eqalign{
+P_Y(y) & =\frac{\sqrt{ac - b^2}e^{-\gamma}}{\pi (cy^2 - 2by + a)} \left[ 1 +
+\sqrt{\pi} \tau(y) e^{\tau(y)^2} \, {\rm erf}\left(\tau(y) \right) \right]}
+$$
+
+where 
+$$
+\eqalign{
+\gamma & = \frac{c\mu_1^2 - 2b\mu_1\mu_2 + a\mu_2^2}{2(ac - b^2)} \cr
+\tau(y) & =
+\frac{|y(c\mu_1 - b\mu_2) + a\mu_2 - b\mu_1|}
+{\sqrt{cy^2 - 2by + a} \sqrt{2(ac - b^2)}}}
+$$
+
+The function $\tau(y)$ is bounded on the interval 
+$(-\infty, \infty)$. This follows since by the positive definiteness of 
+$\Sigma$, the denominator is bound away from $0$; while, 
+for large values of $y$, $\tau(y)$ is at most $O(1)$.
+
+{\bf Note:} As a consequence, this distribution does not 
+have {\it any} moments. This follows since the function $P_Y(y)$ is 
+$O(1 / y^2)$, when $|y|$ is large. {\it Therefore, one cannot talk about the 
+mean or standard deviation of this distribution.}
+
+This distribution is also not unimodal in general. 
+
+\subsection{Special Cases}
+
+The density function simplifies under the condition: 
+$\mu_1 = \mu_2 = 0$. $P_Y(y)$ is given by:
+$$
+P_Y(y) = \frac{\sqrt{ac - b^2}}{\pi (cy^2 - 2by + a)} 
+= \frac{\sqrt{ac - b^2}}{\pi \left( (\sqrt{c}y -
+\frac{b}{\sqrt{c}})^2 + (a - \frac{b^2}{c})\right)} 
+$$
+If, in addition, $x_1$ and $x_2$ are uncorrelated, then $P_Y(y)$
+becomes:
+$$
+P_Y(y) = \frac{\sqrt{ac}}{\pi (cy^2 + a)}
+$$
+Finally, if we further set, $a = c = 1, b = 0$; that is, $x_1$ and $x_2$
+are independent
+Gaussians each with mean 0 and variance 1, then $P_Y(y)$ becomes:
+$$
+P_Y(y) = \frac{1}{\pi (y^2 + 1)}
+$$
+
 \bye
+
+
