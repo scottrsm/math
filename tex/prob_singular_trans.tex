@@ -1,0 +1,219 @@
+%% Needed for the postscript graphics.
+%%\input epsf
+
+%% My macros.
+\input ../util/macro
+
+%% The length of a page is 10in.
+%%\vsize=10in
+
+%\font\helv = phvr
+%\font\times = ptmr
+%\font\zap = pzcmi at 12pt
+%\font\pal = pplro at 12pt
+
+%% Don't indent paragraphs.
+\parindent=0pt
+\parskip=\baselineskip
+
+\mantitle{Singular Transformations of Probability Density Functions}
+{R. Scott McIntire} {Dec 03 2003}
+
+\subsection{Overview}
+For non-singular transformations of variables with distributions, there 
+are standard formulas that describe the probability distribution 
+of the target variable. However, in the case of singular transformations,
+there is no immediate formula. Often what is done is to add independent 
+variables in a somewhat add-hoc fashion to make the transformation 
+non-singular, and then "integrate out"
+the independent variables. Below we describe a procedure to determine the
+target distribution with a more systematic process.
+
+\subsection{Singular Transformation Density Formula}
+We provide and prove a theorem for constructing the probability 
+density function of a random variable $Y$ which is a singular function of a 
+random variable $X$. By singular, we mean that $Y = f(X)$ with $f$ a function
+such that $f: R^n \mapsto R^m$ and $m < n$. 
+
+\proclaim Theorem 1. Let $f : {\bf R}^n \mapsto {\bf R}^m$ be a continuously
+          differentiable function with $n > m$. If for each
+          ${\bf y}$, $f^{-1}({\bf y})$ is a union of $k({\bf y})$ 
+          disjoint $C^1$ $n-m$ dimensional manifolds with
+          parameterizations ${\bf x}_i(\mu; {\bf y}), \;
+          i~\in~[1,k({\bf y})], \; \mu \in \Omega_i \subseteq {\bf R}^{n-m}$,
+          with $P_X({\bf x})$ being the continuous probability
+          density function of the random variable $X$, then the 
+          density function $P_Y({\bf y})$ of the random variable $Y$ 
+          defined by $Y = f(X)$ exists, is continuous, and is given by
+$$
+\eqalignno{
+P_Y({\bf y}) & = \sum_{i=1}^{k({\bf y})} \int_{\Omega_i}
+{P_X({\bf x}_i(\mu; {\bf y})) \over \sqrt{|Df({\bf x}_i(\mu; {\bf y})) \;
+Df^T({\bf x}_i(\mu; {\bf y}))|}} \; \sqrt{|D_{\mu}
+{\bf x}_i^T(\mu; {\bf y})
+\; D_{\mu}{\bf x}_i(\mu; {\bf y})|}  \; d\mu}
+$$
+
+\smallskip
+
+\subsection{Prerequisite Results}
+We recall how to compute the pseudo inverse of a matrix which maps from 
+a high dimension to a low dimension.
+
+\proclaim Lemma 1. Let $A : {\bf R}^n \mapsto {\bf R}^m$ be a linear 
+transformation with $n > m$. If the rank of $A$ is $m$, then the pseudo 
+inverse of $A$ is $A^T (AA^T)^{-1}$.
+
+${\bf proof:}$ A given ${\bf x} \in R^n$ can be written uniquely 
+as ${\bf x} = {\bf x_1} + {\bf x_2}$ 
+where ${\bf x_1} \in R(A^T)$ and ${\bf x_2} \in N(A)$. For a given 
+${\bf y} \in R^m$, it easy to show that there is a unique 
+${\bf x_p} \in R(A^T)$ such that 
+$A {\bf x_p} = {\bf y}$. The set of all ${\bf x} \in R^n$ such that 
+$A{\bf x} = {\bf y}$ has the form 
+$\{ {\bf x_p + x_n} | {\bf x_n} \in N(A)\}$. The pseudo inverse of ${\bf y}$
+is defined to be ${\bf x_p}$. Since $R(A^T) \perp N(A)$, ${\bf x_p}$ is the 
+solution to the problem:
+$$
+\eqalignno{
+& \min_{\bf x} \|{\bf x}\|^2 & \cr
+{\rm subject \; to:} \enspace & {\bf y} = A{\bf x} & \cr
+}
+$$
+
+The solution of this can be found using Lagrange multipliers. The resulting
+minimization problem is :
+$$
+\min_{\bf x} F({\bf x}) = \min_{\bf x} \|{\bf x}\|^2 + <{\bf \lambda}, {\bf y} - A{\bf x}>
+$$
+At a minimum, ${\bf x}^*$, $DF({\bf x}^*) ({\bf h}) = {\bf 0}$. 
+$DF({\bf x}^*)$ 
+can be computed from 
+$F({\bf x} + {\bf h}) = F({\bf x}) + DF({\bf x})(h) + o({\bf h})$. The order 
+${\bf h}$ terms are:
+$$
+2<{\bf x}, {\bf h}> - <{\bf \lambda}, A{\bf h}>
+$$
+Therefore, $DF({\bf x}^*)({\bf h}) = 
+<2 {\bf x}^* - A^T {\bf \lambda}, {\bf h}>$. Since $DF({\bf x}^*) \equiv 0$, we
+have that $2 {\bf x}^* - A^T {\bf \lambda} = {\bf 0}$. Applying $A$ to this 
+last equation and using the fact that $A$ has rank $m$ and 
+$A{\bf x}^* = {\bf y}$ yields ${\bf \lambda} = 2 (A A^T)^{-1} {\bf y}$.
+This implies that ${\bf x}^* = A^T (A A^T)^{-1} {\bf y}$.
+
+\bigskip
+
+We need the following change of volume formula:
+
+\proclaim Lemma 2. Let 
+$A : {\bf R}^n \mapsto {\bf R}^m$ be a linear 
+transformation with $n < m$, then if $A$ has rank $n$ it transforms the 
+$n$ dimensional unit cube in $R^n$ to a region in $R^m$ with 
+$n$ dimensional volume 
+$\sqrt{ |A^T A|}$.
+
+${\bf proof:}$ Since $R(A)$ has rank $n$, there is a linear map 
+$P: R(A) \mapsto R^n$ which is a linear isomorphism that preserves the 
+inner product. That is, $<P {\bf x}, P{\bf y}> \; = \; <{\bf x}, {\bf y}>$. Or,
+$<(P^TP  - I){\bf x}, {\bf y}> \; = \; 0 \enspace \forall {\bf x}, {\bf y}$. 
+This implies that $P^TP \equiv I$. The change in volume of the 
+unit cube under $PA$ is the same as $A$ as P preserves volumes. However,
+$PA$ is a map from $R^n$ to $R^n$, so it changes the volume of the unit cube
+by $|PA|$. Since for given transformations, $B, C: R^n \mapsto R^n$ we have 
+$|B^T| = B$ and $|BC| = |B| |C|$, it follows that 
+$|PA|^2 = |PA| |PA| = |A^TP^T| |PA| = |A^TP^T P A| = |A^TA|$. The last 
+equality comes from the fact that $P^TP = I$.
+Therefore, the change in volume is $\sqrt{|A^TA|}$.
+
+\bigskip
+
+\subsection{Proof of Singular Transformation Formula}
+
+We now proceed with the proof of Theorem 1.
+\smallskip
+
+${\bf proof:}$ Let ${\bf \mu}$ be the induced probability measure defined by%
+\footnote{\dag}{The measure extends in a natural way to all Lebesgue measurable sets.}
+$$
+{\bf \mu}(\Omega_y) = \int_{f^{-1}(\Omega_y)} P_X({\bf x}) \, d{\bf x}
+$$
+
+Given an arbitrary Borel measurable region $\Omega_Y$ and letting
+$\Omega_X = f^{-1}(\Omega_Y)$ we have that
+$$
+\eqalignno{
+{\bf \mu}(\Omega_Y) & = 
+\int_{\Omega_X} P_X({\bf x}) \, d{\bf x} & (1) \cr
+}
+$$
+{\it Assume\/} that $\Omega_X$ is composed of just one $n-m$ dimensional
+manifold. In this case there are local coordinates ${\bf x_1}, {\bf x_2}$, 
+and manifolds $\Omega_{X_1}$, $\Omega_{X_2}$, such that the manifold, 
+$\Omega_X$ is a product of $\Omega_{X_1}$ and $\Omega_{X_2}$ with
+the component manifolds $\Omega_{X_1}$, $\Omega_{X_2}$, 
+locally tangent to $R(Df^T({\bf x}))$ and $N(Df({\bf x}))$ respectively.
+Therefore,
+$$
+{\bf \mu}(\Omega_y) = 
+\int_{\Omega_X} P_X({\bf x}({\bf x_1}, {\bf x_2})) \, 
+d{\bf x_1} \wedge d{\bf x_2}
+$$
+Since for a given transformation $A$, $R(A^T) \perp N(A)$, it follows
+that the product measure $d{\bf x_1} \wedge d{\bf x_2}$ is equal to 
+the product of the component measures.
+Thus, we may write (1) as 
+$$
+{\bf \mu}(\Omega_y) = 
+\int_{\Omega_{X_1}} \int_{\Omega_{X_2}} 
+P_X({\bf x}({\bf x_1}, {\bf x_2})) \, d{\bf x_1} \, d{\bf x_2}
+$$
+For a given ${\bf x_2}$, ${\bf y}$ maps to the manifold $\Omega_{X_1}$ in an 
+invertible way (locally). The linear approximation to the map $f$ is $Df$, its
+pseudo inverse is by lemma 1:
+${\bf x} = Df^T({\bf x}) (Df({\bf x}) Df^T({\bf x}))^{-1} {\bf y}$.
+Using ${\bf y}$ to express ${\bf x_1}$ combined with lemma 2 we have
+$$
+{\bf \mu}(\Omega_y) = 
+\int_{\Omega_Y} \int_{\Omega_{X_2}} 
+{P_X({\bf x}({\bf y}, {\bf x_2})) \over 
+\sqrt{ |Df({\bf x}({\bf y}, {\bf x_2})) Df^T({\bf x}({\bf y}, {\bf x_2}))| } }
+\, d{\bf x_2} \, d{\bf y}
+$$
+We argue now that the measure ${\bf \mu}$ is absolutely continuous with 
+respect to Lebegue measure\footnote{\ddag}{Since the Lebegue mesaure is regular, any Lebegue measureable set can be approximated by a Borel measureable set.} 
+so that there exists a mesureable function, $P_Y(y)$
+such that $\mu(\Omega_Y) = \int_{\Omega_Y} P_Y(y) \, d{\bf y}$.
+So that
+$$
+\int_{\Omega_Y} P_Y({\bf y}) -
+\left( \int_{\Omega_{X_2}} 
+{P_X({\bf x}({\bf y}, {\bf x_2})) \over 
+\sqrt{ |Df({\bf x}({\bf y}, {\bf x_2})) Df^T({\bf x}({\bf y}, {\bf x_2}))| } }
+\,  d{\bf x_2} \right) \, d{\bf y}
+$$
+Since this is true for all Borel measureable sets, $\Omega_Y$, we have
+$$
+P_Y({\bf y}) =
+\int_{\Omega_{X_2}} 
+{P_X({\bf x}({\bf y}, {\bf x_2})) \over 
+\sqrt{ |Df({\bf x}({\bf y}, {\bf x_2})) Df^T({\bf x}({\bf y}, {\bf x_2}))| } }
+\,  d{\bf x_2}
+$$
+But in this case the component manifold, $\Omega_2$, is just $f^{-1}({\bf y})$.
+If we parameterize this as ${\bf x}({\bf y}, {\bf \mu})$, then by lemma 2 we
+have
+$$
+P_Y({\bf y}) =
+\int_{f^{-1}(y)}
+{P_X({\bf x}({\bf y}, {\bf \mu})) \over 
+\sqrt{ |Df({\bf x}({\bf y}, {\bf \mu})) Df^T({\bf x}({\bf y}, {\bf \mu})) | } }
+\,  \sqrt{|D_{{\bf \mu}}{\bf x}^T({\bf y}, {\bf \mu})) 
+D_{{\bf \mu}}{\bf x}({\bf y}, {\bf \mu})) | } \, d{\bf \mu}
+$$
+
+To conclude, in the general case, the we may have a situation like $y = x^2$. 
+Here, there are two manifolds that contribute to the probability distribution of $y$.
+In general, there may be some number of these manifolds which map on to the target variable. 
+In this case we add theor contributions to the distribution of the target variable, $Y$.
+
+\bye

@@ -1,0 +1,146 @@
+%% Needed for the postscript graphics.
+%%\input epsf
+
+%% My macros.
+\input ../util/macro
+
+%% The length of a page is 10in.
+%%\vsize=10in
+
+%\font\helv = phvr
+%\font\times = ptmr
+%\font\zap = pzcmi at 12pt
+%\font\pal = pplro at 12pt
+
+%% Don't indent paragraphs.
+\parindent=0pt
+\parskip=\baselineskip
+
+\mansubtitle{Measure Theoretic Conditional Expectation}
+        {in an Elementary Setting}
+{R. Scott McIntire}{Aug 2 2004}
+
+\section{Overview}
+The measure theoretic approach to conditional expectation can be confusing
+when compared to the traditional approach -- especially in a discrete 
+setting. In what follows we go through a conditional 
+expectation problem within a discrete and familiar setting in an attempt 
+to reduce this confusion. In the process, we show explicitly that the 
+conditional expectation function is non-measurable in the origin 
+measure space.
+
+
+\section{Elementary Probability Example Using Measure Theory}
+Let $X = \{D_1, D_2, D_3, D_4, D_5, D_6\}$ and define a function $P$ by 
+$P(D_i) = \frac{1}{6}$, for $i\in \{1,2,3,4,5,6\}$. The intent is that $P$ will 
+become a probability measure for the space we construct.
+Let ${\cal E} = 2^X$ be the sigma 
+consisting of the power set of $X$. We extend $P$ for every element in the sigma algebra.
+Since the sigma algebra consists of all sets 
+we need an assignment for an arbitrary set, $A$. 
+The assignment is $P(A) = \frac{|A|}{6}$; that is the cardinality of the set divided by 6.
+We now have a measure space; in fact, a probability space: $(P,X,{\cal E})$.
+Note that for a probability space we need an event space, $X$, a sigma algebra of sets 
+(in the discrete case just an algebra), and a function $P$ which takes 
+elements of the sigma algebra to [0,1] with the property that 
+$$
+P\bigl(\mathop{\bigcup}_{i=1}^N A_i\bigr) = \sum_{i=1}^N P(A_i) 
+\quad {\rm when}\;  A_k \cap A_j = \emptyset \quad k\neq j
+$$
+
+We now consider a random variable from which we will get a sub-sigma algebra.
+Let 
+$$
+g(D_i) = \cases{0 & if $i$ is even;\cr
+1 & if $i$ is odd \cr 
+}
+$$
+In a discrete space the sigma algebra generated from $g$ is the algebra of sets generated from 
+the sets:
+$g^{-1}(0), g^{-1}(1), g^{-1}(a)$, for $a \neq 0,1$. It is not too hard to see that 
+${\cal F} = \{\emptyset, \{1,3\}, \{2,4,6\}, \{1,2,3,4,5,6\}\}$.
+
+For a discrete space a function, $f$, is measurable with respect to a sigma algebra if 
+$f^{-1}(a)$ is an element in the sigma algebra for all $a\in (-\infty, \infty)$.
+This has implications for the sigma algebra ${\cal F}$. The claim is that any function 
+which is measurable over ${\cal F}$ has the property that $f$ is constant on these sets 
+$\{1,3\}$ and $\{2,4,6\}$. That is, the minimal elements of the algebra, elements which 
+have no non trivial subsets. To see this suppose that $f(1)$ differs from $f(3)$.
+Then $f^{-1}(f(1))$ is a non trivial subset of $\{1,3\}$ as is $f^{-1}(f(3))$.
+These two sets must differ since $f(1)$ and $f(3)$ differ. This means that they 
+are respectively $\{1\}$ and $\{3\}$. But these sets are not in our sigma algebra.
+Therefore, $f$ must be constant on $\{1,3\}$. In the same way it is the case that 
+$f$ is constant on the other minimal set $\{2,4,6\}$.
+
+Notice that while any function over the measure space $(P,X,{\cal E})$ is measurable, we 
+can write down a specific function that is non-measurable with respect to ${\cal F}$.
+We know that all we have to do is come up with a function that differs on either of the 
+sets $\{1,3\}$ or $\{2,4,6\}$. Let $f(D_i) = i$, for $i\in\{1,2,3,4,5,6\}$, for instance.
+
+\section{Conditional Expectation}
+Given a probability space $(P,X,{\cal E})$, the conditional expectation of a measurable 
+function $f$ with respect to a sub-sigma algebra ${\cal F}$ is the unique ${\cal F}$ 
+measurable function (random variable) labeled, $E[f/{\cal F}]$, such that 
+$$
+\eqalignno{
+\int_{\Lambda} E[f/{\cal F}] \, dP & 
+= \int_{\Lambda} f \, dP \quad \forall \Lambda \in {\cal F} & (1) \cr
+\int_{\Lambda} E[f/{\cal F}] \, dP & 
+}
+$$
+That is, $E[f/{\cal F}]$ is a measurable function in the probability space $(P,X,{\cal F})$.
+Although it seems that $f$ itself satisfies this equation you have to be careful. The function 
+we are looking for must be measurable with respect to ${\cal F}$, and since ${\cal F}$ is 
+a sub-sigma algebra of ${\cal E}$, it is quite possible that $f$ is not ${\cal F}$ measurable.
+However, if $f$ is measurable with respect to ${\cal F}$ then it is its own conditional 
+expectation. We have the following basic facts about conditional expectation:
+
+\beginEnum
+\item{$E[f/{\cal F}] = f$ when $f$ is measurable with respect to ${\cal F}$;}
+\item{$E[E[f/{\cal F}]/{\cal F}] = E[f/{\cal F}]$;}
+\item{$E[(f - E[f/{\cal F}]) / {\cal F}] = 0$.}
+\endEnum
+
+Consider the function of the last section, $f(D_i) = i$, which is measurable in the 
+space $(P,X,{\cal E})$. Let ${\cal F}$ be the sub-sigma algebra of the last section as well.
+We now compute the conditional expectation of $f$ with respect to ${\cal F}$.
+Using (1) we choose two $\Lambda$'s: $\Lambda_1 = \{1,3\}$ and $\Lambda_2 = \{2,4,6\}$. 
+We have
+$$
+\eqalignno{
+\int_{\Lambda_1} E[f/{\cal F}] \, dP & 
+= \int_{\Lambda_1} f \, dP & (2) \cr
+}
+$$
+and
+$$
+\eqalignno{
+\int_{\Lambda_2} E[f/{\cal F}] \, dP & 
+= \int_{\Lambda_2} f \, dP & (3) \cr
+}
+$$
+Since 
+$E[f/{\cal F}]$ is constant on these set we have from (2)
+$$
+E[f/{\cal F}](D_1) * P(\Lambda_1) = f(D_1) * P(D_1) + f(D_3) * P(D_3) 
+= \frac{1}{6} + \frac{3}{6} = \frac{2}{3}
+$$
+Since $P(\Lambda_1) = \frac{2}{6} = \frac{1}{3}$, we have that 
+$$
+E[f/{\cal F}](D_1) = E[f/{\cal F}](D_3) = 2
+$$
+In the same way we can find the value of $E[f/{\cal F}]$ on the set $\{2,4,6\}$
+$$
+E[f/{\cal F}](D_2) * P(\Lambda_2) = f(D_2) * P(D_2) + f(D_4) * P(D_4) + f(D_6) * P(6) 
+= \frac{2}{6} + \frac{4}{6} + \frac{6}{6} = 2
+$$
+Since $P(\Lambda_2) = \frac{3}{6} = \frac{1}{2}$, we have that 
+$$
+E[f/{\cal F}](D_2) = E[f/{\cal F}](D_4) = E[f/{\cal F}](D_6) = 4
+$$
+We have now determined the value of $E[f/{\cal F}]$ for all values: $D_1\ldots D_6$.
+
+
+\bye
+
+

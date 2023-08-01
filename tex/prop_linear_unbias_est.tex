@@ -1,0 +1,275 @@
+\input ../util/macro
+
+\parindent = 0pt
+
+\mantitle{Properties of a Linear Unbiased Minimum Variance Estimator}
+{R. Scott McIntire}{Aug 1, 2023}
+
+\parskip=8pt
+
+
+\section{Overview}
+A standard problem is to find the linear unbiased ``minimum'' variance estimator
+for the over determined problem\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}
+{This means that $n > m$.}: $A {\bf x} = {\bf b}$, where 
+$A$ is $nxm$ and ${\bf x}$ and
+${\bf b}$ are $mx1$ and $nx1$ random variables respectively. The
+covariance of ${\bf b}$ is given as $V$ and is assumed invertible. 
+We look for a linear unbiased estimator for ${\bf x}$ of the form 
+${\bf x}^* = L {\bf b}$, where $L\in {\bf R}^{mn}$. Since ${\bf x}^*$
+is unbiased we must have 
+$E{{\bf x} - {\bf x}^*} = E[{\bf x} - L
+  {\bf b}] = E[{\bf x} - LA{\bf x}]$. We satisfy this constraint by
+requiring that $LA = I$. This implies that $A$ and $L$ have rank $m$.
+The covariance of $L{\bf b}$ is $LVL^T$. The problem now is to find
+the best $L$ such that $LA = I$ and the covariance matrix, $LVL^T$, is
+minimized in some sense.
+
+The problem may be restated as choosing $L$ to ``minimize'' the norm of $LVL^T$
+subject to the constraint $LA = I$. The question is what norm does one
+use. The ``natural'' norm of a matrix is $\sqrt{{\rm
+    tr}\left(M^TM\right)}$. This 
+    follows from considering the standard basis in ${\bf R}^{nm}$ and
+    using the usual norm of the vector space ${\bf R}^{nm}$. 
+The matrix of interest, $LVL^T$ is positive definite
+    symmetric; in this case, each of the ``trace'' 
+expressions, $\root k \of {{\rm
+          tr}\left(M^k\right)} \;\; (k \in [1,\infty ))$, is a norm for a 
+positive definite matrix $M_{mxm}$.
+
+\section{Do the Norms Matter?}
+The question is, do different choices of norms lead to a different
+solution, $L$? To answer this, we solve the constrained minimization 
+problem that results from each of these trace norms\footnote{\kern 0.5pt *}
+{Equivalently, we minimize the $k^{\rm th}$ power
+of the $k^{\rm th}$ trace norm.}:
+$$
+F(L; k) = {\rm tr}\left((LVL^T)^k - (LA - I)\Lambda_{k}^T\right) 
+\quad k \in [1,\infty)
+$$
+where, $\Lambda_k \in {\bf R}^{mm}$ is a Lagrange multiplier.
+
+The derivative of $F$ with respect to $L$ is given by:
+$$
+\eqalignno{
+DF(L)(H) & = {\rm tr}\left[ k(LVL^T)^{k-1}(HVL^T + LVH^T) - 
+HA\Lambda_k^T\right]}
+$$
+At a minimum value, $L^*$, the derivative must vanish; therefore,
+$$
+\eqalignno{
+& {\rm tr}\left[ k(L^*VL^{*T})^{k-1}(HVL^{*T} + L^*VH^T) - 
+HA\Lambda_k^T\right] = 0
+  \quad \forall H \in {\bf R}^{mn} &
+(1) \cr}
+$$
+
+In the special case $k = 1$, equation (1) implies that 
+$ 2VL^{*T}  = A\Lambda_1^T$; or, 
+$$
+\eqalignno{
+2L^{*T} & = V^{-1} A \Lambda_1^T & (2) \cr }
+$$
+Multiplying both sides by $A^T$ and using the fact that
+$A^TL^{*T} = I$ yields $2I = A^TV^{-1}A\Lambda_1$. Since $A$ has rank
+$m$, it follows that $\Lambda_1 = 2(A^TV^{-1}A)^{-1}$. Combining this
+with equation (2) gives
+$$
+L^* = (A^TV^{-1}A)^{-1}A^TV^{-1}
+$$
+
+We now proceed with the case when $k > 1$. Given any ${\tilde H} \in
+{\bf R}^{mm}$, 
+let $H = {\tilde H}A^TV^{-1}$. Then equation (1) becomes:
+
+$$
+\eqalignno{
+& {\rm tr}\left[ k(L^*VL^{*T})^{k-1}({\tilde H}A^TL^{*T} + L^*A{\tilde H}^T) -
+  {\tilde H}(A^TV^{-1}A)\Lambda_k^T\right]
+= 0 \quad \forall {\tilde H} \in {\bf R}^{mm}  \cr }
+$$
+
+Or,
+$$
+\eqalignno{
+& {\rm tr}\left[ k(L^*VL^{*T})^{k-1}({\tilde H} + {\tilde H}^T) -
+  {\tilde H}(A^TV^{-1}A)\Lambda_k^T\right]
+= 0 \quad \forall {\tilde H} \in {\bf R}^{mm} & (3)  \cr }
+$$
+since $L^*A = I$ and $A^TL^{*T} = I$.
+
+
+Given any $H^\prime \in {\bf R}^{mm}$, consider ${\tilde H} =
+H^{\prime}(A^TV^{-1}A)^{-1}$ with $H^\prime$
+anti-symmetric. Therefore, ${\tilde H}$ is anti-symmetric; equation
+(3) becomes ${\rm tr}(H^\prime\Lambda_k^T) = 0 \quad \forall
+H_{mxm}^\prime$ with $H^\prime$ anti-symmetric. This implies that
+$\Lambda_k$ is symmetric.
+
+Equation (3) is true for all symmetric ${\tilde H}$. In this case it
+reads:
+
+$$
+\eqalignno{
+& {\rm tr}\left[ \biggl(2k(L^*VL^{*T})^{k-1} -
+  \Lambda_k(A^TV^{-1}A)\biggr) {\tilde H}\right]
+= 0 \quad \forall {\tilde H} \in {\bf R}^{mm} \;, \; {\tilde H} \; {\rm
+  symmetric} & (3s)  \cr }
+$$
+
+Since $(L^*VL^{*T})^{k-1}$ and $\Lambda_k(A^TV^{-1}A)$ are both
+symmetric, equation (3s) implies that 
+$$
+2k(L^*VL^{*T})^{k-1} - \Lambda_k(A^TV^{-1}A) = 0 
+$$
+
+Since $A$ has rank $m$, $(A^TV^{-1}A)^{-1}$ exists and we can solve for 
+$\Lambda_k$.
+$$
+\Lambda_k = 2k(L^*VL^{*T})^{k-1}(A^TV^{-1}A)^{-1}
+$$
+
+Equation (1) now becomes:
+
+$$
+{\rm tr}\left[k(L^*VL^{*T})^{k-1}(HVL^{*T} + L^*VH^T) -
+  2kHA(A^TV^{-1}A)^{-1}(L^*VL^{*T})^{k-1}\right] = 0 \quad 
+\forall H \in {\bf R}^{mn}
+$$
+
+Or,
+
+$$
+{\rm tr}\left[\biggl( (HVL^{*T} + L^*VH^T) / 2 -
+  HA(A^TV^{-1}A)^{-1}\biggr) (L^*VL^{*T})^{k-1}\right] = 0 \quad 
+  \forall H \in {\bf R}^{mn}
+$$
+
+Which may be written
+$$
+{\rm tr}\left[\biggl( HVL^{*T} + ( L^*VH^T  - HVL^{*T} )/ 2 -
+  HA(A^TV^{-1}A)^{-1}\biggr) (L^*VL^{*T})^{k-1}\right] = 0 \quad 
+  \forall H \in {\bf R}^{mn}
+$$
+
+Since $( L^*VH^T  - HVL^{*T} )/ 2$ is anti-symmetric and $(L^*VL^{*T})^{k-1}$
+is symmetric, the trace of their product is zero. Therefore we may write
+the last equation as
+
+$$
+ {\rm tr}\left[\biggl( HVL^{*T} -
+  HA(A^TV^{-1}A)^{-1}\biggr) (L^*VL^{*T})^{k-1}\right] = 0 \quad \forall H
+    \in {\bf R}^{mn}
+$$
+
+Or,
+
+$$
+ {\rm tr}\left[H\biggl( VL^{*T} -
+  A(A^TV^{-1}A)^{-1}\biggr) (L^*VL^{*T})^{k-1}\right] = 0 \quad \forall H
+    \in {\bf R}^{mn} 
+$$
+
+This implies that $\left( VL^{*T} - A(A^TV^{-1}A)^{-1}\right)
+(L^*VL^{*T}) = 0 $.
+Since $L^*$ has rank $m$, $(L^*VL^{*T})^{-(k-1)}$ exists, so that
+$ VL^{*T} - A(A^TV^{-1}A)^{-1} = 0 $. Hence, 
+$$
+L^* = (A^TV^{-1}A)^{-1}A^TV^{-1}
+$$
+
+
+Therefore, it does not matter which of the matrix norms we
+use; the answer is the same. 
+
+\vskip .25in
+\section{Related features of ``the'' best estimator}
+We now use the results of the trace norms above to show that 
+the estimator obtained has the smallest maximum eigenvalue 
+over all linear estimators.
+
+\proclaim Lemma 1. If $\Omega$ is a closed set in $R^m$ and if 
+$x^* \in \Omega$ is a solution to the family of
+problems: \break ${\rm Min}\;\varphi_k(x)\;{\rm over}\;\{x \in \Omega:
+g(x) = 0\} \; k \in [1,\infty)$; further, 
+if  $\varphi_k$ are functions which converge point-wise to the
+continuous function $\varphi$ on $\Omega$ with the accretive property
+that 
+$\lim_{\|x\| \rightarrow \infty}\limits
+\varphi(x) \rightarrow \infty$, then $x^*$ is a solution of 
+${\rm Min}\; \varphi(x) \; {\rm over} \; \{x \in \Omega: g(x) = 0\}$.
+
+{\bf Proof:\/} 
+
+{\it Existence:\/}
+We know there is a non empty set of points that satisfy
+$\{x \in \Omega: g(x) = 0\}$. If the minimum of $\varphi$ is attained 
+on this set, then a solution exists. Otherwise, the infimum on this set 
+is finite, by the accretive property of $\varphi$. 
+Let $x_n$ be a sequence of points in this set 
+such that $\varphi(x_n)$ converges to the infimum. Again, by the
+accretive property, the $\{x_n\}$ are bounded in $\Omega$. Therefore,
+since $\Omega$ is closed, 
+there exists a subsequence of the $x_n$ which converges to a point, say
+$x^\prime \in \Omega$. By the continuity of $\varphi$ on $\Omega$,
+$x^\prime$ 
+must attain the infimum of
+$\varphi$ on the set $\{x \in \Omega : g(x) = 0\}$; so that a solution exists.
+
+We proceed to show that $x^*$ is a solution.
+Let ${\tilde x}$ be a solution of the problem 
+${\rm Min}\; \varphi(x) \; {\rm over} \; \{x \in \Omega : g(x) = 0\}$;
+then for any $\epsilon > 0$, we have, for sufficiently large $n$, 
+(since $\varphi_n$ converges point-wise to $\varphi$)
+$$
+ \varphi_n({\tilde x}) < \varphi({\tilde x}) + \epsilon
+$$
+Since $x^*$ is a solution for $\varphi_n$, we also have
+$$
+\varphi_n(x^*) \le \varphi_n({\tilde x})
+$$
+Combining the two gives
+
+$$
+\varphi_n(x^*) \le \varphi_n({\tilde x}) < \varphi({\tilde x}) + \epsilon
+$$
+
+Or,
+$$
+\varphi_n(x^*) \le \varphi({\tilde x}) + \epsilon
+$$
+
+Taking the limit as $n \rightarrow \infty$ we have:
+
+$$
+\varphi(x^*) \le \varphi({\tilde x}) + \epsilon
+$$
+
+Since this is true for all $\epsilon > 0$ we necessarily have that
+$$
+\varphi(x^*) \le \varphi({\tilde x})
+$$
+
+Noting that $x^*$ satisfies the constraint, $g(x) = 0$, we infer that 
+$x^*$ is also a solution.
+
+
+\proclaim Theorem 1. The linear unbiased estimator previously obtained for the
+least squares problem, $L^*{\bf b} =
+(A^TV^{-1}A)^{-1}A^TV^{-1}{\bf b}$, is also the solution that
+minimizes the maximum eigenvalue of the estimator's convariance matrix, 
+$LVL^T$, subject to the constraint $L_{mxn}A_{nxm} = I_{mxm}$.
+
+{\bf Proof:\/} We apply Lemma 1 with $\Omega$ equal to the $mxm$ symmetric
+matrices; $\varphi$ equal to the $L_2$ matrix norm; and
+$\varphi_n$ equal to the $n^{\rm th}$ trace norm. Theorem 1 follows
+after collecting the facts: 
+
+\item{The maximum eigenvalue of a symmetric matrix is the result of 
+taking the limit of the trace norms of a symmetric matrix.}
+\item{The $L_2$ norm applied to a symmetric matrix is the maximum
+eigenvalue of that matrix.}
+\item{The $L_2$ norm is accretive.}
+
+
+\bye
