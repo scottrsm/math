@@ -1,0 +1,548 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{7.5in}
+\setlength{\hoffset}{-0.75in}
+\setlength{\voffset}{-0.75in}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.5\baselineskip}
+
+\input{latex_macros.tex}
+
+\title{Where does the Dot Product Come From?}
+\author{R. Scott McIntire}
+\date{Aug 1, 2023}
+
+\begin{document}
+
+\maketitle
+
+\section{Overview}
+One of the fundamental pieces of linear algebra is a bilinear function
+called the "dot-product". It is an important work horse, but where does
+it come from? Please don't tell me what it is and how to compute it.
+I would like to know how it came to be; or, at least, how might one
+have thought of it. The rest of this paper tries to do just that.
+
+\section{ Vectors, Distance Relationships, and Projections}
+Let's start with the real line and solve a simple problem. If a car starts at 
+point $p_0$ on the real line and moves at a velocity of $v$ when will the car 
+reach the point $p_1$?
+
+
+That is, find a $t^*$ so that
+$$ p_0 + t^* v = p_1$$
+So $t^*$ satisfies:
+$$ t^* \, v = p_1 - p_0$$
+Note: we can interpret this last equation as shifting the starting point 
+to $0$ and then solving for $t^*$.
+
+Since $v$ is a number we can divide and solve for 
+$t^*$:%\footnote{Note: $t^*$ can be negative.}
+$$ t^* = \frac{p_1 - p_0}{v} $$
+
+This is the solution {\em provided\/} $v$ is not $0$.
+
+A vector is just a list of numbers. A first use case is to represent points 
+in 2 and 3 dimensional space, but there are a lot of applications where the 
+list of numbers is larger than 2 or 3. Keeping with the car example, a more 
+realistic problem would be to drive on a surface -- in two dimensions -- and 
+solve the problem above. To do so, we need a way to multiply a 
+number (time), $t$, with a velocity vector, representing both a speed and 
+a direction. And we need to be able to add this to the original position to 
+get the current position.
+Over time, $t$, the path swept out, or {\em spanned\/} by the car is a 
+line in two dimensional space: 
+$L = \{{\bf p} + t \, {\bf v} \, | \, t \in R\}$.
+
+We need to define what addition between two vectors is and what scalar 
+multiplication is in 2-D space. We define it for the more general case 
+of $n$ dimensional space as the idea is the same. We consider the space of 
+$n$ dimensional vectors as the collection of all lists of numbers of 
+length $n$. Every element from this space, $p$,
+will be written ${\bf p} = [p_1, p_2, \ldots, p_n]$.
+We consider this notation as not just a set of numbers but a set with order. 
+That is, the vector [1,2] is different from the vector [2,1].
+
+${\bf Def}$: Let ${\bf u}$ and ${\bf v}$ be two vectors in n-dimensional space. 
+Vector addition is defined as a function of the form: 
+${\rm vadd}(R^n, R^n) \mapsto R^n$. 
+
+We use the "infix" form of this function using the more 
+recognizable symbol "+" to define this operation as
+$$ ({\bf u} + {\bf v})_i \equiv u_i + v_i \quad \forall i \in [1,n]$$
+Scalar multiplication is defined as a function of the form: 
+${\rm smul}(\lambda, R^n) \mapsto R^n$. 
+
+We use the "infix" form of this function using
+the recognizable symbol "*" to define this operation as:
+$$ (\lambda * {\bf u})_i \equiv \lambda \, u_i \quad \forall i \in [1,n]$$
+
+Going forward, we will use the proximity of scalar, 
+$\lambda$ with a vector, ${\bf u}$ to mean scalar multiplication just as we 
+do with variables representing numbers.
+
+These definitions make sense in that the new position of a "car" after time 
+$t$ when starting at position ${\bf p}_0$ is determined by taking each of the 
+component positions and adjusting them by adding ${\bf t}$ times the 
+corresponding velocity component.
+
+You can think of the line as the collection of points a car passes over 
+with a starting position of ${\bf p}$ and velocity ${\bf v}$ at time $t$.
+Let's repeat the problem we worked out in the scalar case:
+At what time, if any, will the car reach the point ${\bf q}$?
+So, we need to solve for some $t^*$ so that: 
+$${\bf p} + t^* {\bf v} = {\bf q}$$
+We see that $t^*$ must satisfy
+$$ t^*{\bf v} = {\bf q} - {\bf p}$$
+But now, we can't just divide by ${\bf v}$ to get the answer, $t^*$, 
+as ${\bf v}$ is not a number.
+In any event, if ${\bf v}$ is not pointing to the destination, 
+${\bf q} - {\bf p}$, there is no chance of finding a solution.
+
+How about a different question? Drive a car on one of the roads near 
+${\bf p}_0$ and drop someone off on this road at the point closest to a 
+point ${\bf p}_1$. 
+In more mathematical terms: Starting at ${\bf p}_0$, drive with velocity 
+${\bf v}$ (go along some road at a fixed speed) and find the time $t^*$ at 
+which I can drop off a passenger so that I am as close as possible to the 
+destination, ${\bf p}_1$. 
+
+Need to solve: Find $t^*$ so that the distance between $t \, {\bf v}$ and 
+$({\bf p}_1 - {\bf p}_0)$; which is the same as minimizing the length of 
+$t \, {\bf v} - ({\bf p}_1 - {\bf p}_0)$. 
+This is the same as finding the time to get to the closest point to the 
+vector ${\bf p}_1 - {\bf p}_0$ when starting at $0$.
+
+So, we look instead at the simpler problem: Starting at ${\bf 0}$ and 
+driving with a velocity of ${\bf v}$, find $t^*$ so as to minimize the 
+distance to a given vector, ${\bf p}$.
+We will also generalize this to $n$ dimensions and {\em define\/} the 
+length of a vector, ${\bf x}$, as a generalization of the distance formula 
+for vectors in 2 and 3  dimensions; namely, 
+length(${\bf x}$) = $\sqrt{\sum_{i=1}^n x_i^2}$.
+$$ \mathop{\rm min}_{t} \sum_{i=1}^n (p_i - t v_i)^2 $$
+Using calculus, the minimum distance is achieved when the derivative 
+at $t^*$ is $0$.
+$$ -2 \sum_{i=1}^n (p_i - t^* v_i)v_i = 0$$
+$$t^* = \frac{\sum_{i=1}^n p_i v_i}{\sum_{i=1}^n v_i^2}$$
+The point that is closest along the line {\em spanned\/} by ${\bf v}$ is 
+called the projection of ${\bf p}$ onto ${\bf v}$.
+Denoted as $P_{\bf v}({\bf p})$
+It is given by:
+$$ P_{\bf v}({\bf p}) = \frac{\sum_{i=1}^n p_i v_i}{\sum_{i=1}^n v_i^2} \bf v $$
+We introduce a function that is a refactoring\footnote{This is a common 
+practice in the software world. If we start repeating code we refactor into 
+a subroutine.} of the essential element of the formula. 
+We see that we are repeating a sum in the numerator and the denominator.
+
+Define the "Dot Product" between two vectors as: 
+$${\bf a} {\boldsymbol \cdot} {\bf b} = \sum_{i=1}^n a_i b_i$$
+Now the numerator and denominator in the fraction in the projection 
+formula can be written:
+\begin{eqnarray*}
+  \sum_{i=1}^n p_i v_i & = & {\bf p} {\boldsymbol \cdot} {\bf v} \\
+  \sum_{i=1}^n v^2 & = & {\bf v} {\boldsymbol \cdot} {\bf v}
+\end{eqnarray*}
+With this refactoring, the projection formula can be simplified to:
+\be
+  P_{\bf v}({\bf p}) & = & \frac{{\bf p} {\boldsymbol \cdot} {\bf v}}{{\bf v}
+  {\boldsymbol \cdot} {\bf v}} {\bf v}
+\ee
+
+We use the function, $\| \cdot \|$ to denote length of a vector:
+$$ \|{\bf x}\|^2 = \sum_{i=1}^n x^2$$
+But this can be written more succinctly in terms of the dot product: 
+$$ \|{\bf x}\|^2 = {\bf x} {\boldsymbol \cdot} {\bf x} $$
+
+
+Getting back to the original problem, the closest point to ${\bf p}_1$ is:
+$$ P_{\bf v}({\bf p}_1 - {\bf p}_0) = \frac{({\bf p}_1 - {\bf p}_0) 
+    {\boldsymbol \cdot}{\bf v}}{{\bf v} {\boldsymbol \cdot} {\bf v}} {\bf v}$$
+
+There is good reason to have the name "product" in the name "Dot Product". 
+It has most of the properties of a multiplication operator.
+
+"Multiplication Properties" of the Dot Product:
+\bi
+  \item{${\bf p} {\boldsymbol \cdot} {\bf v} = {\bf v} 
+      {\boldsymbol \cdot} {\bf p} $ -- Dot product is symmetric.}
+  \item{$\left(\lambda_1 {\bf p}_1 + \lambda_2 {\bf p}_2\right) 
+      {\boldsymbol \cdot} {\bf v} = \lambda_1 {\bf p}_1 {\boldsymbol \cdot} {\bf v} + 
+      \lambda_2 {\bf p}_2 {\boldsymbol \cdot} {\bf v} $ 
+    -- Dot product distributes addition and scalar multiplication on the left. 
+    And since this operator is symmetric, it distributes on the right as well.}
+  \item{$\|{\bf p}\| = \sqrt{{\bf p} {\boldsymbol \cdot} {\bf p}}$ -- 
+    The dot product {\em induces\/} the length function. 
+    Notice that the length of a vector ${\bf p}$ is non-negative and only $0$ 
+    if ${\bf p} = {\bf 0}$.}
+\ei
+
+This means that we can redo the minimization problem that gave us a 
+projection because the algebra of the dot product is like multiplication 
+and the derivation proceeds using only the multiplication like properties.
+
+\be
+  \mathop{\rm min}_t \| {\bf p} - t \, {\bf v} \|^2 & & \nonumber \\
+  \mathop{\rm min}_t ({\bf p} - t \, {\bf v}) {\boldsymbol \cdot} ({\bf p - t \, {\bf v})} & & \nonumber \\
+  \mathop{\rm min}_t {\bf p} {\boldsymbol \cdot}  {\bf p} - 2 t \, {\bf p} {\boldsymbol \cdot} {\bf v} + t^2 {\bf v} {\boldsymbol \cdot} {\bf v} & & 
+\ee
+
+Notice that the optimization problem minimizes distance and we can write 
+distance as a dot product of a vector with itself, the optimization
+is defined entirely with respect to scalar multiplication and the dot product.
+Further, all of the terms involving the dot product are constants as far as 
+the optimization is concerned and this is again just 
+a problem in single variable calculus. Taking the derivative in $t$ and 
+solving for $t$ when the derivative is 0 gives 
+the minimal $t$ which we will call $t^*$. The derivative is:
+\be
+    -2 {\bf p} {\boldsymbol \cdot} {\bf v} + 2 t {\bf v} {\boldsymbol \cdot} {\bf v}  & = & 0 \nonumber  \\
+      t^* & = & \frac{{\bf p} {\boldsymbol \cdot} {\bf v}}{{\bf v} {\boldsymbol \cdot} {\bf v}}
+\ee
+
+We will revisit the dot product later in this section. But for now, we will 
+get back to the projection.
+
+One way of thinking of ${\bf p}$ is as a combination of the ${\bf v}$ direction 
+and another direction. We could think of the component of ${\bf p}$ in 
+the ${\bf v}$ direction as 
+the projection of ${\bf p}$ onto ${\bf v}$ as that is the best we can do 
+using ${\bf v}$ alone to get to ${\bf p}$.
+Notice that the projection of ${\bf p}$ onto ${\bf v}$ is independent of 
+the "length" of ${\bf v}$.
+If we replace ${\bf v}$ with any multiple of ${\bf v}$ say $\lambda {\bf v}$ 
+and look at the projection of 
+${\bf p}$ onto $\lambda {\bf v}$ we have:
+$$ P_{\lambda {\bf v}}({\bf p}) = \frac{{\bf p} {\boldsymbol \cdot} {\bf v}_1}{\|{\bf v}_1\|^2} {\bf v}_1 =  \frac{{\bf p} {\boldsymbol \cdot} \lambda {\bf v}}{\lambda^2 \|{\bf v}\|^2} \lambda {\bf v} 
+= \frac{{\bf p} {\boldsymbol \cdot} {\bf v}}{\|{\bf v}\|^2} {\bf v} = P_{{\bf v}}({\bf p})$$
+This says that the projection of ${\bf p}$ onto ${\bf v}$ is independent of 
+the length of the vector ${\bf v}$. That is, it only depends on its "direction".
+(It doesn't matter how fast you drive me in a given direction, the place 
+you drop me off to be as close to ${\bf p}$ is going to be the same.)
+
+What about the projection of a multiple of ${\bf p}$ onto ${\bf v}$, or 
+combinations of ${\bf p}$ with other vectors onto ${\bf v}$.
+
+It is not hard to show that: (they follow from the "multiplication properties"
+of the dot product)
+\bi
+  \item{$P_{\bf v}(P_{\bf v}({\bf p})) = P_{\bf v}({\bf p})$.}
+  \item{$P_{\bf v}(\lambda {\bf p}) = \lambda P_{\bf v}({\bf p})$.}
+  \item{$P_{\bf v}({\bf p}_1 + {\bf p}_2) = P_{\bf v}({\bf p}_1) + P_{\bf v}({\bf p}_1)$.}
+\ei
+
+We can combine these three into just two properties:
+\bi
+  \item{ $P_{\bf v}(P_{\bf v}({\bf p})) = P_{\bf v}({\bf p})$ -- Makes sense: 
+      We shouldn't be able to get closer doing a second projection.}
+\item{ $P_{\bf v}(\lambda_1 {\bf p}_1 + \lambda_2 {\bf p}_2) = 
+    \lambda_1 P_{\bf v}({\bf p}_1) + \lambda_2 P_{\bf v}({\bf p}_1)$ -- 
+    Powerful: Can compute projections of expressions easily based on components. }
+\ei
+
+We can think of a vector as having a direction and a length. 
+How do we say this precisely? Well, we can think of the direction 
+of ${\bf v}$ as being the thing that all vectors that are like ${\bf v}$ have. 
+All vectors like ${\bf v}$ are really just multiples of ${\bf v}$:
+$$ \{ t \, {\bf v} | \forall t \in R\} $$
+That is, they are all scalar multiples of ${\bf v}$. 
+In other words, vectors are like ${\bf v}$ if they have the same direction 
+but the "speeds" may vary.
+(On the highway we are all going in the same direction, but with 
+potentially differing speeds.)
+
+
+One way to talk about the direction of this collection is to 
+pick a {\em canonical} representative. The simplest thing to do is to 
+pick the one in the same direction (orientation -- it is a positive 
+multiple of ${\bf v}$) with unit length.
+If ${\bf u}$ is this vector, then the projection onto the direction ${\bf v}$ is:
+$$ P_{{\bf u}}({\bf p}) = {\bf p} {\boldsymbol \cdot} {\bf u}\, {\bf u}$$
+If we continue to think of $P_{\bf v}({\bf p})$ as the component in the 
+${\bf v}$ direction, then what is the other component that we add to this 
+to get ${\bf p}$?
+$$ {\bf p} = P_{{\bf v}}({\bf p}) + {\bf w} $$
+By subtraction the other component is:
+$$ {\bf w} = {\bf p} - P_{\bf v}({\bf p}) $$
+Does ${\bf w}$ have a component in the ${\bf v}$ direction or visa versa?
+The component of ${\bf w}$ onto ${\bf v}$ is:
+$$ P_{\bf v}({\bf w}) = P_{\bf v} \left({\bf p} - P_{\bf v}({\bf p})\right) = 
+    P_{\bf v}({\bf p}) - P_{\bf v}(P_{\bf v}({\bf p})) = P_{\bf v}({\bf p}) - P_{\bf v}({\bf p}) = 0 $$ 
+
+Now, one can repeat this and show that there is no component of 
+${\bf v}$ onto ${\bf w}$. That is, ${\bf v}$ and ${\bf w}$ are 
+as "independent" as possible.
+
+We know that the length of a vector can be described in terms of the dot 
+product and we now know that ${\bf p} = {\bf v} + {\bf w}$. 
+What is the length of ${\bf p}$ when it is a sum
+of two vectors that share no components between them?
+\be
+  \|{\bf p}\|^2 & = & {\bf p} {\boldsymbol \cdot} {\bf p} = ({\bf v} + {\bf w}) {\boldsymbol \cdot} ({\bf v} + {\bf w}) \nonumber \\
+                & = &  {\bf v} {\boldsymbol \cdot} {\bf v} + 2 {\bf v} {\boldsymbol \cdot} {\bf w} + {\bf w} {\boldsymbol \cdot} {\bf w} \nonumber \\
+                & = & \| {\bf v} \|^2 + 2 * 0 + \| {\bf w} \|^2 \nonumber \\
+                & = & \| {\bf v} \|^2 + \| {\bf w} \|^2
+ \ee
+
+
+In two and three dimensions, the vectors ${\bf p}$, ${\bf v}$, and ${\bf w}$ 
+form a triangle. When the lengths are a Pythagorean triple, 
+then ${\bf v}$ is perpendicular to ${\bf w}$. That is, 
+when ${\bf v} {\boldsymbol \cdot} {\bf w} = 0$, ${\bf v}$ and ${\bf w}$ 
+are perpendicular.
+
+We generalize this, introducing the term "orthogonal". 
+We define two vectors to be {\em orthogonal\/} if their dot product is zero. 
+Given that two vectors, ${\bf w}_1$ and ${\bf w}_2$ are orthogonal and 
+sum to ${\bf p}$, we have
+a generalization of the Pythagorean formula, with 
+$$ \|{\bf p}\|^2 = \|{\bf w}_1\|^2 + \|{\bf w}_2\|^2 $$
+One can show using induction that if the vectors $\{{\bf w}_i\}_{i=1}^m$ are 
+pairwise orthogonal and sum to ${\bf p}$, then
+\be
+  \sum_{i=1}^m {\bf w}_i & = & {\bf p} \nonumber \\
+  {\bf w}_i {\boldsymbol \cdot} {\bf w}_j  & = & 0 \quad \forall i, j \in [1, m] i \ne j \nonumber \\
+  \|{\bf p}\|^2 & = & \sum_{i=1}^m \|{\bf w}_i\|^2 
+\ee
+
+
+\section{Standard Unit Vectors and their Generalization}
+The standard unit vectors are the so-called coordinate vectors. 
+In $R^2$ these are: ${\bf e}_1$ =  [1, 0] and ${\bf e}_2$ = [0, 1].
+ In $R^n$ they are: $\{{\bf e}_i\}_{i=1}^n$ where 
+ ${\bf e}_ii$ = $\overbrace{[0, \ldots, 1, 0, \ldots ]}^{\text{$n 
+ - 1$ 0's followed by 1 followed by 0s}}$
+Notice that this collection of vectors have unit length and are pair-wise 
+orthogonal. And it is easy to write down the combination of ${\bf e}_i$ that 
+produce a given ${\bf x} \in R^n$.
+$$ {\bf x} = \sum_{i=1}^n x_i {\bf e}_i $$
+
+We claim that given another set of vectors with the same properties it is 
+just as easy to write down the combination of these vectors which 
+produces ${\bf x}$. Starting with $R^2$, given two vectors 
+${\bf v}_1$ and ${\bf v}_2$ with each of unit length and orthogonal to one 
+another, assuming that we can write any ${\bf x}$
+as some combination of the two, we claim that the values of $u_1$ and $u_2$ 
+such that ${\bf x} = u_1 {\bf v}_1 + u_2 {\bf v}_2$ are easy to compute.
+
+So, given that ${\bf x}$ can be written as a combination of two we have:
+\be
+   {\bf x} & = u_1 {\bf v}_1 + u_2 {\bf v}_2
+\ee
+From this we can form two equations, each the dot product with 
+${\bf v}_1$ and ${\bf v}_2$ respectively:
+\be
+  {\bf x} {\boldsymbol \cdot} {\bf v}_1 & = & u_{1} {\bf v}_1 {\boldsymbol \cdot} {\bf v}_1 + u_2 {\bf v}_1 {\boldsymbol \cdot} {\bf v}_2 \\
+  {\bf x} {\boldsymbol \cdot} {\bf v}_2 & = & u_{1} {\bf v}_2 {\boldsymbol \cdot} {\bf v}_1 + u_2 {\bf v}_2 {\boldsymbol \cdot} {\bf v}_2
+\ee
+But since the ${\bf v}_1$ and ${\bf v}_2$ have unit length, the dot product 
+with themselves is 1; and since the dot product of one with another is 0, we 
+may write these two equations as:
+\be
+  {\bf x} {\boldsymbol \cdot} {\bf v_1} & = & u_1 \\
+  {\bf x} {\boldsymbol \cdot} {\bf v_2} & = & u_2
+\ee
+This is, we can instantly solve what would be a system of equations -- 
+    which would get progressively harder in higher dimensions.
+We can write this more formally as:
+
+${\bf Theorem}$ If ${\bf x}$ is a vector in $R^2$, and ${\bf v}_1$ 
+and ${\bf v}_2$ are two vectors of unit length which are orthogonal, 
+then assuming that ${\bf x}$ is some combination of ${\bf v}_1$ 
+and ${\bf v}_2$, then that combination is:
+$$ {\bf x} = ({\bf x} {\boldsymbol \cdot} {\bf v}_1 ) {\bf v}_1 + ( { \bf x} {\boldsymbol \cdot} {\bf v}_2 ) {\bf v}_2 $$
+ 
+
+If it is the case that in $R^n$ we have $n$ vectors of unit length and which 
+are all orthogonal to each other, then by the same reasoning 
+(assuming that these $n$ vectors can span the full space) we have:%
+\footnote{It turns out, as you might imagine, that $n$ orthogonal 
+vectors (each pointing in a "different direction") are always able 
+to span $R^n$.}
+
+${\bf Theorem}$ If ${\bf x}$ is a vector in $R^n$, and 
+$\{{\bf v}_i\}_{i=1}^n$ vectors of unit length which are orthogonal 
+with each other, then ${\bf x}$ may be written as:
+\be
+{\bf x} & = & \sum_{i=1}^n ({\bf x} {\boldsymbol \cdot} {\bf v}_i ) {\bf v}_i  \label{orthonorm_expansion} 
+\ee
+
+We give a name to collections of such orthogonal vectors.
+
+{\bf Def} A collection of $m$ vectors, $\{ {\bf v}_i \}_{i=1}^m$, such that each 
+has unit length and are pair-wise orthogonal are called an {\em orthonormal\/} set.
+
+\section{Projection onto a Linear Space}
+
+We can repeat what we did in the last section, considering instead that we 
+can travel on an incline representing a mountain in 3 space. We are free to 
+drive anywhere on the 
+side of the mountain and want to drop off someone so that they can be 
+picked up by a helicopter based on an adjacent mountain. 
+We want to drop the person off so that
+the helicopter flies the least distance -- 
+helicopter time and fuel are expensive.
+
+We can proceed in the same way as before, but now rather than a single 
+direction to drive in we have what amounts to to directions. 
+We are saying that there is a direction ${\bf v}_1$ 
+and a direction ${\bf v}_2$ so that we can get to any point on the mountain 
+if we drive for sometime in the direction ${\bf v}_1$ and then drive in 
+the direction ${\bf v}_2$.
+
+The solution to the problem is similar to the last section:
+\be
+    \mathop{\rm min}_{u_1,u_2} \| {\bf p} - \left( u_1 {\bf v}_1 + u_2 {\bf v}_2 \right)\|^2
+\ee
+Just as before, we solve to find $u_1^*$, $u_2^*$ that minimize the above. 
+This occurs when the {\em partial\/} derivatives of $u_1$ and $u_2$ are $0$.
+Since the distance can be written in terms of the dot product we may 
+rewrite this minimization problem as:%
+\footnote{We are assuming that the mountain is represented by a plane that 
+goes through the origin.}
+
+\be
+  \mathop{\rm min}_{u_1,u_2} \left( {\bf p} - \left( u_1 {\bf v}_1 + u_2 {\bf v}_2 \right) \right) {\boldsymbol \cdot} \left( {\bf p} - \left( u_1 {\bf v}_1 + u_2 {\bf v}_2 \right) \right) & & \nonumber \\
+\ee
+Taking the derivatives of this with respect to $u_1$ and $u_2$ we have:%
+\footnote{This follows since the dot product behaves like multiplication 
+and the derivative of 
+$f(x) * f(x)$ is $f'(x) * f(x) + f(x) * f'(x) = 2 f'(x) * f(x)$.
+Since dot product behaves the same way: the derivative of 
+$f(t, {\bf a}) {\boldsymbol \cdot} f(t,{\bf b})$
+is $ 2 f'(t, {\bf a}) {\boldsymbol \cdot} f(t, {\bf a})$.}
+
+\be
+  -2 {\bf v}_1 {\boldsymbol \cdot} \left({\bf p} - \left( u_1 {\bf v}_1 + u_2 {\bf v}_2 \right) \right) & = & 0 \\
+  -2 {\bf v}_2 {\boldsymbol \cdot} \left({\bf p} -  \left( u_1 {\bf v}_1 + u_2 {\bf v}_2 \right) \right) & = & 0 
+\ee
+If we use vectors, ${\bf v}_1$ and ${\bf v}_2$ which are orthonormal, 
+then this simplifies greatly to:
+
+\be
+  u_1 & = & {\bf p} {\boldsymbol \cdot} {\bf v_1} \\
+  u_2 & = & {\bf p} {\boldsymbol \cdot} {\bf v_2}
+\ee
+
+If we use the notation, $[{\bf v}_1, {\bf v}_2]$ to indicate the set of 
+points {\em spanned\/} (swept out) by ${\bf v}_1$, and ${\bf v}_2$,
+then when ${\bf v}_1$ and ${\bf v}_2$ are orthonormal we have:
+\be
+  P_{[{\bf v}_1, {\bf v}_2]}({\bf x}) & = & ( {\bf x} {\boldsymbol \cdot} {\bf v}_1 ) {\bf v}_1 +  ( {\bf x} {\boldsymbol \cdot} {\bf v}_2 ) {\bf v}_2  \label{proj2}
+\ee
+
+{\bf Def}. We define $P_{[{\bf v_1, \ldots, {\bf v_m}}})$ to be the projection
+onto the set of points {\em spanned\/} (swept out) by the vectors
+${\bf v}_1, \ldots, {\bf v}_m$.
+
+Formula $(\ref{proj2})$ can generalize this so that if 
+$\{{\bf v}_i\}_{i=1}^m$ is an orthonormal collection of vectors then the 
+projection of a given vector ${\bf x} \in R^n$ onto the 
+space spanned by collection is given by:
+\be
+  P_{[{\bf v}_1, \ldots, {\bf v}_m]}({\bf x}) & = & \sum_{i=1}^m ( {\bf x} {\boldsymbol \cdot} {\bf v}_i) {\bf v}_i \label{projection}
+\ee
+Note that when $n = m$, we reproduce formula $(\ref{orthonorm_expansion})$, 
+as $P_{[{\bf v}_1, \ldots, {\bf v}_n}]({\bf x}) = {\bf x}$.
+
+\section{Generalization of Projection based on the essence of the ``Dot Product''}
+
+One can repeat the above notion of projection using a distance measure created from a generalization of the dot product.
+The generalization is called an {\em inner product}. We will use an "infix" form of such a function and use the notation
+$<{\bf x}, {\bf y}>$. An inner product is any function of two vectors; i.e., $F: V \times V \rightarrow R$,  with the following properties:
+\bi
+  \item{ $ <{\bf x}, {\bf y}> \, = \, <{\bf y}, {\bf x}>$ -- Symmetric.}
+  \item{ $ <\lambda_1 {\bf x}_1 + \lambda_2 {\bf x}_2, {\bf y}> \, = \, \lambda_1 <{\bf x}_1, {\bf y}> + \lambda_2 <{\bf x}_2, {\bf y}> $ -- Distributes addition and scalar multiplication.}
+  \item{ $ < {\bf x}, {\bf x}> = 0 \quad \text{iff} \; {\bf x} = {\bf 0} $ -- Non-degeneracy.}
+  \item{ $\|{\bf x}\| \, \equiv \, \sqrt{<{\bf x}, {\bf x}>}$ -- 
+      The inner product induces a {\em norm} -- a notion of length of vectors.}
+\ei
+    The induced "length" has the properties of a "length" 
+\bi
+  \item{$\|{\bf x}\| = 0 \quad \text{iff} \quad {\bf x} = {\bf 0}$. -- Non-degeneracy.}
+  \item{$ \|\lambda {\bf x}\| = |\lambda| \|{\bf x}\|\quad \forall \lambda \in R \quad \forall {\bf x} \in V$. -- Homogeneity.}
+  \item{$\|{\bf x} + {\bf y} \| \le \|{\bf x}\| + \|{\bf y}\| \quad {\bf x}, {\bf y} \in V.$ -- Triangle inequality.}
+\ei
+
+If we repeat the exercise to determine the projection of one vector onto 
+another by the length induced by an inner product, then all of the 
+formulas above are duplicated with the only change being the replacement 
+of ${\bf x} {\boldsymbol \cdot} {\bf y}$ with $<{\bf x}, {\bf y}>$.
+
+The length and projection formulas becomes:
+\be
+  \|{\bf p}\|^2 & = & < {\bf p}, {\bf p} > \\
+  P_{\bf v}({\bf p}) & = & \frac{< {\bf p}, {\bf v} >}{< {\bf v}, {\bf v} >} {\bf v}
+\ee
+
+One of the things we needed was that we could do calculus 
+( we needed to minimization a length in order to find the projection)
+and for this we needed a notion of length. The inner product {\em defines\/} 
+a notion of length automatically and all of the calculations proceed as before.
+The only change is that where ever we see a dot product we can replace it with 
+the inner product.
+
+Example: We can define the following inner product on $R^n$. 
+Let ${\bf w}$ be a given vector with the following properties:
+$$ \sum_{i=1}^n w_i = 1 $$
+$$ w_i > 0 \; \forall i \in [1,n] $$
+Then we can define an inner product, $<\cdot, \cdot>$ as:
+$$ <{\bf x}, {\bf y}> \equiv \sum_{i=1}^n w_i x_i y_i$$
+This modified "dot product" allows us to favour or discount some components 
+over others. This is often used in data science.
+
+The generalization is powerful and we can apply the geometric intuition of 
+projections to sets of objects like functions and 
+produce remarkable results.
+For instance, we can define a function set
+\footnote{The exact notion of "Integrable" requires further 
+explanation which we won't provide.}
+$$L^2 = \{ {\bf f} | \text{$f$ is Integrable with} \int_\Omega f(x)^2 \, dx < \infty\}$$ 
+
+$L_2$ is a set of functions where addition and scalar multiplication 
+exist just like numeric vectors.
+Addition and scalar multiplication are defined by:%
+\footnote{This is like vectors where "x" is the continuous "index" 
+into the "vector"(function). 
+And just like vectors, to define one you need to explain what the 
+value of the vector is on each index.}
+\bi
+  {\item  $({\bf f} + {\bf g})(x) \equiv f(x) + g(x)$.}
+  \item{$(\lambda * {\bf f})(x) \equiv \lambda f(x) $.}
+\ei
+To understand the above, keep in mind what one must do. I must define a "+" 
+operator so that adding two functions produces another function.
+But to describe what the this function, $f + g$ is, we must show what it 
+does when applied to any "x" -- which we've done.
+The new function $f + g$ when applied to "x" is what one would expect; it is 
+the sum of the values of f and g applied to x.
+In a similar way we define scalar multiplication. And just like with 
+ordinary vectors, we suppress the multiplication operator and write 
+$$\lambda \, {\bf f} \equiv \lambda * {\bf f}  $$
+
+With these definitions this space of function behaves just like 
+vectors of numbers.
+
+Define $<{\bf f}, {\bf g}> \equiv \int_\Omega f(x) g(x) \, dx$.
+This induces the length $\| f \| = \, \sqrt{<f, f>} = \sqrt{\int_\Omega f(x)^2 \, dx}$
+
+So, this generalization can apply to things that are very different 
+looking from typical vectors.
+
+Given two functions ${\bf v}$ and ${\bf p}$, the projection formula becomes:
+\be
+  P_{\bf v}({\bf p}) & = & \frac{\int_\Omega p(x) \, v(x) \, dx}{\int_\Omega v(x)^2 \, dx} {\bf v}
+\ee
+So, notice the projection is a new vector (function) that is a multiple of 
+the function ${\bf v}$. You can evaluate it on a number just like 
+any other function:
+$$\left(P_{\bf v}({\bf p})\right)(10) = \frac{\int_\Omega p(x) \, v(x) \, dx}{\int_\Omega v(x)^2 \, dx} v(10)$$
+
+
+\end{document}
+
+

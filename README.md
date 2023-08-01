@@ -13,6 +13,7 @@
 - What is a Derivative: tex/what_is_a_derivative.tex.
 - What is the Determinant: tex/what_is_a_determinant.tex.
 - Why is Matrix Multiplication the way it is: tex/why_matrix_mult.tex.
+- Where does the "dot-product" come from: tex/InnerProd_from_Projection.tex.
 - Examination of a Dice throwing problem using Measure Theoretic Conditional Expectation: tex/conditional_expectation_simple.tex.
 - Re-Examination of a Linear Unbiased Estimation Problem with different Norms: tex/prob_linear_unbias_est.tex.
 - A Balance Law approach to the derivation of the Heat and Fokker-Planck equations: tex/heat_balance.tex.
