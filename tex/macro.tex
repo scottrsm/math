@@ -1,0 +1,195 @@
+\input epsf
+%\input eplain
+
+%\voffset=.5in
+
+
+% Bold and italic bold scaled fonts for sections and examples.
+\font\small = cmr7
+%\font\smallmath = cmu10
+\font\sxmplbx = cmbx10 
+\font\sxmplbxti = cmbxti10 
+\font\xmplbx = cmbx12 % scaled \magstephalf
+%\font\xmplbxti = cmbxti10 scaled \magstephalf
+\font\mxmplbx = cmbx12 at 16pt
+\font\bxmplbx = cmti12 at 18pt %logo1%0cmbx12 scaled \magstep2
+
+% A title macro. First parameter is the title of the article.
+% My name and the current time appear in the title section.
+\def\title#1{%
+{\bxmplbx {\centerline {#1}}}
+\vskip .2in
+  {\leftskip = 2.5in%
+  \par\noindent\llap{\hbox to 2.5in{\hfil {\bf Author:} }}{\it R. Scott
+  McIntire}\par\noindent {\it Financial Engineering}%
+  }%
+\vskip .1in
+ {\leftskip = 2.5in%
+  \par\noindent\llap{\hbox to 2.5in{\hfil {\bf Date:} }} \date \par%
+  }%
+\vskip .25in
+\hrule height 1pt
+\vskip .1in
+}
+
+% A section header. 
+\def\section#1{\vskip .5in \centerline{\mxmplbx #1} \bigskip}
+
+% A subsection header. 
+\def\subsection#1{\vskip .25 in \leftline{\xmplbx #1} \medskip}
+
+% Chapter macro. If at first chapter set \pageno to 1.
+\count3=1
+\def\chapter#1{%
+\vfil
+\supereject
+{\bxmplbx {\centerline {Chapter \number\count3: #1}}}
+\vskip .2in
+\hrule height 1pt
+\vskip .2in
+\ifnum \count3 = 1 \pageno=1 \fi
+\global\advance\count3 by 1
+}%
+
+% Appendix macro.
+\def\appendix#1{%
+\vfil
+\supereject
+\section{#1}
+}%
+
+% A title macro. First parameter is the title of the article.
+% My name and the current time appear in the title section.
+\def\titledate#1#2{%
+{\bxmplbx {\centerline {#1}}}
+\vskip .2in
+  {\leftskip = 2.5in%
+  \par\noindent\llap{\hbox to 2.5in{\hfil {\bf Author:} }}{\it R. Scott
+  McIntire}\par\noindent {\it Financial Engineering}%
+  }%
+\vskip .1in
+ {\leftskip = 2.5in%
+  \par\noindent\llap{\hbox to 2.5in{\hfil {\bf Date:} }}#2 \par%
+  }%
+\vskip .25in
+\hrule height 1pt
+\vskip .1in
+}
+
+
+% A title macro. First parameter is the title of the article.
+% Second parameter is who; third parameter is date.
+\def\mantitle#1#2#3{%
+{\bxmplbx {\centerline {#1}}}
+\vskip .2in
+  {\leftskip = 2.5in%
+  \par\noindent\llap{\hbox to 2.5in{\hfil {\bf Author:} }}{\it #2}
+  \par%
+  }%
+\vskip .1in
+ {\leftskip = 2.5in%
+  \par\noindent\llap{\hbox to 2.5in{\hfil {\bf Date:} }}#3\par%
+  }%
+\vskip .25in
+\hrule height 1pt
+\vskip .1in
+}
+
+% A title macro. First parameter is the title of the article.
+% Second parameter is who; third parameter is date.
+\def\mansubtitle#1#2#3#4{%
+{\bxmplbx {\centerline {#1}} 
+          {\centerline {#2}}}
+\vskip .2in
+  {\leftskip = 2.5in%
+  \par\noindent\llap{\hbox to 2.5in{\hfil {\bf Author:} }}{\it #3}
+  \par%
+  }%
+\vskip .1in
+ {\leftskip = 2.5in%
+  \par\noindent\llap{\hbox to 2.5in{\hfil {\bf Date:} }}#4\par%
+  }%
+\vskip .25in
+\hrule height 1pt
+\vskip .1in
+}
+
+
+% Example macro - Example #1: #2.
+\def\example#1#2{\medskip \leftline{\sxmplbx #1: \sxmplbxti #2} \medskip}
+
+% Produce a parenthesized matrix of variable #1 of size #2 by #2.
+\def\mat#1#2{%
+  \pmatrix{%
+    #1_{11} & #1_{12} & \ldots & #1_{1#2} \cr
+    #1_{21} & #1_{22} & \ldots & #1_{2#2} \cr
+    \vdots & \vdots & \ddots & \vdots \cr
+    #1_{#21} & #1_{#22} & \ldots & #1_{#2#2} \cr}}
+
+% Produce a diagonal parenthesized matrix of #1 of size #2 by #2.
+\def\diag#1#2{%
+  \pmatrix{%
+    #2 & 0 & \ldots & 0 \cr
+    0 & #2 & \ldots & 0 \cr
+    \vdots & \vdots & \ddots & \vdots \cr
+    0 & 0 & \ldots & #2 \cr}}
+
+% Produce a parenthesized row vector of variable #1 of length #2.
+\def\rvec#1#2{\pmatrix{#1_{1} &\ldots & #1_{#2}}}
+
+% Produce a parenthesized column vector of variable #1 of length #2.
+\def\cvec#1#2{\pmatrix{#1_{1} \cr \vdots \cr #1_{#2}}}
+
+% Produce a fraction #1/#2.
+\def\frac#1#2{{{\scriptstyle #1} \over {\scriptstyle #2}}}
+
+% Produce a fraction #1/#2 in display style.
+\def\fracd#1#2{{{\displaystyle #1} \over {\displaystyle #2}}}
+
+% Figure macro for eps files. #1 - eps file, #2 - caption text.
+\count1=1
+\def\epsfigure#1#2{%
+  \bigskip
+  \vbox{\hfil \epsfbox{#1} \hfil
+      \vskip 0pt
+      \hfil {Figure \number\count1: #2} \hfil
+           \global\advance\count1 by 1
+  \bigskip}}
+
+% Insert the date.
+\def\date{\monthname\ \number\day\ \number\year}
+
+% Insert the date and time.
+\def\datetime{\monthname\slash\number\day\slash\number\year \quad \timestring}
+
+% My caligraphic initials.
+\def\me{$\cal RSM$}
+
+% My caligraphic initials and time stamp.
+\def\mestamp{$\cal RSM$: \datetime}
+
+% Item macro.
+\def\item#1{%
+{\leftskip = 4pc \parskip=0pt%
+\par\noindent\llap{\hbox to 4pc{\hfil $\bf \bullet$ \hfil}}#1\par%
+}%
+}
+
+
+% Begin enumeration marker.
+\def\beginEnum{%
+\count2=0
+}
+
+% Enumerate text.
+\def\enum#1{%
+  \global\advance\count2 by 1
+  {\leftskip=2.5pc \parskip=0pt%
+  \par\noindent\llap{\hbox to 2pc{\hfil $\bf \number\count2$. \hfil}}#1\par%
+  }%
+}
+
+% End enumeration marker.
+\def\endEnum{%
+\count2=0
+}
