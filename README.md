@@ -15,5 +15,6 @@
 - Why is Matrix Multiplication the way it is: tex/why_matrix_mult.tex.
 - Examination of a Dice throwing problem using Measure Theoretic Conditional Expectation: tex/conditional_expectation_simple.tex.
 - Re-Examination of a Linear Unbiased Estimation Problem with different Norms: tex/prob_linear_unbias_est.tex.
+- A Balance Law approach to the derivation of the Heat and Fokker-Planck equations: tex/heat_balance.tex.
 ### New Mathematical Formulas
 - A formula to Compute Probability Distribution for non-Singular Transformations: tex/prob_singular_trans.tex.

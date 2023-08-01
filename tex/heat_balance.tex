@@ -1,0 +1,664 @@
+\input macro
+\parindent=0pt
+
+\titledate{A Balance Law Interpretation of the Fokker-Planck Equation}
+{Nov 22, 2002}
+
+\parskip=\baselineskip
+\subsection{Overview}
+
+In this paper we use a balance law to derive the heat equation in one and 
+several dimensions. We also use it to study the propagation of a probability
+density function driven by a differential equation. Finally, we combine the 
+two derivations and provide a derivation of the Fokker-Planck equation.
+
+
+\section{Derivation of the Heat Equation}
+
+We examine the problem of heat flow in $R^n$. First we look at the 
+problem in one dimension and then see how it generalizes to arbitrary
+dimension. The strategy is to write a balance law for the heat in 
+an arbitrary region in $R^n$ based on the conservation of energy. 
+This will lead to a local expression of heat flow;
+namely, a partial differential equation. By relating heat to temperature, 
+an equation for the temperature is obtained. 
+The resulting partial differential equation for temperature is called 
+{\it the heat equation\/}.
+
+
+\subsection{The Heat Equation in One Dimension}
+We derive a partial differential equation for the temperature distribution 
+in a one dimensional material. To do this we 
+derive a balance law for the heat contained in an arbitrary interval 
+$[x_1,x_2]$ over an arbitrary time interval $[t_1, t_2]$. 
+Let $h(t,x)$ be the 
+heat per unit length at time $t$ and position $x$. Let 
+$f(t,x)$ be the heat flux at time $t$ and position $x$. Where heat 
+flux is defined as the rate at which heat flows
+\footnote{\kern -2pt \raise 0.5ex \hbox{\dag}}{positive means 
+increasing $x$.}. The increase (or decrease) in 
+the heat of 
+the interval $[x_1, x_2]$ over $[t_1, t_2]$ is equal to the integral of
+the rate at 
+which heat has moved into (or out of) the region through the boundaries.
+Mathematically, this balance may be expressed as:
+$$
+\int_{x_1}^{x_2} h(t_2,x) - h(t_1,x) \; dx  = 
+\int_{t_1}^{t_2} f(t, x_1) - f(t,x_2) \; dt
+$$
+Now, divide this expression by $1 / (t_2 - t_1)$ and take the 
+limit as $t_2 \rightarrow t_1$. This gives:
+$$
+\eqalignno{
+\int_{x_1}^{x_2} h_t(t_1,x) \; dx & = f(t_1,x_1) - f(t_1, x_2) & (1) \cr}
+$$
+This can be written as
+$$
+\eqalignno{
+\fracd{d}{dt} \int_{x_1}^{x_2} h(t,x) \; dx \bigg|_{t=t_1} & 
+= f(t_1,x_1) - f(t_1, x_2) 
+& (2) \cr}
+$$
+Equation (2) can be interpreted as an instantaneous balance law for the 
+heat contained in the interval $[x_1, x_2]$. It states that the rate of 
+change of the heat in the interval $[x_1, x_2]$ is equal to the rate 
+at which heat enters through the boundary.
+
+
+By the {\it the Fundamental Theorem of Calculus\/}, 
+$\int_{x_1}^{x_2} f_x(t_1, x) \, dx = f(t_1, x_2) - f(t_1, x_1)$.
+Therefore, bringing the right hand side to the left hand side in equation 
+(1) we may write{$\vphantom |$}:
+$$
+\int_{x_1}^{x_2} h_t(t_1,x) + f_x(t_1,x) \; dx = 0
+$$
+If we {\it assume\/} that the integrand is continuous, then since the 
+interval $[x_1, x_2]$ is arbitrary, the integrand must 
+vanish for all $x$; that is,
+$$
+h_t(t_1,x) + f_x(t_1,x) = 0
+$$
+Finally, since $t_1$ is arbitrary the above must be true for all times $t$;
+so that,
+$$
+h_t(t,x) + f_x(t,x) = 0
+$$
+To get an equation for the temperature, $u$, we must relate it to 
+the heat and the heat flux. To do so, we must make 
+{\it assumptions\/} about properties of the material.
+The simplest assumption about the heat is that it is 
+proportional to temperature:
+$h(t,x) = c \, u(t,x)$. 
+This proportionality constant, $c > 0$, is called the specific heat. 
+The simplest assumption about the heat flux is that it is proportional 
+to the temperature gradient:
+$f(t,x) = - k u_x(t,x)$ with $k > 0$. 
+Therefore, we may write:
+$$
+c \, u_t - k u_{xx} = 0
+$$
+Letting $\kappa = k / c$ we obtain the one dimensional heat equation 
+with diffusion constant $\kappa$:
+$$
+\fracd{\partial u}{\partial t} = \kappa \fracd{\partial^2 u}{\partial^2 x}
+$$
+The larger the value of $\kappa$, the more rapid the diffusion. Since 
+$\kappa$ is made from two constants, we give an interpretation to understand
+their role. Consider a bar made of different materials and different 
+thicknesses. Let us assume that the differing materials 
+all have the same heat capacity, but different heat flux rate constants.
+Then we have two independent 
+controls: the thickness of the bar controls the value of the 
+specific heat, $c$; and, the material controls the heat flux rate, $k$. 
+
+Under these conditions, we can get a better physical 
+understanding of the influence 
+of $c$ and $k$ on $\kappa$. If the bar is thicker at a certain spot, 
+it can absorb more heat and 
+therefore, is less diffusive there. 
+If the bar is made of a material that is more 
+insular at a certain spot, the heat flux rate constant goes down and 
+therefore, the material is less diffusive there.
+
+We note that $c$ and $k$ may depend on $x$.
+In this case we obtain a generalized heat equation:
+$$
+\fracd{\partial u}{\partial t} = \fracd{1}{c(x)} 
+\fracd{\partial}{\partial x} \bigg(k(x) \fracd{\partial u}{\partial x}\bigg)
+$$
+Technically, to have similar properties of the heat equation, $c(x)$
+and $k(x)$ should satisfy(for all $x$):
+
+\beginEnum
+\enum{$c(x) > c_0$ for some $c_0 > 0$.}
+\enum{$k(x) > k_0$ for some $k_0 > 0$.}
+\enum{$c(x)$ is continuous and $k(x)$ is continuously 
+differentiable with respect to $x$.}
+\endEnum
+
+\subsection{The Heat Equation in Higher Dimensions}
+We derive a partial differential equation for the temperature distribution 
+of a material in $R^n$. To do this we will mimic each of the steps 
+in the last section. We start by 
+deriving a balance law for the heat contained in an arbitrary region
+$\Omega$ over an arbitrary time interval $[t_1, t_2]$. 
+Let $h(t,{\bf x})$ be the 
+heat per unit volume at time $t$ and position ${\bf x}$. Let 
+${\bf f}(t,{\bf x})$ be the heat flux at time $t$ and position ${\bf x}$. 
+Where heat flux is defined as a vector describing the rate at which heat flows
+per area\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}
+{By area we mean  the n-1 dimensional area.}.
+The increase (or decrease) in 
+the heat of 
+the region $\Omega$ over $[t_1, t_2]$ is equal to the integral of the 
+rate at which heat has moved into (or out of) the region through the 
+boundaries.
+Mathematically, this may be expressed as:
+$$
+\int_{\Omega} h(t_2, {\bf x}) - h(t_1, {\bf x}) \; d{\bf x} = -
+\int_{t_1}^{t_2} \!\! 
+\mathop{\underbrace{\oint_{\partial \Omega} 
+\mathop{\overbrace{{\bf f}(t, {\bf x}) \cdot {\bf n}}}\limits^
+{\hbox{\small Heat flow rate per unit area leaving  \hbox{$\Omega$}}}
+\; d{\bf S}}}\limits_{\hbox{\small Heat flow rate leaving 
+\hbox{$\Omega$}}} \; dt
+$$
+As in the one dimensional case, divide by $1 / (t_2 - t_1)$ 
+and take the limit as 
+$t_2 \rightarrow t_1$. This gives:
+$$
+\eqalignno{
+\int_{\Omega} h_t(t_1, {\bf x}) \; d{\bf x} & = -
+\oint_{\partial \Omega} {\bf f}(t_1, {\bf x}) \cdot {\bf n} 
+\; d{\bf S} & (3) \cr }
+$$
+This can be written as
+$$
+\eqalignno{
+\fracd{d}{dt} \int_{\Omega} h(t, {\bf x}) \; d{\bf x} \bigg|_{t=t_1} & = -
+\oint_{\partial \Omega} {\bf f}(t_1, {\bf x}) \cdot {\bf n} 
+\; d{\bf S} & (4) \cr}
+$$
+Equation (4) can be interpreted as an instantaneous balance law for the 
+heat contained in the region $\Omega$. It states that the rate of 
+change of the heat in the region $\Omega$ is equal to the rate 
+at which heat enters through the boundary.
+
+
+By the {\it the Fundamental Theorem of Calculus\/}, 
+$\int_{\Omega} \nabla \cdot {\bf f}(t_1, {\bf x}) \, d{\bf x} = 
+\oint_{\partial \Omega} {\bf f}(t_1, {\bf x}) \cdot {\bf n} \, d{\bf S}$.
+Therefore, bringing the right hand side to the left hand side in equation 
+(3) we may write{$\vphantom |$}:
+$$
+\int_{\Omega} h_t(t_1, {\bf x}) + \nabla \cdot {\bf f}(t_1, {\bf x}) 
+\; d{\bf x} = 0
+$$
+If we {\it assume\/} that the integrand is continuous, then since the 
+region $\Omega$ is arbitrary, the integrand must vanish for all $x$;
+that is,
+$$
+h_t(t_1, {\bf x}) + \nabla \cdot {\bf f}(t_1, {\bf x}) = 0
+$$
+Finally, since $t_1$ is arbitrary the above must be true for all times $t$;
+so that,
+$$
+h_t(t, {\bf x}) + \nabla \cdot {\bf f}(t, {\bf x}) = 0
+$$
+To get an equation for the temperature, $u$, we must relate it to 
+the heat and the heat flux. To do so, we must make 
+{\it assumptions\/} about the properties of the material. The simplest 
+assumption about the heat is that it is proportional to
+temperature:
+$h(t,{\bf x}) = c \, u(t,{\bf x})$. 
+As in the one dimensional case, the proportionality constant, $c > 0$, 
+is called the specific heat. 
+The simplest assumption about the heat flux is that it is proportional 
+to the temperature gradient:\footnote{\kern 1pt \raise 0.5ex \hbox{\ddag}}
+{That is, the {\it direction\/} of heat 
+flow should be in the opposite direction of maximum change of temperature;
+and, the {\it magnitude\/} of the heat flow should be proportional to the 
+magnitude of the maximum change in the temperature.} 
+${\bf f}(t,{\bf x}) = - K \nabla u(t,{\bf x})$ with $K > 0$. 
+Therefore, we may write:
+$$
+c \, u_t(t, {\bf x}) - K \nabla \cdot \nabla u(t, {\bf x}) = 0
+$$
+Letting $\kappa = K / c$ and noting that $\Delta = \nabla \cdot \nabla$, 
+we obtain the n-dimensional heat equation with diffusion constant $\kappa$.
+$$
+\fracd{\partial u}{\partial t} =  \kappa \, \Delta u 
+$$
+We note that $c$ and $K$ may depend on ${\bf x}$ and we note $K$ could be 
+a matrix. In this case we obtain a generalized heat equation:
+$$
+\fracd{\partial u}{\partial t} = \fracd{1}{c({\bf x})} 
+\nabla \cdot \bigg(K({\bf x}) \nabla u \bigg)
+$$
+Technically, to have similar properties of the heat equation, $c({\bf x})$
+and $K({\bf x})$ should satisfy(for all ${\bf x}$):
+
+\beginEnum
+\enum{$c({\bf x}) > c_0$ for some $c_0 > 0$;}
+\enum{$K({\bf x})$ should be a positive definite symmetric matrix;}
+\enum{The smallest eigenvalue of $K({\bf x})$ is greater than $k_0$ for some
+$k_0 > 0$;}
+\enum{$c({\bf x})$ is continuous and $K({\bf x})$ is 
+continuously differentiable with respect to ${\bf x}$.}
+\endEnum
+
+
+When $K({\bf x})$ is a matrix, the heat flux vector $f(t,{\bf x})$ will not, 
+in general, point in the direction opposite of the maximum 
+temperature increase. This may be interpreted physically as having a material
+that has a different heat flow rate in different directions. In this case,
+the heat flux vector, representing the heat flow path, will be modified 
+by these material differences and will not necessarily flow along 
+the temperature gradient.
+
+
+\section{Propagation of Probability Density Functions}
+In this section, we wish to derive equations for the propagation of 
+probability density functions driven by systems of differential equations.
+
+\subsection{A first Order System}
+Given a first order system of differential equations of the form:
+$$
+\eqalignno{
+\dot {\bf x} =  {\bf f}(t, {\bf x}) & & (5a) \cr
+{\bf x}(0) = {\bf x_0}  & & (5b) \cr }
+$$
+let ${\cal X}(t; {\bf x_0})$ be the solution; 
+which is assumed to be invertible 
+on the interval $[0,T)$.
+That is, for each $t \in [0,T)$, ${\cal X}(t; \cdot): R^n \mapsto R^n$ 
+is invertible. If $X$ is a random variable with 
+probability density function $P_X({\bf x})$, then we wish to compute 
+the probability density function of the random variable induced by 
+applying the transformation 
+${\cal X}(t; {\bf \cdot})$ to the random variable $X$.
+This will be done by writing down a balance law for a 
+suitable probabilistic expression. As in previous sections, we will not 
+obtain a formula for the induced probability density function; rather, 
+we will produce a partial differential equation describing its evolution.
+
+\subsection{A Balance Law Computation}
+Given an arbitrary region, $\widehat \Omega$, and an arbitrary time 
+$t \in [0,T)$, 
+the probability contained in $\widehat \Omega$ 
+will remain the same as the region is transformed either forward or 
+backward in time 
+under the differential equation (5a-b). Therefore, there is a one parameter 
+family of regions $\Omega_\tau$ such that $\Omega_t$ = $\widehat \Omega$ 
+and $\Omega_0 = \Omega$. That is, $\Omega$ morphs into $\widehat \Omega$ 
+under the action of the differential equation (5a-b).
+Let 
+$p(t,{\bf x}) = P_{{\cal X}(t;X)}({\bf x})$ be the probability
+density function of the induced random variable ${\cal X}(t; X)$. 
+The conservation of probability of $P_{{\cal X}(t, X)}(\Omega_t)$ 
+is expressed mathematically as an instantaneous balance law:
+$$
+\eqalignno{
+\fracd{d}{d\tau} \int_{\Omega_\tau} p(\tau,{\bf x}) \; d{\bf x} & 
+= 0 & (6) \cr}
+$$
+To compute the derivative we change the integration variable so as to 
+keep the region constant. To this end, let 
+${\bf x} = {\cal X}(\tau, {\bf z})$. The integral becomes:
+$$
+\fracd{d}{d\tau} \int_{\Omega} 
+p(\tau,{\cal X}(t, {\bf z})) \big| 
+\frac{\partial {\cal X}(\tau,{\bf z})}
+{\partial {\bf z}} \big| \; d{\bf z} = 0
+$$
+which is 
+$$
+\eqalignno{
+\int_{\Omega} \big( p_{\tau}(\tau, {\cal X}(\tau, {\bf z})) + 
+\nabla p(\tau, {\cal X}(\tau, {\bf z})) \cdot \dot 
+{\cal X}(\tau, {\bf z})
+  \big) 
+\big| \frac{\partial {\cal X}(\tau,{\bf z})}
+{\partial {\bf z}} \big| + 
+p(\tau, {\cal X}(\tau, {\bf z})) \frac{d}{d\tau}  \big| 
+\frac{\partial {\cal X}(\tau,{\bf z})}
+{\partial {\bf z}} \big| \; d{\bf z} & = 0 & (7) \cr }
+$$
+It turns out that the derivative, $\frac{d}{d\tau} 
+\big| \frac{\partial {\cal X}(\tau,{\bf z})}
+{\partial {\bf z}} \big|$, may be written 
+as\footnote{\kern 1pt \raise 0.5ex \hbox{\dag}}{This is a consequence of 
+Louisville's Theorem.}
+$$
+\frac{d}{d\tau} 
+\big| \frac{\partial {\cal X}(\tau,{\bf z})}
+{\partial {\bf z}} \big| =
+\big| \frac{\partial {\cal X}(\tau,{\bf z})}
+{\partial {\bf z}} \big| \; {\rm tr}\big(\nabla {\bf f}
+(\tau, {\cal X}(\tau, {\bf z}))\big) =
+\big| \frac{\partial {\cal X}(\tau,{\bf z})}
+{\partial {\bf z}} \big| \; 
+\nabla \cdot {\bf f}(\tau, {\cal X}(\tau, {\bf z}))
+$$
+Therefore, (7) becomes
+$$
+\eqalignno{
+\int_{\Omega} \bigg( p_\tau(\tau, {\cal X}(t, {\bf z})) + 
+\nabla p(\tau, {\cal X}(\tau, {\bf z})) \cdot 
+{\bf f}(\tau, {\cal X}(\tau, {\bf z}))
++ p(\tau, {\cal X}(\tau, {\bf z}))
+\nabla \cdot {\bf f}(\tau, {\cal X}(\tau, {\bf z}))
+\bigg) 
+\big| \frac{\partial {\cal X}(\tau,{\bf z})}
+{\partial {\bf z}} \big| \; d{\bf z} & = 0 & (8) \cr }
+$$
+Changing coordinates back, (8) becomes
+$$
+\eqalign{
+\int_{\Omega_\tau} p_{\tau}(\tau, {\bf x}) + \nabla p(\tau, {\bf x}) 
+\cdot {\bf f}(\tau, {\bf x}) 
++ p(\tau, {\bf x}) \nabla \cdot {\bf f}(\tau, {\bf x}) \; d{\bf x} & = 0 \cr }
+$$
+This may be written as
+$$
+\eqalignno{
+\int_{\Omega_\tau} p_\tau(\tau, {\bf x}) + \nabla \cdot 
+\big( p(\tau, {\bf x}) {\bf f}(\tau, {\bf x}) \big)
+ \; d{\bf x} & = 0 & (9) \cr }
+$$
+Equation (9) is true for all $\tau \in [0, T)$, 
+in particular it is true for $\tau = t$.
+If we assume that the integrand in (9) is continuous and since 
+$\widehat \Omega = \Omega_t$ and $t$ are both arbitrary, we have for all 
+$t \in [0,T)$
+and for all ${\bf x}$
+$$
+\eqalignno{
+p_t(t, {\bf x}) + \nabla \cdot 
+\big( p(t, {\bf x}) {\bf f}(t, {\bf x})\big) & = 0 & (10a) \cr
+p(0, {\bf x})  = P_X({\bf x})& & (10b) \cr} 
+$$
+In coordinates this is written as
+$$
+\eqalign{
+\fracd{\partial p(t, {\bf x})}{\partial t} + 
+\sum_{i=1}^n \fracd{\partial}{\partial x_i} 
+\big( p(t, {\bf x}) {\bf f}(t, {\bf x})\big) & = 0  \cr
+p(0, {\bf x})  = P_X({\bf x})&  \cr} 
+$$
+Equations (10a-b) constitute a first order partial differential 
+equation describing the evolution of the probability density function 
+$P_X({\bf x})$ with respect to the differential equation (5a-b).
+
+\subsection{A Second Order System}
+Many physical systems are more naturally described by a system of second 
+order differential equations than a first order system. In this section, 
+we derive an equation governing the evolution of a probability 
+density function driven by a second order system.
+Consider the second order system of differential equations of the form:
+$$
+\eqalignno{
+\ddot {\bf x} =  {\bf f}(t, {\bf x}, \dot {\bf x}) & & (11a) \cr
+{\bf x}(0) = {\bf x_0} & & (11b)  \cr
+\dot {\bf x}(0) = {\bf v_0} & & (11c)  \cr} 
+$$
+This may be written as a first order system as follows: 
+Let ${\bf v} = \dot {\bf x}$, then (11a-c) may be written as
+$$
+\eqalignno{
+\dot {\bf x}  & = {\bf v} &  (12a) \cr
+\dot {\bf v}  & =  {\bf f}(t, {\bf x}, {\bf v}) &  (12b) \cr
+{\bf x}(0)  & = {\bf x_0}  & (12c) \cr 
+{\bf v}(0)  & = {\bf v_0}  & (12d) \cr }
+$$
+We can use the result of the last section to write a formula for the 
+propagation of the probability density function. Let $P_{X,V}({\bf x},{\bf v})$
+be the joint probability density function for random variables $X$ and $V$.
+Let $p(t,{\bf x},{\bf v}) = 
+P_{{\cal X}(t; X, Y), {\cal V}(t; X, Y)}({\bf x}, {\bf v})$ 
+denote the probability density function of the pair, $(X, Y)$, transformed by
+the solution of (12a-d) at time $t$.
+From the previous section, $p$ satisfies 
+\footnote{\kern -3pt \raise 0.5ex \hbox{\dag}}
+{This follows from the identity  
+$\nabla \cdot (\varphi{\bf w}) = \nabla \varphi \cdot {\bf w}
++ \varphi \, {\rm tr}\, \nabla {\bf w}$.}
+$$
+p_t(t, {\bf x}, {\bf v}) + \pmatrix{ \nabla_{\bf x}p(t, {\bf x}, {\bf v}) 
+\enspace , & \!\!\!\! \nabla_{\bf v}p(t, {\bf x}, {\bf v})}
+\cdot  \pmatrix{{\bf v} \cr {\bf f}(t, {\bf x}, {\bf v})} 
++ p(t, {\bf x}, {\bf v}) 
+\; {\rm tr}\pmatrix{0 & I \cr \nabla_{\bf x}{\bf f}(t, {\bf x}, {\bf v}) 
+& \nabla_{\bf v} {\bf f}(t, {\bf x}, {\bf v}) \cr} = 0
+$$
+Simplifying and adding the initial condition this becomes
+$$
+\eqalignno{
+p_t(t, {\bf x}, {\bf v}) + \nabla_{\bf x}p(t, {\bf x}, {\bf v}) 
+\cdot {\bf v} + 
+\nabla_{\bf v}p(t, {\bf x}, {\bf v}) \cdot 
+{\bf f}(t, {\bf x}, {\bf v}) + p(t, {\bf x}, {\bf v}) \nabla_{\bf v} \cdot
+{\bf f}(t, {\bf x}, {\bf v}) & = 0 & (13a) \cr
+p(0, {\bf x}, {\bf v}) = P_{X,V}({\bf x}, {\bf v}) & & (13b) \cr }
+$$
+Or,
+$$
+\eqalignno{
+p_t(t, {\bf x}, {\bf v}) + \nabla_{\bf x}p(t, {\bf x}, {\bf v}) 
+\cdot {\bf v} + 
+\nabla_{\bf v} \cdot \big( p(t, {\bf x}, {\bf v}) 
+{\bf f}(t, {\bf x}, {\bf v}) \big) 
+ & = 0 & (14a) \cr
+p(0, {\bf x}, {\bf v}) = P_{X,V}({\bf x}, {\bf v}) & & (14b) \cr }
+$$
+In coordinates this is written as
+$$
+\eqalignno{
+\fracd{\partial p(t, {\bf x}, {\bf v})}{\partial t} + 
+\sum_{i=1}^n \fracd{\partial p(t, {\bf x}, {\bf v})}{\partial x_i} v_i +
+\sum_{i=1}^n \fracd{\partial}{\partial v_i} 
+\big(p(t, {\bf x}, {\bf v}) f_i(t, {\bf x}, {\bf v}) \big) 
+& = 0  & (15a) \cr
+p(0, {\bf x}, {\bf v}) = P_{X,V}({\bf x}, {\bf v}) &  & (15b) \cr }
+$$
+
+\subsection{The Fokker-Planck Equation I}
+We now consider the evolution of a probability density function 
+driven primarily by the differential system (5a-b), but which incorporates
+the dynamics of diffusion as well. 
+Such a governing equation is called a Fokker-Planck 
+equation. If $X$ is a random variable and ${\cal X}(t, {\bf x})$ 
+is the solution of (5a-b), then let 
+$p(t, {\bf x}) = P_{{\cal X}(t, X)}({\bf x})$
+be the probability density function for the random variable $X$ transformed 
+by ${\cal X}(t, \cdot)$. As before, 
+let $\widehat \Omega$ be an arbitrary region in $R^n$ and let 
+$\Omega_\tau$ parameterize a family 
+of regions such that $\Omega_0 = \Omega$ and $\Omega_t = \widehat \Omega$.
+
+Instead of equation (6) we assume that 
+$$
+\eqalignno{
+\fracd{d}{d\tau} \int_{\Omega_\tau} p(\tau, {\bf x}) \; d{\bf x} & = 
+\oint_{\partial \Omega_\tau} \big(A({\bf x}) \nabla p(\tau, {\bf x}) \big)
+\cdot {\bf n} \; d{\bf S} & (16) \cr}
+$$
+In the simplest case, $A({\bf x}) = I$, equation (16) says that the 
+changing regions, $\Omega_\tau$, allow diffusion based on the 
+probability gradient on the boundary. This is the same mechanism as 
+the heat equation. In the general case, the diffusion behaves as 
+the diffusion in the generalized heat equation.
+
+We have already done the computation for the left hand side of (16), so we 
+may write
+$$
+\eqalignno{
+\int_{\Omega_\tau} p_\tau(\tau, {\bf x}) + \nabla \cdot 
+\big( p(\tau, {\bf x}) {\bf f}(\tau, {\bf x}) \big) \, d{\bf x} & = 
+\oint_{\partial \Omega_\tau} \big(A({\bf x}) \nabla p(\tau, {\bf x}) \big)
+\cdot {\bf n} \; d{\bf S} & (17) \cr}
+$$
+Using the {\it Fundamental Theorem of Calculus\/} on the right hand side 
+of (17) and combining with the left hand side, we have
+$$
+\eqalignno{
+\int_{\Omega_\tau} p_\tau(\tau, {\bf x}) + \nabla \cdot 
+\big( p(\tau, {\bf x}) {\bf f}(\tau, {\bf x}) \big) -
+\nabla \cdot \big( A({\bf x}) \nabla p(\tau, {\bf x}) \big) \, d{\bf x}
+& = 0 & (18) \cr}
+$$
+Since this is true for all $\tau \in [0, t]$; and, $t$ and 
+$\Omega_t = \widehat \Omega$ are arbitrary, we may write
+the Fokker-Planck equation governing the evolution of 
+$P_X({\bf x})$\footnote{\raise 0.5ex \hbox{\dag}}
+{We make the same assumptions about $A({\bf x})$ 
+(in this section and the next) that were made when 
+deriving the heat equation in n dimensions:
+\beginEnum
+\enum{$A({\bf x})$ should be a positive definite symmetric matrix;}
+\enum{The smallest eigenvalue of $A({\bf x})$ is greater than $a_0$ for some
+$a_0 > 0$;}
+\enum{$A({\bf x})$ is continuously differentiable with respect to ${\bf x}$.}
+\endEnum}.
+$$
+\eqalignno{
+p_t(t, {\bf x}) + \nabla \cdot 
+\big( p(t, {\bf x}) {\bf f}(t, {\bf x}) \big)  & =
+\nabla \cdot \big( A({\bf x}) \nabla p(t, {\bf x}) \big)  & (19a) \cr
+p(0, {\bf x}) = P_X({\bf x}) & & (19b) \cr}
+$$
+In coordinates this is written as
+$$
+\eqalignno{
+\fracd{\partial p(t, {\bf x})}{\partial t} +
+\sum_{i=1}^n \fracd{\partial}{\partial x_i} \bigg(p(t, {\bf x}) 
+f_i(t, {\bf x}) \bigg) & = 
+\sum_{i=1}^n \fracd{\partial}{\partial x_i} 
+\bigg(
+\sum_{j=1}^n A({\bf x})_{ij} \fracd{\partial p(t, {\bf x})}{\partial x_j} 
+\bigg)
+& (20a) \cr
+p(0, {\bf x}) = P_X({\bf x}) & & (20b) \cr }
+$$
+
+\subsection{The Fokker-Planck Equation II}
+We now consider the evolution of a probability density function 
+driven primarily by the second order differential system (12a-d), 
+but which incorporates the dynamics of diffusion as well. 
+If $X$ and $V$ are random variables and 
+$\{{\cal X}(t, {\bf x}, {\bf v})~,~{\cal V}(t, {\bf x}, {\bf v})\}$ 
+is the pair of functions representing the solution of (11a-b), then 
+let $p(t, {\bf x}, {\bf v}) = 
+P_{{\cal X}(t, X), {\cal V}(t, V)}({\bf x}, {\bf v})$
+be the joint probability density function for the 
+random variables $\{X, V\}$ transformed 
+by $\{{\cal X}(t, \cdot)~,~{\cal V}(t, \cdot)\}$. 
+As before, let $\widehat \Omega$ be an arbitrary region in $R^n {\rm x} R^n$, 
+and let 
+$\Omega_\tau$ parameterize a family 
+of regions in $R^n {\rm x} R^n$ such that 
+$\Omega_0 = \Omega$ and $\Omega_t = \widehat \Omega$.
+
+We assume, as in the previous section that the primary dynamics of the 
+evolution of $p(t, {\bf x}, {\bf v})$ is the differential system (12a-d).
+Additionally, we assume that probability diffuses through the ${\bf v}$ 
+component of the regions 
+$\Omega_\tau$ based {\it only\/} on the gradient of $p$ 
+with respect to ${\bf v}$.
+That is, the instantaneous balance law (6) becomes 
+$$
+\eqalignno{
+\fracd{d}{d\tau} \int_{\Omega_\tau} p(\tau,{\bf x}, {\bf v}) \; 
+d({\bf x} \hbox{\small x} {\bf v}) & 
+= \oint_{\partial \Omega_\tau} \pmatrix{ 0 \! \! &, \;
+A({\bf x}, {\bf v}) \nabla_{\bf v} 
+p(\tau, {\bf x}, {\bf v})} \cdot \pmatrix{{\bf n_x} \cr
+{\bf n_v}} \; d({\bf S_x} \raise 1pt \hbox{\small x} {\bf S_v}) & (21) \cr}
+$$
+The left hand side has been previously calculated; so, using the 
+{\it Fundamental Theorem of Calculus\/} on the right hand side, we may 
+write
+$$
+\eqalignno{
+\int_{\Omega_\tau} p_\tau(\tau,{\bf x}, {\bf v}) +
+\nabla_{\bf x} p(\tau, {\bf x}, {\bf v}) \cdot {\bf v} + 
+\nabla_{\bf v} \cdot \big( p(\tau, {\bf x}, {\bf v}) 
+{\bf f}(\tau, {\bf x}, {\bf v}) \big) & & \cr
+ - \nabla_{\bf v} \cdot \big(A({\bf x}, {\bf v}) \nabla_{\bf v} 
+p(\tau, {\bf x}, {\bf v})\big) \; d({\bf x} \hbox{\small x} {\bf v})
+ & = 0 & (22) \cr}
+$$
+Again, $\widehat \Omega = \Omega_t$ and $t$ arbitrary imply that the 
+Fokker-Planck equation governing the evolution of 
+$P_{X,V}({\bf x}, {\bf v})$ is
+$$
+\eqalignno{
+p_t(t,{\bf x}, {\bf v}) +
+\nabla_{\bf x} p(t, {\bf x}, {\bf v}) \cdot {\bf v} + 
+\nabla_{\bf v} \cdot \big( p(t, {\bf x}, {\bf v}) 
+{\bf f}(t, {\bf x}, {\bf v}) \big) 
+  & = \nabla_{\bf v} \cdot \big(A({\bf x}, {\bf v}) \nabla_{\bf v} 
+p(t, {\bf x}, {\bf v})\big)  & (23a) \cr
+p(0, {\bf x}, {\bf v}) = P_{X,V}({\bf x}, {\bf v}) & & (23b) \cr}
+$$
+Recalling that the coordinates for the right hand side have been written 
+in the last section we may write the coordinate version of this 
+Fokker-Planck equation as 
+$$
+\eqalignno{
+\fracd{\partial p(t, {\bf x}, {\bf v})}{\partial t} +
+\sum_{i=1}^n \fracd{\partial p(t, {\bf x}, {\bf v})}{\partial x_i}
+v_i  + \sum_{i=1}^n 
+\fracd{\partial}{\partial v_i} 
+\big(p(t, {\bf x}, {\bf v}) f_i(t, {\bf x}, {\bf v}) \big)
+& = 
+\sum_{i=1}^n \fracd{\partial}{\partial v_i} 
+\bigg(\sum_{j=1}^n A({\bf x}, {\bf v})_{ij} 
+\fracd{\partial p(t, {\bf x}, {\bf v})}{\partial v_j} \bigg)
+  & (24a) \cr
+p(0, {\bf x}, {\bf v}) = P_{X,V}({\bf x}, {\bf v}) & & (24b) \cr }
+$$
+In the case when $A({\bf x}, {\bf v}) = \kappa {\cal A}$, 
+${\cal A}$ a constant positive definite symmetric matrix, (24a-b) becomes
+$$
+\eqalignno{
+\fracd{\partial p(t, {\bf x}, {\bf v})}{\partial t} +
+\sum_{i=1}^n \fracd{\partial p(t, {\bf x}, {\bf v})}{\partial x_i}
+v_i  + \sum_{i=1}^n 
+\fracd{\partial}{\partial v_i} 
+\big(p(t, {\bf x}, {\bf v}) f_i(t, {\bf x}, {\bf v}) \big)
+ & = \kappa 
+\sum_{i=1}^n 
+\sum_{j=1}^n {\cal A}_{ij} 
+\fracd{\partial^2 p(t, {\bf x}, {\bf v})}{\partial v_i \; \partial v_j}
+  & (25a) \cr
+p(0, {\bf x}, {\bf v}) = P_{X,V}({\bf x}, {\bf v}) & & (25b) \cr }
+$$
+If $A({\bf x}, {\bf v})$ is specialized further so that ${\cal A}$ 
+is the identity matrix, then (25a-b) becomes
+$$
+\eqalignno{
+\fracd{\partial p(t, {\bf x}, {\bf v})}{\partial t} +
+\sum_{i=1}^n \fracd{\partial p(t, {\bf x}, {\bf v})}{\partial x_i}
+v_i  + \sum_{i=1}^n 
+\fracd{\partial}{\partial v_i} 
+\big(p(t, {\bf x}, {\bf v}) f_i(t, {\bf x}, {\bf v}) \big)
+& = \kappa 
+\sum_{i=1}^n 
+\fracd{\partial^2 p(t, {\bf x}, {\bf v})}{\partial^2 v_i}
+  & (26a) \cr
+p(0, {\bf x}, {\bf v}) = P_{X,V}({\bf x}, {\bf v}) & & (26b)  \cr }
+$$
+In the one dimensional case, this is further simplified to
+$$
+\eqalignno{
+\fracd{\partial p(t, x, v)}{\partial t} + 
+\fracd{\partial p(t , x, v)}{\partial x} v +
+\fracd{\partial}{\partial v} 
+\big( p(t, x, v) f(t, x, v) \big) & = 
+\kappa \fracd{\partial^2 p(t, x, v)} {\partial^2 v} & (27a) \cr
+p(0, x, v) = P_{X,V}(x, v) & & (27b) \cr }
+$$
+\bye
+
+
