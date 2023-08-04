@@ -455,7 +455,7 @@ One can repeat the above notion of projection using a distance measure created f
 The generalization is called an {\em inner product}. We will use an "infix" form of such a function and use the notation
 $<{\bf x}, {\bf y}>$. An inner product is any function of two vectors; i.e., $F: V \times V \rightarrow R$,  with the following properties:
 \bi
-  \item{ $ <{\bf x}, {\bf y}> \, = \, <{\bf y}, {\bf x}>$ -- Symmetric.}
+  \item{ $ <{\bf x}, {\bf y}> \, = \, <{\bf y}, {\bf x}>$ -- Symmetry.}
   \item{ $ <\lambda_1 {\bf x}_1 + \lambda_2 {\bf x}_2, {\bf y}> \, = \, \lambda_1 <{\bf x}_1, {\bf y}> + \lambda_2 <{\bf x}_2, {\bf y}> $ -- Distributes addition and scalar multiplication.}
   \item{ $ < {\bf x}, {\bf x}> = 0 \quad \text{iff} \; {\bf x} = {\bf 0} $ -- Non-degeneracy.}
   \item{ $\|{\bf x}\| \, \equiv \, \sqrt{<{\bf x}, {\bf x}>}$ -- 
@@ -514,9 +514,9 @@ value of the vector is on each index.}
   {\item  $({\bf f} + {\bf g})(x) \equiv f(x) + g(x)$.}
   \item{$(\lambda * {\bf f})(x) \equiv \lambda f(x) $.}
 \ei
-To understand the above, keep in mind what one must do. I must define a "+" 
+To understand the above, keep in mind what one must do. You must define a "+" 
 operator so that adding two functions produces another function.
-But to describe what the this function, $f + g$ is, we must show what it 
+But to describe what the this function $f + g$ is, you must show what it 
 does when applied to any "x" -- which we've done.
 The new function $f + g$ when applied to "x" is what one would expect; it is 
 the sum of the values of f and g applied to x.
@@ -524,7 +524,7 @@ In a similar way we define scalar multiplication. And just like with
 ordinary vectors, we suppress the multiplication operator and write 
 $$\lambda \, {\bf f} \equiv \lambda * {\bf f}  $$
 
-With these definitions this space of function behaves just like 
+With these definitions this space of function behaves like 
 vectors of numbers.
 
 Define $<{\bf f}, {\bf g}> \equiv \int_\Omega f(x) g(x) \, dx$.
