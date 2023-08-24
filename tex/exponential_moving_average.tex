@@ -42,7 +42,7 @@ for $k > 0$. Then sampling this function at regular intervals of say $1$
 we get the sequence: $\{ e^{-k}, e^{-2k}, e^{-3k}, \ldots \}$.
 Here we can see that the elements of the sequence are powers of a value, $\lambda = e^{-k}$.
 That is, the sequence is nothing other than: $\{\lambda, \lambda^2, \lambda^3, \ldots \}$.}
-Since the parameter $\lambda \in (0,1)$ it is a decay factor. 
+Since the parameter $\lambda$ is in the interval $(0,1)$, it represents a decay factor. 
 Notice that the indices of ${\bf x}$ and that of ${\bf w}$ go in the "opposite direction".
 This is done so that the largest weights are associated with the most recent data
 in the averaging window.
@@ -68,30 +68,30 @@ indices less than 1 as:
 While we can use $(\ref{ema_def})$ to compute the EMA it is {\em inefficient\/}. 
 The purpose of this
 paper is to derive a recursive formula that is fast to compute.
-
 The formula takes advantage of the fact that when the weights are exponentials
 (powers of $\lambda$) we don't have to recompute the bulk of the sums in the 
 averaging window.
 
-Regardless of the averaging scheme we want our weights to sum to one.%
-\footnote{This is because the moving average is an estimate of the mean
-and we wish our estimate to be {\em unbiased\/}: 
+Regardless of the averaging scheme, we want our weights to sum to one.%
+\footnote{If we consider the underlying data to be generated from a series of identically distributed random
+variables; then, treating the series elements as random variables we can view 
+the moving average as an estimate of their mean, $\mu$. 
+To be a good estimate we which this estimate to be {\em unbiased\/}:
 $E\left[\sum_{k=1}^m x_{n-k} w_{k+1}\right] = \sum_{k=0}^{m-1} E[x_{n-k}]w_{k+1}$.
 Which is $\mu \sum_{k=0}^{m-1} w_{k+1} = \mu \sum_{k=1}^{m} w_k = \mu$.}
 But we also want the weights to be exponential; that is, $w_{k+1} = \lambda w_{k}$.
 
 Ideally, all we want to do is give the decay factor, $\lambda$. If so, 
 how do we determine the weights?
-We briefly describe the process.
 The weights can be constructed as follows once a $\lambda$ is given.
 
 For $i \in [1, m]$ define
 \begin{eqnarray}
-{\hat w}_i & = & \lambda^i 
+    {\hat w}_i & = & \lambda^i 
 \end{eqnarray}
 The ${\hat {\bf w}}$ have the property that they decay with $\lambda$.
 That is, $\lambda w_{k} = w_{k+1}$. However, how do we ensure that
-these values sum to 1 over the window. 
+these values sum to 1 over the window? 
 
 To do this, we simply normalize the weights:
 \begin{eqnarray}
@@ -117,6 +117,8 @@ e_{n+1} & = & \sum_{k=0}^{m-1} x_{n+1-k} w_{k+1} \\
         & = & \sum_{k=0}^{m-2} x_{n-k} w_{k+2}  + x_{n+1} w_1 \\
         & = & \lambda \sum_{k=0}^{m-2} x_{n-k} w_{k+1}  + x_{n+1} w_1  \quad \text{(Since $\lambda w_{k+1} = w_{k+2}$)} \\
         & = & \lambda \sum_{k=0}^{m-1} x_{n-k} w_{k+1}  + x_{n+1} w_1  
+                - \lambda x_{n-(m-1)} w_m  \\
+        & = & \lambda \sum_{k=0}^{m-1} x_{n-k} w_{k+1}  + x_{n+1} w_1  
                 - \lambda x_{(n+1)-m} w_m 
 \end{eqnarray*}
 
@@ -136,7 +138,8 @@ with the definition of the exponential moving average and it moving variation.%
 \footnote{This variance formula needs to be corrected by a factor which we 
 leave to the end. The correction is a factor that is used to make the 
 estimated standard deviation of the moving average {\em unbiased\/}.
-The formula for this factor is independent of the structure of the weights.}
+The formula for this factor is independent of the structure of the weights.
+This means that it can be pre-computed independently of the data series.}
 
 \begin{eqnarray}
 e_n & = & \sum_{k=0}^{m-1} x_{n-k} w_{k+1} \\
@@ -150,7 +153,7 @@ and try to show its relation to the present value at index $n$.
 v_{n+1} & = & \sum_{k=0}^{m-1} (x_{(n+1)-k} - e_{(n+1)-k})^2  w_{k+1} \\
         & = & \sum_{k=0}^{m-1} (x_{n-(k-1)} - e_{n-(k-1)})^2  w_{k+1} \\
         & = & \sum_{k=-1}^{m-2} (x_{n-k} - e_{n-k})^2  w_{k+2} \\
-        & = & \sum_{k=0}^{m-2} (x_{n-k} - e_{n-k})^2  w_{k+2}  + ( (x_{n+1} - e_{n+1} )^2 w_1 \\
+        & = & \sum_{k=0}^{m-2} (x_{n-k} - e_{n-k})^2  w_{k+2}  + ( x_{n+1} - e_{n+1} )^2 w_1 \\
         & = & \lambda \sum_{k=0}^{m-2} (x_{n-k} - e_{n-k})^2  w_{k+1}  + ( x_{n+1} - e_{n+1} )^2 w_1  \quad \text{(Since $\lambda w_{k+1} = w_{k+2}$)} \\
         & = & \lambda \left[ \sum_{k=0}^{m-1} (x_{n-k} - e_{n-k})^2  w_{k+1} - ( x_{(n+1)-m} - e_{(n+1)-m} )^2 w_m \right]
             + ( x_{n+1} - e_{n+1} )^2 w_1 
@@ -159,7 +162,7 @@ Therefore,
 
 \begin{eqnarray}
     v_{n+1} & = & \lambda v_n + ( x_{n+1} - e_{n+1} )^2 w_1 - \lambda ( x_{(n+1)-m} - e_{(n+1)-m} )^2 w_m \quad \forall n \in [1, N-1] \\
-    v_1  & = & w_m (x_1 - e_1)^2 = 0
+    v_1  & = & w_1 (x_1 - e_1)^2 = 0
 \end{eqnarray}
 
 Finally, the standard deviation of the exponential moving average is:
@@ -177,19 +180,21 @@ and smoothly move from that to the estimate above over the averaging windows whe
 \section{How to Specify the $\lambda$ Factor}
 When using the EMA, practitioners do not specify the factor $\lambda$ directly; 
 instead they provide the "half-life" of the decay.
-By half-file we mean the number of powers of $\lambda$, $N$, so that
+By the half-file of $\lambda$, we mean the number of powers of $\lambda$, $N$, so that
 $\lambda^N \approx \frac{1}{2}$. 
 
 In our case we are interested in the reverse; namely, given a half life, $N$, 
 determine the factor $\lambda$. To do this we solve the equation $\lambda^N = \frac{1}{2}$
 for $\lambda$.
-Taking the $\log$ of this equation and solving for $\lambda$ we have:
+Taking the $\log$ of this equation and solving for $\lambda$ we have:%
+\footnote{The log used below is the logarithm base $e$.}
+
 \begin{eqnarray*}
     \log(\lambda^N) & = & \log(\frac{1}{2}) \\
     N \log(\lambda) & = & \log(1) - \log(2) \\
     \log(\lambda) & = & -\frac{\log(2)}{N}
 \end{eqnarray*}
-The formula for $\lambda$ given $N$ becomes:
+The formula to determine $\lambda$ given the half-life $N$ becomes:
 
 \begin{eqnarray}
     \lambda = e^{-\frac{\log(2)}{N}}
