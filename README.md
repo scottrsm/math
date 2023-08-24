@@ -9,6 +9,7 @@
 - Alternative Proof of an elementary Property of Primitive Pythagorean Triples: **tex**/PythagTripleProp.tex.
 - Conjectures regarding Primitive Pythagorean Triples: **tex**/PythagoreanConjectures.tex.
 - Julia code supporting the Pythagorean triples conjecture via a Jupyter notebook: **src**/pythag.ipynb.
+
 ### Math Education
 - What is a Derivative: **tex**/what_is_a_derivative.tex.
 - What is the Determinant: **tex**/what_is_a_determinant.tex.
@@ -18,5 +19,6 @@
 - Re-Examination of a Linear Unbiased Estimation Problem with different Norms: **tex**/prob_linear_unbias_est.tex.
 - A Balance Law approach to the derivation of the Heat and Fokker-Planck equations: **tex**/heat_balance.tex.
 - A derivation of the Exponential Moving Average and its associated moving Standard Deviation: **tex**/exponential_moving_average.tex.
+
 ### New Mathematical Formulas
 - A formula to Compute Probability Distribution for non-Singular Transformations: **tex**/prob_singular_trans.tex.
