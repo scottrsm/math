@@ -165,7 +165,9 @@ Therefore,
     v_1  & = & w_1 (x_1 - e_1)^2 = 0
 \end{eqnarray}
 
-Finally, the standard deviation of the exponential moving average is:
+Finally, the standard deviation of the exponential moving average is:%
+\footnote{The window length, $m$, must be greater than $1$.}
+
 \begin{eqnarray}
     s_{n} = \sqrt{\frac{v_n}{1 - \sum_{i=1}^m w_i^2}} 
 \end{eqnarray}
