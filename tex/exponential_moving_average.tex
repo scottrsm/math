@@ -12,7 +12,7 @@
 
 \title{Derivation of the Exponential Moving Average}
 \author{R. Scott McIntire}
-\date{Aug 25, 2023}
+\date{Aug 26, 2023}
 
 \begin{document}
 
@@ -89,8 +89,8 @@ For $i \in [1, m]$ define
 \begin{eqnarray}
     {\hat w}_i & = & \lambda^i 
 \end{eqnarray}
-The ${\hat {\bf w}}$ have the property that they decay with $\lambda$.
-That is, $\lambda w_{k} = w_{k+1}$. However, how do we ensure that
+The ${\hat {\bf w}}$ have the property that they decay with $\lambda$;
+that is, $\lambda {\hat w}_{k} = {\hat w}_{k+1}$. However, how do we ensure that
 these values sum to 1 over the window? 
 
 To do this, we simply normalize the weights:
@@ -112,11 +112,11 @@ property? The answer is no, the property remains:
 and $(\ref{o:weights_power})$ in our derivations below.
 
 \section{Recursive Formula for EMA}
-Define the exponential moving average of $x$ as:
+We state again the definition of the exponential moving average of $x$ as:
 \begin{eqnarray}
 e_n & = & \sum_{k=0}^{m-1} x_{n-k} w_{k+1}
 \end{eqnarray}
-We examine the formula for the next element in the smoothing sequence 
+In order to find a recursive formula, we examine the next element in the smoothing sequence 
 and try to relate it to the present element at index $n$.
 
 \begin{eqnarray*}
@@ -136,7 +136,7 @@ Finally, we may write%
 $(\ref{o:var_extend})$ and $(\ref{o:weights_normalized})$,
 $e_1 = \sum_{k=0}^{m-1} x_{n-k} w_{k+1} = x_1 \sum_{k=0}^{m-1} w_{k+1} = x_1 \sum_{k=1}^m w_k = x_1$.}
 \begin{eqnarray}
-    e_{n+1} & = & \lambda e_n + x_{n+1} w_1 - \lambda x_{(n+1)-m} w_m \quad \forall n \in [1, N-1] \\
+    e_{n+1} & = & \lambda \left(e_n - x_{(n+1) - m} w_m \right) + x_{n+1} w_1  \quad \forall n \in [1, N-1] \\
     e_1     & = & x_1
 \end{eqnarray}
 
@@ -144,7 +144,7 @@ The corresponding 0-based index formula is:%
 \footnote{We write the formulas down for both 1 and  0 based vector indices because
 computer languages typically use one or the other.}
 \begin{eqnarray}
-    e_{n} & = & \lambda e_{n-1} + x_{n} w_0 - \lambda x_{n-m} w_{m-1} \quad \forall n \in [1, N-1] \\
+    e_{n} & = & \lambda \left( e_{n-1} - x_{(n-m} w_{m-1} \right) + x_{n} w_0  \quad \forall n \in [1, N-1] \\
     e_0     & = & x_0
 \end{eqnarray}
 
@@ -177,13 +177,13 @@ the recursive formula for $(\ref{ema_cmp})$, replacing $x_j$ with $f(x_j)$.
 
 The recursive formula for $g_n$ is
 \begin{eqnarray}
-    g_{n+1} & = & \lambda g_{n} + f(x_{n+1}) w_1 - \lambda f(x_{(n+1)-m}) w_m \quad \forall n \in [1, N-1] \\
+    g_{n+1} & = & \lambda \left( g_{n} - f(x_{(n+1)-m}) w_m \right) + f(x_{n+1}) w_1  \quad \forall n \in [1, N-1] \\
     g_1 & = & f(x_1)
 \end{eqnarray}
 The 0-based index formula is:
 
 \begin{eqnarray}
-    g_{n} & = & \lambda g_{n-1} + f(x_{n}) w_0 - \lambda f(x_{n-m}) w_{m-1} \quad \forall n \in [1, N-1] \\
+    g_{n} & = & \lambda \left( g_{n-1} - f(x_{n-m}) w_{m-1} \right) + f(x_{n}) w_0  \quad \forall n \in [1, N-1] \\
     g_0 & = & f(x_0)
 \end{eqnarray}
 
@@ -192,13 +192,13 @@ The corresponding $f$ for $(\ref{var})$ is $f(x) = x^2$;
 consequently, its recursive formula is 
 
 \begin{eqnarray}
-    v_{n+1} & = & \lambda v_n + ( x_{n+1} - e_{n+1} )^2 w_1 - \lambda ( x_{(n+1)-m} - e_{(n+1)-m} )^2 w_m \quad \forall n \in [1, N-1] \\
+    v_{n+1} & = & \lambda \left( v_n -  ( x_{(n+1)-m} - e_{(n+1)-m} )^2 w_m \right) + ( x_{n+1} - e_{n+1} )^2 w_1 \quad \forall n \in [1, N-1] \\
     v_1  & = & (x_1 - e_1)^2 = 0
 \end{eqnarray}
 The corresponding 0-based index formula is:
 
 \begin{eqnarray}
-    v_{n} & = & \lambda v_{n-1} + ( x_{n} - e_{n} )^2 w_0 - \lambda ( x_{n-m} - e_{n-m} )^2 w_{m-1} \quad \forall n \in [1, N-1] \\
+    v_{n} & = & \lambda \left( v_{n-1} - ( x_{n-m} - e_{n-m} )^2 w_{m-1}\right) + ( x_{n} - e_{n} )^2 w_0 \quad \forall n \in [1, N-1] \\
     v_0  & = & (x_0 - e_0)^2 = 0
 \end{eqnarray}
 
@@ -218,11 +218,11 @@ and smoothly move from that to the estimate above over the averaging windows whe
 
 \section{How to Specify the $\lambda$ Factor}
 When using the EMA, practitioners do not specify the factor $\lambda$ directly; 
-instead they provide the "half-life" of the decay.
+instead they provide the ``half-life'' of the decay.
 By the half-file of $\lambda$, we mean the number of powers of $\lambda$, $N$, so that
 $\lambda^N \approx \frac{1}{2}$. 
 
-In our case we are interested in the reverse; namely, given a half life, $N$, 
+In our case we are interested in the reverse; namely, given a half-life, $N$, 
 determine the factor $\lambda$. To do this we solve the equation $\lambda^N = \frac{1}{2}$
 for $\lambda$.
 Taking the $\log$ of this equation and solving for $\lambda$ we have:%
@@ -233,7 +233,7 @@ Taking the $\log$ of this equation and solving for $\lambda$ we have:%
     N \log(\lambda) & = & \log(1) - \log(2) \\
     \log(\lambda) & = & -\frac{\log(2)}{N}
 \end{eqnarray*}
-The formula to determine $\lambda$ given the half-life $N$ becomes:
+The formula to determine $\lambda$ given the half-life $N$ is:
 
 \begin{eqnarray}
     \lambda = e^{-\frac{\log(2)}{N}}
@@ -245,28 +245,33 @@ The formula to determine $\lambda$ given the half-life $N$ becomes:
 In this section we derive the corrective formula for computing the empirical variance.
 
 In what follows we assume that we are given a sequence of independent identically distributed random variables (IID):
-$\{x_i\}_{i=1}^N$ and corresponding weights: $\{w_i\}_{i=1}^N$, satisfying:
-We assume that the random variables have a mean and variable:
+$\{x_i\}_{i=1}^N$ and corresponding weights: $\{w_i\}_{i=1}^N$.
+We assume that the random variables have a mean and a variance:
 \begin{eqnarray}
     E[x_i] & = & \mu  \quad \forall i, i \in [1, N] \\
     E[(x_i - \mu)]^2 & = & \sigma^2 \quad \forall i, i \in [1, N] 
 \end{eqnarray}
 
-We assume that the weights are non-negative and are normalized:
+We assume that the weights are non-negative and are normalized:%
+\footnote{We also assume that the weight is not concentrated at any
+one index.}
 \begin{itemize}
     \item{$\sum_{i=1}^N w_i = 1$}
-    \item{$\forall i, w_i \ge 0$}
+    \item{$\forall i, 0 \le w_i < 1$}
 \end{itemize}
 
-If we take the expectation of the weighted sum, $\sum_{i=1}^N x_i w_i$ we find that it is $\mu$:
+If we take the expectation of the weighted sum, $\sum_{i=1}^N x_i w_i$ we find that it is $\mu$:%
+\footnote{This is due to the linearity of the expectation operator, $E$:
+$E[a x + b y + c] = a E[x] + b E[y] + c$, provided $a,b,c$ are constants.}
+
 \begin{eqnarray}
-    E[\sum_{i=1}^n x_i w_i] = \sum_{i=1}^N E[x_i n_i ] = \sum_{i=1}^N E[x_i] w_i = \mu \sum_{i=1}^N w_i = \mu
+    E\left[\sum_{i=1}^n x_i w_i\right] = \sum_{i=1}^N E[x_i n_i ] = \sum_{i=1}^N E[x_i] w_i = \mu \sum_{i=1}^N w_i = \mu
 \end{eqnarray}
 The weighted sum represents an estimate of the true mean of the IID random variables, which is $\mu$.
 And in this case we see that it is a good estimate in that the expected value of the weighed combination
 of the random variables is $\mu$. 
 
-We refer to such "good" estimates as {\em unbiased\/}.
+We refer to such "good" estimates as {\em unbiased estimators\/}.
 
 Now consider the sum $\sum_{i=1}^N (x_i - \mu)^2 w_i$.
 People use this as an estimate of the variance of the random variables. Is this "good" (unbiased) estimate?
@@ -277,8 +282,8 @@ Then it turns out that the resulting estimate for the variance is {\em biased\/}
 However, it happens that we are "off" by a certain factor and that factor depends only on the weights 
 we use. In fact the factor doesn't depend on the ordering of the weights.
 
-To find this factor we take the expected value of the straight forward formula that we would imagine
-for estimating the variance of the random variables.
+To find this factor we examine the expected value of the straight forward formula one would imagine
+using to estimate the variance of the random variables.
 
 \begin{eqnarray}
     E\left[ \sum_{i=1}^N (x_i - {\bar x})^2 w_i \right] & = & \sum_{i=1}^N E\left[(x_i - {\bar x})^2\right] w_i \nonumber \\
@@ -294,7 +299,6 @@ We separately compute the expectation of each of the three summands.
 
 \begin{eqnarray}
     E\left[ ({\bar x} - \mu)^2 \right] & = & E \left[\left( \left(\sum_{j=1}^N x_j w_j\right) - \mu \right)^2\right] \nonumber \\
-     & = & E\left[\left( \sum_{j=1}^N (x_j w_j - \mu w_j) \right)^2\right] \nonumber \\
      & = &  E\left[ \left( \sum_{j=1}^N (x_j w_j - \mu w_j) \right)^2\right] \nonumber \\
      & = &  E\left[ \left( \sum_{j=1}^N (x_j - \mu)w_j \right)^2\right] \nonumber \\
      & = &  E\left[ \left( \sum_{j=1}^N (x_j - \mu)w_j \right) \left(\sum_{k=1}^N (x_k - \mu) w_k\right)\right] \nonumber \\
@@ -334,8 +338,19 @@ Consequently, $\frac{1}{1 - \sum_{i=1}^N w_i^2} \sum_{i=1}^N (x_i - {\hat x})^2 
 is an unbiased estimator for the variance of any of the IID variables: $\{x_i\}_{i=1}^N$. 
 The unbiased standard deviation is then
 \begin{eqnarray}
-    {\rm std}(x_i) & = & \sqrt{\frac{1}{1 - \sum_{i=1}^N w_i^2} \sum_{i=1}^N (x_i - {\bar x})^2 w_i}
+    \sqrt{\frac{1}{1 - \sum_{i=1}^N w_i^2} \sum_{i=1}^N (x_i - {\bar x})^2 w_i} 
 \end{eqnarray}
+
+What is the formula when the weights are evenly distributed? That would mean that the weights are $w_i = \frac{1}{N}$.
+In this case the estimate for the standard deviation of the random variables is:
+\begin{eqnarray*}
+     \sqrt{\frac{1}{1 - \sum_{i=1}^N \left(\frac{1}{N}\right)^2} \sum_{i=1}^N (x_i - {\bar x})^2 \frac{1}{N}} 
+                   & = & \sqrt{\frac{1}{1 - \frac{1}{N}} \frac{1}{N} \sum_{i=1}^N (x_i - {\bar x})^2 } \\
+                   & = & \sqrt{\frac{1}{\frac{N - 1}{N}} \frac{1}{N} \sum_{i=1}^N (x_i - {\bar x})^2 } \\
+                   & = & \sqrt{\frac{N}{N - 1} \frac{1}{N} \sum_{i=1}^N (x_i - {\bar x})^2 } \\
+                   & = & \sqrt{\frac{1}{N - 1} \sum_{i=1}^N (x_i - {\bar x})^2 }
+\end{eqnarray*}
+We see that we end up with the usual "sample" standard deviation.
 
 \end{document}
 
