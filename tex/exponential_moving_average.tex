@@ -324,11 +324,16 @@ Continuing with $(\ref{standard_emp_var})$ we have
     E\left[ \sum_{i=1}^N (x_i - {\bar x})^2 w_i \right] & = & \sum_{i=1}^N E\left[(x_i - {\bar x})^2\right] w_i \\
     & = & \sum_{i=1}^N E\left[\left((x_i - \mu) + (\mu - {\bar x})\right)^2\right] w_i \\
     & = & \sum_{i=1}^N E\left[(x_i - \mu)^2 - 2(x_i - \mu)({\bar x} - \mu ) + ({\bar x} - \mu)^2\right] w_i \\
-    & = & \sum_{i=1}^N \left( E\left[(x_i - \mu)^2\right] + E\left[ ({\bar x} - \mu)^2\right] 
-              - 2E\left[(x_i - \mu) ({\bar x} - \mu) \right] \right) w_i \\
-    & = & \sum_{i=1}^N \left(\sigma^2  + \sigma^2 w_i - 2\sigma^2 \left( \sum_{j=1}^N w_j^2 \right)\right)w_i  \\
-    & = & \sum_{i=1}^N \sigma^2w_i + \sigma^2 \left( \sum_{i=1}^N w_i^2 \right)w_i - 2\sigma^2 \left( \sum_{j=1}^N w_j^2 \right)w_i \\ 
-    & = & \sigma^2 + \sigma^2 \left( \sum_{i=1}^N w_i^2 \right) - 2\sigma^2 \left( \sum_{j=1}^N w_j^2 \right) \\ 
+    & = & \sum_{i=1}^N \left( E\left[(x_i - \mu)^2\right]  
+    + E\left[\left(\sum_{j=1}^N (x_j - \mu)w_j\right)^2\right]  
+              - 2E\left[(x_i - \mu) \left(\sum_{j=1}^N (x_j - \mu)w_j\right)  \right] \right)  w_i \\
+    & = & \sum_{i=1}^N \left( E\left[(x_i - \mu)^2\right]  
+    + \left(\sum_{j=1}^N E[(x_j - \mu)^2]w_j^2 \right)  
+              - 2E\left[(x_i - \mu) \left(\sum_{j=1}^N (x_j - \mu)w_j\right)  \right] \right)  w_i \\
+    & = & \sum_{i=1}^N \left(\sigma^2  + \sigma^2 \sum_{j=1}^N w_j^2 - 2 \left( \sum_{j=1}^N E[(x_i - \mu) (x_j - \mu)] w_j \right)\right)w_i  \\
+    & = & \sum_{i=1}^N \left(\sigma^2  + \sigma^2 \sum_{j=1}^N w_j^2 - 2 \left( \sum_{j=1}^N \sigma^2 \delta_{i,j} w_j \right)\right)w_i  \\
+    & = & \sigma^2 \sum_{i=1}^N \left(1  + \sum_{j=1}^N w_j^2 - 2 w_i \right)w_i  \\
+    & = & \sigma^2 + \sigma^2 \left( \sum_{j=1}^N w_j^2 \right) - 2\sigma^2 \left( \sum_{i=1}^N w_i^2 \right) \\ 
     & = & \sigma^2\left(1 - \sum_{i=1}^N w_i^2\right) 
 \end{eqnarray*}
 Therefore, to make $\sum_{i=1}^N (x - {\hat x})^2 w_i$ an unbiased estimator of the variance $\sigma^2$ 
@@ -353,8 +358,5 @@ In this case the estimate for the standard deviation of the random variables is:
 We see that we end up with the usual "sample" standard deviation.
 
 \end{document}
-
-
-
 
 
