@@ -12,7 +12,7 @@
 
 \title{Derivation of the Exponential Moving Average}
 \author{R. Scott McIntire}
-\date{Aug 26, 2023}
+\date{Aug 29, 2023}
 
 \begin{document}
 
@@ -357,6 +357,78 @@ In this case the estimate for the standard deviation of the random variables is:
 \end{eqnarray*}
 We see that we end up with the usual "sample" standard deviation.
 
+\subsection{Corrective Factor for Arbitrary Moments}
+
+We now proceed in the same way as above to find the corrective factor when using a straight forward
+expression to compute any given moment of the random variables.
+
+\begin{flalign}
+    E\left[ \sum_{i=1}^N (x_i - {\bar x})^r w_i \right] &=  \sum_{i=1}^N E\left[(x_i - {\bar x})^r\right] w_i && \\\nonumber 
+    &=  \sum_{i=1}^N E\left[\left((x_i - \mu) + (\mu - {\bar x})\right)^r\right] w_i && \\\nonumber 
+    &=  \sum_{i=1}^N E\left[\sum_{j=0}^r (-1)^j \binom{r}{j} (x_i - \mu)^{r-j}({\bar x} - \mu)^{j}\right] w_i  && \\\nonumber
+    &=  \sum_{i=1}^N \sum_{j=0}^r (-1)^j \binom{r}{j} E\left[(x_i - \mu)^{r-j}({\bar x} - \mu)^{j}\right] w_i  &&\\\nonumber
+    &=  \sum_{i=1}^N \sum_{j=0}^r (-1)^j \binom{r}{j} E\left[(x_i - \mu)^{r-j}\left(\sum_{l=1}^n (x_l - \mu)w_l\right)^j\right] w_i &&\\\nonumber 
+    &=  \sum_{i=1}^N \sum_{j=0}^r (-1)^j \binom{r}{j} E\left[(x_i - \mu)^{r-j}\left((x_i - \mu)w_i + \sum_{\substack{l=1 \\ l \neq i}}^N (x_l - \mu)w_l\right)^j\right] w_i &&\\\nonumber 
+    &=  \sum_{i=1}^N \sum_{j=0}^r (-1)^j \binom{r}{j} E\left[ (x_i - \mu)^{r-j}
+    \sum_{k=0}^j \binom{j}{k} (x_i - \mu)^{j-k} w_i^{j-k}  \left(\sum_{\substack{l=1 \\ l \neq i}}^N (x_l - \mu)w_l\right)^k\right] w_i &&\\\nonumber 
+    &=  \sum_{i=1}^N \sum_{j=0}^r \sum_{k=0}^j (-1)^j \binom{r}{j} \binom{j}{k} E\left[(x_i - \mu)^{r-k}w_i^{j-k}
+     \left(\sum_{\substack{l=1 \\ l \neq i}}^N (x_l - \mu)w_l\right)^k\right] w_i &&\\\nonumber 
+    &=  \sum_{i=1}^N \sum_{j=0}^r \sum_{k=0}^j (-1)^j \binom{r}{j} \binom{j}{k} E\left[(x_i - \mu)^{r-k} \right]
+     E\left[\left(\sum_{\substack{l=1 \\ l \neq i}}^N (x_l - \mu)w_l\right)^k\right] w_i^{j+1-k} &&\\\nonumber 
+    &=  \sum_{i=1}^N \sum_{j=0}^r  (-1)^j \binom{r}{j} E\left[(x_i - \mu)^{r} \right] w_i^{j+1} &&\\\nonumber 
+    & \quad + \sum_{i=1}^N \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} E\left[(x_i - \mu)^{r-k} \right]
+     E\left[\left(\sum_{\substack{l=1 \\ l \neq i}}^N (x_l - \mu)w_l\right)^k\right] w_i^{j+1-k} &&\\\nonumber 
+\end{flalign}
+
+Consequently,
+\begin{flalign}
+    E\left[ \sum_{i=1}^N (x_i - {\bar x})^r w_i \right] &=  M_r + M_r \sum_{j=1}^r  (-1)^j \binom{r}{j} \sum_{i=1}^N w_i^{j+1} 
+     + \sum_{i=1}^N \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} M_{r-k} && \\\nonumber
+    & \quad  \times E\left[ \sum_{\substack{k_1 + k_2 \ldots + k_N = k \\ \forall n, k_n \ge 0  \\ k_i = 0}} \binom{k}{k_1, k_2, \ldots, k_N} 
+    \prod_{\substack{l=1 \\ l \neq i}}^N (x_l - \mu)^{k_l} w_l^{k_l}\right] w_i^{j+1-k} &&\\\nonumber 
+    &=  M_r + M_r \sum_{j=1}^r  (-1)^j \binom{r}{j} \sum_{i=1}^N w_i^{j+1} 
+    + \sum_{i=1}^N \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} M_{r-k} &&\\\nonumber
+    & \quad  \times  \sum_{\substack{k_1 + k_2 \ldots + k_N = k \\ \forall n, k_n \ge 0 \\ k_i = 0}} \binom{k}{k_1, k_2, \ldots, k_N} 
+    \left(\prod_{\substack{l=1 \\ l \neq i}}^N E\left[(x_l - \mu)^{k_l}\right] w_l^{k_l}\right) w_i^{j+1-k} &&\\\nonumber 
+\end{flalign}
+Here, we use the notation, $M_r$, for the $r^{\rm th}$ moment of the distribution of the $\{x_i\}_{i=1}^N$.
+
+Finally, we have the formula for the expected value of the naive $r^{\rm th}$ moment:
+\begin{flalign}
+    E\left[ \sum_{i=1}^N (x_i - {\bar x})^r w_i \right] &= M_r + M_r \sum_{j=1}^r  (-1)^j \binom{r}{j} \sum_{i=1}^N w_i^{j+1}  
+    + \sum_{i=1}^N \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} M_{r-k} &&\\\nonumber
+    & \quad \times  \sum_{\substack{k_1 + k_2 \ldots + k_N = k \\ \forall n, k_n \ge 0 \\ k_i = 0}} \binom{k}{k_1, k_2, \ldots, k_N} 
+     \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) w_i^{j+1-k} &&
+\end{flalign}
+We check the case $r=2$ to see if it coincides with the previous section:
+
+\begin{flalign}
+    E\left[ \sum_{i=1}^N (x_i - {\bar x})^2 w_i \right] &= \sigma^2 + \sigma^2\left(\sum_{j=1}^N w_j^3 - 2\sum_{i=1}^N w_j^2\right) &&\\\nonumber 
+    & \quad + \sum_{i=1}^N \left( 
+     \sum_{\substack{k_1 + k_2 \ldots + k_N = 2 \\ \forall n, k_n \ge 0 \\ k_i = 0}} \binom{2}{k_1, k_2, \ldots, k_N} 
+     \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) w_i^{j+1-k} \right) &&
+\end{flalign}
+In the multinomial sum with the given constraints, we see that the only combinations of $k$'s that work are when we let each of the $k$'s
+have the value two (except when $k_l = k_i$)
+Therefore,
+
+\begin{flalign}
+    E\left[ \sum_{i=1}^N (x_i - {\bar x})^2 w_i \right] &= \sigma^2 + \sigma^2\left(\sum_{j=1}^N w_j^3 - 2\sum_{j=1}^N w_j^2\right) 
+    + \sum_{i=1}^N 
+     \sigma^2 \left(\left( \sum_{l=1}^N w_l^{2}\right) - w_i^2\right) w_i && \\\nonumber
+     &= \sigma^2 + \sigma^2\left(\sum_{j=1}^N w_j^3 - 2\sum_{j=1}^N w_j^2\right) 
+    + \sigma^2 \sum_{l=1}^N w_l^2 - \sigma^2 \sum_{i=1}^N w_i^3 &&\\\nonumber
+     &= \sigma^2\left(1 - \sum_{i=1}^N w_i^2\right) &&
+\end{flalign}
+We see that it does match the formula from the previous section.
+
+In the more general case, $r > 2$, there may be more work to determine a corrective procedure
+to render the naive $r^{\rm th}$ moment unbiased.
+ 
+
 \end{document}
+
+
+
 
 
