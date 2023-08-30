@@ -1,6 +1,7 @@
 \documentclass{article}
 
 \usepackage{amsmath}
+\usepackage[utf8]{inputenc}
 
 
 \setlength{\textwidth}{6.5in}
@@ -388,16 +389,16 @@ Consequently,
     \prod_{\substack{l=1 \\ l \neq i}}^N (x_l - \mu)^{k_l} w_l^{k_l}\right] w_i^{j+1-k} &&\\\nonumber 
     &=  M_r + M_r \sum_{j=1}^r  (-1)^j \binom{r}{j} \sum_{i=1}^N w_i^{j+1} 
     + \sum_{i=1}^N \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} M_{r-k} &&\\\nonumber
-    & \quad  \times  \sum_{\substack{k_1 + k_2 \ldots + k_N = k \\ \forall n, k_n \ge 0 \\ k_i = 0}} \binom{k}{k_1, k_2, \ldots, k_N} 
+    & \quad  \times  \sum_{\substack{k_1 + k_2 \ldots + k_N = k \\ \forall n, k_n \ge 0 \\ \forall n, n \neq i \wedge k_n \neq 1 \\ k_i = 0}} \binom{k}{k_1, k_2, \ldots, k_N} 
     \left(\prod_{\substack{l=1 \\ l \neq i}}^N E\left[(x_l - \mu)^{k_l}\right] w_l^{k_l}\right) w_i^{j+1-k} &&\\\nonumber 
 \end{flalign}
 Here, we use the notation, $M_r$, for the $r^{\rm th}$ moment of the distribution of the $\{x_i\}_{i=1}^N$.
 
-Finally, we have the formula for the expected value of the naive $r^{\rm th}$ moment:
+Finally, we have the formula for the expected value of the na\"{i}ve $r^{\rm th}$ moment:
 \begin{flalign}
-    E\left[ \sum_{i=1}^N (x_i - {\bar x})^r w_i \right] &= M_r + M_r \sum_{j=1}^r  (-1)^j \binom{r}{j} \sum_{i=1}^N w_i^{j+1}  
-    + \sum_{i=1}^N \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} M_{r-k} &&\\\nonumber
-    & \quad \times  \sum_{\substack{k_1 + k_2 \ldots + k_N = k \\ \forall n, k_n \ge 0 \\ k_i = 0}} \binom{k}{k_1, k_2, \ldots, k_N} 
+    E\left[ \sum_{i=1}^N (x_i - {\bar x})^r w_i \right] &= M_r + M_r \sum_{j=1}^r  (-1)^j \binom{r}{j} \sum_{i=1}^N w_i^{j+1} &&\\\nonumber   
+    & + \sum_{i=1}^N \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} M_{r-k} 
+     \sum_{\substack{k_1 + k_2 \ldots + k_N = k \\ \forall n, k_n \ge 0 \\ \forall n, n \neq i \wedge k_n \neq 1 \\ k_i = 0}} \binom{k}{k_1, k_2, \ldots, k_N} 
      \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) w_i^{j+1-k} &&
 \end{flalign}
 We check the case $r=2$ to see if it coincides with the previous section:
@@ -405,11 +406,12 @@ We check the case $r=2$ to see if it coincides with the previous section:
 \begin{flalign}
     E\left[ \sum_{i=1}^N (x_i - {\bar x})^2 w_i \right] &= \sigma^2 + \sigma^2\left(\sum_{j=1}^N w_j^3 - 2\sum_{i=1}^N w_j^2\right) &&\\\nonumber 
     & \quad + \sum_{i=1}^N \left( 
-     \sum_{\substack{k_1 + k_2 \ldots + k_N = 2 \\ \forall n, k_n \ge 0 \\ k_i = 0}} \binom{2}{k_1, k_2, \ldots, k_N} 
+     \sum_{\substack{k_1 + k_2 \ldots + k_N = 2 \\ \forall n, k_n \ge 0 \\ \forall n, n \neq i \wedge k_n \neq 1 \\ k_i = 0}} \binom{2}{k_1, k_2, \ldots, k_N} 
      \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) w_i^{j+1-k} \right) &&
 \end{flalign}
-In the multinomial sum with the given constraints, we see that the only combinations of $k$'s that work are when we let each of the $k$'s
-have the value two (except when $k_l = k_i$)
+In the multinomial sum with the given constraints, we see that the only combinations of $k$'s that work are when 
+one and only one of the $k$'s
+has the value two (except when $k_l = k_i$) while all other values are $0$.
 Therefore,
 
 \begin{flalign}
@@ -423,7 +425,7 @@ Therefore,
 We see that it does match the formula from the previous section.
 
 In the more general case, $r > 2$, there may be more work to determine a corrective procedure
-to render the naive $r^{\rm th}$ moment unbiased.
+to render the na\"{i}ve $r^{\rm th}$ moment unbiased.
  
 
 \end{document}
