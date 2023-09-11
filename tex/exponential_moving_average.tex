@@ -370,16 +370,16 @@ We now proceed in the same way as above to compute the bias of more general mome
     &=  \sum_{i=1}^N E\left[\sum_{j=0}^r (-1)^j \binom{r}{j} (x_i - \mu)^{r-j}({\bar x} - \mu)^{j}\right] w_i  && \\\nonumber
     &=  \sum_{i=1}^N \sum_{j=0}^r (-1)^j \binom{r}{j} E\left[(x_i - \mu)^{r-j}({\bar x} - \mu)^{j}\right] w_i  &&\\\nonumber
     &=  \sum_{i=1}^N \sum_{j=0}^r (-1)^j \binom{r}{j} E\left[(x_i - \mu)^{r-j}\left(\sum_{l=1}^n (x_l - \mu)w_l\right)^j\right] w_i &&\\\nonumber 
-    &=  \sum_{i=1}^N \sum_{j=0}^r (-1)^j \binom{r}{j} E\left[(x_i - \mu)^{r-j}\left((x_i - \mu)w_i + \sum_{\substack{l=1 \\ l \neq i}}^N (x_l - \mu)w_l\right)^j\right] w_i &&\\\nonumber 
+    &=  \sum_{i=1}^N \sum_{j=0}^r (-1)^j \binom{r}{j} E\left[(x_i - \mu)^{r-j}\left((x_i - \mu)w_i + \sum_{\substack{l \in [1, N] \\ l \neq i}} (x_l - \mu)w_l\right)^j\right] w_i &&\\\nonumber 
     &=  \sum_{i=1}^N \sum_{j=0}^r (-1)^j \binom{r}{j} E\left[ (x_i - \mu)^{r-j}
-    \sum_{k=0}^j \binom{j}{k} (x_i - \mu)^{j-k} w_i^{j-k}  \left(\sum_{\substack{l=1 \\ l \neq i}}^N (x_l - \mu)w_l\right)^k\right] w_i &&\\\nonumber 
+    \sum_{k=0}^j \binom{j}{k} (x_i - \mu)^{j-k} w_i^{j-k}  \left(\sum_{\substack{l \in [1, N] \\ l \neq i}} (x_l - \mu)w_l\right)^k\right] w_i &&\\\nonumber 
     &=  \sum_{i=1}^N \sum_{j=0}^r \sum_{k=0}^j (-1)^j \binom{r}{j} \binom{j}{k} E\left[(x_i - \mu)^{r-k}w_i^{j-k}
-     \left(\sum_{\substack{l=1 \\ l \neq i}}^N (x_l - \mu)w_l\right)^k\right] w_i &&\\\nonumber 
+     \left(\sum_{\substack{l \in [1, N] \\ l \neq i}} (x_l - \mu)w_l\right)^k\right] w_i &&\\\nonumber 
     &=  \sum_{i=1}^N \sum_{j=0}^r \sum_{k=0}^j (-1)^j \binom{r}{j} \binom{j}{k} E\left[(x_i - \mu)^{r-k} \right]
-     E\left[\left(\sum_{\substack{l=1 \\ l \neq i}}^N (x_l - \mu)w_l\right)^k\right] w_i^{j+1-k} &&\\\nonumber 
+     E\left[\left(\sum_{\substack{l \in [1,N] \\ l \neq i}} (x_l - \mu)w_l\right)^k\right] w_i^{j+1-k} &&\\\nonumber 
     &=  \sum_{i=1}^N \sum_{j=0}^r  (-1)^j \binom{r}{j} E\left[(x_i - \mu)^{r} \right] w_i^{j+1} &&\\\nonumber 
     & \quad + \sum_{i=1}^N \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} E\left[(x_i - \mu)^{r-k} \right]
-     E\left[\left(\sum_{\substack{l=1 \\ l \neq i}}^N (x_l - \mu)w_l\right)^k\right] w_i^{j+1-k} &&\\\nonumber  &&
+     E\left[\left(\sum_{\substack{l \in [1, N] \\ l \neq i}} (x_l - \mu)w_l\right)^k\right] w_i^{j+1-k} &&\\\nonumber  &&
 \end{flalign}
 
 Consequently,
@@ -387,11 +387,11 @@ Consequently,
     E\left[ \sum_{i=1}^N (x_i - {\bar x})^r w_i \right] &=  M_r + M_r \sum_{j=1}^r  (-1)^j \binom{r}{j} \sum_{i=1}^N w_i^{j+1} 
      + \sum_{i=1}^N \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} M_{r-k} && \\\nonumber
     & \quad  \times E\left[ \sum_{\substack{k_1 + k_2 \ldots + k_N = k \\ \forall n, k_n \ge 0  \\ k_i = 0}} \binom{k}{k_1, k_2, \ldots, k_N} 
-    \prod_{\substack{l=1 \\ l \neq i}}^N (x_l - \mu)^{k_l} w_l^{k_l}\right] w_i^{j+1-k} &&\\\nonumber 
+    \prod_{\substack{l \in [1,N] \\ l \neq i}} (x_l - \mu)^{k_l} w_l^{k_l}\right] w_i^{j+1-k} &&\\\nonumber 
     &=  M_r + M_r \sum_{j=1}^r  (-1)^j \binom{r}{j} \sum_{i=1}^N w_i^{j+1} 
     + \sum_{i=1}^N \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} M_{r-k} &&\\\nonumber
     & \quad  \times  \sum_{\substack{k_1 + k_2 \ldots + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \,k_n \neq 1 \\ k_i = 0}} \binom{k}{k_1, k_2, \ldots, k_N} 
-    \left(\prod_{\substack{l=1 \\ l \neq i}}^N E\left[(x_l - \mu)^{k_l}\right] w_l^{k_l}\right) w_i^{j+1-k} &&\\\nonumber 
+    \left(\prod_{\substack{l \in [1,N] \\ l \neq i}} E\left[(x_l - \mu)^{k_l}\right] w_l^{k_l}\right) w_i^{j+1-k} &&\\\nonumber 
     &=  M_r + M_r \sum_{j=1}^r  (-1)^j \binom{r}{j} \sum_{i=1}^N w_i^{j+1} 
     + \sum_{i=1}^N \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} M_{r-k} &&\\\nonumber
     & \quad  \times  \sum_{\substack{k_1 + k_2 \ldots + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \,k_n \neq 1 \\ k_i = 0}} \binom{k}{k_1, k_2, \ldots, k_N} 
@@ -408,7 +408,7 @@ for the expected value of the na\"{i}ve $r^{\it th}$ moment:%
      & \times \sum_{i=1}^N \left[\sum_{\substack{k_1 + k_2 \ldots + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \, k_n \neq 1 }} \binom{k}{k_1, k_2, \ldots, k_N} 
      \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) w_i^{j+1-k} \right. &&\\\nonumber
      &\left. - \sum_{z = 2}^k M_z \sum_{\substack{k_1 + k_2 + \ldots + k_{N-1} = k-z \\ \forall n, k_n \ge 0\, \wedge\, k_n \neq 1}}
-     \binom{k-z}{k_1, k_2, \ldots, k_{N-1}} \left(\prod_{\substack{l=1 \\ l \neq i}}^{N-1} M_{k_l} w_l^{k_l} \right) w_i^{j+z+1-k} \right] &&
+     \binom{k-z}{k_1, k_2, \ldots, k_{N-1}} \left(\prod_{\substack{l \in [1,N-1]\\ l \neq i}} M_{k_l} w_l^{k_l} \right) w_i^{j+z+1-k} \right] &&
 \end{flalign}
 We check the case $r=2$ to see if it coincides with the previous section:
 
@@ -418,7 +418,7 @@ We check the case $r=2$ to see if it coincides with the previous section:
      & \times \sum_{i=1}^N \left[ \sum_{\substack{k_1 + k_2 \ldots + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \, k_n \neq 1 }} \binom{k}{k_1, k_2, \ldots, k_N} 
      \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) w_i^{j+1-k}  \right. &&\\\nonumber
      &\left. - \sum_{z = 2}^k M_z \sum_{\substack{k_1 + k_2 + \ldots + k_{N-1} = k-z \\ \forall n, k_n \ge 0\, \wedge\, k_n \neq 1}}
-     \binom{k-z}{k_1, k_2, \ldots, k_{N-1}} \left(\prod_{\substack{l=1 \\ l \neq i}}^{N-1} M_{k_l} w_l^{k_l} \right)  w_i^{j+z+1-k} \right] &&
+     \binom{k-z}{k_1, k_2, \ldots, k_{N-1}} \left(\prod_{\substack{l \in [1,N-1]\\ l \neq i}} M_{k_l} M_{k_l} M_{k_l} w_l^{k_l} \right)  w_i^{j+z+1-k} \right] &&
 \end{flalign}
 
 This becomes
@@ -444,7 +444,7 @@ As a more complicated example we try $r=3$. In this case the formula is:
      & \times \sum_{i=1}^N \left[ \sum_{\substack{k_1 + k_2 \ldots + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \, k_n \neq 1 }} \binom{k}{k_1, k_2, \ldots, k_N} 
      \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) w_i^{j+1-k} \right. &&\\\nonumber
      &\left. - \sum_{z = 2}^k M_z \sum_{\substack{k_1 + k_2 + \ldots + k_{N-1} = k-z \\ \forall n, k_n \ge 0\, \wedge\, k_n \neq 1}}
-     \binom{k-z}{k_1, k_2, \ldots, k_{N-1}} \left(\prod_{\substack{l=1 \\ l \neq i}}^{N-1} M_{k_l} w_l^{k_l} \right) w_i^{j+z+1-k} \right] &&
+     \binom{k-z}{k_1, k_2, \ldots, k_{N-1}} \left(\prod_{\substack{l \in [1,N-1]\\ l \neq i}} M_{k_l} M_{k_l} w_l^{k_l} \right) w_i^{j+z+1-k} \right] &&
 \end{flalign}
 Which is
 \begin{flalign}
@@ -476,7 +476,7 @@ The na\"{i}ve estimate for the $4^{\it th}$ moment is:
      & \times \sum_{i=1}^N \left[ \sum_{\substack{k_1 + k_2 \ldots + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \, k_n \neq 1 }} \binom{k}{k_1, k_2, \ldots, k_N} 
      \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right)  w_i^{j+1-k} \right. &&\\\nonumber
      &\left. - \sum_{z = 2}^k M_z \sum_{\substack{k_1 + k_2 + \ldots + k_{N-1} = k-z \\ \forall n, k_n \ge 0\, \wedge\, k_n \neq 1}}
-     \binom{k-z}{k_1, k_2, \ldots, k_{N-1}} \left(\prod_{\substack{l=1 \\ l \neq i}}^{N-1} M_{k_l} w_l^{k_l} \right)  w_i^{j+z+1-k} \right] &&
+     \binom{k-z}{k_1, k_2, \ldots, k_{N-1}} \left(\prod_{\substack{l \in [1,N-1]\\ l \neq i}} M_{k_l} w_l^{k_l} \right)  w_i^{j+z+1-k} \right] &&
 \end{flalign}
 This is
 \begin{flalign}
@@ -486,7 +486,7 @@ This is
     &+ \binom{4}{4}\binom{4}{2} M_2^2 \left( \sum_{l=1}^N w_l^2 \left(\sum_{i=1}^N w_i^3\right) - \sum_{j=1}^N w_l^2\left(\sum_{i=1}^N w_i^5 \right)\right) && \\\nonumber
     &+ \binom{4}{4}\binom{4}{4} M_4 \sum_{i=1}^N \left( \sum_{l=1}^N w_l^4 w_i\right) &&\\\nonumber   
     &+ \binom{4}{2,2} M_2^2 \sum_{l=1}^{N-1} \sum_{m=l+1}^N w_l^2 w_m^2 \left(\sum_{i=1}^N w_i\right) &&\\\nonumber 
-    &- M_2 \sum_{i=1}^N \left( \sum_{\substack{l=1 \\ l \neq i}}^N M_2 w_l^2\right)  w_i^3  - M_4 \sum_{i=1}^N w_i^5  &&\\\nonumber 
+    &- M_2 \sum_{i=1}^N \left( \sum_{\substack{l \in [1,N]\\ l \neq i}} M_2 w_l^2\right)  w_i^3  - M_4 \sum_{i=1}^N w_i^5  &&\\\nonumber 
 \end{flalign}
 
 \begin{flalign}
@@ -496,34 +496,34 @@ This is
     &- 12 M_2^2 \left(\left( \sum_{i=1}^N w_i^2\right) \left(\sum_{i=1}^N w_i^2 \right) - \left(\sum_{i=1}^N w_i^2 \right) \left( \sum_{i=1}^N w_i^4 \right) \right) &&\\\nonumber
     &+ 6 M_2^2 \left( \left( \sum_{i=1}^N w_i^2 \right) \left( \sum_{i=1}^N w_i^3 \right) - \left( \sum_{i=1}^N w_i^2 \right) \left(\sum_{i=1}^N w_i^5 \right) \right) &&\\\nonumber
     &+ 6 M_2^2 \sum_{l=1}^{N-1} \sum_{m=l+1}^N w_l^2 w_m^2 &&\\\nonumber
-    &- M_2^2 \sum_{i=1}^N \left( \sum_{\substack{l=1 \\ l \neq i}}^N w_l^2\right) w_i^3 &&\\\nonumber 
+    &- M_2^2 \sum_{i=1}^N \left( \sum_{\substack{l \in [1,N]\\ l \neq i}} w_l^2\right) w_i^3 &&\\\nonumber 
 \end{flalign}
 
 Let $W_j = \sum_{i=1}^N w_i^j$ for $j \in [1,5]$. We may then write the above as:
 \begin{flalign}
     E\left[ (x_i - {\bar x})^4 w_i \right] &= M_4\left(1 - 3W_2 + 6 W_3 -3W_4 \right) &&\\\nonumber
     &+  6M_2^2 W_2 -12 M_2^2 W_2^2 + 12M_2^2W_2 W_4 - 6M_2^2 W_2 W_5  &&\\\nonumber 
-    &+ 6M_2^2 \sum_{i=1}^{N-1} \sum_{m=1+1}^N w_l^2 w_m^2 - M_2^2 \sum_{i=1}^N \sum_{\substack{l=1 \\l \neq i}}^N w_l^2 w_i^3 
+    &+ 6M_2^2 \sum_{l=1}^{N-1} \sum_{m=l+1}^N w_l^2 w_m^2 - M_2^2 \sum_{i=1}^N \sum_{\substack{l \in [1,N]\\ l \neq i}} w_l^2 w_i^3 
 \end{flalign}
 
 Or,
 \begin{flalign}
     E\left[ (x_i - {\bar x})^4 w_i \right] &= M_4\left(1 - 3W_2 + 6 W_3 -3W_4 \right) &&\\\nonumber
     &+  6M_2^2 W_2 -12 M_2^2 W_2^2 + 12M_2^2W_2 W_4 - 6M_2^2 W_2 W_5  &&\\\nonumber 
-    &+ 6M_2^2 \sum_{i=1}^{N-1} \sum_{m=1+1}^N w_l^2 w_m^2 - M_2^2 W_2 W_3  + M_2^2 W_5
+    &+ 6M_2^2 \sum_{l=1}^{N-1} \sum_{m=l+1}^N w_l^2 w_m^2 - M_2^2 W_2 W_3  + M_2^2 W_5
 \end{flalign}
 
 There relative $4^{\it th}$ na\"{i}ve moment becomes:
 \begin{flalign}
     \frac{E\left[ (x_i - {\bar x})^4 w_i \right]}{M_2^2} &= \frac{M_4}{M_2^2} \left(1 - 3W_2 + 6 W_3 -3W_4 \right) &&&&\\\nonumber
     &+  6 W_2 -12 W_2^2 + 12W_2 W_4 - 6 W_2 W_5  &&\\\nonumber 
-    &+ 6 \sum_{i=1}^{N-1} \sum_{m=1+1}^N w_l^2 w_m^2 - W_2 W_3  + W_5
+    &+ 6 \sum_{l=1}^{N-1} \sum_{m=l+1}^N w_l^2 w_m^2 - W_2 W_3  + W_5
 \end{flalign}
 Therefore, the estimate for the unbiased relative $4^{\it th}$ moment is:
 \begin{flalign}
     \frac{M_4}{M_2^2} &= \frac{\frac{E\left[ (x_i - {\bar x})^4 w_i \right]}{M_2^2} 
     -  6 W_2 +12 W_2^2 - 12W_2 W_4 + 6 W_2 W_5  
-    - 6 \sum_{i=1}^{N-1} \sum_{m=1+1}^N w_l^2 w_m^2 + W_2 W_3  - W_5}{\left(1 - 3W_2 + 6 W_3 -3W_4 \right)}
+    - 6 \sum_{l=1}^{N-1} \sum_{m=l+1}^N w_l^2 w_m^2 + W_2 W_3  - W_5}{\left(1 - 3W_2 + 6 W_3 -3W_4 \right)}
 \end{flalign}
 
 Since we don't know $M_2 = \sigma^2$, we use our unbiased ustimate: $\frac{\sum_{j=1}^N w_i (x - {\bar x})^2}{1 - \sum_{i=1}^N w_i^2}$.
@@ -533,7 +533,7 @@ Therefore, our unbiased estimate of the relative Kurtosis is:
 \begin{flalign}
     \frac{M_4}{M_2^2} &= \frac{\frac{(1 - W_2)^2 \sum_{i=1}^N (x_i - {\bar x})^4 w_i }{\sum_{i=1}^N  \left(x_i - {\bar x})^2 w_i\right)^2  } 
     -  6 W_2 +12 W_2^2 - 12W_2 W_4 + 6 W_2 W_5  
-    - 6 \sum_{i=1}^{N-1} \sum_{m=1+1}^N w_l^2 w_m^2 + W_2 W_3  - W_5}{\left(1 - 3W_2 + 6 W_3 -3W_4 \right)}
+    - 6 \sum_{l=1}^{N-1} \sum_{m=l+1}^N w_l^2 w_m^2 + W_2 W_3  - W_5}{\left(1 - 3W_2 + 6 W_3 -3W_4 \right)}
 \end{flalign}
 
 \end{document}
