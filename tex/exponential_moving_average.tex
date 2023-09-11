@@ -13,7 +13,7 @@
 
 \title{Derivation of the Exponential Moving Average}
 \author{R. Scott McIntire}
-\date{Aug 29, 2023}
+\date{Sep 11, 2023}
 
 \begin{document}
 
@@ -526,7 +526,7 @@ Therefore, the estimate for the unbiased relative $4^{\it th}$ moment is:
     - 6 \sum_{l=1}^{N-1} \sum_{m=l+1}^N w_l^2 w_m^2 + W_2 W_3  - W_5}{\left(1 - 3W_2 + 6 W_3 -3W_4 \right)}
 \end{flalign}
 
-Since we don't know $M_2 = \sigma^2$, we use our unbiased ustimate: $\frac{\sum_{j=1}^N w_i (x - {\bar x})^2}{1 - \sum_{i=1}^N w_i^2}$.
+Since we don't know $M_2 = \sigma^2$, we use our unbiased estimate: $\frac{\sum_{j=1}^N w_i (x - {\bar x})^2}{1 - \sum_{i=1}^N w_i^2}$.
 We also replace $E\left[\sum_{i=1}^N (x_i - {\bar x})^4 w_i \right]$ with the sample estimate: $\sum_{i=1}^N (x_i - {\bar x})^4 w_i$.
 
 Therefore, our unbiased estimate of the relative Kurtosis is:
