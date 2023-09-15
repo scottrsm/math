@@ -13,7 +13,7 @@
 
 \title{Derivation of the Exponential Moving Average}
 \author{R. Scott McIntire}
-\date{Sep 11, 2023}
+\date{Sep 15, 2023}
 
 \begin{document}
 
@@ -405,10 +405,10 @@ for the expected value of the na\"{i}ve $r^{\it th}$ moment:%
 \begin{flalign}
     E\left[ (x_i - {\bar x})^r w_i \right] &= M_r + M_r \sum_{j=1}^r  (-1)^j \binom{r}{j} \sum_{i=1}^N w_i^{j+1} 
     + \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} M_{r-k} && \\\nonumber 
-     & \times \sum_{i=1}^N \left[\sum_{\substack{k_1 + k_2 + \, \cdots\,  + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \, k_n \neq 1 }} \binom{k}{k_1, k_2, \, \ldots\, , k_N} 
-     \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) w_i^{j+1-k} \right. &&\\\nonumber
-     &\left. - \sum_{z = 2}^k M_z \sum_{\substack{k_1 + k_2 + \, \cdots\, + k_{N-1} = k-z \\ \forall n, k_n \ge 0\, \wedge\, k_n \neq 1}}
-     \binom{k-z}{k_1, k_2, \,\ldots\, , k_{N-1}} \left(\prod_{\substack{l \in [1,N-1]\\ l \neq i}} M_{k_l} w_l^{k_l} \right) w_i^{j+z+1-k} \right] &&
+     & \times \left[ \sum_{i=1}^N w_i^{j+1-k} \left( \sum_{\substack{k_1 + k_2 + \, \cdots\,  + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \, k_n \neq 1 }} \binom{k}{k_1, k_2, \, \ldots\, , k_N} 
+     \prod_{l=1}^N M_{k_l} w_l^{k_l}\right) \right. &&\\\nonumber
+     &\left. - \sum_{z = 2}^k M_z \left( \sum_{i=1}^N w_i^{i+z+1-k} \sum_{\substack{k_1 + k_2 + \, \cdots\, + k_{N-1} = k-z \\ \forall n, k_n \ge 0\, \wedge\, k_n \neq 1}}
+     \binom{k-z}{k_1, k_2, \,\ldots\, , k_{N-1}} \prod_{\substack{l \in [1,N-1]\\ l \neq i}} M_{k_l} w_l^{k_l} \right) \right] &&
 \end{flalign}
 We check the case $r=2$ to see if it coincides with the previous section:
 
