@@ -12,9 +12,9 @@
 \setlength{\parindent}{0.0in}
 \setlength{\parskip}{1.5\baselineskip}
 
-\title{An Alternative Proof of Elementary Properties of Pythagorean Triples}
+\title{An Alternative Proof of an Elementary Property of Pythagorean Triples}
 \author{R. Scott McIntire}
-\date{June 18, 2023}
+\date{Sep 21, 2023} 
 
 
 \begin{document}
@@ -29,18 +29,26 @@ can derive the Pythagorean formula
 by examining the area of a square sliced into a few pieces.
 
 I tried to do something similar with a more complicated geometric figure and 
-I came up with figure $(\ref{fig_geo})$.
-Using the fact that the radius of a circle is perpendicular to a 
-tangent line, you can see that the larger triangle
-is composed of 2 pairs of identical triangles and a square. 
-The area of these triangles and the square must be
-the same as the area of the larger triangle. 
+I came up with figure $(\ref{fig:geo})$.
+
+By inscribing a circle in a right triangle, one can decompose the triangle 
+into two pairs of right triangles and a square. The fact that the sub-triangles
+are right triangles follows using the fact that 
+any radial segment of a circle is perpendicular to its
+associated tangent line.
+
+Below we find a well known relation between the sides, $a$, $b$, and $c$ of the
+original triangle using the fact that the area of these component triangles 
+and square must be the same as the area of the original triangle. 
 
 \section{A Basic Property of Primitive Pythagorean Triples}
 Writing the equivalence of the area of the figure and its parts we have:
 
 \begin{eqnarray}
-r^2 + 2 \frac{r(a - r)}{2} + 2 \frac{r(b-r)}{2} = \frac{a\, b}{2} 
+    \overbrace{\vphantom{\frac{X^1}{X}}r^2}^{\text{Square}} 
+    + \overbrace{2 \frac{r(a - r)}{2}}^{\text{Two lower triangles}} 
+    + \overbrace{2 \frac{r(b-r)}{2}}^{\text{Two upper triangles}}  
+    &=& \overbrace{\frac{a\, b}{2}}^{\text{Original triangle}}  
 \end{eqnarray}
 
 Simplifying, this is:
@@ -54,8 +62,10 @@ that $(a-r) + (b-r) = c$. Solving this last equation for $r$ gives:
   r & = & \frac{a + b - c}{2} \label{radius}
 \end{eqnarray}
 
-We now consider primitive Pythagorean triples (the length of sides from right 
-triangles with integer sides and no common factors.)
+We now consider primitive Pythagorean triangles -- right 
+triangles with integer sides which have no common factor.
+In particular, we are interested in so-called primitive Pythagorean triples,
+$(a,b,c)$ -- the lengths of the sides of primitive Pythagorean triangles.
 
 What can we say about the even or oddness of the sides when the sides have no 
 common factors? 
@@ -63,24 +73,40 @@ common factors?
 Since we know that $a^2 + b^2 = c^2$, we can reduce the combinations to 
 the following:
 \begin{itemize}
-  \item{Both $a$ and $b$ are odd and $c$ is even.}
-  \item{One and only one of either $a$ or $b$ is odd and $c$ is odd.}
+  \item{$c$ is even AND both $a$ and $b$ are odd;}
+  \item{$c$ is odd AND one and only one of either $a$ or $b$ is odd.}
 \end{itemize}
 
-Regardless of the which choice occurs, equation $(\ref{radius})$ implies that 
-the radius of the circle is an integer.
+Regardless of which choice occurs, equation $(\ref{radius})$ implies that 
+the radius of the circle is an integer.%
+\footnote{We list a few facts to explain this and what follows next:
+\begin{enumerate}
+    \item{$E \pm E = E$;}
+    \item{$E \pm O = O$;}
+    \item{$O \pm O = E$;}
+    \item{$E \times E = E$;}
+    \item{$O \times O = O$;}
+    \item{$E \times O = E$.}
+\end{enumerate}
+These equations are to be read: An even number plus (or minus) and even number 
+is an even number.
+Likewise, an even number plus (or minus) an odd number is an even number, etc.}
+
 Using this fact and equation $(\ref{area})$ we see that the quantity, 
 $\frac{a \, b}{2}$, must be an integer. 
 This knowledge eliminates the first choice; namely, that both $a$ and $b$ 
 are odd. Consequently, one of the sides
-is even. Let's say that it is $b$. 
+is even. Let's say that it is $b$.% 
+\footnote{This follows from the following fact:
+if ${\rm gcd}(x, a) = 1$, AND $x$ divides the product $a\, b$, then
+$x$ divides $b$. We apply this fact with $x$ set to $2$.}
 
 Finally, regardless of whether $r$ is even or odd, the left hand side of 
 $(\ref{area})$ is even. This implies that $\frac{a \, b}{2}$
-is even. Again since, $a$ is odd, $b/2$ must be divisible by $2$. 
+is even. Again since, $a$ is odd, $b/2$ must be divisible by $2$.
 
-We have deduced the following properties for Primitive Pythagorean triples, 
-$(a,b,c)$:
+Finally, we have deduced the properties below for primitive Pythagorean triples, 
+$(a,b,c)$.
 \begin{itemize}
   \item{One of the legs is odd; the other leg is even; and the hypotenuse 
       is odd.}
@@ -88,56 +114,92 @@ $(a,b,c)$:
 \end{itemize}
 
 \begin{figure}[!ht]
-\label{fig_geo}
 \begin{center}
-  \begin{tikzpicture}[scale=0.75]
-  % "a" leg.
-  \draw (0,0)  --  (15,0) ;
+\begin{tikzpicture}[scale=0.75]
+    % "a" leg.
+    \draw (0,0)  --  (15,0) ;
 
-  % "b" leg.
-  \draw (15,0) --  (15,20);
+    % Draw a box indicating that the main triangle is a right triangle. 
+    \draw (14.5,0)   -- (14.5,0.5) ;
+    \draw (14.5,0.5) -- (15,0.5)   ;
 
-  % "c" leg.
-  \draw (0,0)  --  (15,20);
+    % Draw a box indicating the lower small triangle is a right triangle.
+    \draw (9.5,0)   -- (9.5,0.5)   ;
+    \draw (9.5,0.5) -- (10,0.5)    ;
 
-  % The circle and its three "r" spokes.
-  \draw (10,5)  circle (5);
-  \draw (10,5) --  (10,0) ;
-  \draw (10,5) --  (15,5) ;
-  \draw (10,5) --  (6,8)  ;
+    % Draw a box indicating the lower bottom small triangle is a right triangle.
+    \draw (6.3865, 7.6828)  -- (6.0865, 7.2828) ;
+    \draw (6.0865, 7.2828)  -- (5.6865, 7.5828) ; 
 
-  % Label the "r" spoke pointing at the hypotenusen{ce.
-  \node at (8,5.5) {\Large $r$};
+    % Draw a box indicating the lower left small triangle is a right triangle.
+    \draw (6.3865, 7.6828)  -- (6.6865, 8.0828) ;
+    \draw (6.6865, 8.0828)  -- (6.2865, 8.3828) ;
 
-  % Label the hypotenuse.
-  \node at (5,9) {\Huge $c$};
-  % Label the hypotenuse.
+    \draw (14.5, 5.0)       -- (14.5, 5.5     ) ;
+    \draw (14.5, 5.5)       -- (15.0, 5.5     ) ;
 
-  % Label the right "leg".
-  \node at (16,9) {\Huge $b$};
+    % "b" leg.
+    \draw (15,0)  -- (15,20);
 
-  % Label the bottom "leg".
-  \node at (8,-1) {\Huge $a$};
+    % "c" leg.
+    \draw (0,0)  --  (15,20);
 
-  % Label the legs -- less the side of the square.
-  \node at (17,12) {\Large $(b - r)$};
-  \node at (4,-1) {\Large $(a - r)$} ;
+    % The circle and its three "r" spokes.
+    \draw (10,5)  circle (5);
+    \draw (10,5) --  (10,0) ;
+    \draw (10,5) --  (15,5) ;
+    \draw (10,5) --  (6,8)  ;
 
-  % Label the edges of the square.
-  \node at (12,-1) {\Large $r$};
-  \node at (16,2) {\Large $r$} ;
+    % Label the "r" spoke pointing at the hypotenuse.
+    \node at (8,5.5) {\Large $r$};
 
-  % Draw lines from the left and top vertices to the center of the circle.
-  \draw (10,5) -- (0,0)  ;
-  \draw (10,5) -- (15,20);
+    % Label the hypotenuse.
+    \node at (5,9) {\Huge $c$};
+    % Label the hypotenuse.
 
-  % Label the legs.
-  \node at (7,12) {\Large $(b - r)$};
-  \node at (0,3) {\Large $(a - r)$} ;
+    % Label the right "leg".
+    \node at (16,9) {\Huge $b$};
+
+    % Label the bottom "leg".
+    \node at (8,-1) {\Huge $a$};
+
+    % Label the legs -- less the side of the square.
+    \node at (17,12) {\Large $(b - r)$};
+    \node at (4,-1) {\Large $(a - r)$} ;
+
+    % Label the edges of the square.
+    \node at (12,-1) {\Large $r$};
+    \node at (16,2) {\Large $r$} ;
+
+    % Draw lines from the left and top vertices to the center of the circle.
+    \draw (10,5) -- (0,0)  ;
+    \draw (10,5) -- (15,20);
+
+    % Label the legs.
+    \node at (7,12) {\Large $(b - r)$};
+    \node at (0,3) {\Large $(a - r)$} ;
+
+    % Draw the two arcs and arc tics for the bottom right triangles.
+    \draw (1,0) arc (0:53.14:1)                ; % The overall arc.
+    \draw (0.8731, 0.2183) -- (1.1067, 0.2668) ; % The first arc tic.
+    \draw (0.7200, 0.5400) -- (0.8800, 0.6600) ; % The second arc tic.
+
+    % Draw the two arcs and arc tics for the bottom right triangles.
+    % The two arcs.
+    \draw (15,19) arc[start angle=270, end angle=233.12, radius=1];
+
+    % Tics for first arc.
+    \draw (14.90  , 19.11  ) -- (14.88  , 18.91  ) ; % First of 2 tics. 
+    \draw (14.8024, 19.1220) -- (14.7585, 18.9268) ; % Second of 2 tics.
+
+    % Tics for second arc.
+    \draw (14.61  , 19.19  ) -- (14.53  , 19.01  ) ; % First of 2 tics.
+    \draw (14.5271, 19.2343) -- (14.4220, 19.0641) ; % Second of 2 tics.
 
 \end{tikzpicture}
 \end{center}
-\caption{Dissected Triangle Figure}
+\caption{Dissected Right Triangle}
+\label{fig:geo}
 \end{figure}
 
 \end{document}
