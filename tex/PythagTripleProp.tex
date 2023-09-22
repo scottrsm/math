@@ -14,7 +14,7 @@
 
 \title{An Alternative Proof of an Elementary Property of Pythagorean Triples}
 \author{R. Scott McIntire}
-\date{Sep 21, 2023} 
+\date{Sep 22, 2023} 
 
 
 \begin{document}
@@ -31,14 +31,22 @@ by examining the area of a square sliced into a few pieces.
 I tried to do something similar with a more complicated geometric figure and 
 I came up with figure $(\ref{fig:geo})$.
 
-By inscribing a circle in a right triangle, one can decompose the triangle 
+By inscribing a circle in a {\em right\/} triangle, one can decompose the triangle 
 into two pairs of right triangles and a square. The fact that the sub-triangles
 are right triangles follows using the fact that 
 any radial segment of a circle is perpendicular to its
-associated tangent line.
+associated tangent line. 
+
+From the figure, the lower right four sided sub-figure has equal sides, $r$.
+It is a square and not a rhombus as we 
+see that three of its interior angles are 
+$90^\circ$; and, as the number of angles in a 4 sided polygon must sum to 
+$360^\circ$, the last angle must also be $90^\circ$.
+Consequently, the four sided figure is a square.
 
 Below we find a well known relation between the sides, $a$, $b$, and $c$ of the
-original triangle using the fact that the area of these component triangles 
+original triangle when the sides are integers in reduced form.
+This is done by investigating the fact that the area of these component triangles 
 and square must be the same as the area of the original triangle. 
 
 \section{A Basic Property of Primitive Pythagorean Triples}
@@ -71,7 +79,17 @@ What can we say about the even or oddness of the sides when the sides have no
 common factors? 
 
 Since we know that $a^2 + b^2 = c^2$, we can reduce the combinations to 
-the following:
+the following:%
+\footnote{We list a few facts to explain this and what follows next:
+\begin{enumerate}
+    \item{$E \pm E = E$; $ E \times E = E$;}
+    \item{$E \pm O = O$; $ E \times O = E$;}
+    \item{$O \pm O = E$; $ O \times O = O$.}
+\end{enumerate}
+These equations are to be read: An even number plus (or minus) and even number 
+is an even number.
+Likewise, an even number plus (or minus) an odd number is an even number, etc.
+}
 \begin{itemize}
   \item{$c$ is even AND both $a$ and $b$ are odd;}
   \item{$c$ is odd AND one and only one of either $a$ or $b$ is odd.}
@@ -79,27 +97,12 @@ the following:
 
 Regardless of which choice occurs, equation $(\ref{radius})$ implies that 
 the radius of the circle is an integer.%
-\footnote{We list a few facts to explain this and what follows next:
-\begin{enumerate}
-    \item{$E \pm E = E$;}
-    \item{$E \pm O = O$;}
-    \item{$O \pm O = E$;}
-    \item{$E \times E = E$;}
-    \item{$O \times O = O$;}
-    \item{$E \times O = E$.}
-\end{enumerate}
-These equations are to be read: An even number plus (or minus) and even number 
-is an even number.
-Likewise, an even number plus (or minus) an odd number is an even number, etc.}
 
 Using this fact and equation $(\ref{area})$ we see that the quantity, 
 $\frac{a \, b}{2}$, must be an integer. 
 This knowledge eliminates the first choice; namely, that both $a$ and $b$ 
 are odd. Consequently, one of the sides
-is even. Let's say that it is $b$.% 
-\footnote{This follows from the following fact:
-if ${\rm gcd}(x, a) = 1$, AND $x$ divides the product $a\, b$, then
-$x$ divides $b$. We apply this fact with $x$ set to $2$.}
+is even. Let's say that it is $b$.
 
 Finally, regardless of whether $r$ is even or odd, the left hand side of 
 $(\ref{area})$ is even. This implies that $\frac{a \, b}{2}$
@@ -111,6 +114,8 @@ $(a,b,c)$.
   \item{One of the legs is odd; the other leg is even; and the hypotenuse 
       is odd.}
   \item{The even leg is divisible by $4$.}
+  \item{The radius of the inscribed circle in the associated 
+      right triangle is an integer.}
 \end{itemize}
 
 \begin{figure}[!ht]
@@ -127,6 +132,10 @@ $(a,b,c)$.
     \draw (9.5,0)   -- (9.5,0.5)   ;
     \draw (9.5,0.5) -- (10,0.5)    ;
 
+    % Draw a corresponding box for the adjacent square.
+    \draw (10.5,0)   -- (10.5,0.5)  ;
+    \draw (10.5,0.5) -- (10,0.5)    ;
+
     % Draw a box indicating the lower bottom small triangle is a right triangle.
     \draw (6.3865, 7.6828)  -- (6.0865, 7.2828) ;
     \draw (6.0865, 7.2828)  -- (5.6865, 7.5828) ; 
@@ -135,8 +144,13 @@ $(a,b,c)$.
     \draw (6.3865, 7.6828)  -- (6.6865, 8.0828) ;
     \draw (6.6865, 8.0828)  -- (6.2865, 8.3828) ;
 
+    % Draw a box indicating the upper right small triangle is a right triangle.
     \draw (14.5, 5.0)       -- (14.5, 5.5     ) ;
     \draw (14.5, 5.5)       -- (15.0, 5.5     ) ;
+
+    % Draw a corresponding box for the adjacent square.
+    \draw (14.5, 5.0)       -- (14.5, 4.5     ) ;
+    \draw (14.5, 4.5)       -- (15.0, 4.5     ) ;
 
     % "b" leg.
     \draw (15,0)  -- (15,20);
@@ -152,6 +166,12 @@ $(a,b,c)$.
 
     % Label the "r" spoke pointing at the hypotenuse.
     \node at (8,5.5) {\Large $r$};
+
+    % Label the "r" spoke pointing to the "a" leg.
+    \node at (9.5,3) {\Large $r$};
+
+    % Label the "r" spoke pointing to the "b" leg.
+    \node at (12,5.5) {\Large $r$};
 
     % Label the hypotenuse.
     \node at (5,9) {\Huge $c$};
