@@ -14,6 +14,18 @@
 \font\mxmplbx = cmbx12 at 16pt
 \font\bxmplbx = cmti12 at 18pt %logo1%0cmbx12 scaled \magstep2
 
+\font\tenamsb=msbm10 \font\sevenamsb=msbm7 \font\fiveamsb=msbm5
+\newfam\bbfam
+\textfont\bbfam=\tenamsb
+\scriptfont\bbfam=\sevenamsb
+\scriptscriptfont\bbfam=\fiveamsb
+
+\def\bbb{\fam\bbfam}
+
+\def\E#1{%
+{\bbb E}\left[#1\right]
+}
+
 % A title macro. First parameter is the title of the article.
 % My name and the current time appear in the title section.
 \def\title#1{%
