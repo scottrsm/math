@@ -80,7 +80,7 @@ Regardless of the averaging scheme, we want our weights to sum to one.%
 variables; then, treating the series elements as random variables we can view 
 the moving average as an estimate of their mean, $\mu$. 
 To be a good estimate we which this estimate to be {\em unbiased\/}:
-$E\left[\sum_{k=1}^m x_{n-k} w_{k+1}\right] = \sum_{k=0}^{m-1} \E{x_{n-k}}w_{k+1}$.
+$\E{\sum_{k=1}^m x_{n-k} w_{k+1}} = \sum_{k=0}^{m-1} \E{x_{n-k}}w_{k+1}$.
 Which is $\mu \sum_{k=0}^{m-1} w_{k+1} = \mu \sum_{k=1}^{m} w_k = \mu$.}
 But we also want the weights to be exponential; that is, $w_{k+1} = \lambda w_{k}$.
 
@@ -266,7 +266,7 @@ one index.}
 \end{itemize}
 
 If we take the expectation of the weighted sum, $\sum_{i=1}^N x_i w_i$ we find that it is $\mu$:%
-\footnote{This is due to the linearity of the expectation operator, $E$:
+\footnote{This is due to the linearity of the expectation operator:
 $\E{a x + b y + c} = a \E{x} + b \E{y} + c$, provided $a,b,c$ are constants.}
 
 \begin{eqnarray}
@@ -332,7 +332,7 @@ Continuing with $(\ref{standard_emp_var})$ we have
     &=  \sum_{i=1}^N \E{(x_i - \mu)^2 - 2(x_i - \mu)({\bar x} - \mu ) + ({\bar x} - \mu)^2} w_i &&\\
     &=  \sum_{i=1}^N \left( \E{(x_i - \mu)^2}  
     + \E{\left(\sum_{j=1}^N (x_j - \mu)w_j\right)^2} 
-              - 2E\left[(x_i - \mu) \left(\sum_{j=1}^N (x_j - \mu)w_j\right)  \right] \right)  w_i &&\\
+              - 2\E{(x_i - \mu) \left(\sum_{j=1}^N (x_j - \mu)w_j\right) } \right)  w_i &&\\
     &=  \sum_{i=1}^N \left( \E{(x_i - \mu)^2}  
     + \left(\sum_{j=1}^N \E{(x_j - \mu)^2}w_j^2 \right)  
               - 2\E{(x_i - \mu) \left(\sum_{j=1}^N (x_j - \mu)w_j\right)  } \right)  w_i &&\\
