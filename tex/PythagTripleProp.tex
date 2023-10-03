@@ -24,9 +24,10 @@
 \section{Introduction}
 When I was a freshmen in college I was briefly interested in the idea of 
 using the areas of geometric figures to
-produce interesting formulas. The example that inspired me was the way you 
+produce interesting formulas. The example that inspired me was the way one 
 can derive the Pythagorean formula
-by examining the area of a square sliced into a few pieces.
+by examining a dissected rectangle composed of 
+an inscribed square and triangles. 
 
 I tried to do something similar with a more complicated geometric figure and 
 I came up with figure $(\ref{fig:geo})$.
@@ -40,7 +41,7 @@ associated tangent line.
 From the figure, the lower right four sided sub-figure has equal sides, $r$.
 It is a square and not a rhombus as we 
 see that three of its interior angles are 
-$90^\circ$; and, as the number of angles in a 4 sided polygon must sum to 
+$90^\circ$; and, as the number of angles in a 4 sided convex polygon must sum to 
 $360^\circ$, the last angle must also be $90^\circ$.
 Consequently, the four sided figure is a square.
 
@@ -71,15 +72,15 @@ that $(a-r) + (b-r) = c$. Solving this last equation for $r$ gives:
 \end{eqnarray}
 
 We now consider primitive Pythagorean triangles -- right 
-triangles with integer sides which have no common factor.
+triangles with integer sides in {\em reduced form\/}; meaning, they have no common factors.
 In particular, we are interested in so-called primitive Pythagorean triples,
 $(a,b,c)$ -- the lengths of the sides of primitive Pythagorean triangles.
 
 What can we say about the even or oddness of the sides when the sides have no 
 common factors? 
 
-Since we know that $a^2 + b^2 = c^2$, we can reduce the combinations to 
-the following:%
+By the Pythagorean formula we know that $a^2 + b^2 = c^2$. Using this we can 
+reduce the combinations to the following:%
 \footnote{We list a few facts to explain this and what follows next:
 \begin{enumerate}
     \item{$E \pm E = E$; $ E \times E = E$;}
@@ -109,7 +110,7 @@ $(\ref{area})$ is even. This implies that $\frac{a \, b}{2}$
 is even. Again since, $a$ is odd, $b/2$ must be divisible by $2$.
 
 Finally, we have deduced the properties below for primitive Pythagorean triples, 
-$(a,b,c)$.
+$(a,b,c)$ in reduced form.
 \begin{itemize}
   \item{One of the legs is odd; the other leg is even; and the hypotenuse 
       is odd.}
