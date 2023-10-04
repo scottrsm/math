@@ -423,7 +423,7 @@ We check the case $r=2$ to see if it coincides with the previous section:
      & \times \sum_{i=1}^N \left[ \sum_{\substack{k_1 + k_2 + \, \cdots\, + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \, k_n \neq 1 }} \binom{k}{k_1, k_2, \, \ldots\, , k_N} 
      \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) w_i^{j+1-k}  \right. &&\\\nonumber
      &\left. - \sum_{z = 2}^k M_z \sum_{\substack{k_1 + k_2 +\, \cdots\, + k_{N-1} = k-z \\ \forall n, k_n \ge 0\, \wedge\, k_n \neq 1}}
-     \binom{k-z}{k_1, k_2, \, \ldots\, , k_{N-1}} \left(\prod_{\substack{l \in [1,N-1]\\ l \neq i}} M_{k_l} M_{k_l} M_{k_l} w_l^{k_l} \right)  w_i^{j+z+1-k} \right] &&
+     \binom{k-z}{k_1, k_2, \, \ldots\, , k_{N-1}} \left(\prod_{\substack{l \in [1,N-1]\\ l \neq i}} M_{k_l} w_l^{k_l} \right)  w_i^{j+z+1-k} \right] &&
 \end{flalign}
 
 This becomes
@@ -449,7 +449,7 @@ As a more complicated example we try $r=3$. In this case the formula is:
      & \times \sum_{i=1}^N \left[ \sum_{\substack{k_1 + k_2 + \, \cdots\, + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \, k_n \neq 1 }} \binom{k}{k_1, k_2, \, \ldots\,, k_N} 
      \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) w_i^{j+1-k} \right. &&\\\nonumber
      &\left. - \sum_{z = 2}^k M_z \sum_{\substack{k_1 + k_2 + \, \cdots\, + k_{N-1} = k-z \\ \forall n, k_n \ge 0\, \wedge\, k_n \neq 1}}
-     \binom{k-z}{k_1, k_2, \, \ldots\, , k_{N-1}} \left(\prod_{\substack{l \in [1,N-1]\\ l \neq i}} M_{k_l} M_{k_l} w_l^{k_l} \right) w_i^{j+z+1-k} \right] &&
+     \binom{k-z}{k_1, k_2, \, \ldots\, , k_{N-1}} \left(\prod_{\substack{l \in [1,N-1]\\ l \neq i}} M_{k_l} w_l^{k_l} \right) w_i^{j+z+1-k} \right] &&
 \end{flalign}
 Which is
 \begin{flalign}
