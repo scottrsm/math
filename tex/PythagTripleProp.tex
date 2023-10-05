@@ -10,11 +10,11 @@
 \setlength{\voffset}{-0.75in}
 
 \setlength{\parindent}{0.0in}
-\setlength{\parskip}{1.5\baselineskip}
+\setlength{\parskip}{1.0\baselineskip}
 
 \title{An Alternative Proof of an Elementary Property of Pythagorean Triples}
 \author{R. Scott McIntire}
-\date{Sep 22, 2023} 
+\date{Oct 5, 2023} 
 
 
 \begin{document}
@@ -25,7 +25,7 @@
 When I was a freshmen in college I was briefly interested in the idea of 
 using the areas of geometric figures to
 produce interesting formulas. The example that inspired me was the way one 
-can derive the Pythagorean formula
+may derive the Pythagorean formula
 by examining a dissected rectangle composed of 
 an inscribed square and triangles. 
 
@@ -49,7 +49,8 @@ Below we find a well known relation between the sides, $a$, $b$, and $c$ of the
 original triangle when the sides are integers in {\em reduced form\/}.%
 \footnote{A triple of integers, $(a, b, c)$ is in reduced form if 
 they have no common integer divisor(factor).}
-This is done by investigating the fact that the area of these component triangles 
+This is done by investigating the fact that the sum of the areas
+of these component triangles 
 and square must be the same as the area of the original triangle. 
 
 \section{A Basic Property of Primitive Pythagorean Triples}
@@ -74,20 +75,22 @@ that $(a-r) + (b-r) = c$. Solving this last equation for $r$ gives:
 \end{eqnarray}
 
 We now consider primitive Pythagorean triangles -- right 
-triangles with integer sides in reduced form.
+triangles with positive integer sides in reduced form.
 In particular, we are interested in so-called primitive Pythagorean triples,
 $(a,b,c)$ -- the lengths of the sides of primitive Pythagorean triangles.
-
-What can we say about the even or oddness of the sides when the sides have no 
-common factors? The possibilities are: 
+Here $c$ is the length of the hypotenuse, while $a$ and $b$ are 
+the lengths of the ``legs'' of the associated Pythagorean triangle.
+\eject
+What can we say about the evenness or oddness of the sides when they have no 
+common factor? The possibilities are: 
 \begin{itemize}
-    \item{$c$ is even and exactly one of the following is true:}
+    \item{$c$ is even AND {\em exactly\/} one of the following is true:}
         \begin{itemize}
             \item{Both $a$ and $b$ are even;}
             \item{Both $a$ and $b$ are odd;}
             \item{One of either $a$ or $b$ is even and the other is odd.}
         \end{itemize}
-    \item{$c$ is odd and exactly one of the following is true:}
+    \item{$c$ is odd AND {\em exactly\/} one of the following is true:}
         \begin{itemize}
             \item{Both $a$ and $b$ are even;}
             \item{Both $a$ and $b$ are odd;}
@@ -116,8 +119,8 @@ These results are used throughout the rest of the document.
 \end{itemize}
 
 Regardless of which choice occurs, equation $(\ref{radius})$ implies that 
-the radius of the circle, $r$, is an integer.%
-
+the radius of the circle, $r$, is an integer.
+\eject
 Using this fact and equation $(\ref{area})$ we see that the quantity, 
 $\frac{a \, b}{2}$, must be an integer. 
 This knowledge eliminates the first choice; namely, that both $a$ and $b$ 
@@ -125,7 +128,7 @@ are odd. Consequently, we know:
 \begin{itemize}
     \item{$c$ is odd AND one of either $a$ or $b$ is even and the other is odd.}
 \end{itemize}
-Let's say that it is $b$; in which case, $a$ is odd.
+Without loss of generality we assume that $b$ is even; in which case, $a$ is odd.
 
 Now, regardless of whether $r$ is even or odd, the left hand side of 
 $(\ref{area})$ is even. This implies that $\frac{a \, b}{2}$
@@ -134,14 +137,14 @@ So we know that $a \frac{b}{2}$ (the product of two integers) is even.
 And we know that $a$ is odd; therefore, $\frac{b}{2}$ is even.
 This means that $b$ is divisible by $4$.
 
-In summary, we have deduced the following properties for primitive Pythagorean triples, 
-$(a,b,c)$, in reduced form.
+In summary, we have deduced the following properties for primitive Pythagorean triangles
+whose side lengths are in reduced form.
 \begin{itemize}
   \item{One of the legs is odd; the other leg is even; and the hypotenuse 
       is odd.}
   \item{The even leg is divisible by $4$.}
-  \item{The radius of the inscribed circle in the associated 
-      right triangle is an integer.}
+  \item{The radius of the inscribed circle in the Pythagorean triangle
+      is a positive integer.}
 \end{itemize}
 
 \begin{figure}[!ht]
