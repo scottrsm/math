@@ -48,7 +48,7 @@ Consequently, the four sided figure is a square.
 Below we find a well known relation between the sides, $a$, $b$, and $c$ of the
 original triangle when the sides are integers in {\em reduced form\/}.%
 \footnote{A triple of integers, $(a, b, c)$ is in reduced form if 
-they have no common integer divisors(factors).}
+they have no common integer divisor(factor).}
 This is done by investigating the fact that the area of these component triangles 
 and square must be the same as the area of the original triangle. 
 
@@ -79,23 +79,40 @@ In particular, we are interested in so-called primitive Pythagorean triples,
 $(a,b,c)$ -- the lengths of the sides of primitive Pythagorean triangles.
 
 What can we say about the even or oddness of the sides when the sides have no 
-common factors? 
-
+common factors? The possibilities are: 
+\begin{itemize}
+    \item{$c$ is even and exactly one of the following is true:}
+        \begin{itemize}
+            \item{Both $a$ and $b$ are even;}
+            \item{Both $a$ and $b$ are odd;}
+            \item{One of either $a$ or $b$ is even and the other is odd.}
+        \end{itemize}
+    \item{$c$ is odd and exactly one of the following is true:}
+        \begin{itemize}
+            \item{Both $a$ and $b$ are even;}
+            \item{Both $a$ and $b$ are odd;}
+            \item{One of either $a$ or $b$ is even and the other is odd.}
+        \end{itemize}
+\end{itemize}
+Since the triple, $(a,b,c)$ is in reduced form we can eliminate the case 
+of all three being even.
 By the Pythagorean formula we know that $a^2 + b^2 = c^2$. Using this we can 
-reduce the combinations to the following:%
-\footnote{We list a few facts to explain this and what follows next:
+reduce the combinations further to the following:%
+\footnote{We list the results of all combinations of even and odd numbers with 
+respect to: addition, subtraction, and multiplication:
 \begin{enumerate}
     \item{$E \pm E = E$; $ E \times E = E$;}
     \item{$E \pm O = O$; $ E \times O = E$;}
     \item{$O \pm O = E$; $ O \times O = O$.}
 \end{enumerate}
-These equations are to be read: An even number plus (or minus) and even number 
-is an even number.
-Likewise, an even number plus (or minus) an odd number is an odd number, etc.
+These equations are to be read: An even integer plus (or minus) and even integer 
+is an even integer.
+Likewise, an even integer plus (or minus) an odd integer is an odd integer, etc.
+These results are used throughout the rest of the document.
 }
 \begin{itemize}
   \item{$c$ is even AND both $a$ and $b$ are odd;}
-  \item{$c$ is odd AND one and only one of either $a$ or $b$ is odd.}
+  \item{$c$ is odd AND one of either $a$ or $b$ is even and the other is odd.}
 \end{itemize}
 
 Regardless of which choice occurs, equation $(\ref{radius})$ implies that 
@@ -104,13 +121,15 @@ the radius of the circle, $r$, is an integer.%
 Using this fact and equation $(\ref{area})$ we see that the quantity, 
 $\frac{a \, b}{2}$, must be an integer. 
 This knowledge eliminates the first choice; namely, that both $a$ and $b$ 
-are odd. Consequently, one of the sides
-is even. Let's say that it is $b$; in which case, $a$ is odd.
+are odd. Consequently, we know:
+\begin{itemize}
+    \item{$c$ is odd AND one of either $a$ or $b$ is even and the other is odd.}
+\end{itemize}
+Let's say that it is $b$; in which case, $a$ is odd.
 
-Regardless of whether $r$ is even or odd, the left hand side of 
+Now, regardless of whether $r$ is even or odd, the left hand side of 
 $(\ref{area})$ is even. This implies that $\frac{a \, b}{2}$
 is even. Since $b$ is even, we can write this fraction as: $a \frac{b}{2}$.
-Here, this product is the product of two integers (since $b$ is divisible by $2$).
 So we know that $a \frac{b}{2}$ (the product of two integers) is even.
 And we know that $a$ is odd; therefore, $\frac{b}{2}$ is even.
 This means that $b$ is divisible by $4$.
