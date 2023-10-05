@@ -21,4 +21,4 @@
 - A derivation of the Exponential Moving Average and its associated moving Standard Deviation: **tex**/exponential_moving_average.tex.
 
 ### New Mathematical Formulas
-- A formula to Compute Probability Distribution for non-Singular Transformations: **tex**/prob_singular_trans.tex.
+- A formula to Compute Probability Distributions for non-Singular Transformations: **tex**/prob_singular_trans.tex.
