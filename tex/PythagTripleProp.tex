@@ -14,7 +14,7 @@
 
 \title{An Alternative Proof of an Elementary Property of Pythagorean Triples}
 \author{R. Scott McIntire}
-\date{Oct 5, 2023} 
+\date{Oct 8, 2023} 
 
 
 \begin{document}
@@ -122,7 +122,8 @@ Regardless of which choice occurs, equation $(\ref{radius})$ implies that
 the radius of the circle, $r$, is an integer.
 \eject
 Using this fact and equation $(\ref{area})$ we see that the quantity, 
-$\frac{a \, b}{2}$, must be an integer. 
+$\frac{a \, b}{2}$, must be an integer; meaning, that the product 
+of $a$, and $b$, $a \, b$ is even.
 This knowledge eliminates the first choice; namely, that both $a$ and $b$ 
 are odd. Consequently, we know:
 \begin{itemize}
@@ -150,42 +151,27 @@ whose side lengths are in reduced form.
 \begin{figure}[!ht]
 \begin{center}
 \begin{tikzpicture}[scale=0.75]
-    % "a" leg.
+    % Draw the "a" leg.
     \draw (0,0)  --  (15,0) ;
 
-    % Draw a box indicating that the main triangle is a right triangle. 
-    \draw (14.5,0)   -- (14.5,0.5) ;
-    \draw (14.5,0.5) -- (15,0.5)   ;
-
-    % Draw a box indicating the lower small triangle is a right triangle.
-    \draw (9.5,0)   -- (9.5,0.5)   ;
-    \draw (9.5,0.5) -- (10,0.5)    ;
-
-    % Draw a corresponding box for the adjacent square.
-    \draw (10.5,0)   -- (10.5,0.5)  ;
-    \draw (10.5,0.5) -- (10,0.5)    ;
-
-    % Draw a box indicating the lower bottom small triangle is a right triangle.
-    \draw (6.3865, 7.6828)  -- (6.0865, 7.2828) ;
-    \draw (6.0865, 7.2828)  -- (5.6865, 7.5828) ; 
-
-    % Draw a box indicating the lower left small triangle is a right triangle.
-    \draw (6.3865, 7.6828)  -- (6.6865, 8.0828) ;
-    \draw (6.6865, 8.0828)  -- (6.2865, 8.3828) ;
-
-    % Draw a box indicating the upper right small triangle is a right triangle.
-    \draw (14.5, 5.0)       -- (14.5, 5.5     ) ;
-    \draw (14.5, 5.5)       -- (15.0, 5.5     ) ;
-
-    % Draw a corresponding box for the adjacent square.
-    \draw (14.5, 5.0)       -- (14.5, 4.5     ) ;
-    \draw (14.5, 4.5)       -- (15.0, 4.5     ) ;
-
-    % "b" leg.
+    % Draw the "b" leg.
     \draw (15,0)  -- (15,20);
 
-    % "c" leg.
+    % Draw the hypotenuse "c".
     \draw (0,0)  --  (15,20);
+
+    % Label the bottom "a" leg.
+    \node at (8,-1) {\Huge $a$};
+
+    % Label the "b" leg.
+    \node at (16,9) {\Huge $b$};
+
+    % Label the hypotenus "c".
+    \node at (5,9) {\Huge $c$};
+
+    % Label the legs -- less the length of the square.
+    \node at (17,12) {\Large $(b - r)$};
+    \node at (4,-1) {\Large $(a - r)$} ;
 
     % The circle and its three "r" spokes.
     \draw (10,5)  circle (5);
@@ -193,7 +179,8 @@ whose side lengths are in reduced form.
     \draw (10,5) --  (15,5) ;
     \draw (10,5) --  (6,8)  ;
 
-    % Label the "r" spoke pointing at the hypotenuse.
+
+    % Label the "r" spoke pointing at the hypotenuse "c".
     \node at (8,5.5) {\Large $r$};
 
     % Label the "r" spoke pointing to the "a" leg.
@@ -202,48 +189,65 @@ whose side lengths are in reduced form.
     % Label the "r" spoke pointing to the "b" leg.
     \node at (12,5.5) {\Large $r$};
 
-    % Label the hypotenuse.
-    \node at (5,9) {\Huge $c$};
-    % Label the hypotenuse.
-
-    % Label the right "leg".
-    \node at (16,9) {\Huge $b$};
-
-    % Label the bottom "leg".
-    \node at (8,-1) {\Huge $a$};
-
-    % Label the legs -- less the side of the square.
-    \node at (17,12) {\Large $(b - r)$};
-    \node at (4,-1) {\Large $(a - r)$} ;
-
-    % Label the edges of the square.
-    \node at (12,-1) {\Large $r$};
-    \node at (16,2) {\Large $r$} ;
 
     % Draw lines from the left and top vertices to the center of the circle.
     \draw (10,5) -- (0,0)  ;
     \draw (10,5) -- (15,20);
 
-    % Label the legs.
+
+    % Label the edges of the square.
+    \node at (12,-1) {\Large $r$};
+    \node at (16,2) {\Large $r$} ;
+
+
+    % Label the hypotenuses of the triangles that form the hypotenuse of the
+    % original triangle, c.
     \node at (7,12) {\Large $(b - r)$};
     \node at (0,3) {\Large $(a - r)$} ;
 
-    % Draw the two arcs and arc tics for the bottom right triangles.
-    \draw (1,0) arc (0:53.14:1)                ; % The overall arc.
-    \draw (0.8731, 0.2183) -- (1.1067, 0.2668) ; % The first arc tic.
-    \draw (0.7200, 0.5400) -- (0.8800, 0.6600) ; % The second arc tic.
 
     % Draw the two arcs and arc tics for the bottom right triangles.
-    % The two arcs.
-    \draw (15,19) arc[start angle=270, end angle=233.12, radius=1];
+    \draw (1,0) arc[start angle=0, end angle=53.14, radius=1] ; % The overall arc -- combines both arcs.
+    \draw (0.8731, 0.2183) -- (1.1067, 0.2668)                ; % Arc tic for first arc.
+    \draw (0.7200, 0.5400) -- (0.8800, 0.6600)                ; % Arc tic for second arc. 
 
-    % Tics for first arc.
-    \draw (14.90  , 19.11  ) -- (14.88  , 18.91  ) ; % First of 2 tics. 
-    \draw (14.8024, 19.1220) -- (14.7585, 18.9268) ; % Second of 2 tics.
+    % Draw the two arcs and arc tics for the top right triangles.
+    \draw (15,19) arc[start angle=270, end angle=233.12, radius=1]; % The overall arc -- combines both arcs.
+    \draw (14.90  , 19.11  ) -- (14.88  , 18.91  )                ; % First arc tic for first arc. 
+    \draw (14.8024, 19.1220) -- (14.7585, 18.9268)                ; % Second arc tic for first arc.
 
     % Tics for second arc.
-    \draw (14.61  , 19.19  ) -- (14.53  , 19.01  ) ; % First of 2 tics.
-    \draw (14.5271, 19.2343) -- (14.4220, 19.0641) ; % Second of 2 tics.
+    \draw (14.61  , 19.19  ) -- (14.53  , 19.01  ) ; % First arc tic for second arc.
+    \draw (14.5271, 19.2343) -- (14.4220, 19.0641) ; % Second arc tic for second arc.
+
+
+    % Draw a corresponding "90 degree angle" indicator box for the upper right corner of the square.
+    \draw (14.5, 5.0)       -- (14.5, 4.5     ) ;
+    \draw (14.5, 4.5)       -- (15.0, 4.5     ) ;
+
+    % Draw a "90 degree angle" box indicating that the main triangle is a right triangle. 
+    \draw (14.5,0)   -- (14.5,0.5) ;
+    \draw (14.5,0.5) -- (15,0.5)   ;
+
+    % Draw a "90 degree angle" box indicating the lower small triangle is a right triangle.
+    \draw (9.5,0)   -- (9.5,0.5)   ;
+    \draw (9.5,0.5) -- (10,0.5)    ;
+
+    % Draw a "90 degree angle" box indicator for the lower left corner of the square.
+    \draw (10.5,0)   -- (10.5,0.5)  ;
+    \draw (10.5,0.5) -- (10,0.5)    ;
+
+    % Draw a "90 degree angle" box indicating the lower left small triangle is a right triangle.
+    \draw (6.3865, 7.6828)  -- (6.0865, 7.2828) ;
+    \draw (6.0865, 7.2828)  -- (5.6865, 7.5828) ; 
+
+    % Draw a "90 degree angle" box indicating the upper left small triangle is a right triangle.
+    \draw (6.3865, 7.6828)  -- (6.6865, 8.0828) ;
+    \draw (6.6865, 8.0828)  -- (6.2865, 8.3828) ;
+
+    % Draw a "90 degree angle" box indicating the upper right small triangle is a right triangle.
+    \draw (14.5, 5.0)       -- (14.5, 5.5     ) ;
+    \draw (14.5, 5.5)       -- (15.0, 5.5     ) ;
 
 \end{tikzpicture}
 \end{center}
