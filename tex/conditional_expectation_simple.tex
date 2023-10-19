@@ -36,7 +36,7 @@ measure space.
 Let $X = \{D_1, D_2, D_3, D_4, D_5, D_6\}$ and define a function $P$ by 
 $P(D_i) = \frac{1}{6}$, for $i\in \{1,2,3,4,5,6\}$. The intent is that $P$ will 
 become a probability measure for the space we construct.
-Let ${\cal E} = 2^X$ be the sigma 
+Let ${\cal E} = 2^X$ be the sigma  algebra 
 consisting of the power set of $X$. We extend $P$ for every element in the sigma algebra.
 Since the sigma algebra consists of all sets 
 we need an assignment for an arbitrary set, $A$. 
@@ -122,26 +122,46 @@ $$
 = \int_{\Lambda_2} f \, dP & (3) \cr
 }
 $$
-Since 
-$\E{f/{\cal F}}$ is constant on these sets we have from (2)
+We know $\E{f/{\cal F}}$ is constant on $\Lambda_1$. We label this value as
+$C_{\Lambda_1}$. From (2) we have 
 $$
-\E{f/{\cal F}}(D_1) * P(\Lambda_1) = f(D_1) * P(D_1) + f(D_3) * P(D_3) 
-= \frac{1}{6} + \frac{3}{6} = \frac{2}{3}
+\eqalignno{
+\int_{\Lambda_1} \E{f/{\cal F}} \, dP  & =  \int_{\Lambda_1} f \, dP & \cr
+C_{\Lambda_1} \int_{\Lambda_1} \, dP & = \int_{\Lambda_1} f \, dP & \cr 
+C_{\Lambda_1} * P(\Lambda_1) & =  \int_{\Lambda_1} f \, dP = f(D_1) * P(D_1) + f(D_3) * P(D_3) & \cr 
+C_{\Lambda_1} * P(\Lambda_1) & = 1 * \frac{1}{6} + 3 * \frac{1}{6}  =  \frac{2}{3} & \cr
+}
 $$
 Since $P(\Lambda_1) = \frac{2}{6} = \frac{1}{3}$, we have that 
 $$
-\E{f/{\cal F}}(D_1) = \E{f/{\cal F}}(D_3) = 2
+C_{\Lambda_1} = 2
 $$
-In the same way we can find the value of $\E{f/{\cal F}}$ on the set $\{2,4,6\}$
+Consequently,
 $$
-\E{f/{\cal F}}(D_2) * P(\Lambda_2) = f(D_2) * P(D_2) + f(D_4) * P(D_4) + f(D_6) * P(6) 
-= \frac{2}{6} + \frac{4}{6} + \frac{6}{6} = 2
+\E{f/{\cal F}}(D_1) = \E{f/{\cal F}}(D_3) = C_{\Lambda_1} = 2
+$$
+Likewise, $\E{f/{\cal F}}$ is constant on the set $\Lambda_2$. 
+As we did above, we find the value of $\E{f/{\cal F}}$ on the set $\Lambda_2$.
+Let $C_{\Lambda_2}$ be the constant value of $\E{f/{\cal F}}$ on $\Lambda_2$.
+We have
+$$
+\eqalignno{
+\int_{\Lambda_2} \E{f/{\cal F}} \, dP  & =  \int_{\Lambda_2} f \, dP & \cr
+C_{\Lambda_2} \int_{\Lambda_2} \, dP & = \int_{\Lambda_2} f \, dP & \cr 
+C_{\Lambda_2} * P(\Lambda_2) & =  \int_{\Lambda_2} f \, dP = f(D_2) * P(D_2) + f(D_4) * P(D_4) + f(D_6) * P(6) & \cr 
+C_{\Lambda_2} * P(\Lambda_2) & = 2 * \frac{1}{6} +  4 * \frac{1}{6} + 6 \frac{1}{6} = 2 & \cr
+}
 $$
 Since $P(\Lambda_2) = \frac{3}{6} = \frac{1}{2}$, we have that 
 $$
-\E{f/{\cal F}}(D_2) = \E{f/{\cal F}}(D_4) = \E{f/{\cal F}}(D_6) = 4
+C_{\Lambda_2} = 4
 $$
-We have now determined the value of $\E{f/{\cal F}}$ for all values: $D_1\ldots D_6$.
+Consequently,
+$$
+\E{f/{\cal F}}(D_2) = \E{f/{\cal F}}(D_4) = \E{f/{\cal F}}(D_6) = C_{\Lambda_2} = 4
+$$
+Since a function is determined once we know what its values are on every $x \in X$, 
+we have found the conditional expectation function, $\E{f/{\cal F}}$, as we know its values on every $x \in X$.
 
 
 \bye
