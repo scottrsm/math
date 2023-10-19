@@ -22,7 +22,7 @@
 
 \section{Overview}
 One of the fundamental pieces of linear algebra is a bilinear function
-called the "dot-product". It is an important work horse, but where does
+called the ``dot-product'' It is an important work horse, but where does
 it come from? Please don't tell me what it is and how to compute it.
 I would like to know how it came to be; or, at least, how might one
 have thought of it. The rest of this paper tries to do just that.
@@ -71,21 +71,21 @@ ${\bf Def}$: Let ${\bf u}$ and ${\bf v}$ be two vectors in n-dimensional space.
 Vector addition is defined as a function of the form: 
 ${\rm vadd}(R^n, R^n) \mapsto R^n$. 
 
-We use the "infix" form of this function using the more 
-recognizable symbol "+" to define this operation as
+We use the ``infix'' form of this function using the more 
+recognizable symbol ``+'' to define this operation as
 $$ ({\bf u} + {\bf v})_i \equiv u_i + v_i \quad \forall i \in [1,n]$$
 Scalar multiplication is defined as a function of the form: 
 ${\rm smul}(\lambda, R^n) \mapsto R^n$. 
 
-We use the "infix" form of this function using
-the recognizable symbol "*" to define this operation as:
+We use the ``infix'' form of this function using
+the recognizable symbol ``*'' to define this operation as:
 $$ (\lambda * {\bf u})_i \equiv \lambda \, u_i \quad \forall i \in [1,n]$$
 
 Going forward, we will use the proximity of scalar, 
 $\lambda$ with a vector, ${\bf u}$ to mean scalar multiplication just as we 
 do with variables representing numbers.
 
-These definitions make sense in that the new position of a "car" after time 
+These definitions make sense in that the new position of a ``car'' after time 
 $t$ when starting at position ${\bf p}_0$ is determined by taking each of the 
 component positions and adjusting them by adding ${\bf t}$ times the 
 corresponding velocity component.
@@ -135,11 +135,11 @@ Denoted as $P_{\bf v}({\bf p})$
 It is given by:
 $$ P_{\bf v}({\bf p}) = \frac{\sum_{i=1}^n p_i v_i}{\sum_{i=1}^n v_i^2} \bf v $$
 We introduce a function that is a refactoring\footnote{This is a common 
-practice in the software world. If we start repeating code we refactor into 
+practice in the software engineering world. If we start repeating code we refactor into 
 a subroutine.} of the essential element of the formula. 
 We see that we are repeating a sum in the numerator and the denominator.
 
-Define the "Dot Product" between two vectors as: 
+Define the ``Dot Product'' between two vectors as: 
 $${\bf a} {\boldsymbol \cdot} {\bf b} = \sum_{i=1}^n a_i b_i$$
 Now the numerator and denominator in the fraction in the projection 
 formula can be written:
@@ -163,10 +163,10 @@ Getting back to the original problem, the closest point to ${\bf p}_1$ is:
 $$ P_{\bf v}({\bf p}_1 - {\bf p}_0) = \frac{({\bf p}_1 - {\bf p}_0) 
     {\boldsymbol \cdot}{\bf v}}{{\bf v} {\boldsymbol \cdot} {\bf v}} {\bf v}$$
 
-There is good reason to have the name "product" in the name "Dot Product". 
+There is good reason to have the name ``product'' in the name ``Dot Product''. 
 It has most of the properties of a multiplication operator.
 
-"Multiplication Properties" of the Dot Product:
+``Multiplicative Properties'' of the Dot Product:
 \bi
   \item{${\bf p} {\boldsymbol \cdot} {\bf v} = {\bf v} 
       {\boldsymbol \cdot} {\bf p} $ -- Dot product is symmetric.}
@@ -177,13 +177,13 @@ It has most of the properties of a multiplication operator.
     And since this operator is symmetric, it distributes on the right as well.}
   \item{$\|{\bf p}\| = \sqrt{{\bf p} {\boldsymbol \cdot} {\bf p}}$ -- 
     The dot product {\em induces\/} the length function. 
-    Notice that the length of a vector ${\bf p}$ is non-negative and only $0$ 
-    if ${\bf p} = {\bf 0}$.}
+    Notice that the length of a vector ${\bf p}$ is non-negative if and only 
+    if ${\bf p} \neq {\bf 0}$.}
 \ei
 
 This means that we can redo the minimization problem that gave us a 
 projection because the algebra of the dot product is like multiplication 
-and the derivation proceeds using only the multiplication like properties.
+and the derivation proceeds using only the {\em multiplicative properties\/}.
 
 \be
   \mathop{\rm min}_t \| {\bf p} - t \, {\bf v} \|^2 & & \nonumber \\
@@ -213,21 +213,22 @@ the ${\bf v}$ direction as
 the projection of ${\bf p}$ onto ${\bf v}$ as that is the best we can do 
 using ${\bf v}$ alone to get to ${\bf p}$.
 Notice that the projection of ${\bf p}$ onto ${\bf v}$ is independent of 
-the "length" of ${\bf v}$.
+the ``length'' of ${\bf v}$.
 If we replace ${\bf v}$ with any multiple of ${\bf v}$ say $\lambda {\bf v}$ 
 and look at the projection of 
 ${\bf p}$ onto $\lambda {\bf v}$ we have:
-$$ P_{\lambda {\bf v}}({\bf p}) = \frac{{\bf p} {\boldsymbol \cdot} {\bf v}_1}{\|{\bf v}_1\|^2} {\bf v}_1 =  \frac{{\bf p} {\boldsymbol \cdot} \lambda {\bf v}}{\lambda^2 \|{\bf v}\|^2} \lambda {\bf v} 
+$$ P_{\lambda {\bf v}}({\bf p}) = \frac{{\bf p} {\boldsymbol \cdot} {\bf v}_1}{\|{\bf v}_1\|^2} {\bf v}_1 = 
+\frac{{\bf p} {\boldsymbol \cdot} \lambda {\bf v}}{\lambda^2 \|{\bf v}\|^2} \lambda {\bf v} 
 = \frac{{\bf p} {\boldsymbol \cdot} {\bf v}}{\|{\bf v}\|^2} {\bf v} = P_{{\bf v}}({\bf p})$$
 This says that the projection of ${\bf p}$ onto ${\bf v}$ is independent of 
-the length of the vector ${\bf v}$. That is, it only depends on its "direction".
+the length of the vector ${\bf v}$. That is, it only depends on its ``direction''.
 (It doesn't matter how fast you drive me in a given direction, the place 
 you drop me off to be as close to ${\bf p}$ is going to be the same.)
 
 What about the projection of a multiple of ${\bf p}$ onto ${\bf v}$, or 
 combinations of ${\bf p}$ with other vectors onto ${\bf v}$.
 
-It is not hard to show that: (they follow from the "multiplication properties"
+It is not hard to show that: (they follow from the ``multiplicative properties''
 of the dot product)
 \bi
   \item{$P_{\bf v}(P_{\bf v}({\bf p})) = P_{\bf v}({\bf p})$.}
@@ -248,10 +249,10 @@ We can think of a vector as having a direction and a length.
 How do we say this precisely? Well, we can think of the direction 
 of ${\bf v}$ as being the thing that all vectors that are like ${\bf v}$ have. 
 All vectors like ${\bf v}$ are really just multiples of ${\bf v}$:
-$$ \{ t \, {\bf v} | \forall t \in R\} $$
+$$ \{ t \, {\bf v} | \; \forall t \in R\} $$
 That is, they are all scalar multiples of ${\bf v}$. 
 In other words, vectors are like ${\bf v}$ if they have the same direction 
-but the "speeds" may vary.
+but the ``speeds'' may vary.
 (On the highway we are all going in the same direction, but with 
 potentially differing speeds.)
 
@@ -275,7 +276,7 @@ $$ P_{\bf v}({\bf w}) = P_{\bf v} \left({\bf p} - P_{\bf v}({\bf p})\right) =
 
 Now, one can repeat this and show that there is no component of 
 ${\bf v}$ onto ${\bf w}$. That is, ${\bf v}$ and ${\bf w}$ are 
-as "independent" as possible.
+as ``independent'' as possible.
 
 We know that the length of a vector can be described in terms of the dot 
 product and we now know that ${\bf p} = {\bf v} + {\bf w}$. 
@@ -295,7 +296,7 @@ then ${\bf v}$ is perpendicular to ${\bf w}$. That is,
 when ${\bf v} {\boldsymbol \cdot} {\bf w} = 0$, ${\bf v}$ and ${\bf w}$ 
 are perpendicular.
 
-We generalize this, introducing the term "orthogonal". 
+We generalize this, introducing the term ``orthogonal''. 
 We define two vectors to be {\em orthogonal\/} if their dot product is zero. 
 Given that two vectors, ${\bf w}_1$ and ${\bf w}_2$ are orthogonal and 
 sum to ${\bf p}$, we have
@@ -314,7 +315,7 @@ pairwise orthogonal and sum to ${\bf p}$, then
 The standard unit vectors are the so-called coordinate vectors. 
 In $R^2$ these are: ${\bf e}_1$ =  [1, 0] and ${\bf e}_2$ = [0, 1].
  In $R^n$ they are: $\{{\bf e}_i\}_{i=1}^n$ where 
- ${\bf e}_ii$ = $\overbrace{[0, \ldots, 1, 0, \ldots ]}^{\text{$n 
+ ${\bf e}_i$ = $\overbrace{[0, \ldots, 1, 0, \ldots ]}^{\text{$i 
  - 1$ 0's followed by 1 followed by 0s}}$
 Notice that this collection of vectors have unit length and are pair-wise 
 orthogonal. And it is easy to write down the combination of ${\bf e}_i$ that 
@@ -361,7 +362,7 @@ If it is the case that in $R^n$ we have $n$ vectors of unit length and which
 are all orthogonal to each other, then by the same reasoning 
 (assuming that these $n$ vectors can span the full space) we have:%
 \footnote{It turns out, as you might imagine, that $n$ orthogonal 
-vectors (each pointing in a "different direction") are always able 
+vectors (each pointing in a ``different directioni'') are always able 
 to span $R^n$.}
 
 ${\bf Theorem}$ If ${\bf x}$ is a vector in $R^n$, and 
@@ -452,16 +453,17 @@ as $P_{[{\bf v}_1, \ldots, {\bf v}_n}]({\bf x}) = {\bf x}$.
 \section{Generalization of Projection based on the essence of the ``Dot Product''}
 
 One can repeat the above notion of projection using a distance measure created from a generalization of the dot product.
-The generalization is called an {\em inner product}. We will use an "infix" form of such a function and use the notation
-$<{\bf x}, {\bf y}>$. An inner product is any function of two vectors; i.e., $F: V \times V \rightarrow R$,  with the following properties:
+The generalization is called an {\em inner product}. We will use an ``infix'' form of such a function and use the notation
+$\langle{\bf x}, {\bf y}\rangle$. An inner product is any function of two vectors; i.e., $F: V \times V \rightarrow R$,  with the following properties:
 \bi
-  \item{ $ <{\bf x}, {\bf y}> \, = \, <{\bf y}, {\bf x}>$ -- Symmetry.}
-  \item{ $ <\lambda_1 {\bf x}_1 + \lambda_2 {\bf x}_2, {\bf y}> \, = \, \lambda_1 <{\bf x}_1, {\bf y}> + \lambda_2 <{\bf x}_2, {\bf y}> $ -- Distributes addition and scalar multiplication.}
-  \item{ $ < {\bf x}, {\bf x}> = 0 \quad \text{iff} \; {\bf x} = {\bf 0} $ -- Non-degeneracy.}
-  \item{ $\|{\bf x}\| \, \equiv \, \sqrt{<{\bf x}, {\bf x}>}$ -- 
+  \item{ $ \langle {\bf x}, {\bf y}\rangle \, = \, \langle{\bf y}, {\bf x}\rangle$ -- Symmetry.}
+  \item{ $ \langle \lambda_1 {\bf x}_1 + \lambda_2 {\bf x}_2, {\bf y}\rangle \, = \, 
+      \lambda_1 \langle{\bf x}_1, {\bf y}\rangle + \lambda_2 \langle{\bf x}_2, {\bf y}\rangle $ -- Distributes addition and scalar multiplication.}
+  \item{ $ \langle {\bf x}, {\bf x}\rangle = 0 \quad \text{iff} \; {\bf x} = {\bf 0} $ -- Non-degeneracy.}
+  \item{ $\|{\bf x}\| \, \equiv \, \sqrt{\langle{\bf x}, {\bf x}\rangle}$ -- 
       The inner product induces a {\em norm} -- a notion of length of vectors.}
 \ei
-    The induced "length" has the properties of a "length" 
+    The induced ``length'' has the properties of a length.
 \bi
   \item{$\|{\bf x}\| = 0 \quad \text{iff} \quad {\bf x} = {\bf 0}$. -- Non-degeneracy.}
   \item{$ \|\lambda {\bf x}\| = |\lambda| \|{\bf x}\|\quad \forall \lambda \in R \quad \forall {\bf x} \in V$. -- Homogeneity.}
@@ -471,64 +473,64 @@ $<{\bf x}, {\bf y}>$. An inner product is any function of two vectors; i.e., $F:
 If we repeat the exercise to determine the projection of one vector onto 
 another by the length induced by an inner product, then all of the 
 formulas above are duplicated with the only change being the replacement 
-of ${\bf x} {\boldsymbol \cdot} {\bf y}$ with $<{\bf x}, {\bf y}>$.
+of ${\bf x} {\boldsymbol \cdot} {\bf y}$ with $\langle{\bf x}, {\bf y}\rangle$.
 
 The length and projection formulas becomes:
 \be
-  \|{\bf p}\|^2 & = & < {\bf p}, {\bf p} > \\
-  P_{\bf v}({\bf p}) & = & \frac{< {\bf p}, {\bf v} >}{< {\bf v}, {\bf v} >} {\bf v}
+  \|{\bf p}\|^2 & = & \langle {\bf p}, {\bf p} \rangle \\
+  P_{\bf v}({\bf p}) & = & \frac{\langle {\bf p}, {\bf v} \rangle}{\langle {\bf v}, {\bf v} \rangle} {\bf v}
 \ee
 
 One of the things we needed was that we could do calculus 
 ( we needed to minimization a length in order to find the projection)
 and for this we needed a notion of length. The inner product {\em defines\/} 
 a notion of length automatically and all of the calculations proceed as before.
-The only change is that where ever we see a dot product we can replace it with 
+The only change is that wherever we see a dot product we can replace it with 
 the inner product.
 
 Example: We can define the following inner product on $R^n$. 
 Let ${\bf w}$ be a given vector with the following properties:
 $$ \sum_{i=1}^n w_i = 1 $$
 $$ w_i > 0 \; \forall i \in [1,n] $$
-Then we can define an inner product, $<\cdot, \cdot>$ as:
-$$ <{\bf x}, {\bf y}> \equiv \sum_{i=1}^n w_i x_i y_i$$
-This modified "dot product" allows us to favour or discount some components 
+Then we can define an inner product, $\langle \cdot, \cdot \rangle$ as:
+$$ \langle {\bf x}, {\bf y} \rangle \equiv \sum_{i=1}^n w_i x_i y_i$$
+This modified ``dot product'' allows us to favour or discount some components 
 over others. This is often used in data science.
 
 The generalization is powerful and we can apply the geometric intuition of 
 projections to sets of objects like functions and 
 produce remarkable results.
 For instance, we can define a function set
-\footnote{The exact notion of "Integrable" requires further 
+\footnote{The exact notion of ``Integrable'' requires further 
 explanation which we won't provide.}
 $$L^2 = \{ {\bf f} | \text{$f$ is Integrable with} \int_\Omega f(x)^2 \, dx < \infty\}$$ 
 
 $L_2$ is a set of functions where addition and scalar multiplication 
 exist just like numeric vectors.
 Addition and scalar multiplication are defined by:%
-\footnote{This is like vectors where "x" is the continuous "index" 
-into the "vector"(function). 
+\footnote{This is like vectors where ``x'' is the continuous ``index'' 
+into the ``vector''(function). 
 And just like vectors, to define one you need to explain what the 
 value of the vector is on each index.}
-\bi
-  {\item  $({\bf f} + {\bf g})(x) \equiv f(x) + g(x)$.}
-  \item{$(\lambda * {\bf f})(x) \equiv \lambda f(x) $.}
-\ei
-To understand the above, keep in mind what one must do. You must define a "+" 
+\be
+  ({\bf f} + {\bf g})(x) & \equiv & f(x) + g(x) \\
+  (\lambda * {\bf f})(x) & \equiv & \lambda f(x)
+\ee
+To understand the above, keep in mind what one must do. You must define a ``+''
 operator so that adding two functions produces another function.
-But to describe what the this function $f + g$ is, you must show what it 
-does when applied to any "x" -- which we've done.
-The new function $f + g$ when applied to "x" is what one would expect; it is 
+But to describe what this function $f + g$ is, you must show what it 
+does when applied to any ``x'' -- which we've done.
+The new function $f + g$ when applied to ``x'' is what one would expect; it is 
 the sum of the values of f and g applied to x.
 In a similar way we define scalar multiplication. And just like with 
 ordinary vectors, we suppress the multiplication operator and write 
-$$\lambda \, {\bf f} \equiv \lambda * {\bf f}  $$
+$\lambda \, {\bf f}$, instead of  $\lambda * {\bf f} $.
 
 With these definitions this space of function behaves like 
 vectors of numbers.
 
-Define $<{\bf f}, {\bf g}> \equiv \int_\Omega f(x) g(x) \, dx$.
-This induces the length $\| f \| = \, \sqrt{<f, f>} = \sqrt{\int_\Omega f(x)^2 \, dx}$
+Define $\langle{\bf f}, {\bf g}\rangle \equiv \int_\Omega f(x) g(x) \, dx$.
+This induces the length $\| f \| = \, \sqrt{\langle f, f \rangle} = \sqrt{\int_\Omega f(x)^2 \, dx}$
 
 So, this generalization can apply to things that are very different 
 looking from typical vectors.
@@ -537,7 +539,7 @@ Given two functions ${\bf v}$ and ${\bf p}$, the projection formula becomes:
 \be
   P_{\bf v}({\bf p}) & = & \frac{\int_\Omega p(x) \, v(x) \, dx}{\int_\Omega v(x)^2 \, dx} {\bf v}
 \ee
-So, notice the projection is a new vector (function) that is a multiple of 
+Notice the projection is a new vector (function) that is a multiple of 
 the function ${\bf v}$. You can evaluate it on a number just like 
 any other function:
 $$\left(P_{\bf v}({\bf p})\right)(10) = \frac{\int_\Omega p(x) \, v(x) \, dx}{\int_\Omega v(x)^2 \, dx} v(10)$$
