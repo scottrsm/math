@@ -2,7 +2,7 @@
 \usepackage{amsmath}
 \usepackage{algorithmic}
 
-\title{Derivative of the Determinant}
+\title{What is a Determinant}
 \author{R. Scott McIntire}
 \date{Oct 20, 2023}
 \setlength{\textwidth}{6.5in}
@@ -24,8 +24,12 @@ vectors: $\{ [1, 0, \ldots], [0, 1, 0, \ldots], \ldots [0, \dots, 1]\}$.
 When $A$ acts on these vectors through matrix multiplication it
 produces the column vectors of $A$ -- by the definition of matrix multiplication.
 
-So, to find this factor we need to compute the volume of the parallelepiped formed
-from the column vectors of $A$, since the volume of the unit cube is 1.
+So, to find the determinant -- the stretching factor of $A$ -- we need to compute the volume of the parallelepiped formed
+from the column vectors of $A$. This is enough as the stretching factor is ratio of the 
+change in volume after applying $A$ to the volume of what we started with.  Since the starting 
+point is the unit cube which has a volume of 1, the ratio {\em is\/} the volume of the stretched cube
+under the action of $A$.
+
 Given $n$ vectors in $R^n$, how do we find a formula for the parallelepiped volume?
 A good way is to use the properties of the function to help find a formula.
 
@@ -90,8 +94,8 @@ terms of an orthonormal basis: ${\bf e}_1$, ${\bf e}_2$, ${\bf e}_3$ as
   {\bf x}_2 & = & a_{1,2} {\bf e}_1 + a_{2,2} {\bf e}_2 + a_{3,2} {\bf e}_3 \\
   {\bf x}_3 & = & a_{1,3} {\bf e}_1 + a_{2,3} {\bf e}_2 + a_{3,3} {\bf e}_3 \\
 \end{eqnarray*}
-If ${\bf x}_1$, ${\bf x}_2$, ${\bf x}_3$ are the mapping
-${\bf e}_1$, ${\bf e}_2$, ${\bf e}$ by matrix $A$, then $A$ is related to the
+If ${\bf x}_1$, ${\bf x}_2$, ${\bf x}_3$ are the mapping of
+${\bf e}_1$, ${\bf e}_2$, ${\bf e}_3$ by matrix $A$, then $A$ is related to the
 $\{a_{i,j}\}_{i,j=1}^n$ by:
 \begin{eqnarray}
   A & = & \left[ \begin{array}{ccc}
@@ -104,7 +108,7 @@ So, coming up with a formula for the volume function in terms of the
 $\{a_{i,j}\}_{i,j=1}^n$ will
 translate directly to a formula for the determinant of $A$.
 
-To illustrate the process of finding the volume I will do it for the case
+To illustrate the process of finding the volume we will do it for the case
 when $n=2$.
 In this case we have:
 \begin{eqnarray*}
@@ -130,7 +134,7 @@ Therefore,
 \end{eqnarray}
 This corresponds with the usual definition of the determinant of the matrix $A$.
 
-The general case will have to do all of the permutations of the indices of $a$
+In the general case, will have to do all of the permutations of the indices of $a$
 upon re-ordering the base vectors into standard form.
 
 Let's see what this looks like in $R^3$.
@@ -167,8 +171,8 @@ sum becomes:\footnote{$S_n$ is the symmetric group of $n$ objects.}
 Now, how do we compute each of the terms:
 $V({\bf e}_{\sigma(1)}, {\bf e}_{\sigma(2)}, \ldots, {\bf e}_{\sigma(n)})$?
 We know that we can switch the values of any two of the $n$ slots and the
-value of $V$ will change signs. It turns out that for any permutation one can
-apply some minimal number of these {\em transpositions\/} (switches)
+value of $V$ will change signs. It turns out that for any permutation, one can
+apply some minimal number of these switches (called {\em transpositions\/})
 to get back to the canonical
 ordering $V({\bf e}_1, {\bf e}_2, \ldots, {\bf e}_n)$. So the value of
 $V({\bf e}_{\sigma(1)}, {\bf e}_{\sigma(2)}, \ldots, {\bf e}_{\sigma(n)})$ should be
@@ -209,7 +213,8 @@ determinant of the matrix $A$ -- becomes:
 
 
 {\bf Note:\/} There is a bug with this process. From our reasoning, it follows that
-the volume of $V({\bf e}_2, {\bf e}_1)$ is -1. It seems like just as valid a way to
+the volume of $V({\bf e}_2, {\bf e}_1)$ is -1. It seems like this ordering 
+of edges is as valid a way to
 describe the unit square, so why is the area negative? We can fixed this ``bug'' by
 claiming that it is, in fact, a feature. We can claim that we haven't just
 computed the area/volume,
@@ -349,20 +354,22 @@ Suppose that a dynamical system is deforming $n$ vectors in $R^n$ over time by
 the following linear {\em vector differential equations\/}:
 \begin{eqnarray}
   \frac{d {\bf x}_i(t)}{dt} & = & A {\bf x}_i(t) \quad i \in [1, n] \label{deq_v}\\
-  {\bf x}_i(0) & = & {\bf x0}_i \quad i \in [1,n]
+    {\bf x}_i(0) & = & {\bf x_0}_i \quad i \in [1,n]
 \end{eqnarray}
 
-{\bf Question:\/} How is the volume of the parallelepiped that these vectors represent
+{\bf Question:\/} How is the volume of the parallelepiped formed from the vectors $\{{\bf x_0}_i\}_{i=1}^n$ 
 evolving in time?
 
 To start, we could collect these vector equations into one linear
 {\em matrix differential equation\/}:
 \begin{eqnarray}
   \frac{d X(t)}{dt} & = & A X(t) \label{deq_m}\\
-  X(0) & = & X0
+  X(0) & = & X_0
 \end{eqnarray}
 Here, the $n$ vectors form the columns of the matrix $X(0)$. The columns of
-$X(t)$ represent the vector's evolution in time.
+$X(t)$ represent the evolution of the vectors, $\{{\bf x}\}_{i=1}^n$ in time.
+The determinant of $X(t)$, $|X(t)|$, represents the evolution of the volume 
+of the parallelepiped represented by these vectors.
 
 To answer the question posed, 
 we need to track $|X(t)|$. To do this, we find a differential equation
@@ -384,9 +391,9 @@ This is much easier to solve, the solution is $|X(t)| = |X0| \, e^{{\rm tr}(A)\,
 
 {\bf Question:\/} What kind of systems (defined by $A$) leave the volumes unchanged?
 
-Notice that if $\left< A {\bf x}, {\bf x} \right> = 0$; that is, $A$ is
-{\em anti-symmetric\/},
-then:
+When $A$ is {\em anti-symmetric\/} ($A^T = -A$), it follows that  $\left< A {\bf x}, {\bf x} \right> = 0$.
+
+In this case:
 \begin{eqnarray}
   \left< {\bf x}(t), \frac{d \, {\bf x}(t)}{dt} \right>
   = \left< {\bf x}(t), A {\bf x}(t)\right> = 0
