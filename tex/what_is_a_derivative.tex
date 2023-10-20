@@ -4,7 +4,7 @@
 
 \title{What is a derivative}
 \author{R. Scott McIntire}
-\date{\today}
+\date{Oct, 20, 2023}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -74,14 +74,14 @@ composite ways: sums, products, ratios, powers, and composition of functions.}
 \end{enumerate}
 
 \subsection{Application to Optimization}
-At a local maximum of minimum of a function, $x$, the tangent line to
+At a local maximum or minimum of a function, $x$, the tangent line to
 the graph of the function at $x$ would be flat. That is the linear function, $Df(x)$,
 should be the zero function; and therefore, $f^\prime(x)$, the corresponding
 slope of the graph of this linear function should be $0$.
-So we have a practical way of finding maxima or minima.
+So, potentially, we have a practical way of finding maxima or minima.
 This makes sense, to find the maxima or minima of a function over an interval, $[a,b]$,
 examine all of the local maxima or minima {\em plus\/} the values of the function
-at $a$ and $b$. This should be a relatively small list. We fund the local maxima
+at $a$ and $b$. This should be a relatively small list. We find the local maxima
 and minima by solving for all points $x$ such that $f^\prime(x) = 0$.
 
 {\bf Example:\/} Find the point $x^*$ which maximizes the function $f(x) = x(12 - 2x)^2$
@@ -150,7 +150,7 @@ then equation, $(\ref{vdercomp})$ yields:
 of ${\tilde f}$ constant and just compute the change in one slot, $x_i$.%
 \footnote{What does $x$ have to do with the $i^{\rm th}$ slot of ${\tilde f}$. Actually
 nothing, as we can put anything in that slot, $x$, $y$, $z$, 5, etc. Keep this in mind,
-as two sections from now we see the notation: $\frac{\partial F}{\partial y^\prime}$.
+as two sections from now we will see the notation: $\frac{\partial F}{\partial y^\prime}$.
 In this case, it simply means take a derivative in the third slot of the function $F$.}
 
 Note, different choices of
@@ -162,11 +162,11 @@ $[\frac{1}{r} \frac{\partial {\tilde f}}{\partial \theta}, \frac{\partial {\tild
 
 {\bf Note:\/} The ``local''{} direction of maximum increase at a point of the
 $f({\bf x})$ is given by the gradient of $f$. To see this notice that we can
-discuss direction in a unique sense by normalizing to be of unit length.
+discuss direction of a vector in a unique sense by normalizing it to be of unit length.
 That is, we can speak of a vector's direction as its unit vector.
 
 {\bf Question:\/} What is the direction to change a given value $x$ so as
-to increase $f$ as much as possible? So, find a direction, $w$ (unit vector),
+to increase $f$ as much as possible? So, find a direction, ${\bf w}$ (unit vector),
 so that for a vector of small enough length $h$, $f({\bf x} + h{\bf w})$ is larger than
 all other vectors of the same length. We claim that the direction of
 maximum increase (locally) is $\nabla f({\bf x})$ (normalized).
@@ -182,7 +182,7 @@ Therefore, to increase $f$ in the fast possible way (locally) move in the direct
 of $\nabla f({\bf x})$; conversely, to decrease $f$ in the
 fastest possible way (locally) move in the direction of $-\nabla f({\bf x})$
 
-\subsection{Application to Optimization}
+\subsection{Application to Optimization and Data Science}
 By the same reasoning of the last section in order to find a maximum or minimum
 one should find all of the places where a function is flat; that is, where the linear
 approximation is zero. But this is the place where the gradient is zero -- the
@@ -200,16 +200,29 @@ This suggests a scheme for finding the minimum.
 \begin{algorithmic}
   \STATE ${\bf x}_0 \leftarrow {\bf x0}$
   \STATE $n \leftarrow 0$
-  \WHILE{$\left(n = 0 \;{\text or}\; \|{\bf x_n} - {\bf x_{n-1}}\| > \epsilon\right) \;{\text and}\; n < N$}
-  \STATE $n \leftarrow n + 1$
-  \STATE ${\bf x}_n \leftarrow {\bf x}_{n-1} - \eta \nabla f({\bf x}_{n-1})$
+  \WHILE{$\|{\bf x_n} - {\bf x_{n-1}}\| > \epsilon \;{\text and}\; n \le N$}
+    \STATE $n \leftarrow n + 1$
+    \STATE ${\bf x}_n \leftarrow {\bf x}_{n-1} - \eta \nabla f({\bf x}_{n-1})$
   \ENDWHILE
-  \STATE ${\bf x}^* \leftarrow {\bf x}_n$
+    \vspace{1em}
+  \IF{$n > N$}
+    \STATE ${\bf ERROR:}$ Did not converge within N steps.
+  \ELSE
+    \STATE ${\bf x}^* \leftarrow {\bf x}_n$
+  \ENDIF
 \end{algorithmic}
-This algorithm depends on the parameters: ${\bf x0}$ (initial guess);
-$N$ (maximum number of iterations);
-$\epsilon$ (the error tolerance); and $\eta$ (the ``learning''{} parameter).
-Such schemes are used to train neural networks, for instance.
+
+This algorithm depends on the parameters: 
+\begin{description}
+    \item[${\bf x0:}$]{An Initial guess;}
+    \item[$N$:]{The maximum number of iterations allowed;}
+    \item[$\epsilon$:]{The error tolerance for convergence;} 
+    \item[$\eta$:]{The ``learning''{} parameter.}
+\end{description}
+As it is analytically difficult to compute the gradient for real world problems, 
+schemes like the one above are used 
+to find solutions to sophisticated constrained optimization problems.
+They are also used to train Artificial Deep Neural Networks.
 
 
 \section{Extension to $f:R^n \rightarrow R^m$}
@@ -224,25 +237,30 @@ $\lim_{{\bf h} \rightarrow {\bf 0}}\frac{\|{\bf o}({\bf h})\|}{\|{\bf h}\|} \rig
 There is a {\em representation\/} result that says that any linear map from $R^n$ to $R^m$ can
 be represented by a matrix once coordinates have been chosen.
 
-Using $(\ref{mderdef})$ one can show that using a function,${\tilde f}$
+Using $(\ref{mderdef})$ one can derive a representation of the derivative 
+using functions 
 commensurate with a choice of basis vectors, ${\bf e}_i \quad i \in [1, n]$. Given
 this choice of basis, let ${\tilde f}_j$ be the coordinate functions for ${\bf f}$.
-We claim without proof that the matrix representing the derivative is given by:
-$[{\bf Df}({\bf x})]$
+We claim without proof that the matrix representing the derivative is given by
+$[{\bf Df}({\bf x})]$, whose $i^{\rm th}, j^{\rm th}$ entries are:
 \begin{eqnarray}
   [{\bf Df}(x)]_{i,j} & = & \frac{\partial {\tilde {\bf f}}_j}{\partial x_i}
 \end{eqnarray}
 
 Why do we study matrices? One answer is that they represent the linear mappings
-from $R^n \rightarrow R^m$ and so if we want to use calculus on the functions
+from $R^n \rightarrow R^m$ and so if we want to use calculus%
+\footnote{We can use calculus to {\em locally\/} approximate a given non-linear function,
+which can be useful in itself. We also know from the last section that we can 
+iterate on the derivative and solve/understand {\em global\/} issues of such a non-linear function.}
+on the functions
 from $R^n$ to $R^m$ we need to understand the linear functions, on these
 spaces and their representations -- matrices.
 
 \section{Extension to $f:R^\infty \rightarrow R$}
 Consider the function $J(y) = \int_{a}^b F(x, y(x), y^\prime(x)) \, dx$. $J$ is
-a function from a function space, $H$, to $R$; that is, $J: H \rightarrow R$.
+a function from a {\em function space\/}, $H$, to $R$; that is, $J: H \rightarrow R$.
 This is similar to functions,
-$f:R^n \rightarrow R$, where $n$ is infinity. One can show that, for instance, the
+$f:R^n \rightarrow R$, but where $n$ is infinity. One can show that, for instance, the
 functions $\{\sin(n\, x)\}_{_n=1}^\infty$ are linearly independent; therefore,
 the space $H$ is infinite dimensional.%
 \footnote{The notation $\{\sin(n x)\}_{n=1}^\infty$ is sloppy, we should instead write:
