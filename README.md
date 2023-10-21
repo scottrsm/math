@@ -11,6 +11,7 @@
 - Julia code supporting the Pythagorean triples conjecture via a Jupyter notebook: **src**/pythag.ipynb.
 
 ### Math Education
+- The Essentials of Calculus (Discrete and Continuous): **pdf**/essential_calculus.pdf.
 - What is a Derivative: **tex**/what_is_a_derivative.tex.
 - What is the Determinant: **tex**/what_is_a_determinant.tex.
 - Why is Matrix Multiplication the way it is: **tex**/why_matrix_mult.tex.
