@@ -12,14 +12,25 @@
 
 ### Math Education
 - The Essentials of Calculus (Discrete and Continuous): **pdf**/essential_calculus.pdf.
+    - Provides a view connecting the continuous Calculus with the Discrete Calculus.
 - What is a Derivative: **tex**/what_is_a_derivative.tex.
+    - This is such an important idea, but viewing it in the right way can bring
+       fantastic generalizations.
 - What is the Determinant: **tex**/what_is_a_determinant.tex.
+    - This is almost always introduced by the formula rather than what it means.
 - Why is Matrix Multiplication the way it is: **tex**/why_matrix_mult.tex.
+    - We motivate this by solving the natural generalization of: $$a * x = b$$.
 - Where does the "dot-product" come from: **tex**/InnerProd_from_Projection.tex.
+    - We give an alternative derivation of the dot product and how its generalization
+      can be seen as a kind of software factorization.
 - Examination of a Dice throwing problem using Measure Theoretic Conditional Expectation: **tex**/conditional_expectation_simple.tex.
+    - Gain a better understanding of Measure Theory via a discrete setting.
 - Re-Examination of a Linear Unbiased Estimation Problem with different Norms: **tex**/prob_linear_unbias_est.tex.
+    - Regardless of norm we get the same unbiased estimate.
 - A Balance Law approach to the derivation of the Heat and Fokker-Planck equations: **tex**/heat_balance.tex.
+    - Often partial differential equations can be derived from simple balance laws.
 - A derivation of the Exponential Moving Average and its associated moving Standard Deviation: **tex**/exponential_moving_average.tex.
+    - Associated un-biased estimates of the moments of the exponential moving average are also given.
 
 ### New Mathematical Formulas
 - A formula to Compute Probability Distributions for non-Singular Transformations: **tex**/prob_singular_trans.tex.
