@@ -184,12 +184,21 @@ so that there exists a measurable function, $P_Y(y)$
 such that $\mu(\Omega_Y) = \int_{\Omega_Y} P_Y(y) \, d{\bf y}$.
 So that
 $$
-\int_{\Omega_Y} P_Y({\bf y}) =
+\int_{\Omega_Y} P_Y({\bf y})\, d{\bf y} =
 \int_{\Omega_Y} \int_{\Omega_{X_2}} 
 {P_X({\bf x}({\bf y}, {\bf x_2})) \over 
 \sqrt{ |Df({\bf x}({\bf y}, {\bf x_2})) Df^T({\bf x}({\bf y}, {\bf x_2}))| } }
 \, d{\bf x_2} \, d{\bf y}
 $$
+Or,
+$$
+\int_{\Omega_Y} \left( P_Y({\bf y}) - 
+ \int_{\Omega_{X_2}} 
+{P_X({\bf x}({\bf y}, {\bf x_2})) \over 
+\sqrt{ |Df({\bf x}({\bf y}, {\bf x_2})) Df^T({\bf x}({\bf y}, {\bf x_2}))| } }
+\, d{\bf x_2} \right) \, d{\bf y} = 0
+$$
+
 Since this is true for all Borel measurable sets, $\Omega_Y$, we have
 $$
 P_Y({\bf y}) =
@@ -245,16 +254,20 @@ $$
 The set $f^{-1}(y)$ can be
 parameterized as ${\bf x}_1(\mu; y) = (y\mu, \mu)^T$ with $\mu \in
 (-\infty, 0) \cup (0, \infty)$. 
+We label the first and second components of 
+${\bf x}_1$ as $x_{1,1}$ and $x_{1,2}$ respectively.
 
 $ \sqrt{|D_{\mu}{\bf x}_1^T(\mu; y)
 \; D_{\mu}{\bf x}_1(\mu; y)|} =
 \|(y,1)\| = \sqrt{1 + y^2}$. And,
 
-$\sqrt{|Df({\bf x}_1(\mu; y)) \;
-Df^T({\bf x}_1(\mu; y))|} = 
-\|\nabla_{\bf x}
-  f({\bf x}_1(\mu; y)) \| = \|
-  (1/x_2(\mu; y), -x_1(\mu; y)/x_2(\mu; y)^2)\| = \sqrt{1 + y^2} / |\mu|$. 
+$$
+\eqalign{
+\sqrt{|Df({\bf x}_1(\mu; y)) \; Df^T({\bf x}_1(\mu; y))|} & = \|\nabla_{\bf x}  f({\bf x}_1(\mu; y)) \| \cr
+& = (1/x_{1,2}(\mu; y), -x_{1,1}(\mu; y)/x_{1,2}(\mu; y)^2)\| \cr
+& = \sqrt{1 + y^2} / |\mu|
+}
+$$
 
 Therefore, Theorem 1 gives:
 $$
@@ -325,16 +338,19 @@ $$
 \example{Example 5}{$y_1 = x_1 + x_2 + x_3 \;;\; y_2 = x_1 - x_2 + x_4 \quad
   (f:{\bf R}^4 \mapsto {\bf R}^2)$}
 The set $f^{-1}({\bf y})$ can be
-parameterized as ${\bf x}_1(\mu_1, \mu_2; y_1, y_2) = (\mu_1, \mu_2, y_1 + y_2
-- 2\mu_1, y_2 - y_1 + 2\mu_2)^T $
+parameterized as 
+${\bf x}_1(\mu_1, \mu_2; y_1, y_2) = (\mu_1, \mu_2, y_1 - \mu_1 - \mu_2, y_2 - \mu_1 + \mu_2)^T$ 
 with $\mu_1, \mu_2 \in
 (-\infty, \infty) $. 
 
 $ \sqrt{|D_{\mu}{\bf x}_1^T(\mu; {\bf y})
 \; D_{\mu}{\bf x}_1(\mu; {\bf y})|} =
-\sqrt{\left| \pmatrix{1 & 0 & -2 & 0 \cr 0 & 1 & 0 & 2 \cr} 
-\pmatrix{1 & 0 \cr 0 &
-1 \cr -2 & 0 \cr 0 & 2\cr} \right|} = 5$
+\sqrt{\left| \pmatrix{1 & 0 & -1 & -1 \cr 
+                      0 & 1 & -1 &  1 \cr } 
+\pmatrix{1 &  0 \cr 
+         0 &  1 \cr 
+        -1 & -1 \cr 
+        -1 &  1 \cr} \right|} = 3$
 
 And, $\sqrt{|Df({\bf x}_1(\mu; {\bf y})) \;
 Df^T({\bf x}_1(\mu; {\bf y}))|} = \sqrt{\left|\pmatrix{1 & 1 &
@@ -343,9 +359,9 @@ Df^T({\bf x}_1(\mu; {\bf y}))|} = \sqrt{\left|\pmatrix{1 & 1 &
 
 Therefore, Theorem 1 gives:
 $$
-  P_{Y_1 Y_2}(y_1, y_2) = \frac{5}{3} \int_{-\infty}^{\infty} 
+  P_{Y_1 Y_2}(y_1, y_2) = \int_{-\infty}^{\infty} 
   \int_{-\infty}^{\infty} P_{X_1 X_2 X_3 X_4}
-  (\mu_1, \mu_2, y_1 + y_2 - 2\mu_1, y_2 - y_1 + 2\mu_2)
+  (\mu_1, \mu_2, y_1 - \mu_1 -\mu_2, y_2 - y_1 + \mu_2)
   \, d\mu_1 \, d\mu_2
 $$
 
