@@ -34,3 +34,7 @@
 
 ### New Mathematical Formulas
 - A formula to Compute Probability Distributions for non-Singular Transformations: **tex**/prob_singular_trans.tex.
+
+#### Version 1.0.1
+
+

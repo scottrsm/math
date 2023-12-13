@@ -184,11 +184,11 @@ so that there exists a measurable function, $P_Y(y)$
 such that $\mu(\Omega_Y) = \int_{\Omega_Y} P_Y(y) \, d{\bf y}$.
 So that
 $$
-\int_{\Omega_Y} P_Y({\bf y}) -
-\left( \int_{\Omega_{X_2}} 
+\int_{\Omega_Y} P_Y({\bf y}) =
+\int_{\Omega_Y} \int_{\Omega_{X_2}} 
 {P_X({\bf x}({\bf y}, {\bf x_2})) \over 
 \sqrt{ |Df({\bf x}({\bf y}, {\bf x_2})) Df^T({\bf x}({\bf y}, {\bf x_2}))| } }
-\,  d{\bf x_2} \right) \, d{\bf y}
+\, d{\bf x_2} \, d{\bf y}
 $$
 Since this is true for all Borel measurable sets, $\Omega_Y$, we have
 $$
@@ -198,7 +198,7 @@ P_Y({\bf y}) =
 \sqrt{ |Df({\bf x}({\bf y}, {\bf x_2})) Df^T({\bf x}({\bf y}, {\bf x_2}))| } }
 \,  d{\bf x_2}
 $$
-But in this case the component manifold, $\Omega_2$, is just $f^{-1}({\bf y})$.
+But in this case the component manifold, $\Omega_{X_2}$, is just $f^{-1}({\bf y})$.
 If we parameterize this as ${\bf x}({\bf y}, {\bf \mu})$, then by lemma 2 we
 have
 $$
