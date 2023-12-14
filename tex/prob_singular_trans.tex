@@ -33,23 +33,27 @@ density function of a random variable $Y$ which is a singular function of a
 random variable $X$. By singular, we mean that $Y = f(X)$ with $f$ a function
 such that $f: R^n \mapsto R^m$ and $m < n$. 
 
-\proclaim Theorem 1. Let $f : {\bf R}^n \mapsto {\bf R}^m$ be a continuously
-          differentiable function with $n > m$. If for each
+\proclaim Theorem 1. Let $f : {\cal D} \subset {\bf R}^n \mapsto {\bf R}^m$ be a continuously
+          differentiable function with $n > m$. In addition,
+          $Df({\bf x})$ is of rank $m$ $\forall {\bf x} \in {\cal D}$.
+          If for each
           ${\bf y}$, $f^{-1}({\bf y})$ is a union of $k({\bf y})$ 
           disjoint $C^1$ $n-m$ dimensional manifolds with
-          parameterizations ${\bf x}_i(\mu; {\bf y}), \;
-          i~\in~[1,k({\bf y})], \; \mu \in \Omega_i \subseteq {\bf R}^{n-m}$,
+          parameterizations ${\bf x}_i({\bffam \mu} ; {\bf y}), \;
+          i~\in~[1,k({\bf y})], \; \mu \in \Omega_i \subset {\bf R}^{n-m}$,
           with $P_X({\bf x})$ being the continuous probability
           density function of the random variable $X$, then the 
           density function $P_Y({\bf y})$ of the random variable $Y$ 
           defined by $Y = f(X)$ exists, is continuous, and is given by
+
 $$
 \eqalignno{
 P_Y({\bf y}) & = \sum_{i=1}^{k({\bf y})} \int_{\Omega_i}
-{P_X({\bf x}_i(\mu; {\bf y})) \over \sqrt{|Df({\bf x}_i(\mu; {\bf y})) \;
-Df^T({\bf x}_i(\mu; {\bf y}))|}} \; \sqrt{|D_{\mu}
-{\bf x}_i^T(\mu; {\bf y})
-\; D_{\mu}{\bf x}_i(\mu; {\bf y})|}  \; d\mu}
+{P_X({\bf x}_i({\bf y}; {\bf \mu})) \over \sqrt{\left|Df({\bf x}_i({\bf y}; \mu)) \;
+Df^T({\bf x}_i({\bf y}; \mu))\right|}}
+\; \sqrt{\left|D_{\mu} {\bf x}_i^T({\bf y}; \mu) \; D_{\mu}{\bf x}_i({\bf y}; \mu)\right|}  
+\; d\mu
+}
 $$
 
 \smallskip
@@ -95,9 +99,12 @@ $$
 Therefore, $DF({\bf x}^*)({\bf h}) = 
 \langle 2 {\bf x}^* - A^T {\bf \lambda}, {\bf h}\rangle$. Since $DF({\bf x}^*) \equiv 0$, we
 have that $2 {\bf x}^* - A^T {\bf \lambda} = {\bf 0}$. Applying $A$ to this 
-last equation and using the fact that $A$ has rank $m$ and 
-$A{\bf x}^* = {\bf y}$ yields ${\bf \lambda} = 2 (A A^T)^{-1} {\bf y}$.
-This implies that ${\bf x}^* = A^T (A A^T)^{-1} {\bf y}$.
+last equation and using the fact that $A$ has rank $m$ and  
+$A{\bf x}^* = {\bf y}$ yields:%
+\ft 1 
+{Since $A$ has rank $m$ (${\rm dim}(R(A)) = m$) and $R(AA^T) = R(A)$, $AA^T$ is invertible.}
+${\bf \lambda} = 2 (A A^T)^{-1} {\bf y}$.
+This implies that ${\bf x}^* = A^T \left(A A^T\right)^{-1} {\bf y}$.
 
 \bigskip
 
@@ -131,7 +138,7 @@ We now proceed with the proof of Theorem 1.
 \smallskip
 
 ${\bf proof:}$ Let ${\bf \mu}$ be the induced probability measure defined by%
-\footnote{\raise 2pt \hbox{\dag}}{The measure extends in a natural way to all Lebesgue measurable sets.}
+\ft 2{The measure extends in a natural way to all Lebesgue measurable sets.}
 $$
 {\bf \mu}(\Omega_y) = \int_{f^{-1}(\Omega_y)} P_X({\bf x}) \, d{\bf x}
 $$
@@ -146,7 +153,7 @@ $$
 $$
 {\it Assume\/} that $\Omega_X$ is composed of just one $n-m$ dimensional
 manifold. In this case there are local coordinates ${\bf x_1}, {\bf x_2}$, 
-and manifolds $\Omega_{X_1}$, $\Omega_{X_2}$, such that the manifold, 
+and manifolds $\Omega_{X_1}$, $\Omega_{X_2}$, such that the     manifold, 
 $\Omega_X$ is a product of $\Omega_{X_1}$ and $\Omega_{X_2}$ with
 the component manifolds $\Omega_{X_1}$, $\Omega_{X_2}$, 
 locally tangent to $R(Df^T({\bf x}))$ and $N(Df({\bf x}))$ respectively.
@@ -179,7 +186,7 @@ $$
 $$
 We argue now that the measure ${\bf \mu}$ is absolutely continuous with 
 respect to Lebesgue measure%
-\footnote{\raise 2pt \hbox{\ddag}}{Since the Lebesgue measure is regular, any Lebesgue measurable set can be approximated by a Borel measurable set.} 
+\ft 1 {Since the Lebesgue measure is regular, any Lebesgue measurable set can be approximated by a Borel measurable set.} 
 so that there exists a measurable function, $P_Y(y)$
 such that $\mu(\Omega_Y) = \int_{\Omega_Y} P_Y(y) \, d{\bf y}$.
 So that
@@ -335,7 +342,7 @@ $$
 \bigskip
 
 
-\example{Example 5}{$y_1 = x_1 + x_2 + x_3 \;;\; y_2 = x_1 - x_2 + x_4 \quad
+\example{Example 5a}{$y_1 = x_1 + x_2 + x_3 \;;\; y_2 = x_1 - x_2 + x_4 \quad
   (f:{\bf R}^4 \mapsto {\bf R}^2)$}
 The set $f^{-1}({\bf y})$ can be
 parameterized as 
@@ -361,10 +368,41 @@ Therefore, Theorem 1 gives:
 $$
   P_{Y_1 Y_2}(y_1, y_2) = \int_{-\infty}^{\infty} 
   \int_{-\infty}^{\infty} P_{X_1 X_2 X_3 X_4}
-  (\mu_1, \mu_2, y_1 - \mu_1 -\mu_2, y_2 - y_1 + \mu_2)
+  (\mu_1, \mu_2, y_1 - \mu_1 -\mu_2, y_2 - \mu_1 + \mu_2)
   \, d\mu_1 \, d\mu_2
 $$
 
+\example{Example 5b}{$y_1 = x_1 + x_2 + x_3 \;;\; y_2 = x_1 - x_2 + x_4 \quad
+  (f:{\bf R}^4 \mapsto {\bf R}^2)$}
+This is the same function as in Example 5a. The difference in this example
+is how we parameterize the set $f^{-1}({\bf y})$.
+In this example we parameterize this set in the following way:
+${\bf x}_1(\mu_1, \mu_2; y_1, y_2) = (2\mu_1, \mu_2, y_1 - 2\mu_1 - \mu_2, y_2 - 2\mu_1 + \mu_2)^T$ 
+with $\mu_1, \mu_2 \in
+(-\infty, \infty) $. 
+
+Continuing as in 5a we have:
+$ \sqrt{|D_{\mu}{\bf x}_1^T(\mu; {\bf y})
+\; D_{\mu}{\bf x}_1(\mu; {\bf y})|} =
+\sqrt{\left| \pmatrix{2 & 0 & -2 & -2 \cr 
+                      0 & 1 & -1 &  1 \cr } 
+\pmatrix{2 &  0 \cr 
+         0 &  1 \cr 
+        -2 & -1 \cr 
+        -2 &  1 \cr} \right|} = 6$
+
+And, $\sqrt{|Df({\bf x}_1(\mu; {\bf y})) \;
+Df^T({\bf x}_1(\mu; {\bf y}))|} = \sqrt{\left|\pmatrix{1 & 1 &
+1 & 0 \cr 1 & -1 & 0 & 1\cr} \pmatrix{1 & 1 \cr 1 & -1 \cr 1 & 0 \cr 0
+& 1 \cr} \right|} = 3 $
+
+Therefore, Theorem 1 gives:
+$$
+  P_{Y_1 Y_2}(y_1, y_2) = 2\int_{-\infty}^{\infty} 
+  \int_{-\infty}^{\infty} P_{X_1 X_2 X_3 X_4}
+  (2\mu_1, \mu_2, y_1 - 2\mu_1 -\mu_2, y_2 - 2\mu_1 + \mu_2)
+  \, d\mu_1 \, d\mu_2
+$$
 
 \subsection{Application to the Distribution of the Ratio of Normals}
 We use Theorem 1 to compute the distribution 
@@ -372,9 +410,9 @@ of the ratio of two correlated normals.
 
 If $x_1, x_2$ are Gaussian random variables with joint density function,  
 $P_{X_1 X_2}$, means: $\mu_1, \mu_2$, and positive definite covariance 
-matrix\footnote{\kern 0.5pt *}{If 
+matrix:\ft 1 {If 
 $\Sigma$ is positive definite we have: $a>0, \; c>0, \; ac
-- b^2 > 0$.}: $\Sigma~=~\pmatrix{a & b \cr b & c \cr}$, then
+- b^2 > 0$.} $\Sigma~=~\pmatrix{a & b \cr b & c \cr}$, then
 the density function of the ratio $y = x_1 / x_2$ is given by
 the formula in example 2:
 $$
