@@ -342,12 +342,12 @@ Continuing with $(\ref{standard_emp_var})$ we have
     &=  \sigma^2 + \sigma^2 \left( \sum_{j=1}^N w_j^2 \right) - 2\sigma^2 \left( \sum_{i=1}^N w_i^2 \right) &&\\ 
     &=  \sigma^2\left(1 - \sum_{i=1}^N w_i^2\right)  &&
 \end{flalign*}
-Therefore, to make $\sum_{i=1}^N (x - {\hat x})^2 w_i$ an unbiased estimator of the variance $\sigma^2$ 
+Therefore, to make $\sum_{i=1}^N (x - {\bar x})^2 w_i$ an unbiased estimator of the variance $\sigma^2$ 
 we need to correct by dividing by the factor $\left( 1 - \sum_{i=1}^N w_i^2 \right)$.%
 \footnote{Note, this factor is non-zero when the weights are not concentrated at one point.
 As a consequence, the formula requires $N > 1$.}
 
-Consequently, $\frac{1}{1 - \sum_{i=1}^N w_i^2} \sum_{i=1}^N (x_i - {\hat x})^2 w_i$ 
+Consequently, $\frac{1}{1 - \sum_{i=1}^N w_i^2} \sum_{i=1}^N (x_i - {\bar x})^2 w_i$ 
 is an unbiased estimator for the variance of any of the IID variables: $\{x_i\}_{i=1}^N$. 
 The unbiased standard deviation is then
 \begin{flalign}
