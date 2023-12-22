@@ -5,6 +5,8 @@
 
 (The ${\TeX}$ papers have an "input macro" statement at the beginning of their files.)
 
+In any event the corresponding pdf's are in the directory **pdf/**.
+
 ### Pythagorean Triples
 - Alternative Proof of an elementary Property of Primitive Pythagorean Triples: **tex**/PythagTripleProp.tex.
 - Conjectures regarding Primitive Pythagorean Triples: **tex**/PythagoreanConjectures.tex.
@@ -13,6 +15,7 @@
 ### Math Education
 - The Essentials of Calculus (Discrete and Continuous): **pdf**/essential_calculus.pdf.
     - Provides a view connecting the continuous Calculus with the Discrete Calculus.
+    - In addition, it connects differential equations with difference equations.
 - What is a Derivative: **tex**/what_is_a_derivative.tex.
     - This is such an important idea, but viewing it in the right way can bring
        fantastic generalizations.
@@ -33,8 +36,12 @@
     - Associated un-biased estimates of the moments of the exponential moving average are also given.
 
 ### New Mathematical Formulas
-- A formula to Compute Probability Distributions for non-Singular Transformations: **tex**/prob_singular_trans.tex.
+- A formula to Compute Probability Distributions for Singular Transformations: **tex**/prob_singular_trans.tex.
+    - There is a standard formula when computing the probability distribution for
+      non-singular transformations. However, when it comes to singular transformations of the form: ${f: R^n \rightarrow R^m}$
+      with ${m < n}$ there are only add-hoc procedures. In this paper we provide a systematic way to compute
+      the probability distributions for such singular transformations.
 
-#### Version 1.1.0
+#### Version 1.1.1
 
 
