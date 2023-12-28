@@ -3,7 +3,7 @@
 \parindent = 0pt
 
 \mantitle{Properties of a Linear Unbiased Minimum Variance Estimator}
-{R. Scott McIntire}{Aug 1, 2023}
+{R. Scott McIntire}{Dec 28, 2023}
 
 \parskip=8pt
 
@@ -60,11 +60,35 @@ $$
 \eqalignno{
 & {\rm tr}\left[ k(L^*VL^{*T})^{k-1}(HVL^{*T} + L^*VH^T) - 
 HA\Lambda_k^T\right] = 0
-  \quad \forall H \in {\bf R}^{mn} &
-(1) \cr}
+  \quad \forall H \in {\bf R}^{mn} & (1) \cr}
 $$
 
-In the special case $k = 1$, equation (1) implies that 
+Before going further we list some facts regarding the trace inner product.
+
+\item{$\forall H \in R^{nn},\; H \; \hbox{ anti-symmetric} \; \Rightarrow \; {\rm tr}(H) = 0$.}
+\item{Given a matrix $A \in R^{mn}$: $\forall H \in R^{mn},\; {\rm tr}(A^T H) = 0 \; \Rightarrow \; A \equiv 0.$}
+\item{$\forall A,H \in R^{nn}, \;A \; {\rm symmetric} \; \wedge \; H \; \hbox{anti-symmetric}\;  \Rightarrow \; {\rm tr}(A^T H) = 0$.}
+\item{Given a matrix $A \in R^{nn}$: $\forall H \in R^{nn}, \; H \; \hbox{anti-symmetric} \; \wedge \; {\rm tr}(A^T H) = 0 \; \Rightarrow A \; \hbox{is symmetric}$.}
+\item{Given a matrix $A \in R^{nn}$: $\forall H \in R^{nn}, \; A \; \hbox{symmetric} \; \wedge \; H \; \hbox{symmetric} \; \wedge \; {\rm tr}(A^T H) = 0 \; \Rightarrow A \equiv 0$.}
+
+The first fact follows from a property of square matrices; namely,
+${\rm tr}(A) = {\rm tr}(A^T)$; and the definition of an anti-symmetric $A$, $A^T = -A$.
+The second fact follows since any inner product on a vector space, $V$, satisfies: 
+$\forall y \in V, \langle x, y \rangle = 0 \; \Rightarrow \; x \equiv 0$. 
+The third fact follows since if $S$ and $W$ are symmetric and anti-symmetric matrices in $R^{nn}$, then
+${\rm tr}(S \, W) = {\rm tr}((S \, W)^T) = {\rm tr}(W^T \, S^T) = -{\rm tr}(W \, S) = - {\rm tr}(S\, W)$
+This implies that ${\rm tr}(S \, W) = 0$.
+The fourth fact follows using that fact that any matrix $A \in R^{nn}$ can be written uniquely as a sum of a symmetric
+and an anti-symmetric matrix: $A = A^{s} + A^{w}$. Therefore, if ${\rm tr}(A^T H) = 0$ implies that
+${\rm tr}((A^{s} - A^{w}) H)) = 0$. Or, using the second fact, ${\rm tr}((A^w)^T H) = 0$. Since this is true for any
+anti-symmetric $H$, choosing $H$ to be $A^{w}$ and using the fact that the trace inner product induces a norm, we 
+see that $A^{w} \equiv 0$. And thus $A$ is symmetric.
+The fifth fact follows by setting $H$ to $A$. Again, the fact that the trace inner product induces a norm implies 
+that $A = 0$.
+
+
+Continuing with the derivation, in the special case $k = 1$, equation (1) 
+implies that 
 $ 2VL^{*T}  = A\Lambda_1^T$; or, 
 $$
 \eqalignno{
@@ -78,8 +102,7 @@ $$
 L^* = (A^TV^{-1}A)^{-1}A^TV^{-1}
 $$
 
-We now proceed with the case when $k > 1$. Given any ${\tilde H} \in
-{\bf R}^{mm}$, 
+We now proceed with the case when $k > 1$. Given any ${\tilde H} \in {\bf R}^{mm}$, 
 let $H = {\tilde H}A^TV^{-1}$. Then equation (1) becomes:
 
 $$
@@ -196,8 +219,8 @@ if  $\varphi_k$ are functions which converge point-wise to the
 continuous function $\varphi$ on $\Omega$ with the accretive property
 that 
 $\lim_{\|x\| \rightarrow \infty}\limits
-\varphi(x) \rightarrow \infty$, then $x^*$ is a solution of 
-${\rm Min}\; \varphi(x) \; {\rm over} \; \{x \in \Omega: g(x) = 0\}$.
+\varphi(x) \rightarrow \infty$, then 
+$x^* \in \mathop{\rm Min}_{\{x \in \Omega: g(x) = 0\}}\limits \varphi(x) $
 
 {\bf Proof:\/} 
 
