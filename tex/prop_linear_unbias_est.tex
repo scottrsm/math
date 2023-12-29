@@ -3,7 +3,7 @@
 \parindent = 0pt
 
 \mantitle{Properties of a Linear Unbiased Minimum Variance Estimator}
-{R. Scott McIntire}{Dec 28, 2023}
+{R. Scott McIntire}{Dec 29, 2023}
 
 \parskip=8pt
 
@@ -63,7 +63,8 @@ HA\Lambda_k^T\right] = 0
   \quad \forall H \in {\bf R}^{mn} & (1) \cr}
 $$
 
-Before going further we list some facts regarding the trace inner product.
+Before going further we list some facts regarding the trace inner product that 
+will be used in the rest of the paper.
 
 \item{$\forall H \in R^{nn},\; H \; \hbox{ anti-symmetric} \; \Rightarrow \; {\rm tr}(H) = 0$.}
 \item{Given a matrix $A \in R^{mn}$: $\forall H \in R^{mn},\; {\rm tr}(A^T H) = 0 \; \Rightarrow \; A \equiv 0.$}
@@ -79,8 +80,8 @@ The third fact follows since if $S$ and $W$ are symmetric and anti-symmetric mat
 ${\rm tr}(S \, W) = {\rm tr}((S \, W)^T) = {\rm tr}(W^T \, S^T) = -{\rm tr}(W \, S) = - {\rm tr}(S\, W)$
 This implies that ${\rm tr}(S \, W) = 0$.
 The fourth fact follows using that fact that any matrix $A \in R^{nn}$ can be written uniquely as a sum of a symmetric
-and an anti-symmetric matrix: $A = A^{s} + A^{w}$. Therefore, if ${\rm tr}(A^T H) = 0$ implies that
-${\rm tr}((A^{s} - A^{w}) H)) = 0$. Or, using the second fact, ${\rm tr}((A^w)^T H) = 0$. Since this is true for any
+and an anti-symmetric matrix: $A = A^{s} + A^{w}$. Therefore, ${\rm tr}(A^T H) = 0$ implies that
+${\rm tr}((A^{s} - A^{w}) H)) = 0$. Using the second fact, ${\rm tr}((A^w)^T H) = 0$. Since this is true for any
 anti-symmetric $H$, choosing $H$ to be $A^{w}$ and using the fact that the trace inner product induces a norm, we 
 see that $A^{w} \equiv 0$. And thus $A$ is symmetric.
 The fifth fact follows by setting $H$ to $A$. Again, the fact that the trace inner product induces a norm implies 
@@ -124,7 +125,8 @@ since $L^*A = I$ and $A^TL^{*T} = I$.
 
 Given any $H^\prime \in {\bf R}^{mm}$, consider ${\tilde H} =
 H^{\prime}(A^TV^{-1}A)^{-1}$ with $H^\prime$
-anti-symmetric. Therefore, ${\tilde H}$ is anti-symmetric; equation
+anti-symmetric. Since the trace of the product of symmetric 
+and anti-symmetric square matrices is $0$, equation
 (3) becomes ${\rm tr}(H^\prime\Lambda_k^T) = 0 \quad \forall
 H_{mxm}^\prime$ with $H^\prime$ anti-symmetric. This implies that
 $\Lambda_k$ is symmetric.
@@ -194,7 +196,7 @@ $$
 $$
 
 This implies that $\left( VL^{*T} - A(A^TV^{-1}A)^{-1}\right)
-(L^*VL^{*T}) = 0 $.
+(L^*VL^{*T})^{k-1} = 0 $.
 Since $L^*$ has rank $m$, $(L^*VL^{*T})^{-(k-1)}$ exists, so that
 $ VL^{*T} - A(A^TV^{-1}A)^{-1} = 0 $. Hence, 
 $$
@@ -203,7 +205,7 @@ $$
 
 
 Therefore, it does not matter which of the matrix norms we
-use; the answer is the same. 
+use: the "best" linear unbiased estimator is the same.
 
 \vskip .25in
 \section{Related features of ``the'' best estimator}
