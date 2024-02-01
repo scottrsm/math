@@ -13,7 +13,7 @@
 
 \title{Conjectures for Primitive Pythagorean Triples}
 \author{R. Scott McIntire}
-\date{July 11, 2023}
+\date{Feb 01, 2024}
 
 \newtheorem{theorem}{Theorem}\theoremstyle{plain}
 \newtheorem{thm}{Theorem}
@@ -41,12 +41,13 @@ That is, primitive Pythagorean hypotenuses that are prime.
 Below we list the main conjectures informally in order of 
 complexity:
 \begin{enumerate}
-  \item{{\bf Partition of ${\cal H}$:\/} ${\cal H}$ can be {\em partitioned\/} 
+    \item{{\bf Partition of ${\cal H}$:\/}}{ ${\cal H}$ can be {\em partitioned\/} 
       into two disjoint infinite sets: 
     the set of all powers of Pythagorean primes; and the set of all 
         hypotenuses that come from more than one primitive Pythagorean triple.}
-  \item{{\bf ${\cal H}_p$ is complex:\/} The set of Pythagorean primes, 
-      ${\cal H}_p$, is infinite; {\em similar\/}; and as {\em complex\/} as 
+    \item{{\bf Complexity of ${\bf {\cal H}_p}$}: \/}{The set of Pythagorean primes, 
+      ${\cal H}_p$, is infinite.}
+  \item{${\bf {\cal H}_p} \sim \mathbb{P}$: \/}{${\cal H}_p$ is also {\em similar\/} and as {\em complex\/} as 
         the primes when measured using certain metrics.}
 \end{enumerate}
 
@@ -117,6 +118,7 @@ $\left\{ m \; \left| \; n \le \left( \sum_{i=1}^m \Pi({\cal H}_p[i]) - \sum_{i=3
 \Delta_p(n) = \mathop{\rm min}\limits_{m} \left\{ m \; \left| \; n \le \left( \sum_{i=1}^m \Pi({\cal H}_p[i]) - \sum_{i=3}^{m+2} \Pi(\mathbb{P}[i])\right. \right) \right\} 
 \end{eqnarray}
 
+\eject
 {\bf Notes:} 
 \begin{itemize}
   \item{The subscript $u$ in the name ${\cal H}_u$ is not yet justified.}
@@ -154,13 +156,13 @@ First we list a few facts and state a couple of known theorems before proceeding
 From these results we get the following structure theorem for 
     Pythagorean hypotenuses:
 \theorem{The set ${\cal H}_p = \{ p \; | \; p \in \mathbb{P} \; \wedge \; p = 1 \; {\rm mod}\;  4\}$}
-\theorem{The set ${\cal H}$ has a unique factorization in ${\cal H}_p$. }
+\theorem{The set ${\cal H}$ has a unique factorization in ${\cal H}_p$.}
          That is, each element of ${\cal H}$ can be uniquely written as a product of powers from ${\cal H}_p$:
          \begin{eqnarray}
            \forall h \in {\cal H},\, \exists ! N \in \mathbb{N}, \, \exists ! ({\bf p},{\bf k}) \in \left({\cal H}_p^{N}, \mathbb{N}^{N}\right): h = \prod_{i=1}^N p_{i}^{k_i}.
          \end{eqnarray}
 
-
+\eject
 \section{McIntire's Pythagorean Triple Conjectures}
 
 \conjecture{The set ${\cal H}$ is partitioned by the sets ${\cal H}_d$ and ${\cal H}_u$:}
