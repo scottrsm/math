@@ -15,7 +15,7 @@
 
 \title{Derivation of the Exponential Moving Average}
 \author{R. Scott McIntire}
-\date{Sep 15, 2023}
+\date{Feb 27, 2024}
 
 \begin{document}
 
@@ -79,7 +79,7 @@ Regardless of the averaging scheme, we want our weights to sum to one.%
 \footnote{If we consider the underlying data to be generated from a series of identically distributed random
 variables; then, treating the series elements as random variables we can view 
 the moving average as an estimate of their mean, $\mu$. 
-To be a good estimate we which this estimate to be {\em unbiased\/}:
+To be a good estimate we would like this estimate to be {\em unbiased\/}:
 $\E{\sum_{k=1}^m x_{n-k} w_{k+1}} = \sum_{k=0}^{m-1} \E{x_{n-k}}w_{k+1}$.
 Which is $\mu \sum_{k=0}^{m-1} w_{k+1} = \mu \sum_{k=1}^{m} w_k = \mu$.}
 But we also want the weights to be exponential; that is, $w_{k+1} = \lambda w_{k}$.
@@ -111,7 +111,7 @@ property? The answer is no, the property remains:
     \lambda w_{i} &=& w_{i+1} \quad \forall i \in [1, m-1].  \label{o:weights_power}
 \end{eqnarray}
 
-{\bf Note:\/} We will $(\ref{o:var_extend})$, $(\ref{o:weights_normalized})$,
+{\bf Note:\/} We will use $(\ref{o:var_extend})$, $(\ref{o:weights_normalized})$,
 and $(\ref{o:weights_power})$ in our derivations below.
 
 \section{Recursive Formula for EMA}
@@ -211,7 +211,7 @@ Finally, the standard deviation of the exponential moving average is:%
 \begin{eqnarray}
     s_{n} &=& \sqrt{\frac{v_n}{1 - \sum_{i=1}^m w_i^2}}  
 \end{eqnarray}
-The variance corrective factor\footnote{The 0-based factor formula is: $1 - \sum_{i=0}^{m-1} w_i^2$.}, $1 - \sum_{i=1}^m w_i^2$,
+The variance corrective factor\footnote{This factor is derived in the appendix.}, $1 - \sum_{i=1}^m w_i^2$,
 is a one time calculation independent of $n$. This factor is the standard 
 correction when determining empirical variance of a weighted average.
 
@@ -229,7 +229,7 @@ In our case we are interested in the reverse; namely, given a half-life, $N$,
 determine the factor $\lambda$. To do this we solve the equation $\lambda^N = \frac{1}{2}$
 for $\lambda$.
 Taking the $\log$ of this equation we have:%
-\footnote{The log used below is the logarithm base $e$.}
+\footnote{The log function used below is the logarithm base $e$.}
 
 \begin{eqnarray*}
     \log(\lambda^N) &=&  \log(\frac{1}{2}) \\
