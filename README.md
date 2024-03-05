@@ -28,6 +28,8 @@ In any event the corresponding pdf's are in the directory **pdf/**.
       can be seen as a kind of software factorization.
 - Examination of a Dice throwing problem using Measure Theoretic Conditional Expectation: **tex**/conditional_expectation_simple.tex.
     - Gain a better understanding of Measure Theory via a discrete setting.
+- Defining Fractal Dimension. 
+    - Provides an intuitive sense with examples of the definition of {\it Fractal Dimension\/}.
 - Re-Examination of a Linear Unbiased Estimation Problem with different Norms: **tex**/prob_linear_unbias_est.tex.
     - Regardless of norm we get the same unbiased estimate.
 - A Balance Law approach to the derivation of the Heat and Fokker-Planck equations: **tex**/heat_balance.tex.
@@ -42,6 +44,6 @@ In any event the corresponding pdf's are in the directory **pdf/**.
       with ${m < n}$ there are only add-hoc procedures. In this paper we provide a systematic way to compute
       the probability distributions for such singular transformations.
 
-#### Version 1.3.0
+#### Version 1.3.1
 
 
