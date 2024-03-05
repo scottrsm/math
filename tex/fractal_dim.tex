@@ -1,0 +1,352 @@
+\input macro
+
+
+\def\dup{%
+\setbox0=\vbox{\hbox{\kern2.5\wd0\copy0} \hbox{\kern2.5\wd0\copy0 \kern2.5\wd0\copy0}}}
+
+\newcount \fcount
+
+
+\def\fracaux{
+\ifnum\fcount>0
+\advance\fcount by-1
+\dup
+\fracaux \else \fi
+}
+
+\def\fractal#1{%
+\setbox0=\hbox{\vrule height2pt width3pt \vrule height2pt width3pt \kern3pt}
+\offinterlineskip
+\fcount=#1
+\fracaux
+\vbox{\copy0}}
+
+%\fractal{1}
+%\fractal{2}
+
+\mantitle{Defining Fractal Dimension}{R. Scott McIntire}{Mar 5, 2024}
+
+\parindent=0pt
+\parskip=.5\baselineskip
+\baselineskip = 1.1\baselineskip
+
+\subsection{Introduction}
+In this paper we examine a notion of the size of a set called 
+{\it fractal dimension} that enables one to more
+finely distinguish the density of a given set than the usual
+dimensional classification of 0, 1, 2, or 
+{\parindent=0pt
+3\footnote{*}{The zero dimension of a set is the number of points in
+that set.}}. Such a notion is 
+motivated by sets that, while defined in one of the given
+dimensions 0, 1, 2, or 3 are sufficiently
+complicated that their dimensional ``volume'' is infinite. 
+Sets that have
+the property that they retain structure no matter how much they are
+magnified are a class of such complex sets. We call this class of sets
+{\it fractal sets}, or
+{\it fractals}. 
+
+A common place example of a fractal is the beach line of
+a coast. If one were to take a map of the coast line and blow it up
+again and again, one would find that it always retains structure in the
+sense that the expanded maps would never straighten out.
+Because of this, the length of any section of a beach is
+infinite. Another natural fractal is the surface of a sponge; its area is
+infinite even though it is defined as a two dimensional object. 
+It would be convenient if there was a way to
+measure the density of a coast line to
+indicate that it is, in some sense, larger than a one dimensional
+object; or a way to show that the surface of a sponge is larger than
+two dimensions. This would allow us to compare the ``size'' of such sets
+in a more precise way.
+
+This is what the fractal dimension of a set tries to address. 
+In the case of the coast line, it will give us a dimension between one and two
+-- where the coast line ``naturally'' lives. The same with the surface of
+a sponge,
+there will be a dimension between two and three where it naturally lives. In
+each case, the fractal dimension is not an actual dimension, 
+it is a way to quantify the density of such complex sets.
+
+When studying any new phenomenon, it is natural to first examine the
+simplest examples. The simplest such fractals are ones which have a
+{\it self similarity} property; namely, they have the property that if
+one magnifies a piece of the fractal by a certain amount, the original
+fractal is recovered. This regular structure makes them easier to
+study mathematically than a general fractal. However, before we start
+with more specific examples of fractals, we need to understand what 
+one might mean by fractal dimension.
+
+\subsection{Volume of an $n$ Dimensional Sphere}
+The $n$ dimensional volume of any sphere is easy to compute if one 
+knows the $n$ dimensional surface area of the $n$ dimensional unit sphere, $B_n$.
+This follows from the formula:\footnote{\dag}{The symbols, $\partial B_n$, mean the surface of the unit $n$ dimensional sphere.}
+
+$\hbox{n dimensional volume of sphere of radius R} =  \int_{\partial B_n} \int_0^R r^{n-1} \,dS \,dr$
+
+$\hbox{n dimensional volume of sphere of radius R} =  (\hbox{Surface area of unit $n$ dimensional sphere}) \frac{R^n}{n}$
+
+The surface area of $B_n$ can be computed by expressing an easily computable 
+integral as an integral involving the area of the unit $n$ dimensional sphere.
+$$
+\int_{-\infty}^{\infty} e^{-(x_1^2 + x_2^2 + \cdots + x_n^2)} \, dx_1\, dx_2
+\, \cdots \, dx_n = \int_{\partial B_n} \int_0^\infty e^{-r^2} r^{n-1} \,
+dS\, dr
+$$
+The left side of the above is just the integral
+$\int_{-\infty}^{\infty} e^{-x^2} \, dx$ raised to the $n$th power;
+which is $\pi^{n/2}$. Substituting $t = r^2$ in the inner integral on
+the right hand side we have:
+
+$$
+\pi^{n/2} = \frac{1}{2} \int_{\partial B_n} \int_0^\infty 
+e^{-t} t^{\frac{n}{2}-1} \,dt \, dS
+$$
+
+which may be written:
+
+$$
+2 \pi^{n/2} = \left( 
+{\hbox{\rm surface area of the $n$ dimensional unit sphere}}\right) \Gamma(n/2)
+$$
+
+Or,
+
+$$
+{\hbox{\rm surface area of the $n$ dimensional unit sphere}} = 
+\frac{2 \pi^{n/2}}{\Gamma(n/2)}
+$$
+
+The volume of the unit sphere, ${\rm Vol}(B_n)$, is now computed using the
+surface area of the unit sphere:
+
+$$
+{\rm Vol}(B_n) = \int_{B_n} \, d\mu = \int_{\partial B_n} 
+\int_0^1 r^{n-1} \, dr \, dS =
+    \left({\hbox{\rm surface area of the $n$ dimensional unit sphere}}\right) 
+    * \frac{1}{n}
+$$
+
+Or,
+
+$$
+{\rm Vol}(B_n) = \frac{2\pi^{n/2}}{n \, \Gamma(n/2)}
+$$
+
+and so the volume of an $n$ dimensional sphere, $S_n$, of radius $r$ is 
+$$
+{\rm Vol}(S_n) = \frac{2\pi^{n/2}}{n \, \Gamma(n/2)} r^n
+$$
+
+
+\subsection{Fractal Dimension and Associated Volume}
+Although we derived the formula for the $n$ dimensional volume of a sphere, with 
+$n$ an integer, the formula may take non integral values. 
+Armed with this formula, we make
+the following definition.
+
+\proclaim Definition. The $\alpha \in R^+$ dimensional volume, $V_\alpha$, of a sphere 
+of radius r is defined to be:
+$$
+{\rm Vol}_\alpha(r) = \frac{2\pi^{\alpha/2}}{\alpha \, \Gamma(\alpha/2)} r^\alpha
+$$
+This is a mathematical construct, not a physical one; there is no claim
+here of a physical fractional dimension.
+
+We now define an intermediate notion that will help us define fractal
+dimension and fractal volume.
+
+\proclaim Definition. The $\alpha \in R^+$ dimensional {\it covering\/} volume of a set
+$S \in R^n$, $V_\alpha(S)$, with parameter, $\epsilon \in R^+$,
+is defined as\footnote{*}{The diameter of a set is defined by: 
+{\rm Diam}(S) = $\sup\{|x - y| : x,y \in S\}$.
+The set $R^+$ is defined by: $R^+ = \{x \, | \, x\in R \; \wedge \; x \ge 0\}$ }
+$$
+\eqalign{
+    V_{\alpha, \epsilon}(S) & = \inf_{\{O_i\}_{i=1}^N} 
+    \left\{ \sum_{i=1}^N {\rm Vol}_\alpha\left({\rm Diam}(O_i) / 2\right) \
+    : S \subseteq \bigcup_{i=1}^N\limits O_i \; \wedge \; \mathop{\rm Sup}\limits_{i \in [1,N]} \
+    \left({\rm  Diam}(O_i)\right) \le \epsilon \right\} 
+}
+$$
+Roughly speaking, the $\alpha$ covering volume of a set is the best $\alpha$ volume 
+estimate one could get if limited to finite covering sets with diameters no larger than $\epsilon$.
+
+Using the covering volume, we may define a fractional dimensional volume.
+
+\proclaim Definition. The $\alpha \in R^+$ dimensional volume of a set
+$S \in R^n$, $V_\alpha(S)$,
+is defined as
+$$
+\eqalign{
+V_\alpha(S) &= \lim_{\epsilon \rightarrow 0^+} V_{\alpha, \epsilon}(S)
+}
+$$
+
+ In simple terms, this defines the $\alpha$ dimensional volume of $S$
+to be the limit of the covering estimates as the coverings become more refined.
+
+While these statements define $\alpha$ volume for any given set, $S$,
+they do not tell us what the "natural" fractal volume of $S$.
+ The following definition does precisely that.
+
+\proclaim Definition. The {\bf fractal dimension} of a 
+set $S \in R^m$ is defined as
+$\alpha^* = \inf\{\alpha : V_\alpha(S) = 0 \}$; the 
+{\bf fractal volume} of $S$ is $V_{\alpha^*}(S)$.
+
+Roughly speaking, this says that the fractal dimension of a set $S$ is the
+``smallest'' $\alpha$ such that the $\alpha$ dimensional volume of $S$ is non-zero.
+
+\subsection{Computing the Fractal Dimension of a Simple Set}
+
+The fractal dimension of a set $S$ should produce the usual
+answer when $S$ is a non-fractal set. We show this for the case of a
+straight line.
+
+\example{Example}{A line segment in two dimensions.}
+We wish to find the fractal dimension and fractal volume of the line
+segment $L = \{t{\bf x} + (1-t){\bf y} : t \in [0,1] , {\bf x, y}~\in~R^2\}$.
+For a given $n$, consider the sets $\{O_{n,i}\}_{i=0}^{n-1}$, with $O_{n,i}~=~
+[\frac{i}{n}{\bf x} + (1-\frac{i}{n}){\bf y}, \; \frac{i+1}{n}{\bf x} + (1 -
+\frac{i+1}{n}){\bf y}]$. The collection of line segments, $O_{n,i}$, act
+as a cover for $L$; that is, $L =
+\cup_{i=0}^{n-1} O_{n,i}$. For a given $\alpha$ the
+$\alpha$ covering volume of $L$ is given by
+$$
+\sum_{i=0}^{n-1} {\rm Vol}_\alpha({\rm Diam}(O_{n,i})/2) = \sum_{i=0}^{n-1}
+{\rm Vol}_\alpha(\|{\bf x} - {\bf y}\|/2n) =  \sum_{i=0}^{n-1} \frac{2
+\pi^{\alpha / 2}}{\alpha \Gamma(\alpha / 2)} \frac{\|{\bf x} - {\bf
+y}\|^\alpha}{(2n)^\alpha} = \frac{2 \pi^{\alpha / 2} \|{\bf x} - {\bf
+y}\|^\alpha}{2^\alpha \alpha \Gamma(\alpha / 2)} \frac{n}{n^\alpha}
+$$
+
+As $n$ increases, the covering becomes more refined and 
+the $\alpha$ dimensional volume is dominated by the term
+$\frac{n}{n^\alpha}$. Clearly, this term tends to zero as n tends to
+infinity for $\alpha > 1$. That is, $V_\alpha(L) = 0$ for $\alpha >
+1$. The smallest $\alpha$ that yields a non-zero value is $\alpha =
+1$. In this case 
+$
+V_1(L) = \left. \frac{2\pi^{\alpha / 2} \|{\bf x} - {\bf
+y}\|^\alpha}{2^\alpha \alpha \Gamma(\alpha / 2)} \right|_{\alpha=1} = \| {\bf
+x} - {\bf y}\|$. 
+Therefore, the fractal dimension of the line segment is
+1 and its fractal volume is the length of the line segment, $\|{\bf x} - {\bf
+y}\|$. This, of course, coincides with what we would previously regard
+as the dimension and ``volume'' of a line segment.
+
+This result is true for any ``ordinary'' set: its fractal dimension is its
+``ordinary'' dimension. This means that we can think of fractal
+dimension as a {\it generalization} of dimension. It is 
+instructive to repeat the above analysis and compute the fractal dimension 
+and fractal volume of a simple fractal.
+
+
+\subsection{The Cantor Set: A Simple Fractal Set}
+
+As mentioned at the beginning of this paper, the simplest fractals to
+study are the ones with regular behavior; in particular, fractals with a
+self similarity property are more mathematically tractable. Perhaps
+the simplest fractal of this type is 
+the Cantor set. It is a self-similar set formed by doing the following:
+Take the unit interval, [0,1], and remove the middle third, (1/3,
+2/3). This leaves the intervals, [0,1/3] and [2/3,1]. Now remove the
+middle third of each of these two intervals, this gives four
+intervals.
+If we repeat this process indefinitely with the remaining
+intervals, the resulting set is called the Cantor set, C. See 
+figure 1 below. The Cantor
+set has the property that $3 * \left([0,1/3] \cap C\right) = C$; that is, it is a
+self-similar fractal. 
+
+The one dimensional length of the Cantor set is
+easy to compute, it must be one (the length of the interval $[0,1]$) 
+less the sum of all the lengths of the
+intervals removed. This is computed as $1
+- \sum_{n=1}^\infty (2^{n-1}/3^n) = 1 - \frac{1}{2}
+\sum_{n=1}^\infty (2/3)^n = 0$. Since the Cantor set has zero length,
+perhaps its zero dimensional ``length'' is a more natural description
+of its size. But its zero dimensional length is equal to the 
+number of points in the Cantor set; and, it turns out that this is infinite. 
+What's more startling is
+that, in a sense that can be made precise, there are as many points in
+the Cantor set as there are in the interval $[0,1]$. So, although the 
+Cantor set has no length, it is comparable in complexity
+to $[0,1]$. This suggests that it might have a natural dimension
+between zero and one.
+
+\subsection{The Fractal Dimension of the Cantor Set and its Volume}
+We compute the fractal dimension of the Cantor set. To do so, 
+consider a refinement of coverings of the Cantor set, $C_n$, where
+$C_n$ is the union of the set of $2^n$ intervals that remain after 
+the $n^{th}$ stage of the Cantor construction process. Each of these 
+intervals has length $(1/3)^n$. 
+Clearly, $C \subseteq C_n$, and $\cap_{n=1}^\infty
+C_n = C$. We label $I_{n,i}$ as the $i^{th}$ interval in the set
+$C_n$. The collection, $\bigcup_{i=1}^{2^n} I_{n,i}$, provides an
+approximation to $V_\alpha(C)$:
+
+
+$$
+V_\alpha(C) \approx \sum_{i=1}^{2^n} {\rm Vol}_\alpha({\rm
+  Diam}(I_{n,i}) / 2)
+$$
+
+As ${\rm Diam}(I_{n,i}) = \left(\frac{1}{3}\right)^n$, this becomes
+
+
+$$
+V_\alpha(C) \approx \sum_{n=1}^{2^n} \frac{2
+  \pi^{\alpha/2}}{ \alpha \Gamma(\alpha/2) 2^\alpha 3^{n\alpha}} 
+  \approx  \frac{
+  2^{1 - \alpha} \pi^{\alpha/2}}{\alpha \Gamma(\alpha/2)} \;
+  \sum_{n=1}^{2^n}  
+\frac{1}{3^{n\alpha}}
+$$
+
+Or, 
+$$
+V_\alpha(C) \approx \frac{ 2^{1-\alpha} \pi^{\alpha/2}}{\alpha
+  \Gamma(\alpha/2)} (\frac{2}{3^\alpha})^n
+$$
+
+
+If $\frac{2}{3^\alpha} < 1$ then, in the limit as 
+$n \rightarrow \infty$ 
+this limit will be zero. Certainly,
+this is the case for $\alpha \ge 1$; in which case 
+$$
+V_\alpha(C) =  \lim_{n \rightarrow \infty}  \frac{ 2^{1-\alpha} 
+\pi^{\alpha/2}}{\alpha
+  \Gamma(\alpha/2)} (\frac{2}{3^\alpha})^n = 0 
+$$
+
+The smallest value of $\alpha$ that gives a non-zero $V_\alpha(C)$ 
+is $\alpha$ such that $\frac{2}{3^\alpha} = 1$. 
+This occurs when
+$\alpha^* = \ln 2 / \ln 3$. Therefore, the fractal dimension of the
+Cantor set is $\alpha^* = \ln 2 / \ln 3 \approx 0.63093$. 
+Its fractal volume in this
+dimension is $V_{\alpha^*}(C) =  \frac{2^{1-\alpha^*} 
+\pi^{\alpha^*/2}}{\alpha^*
+\Gamma(\alpha^* / 2)} \approx 1.03505 $.
+
+\subsection{Conclusion}
+We have shown that there are sets with sufficient complexity that the
+usual categorization of dimension as a measure of size is lacking. 
+We have further shown
+that the notion of fractal dimension, as an extension to the usual
+notion of dimension, provides a more discriminating view of the size
+of a set.
+
+While physical examples like a coast line or the surface of a sponge do 
+not really have
+complexity on an infinite scale, we idealize them as such with
+fractals. Just as ``dimensionless'' points are an idealization useful
+to describe space, fractals also are a useful idealization. 
+As with all such mathematical abstractions, they 
+allows us to view and compute what they model in a simpler way.
+
+\bye
