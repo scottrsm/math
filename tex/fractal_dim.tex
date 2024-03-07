@@ -2,9 +2,11 @@
 
 
 \def\dup{%
-\setbox0=\vbox{\hbox{\kern2.5\wd0\copy0} \hbox{\kern2.5\wd0\copy0 \kern2.5\wd0\copy0}}}
+%\setbox0=\vbox{\hbox{\kern2.5\wd0\copy0} \hbox{\kern2.5\wd0\copy0 \kern2.5\wd0\copy0}}}
+\setbox0=\hbox{\copy0 \kern\wd0 \copy0}}
 
 \newcount \fcount
+\newcount \fcountsponge
 
 
 \def\fracaux{
@@ -14,15 +16,37 @@
 \fracaux \else \fi
 }
 
-\def\fractal#1{%
-\setbox0=\hbox{\vrule height2pt width3pt \vrule height2pt width3pt \kern3pt}
+\def\fractal#1#2{%
+\setbox0=\hbox{\vrule height1pt width #2pt}
 \offinterlineskip
 \fcount=#1
 \fracaux
 \vbox{\copy0}}
 
-%\fractal{1}
-%\fractal{2}
+
+\def\tri{%
+\setbox0=\vbox{\hbox{\kern.5\wd0\copy0}\hbox{\copy0\copy0}}
+}
+
+\newcount \fcount
+
+\def\fracrepstep{
+\ifnum\fcountsponge>0
+\advance\fcountsponge by-1
+\tri
+\fracrepstep
+\else
+\fi
+}
+
+\def\fsponge#1{%
+\setbox0=\hbox{\vrule height1pt width1pt \kern1pt}
+\offinterlineskip
+\fcountsponge=#1
+\fracrepstep
+\vbox{\copy0}}
+
+
 
 \mantitle{Defining Fractal Dimension}{R. Scott McIntire}{Mar 5, 2024}
 
@@ -283,8 +307,9 @@ consider a refinement of coverings of the Cantor set, $C_n$, where
 $C_n$ is the union of the set of $2^n$ intervals that remain after 
 the $n^{th}$ stage of the Cantor construction process. Each of these 
 intervals has length $(1/3)^n$. 
-Clearly, $C \subseteq C_n$, and $\cap_{n=1}^\infty
-C_n = C$. We label $I_{n,i}$ as the $i^{th}$ interval in the set
+Clearly, $C \subseteq C_n$, and $C = \cap_{n=1}^\infty C_n$. 
+
+We label $I_{n,i}$ as the $i^{th}$ interval in the set
 $C_n$. The collection, $\bigcup_{i=1}^{2^n} I_{n,i}$, provides an
 approximation to $V_\alpha(C)$:
 
@@ -348,5 +373,69 @@ fractals. Just as ``dimensionless'' points are an idealization useful
 to describe space, fractals also are a useful idealization. 
 As with all such mathematical abstractions, they 
 allows us to view and compute what they model in a simpler way.
+
+\section{Appendix A: Examples of Self-Similar Fractals \hfill}
+We describe the construction of two fraction sets. 
+The first set lives in 1 dimension, but its fractal dimension is between $0$ and $1$\dots
+The set is called the Cantor set, named after the mathematician Georg Cantor.
+This set may be created by creating intermediary sets $C_0, C_1, \ldots$ 
+and setting the Cantor set, $C$, to be the intersection of these sets:
+$$
+\eqalign{
+    C &= \cap_{n=0}^\infty C_n
+}
+$$
+The intermediate sets have the property that $\forall n, C_{n+1} \subseteq C_n$.
+These sets are defined by:
+$$
+\eqalign{
+    C_0 &= [0, 1] \cr
+    C_{n+1} &=  \hbox{For each contiguous segment of the set $C_n$, remove the open interval that is its middle third.} \cr
+}
+$$
+
+As the sets, $C_n$, are nested, each successive set is an improved approximation to the Cantor set.
+The first 6 intermediate sets are graphed below:
+
+\vskip .2in
+
+{
+$C_0$:\fractal{0}{360}
+}
+{
+\vskip .1in
+{
+$C_1$:$\!\!$\fractal{1}{120}
+}
+\vskip .1in
+{
+$C_2$:$\!\!\!\!$\fractal{2}{40}
+}
+\vskip .1in
+{
+$C_3$:$\!\!\!\!\!\!$\fractal{3}{13.33333}
+}
+\vskip .1in
+{
+$C_4$:$\!\!\!\!\!\!\!\!$\fractal{4}{4.4444}
+}
+\vskip .1in
+{
+$C_5$:$\!\!\!\!\!\!\!\!\!\!$\fractal{5}{1.48148}
+}
+\vskip .1in
+}
+
+The second set is another self-similar set which lives in 2 dimensions while its 
+fractal dimension is between $1$ and $2$. The set is a scaled version of the 
+lower triangular portion of itself.
+
+Similar to the graphical display of the Cantor set construction, below we show 
+8 "levels" of construction detail.
+
+\vfil\break
+{
+\fsponge{8}
+}
 
 \bye
