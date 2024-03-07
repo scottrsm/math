@@ -1,8 +1,8 @@
 \input macro
 
 
+% - Define the macros needed to compute the cantor fractal.
 \def\dup{%
-%\setbox0=\vbox{\hbox{\kern2.5\wd0\copy0} \hbox{\kern2.5\wd0\copy0 \kern2.5\wd0\copy0}}}
 \setbox0=\hbox{\copy0 \kern\wd0 \copy0}}
 
 \newcount \fcount
@@ -16,7 +16,7 @@
 \fracaux \else \fi
 }
 
-\def\fractal#1#2{%
+\def\cantor#1#2{%
 \setbox0=\hbox{\vrule height1pt width #2pt}
 \offinterlineskip
 \fcount=#1
@@ -24,6 +24,7 @@
 \vbox{\copy0}}
 
 
+% - Define the macros needed to compute the 2-d example fractal.
 \def\tri{%
 \setbox0=\vbox{\hbox{\kern.5\wd0\copy0}\hbox{\copy0\copy0}}
 }
@@ -48,7 +49,7 @@
 
 
 
-\mantitle{Defining Fractal Dimension}{R. Scott McIntire}{Mar 6, 2024}
+\mantitle{Defining Fractal Dimension}{R. Scott McIntire}{Mar 7, 2024}
 
 \parindent=0pt
 \parskip=.5\baselineskip
@@ -60,7 +61,7 @@ In this paper we examine a notion of the size of a set called
 finely distinguish the density of a given set than the usual
 dimensional classification of 0, 1, 2, or 
 {\parindent=0pt
-3\footnote{*}{The zero dimension of a set is the number of points in
+3\ft{*}{The zero dimension of a set is the number of points in
 that set.}}. Such a notion is 
 motivated by sets that, while defined in one of the given
 dimensions 0, 1, 2, or 3 are sufficiently
@@ -104,21 +105,35 @@ one might mean by fractal dimension.
 
 \subsection{Volume of an $n$ Dimensional Sphere}
 The $n$ dimensional volume of any sphere is easy to compute if one 
-knows the $n$ dimensional surface area of the $n$ dimensional unit sphere, $B_n$.
-This follows from the formula:\footnote{\dag}{The symbols, $\partial B_n$, mean the surface of the unit $n$ dimensional sphere.}
+knows its surface area. Since the surface area of an $n$-dimensional sphere 
+with radius, $R$, is $R^{n-1}$ times the surface of the unit sphere, 
+it suffices to know the surface area of the unit sphere.
+In what follows we will refer to an $n$ dimensional sphere of radius, $r$, 
+as $S_n(r)$, and $B_n$ as the specific $n$ dimensional sphere of radius $1$.
 
-$\hbox{n dimensional volume of sphere of radius R} =  \int_{\partial B_n} \int_0^R r^{n-1} \,dS \,dr$
+The relationship between the volume of an $n$-dimensional sphere, $S_n(r)$ and the 
+surface area of $B_n$ follows from the following formula:%
+\ft{\dag}{We use the functions: ${\cal S}$ and ${\cal V}$ 
+to represent the computation of surface area and volume respectively.}
 
-$\hbox{n dimensional volume of sphere of radius R} =  (\hbox{Surface area of unit $n$ dimensional sphere}) \frac{R^n}{n}$
+${\cal V}(S_n(r)) =  \int_{\partial B_n} \int_0^r \tau^{n-1} \,dS \,d\tau = \left(\int_{\partial B_n} \, dS\right) \left( \int_0^r \tau^{n-1} \, d\tau \right)$
 
-The surface area of $B_n$ can be computed by expressing an easily computable 
-integral as an integral involving the area of the unit $n$ dimensional sphere.
+The RHS iterated integrals can be easily computed, yielding:
+${\cal V}(S_n(r)) = {\cal S}(B_n) \frac{r^n}{n}$
+
+What remains now is to find a formula for the surface area of $B_n.$
+This can be done by expressing an easily computable 
+$n$-dimensional integral in $R^n$ as $n$ iterated integrals. 
+And more importantly, this integral may be represented as a {\it different\/} 
+integral involving the surface are of $B_n$.
+
 $$
 \int_{-\infty}^{\infty} e^{-(x_1^2 + x_2^2 + \cdots + x_n^2)} \, dx_1\, dx_2
 \, \cdots \, dx_n = \int_{\partial B_n} \int_0^\infty e^{-r^2} r^{n-1} \,
 dS\, dr
 $$
-The left side of the above is just the integral
+The left side of the above can be written as an iterated integral of identical 
+one dimensional integrals. This becomes: 
 $\int_{-\infty}^{\infty} e^{-x^2} \, dx$ raised to the $n$th power;
 which is $\pi^{n/2}$. Substituting $t = r^2$ in the inner integral on
 the right hand side we have:
@@ -127,42 +142,32 @@ $$
 \pi^{n/2} = \frac{1}{2} \int_{\partial B_n} \int_0^\infty 
 e^{-t} t^{\frac{n}{2}-1} \,dt \, dS
 $$
-
-which may be written:
-
+which may be written:%
+\ft{\ddag}{The function $\Gamma(n)$ is called the Gamma function and 
+has the property: $\forall n\in Z^+, \Gamma(n+1) = n \Gamma(n)$.}
 $$
-2 \pi^{n/2} = \left( 
-{\hbox{\rm surface area of the $n$ dimensional unit sphere}}\right) \Gamma(n/2)
+2 \pi^{n/2} = {\cal S}(B_n) \Gamma(n/2)
 $$
-
 Or,
-
 $$
-{\hbox{\rm surface area of the $n$ dimensional unit sphere}} = 
-\frac{2 \pi^{n/2}}{\Gamma(n/2)}
+{\cal S}(B_n) = \frac{2 \pi^{n/2}}{\Gamma(n/2)}
 $$
-
-The volume of the unit sphere, ${\rm Vol}(B_n)$, is now computed using the
+The volume of the unit sphere, ${\cal V}(B_n)$, is now computed using the
 surface area of the unit sphere:
-
 $$
-{\rm Vol}(B_n) = \int_{B_n} \, d\mu = \int_{\partial B_n} 
-\int_0^1 r^{n-1} \, dr \, dS =
-    \left({\hbox{\rm surface area of the $n$ dimensional unit sphere}}\right) 
-    * \frac{1}{n}
+{\cal V}(B_n) = \int_{B_n} \, d\mu = \int_{\partial B_n} 
+\int_0^1 r^{n-1} \, dr \, dS = \frac{1}{n}{\cal S}(B_n)
 $$
-
 Or,
+$$
+{\cal V}(B_n) = \frac{2\pi^{n/2}}{n \, \Gamma(n/2)}
+$$
+And so the volume of an $n$-dimensional sphere, $S_n(r)$, of radius $r$ is:%
+\ft{\dag}{The volume of an $n$-dimensional sphere scales by the radius to the $n^{\rm th}$ power.}
 
 $$
-{\rm Vol}(B_n) = \frac{2\pi^{n/2}}{n \, \Gamma(n/2)}
+{\cal V}(S_n(r)) = \frac{2\pi^{n/2}}{n \, \Gamma(n/2)} r^n
 $$
-
-and so the volume of an $n$ dimensional sphere, $S_n$, of radius $r$ is 
-$$
-{\rm Vol}(S_n) = \frac{2\pi^{n/2}}{n \, \Gamma(n/2)} r^n
-$$
-
 
 \subsection{Fractal Dimension and Associated Volume}
 Although we derived the formula for the $n$ dimensional volume of a sphere, with 
@@ -171,7 +176,8 @@ Armed with this formula, we make
 the following definition.
 
 \proclaim Definition. The $\alpha \in R^+$ dimensional volume, $V_\alpha$, of a sphere 
-of radius r is defined to be:
+of radius r is defined to be:%
+\ft{*}{The set $R^+$ is defined by: $R^+ = \{x \, | \, x\in R \; \wedge \; x\ge 0\}$.}
 $$
 {\rm Vol}_\alpha(r) = \frac{2\pi^{\alpha/2}}{\alpha \, \Gamma(\alpha/2)} r^\alpha
 $$
@@ -182,10 +188,9 @@ We now define an intermediate notion that will help us define fractal
 dimension and fractal volume.
 
 \proclaim Definition. The $\alpha \in R^+$ dimensional {\it covering\/} volume of a set
-$S \in R^n$, $V_\alpha(S)$, with parameter, $\epsilon \in R^+$,
-is defined as\footnote{*}{The diameter of a set is defined by: 
-{\rm Diam}(S) = $\sup\{|x - y| : x,y \in S\}$.
-The set $R^+$ is defined by: $R^+ = \{x \, | \, x\in R \; \wedge \; x \ge 0\}$ }
+$S \in R^n$, $V_{\alpha, \epsilon}(S)$, with parameter, $\epsilon \in R^+$,
+is defined as\ft{\dag}{The diameter of a set is defined by: 
+{\rm Diam}(S) = $\sup\{|x - y| : x,y \in S\}$.}
 $$
 \eqalign{
     V_{\alpha, \epsilon}(S) & = \inf_{\{O_i\}_{i=1}^N} 
@@ -194,6 +199,8 @@ $$
     \left({\rm  Diam}(O_i)\right) \le \epsilon \right\} 
 }
 $$
+Here, $\{ O_{i} \}_{i=1}^N$ is a finite collection of sets in $R^n$. 
+
 Roughly speaking, the $\alpha$ covering volume of a set is the best $\alpha$ volume 
 estimate one could get if limited to finite covering sets with diameters no larger than $\epsilon$.
 
@@ -211,14 +218,14 @@ $$
  In simple terms, this defines the $\alpha$ dimensional volume of $S$
 to be the limit of the covering estimates as the coverings become more refined.
 
-While these statements define $\alpha$ volume for any given set, $S$,
-they do not tell us what the "natural" fractal volume of $S$.
+While these statements define the $\alpha$ volume for any given set, $S$,
+they do not tell us the ``natural'' fractal volume of $S$.
  The following definition does precisely that.
 
 \proclaim Definition. The {\bf fractal dimension} of a 
 set $S \in R^m$ is defined as
-$\alpha^* = \inf\{\alpha : V_\alpha(S) = 0 \}$; the 
-{\bf fractal volume} of $S$ is $V_{\alpha^*}(S)$.
+$\alpha^* = \inf\{\alpha : V_\alpha(S) = 0 \}$; the associated 
+{\bf fractal volume} of $S$ is defined to be $V_{\alpha^*}(S)$.
 
 Roughly speaking, this says that the fractal dimension of a set $S$ is the
 ``smallest'' $\alpha$ such that the $\alpha$ dimensional volume of $S$ is non-zero.
@@ -231,7 +238,13 @@ straight line.
 
 \example{Example}{A line segment in two dimensions.}
 We wish to find the fractal dimension and fractal volume of the line
-segment $L = \{t{\bf x} + (1-t){\bf y} : t \in [0,1] , {\bf x, y}~\in~R^2\}$.
+segment 
+$$
+L = \{t{\bf x} + (1-t){\bf y} : t \in [0,1] , {\bf x, y}~\in~R^2\}
+$$
+While this line segment sits in the two dimensional plane, we wish 
+to find its ``natural'' dimension and associated volume.
+
 For a given $n$, consider the sets $\{O_{n,i}\}_{i=0}^{n-1}$, with $O_{n,i}~=~
 [\frac{i}{n}{\bf x} + (1-\frac{i}{n}){\bf y}, \; \frac{i+1}{n}{\bf x} + (1 -
 \frac{i+1}{n}){\bf y}]$. The collection of line segments, $O_{n,i}$, act
@@ -261,6 +274,10 @@ Therefore, the fractal dimension of the line segment is
 y}\|$. This, of course, coincides with what we would previously regard
 as the dimension and ``volume'' of a line segment.
 
+Note that the answer would stay the same if the line segment was 
+embedded in $R^3$ rather than $R^2$.
+
+
 This result is true for any ``ordinary'' set: its fractal dimension is its
 ``ordinary'' dimension. This means that we can think of fractal
 dimension as a {\it generalization} of dimension. It is 
@@ -281,9 +298,10 @@ middle third of each of these two intervals, this gives four
 intervals.
 If we repeat this process indefinitely with the remaining
 intervals, the resulting set is called the Cantor set, C. See 
-figure 1 below. The Cantor
-set has the property that $3 * \left([0,1/3] \cap C\right) = C$; that is, it is a
-self-similar fractal. 
+the appendix for a graphical depiction of the construction process . 
+The Cantor
+set has the property that $3 * \left([0,1/3] \cap C\right) = C$; that is, 
+it is a self-similar fractal. 
 
 The one dimensional length of the Cantor set is
 easy to compute, it must be one (the length of the interval $[0,1]$) 
@@ -307,10 +325,10 @@ consider a refinement of coverings of the Cantor set, $C_n$, where
 $C_n$ is the union of the set of $2^n$ intervals that remain after 
 the $n^{th}$ stage of the Cantor construction process. Each of these 
 intervals has length $(1/3)^n$. 
-Clearly, $C \subseteq C_n$, and $C = \cap_{n=1}^\infty C_n$. 
+Clearly, $C \subseteq C_n$, and $C = \bigcap_{n=1}^\infty\limits C_n$. 
 
 We label $I_{n,i}$ as the $i^{th}$ interval in the set
-$C_n$. The collection, $\bigcup_{i=1}^{2^n} I_{n,i}$, provides an
+$C_n$. The collection, $\bigcup_{i=1}^{2^n}\limits I_{n,i}$, provides an
 approximation to $V_\alpha(C)$:
 
 
@@ -334,7 +352,7 @@ $$
 Or, 
 $$
 V_\alpha(C) \approx \frac{ 2^{1-\alpha} \pi^{\alpha/2}}{\alpha
-  \Gamma(\alpha/2)} (\frac{2}{3^\alpha})^n
+  \Gamma(\alpha/2)} \left(\frac{2}{3^\alpha}\right)^n
 $$
 
 
@@ -345,7 +363,7 @@ this is the case for $\alpha \ge 1$; in which case
 $$
 V_\alpha(C) =  \lim_{n \rightarrow \infty}  \frac{ 2^{1-\alpha} 
 \pi^{\alpha/2}}{\alpha
-  \Gamma(\alpha/2)} (\frac{2}{3^\alpha})^n = 0 
+  \Gamma(\alpha/2)} \left(\frac{2}{3^\alpha}\right)^n = 0 
 $$
 
 The smallest value of $\alpha$ that gives a non-zero $V_\alpha(C)$ 
@@ -375,14 +393,14 @@ As with all such mathematical abstractions, they
 allows us to view and compute what they model in a simpler way.
 
 \section{Appendix A: Examples of Self-Similar Fractals \hfill}
-We describe the construction of two fraction sets. 
+We briefly describe two fractal sets. 
 The first set lives in 1 dimension, but its fractal dimension is between $0$ and $1$\dots
 The set is called the Cantor set, named after the mathematician Georg Cantor.
 This set may be created by creating intermediary sets $C_0, C_1, \ldots$ 
 and setting the Cantor set, $C$, to be the intersection of these sets:
 $$
 \eqalign{
-    C &= \cap_{n=0}^\infty C_n
+    C &= \bigcap_{n=0}^\infty\limits C_n
 }
 $$
 The intermediate sets have the property that $\forall n, C_{n+1} \subseteq C_n$.
@@ -397,31 +415,30 @@ $$
 As the sets, $C_n$, are nested, each successive set is an improved approximation to the Cantor set.
 The first 6 intermediate sets are graphed below:
 
-\vskip .2in
-
+\vfil\break
 {
-$C_0$:\fractal{0}{360}
+$C_0$:\cantor{0}{360}
 }
 {
 \vskip .1in
 {
-$C_1$:$\!\!$\fractal{1}{120}
+$C_1$:$\!\!$\cantor{1}{120}
 }
 \vskip .1in
 {
-$C_2$:$\!\!\!\!$\fractal{2}{40}
+$C_2$:$\!\!\!\!$\cantor{2}{40}
 }
 \vskip .1in
 {
-$C_3$:$\!\!\!\!\!\!$\fractal{3}{13.33333}
+$C_3$:$\!\!\!\!\!\!$\cantor{3}{13.33333}
 }
 \vskip .1in
 {
-$C_4$:$\!\!\!\!\!\!\!\!$\fractal{4}{4.4444}
+$C_4$:$\!\!\!\!\!\!\!\!$\cantor{4}{4.4444}
 }
 \vskip .1in
 {
-$C_5$:$\!\!\!\!\!\!\!\!\!\!$\fractal{5}{1.48148}
+$C_5$:$\!\!\!\!\!\!\!\!\!\!$\cantor{5}{1.48148}
 }
 \vskip .1in
 }
@@ -431,9 +448,9 @@ fractal dimension is between $1$ and $2$. The set is a scaled version of the
 lower triangular portion of itself.
 
 Similar to the graphical display of the Cantor set construction, below we show 
-8 "levels" of construction detail.
+a graph of 8 ``levels'' of its construction without going into construction details.
 
-\vfil\break
+\vskip .2in
 {
 \fsponge{8}
 }

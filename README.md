@@ -44,6 +44,6 @@ In any event the corresponding pdf's are in the directory **pdf/**.
       with ${m < n}$ there are only add-hoc procedures. In this paper we provide a systematic way to compute
       the probability distributions for such singular transformations.
 
-#### Version 1.3.3
+#### Version 1.3.4
 
 
