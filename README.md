@@ -8,8 +8,8 @@
 In any event the corresponding pdf's are in the directory **pdf/**.
 
 ### Pythagorean Triples
-- Alternative Proof of an elementary Property of Primitive Pythagorean Triples: **tex**/PythagTripleProp.tex.
-- Conjectures regarding Primitive Pythagorean Triples: **tex**/PythagoreanConjectures.tex.
+- Alternative Proof of an elementary Property of Primitive Pythagorean Triples: **tex**/prop_pythag_triple.tex.
+- Conjectures regarding Primitive Pythagorean Triples: **tex**/conj_pythag_triple.tex.
 - Julia code supporting the Pythagorean triples conjecture via a Jupyter notebook: **src**/pythag.ipynb.
 
 ### Math Education
@@ -23,13 +23,13 @@ In any event the corresponding pdf's are in the directory **pdf/**.
     - This is almost always introduced by the formula rather than what it means.
 - Why is Matrix Multiplication the way it is: **tex**/why_matrix_mult.tex.
     - We motivate this by solving the natural generalization of: $$a * x = b$$.
-- Where does the "dot-product" come from: **tex**/InnerProd_from_Projection.tex.
+- Where does the "dot-product" come from: **tex**/inner_prod_from_projection.tex.
     - We give an alternative derivation of the dot product and how its generalization
       can be seen as a kind of software factorization.
 - Examination of a Dice throwing problem using Measure Theoretic Conditional Expectation: **tex**/conditional_expectation_simple.tex.
     - Gain a better understanding of Measure Theory via a discrete setting.
 - Defining Fractal Dimension. 
-    - Provides an intuitive sense with examples of the definition of {\it Fractal Dimension\/}.
+    - Provides an intuitive sense with examples of the definition of *Fractal Dimension*: **tex**/fractal_dim.tex.
 - Re-Examination of a Linear Unbiased Estimation Problem with different Norms: **tex**/prob_linear_unbias_est.tex.
     - Regardless of norm we get the same unbiased estimate.
 - A Balance Law approach to the derivation of the Heat and Fokker-Planck equations: **tex**/heat_balance.tex.
@@ -44,6 +44,6 @@ In any event the corresponding pdf's are in the directory **pdf/**.
       with ${m < n}$ there are only add-hoc procedures. In this paper we provide a systematic way to compute
       the probability distributions for such singular transformations.
 
-#### Version 1.3.2
+#### Version 1.3.3
 
 
