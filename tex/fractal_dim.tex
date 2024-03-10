@@ -49,7 +49,7 @@
 
 
 
-\mantitle{Defining Fractal Dimension}{R. Scott McIntire}{Mar 7, 2024}
+\mantitle{Defining Fractal Dimension}{R. Scott McIntire}{Mar 10, 2024}
 
 \parindent=0pt
 \parskip=.5\baselineskip
@@ -61,8 +61,8 @@ In this paper we examine a notion of the size of a set called
 finely distinguish the density of a given set than the usual
 dimensional classification of 0, 1, 2, or 
 {\parindent=0pt
-3\ft{*}{The zero dimension of a set is the number of points in
-that set.}}. Such a notion is 
+3\ftn{The zero dimension of a set is the number of points in
+that set.}. Such a notion is 
 motivated by sets that, while defined in one of the given
 dimensions 0, 1, 2, or 3 are sufficiently
 complicated that their dimensional ``volume'' is infinite. 
@@ -113,7 +113,7 @@ as $S_n(r)$, and $B_n$ as the specific n-dimensional sphere of radius $1$.
 
 The relationship between the volume of an n-dimensional sphere, $S_n(r)$ and the 
 surface area of $B_n$ follows from the following formula:%
-\ft{\dag}{We use the functions: ${\cal S}$ and ${\cal V}$ 
+\ftn{We use the functions: ${\cal S}$ and ${\cal V}$ 
 to represent the computation of surface area and volume respectively.}
 
 ${\cal V}(S_n(r)) =  \int_{\partial B_n} \int_0^r \tau^{n-1} \,dS \,d\tau = \left(\int_{\partial B_n} \, dS\right) \left( \int_0^r \tau^{n-1} \, d\tau \right)$
@@ -143,7 +143,7 @@ $$
 e^{-t} t^{\frac{n}{2}-1} \,dt \, dS
 $$
 which may be written:%
-\ft{\ddag}{The function $\Gamma(n)$ is called the Gamma function and 
+\ftn{The function $\Gamma(n)$ is called the Gamma function and 
 has the property: $\forall n\in Z^+, \Gamma(n+1) = n \Gamma(n)$.}
 $$
 2 \pi^{n/2} = {\cal S}(B_n) \Gamma(n/2)
@@ -156,14 +156,14 @@ The volume of the unit sphere, ${\cal V}(B_n)$, is now computed using the
 surface area of the unit sphere:
 $$
 {\cal V}(B_n) = \int_{B_n} \, d\mu = \int_{\partial B_n} 
-\int_0^1 r^{n-1} \, dr \, dS = \frac{1}{n}{\cal S}(B_n)
+\int_0^1 r^{n-1} \, dr \, dS = \left(\frac{1}{n}\right){\cal S}(B_n)
 $$
 Or,
 $$
 {\cal V}(B_n) = \frac{2\pi^{n/2}}{n \, \Gamma(n/2)}
 $$
 And so the volume of an n-dimensional sphere, $S_n(r)$, of radius $r$ is:%
-\ft{\dag}{The volume of an n-dimensional sphere scales by the radius to the $n^{\rm th}$ power.}
+\ftn{The volume of an n-dimensional sphere scales by the radius to the $n^{\rm th}$ power.}
 
 $$
 {\cal V}(S_n(r)) = \frac{2\pi^{n/2}}{n \, \Gamma(n/2)} r^n
@@ -177,7 +177,7 @@ the following definition.
 
 \proclaim Definition. The $\alpha \in R^+$ dimensional volume, $V_\alpha$, of a sphere 
 of radius r is defined to be:%
-\ft{*}{The set $R^+$ is defined by: $R^+ = \{x \, | \, x\in R \; \wedge \; x\ge 0\}$.}
+\ftn{The set $R^+$ is defined by: $R^+ = \{x \, | \, x\in R \; \wedge \; x\ge 0\}$.}
 $$
 {\rm Vol}_\alpha(r) = \frac{2\pi^{\alpha/2}}{\alpha \, \Gamma(\alpha/2)} r^\alpha
 $$
@@ -189,14 +189,14 @@ dimension and fractal volume.
 
 \proclaim Definition. The $\alpha \in R^+$ dimensional {\it covering\/} volume of a set
 $S \in R^n$, $V_{\alpha, \epsilon}(S)$, with parameter, $\epsilon \in R^+$,
-is defined as\ft{\dag}{The diameter of a set is defined by: 
+is defined as\ftn{The diameter of a set is defined by: 
 {\rm Diam}(S) = $\sup\{|x - y| : x,y \in S\}$.}
 $$
 \eqalign{
     V_{\alpha, \epsilon}(S) & = \inf_{\{O_i\}_{i=1}^N} 
     \left\{ \sum_{i=1}^N {\rm Vol}_\alpha\left({\rm Diam}(O_i) / 2\right) \
-    : S \subseteq \bigcup_{i=1}^N\limits O_i \; \wedge \; \mathop{\rm Sup}\limits_{i \in [1,N]} \
-    \left({\rm  Diam}(O_i)\right) \le \epsilon \right\} 
+    : S \subseteq \bigcup_{i=1}^N\limits O_i \; \wedge \; \left(\mathop{\rm Max}\limits_{i \in [1,N]} 
+    {\rm  Diam}(O_i)\right) \le \epsilon \right\} 
 }
 $$
 Here, $\{ O_{i} \}_{i=1}^N$ is a finite collection of sets in $R^n$. 
@@ -388,7 +388,7 @@ While physical examples like a coast line or the surface of a sponge do
 not really have
 complexity on an infinite scale, we idealize them as such with
 fractals. Just as ``dimensionless'' points are an idealization useful
-to describe space, fractals also are a useful idealization. 
+to describe space, fractals are also a useful idealization. 
 As with all such mathematical abstractions, they 
 allows us to view and compute what they model in a simpler way.
 

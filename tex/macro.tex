@@ -53,6 +53,13 @@
 % A subsection header. 
 \def\subsection#1{\vskip .25 in \leftline{\xmplbx #1} \medskip}
 
+% Footnote macro. 
+\count4=1
+\def\ftn#1{%
+	\footnote {\kern 0.5pt {\raise 3.5pt \hbox{\small \number\count4}}}{#1}
+	\global\advance\count4 by 1
+}
+
 % Chapter macro. If at first chapter set \pageno to 1.
 \count3=1
 \def\chapter#1{%
