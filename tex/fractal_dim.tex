@@ -109,17 +109,18 @@ knows its surface area. Since the surface area of an n-dimensional sphere
 with radius, $r$, is $r^{n-1}$ times the surface of the unit sphere, 
 it suffices to know the surface area of the unit sphere.
 In what follows we will refer to an n-dimensional sphere of radius, $r$, 
-as $S_n(r)$, and $B_n$ as the specific n-dimensional sphere of radius $1$.
+as $B_n(r)$, and $B_n$ as the specific n-dimensional sphere of radius $1$.
 
-The relationship between the volume of an n-dimensional sphere, $S_n(r)$ and the 
+The relationship between the volume of an n-dimensional sphere, $B_n(r)$ and the 
 surface area of $B_n$ follows from the following formula:%
-\ftn{We use the functions: ${\cal S}$ and ${\cal V}$ 
-to represent the computation of surface area and volume respectively.}
+\ftn{We use the functions: ${S}_n$ and ${V}_n$ 
+to represent the computation of surface area and volume respectively 
+of spheres in $n$ dimensions as a function of their radii.}
 
-${\cal V}(S_n(r)) =  \int_{\partial B_n} \int_0^r \tau^{n-1} \,dS \,d\tau = \left(\int_{\partial B_n} \, dS\right) \left( \int_0^r \tau^{n-1} \, d\tau \right)$
+${V}_n(r) =  \int_{\partial B_n} \int_0^r \tau^{n-1} \,dS \,d\tau = \left(\int_{\partial B_n} \, dS\right) \left( \int_0^r \tau^{n-1} \, d\tau \right)$
 
 The RHS iterated integrals can be easily computed, yielding:
-${\cal V}(S_n(r)) = {\cal S}(B_n) \frac{r^n}{n}$
+${V}_n(r) = {S}_n(1) \frac{r^n}{n}$
 
 What remains now is to find a formula for the surface area of $B_n.$
 This can be done by expressing an easily computable 
@@ -146,89 +147,124 @@ which may be written:%
 \ftn{The function $\Gamma(n)$ is called the Gamma function and 
 has the property: $\forall n\in Z^+, \Gamma(n+1) = n \Gamma(n)$.}
 $$
-2 \pi^{n/2} = {\cal S}(B_n) \Gamma(n/2)
+2 \pi^{n/2} = {S}_n(1) \Gamma(n/2)
 $$
 Or,
 $$
-{\cal S}(B_n) = \frac{2 \pi^{n/2}}{\Gamma(n/2)}
+{S}_n(1) = \frac{2 \pi^{n/2}}{\Gamma(n/2)}
 $$
-The volume of the unit sphere, ${\cal V}(B_n)$, is now computed using the
-surface area of the unit sphere:
+Consequently,
 $$
-{\cal V}(B_n) = \int_{B_n} \, d\mu = \int_{\partial B_n} 
-\int_0^1 r^{n-1} \, dr \, dS = \left(\frac{1}{n}\right){\cal S}(B_n)
+{S}_n(r) = \frac{2 \pi^{n/2}}{\Gamma(n/2)}r^{n-1}
 $$
-Or,
-$$
-{\cal V}(B_n) = \frac{2\pi^{n/2}}{n \, \Gamma(n/2)}
-$$
-And so the volume of an n-dimensional sphere, $S_n(r)$, of radius $r$ is:%
+And so the volume of an n-dimensional sphere, $B_n(r)$, of radius $r$ is:%
 \ftn{The volume of an n-dimensional sphere scales by the radius to the $n^{\rm th}$ power.}
-
 $$
-{\cal V}(S_n(r)) = \frac{2\pi^{n/2}}{n \, \Gamma(n/2)} r^n
+{V}_n(r) = \int_{B_n} \, d\mu = \int_{\partial B_n} 
+\int_0^r \tau^{n-1} \, d\tau \, dS = \left(\frac{r^n}{n}\right){S}_n(1)
+$$
+Which is
+$$
+{V}_n(r) = \frac{2\pi^{n/2}}{n \, \Gamma(n/2)} r^n
 $$
 
-\subsection{Fractal Dimension and Associated Volume}
-Although we derived the formula for the n-dimensional volume of a sphere, with 
-$n$ an integer, the formula may take non integral values. 
+\subsection{Fractal Dimension and Associated Volume of a Set}
+Although we derived the formula for the n-dimensional volume of a sphere.
+The formula may take non-integral values. 
 Armed with this formula, we make
 the following definition.
 
-\proclaim Definition. The $\alpha \in R^+$ dimensional volume, $V_\alpha$, of a sphere 
+\proclaim Definition. The $\alpha \in R^+$ dimensional volume, $V_\alpha$, 
+of an $n$ dimensional sphere 
 of radius r is defined to be:%
 \ftn{The set $R^+$ is defined by: $R^+ = \{x \, | \, x\in R \; \wedge \; x\ge 0\}$.}
 $$
-{\rm Vol}_\alpha(r) = \frac{2\pi^{\alpha/2}}{\alpha \, \Gamma(\alpha/2)} r^\alpha
+{V}_\alpha(r) = \frac{2\pi^{\alpha/2}}{\alpha \, \Gamma(\alpha/2)} r^\alpha
 $$
 This is a mathematical construct, not a physical one; there is no claim
-here of a physical fractional dimension.
+here of a physical fractional dimension. Also, note that the value is independent 
+of the ambient space of the ball, $R^n$. That is, $\alpha$ can be either larger
+or smaller than $n$.
 
-We now define an intermediate notion that will help us define fractal
-dimension and fractal volume.
+Given that we have defined the fractional dimensional volume of a sphere in "dimension" $\alpha$
+we wish to extend this to a definition of the fractional dimensional volume of {\it any\/} set.
 
 \proclaim Definition. The $\alpha \in R^+$ dimensional {\it covering\/} volume of a set
-$S \in R^n$, $V_{\alpha, \epsilon}(S)$, with parameter, $\epsilon \in R^+$,
+$S \in R^n$, ${\cal V}_{\alpha, \epsilon}(S)$, with parameter, $\epsilon \in R^+$,
 is defined as\ftn{The diameter of a set is defined by: 
 {\rm Diam}(S) = $\sup\{|x - y| : x,y \in S\}$.}
 $$
 \eqalign{
-    V_{\alpha, \epsilon}(S) & = \inf_{\{O_i\}_{i=1}^N} 
-    \left\{ \sum_{i=1}^N {\rm Vol}_\alpha\left({\rm Diam}(O_i) / 2\right) \
+	{\cal V}_{\alpha, \epsilon}(S) & = \inf_{\{O_i\}_{i=1}^N} 
+    \left\{ \sum_{i=1}^N {V}_\alpha\left({\rm Diam}(O_i) / 2\right) \
     : S \subseteq \bigcup_{i=1}^N\limits O_i \; \wedge \; \left(\mathop{\rm Max}\limits_{i \in [1,N]} 
-    {\rm  Diam}(O_i)\right) \le \epsilon \right\} 
+    {\rm  Diam}(O_i)\right) \ge \epsilon \right\} 
 }
 $$
-Here, $\{ O_{i} \}_{i=1}^N$ is a finite collection of sets in $R^n$. 
 
-Roughly speaking, the $\alpha$ covering volume of a set is the best $\alpha$ volume 
-estimate one could get if limited to finite covering sets with diameters no larger than $\epsilon$.
+Roughly speaking, for any given finite covering, $\left\{ O_i \right\}_{i=1}^N$, and value $\epsilon$, 
+we estimate the $\alpha$ dimensional volume of the set, $S$, by summing up the $\alpha$ dimensional 
+volumes of the collection of spheres, $\left\{ P_i \right\}_{i=1}^N$, where each $P_i$ is the 
+smallest sphere containing $O_i$. In this case the radius of a given $P_i$ is ${\rm Diam}(O_i) / 2$.
+The $\alpha$ covering volume of a set, $S$, is the infimum over all such covers.
+The only restriction of the covering sets is that they are finite and the corresponding spheres
+have radius no smaller than $\epsilon$.
 
-Using the covering volume, we may define a fractional dimensional volume.
+The intent of this definition is to give a practicable upper estimate of 
+the eventual $\alpha$ volume of a set. We would also like that the above would give finer
+and finer estimates of the $\alpha$ volume with smaller $\epsilon$ gives smaller upper estimates.
 
-\proclaim Definition. The $\alpha \in R^+$ dimensional volume of a set
-$S \in R^n$, $V_\alpha(S)$,
-is defined as
+This is indeed the case:
 $$
 \eqalign{
-V_\alpha(S) &= \lim_{\epsilon \rightarrow 0^+} V_{\alpha, \epsilon}(S)
+	{\cal V}_{\alpha, \epsilon_1}(S) & \le {\cal V}_{\alpha, \epsilon_2}(S) \quad \quad \hbox{whenever  } \epsilon_1 \le \epsilon_2
 }
 $$
+This follows as the set of coverings used to compute ${\cal V}_{\alpha, \epsilon_1}(S)$ includes
+the set of all coverings used to compute ${\cal V}_{\alpha, \epsilon_2}(S)$. Therefore, the 
+infimum over all coverings associated with $\epsilon_1$ cannot be larger than the
+infimum associated with $\epsilon_2$.
 
- In simple terms, this defines the $\alpha$ dimensional volume of $S$
+Using the covering volume, we may define the fractional dimensional volume by
+taking a limit of increasing refined covers.
+
+\proclaim Definition. The $\alpha \in R^+$ dimensional volume of a set
+$S \in R^n$, ${\cal V}_\alpha(S)$,
+is defined as\ftn{%
+This definition is well defined, as the limit of a monotonic sequence exists,
+provided we acknowledge that it may be infinite.}
+$$
+\eqalign{
+	{\cal V}_\alpha(S) &= \lim_{\epsilon \rightarrow 0^+} {\cal V}_{\alpha, \epsilon}(S)
+}
+$$
+In simple terms, this defines the $\alpha$ dimensional volume of $S$
 to be the limit of the covering estimates as the coverings become more refined.
+
+It is not immediately clear how the $\alpha$ volumes of a set behave as the 
+dimension changes. It turns out that these volumes monotonically decrease 
+with increasing $\alpha$. This follows from the following two facts:
+
+\beginEnum
+\enum{For $\epsilon \le 0.1$, the $\alpha$ dimensional volume of 
+a sphere monotonically decreases with $\alpha$.}
+\enum{Following the definition, this means that for such $\epsilon$ and positive $\alpha$ that 
+${\cal V}_{\alpha, \epsilon}$ is monotonically decreasing in $\alpha$ for a fixed $\epsilon$.}
+\endEnum
 
 While these statements define the $\alpha$ volume for any given set, $S$,
 they do not tell us the ``natural'' fractal volume of $S$.
- The following definition does precisely that.
+The following definition does precisely that.
 
 \proclaim Definition. The {\bf fractal dimension} of a 
 set $S \in R^m$ is defined as
-$\alpha^* = \inf\{\alpha : V_\alpha(S) = 0 \}$; the associated 
-{\bf fractal volume} of $S$ is defined to be $V_{\alpha^*}(S)$.
+$\alpha^* = \inf\{\alpha : {\cal V}_\alpha(S) = 0 \}$; the associated 
+{\bf fractal volume} of $S$ is defined to be ${\cal V}_{\alpha^*}(S)$.
 
 Roughly speaking, this says that the fractal dimension of a set $S$ is the
 ``smallest'' $\alpha$ such that the $\alpha$ dimensional volume of $S$ is non-zero.
+
+Note that the fractal dimension of a set, $S$, does not depend on the ambient space $S$ sits in.
 
 \subsection{Computing the Fractal Dimension of a Simple Set}
 
@@ -249,11 +285,12 @@ For a given $n$, consider the sets $\{O_{n,i}\}_{i=0}^{n-1}$, with $O_{n,i}~=~
 [\frac{i}{n}{\bf x} + (1-\frac{i}{n}){\bf y}, \; \frac{i+1}{n}{\bf x} + (1 -
 \frac{i+1}{n}){\bf y}]$. The collection of line segments, $O_{n,i}$, act
 as a cover for $L$; that is, $L =
-\cup_{i=0}^{n-1} O_{n,i}$. For a given $\alpha$ the
-$\alpha$ covering volume of $L$ is given by
+\bigcup_{i=0}^{n-1}\limits O_{n,i}$. For a given $\alpha$ the
+covering volume of $L$ with $\epsilon = \frac{1}{2n} \|{\bf x} - {\bf y}\|$ 
+is bounded above by
 $$
-\sum_{i=0}^{n-1} {\rm Vol}_\alpha({\rm Diam}(O_{n,i})/2) = \sum_{i=0}^{n-1}
-{\rm Vol}_\alpha(\|{\bf x} - {\bf y}\|/2n) =  \sum_{i=0}^{n-1} \frac{2
+\sum_{i=0}^{n-1} {\rm V}_\alpha({\rm Diam}(O_{n,i})/2) = \sum_{i=0}^{n-1}
+{\rm V}_\alpha(\|{\bf x} - {\bf y}\|/2n) =  \sum_{i=0}^{n-1} \frac{2
 \pi^{\alpha / 2}}{\alpha \Gamma(\alpha / 2)} \frac{\|{\bf x} - {\bf
 y}\|^\alpha}{(2n)^\alpha} = \frac{2 \pi^{\alpha / 2} \|{\bf x} - {\bf
 y}\|^\alpha}{2^\alpha \alpha \Gamma(\alpha / 2)} \frac{n}{n^\alpha}
@@ -262,11 +299,10 @@ $$
 As $n$ increases, the covering becomes more refined and 
 the $\alpha$ dimensional volume is dominated by the term
 $\frac{n}{n^\alpha}$. Clearly, this term tends to zero as n tends to
-infinity for $\alpha > 1$. That is, $V_\alpha(L) = 0$ for $\alpha >
-1$. The smallest $\alpha$ that yields a non-zero value is $\alpha =
-1$. In this case 
-$
-V_1(L) = \left. \frac{2\pi^{\alpha / 2} \|{\bf x} - {\bf
+infinity for $\alpha > 1$. This implies ${\cal V}_\alpha(L) = 0$ 
+for $\alpha > 1$. The smallest $\alpha$ that yields a non-zero 
+value is $\alpha = 1$. In this case 
+${\cal V}_1(L) = \left. \frac{2\pi^{\alpha / 2} \|{\bf x} - {\bf
 y}\|^\alpha}{2^\alpha \alpha \Gamma(\alpha / 2)} \right|_{\alpha=1} = \| {\bf
 x} - {\bf y}\|$. 
 Therefore, the fractal dimension of the line segment is
@@ -329,11 +365,11 @@ Clearly, $C \subseteq C_n$, and $C = \bigcap_{n=1}^\infty\limits C_n$.
 
 We label $I_{n,i}$ as the $i^{th}$ interval in the set
 $C_n$. The collection, $\bigcup_{i=1}^{2^n}\limits I_{n,i}$, provides an
-approximation to $V_\alpha(C)$:
+approximation to ${\cal V}_\alpha(C)$:
 
 
 $$
-V_\alpha(C) \approx \sum_{i=1}^{2^n} {\rm Vol}_\alpha({\rm
+{\cal V}_\alpha(C) \approx \sum_{i=1}^{2^n} {\rm V}_\alpha({\rm
   Diam}(I_{n,i}) / 2)
 $$
 
@@ -341,7 +377,7 @@ As ${\rm Diam}(I_{n,i}) = \left(\frac{1}{3}\right)^n$, this becomes
 
 
 $$
-V_\alpha(C) \approx \sum_{n=1}^{2^n} \frac{2
+{\cal V}_\alpha(C) \approx \sum_{n=1}^{2^n} \frac{2
   \pi^{\alpha/2}}{ \alpha \Gamma(\alpha/2) 2^\alpha 3^{n\alpha}} 
   \approx  \frac{
   2^{1 - \alpha} \pi^{\alpha/2}}{\alpha \Gamma(\alpha/2)} \;
@@ -351,7 +387,7 @@ $$
 
 Or, 
 $$
-V_\alpha(C) \approx \frac{ 2^{1-\alpha} \pi^{\alpha/2}}{\alpha
+{\cal V}_\alpha(C) \approx \frac{ 2^{1-\alpha} \pi^{\alpha/2}}{\alpha
   \Gamma(\alpha/2)} \left(\frac{2}{3^\alpha}\right)^n
 $$
 
@@ -361,7 +397,7 @@ $n \rightarrow \infty$
 this limit will be zero. Certainly,
 this is the case for $\alpha \ge 1$; in which case 
 $$
-V_\alpha(C) =  \lim_{n \rightarrow \infty}  \frac{ 2^{1-\alpha} 
+{\cal V}_\alpha(C) =  \lim_{n \rightarrow \infty}  \frac{ 2^{1-\alpha} 
 \pi^{\alpha/2}}{\alpha
   \Gamma(\alpha/2)} \left(\frac{2}{3^\alpha}\right)^n = 0 
 $$
@@ -372,7 +408,7 @@ This occurs when
 $\alpha^* = \ln 2 / \ln 3$. Therefore, the fractal dimension of the
 Cantor set is $\alpha^* = \ln 2 / \ln 3 \approx 0.63093$. 
 Its fractal volume in this
-dimension is $V_{\alpha^*}(C) =  \frac{2^{1-\alpha^*} 
+dimension is ${\cal V}_{\alpha^*}(C) =  \frac{2^{1-\alpha^*} 
 \pi^{\alpha^*/2}}{\alpha^*
 \Gamma(\alpha^* / 2)} \approx 1.03505 $.
 
