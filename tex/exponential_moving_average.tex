@@ -26,7 +26,7 @@
 
 The essence of the {\em exponential moving average\/} (EMA) is to provide 
 a {\em localized\/} estimate of a time series as it proceeds. It does 
-this by using a weighted average of the values in a "window" around each point 
+this by using a weighted average of the values in a ``window'' around each point 
 of the series in way that each summand in 
 the average is multiplied by powers of a factor, $\lambda$,
 in the interval $(0,1)$.
@@ -46,7 +46,7 @@ we get the sequence: $\{ e^{-k}, e^{-2k}, e^{-3k}, \ldots \}$.
 Here we can see that the elements of the sequence are powers of a value, $\lambda = e^{-k}$.
 That is, the sequence is nothing other than: $\{\lambda, \lambda^2, \lambda^3, \ldots \}$.}
 Since the parameter $\lambda$ is in the interval $(0,1)$, it represents a decay factor. 
-Notice that the indices of ${\bf x}$ and that of ${\bf w}$ go in the "opposite direction".
+Notice that the indices of ${\bf x}$ and that of ${\bf w}$ go in the ``opposite direction''.
 This is done so that the largest weights are associated with the most recent data
 in the averaging window.
 
@@ -153,7 +153,7 @@ computer languages typically use one or the other.}
 
 \section{Recursive Formula for the Std of EMA}
 In practice, one also wants to know a localized standard deviation of the process.
-In applications, one can provide "Bollinger" bands around the EMA estimate.
+In applications, one can provide ``Bollinger'' bands around the EMA estimate.
 These bands are some multiple of the standard deviation of the process.
 
 We derive the standard deviation of the exponential moving average starting
@@ -172,11 +172,14 @@ This means that it can be pre-computed independently of the data series.}
 Note, that the form of the two equations is identical; that is, 
 they both have the form:
 \begin{eqnarray}
-    g_n &=& \sum_{k=0}^{m-1} f(x_{n-k}) w_{k+1} 
+	g_n &=& \sum_{k=0}^{m-1} f(x_{n-k} - c_{n-k}) w_{k+1} 
 \end{eqnarray}
-One can find a recursive formula $g_n$ in {\em exactly\/} the same was as
+In the equation, $(\ref{ema_cmp})$, $c_{n-k} \equiv 0$; while in equation 
+$(\ref{var})$, $c_{n-k} = e_{n-k}$.
+
+One can find a recursive formula $g_n$ in {\em exactly\/} the same way as
 was done for $(\ref{ema_cmp})$. This is done by reworking the derivation of 
-the recursive formula for $(\ref{ema_cmp})$, replacing $x_j$ with $f(x_j)$.
+the recursive formula for $(\ref{ema_cmp})$, replacing $x_{n-k}$ with $f(x_{n-k} - c_{n-k})$.
 
 The recursive formula for $g_n$ is
 \begin{eqnarray}
@@ -221,26 +224,31 @@ and smoothly move from that to the estimate above over the averaging windows whe
 
 \section{How to Specify the $\lambda$ Factor}
 When using the EMA, practitioners do not specify the factor $\lambda$ directly; 
-instead they provide the ``half-life'' of the decay.
-By the half-file of $\lambda$, we mean the number of powers of $\lambda$, $N$, so that
-$\lambda^N \approx \frac{1}{2}$. 
+instead they provide the ``half-life'', $H$,  of the decay.
+By the half-file of $\lambda$, we mean the number of powers of $\lambda$, $H$, so that
+$\lambda^H \approx \frac{1}{2}$.%
+\footnote{Note that $H$ must be no more than the window length, $m$.} 
 
-In our case we are interested in the reverse; namely, given a half-life, $N$, 
-determine the factor $\lambda$. To do this we solve the equation $\lambda^N = \frac{1}{2}$
+In our case we are interested in the reverse; namely, given a half-life, $H$, 
+determine the decay factor $\lambda$. To do this we solve the equation $\lambda^H = \frac{1}{2}$
 for $\lambda$.
 Taking the $\log$ of this equation we have:%
 \footnote{The log function used below is the logarithm base $e$.}
 
 \begin{eqnarray*}
-    \log(\lambda^N) &=&  \log(\frac{1}{2}) \\
-    N \log(\lambda) &=& \log(1) - \log(2)  \\
-    \log(\lambda)   &=& -\frac{\log(2)}{N} 
+    \log(\lambda^H) &=&  \log\left(\frac{1}{2}\right) \\
+    H \log(\lambda) &=& \log(1) - \log(2)  \\
+    \log(\lambda)   &=& -\frac{\log(2)}{H} 
 \end{eqnarray*}
-The formula to determine $\lambda$ given the half-life $N$ is:
+The formula to determine $\lambda$ given the half-life $H$ is:
 
 \begin{eqnarray}
-    \lambda &=& e^{-\frac{\log(2)}{N}}
+    \lambda &=& e^{-\frac{\log(2)}{H}}
 \end{eqnarray}
+
+For example, if the window of the moving average is $10$, you might decide that the 
+half-life occur around the middle of the window. Setting $H$ to be 5, the decay factor, $\lambda$ 
+is $e^{-\frac{\log(2)}{5}} = 0.87055056$.
 
 \eject
 
@@ -276,15 +284,15 @@ The weighted sum represents an estimate of the true mean of the IID random varia
 And in this case we see that it is a good estimate in that the expected value of the weighed combination
 of the random variables is $\mu$. 
 
-We refer to such "good" estimates as {\em unbiased estimators\/}.
+We refer to such ``good'' estimates as {\em unbiased estimators\/}.
 
 Now consider the sum $\sum_{i=1}^N (x_i - \mu)^2 w_i$.
-People use this as an estimate of the variance of the random variables. Is this a "good" (unbiased) estimate?
+People use this as an estimate of the variance of the random variables. Is this a ``good'' (unbiased) estimate?
 Yes, it is as: $\E{\sum_{i=1}^N (x_i - \mu)^2 w_i} = \sum_{i=1}^N \E{(x_i- \mu)^2} w_i = \sigma^2 \sum_{i=1}^N w_i = \sigma^2$
 
 But what if we replace the true mean, $\mu$, above with our estimate: ${\bar x} = \sum_{i=1}^N x_i w_i$?
 In this case it turns out that the resulting estimate for the variance is {\em biased\/}.
-However, it happens that we are "off" by a certain factor and that factor depends only on the weights 
+However, it happens that we are ``off'' by a certain factor and that factor depends only on the weights 
 we use.%
 \footnote{In fact, the factor doesn't depend on the ordering of the weights.}
 
@@ -363,7 +371,7 @@ In this case the estimate for the standard deviation of the random variables is:
                    &=  \sqrt{\frac{N}{N - 1} \frac{1}{N} \sum_{i=1}^N (x_i - {\bar x})^2 } &&\\
                    &=  \sqrt{\frac{1}{N - 1} \sum_{i=1}^N (x_i - {\bar x})^2 } &&
 \end{flalign*}
-We see that we end up with the usual "sample" standard deviation.
+We see that we end up with the usual ``sample'' standard deviation.
 
 \subsection{Bias of Arbitrary Sample Moments.}
 
