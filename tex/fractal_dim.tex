@@ -63,16 +63,19 @@ finely distinguish the density of a given set than the usual
 dimensional classification of $0, 1, 2, 3, \ldots$.%  
 \ftn{The zero dimension of a set is the number of points in
 that set.}
-Such a notion is motivated by sets that, while defined in one of the given
-dimensions $0, 1, 2, 3, \dots$, are sufficiently
-complicated that their dimensional ``volume'' is infinite. 
-Sets that have the property that they retain structure no matter how much 
-they are magnified are a class of such complex sets. We call this class of sets
+Such a notion is motivated by sets that, while constructed in one of the given
+dimensions $0, 1, 2, 3, \dots$; and which are robust with respect to structure, 
+nevertheless have zero "volume" in the ambinent space containing the set.
+Such sets beg for a more nuanced "size" metric.
+
+The sets that we are interested in are non-physical sets that
+have the property that they retain structure no matter how much 
+they are magnified. We call this class of sets
 {\it fractal sets}, or
 {\it fractals}. 
 
 A common place example that resembles a fractal is the coast line of
-a coast. If one were to take a map of the coast line and blow it up
+a beach. If one were to take a map of the coast line and blow it up
 again and again, one would find that it retains structure in the
 sense that the expanded maps would not ``straighten out``.
 Because this is a physical example, the complicated structure would fade
@@ -80,9 +83,13 @@ after a finite number of expansions. A true fractal, say representing a
 coast line, would retain complicated
 structure no matter how many times a piece of it was magnified.
 Because of this, the length of any section of this idealized coast line is
-infinite. Another natural fractal is the surface of a idealized sponge; 
-its surface area is infinite even though it is defined as a two 
-dimensional object. It would be convenient if there was a way to
+infinite. Another "natural" fractal is the surface of a idealized sponge.
+While defined in a three dimensional world, one can construct such a sponge so that
+it retains complicated structure no matter how many times it is magnified.
+In addition, such a constructed sponge could have an infinite surface area and 
+also have 0 volume. 
+
+It would be convenient if there was a way to
 measure the density of an idealized coast line to
 indicate that it is, in some sense, larger than a one dimensional
 object; or a way to show that the idealized surface of a sponge is larger than
@@ -92,10 +99,14 @@ in a more precise way.
 This is what the fractal dimension of a set tries to address. 
 In the case of the coast line, it will give us a dimension between one and two
 -- where the coast line ``naturally'' lives. The same with the surface of
-a sponge,
+the aforementioned sponge,
 there will be a dimension between two and three where it naturally lives. In
 each case, the fractal dimension is not an actual dimension, 
 it is a way to quantify the density of such complex sets.
+Yet, it should also "agree" with the usual dimensional size of an object 
+if it is not a fractal. That is, the fractal dimension of a line segment should 
+be 1; the fractal dimension of a triangle sitting in three dimensions should 
+be 2, etc.
 
 When studying any new phenomenon, it is natural to first examine the
 simplest examples. The simplest such fractals are ones which have a
@@ -261,7 +272,7 @@ a sphere monotonically decreases with $\alpha$.}
 \enum{This means that for a given bounded set $S$ and for any fixed 
 		$\epsilon \le 0.1$, ${\cal V}_{\alpha, \epsilon}(S)$ is 
 		non-increasing in $\alpha$.}
-		\enum{If for some $\alpha_0 \in R^+$, ${\cal V}_\alpha(S) < \infty$, then
+		\enum{If for some $\alpha_0 \in R^+$, ${\cal V}_{\alpha_0}(S) < \infty$, then
 		${\cal V}_{\alpha}(S)$ is monotonically decreasing for 
 		$\alpha \ge \alpha_0$.}
 \endEnum
