@@ -113,15 +113,14 @@ property? The answer is no, the property remains:
 
 More generally, the general solution to the difference equation:
 \begin{eqnarray}
-	w_{n+1} & = & \lambda w_n \\
+	w_{n+1} & = & \lambda \, w_n \\
 	w_1 & = & \alpha
 \end{eqnarray}
 is 
 \begin{eqnarray}
-	w_n = \alpha \lambda^{n-1} \quad n \ge 1
+	w_n = \alpha \, \lambda^{n-1} \quad n \ge 1
 \end{eqnarray}
-However, that are normalized over a given window of length, $m$, we 
-need to add the condition:
+However, we need the weights to be normalized over a window of length, $m$:
 \begin{eqnarray}
 \sum_{i=1}^m w_i = 1
 \end{eqnarray}
@@ -130,13 +129,13 @@ Plugging in our general formula for an exponential sequence we have:
 	\sum_{i=1}^m \alpha \lambda^{i-1} & = & 1 \\
 	\alpha \frac{1 - \lambda^m}{1 - \lambda} & = & 1	
 \end{eqnarray}
-Therefore, given $\lambda$ and $m$, the initial weights is given by 
+Therefore, given $\lambda$ and $m$, the initial weight is given by 
 \begin{eqnarray}
 	\alpha = \frac{1 - \lambda}{1 - \lambda^m} \label{o:weights_alpha}
 \end{eqnarray}
 
 {\bf Note:\/} We will use $(\ref{o:var_extend})$, $(\ref{o:weights_normalized}),
-, $(\ref{o:weights_power})$, and $(\ref{o:weights_alpha}) in our derivations below.
+$(\ref{o:weights_power})$, and $(\ref{o:weights_alpha}) in our derivations below.
 
 \section{Recursive Formula for EMA}
 We state again the definition of the exponential moving average of $x$ as:
@@ -253,8 +252,7 @@ By the half-file of $\lambda$, we mean the number of powers of $\lambda$, $H$, s
 weight $H$ is half the weight of weight $1$. The condition for $H$ is then:
 \begin{eqnarray}
 	\frac{w_H}{w_1} = \frac{1}{2} \\
-	\frac{\alpha \lambda^{H-1}}{\alpha} = \frac{1}{2}
-	\lambda^{H-1} = \frac{1}{2}
+	\frac{\alpha \lambda^{H-1}}{\alpha} &=& \lambda^{H-1} = \frac{1}{2}
 \end{eqnarray}
 This can only be satisfied approximately for a given $\lambda$. 
 \footnote{Note that $H$ must be no more than the window length, $m$.} 
