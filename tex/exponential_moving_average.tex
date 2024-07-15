@@ -15,7 +15,7 @@
 
 \title{Derivation of the Exponential Moving Average}
 \author{R. Scott McIntire}
-\date{Feb 27, 2024}
+\date{Jul 15, 2024}
 
 \begin{document}
 
@@ -111,8 +111,32 @@ property? The answer is no, the property remains:
     \lambda w_{i} &=& w_{i+1} \quad \forall i \in [1, m-1].  \label{o:weights_power}
 \end{eqnarray}
 
-{\bf Note:\/} We will use $(\ref{o:var_extend})$, $(\ref{o:weights_normalized})$,
-and $(\ref{o:weights_power})$ in our derivations below.
+More generally, the general solution to the difference equation:
+\begin{eqnarray}
+	w_{n+1} & = & \lambda w_n \\
+	w_1 & = & \alpha
+\end{eqnarray}
+is 
+\begin{eqnarray}
+	w_n = \alpha \lambda^{n-1} \quad n \ge 1
+\end{eqnarray}
+However, that are normalized over a given window of length, $m$, we 
+need to add the condition:
+\begin{eqnarray}
+\sum_{i=1}^m w_i = 1
+\end{eqnarray}
+Plugging in our general formula for an exponential sequence we have:
+\begin{eqnarray}
+	\sum_{i=1}^m \alpha \lambda^{i-1} & = & 1 \\
+	\alpha \frac{1 - \lambda^m}{1 - \lambda} & = & 1	
+\end{eqnarray}
+Therefore, given $\lambda$ and $m$, the initial weights is given by 
+\begin{eqnarray}
+	\alpha = \frac{1 - \lambda}{1 - \lambda^m} \label{o:weights_alpha}
+\end{eqnarray}
+
+{\bf Note:\/} We will use $(\ref{o:var_extend})$, $(\ref{o:weights_normalized}),
+, $(\ref{o:weights_power})$, and $(\ref{o:weights_alpha}) in our derivations below.
 
 \section{Recursive Formula for EMA}
 We state again the definition of the exponential moving average of $x$ as:
@@ -136,10 +160,10 @@ and try to relate it to the present element at index $n$.
 
 Finally, we may write%
 \footnote{From the definition of $e_n$ and using 
-$(\ref{o:var_extend})$ and $(\ref{o:weights_normalized})$,
+	$(\ref{o:var_extend})$ $(\ref{o:weights_normalized})$, and $(\ref{o:weights_alpha})$
 $e_1 = \sum_{k=0}^{m-1} x_{n-k} w_{k+1} = x_1 \sum_{k=0}^{m-1} w_{k+1} = x_1 \sum_{k=1}^m w_k = x_1$.}
 \begin{eqnarray}
-    e_{n+1} &=&  \lambda \left(e_n - x_{(n+1) - m} w_m \right) + x_{n+1} w_1  \quad \forall n \in [1, N-1] \\
+    e_{n+1} &=&  \lambda \left(e_n - x_{(n+1) - m} w_m \right) + \alpha x_{n+1} \quad \forall n \in [1, N-1] \\
     e_1     &=&  x_1 
 \end{eqnarray}
 
@@ -147,7 +171,7 @@ The corresponding 0-based index formula is:%
 \footnote{We write the formulas down for both 1 and  0 based vector indices because
 computer languages typically use one or the other.}
 \begin{eqnarray}
-    e_{n} &=&  \lambda \left( e_{n-1} - x_{(n-m} w_{m-1} \right) + x_{n} w_0  \quad \forall n \in [1, N-1] \\
+    e_{n} &=&  \lambda \left( e_{n-1} - x_{(n-m)} w_{m-1} \right) + \alpha x_{n}  \quad \forall n \in [1, N-1] \\
     e_0   &=&  x_0 
 \end{eqnarray}
 
@@ -183,13 +207,13 @@ the recursive formula for $(\ref{ema_cmp})$, replacing $x_{n-k}$ with $f(x_{n-k}
 
 The recursive formula for $g_n$ is
 \begin{eqnarray}
-    g_{n+1} &=&  \lambda \left( g_{n} - f(x_{(n+1)-m}) w_m \right) + f(x_{n+1}) w_1  \quad \forall n \in [1, N-1] \\
+    g_{n+1} &=&  \lambda \left( g_{n} - f(x_{(n+1)-m}) w_m \right) + \alpha f(x_{n+1})   \quad \forall n \in [1, N-1] \\
     g_1     &=&  f(x_1) 
 \end{eqnarray}
 The 0-based index formula is:
 
 \begin{eqnarray}
-    g_{n} &=&  \lambda \left( g_{n-1} - f(x_{n-m}) w_{m-1} \right) + f(x_{n}) w_0  \quad \forall n \in [1, N-1] \\
+    g_{n} &=&  \lambda \left( g_{n-1} - f(x_{n-m}) w_{m-1} \right) + \alpha f(x_{n}) \quad \forall n \in [1, N-1] \\
     g_0   &=&  f(x_0) 
 \end{eqnarray}
 
@@ -198,13 +222,13 @@ The corresponding $f$ for $(\ref{var})$ is $f(x) = x^2$;
 consequently, its recursive formula is 
 
 \begin{eqnarray}
-    v_{n+1} &=& \lambda \left( v_n -  ( x_{(n+1)-m} - e_{(n+1)-m} )^2 w_m \right) + ( x_{n+1} - e_{n+1} )^2 w_1 \quad \forall n \in [1, N-1] \\
+    v_{n+1} &=& \lambda \left( v_n -  ( x_{(n+1)-m} - e_{(n+1)-m} )^2 w_m \right) + \alpha( x_{n+1} - e_{n+1} )^2 \quad \forall n \in [1, N-1] \\
     v_1     &=&  (x_1 - e_1)^2 = 0 
 \end{eqnarray}
 The corresponding 0-based index formula is:
 
 \begin{eqnarray}
-    v_{n} &=& \lambda \left( v_{n-1} - ( x_{n-m} - e_{n-m} )^2 w_{m-1}\right) + ( x_{n} - e_{n} )^2 w_0 \quad \forall n \in [1, N-1] \\
+    v_{n} &=& \lambda \left( v_{n-1} - ( x_{n-m} - e_{n-m} )^2 w_{m-1}\right) + \alpha ( x_{n} - e_{n} )^2 \quad \forall n \in [1, N-1] \\
     v_0   &=& (x_0 - e_0)^2 = 0 
 \end{eqnarray}
 
@@ -226,29 +250,35 @@ and smoothly move from that to the estimate above over the averaging windows whe
 When using the EMA, practitioners do not specify the factor $\lambda$ directly; 
 instead they provide the ``half-life'', $H$,  of the decay.
 By the half-file of $\lambda$, we mean the number of powers of $\lambda$, $H$, so that
-$\lambda^H \approx \frac{1}{2}$.%
+weight $H$ is half the weight of weight $1$. The condition for $H$ is then:
+\begin{eqnarray}
+	\frac{w_H}{w_1} = \frac{1}{2} \\
+	\frac{\alpha \lambda^{H-1}}{\alpha} = \frac{1}{2}
+	\lambda^{H-1} = \frac{1}{2}
+\end{eqnarray}
+This can only be satisfied approximately for a given $\lambda$. 
 \footnote{Note that $H$ must be no more than the window length, $m$.} 
 
 In our case we are interested in the reverse; namely, given a half-life, $H$, 
-determine the decay factor $\lambda$. To do this we solve the equation $\lambda^H = \frac{1}{2}$
+determine the decay factor $\lambda$. To do this we solve the equation $\lambda^{H-1} = \frac{1}{2}$
 for $\lambda$.
 Taking the $\log$ of this equation we have:%
 \footnote{The log function used below is the logarithm base $e$.}
 
 \begin{eqnarray*}
-    \log(\lambda^H) &=&  \log\left(\frac{1}{2}\right) \\
-    H \log(\lambda) &=& \log(1) - \log(2)  \\
-    \log(\lambda)   &=& -\frac{\log(2)}{H} 
+	\log(\lambda^{H-1}) &=&  \log\left(\frac{1}{2}\right) \\
+	(H-1) \log(\lambda) &=& \log(1) - \log(2)  \\
+    \log(\lambda)   &=& -\frac{\log(2)}{H-1} 
 \end{eqnarray*}
 The formula to determine $\lambda$ given the half-life $H$ is:
 
 \begin{eqnarray}
-    \lambda &=& e^{-\frac{\log(2)}{H}}
+    \lambda &=& e^{-\frac{\log(2)}{H-1}}
 \end{eqnarray}
 
 For example, if the window of the moving average is $10$, you might decide that the 
 half-life occur around the middle of the window. Setting $H$ to be 5, the decay factor, $\lambda$ 
-is $e^{-\frac{\log(2)}{5}} = 0.87055056$.
+is $e^{-\frac{\log(2)}{4}} = 0.8408964152537145$.
 
 \eject
 
