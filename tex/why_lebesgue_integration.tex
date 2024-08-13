@@ -1,0 +1,432 @@
+
+\documentclass{article}
+\usepackage{amsmath,amscd}
+
+\title{Why Lebesgue Integration}
+\author{R. Scott McIntire}
+\date{Aug 13, 2024}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{7.5in}
+\setlength{\hoffset}{-0.75in}
+\setlength{\voffset}{-0.75in}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.5\baselineskip}
+
+
+\begin{document}
+\maketitle
+
+
+\section{Motivate Lebesgue Integration by asking for better Riemann integration theorems}
+In particular we have the following problem.
+Suppose the sequence of functions, $f_n$, converge point-wise to a function $f$.
+What are minimal conditions to place on $f_n$ so that the following occurs:
+
+$\lim_{n \rightarrow \infty}\limits \int f_n(x) \, dx = \int \lim_{n \rightarrow \infty}\limits f_n(x) \, dx$ \label{theorem}
+
+Like any good technology this simplifies the work of mathematicians 
+and applied scientists. For instance, suppose the $f_n$ converges to $f$ 
+which is the zero function. Also suppose that is difficult or impossible to 
+find an analytic expression for some, most, or all of the integrals of $f_n$. 
+We could use the above theorem to conclude that the limit of the integral of 
+the functions is just $0$ without ever having to attempt the integrations; or, 
+to try and derive upper bounds on the integrals in an attempt to show that 
+the sequence of integrals goes to $0$.
+
+Typical extra conditions are things like requiring that the $f_n$ converge 
+uniformly to $f$. But this rarely happens in many real world examples and as 
+a mathematician I am getting calls that complain about this restrictive 
+condition. They say that many times they don't have this and yet $(\ref{theorem})$
+holds. Unfortunately, other times it does not. So it seems that there are 
+conditions less rigid than uniform convergence of the sequence of 
+functions which allow $(\ref{theorem})$ to hold.
+The applied people and other mathematicians want better convergence theorems.
+
+There are better theorems and they come from the Lebesgue theory of integration.
+Let's stick with Riemann integrals and see if we can find better convergence 
+criterion.
+
+\section{Looking for better Convergence Criterion}
+Examining how Riemann integration works, we see that we need to bound the upper 
+and lower Riemann sums. Let's look for an example where things fail; that is, where 
+a sequence of functions leads to a function for which we ``loose control'' 
+constraining the upper and lower bounds of the sub-intervals in a way that the 
+convergence theorem fails. Then we might see what we need to add/impose 
+-- in terms of conditions -- on the sequence to make the theorem true.
+
+Since we are using Riemann functions, let's not use continuous/differentiable 
+functions as this may inherently behave well and/or difficult to inject ``badness''
+into our functions. Let's start with Riemann integrable discontinuous functions 
+and see what can go wrong -- this should be easier. This will also free us from 
+trying to make complicated continuous functions that behave badly in the limit.
+
+We restrict functions to the domain $[0, 1]$.
+Consider the following sequence of functions: 
+
+\begin{eqnarray}
+	f_n(x) & = & \begin{cases}  1 \quad \text{if $x$ can be expressed as the fraction, $\frac{p}{q}$ for some $p, q \in {\cal N}$ with $p, q \le n$ ;} \\ 
+	  			        		0 \quad \text{otherwise.} 
+			   	 \end{cases}
+\end{eqnarray}
+
+You can see that the sequence, $f_n$, converges point-wise to the function 
+
+\begin{eqnarray}
+	f(x) & = & \begin{cases} 1 \quad \text{if $x$ is rational;} \\ 
+			                 0 \quad \text{otherwise.} 
+			   \end{cases}
+\end{eqnarray}
+
+What can we say about the limit of the integrals of $f_n$?
+
+Well, each $f_n$ is non-zero at a finite number of points so its integral is $0$.
+Therefore the limit of integrals is $0$.
+
+What about the integral of $f$?
+
+We will construct a sequence of functions $g_n$ which represent $f$ in a different way.
+
+First, let $\{r_i\}$ be a 1-1 mapping of the positive integers to the rationals.
+We know we can do this as the rationals are countable. 
+
+Consider the sets, $\{E_{i,n}\}$, defined by:
+
+$E_{i,n} = \left[r_i - \frac{1}{n 2^{-i}}, r_i + \frac{1}{n2^{-i}}\right]$
+
+A given rational number lies in potentially many of the $E_{i,n}$.
+
+Define the functions, $S_i$ by
+\begin{eqnarray}
+	S_{i}(x) & = & \begin{cases} 1 \quad \text{if $x = r_i$}; \\ 
+	 							  0 \quad \text{otherwise.} 
+					\end{cases}
+\end{eqnarray}
+
+Below we make use of the notation: 
+
+\begin{eqnarray}
+I_X(x) & = & \begin{cases} 1 \quad \text{if $x \in X$}; \\ 0 \quad \text{otherwise.} \end{cases}
+\end{eqnarray}
+
+Finally, define, $g_n$ by
+
+\begin{eqnarray}
+	g_{n}(x) & = & \sum_{i=1}^\infty\limits S_{i}(x) I_{E_{i,n}}(x)
+\end{eqnarray}
+
+It is easy to see that each $g_n$ is a representation of the function $f$; that is, $f \equiv g_n$
+
+Note the following facts:
+\begin{eqnarray*}
+  \int_0^1 S_{i}(x) I_{E_{i,n}}(x)\, dx \le \overbrace{1}^{\text{Max Height}} * \overbrace{2\frac{1}{n2^{i}}}^{\text{Width of $E_{i,n}$}} = \frac{1}{n2^{i-1}}
+  \sum_{i=1}^\infty \int_0^1 S_{i}(x) I_{E_{i,n}}(x)\, dx & \le i & \sum_{i=1}^\infty\limits \frac{1}{n2^{i-1}}  \\ 
+															 & =  & \frac{2}{n} \sum_{i=1}^\infty\limits \frac{1}{2^{i}} \\
+															 & =  & \frac{2}{n}
+ \end{eqnarray*}
+
+What does this say about the integral of $f$? 
+This means that $\forall n$: 
+
+Given a partition of the interval, $[0,1]$, we can bound the integral of $f$ 
+(assuming it is Riemann integrable) by
+\begin{eqnarray*}
+	\int_0^1 f(x) \, dx & =   & \int_0^1 g_{n}(x) \, dx \\
+						& \le & \text{(Darboux Upper Sum)}(g_n)  \\
+						& \le & \sum_{i=1}^\infty 1 * \text{length}(I_{E_{i,n}}(x)) \\
+						& \le & \le  \frac{2}{n}
+\end{eqnarray*}
+
+Since this is true for all $n \in {\cal N}^+$, the integral of $f$ must be $\le 0$. 
+But, since $f$ is non-negative, its integral must be $\ge 0$. Therefore, the 
+integral of $f$ must be $0$.
+
+So, in trying to find an example where the theorem failed, we didn't succeed. 
+Even using a sequence of discontinuous functions we still got convergence without 
+requiring uniform convergence. This is suggestive that we may not, in general, 
+need a very stringent condition for the theorem to hold.
+
+But wait, we are assuming that the function $f$ is a Riemann integrable function. 
+Is it?
+
+It turns out that the answer is NO! 
+
+If you look at a given approximating lower and upper sums,
+the lower sum is always 0 and the upper sum is always 1. To see this, note that 
+over any sub-interval of the sums the minimum (infimum) value is always 0 and 
+the maximum (supremum) is always 1 -- because on any interval there is always a 
+rational and an irrational number.
+
+Yet the above analysis suggests that the integral should exist and its value 
+should be $0$.
+
+
+You may also ask: ``What I really want is to have a theorem for a sequence of 
+'nice functions'. I don't care that you have found Riemann integrable functions that
+don't converge to Riemann Integrable function''. 
+It turns out; however, that there are sequences of nice functions that converge 
+to a non Riemann integrable function as well!
+
+So, in addition to the conditions we need to ensure that we can interchange 
+limits with integrals, we also need conditions to ensure that the 
+resulting limiting function is integrable.
+
+This situation is similar to one that you would find yourself in if there were 
+only rational numbers in your worldview. At some point you discover iterative 
+algorithms to solve problems for which there is no easy analytic formula. 
+For instance, Newton's method is an example. Imagine coming up with a sequence 
+based on Newton's method to find the $\sqrt{x}$. How would you formalize what 
+it means for your sequence to converge -- particularly when $x = 2$????
+
+This suggests that we try a different approach to integration before we start 
+improving on our convergence theorems. 
+
+However, whatever we come up with, we should get the same value for the 
+integrals of ``nice'' functions. In particular, all of the previous integration 
+formulas should hold. For instance, it should still be true that: 
+$\int_0^{\pi / 2} \sin(x) \, dx = -\cos(x)|_{0}^{\pi / 2} = 0 - (-1) = 1$
+
+
+\section{The Beginnings of a Lebesgue Theory of Integration}
+
+Riemann integration was all about chopping up the domain of a function into nice 
+pieces and then trying showing that the upper and lower sums of this partition 
+went to zero as the partitions got finer. Basically, approximating the function 
+with step functions.
+
+Let's go the other way, based on the example from the previous section, rather 
+than step functions, let's break up the function in terms of its range. 
+In our case there are only two ``range'' values: 0 and 1. From this we get an 
+analog of Riemann's step functions -- 
+so called characteristic functions of sets:
+
+$\chi_{S} = \begin{cases} 1 \quad \text{if $x \in  S$;} \\ 0 \quad \text{otherwise.} \end{cases}$
+
+Although approximating the function, $f$, from the last section using step 
+functions is hard. It is very easy using characteristic functions -- the complexity 
+is buried in the underlying set, $S$. In our case, we can represent our function *exactly*
+using s linear combination of characteristic functions
+
+$f(x) = \chi_{R}(x) + \chi_{IR}(x)$
+
+Here, $R$ is the set of rationals on the interval, $[0,1]$, $IR$ is the set 
+of irrationals on $[0, 1]$.
+
+To find the area under the curve ``$f(x)$'' we would like to multiply the 
+height by the ``width'' of each of the sets. What might this mean?
+Well we can think of squeezing all of the points of each set so that there are 
+no more holes and then taking the length of the resulting intervals.
+But how do we make sense of this?
+
+One way to measure the length of these complicated sets is to try different 
+collections of intervals (which do have length) over the sets as an upper bound 
+on the length of the set. Taking the infimum of all such ``covers'' we can 
+define the length (or measure) of a given set.
+
+We will call such a measure, the outer-measure. We use the function 
+$\mu^*$ taking sets a producing real values. It is defined by
+
+$\mu^*(S) = \inf_{\{\cup {I_i}\}_{i=1}^\infty} \sum_{i=1}^N {\rm length}(I_i)$
+
+This notion of measure (length) would not be of much use if gave some idea of 
+the length of a set, but gave a different answer than length when applied to an interval.
+It is not hard to show that it does indeed coincide with length on 
+intervals -- and also collection of intervals.
+
+Well what is the outer measure of the set $R$? The claim is that the ``length'' 
+(outer-measure) of the set of rationals on the interval $[0,1]$ is $0$.
+Consider the coverings: $I_(r_i - \frac{1}{\epsilon 2^i}, r_i + \frac{1}{\epsilon 2^i})$. 
+Then for any
+$\epsilon > 0$, $R \subset \cup_{i=1}^\infty I_(r_i - \frac{1}{\epsilon 2^i}, r_i + \frac{1}{\epsilon 2^i})$
+Then $\forall \epsilon: \mu^*(R) \le 2 \epsilon$
+
+Consequently, $\mu^*(R) = 0$. This approach will not work with the irrationals 
+as they are not countable. In fact, any countably infinite cover of the 
+irrationals with intervals must have a total length of at least 1. 
+If not, there would be some open interval that is not covered. But any such open 
+interval must contain an irrational; therefore all covers must have a total length 
+of at least 1. Since the cover $\{(0,1), (-\epsilon, \epsilon), (1 - \epsilon,1 + \epsilon)\}$
+is a cover (for an infinite cover, let all other covers sets be set 
+to $(0,1)$), with total length $1 + 2 \epsilon$.
+Consequently, we see that $\mu^*(IR) = 1$.
+
+With this we can define the Lebesgue interval of the function: 
+$f(x) = \chi_{R}(x) + \chi_{IR}(x)$ over the interval $[0,1]$ can be defined
+as $1 * \mu^*(R) + 0 * \mu^*(IR) = 1 * 0 + 0 * 1 = 0$.
+
+In general, if a function can be written as a linear combination of 
+characteristic functions: $h(x) = \sum_i^N c_i \chi_{E_i}(x)$,j
+then we would define the Lebesgue integral for such functions as:
+
+$\int_a^b h(x) \, dx = \sum_{i=1}^N\limits c_i \mu^*(E_i)$
+
+Going further, we would try to define the Lebesgue integral of an ``arbitrary''
+function as the limit of integrals of approximating functions that
+are a finite linear combinations of characteristic functions.
+
+This is the initial plan. However, there is a problem with this approach. In the next section we 
+provide an aside that describes a potential problem with the outer measure.
+
+
+\section{Outer Measure Aside: Measuring Area in the Real World}
+An entrepreneur 
+wanted to measure surfaces in the wild. He had heard that the 
+ancient Greek mathematician Archimedes measured volumes of non-regular objects 
+by placing them in a water basin. By observing the amount the water rises, he 
+could measure the volume of water displaced and consequently, the volume of the object.
+
+The entrepreneur decided to do the same for measuring surfaces. He found that a 
+certain oil when painted on a surface would accumulate at a fixed depth. By 
+removing the oil (proprietary process) and measuring the volume he could 
+compute the area by dividing by this fixed depth. He called this method the 
+``mu'' method and used the symbology $\mu(C)$ to be his measure of the surface 
+area of an object $C$.
+
+One day a friend of his pulled out his comb from his pocket and asked him to 
+find the surface area. The technique seemed to work find, it registered that 
+the comb was a little more that half the area as the comb's container.
+
+A few days later the friend came by with a new comb. It was actually a comb 
+set, consisting of two combs that fit together perfectly to form a rectangle.
+The teeth of the comb were much finer than the comb from a few days earlier. 
+The retailer said is was much easier to store, you got a finer comb, and you 
+get two combs for almost the price of one that fit in the same carrying case.
+
+The entrepreneur decided to do the same for measuring surfaces. He found that 
+a measured the two combs as they came -- fit together. 
+He found that they had the area of the resulting rectangle.
+He determined the area of this rectangle to be $A$. He then tried each of the 
+combs separately only to find that each of their areas was also $A$!
+It seems that due to the viscosity of the oil and the fine spacing between the 
+teeth of the combs, the oil coating did not penetrate the fine crevasses of the 
+comb, treating it as solid -- consequently, the measure of the area was that of the (enclosing) rectangle.
+
+
+The entrepreneur had to admit that there were limitations to his technique. 
+But how would he describe this limitation? Basically, the entrepreneur wanted to 
+be able to advertise that his measurement method could be used for all objects 
+except he ones that were, say, broken into two pieces with extremely jagged edges.
+
+What he wanted to say is that given an object, $C$ could be $\mu$ measured 
+*if* $C$ was inside another object, $O$ and the following was true:
+
+$\mu(C) + \mu(C^c) = \mu(O)$
+
+Here, $C^c$ is the complementary set inside of $O$.
+
+In some cases, it wasn't clear what the full object consisted of. A better way 
+to describe the limitation was to say that his measurement system was accurate 
+when *any* bounding frame, $X$ containing a set $C$, the measures of $C$ and 
+its complement in $X$ added to the measure of $X$. That is,
+
+$\mu(X) = \mu(X \cap C) + \mu(X \cap C^c)$
+
+Unfortunately, this was not of much help -- in other words, you know the 
+measurements work on reconstruction only after you've done them.
+He stayed with his original caveat that the measurement works when some object has 
+broken as long as they pieces are not too jagged.
+
+
+\section{Back to Outer Measure}
+It turns out that outer measure behaves much like the oil measurement system 
+used in the last section. That is, there are sets, $F$ for which there is at 
+least some, $X$, so that
+$\mu(X) \neq \mu(X \cap F) + \mu(X \cap F^c)$
+
+Sets like, $F$, are too jagged and its measure doesn't add properly.
+
+We say that a set, $C$, is *measurable*
+if for all sets $X$ the following is true:
+
+$\mu(X) = \mu(X \cap C) + \mu(X \cap C^c)$
+
+What we're asking for is that any disjoint pieces constructed using $F$ and 
+its compliment must add up properly.
+
+This property turns out to be important to show that our measure behaves the 
+way one might want. Namely.
+\begin{eqnarray*}
+	\mu^*(A) & = & \sum_{i=1}^N\limits \mu^*(A_i) \quad \text{when} \; A = \mathop{\cup}_{i=1}^N\limits A_i \quad \text{with} \;  A_i \cap A_j = \emptyset \\
+	\mu^*(A) & = & \sum_{i=1}^\infty\limits \mu^*(A_i) \quad \text{when} \; A = \mathop{\cup}_{i=1}^\infty\limits A_i \quad \text{with} \; A_i \cap A_j = \emptyset
+\end{eqnarray*}
+
+That is, the measure of a set that is composed of a bunch of other disjoint 
+sets should be the sum of the measure of the disjoint sets.
+
+And, as you might imagine the solution to determining when one can apply the 
+outer measure effectively boils done to the above two behaviors.
+
+It turns out that if you restrict to measurable sets, 
+then the resulting sets have the property that they are an 
+algebra with respect to unions, intersections and complements. We call 
+these sets measurable sets.
+
+In fact the set of measurable sets is a $\sigma$-algebra:
+The measurable sets are closed under all finite or countably infinite unions, intersections and the complements of these.
+
+When a set, $C$, is known to be measurable we write $\mu(C)$ rather than $\mu^*(C)$.
+
+\section{Conclusion}
+
+The path to creating a definition of a Lebesgue integral proceeds as mentioned 
+in a previous section -- use approximating functions that are finite linear
+combinations of characteristic functions. Such combinations are called simple 
+functions. They take the role that step functions played for the Riemann integral. 
+One way to find such an approximation is by chopping up the range of the function 
+into evenly spaced (if the range is finite) intervals and then looking at the 
+domain values of $f$ that map into this range interval. The set of values in 
+the domain would be a complicated set. But if they are all measurable, then 
+one can create an approximating simple lower bound for the integral of $f$ 
+from simple functions based on these sets. This turns out to work provided -- 
+as you should imagine -- that the ``domain'' sets are measurable. This leads to 
+restricting the integration to functions, $f$, that are ``measurable functions''. 
+It turns out that all the using functions you encountered in first year 
+calculus as well as any piecewise continuous functions are measurable functions. 
+But the set of measurable functions includes functions that are
+not Riemann integrable.
+
+One can also show that the Lebesgue integral coincides with the Riemann integral 
+for ``nice'' functions.
+
+Finally, from this theory one does indeed have less stringent convergence 
+criterion than with Riemann integration.
+
+It should be noted that there is an analogy between Riemann and Lebesgue integration 
+and the Rational and the Real number systems. In the same way that the Real number 
+system ``completes'' the Rational number system. The Lebesgue integration theory ``completes''
+the Riemann theory. In fact, with the Lebesgue theory one can create function 
+spaces with a metric that makes them ``complete'' in the same sense as Real 
+numbers; namely, Cauchy sequences always converge in that space. 
+The function space $L_2$ consisting of
+all functions $f$, and $g$ (say over the interval $[0,1]$) that satisfy:
+
+\begin{eqnarray}
+\int_0^1 f^2(x) \, dx < \infty
+\end{eqnarray}
+
+Here, the integral is the Lebesgue integral. This space also has an inner 
+product defined by
+
+\begin{eqnarray}
+\langle f, g \rangle \; \equiv \; \int_0^1 f(x)\, g(x)\, dx
+\end{eqnarray}
+
+And since it is a complete space, it is what is known as a Hilbert space.
+
+Technically, this space does not consist of functions, it consists of 
+equivalence classes of functions having the property
+that they are identical except possibly on a set of measure $0$.
+
+If this seems strange to you, it shouldn't. The rational numbers are strictly 
+speaking equivalence classes of integer pairs.
+For instance, the fraction 1/2 is the equivalence class (set) of pairs of 
+integers: \{(1,2), (2,4), (3, 6), (4,8), \ldots \}.
+To be equivalent, any two pairs, (a, b) and (c, d) must satisfy: a * d = b * c.
+
+In the same way, the real number $1$ is not the integer $1$, it is an equivalence 
+class; namely, the set of all Cauchy sequences that converge to the integer 
+$1$ -- the simplest of which is the sequence: $1, 1, 1, 1\ldots$ .
+
+
+\end{document}
+
