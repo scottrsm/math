@@ -23,6 +23,8 @@ In any event the corresponding pdf's are in the directory **pdf/**.
     - This is almost always introduced by the formula rather than what it means.
 - Why is Matrix Multiplication the way it is: **tex**/why_matrix_mult.tex.
     - We motivate this by solving the natural generalization of: $$a * x = b$$.
+- Why do we need Lebesgue integration: **tex**/why_lebesgue_integration.tex.
+    - We make an analogy with a "real world" system for measuring the surface area of irregular surfaces.
 - Where does the "dot-product" come from: **tex**/inner_prod_from_projection.tex.
     - We give an alternative derivation of the dot product and how its generalization
       can be seen as a kind of software factorization.
@@ -44,6 +46,6 @@ In any event the corresponding pdf's are in the directory **pdf/**.
       with ${m < n}$ there are only add-hoc procedures. In this paper we provide a systematic way to compute
       the probability distributions for such singular transformations.
 
-#### Version 1.4.8
+#### Version 1.4.9
 
 
