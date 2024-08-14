@@ -4,7 +4,7 @@
 
 \title{Why Lebesgue Integration}
 \author{R. Scott McIntire}
-\date{Aug 13, 2024}
+\date{Aug 14, 2024}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -413,8 +413,19 @@ product defined by
 \end{eqnarray}
 
 And since it is a complete space, it is what is known as a Hilbert space.
+A Hilbert space is a vector space with an inner product that is complete with 
+respect to this metric. That is, Cauchy sequences converge to an element in this
+space, just like they do for the finite dimensional Hilbert spaces: $R, R^2, R^3, \ldots$.
+And, much of the behavior of the function space, $L_2$ is replicated from 
+the finite dimensional $R^n$ spaces. This wouldn't be the case if we used
+the Riemann integral for the inner product/metric. It would be like
+working with the vector spaces $Q, Q^1, Q^2, \ldots$, where $Q$ is the set 
+of rational numbers. The vector properties would be there, but not 
+the important analytic properties -- and the notion of perpendicularity would
+have problems.
 
-Technically, this space does not consist of functions, it consists of 
+We should mention that, technically, the function space $L_2$ does  does not 
+consist of functions, it consists of 
 equivalence classes of functions having the property
 that they are identical except possibly on a set of measure $0$.
 
