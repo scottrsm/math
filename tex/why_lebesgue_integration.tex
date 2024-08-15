@@ -196,13 +196,13 @@ $\int_0^{\pi / 2} \sin(x) \, dx = -\cos(x)|_{0}^{\pi / 2} = 0 - (-1) = 1$
 
 \section{The Beginnings of a Lebesgue Theory of Integration}
 
-Riemann integration was all about chopping up the *Domain* of a function into nice 
+Riemann integration was all about chopping up the {\em Domain} of a function into nice 
 pieces and then showing that the upper and lower Darboux sums of a partition 
 went to zero as the partition was refined. Basically, approximating the function 
 with step functions.
 
 Let's go the other way, based on the example from the previous section, rather 
-than step functions, let's break up the function in terms of its *Range*. 
+than step functions, let's break up the function in terms of its {\em Range}. 
 In our case there are only two ``Range'' values: $0$ and $1$. From this we get an 
 analog of Riemann's step functions -- 
 so called characteristic functions of sets:
@@ -211,7 +211,7 @@ $\chi_{S} = \begin{cases} 1 \quad \text{if $x \in  S$;} \\ 0 \quad \text{otherwi
 
 Although approximating the function, $f$, from the last section using step 
 functions is unpleasant, it is very easy using characteristic functions -- the complexity 
-is buried in the underlying set, $S$. In our case, we can represent our function *exactly*
+is buried in the underlying set, $S$. In our case, we can represent our function {\em exactly}
 using a linear combination of characteristic functions:
 
 $f(x) = \chi_{R}(x) + \chi_{IR}(x)$
@@ -229,7 +229,7 @@ One way to measure the length of these complicated sets is to try different ``co
 of a set by collections of intervals.
 As we know how to measure the length of an interval, the "length" of an arbitrary set 
 would be the infimum of the sum of the lengths over all such coverings.
-We call this "length" the *Lebesgue outer measure*. It is defined more precisely by:
+We call this "length" the {\em Lebesgue outer measure}. It is defined more precisely by:
 
 \begin{eqnarray}
 	\mu^*(S) & = & \inf_{\{\cup {I_i}\}_{i=1}^\infty} \sum_{i=1}^\infty {\rm length}(I_i)
@@ -321,7 +321,7 @@ be able to advertise that his measurement method could be used for all ``reasona
 Exceptions would be objects that needed restoration that were broken into two pieces with extremely jagged edges.
 
 What he wanted to say is that given an object, $C$ could be $\mu$ measured 
-*if* $C$ was inside another object, $O$ and the following was true:
+{\em if} $C$ was inside another object, $O$ and the following was true:
 
 $\mu(C) + \mu(C^c) = \mu(O)$
 
@@ -329,7 +329,7 @@ Here, $C^c$ is the complementary set inside of $O$.
 
 In some cases, it wasn't clear what the full object consisted of. A better way 
 to describe the limitation was to say that his measurement system was accurate 
-when *any* bounding frame, $X$ containing a set $C$, the measures of $C$ and 
+when {\em any} bounding frame, $X$ containing a set $C$, the measures of $C$ and 
 its complement in $X$ added to the measure of $X$. That is,
 
 $\mu(X) = \mu(X \cap C) + \mu(X \cap C^c)$
@@ -348,7 +348,7 @@ $\mu^*(X) \neq \mu^*(X \cap C) + \mu^*(X \cap C^c)$
 
 Sets like, $C$, are too jagged and its measure doesn't add properly.
 
-We say that a set, $C$, is *measurable*
+We say that a set, $C$, is {\em measurable}
 if for all sets $X$ the following is true:
 \begin{eqnarray}
 	\mu*(X) & = & \mu^*(X \cap C) + \mu^*(X \cap C^c) \label{Carthy}
@@ -439,7 +439,7 @@ product defined, for two functions $f, g \in L_2$ by
 \langle f, g \rangle \; \equiv \; \int_0^1 f(x)\, g(x)\, dx
 \end{eqnarray}
 
-And since it is a complete space, it is what is known as a *Hilbert space*.
+And since it is a complete space, it is what is known as a {\em Hilbert Space}.
 A Hilbert space is a vector space with an inner product that is complete with 
 respect to the metric induced from its inner product. 
 That is, Cauchy sequences converge to an element in this
