@@ -381,8 +381,8 @@ potentially more difficult to use later in practice.
 So, given this that we restrict ourselves to these measurable sets it turns out that
 the measure behaves in the way one might want. Namely.
 \begin{eqnarray*}
-	\mu^*(A) & = & \sum_{i=1}^N\limits \mu^*(A_i) \quad \text{when} \; A = \mathop{\cup}_{i=1}^N\limits A_i \quad \text{with} \;  A_i \cap A_j = \emptyset \\
-	\mu^*(A) & = & \sum_{i=1}^\infty\limits \mu^*(A_i) \quad \text{when} \; A = \mathop{\cup}_{i=1}^\infty\limits A_i \quad \text{with} \; A_i \cap A_j = \emptyset
+	\mu^*(A) & = & \sum_{i=1}^N\limits \mu^*(A_i) \quad \text{when} \; A = \mathop{\cup}_{i=1}^N\limits A_i \quad \text{with} \;  A_i \cap A_j = \emptyset \quad \text{if} \; i \neq j \\
+	\mu^*(A) & = & \sum_{i=1}^\infty\limits \mu^*(A_i) \quad \text{when} \; A = \mathop{\cup}_{i=1}^\infty\limits A_i \quad \text{with} \; A_i \cap A_j = \emptyset \quad \text{if} \; i \neq j
 \end{eqnarray*}
 
 That is, the measure of a set that is composed of a bunch of other disjoint 
