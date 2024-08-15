@@ -20,17 +20,17 @@
 
 \section{Better Riemann Integration Convergence Theorems}
 Suppose the sequence of functions, $f_n$, converge point-wise to a function $f$.
-We wish to find are minimal conditions to place on $f_n$ so that the following occurs:
+We wish to find minimal conditions to place on $f_n$ so that the following occurs:
 
 \begin{eqnarray}
 	\lim_{n \rightarrow \infty}\limits \int f_n(x) \, dx & = & \int \lim_{n \rightarrow \infty}\limits f_n(x) \, dx \label{theorem}
 \end{eqnarray}
 
 Like any good technology this simplifies the work of mathematicians 
-and applied scientists. For instance, suppose the $f_n$ converges to $f$ 
-which is the zero function. Also suppose that is difficult or impossible to 
+and applied scientists. For instance, suppose the $f_n$ converges to the function $f$ 
+which is the zero function. Also suppose that it is difficult or impossible to 
 find an analytic expression for some, most, or all of the integrals of $f_n$. 
-An improved convergence theorem could help us to conclude that the limit of the integral of 
+An improved convergence theorem could help us to conclude that the limit of the integrals of 
 the functions is just $0$ without ever having to attempt the integrations; or, 
 derive upper bounds on the integrals to show that 
 the sequence of integrals goes to $0$.
@@ -40,14 +40,15 @@ uniformly to $f$ on a close bounded interval.
 But this rarely happens in many real world examples and you can imagine that
 mathematicians back in the day
 were getting complaints about such restrictive 
-conditions. They say that many times they don't have this and yet $(\ref{theorem})$
+conditions. They say that many times they don't have this strong condition and yet $(\ref{theorem})$
 holds. Unfortunately, other times it does not. So it seems that there are 
 conditions less rigid than uniform convergence of the sequence of 
 functions which allow $(\ref{theorem})$ to hold.
 The applied people and other mathematicians want better convergence theorems.
 
 There are better theorems and they come from a different kind of integration called 
-the Lebesgue theory of integration.
+the Lebesgue ({\em measure}) Theory of Integration.
+
 Let's stick with Riemann integrals and see if we can find better convergence 
 criterion.
 
@@ -58,14 +59,15 @@ Let's look for an example where things fail; that is, where
 a sequence of functions leads to a function for which we ``loose control'' 
 constraining the upper and lower bounds of the sub-intervals in a way that the 
 convergence theorem fails. Then we might see what we need to add/impose 
--- in terms of conditions -- on the sequence to make the theorem true.
+-- in terms of conditions -- on the sequence to make theorem 
+$(\ref{theorem})$ true.
 
 Since we are using Riemann functions, 
 let's start with discontinuous functions 
 and see what can go wrong -- this should be easier. This will also free us from 
 trying to make complicated continuous functions that behave badly in the limit.
 
-We restrict functions to the domain $[0, 1]$.
+We restrict ourselves to functions in the domain $[0, 1]$.
 Consider the following sequence of functions: 
 
 \begin{eqnarray}
@@ -96,7 +98,7 @@ We know we can do this as the rationals are countable.
 
 Consider the sets, $\{E_{i,n}\}$, defined by:
 
-$E_{i,n} = \left[r_i - \frac{1}{n 2^{-i}}, r_i + \frac{1}{n2^{-i}}\right]$
+$E_{i,n} = \left[r_i - \frac{1}{n 2^{-i}}, r_i + \frac{1}{n 2^{-i}}\right]$
 
 A given rational number lies in potentially many of the $E_{i,n}$.
 
@@ -119,7 +121,7 @@ Finally, define, $g_n$ by
 	g_{n}(x) & = & \sum_{i=1}^\infty\limits S_{i}(x) I_{E_{i,n}}(x)
 \end{eqnarray}
 
-It is easy to see that each $g_n$ is a representation of the function $f$; 
+It is easy to see that each $g_n$ is a {\em representation} of the function $f$; 
 that is, $f \equiv g_n$.
 
 Note the following facts:
