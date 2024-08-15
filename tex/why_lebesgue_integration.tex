@@ -363,9 +363,18 @@ is the least you expect/need with a new integration theory.
 But why all the fuss about the intersection with "any set $X$".
 Well we could remove $X$ from this definition, but the definition would be 
 meaningless if the ambient space we are dealing with is unbounded. For instance,
-when working with functions on $R$. The complement of a bounded set will end 
-up having infinite length and then $(\ref{Carthy})$ would be the statement: 
-$\infty = \text{Finite value} + \infty$.
+when working with functions on $R$, the complement of a bounded set will have 
+infinite length and then $(\ref{Carthy})$ would be the statement: 
+$\infty = \text{"Finite value"} + \infty$.
+This is a useless statement. What we want to say, just like the combs from the
+previous section, is that the measure of $C$ added with the measure of its 
+"natural complement" gives back the measure of the bounding box -- like the rectangular
+container of the combs. Without some restriction, the compliment is an infinite set.
+The problem then becomes: "What is the "natural" bounding box for the set $C$"?
+We get around that problem by requiring that it be true for all bounding boxes.
+And then realizing that the "box" doesn't have to be bounded, we remove that restriction.
+This leaves a clean unambiguous definition for the measure of a set. But also makes it,
+potentially more difficult to use later in practice.
  
 So, given this that we restrict ourselves to these measurable sets it turns out that
 the measure behaves in the way one might want. Namely.
