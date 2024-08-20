@@ -22,6 +22,7 @@
 Suppose the sequence of functions, $f_n$, converge point-wise to a function $f$.
 We wish to find minimal conditions to place on $f_n$ so that the following occurs:
 
+{\bf Theorem?}
 \begin{eqnarray}
 	\lim_{n \rightarrow \infty}\limits \int f_n(x) \, dx & = & \int \lim_{n \rightarrow \infty}\limits f_n(x) \, dx \label{theorem}
 \end{eqnarray}
@@ -47,7 +48,7 @@ functions which allow $(\ref{theorem})$ to hold.
 The applied people and other mathematicians want better convergence theorems.
 
 There are better theorems and they come from a different kind of integration called 
-the Lebesgue ({\em measure}) Theory of Integration.
+the Lebesgue ({\em measure\/}) Theory of Integration.
 
 Let's stick with Riemann integrals and see if we can find better convergence 
 criterion.
@@ -89,9 +90,13 @@ What can we say about the limit of the integrals of $f_n$?
 Well, each $f_n$ is non-zero at a finite number of points so its integral is $0$.
 Therefore the limit of integrals is $0$.
 
-What about the integral of $f$?
-
-We will construct a sequence of functions $g_n$ which represent $f$ in a different way.
+What about the integral of $f$? We will show that this integral is bounded above
+and below by $0$; meaning that the integral is $0$. The below part is obvious. 
+For the upper bound one usually creates a sequence of functions which bound $f$ 
+from above and yet as you move out in the sequence their integrals go to $0$.
+We will do something a little different. We instead  
+construct a sequence of functions $g_n$ which {\em represent\/} $f$ 
+in increasing refined ways whose integrals are more amenable to estimation from above.
 
 First, let $\{r_i\}$ be a 1-1 mapping of the positive integers to the rationals.
 We know we can do this as the rationals are countable. 
@@ -121,21 +126,21 @@ Finally, define, $g_n$ by
 	g_{n}(x) & = & \sum_{i=1}^\infty\limits S_{i}(x) I_{E_{i,n}}(x)
 \end{eqnarray}
 
-It is easy to see that each $g_n$ is a {\em representation} of the function $f$; 
+It is easy to see that each $g_n$ is a {\em representation\/} of the function $f$; 
 that is, $f \equiv g_n$.
 
 Note the following facts:
 \begin{eqnarray*}
-  \int_0^1 S_{i}(x) I_{E_{i,n}}(x)\, dx \le \overbrace{1}^{\text{Max Height}} * \overbrace{2\frac{1}{n2^{i}}}^{\text{Width of $E_{i,n}$}} = \frac{1}{n2^{i-1}}
-  \sum_{i=1}^\infty \int_0^1 S_{i}(x) I_{E_{i,n}}(x)\, dx & \le i & \sum_{i=1}^\infty\limits \frac{1}{n2^{i-1}}  \\ 
-															 & =  & \frac{2}{n} \sum_{i=1}^\infty\limits \frac{1}{2^{i}} \\
-															 & =  & \frac{2}{n}
+	\int_0^1 S_{i}(x) I_{E_{i,n}}(x)\, dx \le \overbrace{1}^{\text{Max Height}} * \overbrace{2\frac{1}{n2^{i}}}^{\text{Width of $E_{i,n}$}} 
+														  & = & \frac{1}{n2^{i-1}} \\
+  \sum_{i=1}^\infty \int_0^1 S_{i}(x) I_{E_{i,n}}(x)\, dx & \le & \sum_{i=1}^\infty\limits \frac{1}{n2^{i-1}}  \\ 
+														  & =  & \frac{2}{n} \sum_{i=1}^\infty\limits \frac{1}{2^{i}} \\
+													  	  & =  & \frac{2}{n}
  \end{eqnarray*}
 
 What does this say about the integral of $f$? 
-This means that $\forall n$: 
 
-Given a partition of the interval, $[0,1]$, we can bound the integral of $f$ 
+Therefore, given an $n \in {\cal N}^+$m for any partition of the interval, $[0,1]$, we can bound the integral of $f$ 
 (assuming it is Riemann integrable) by
 \begin{eqnarray*}
 	\int_0^1 f(x) \, dx & =   & \int_0^1 g_{n}(x) \, dx \\
@@ -165,13 +170,14 @@ over any sub-interval of the sums the minimum (infimum) value is always 0 and
 the maximum (supremum) is always 1 -- because on any interval there is always a 
 rational and an irrational number.
 
-Yet the above analysis suggests that the integral should exist and its value 
+Yet the above analysis suggests that its ``integral'' should exist and its value 
 should be $0$.
 
-
-You may also ask: ``What I really want is to have a theorem for a sequence of 
+Some might respond to the above argument saying:  
+``What I really want is to have a theorem for a sequence of 
 'nice functions'. I don't care that you have found Riemann integrable functions that
 don't converge to a Riemann Integrable function''. 
+
 It turns out; however, that there are sequences of nice functions that converge 
 to a non-Riemann integrable function as well!
 
@@ -183,9 +189,10 @@ This situation is similar to one that you would find yourself in if there were
 only rational numbers in your worldview. Let's say that at some point 
 you discover an iterative 
 algorithm to solve a problem for which there is no easy analytic formula. 
-For instance, Newton's method is such an example. Imagine coming up with a sequence 
+Newton's method is such an algorithm. Imagine coming up with a sequence of {\em numbers\/}
 based on Newton's method to find the $\sqrt{x}$. How would you formalize what 
-it means for your sequence to converge -- particularly when $x = 2$?
+it means for your sequence to converge -- particularly when $x = 2$; that is, when the
+square root of $2$ doesn't exist in your world?
 
 This suggests that we try a different approach to integration before we even
 begin to think of better convergence theorems. 
@@ -194,17 +201,19 @@ However, whatever we come up with, we should get the same value for the
 integrals of ``nice'' functions. In particular, all of the previous integration 
 formulas should hold. For instance, it should still be true that: 
 $\int_0^{\pi / 2} \sin(x) \, dx = -\cos(x)|_{0}^{\pi / 2} = 0 - (-1) = 1$
+In other words, we don't want to lose the connection between differential and
+integral calculus.
 
 
 \section{The Beginnings of a Lebesgue Theory of Integration}
 
-Riemann integration was all about chopping up the {\em Domain} of a function into nice 
+Riemann integration was all about chopping up the {\em Domain\/} of a function into nice 
 pieces and then showing that the upper and lower Darboux sums of a partition 
 went to zero as the partition was refined. Basically, approximating the function 
 with step functions.
 
 Let's go the other way, based on the example from the previous section, rather 
-than step functions, let's break up the function in terms of its {\em Range}. 
+than step functions, let's break up the function in terms of its {\em Range\/}. 
 In our case there are only two ``Range'' values: $0$ and $1$. From this we get an 
 analog of Riemann's step functions -- 
 so called characteristic functions of sets:
@@ -213,7 +222,7 @@ $\chi_{S} = \begin{cases} 1 \quad \text{if $x \in  S$;} \\ 0 \quad \text{otherwi
 
 Although approximating the function, $f$, from the last section using step 
 functions is unpleasant, it is very easy using characteristic functions -- the complexity 
-is buried in the underlying set, $S$. In our case, we can represent our function {\em exactly}
+is buried in the underlying set, $S$. In our case, we can represent our function {\em exactly\/}
 using a linear combination of characteristic functions:
 
 $f(x) = \chi_{R}(x) + \chi_{IR}(x)$
@@ -221,7 +230,7 @@ $f(x) = \chi_{R}(x) + \chi_{IR}(x)$
 Here, $R$ is the set of rationals on the interval, $[0,1]$, $IR$ is the set 
 of irrationals on $[0, 1]$.
 
-To find the "area" under the curve ``$f(x)$'' we would like to multiply the 
+To find the ``area'' under the curve ``$f(x)$'' we would like to multiply the 
 height by the ``width'' of each of the sets. What might this mean?
 Well we can think of squeezing all of the points of each set so that there are 
 no more holes and then taking the length of the resulting intervals.
@@ -229,9 +238,9 @@ But how do we make sense of this?
 
 One way to measure the length of these complicated sets is to try different ``coverings'' 
 of a set by collections of intervals.
-As we know how to measure the length of an interval, the "length" of an arbitrary set 
+As we know how to measure the length of an interval, the ``length'' of an arbitrary set 
 would be the infimum of the sum of the lengths over all such coverings.
-We call this "length" the {\em Lebesgue outer measure}. It is defined more precisely by:
+We call this ``length'' the {\em Lebesgue outer measure\/}. It is defined more precisely by:
 
 \begin{eqnarray}
 	\mu^*(S) & = & \inf_{\{\cup {I_i}\}_{i=1}^\infty} \sum_{i=1}^\infty {\rm length}(I_i)
@@ -323,7 +332,7 @@ be able to advertise that his measurement method could be used for all ``reasona
 Exceptions would be objects that needed restoration that were broken into two pieces with extremely jagged edges.
 
 What he wanted to say is that given an object, $C$ could be $\mu$ measured 
-{\em if} $C$ was inside another object, $O$ and the following was true:
+{\em if\/} $C$ was inside another object, $O$ and the following was true:
 
 $\mu(C) + \mu(C^c) = \mu(O)$
 
@@ -331,7 +340,7 @@ Here, $C^c$ is the complementary set inside of $O$.
 
 In some cases, it wasn't clear what the full object consisted of. A better way 
 to describe the limitation was to say that his measurement system was accurate 
-when {\em any} bounding frame, $X$ containing a set $C$, the measures of $C$ and 
+when {\em any\/} bounding frame, $X$ containing a set $C$, the measures of $C$ and 
 its complement in $X$ added to the measure of $X$. That is,
 
 $\mu(X) = \mu(X \cap C) + \mu(X \cap C^c)$
@@ -339,7 +348,7 @@ $\mu(X) = \mu(X \cap C) + \mu(X \cap C^c)$
 Unfortunately, this was not of much help -- in other words, you know the 
 measurements work on reconstruction only after you've done them.
 He stayed with his original caveat that the measurement works when some object has 
-broken as long as they pieces are not "too" jagged.
+broken as long as they pieces are not ``too'' jagged.
 
 
 \section{Back to Outer Measure}
@@ -350,7 +359,7 @@ $\mu^*(X) \neq \mu^*(X \cap C) + \mu^*(X \cap C^c)$
 
 Sets like, $C$, are too jagged and its measure doesn't add properly.
 
-We say that a set, $C$, is {\em measurable}
+We say that a set, $C$, is {\em measurable\/}
 if for all sets $X$ the following is true:
 \begin{eqnarray}
 	\mu*(X) & = & \mu^*(X \cap C) + \mu^*(X \cap C^c) \label{Carthy}
@@ -358,23 +367,23 @@ if for all sets $X$ the following is true:
 
 What we're asking for is that any disjoint pieces constructed using $C$ and 
 its compliment must add up properly. When you think about this statement it
-seems clear that we very much need the "lengths" of sets and their compliments
+seems clear that we very much need the ``lengths'' of sets and their compliments
 to add properly before we go any further with an integration theory -- this 
 is the least you expect/need with a new integration theory.
 
-But why all the fuss about the intersection with "any set $X$".
+But why all the fuss about the intersection with ``any set $X$''.
 Well we could remove $X$ from this definition, but the definition would be 
 meaningless if the ambient space we are dealing with is unbounded. For instance,
 when working with functions on $R$, the complement of a bounded set will have 
 infinite length and then $(\ref{Carthy})$ would be the statement: 
-$\infty = \text{"Finite value"} + \infty$.
+$\infty = \text{``Finite value''} + \infty$.
 This is a useless statement. What we want to say, just like the combs from the
 previous section, is that the measure of $C$ added with the measure of its 
-"natural complement" gives back the measure of the bounding box -- like the rectangular
+``natural complement'' gives back the measure of the bounding box -- like the rectangular
 container of the combs. Without some restriction, the compliment is an infinite set.
-The problem then becomes: "What is the "natural" bounding box for the set $C$"?
+The problem then becomes: ``What is the 'natural' bounding box for the set $C$''?
 We get around that problem by requiring that it be true for all bounding boxes.
-And then realizing that the "box" doesn't have to be bounded, we remove that restriction.
+And then realizing that the ``box'' doesn't have to be bounded, we remove that restriction.
 This leaves a clean unambiguous definition for the measure of a set. But also makes it,
 potentially more difficult to use later in practice.
  
@@ -425,10 +434,10 @@ One can also show that the Lebesgue integral coincides with the Riemann integral
 for ``nice'' functions.
 
 Finally, from this theory one does indeed have less stringent convergence 
-criterion than with Riemann integration that doesn't depend on "uniform" convergence.
+criterion than with Riemann integration that doesn't depend on ``uniform'' convergence.
 In fact, essentially, you get a convergence theorem that requires only that a sequence
 of functions converge point-wise to a function and that the sequence of functions 
-are "dominated" -- bounded above -- by a Lebesgue integrable function.
+are ``dominated'' -- bounded above -- by a Lebesgue integrable function.
 
 It should be noted that there is an analogy between Riemann and Lebesgue integration 
 and the Rational and the Real number systems. In the same way that the Real number 
@@ -450,7 +459,7 @@ product defined, for two functions $f, g \in L_2$ by
 \langle f, g \rangle \; \equiv \; \int_0^1 f(x)\, g(x)\, dx
 \end{eqnarray}
 
-And since it is a complete space, it is what is known as a {\em Hilbert Space}.
+And since it is a complete space, it is what is known as a {\em Hilbert Space\/}.
 A Hilbert space is a vector space with an inner product that is complete with 
 respect to the metric induced from its inner product. 
 That is, Cauchy sequences converge to an element in this
