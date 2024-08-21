@@ -1,9 +1,9 @@
 # math
 ## Mathematical Educational Papers and Conjectures
 
-**NOTE:** Some of the papers are written in ${\LaTeX\/}$ and others are written in ${\TeX\/}$.
+**NOTE:** Some of the papers are written in ${\LaTeX}$ and others are written in ${\TeX}$.
 
-(The ${\TeX\/}$ papers have an "input macro" statement at the beginning of their files.)
+(The ${\TeX}$ papers have an "input macro" statement at the beginning of their files.)
 
 In any event the corresponding pdf's are in the directory **pdf/**.
 
@@ -47,6 +47,6 @@ In any event the corresponding pdf's are in the directory **pdf/**.
       with ${m < n}$ there are only add-hoc procedures. In this paper we provide a systematic way to compute
       the probability distributions for such singular transformations.
 
-#### Version 1.4.20
+#### Version 1.4.21
 
 
