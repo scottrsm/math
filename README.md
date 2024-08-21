@@ -1,9 +1,9 @@
 # math
 ## Mathematical Educational Papers and Conjectures
 
-**NOTE:** Some of the papers are written in ${\LaTeX}$ and others are written in ${\TeX}$.
+**NOTE:** Some of the papers are written in ${\LaTeX\/}$ and others are written in ${\TeX\/}$.
 
-(The ${\TeX}$ papers have an "input macro" statement at the beginning of their files.)
+(The ${\TeX\/}$ papers have an "input macro" statement at the beginning of their files.)
 
 In any event the corresponding pdf's are in the directory **pdf/**.
 
@@ -24,7 +24,8 @@ In any event the corresponding pdf's are in the directory **pdf/**.
 - Why is Matrix Multiplication the way it is: **tex**/why_matrix_mult.tex.
     - We motivate this by solving the natural generalization of: $$a * x = b$$.
 - Why do we need Lebesgue integration: **tex**/why_lebesgue_integration.tex.
-    - We make an analogy with a "real world" system for measuring the surface area of irregular surfaces.
+    - We motivate the Lebesgue Integrals by way of looking for better convergence theorems for Riemann Integrals.
+    - Along the way we make an analogy with a "real world" system for measuring the surface area of irregular surfaces.
 - Where does the "dot-product" come from: **tex**/inner_prod_from_projection.tex.
     - We give an alternative derivation of the dot product and how its generalization
       can be seen as a kind of software factorization.
@@ -46,6 +47,6 @@ In any event the corresponding pdf's are in the directory **pdf/**.
       with ${m < n}$ there are only add-hoc procedures. In this paper we provide a systematic way to compute
       the probability distributions for such singular transformations.
 
-#### Version 1.4.19
+#### Version 1.4.20
 
 
