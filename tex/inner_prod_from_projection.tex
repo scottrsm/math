@@ -14,7 +14,10 @@
 
 \title{Where does the Dot Product Come From?}
 \author{R. Scott McIntire}
-\date{Aug 1, 2023}
+\date{Aug 24, 2024}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{DD}{Def}
 
 \begin{document}
 
@@ -23,32 +26,79 @@
 \section{Overview}
 One of the fundamental pieces of linear algebra is a bilinear function
 called the ``dot-product'' It is an important work horse, but where does
-it come from? Please don't tell me what it is and how to compute it.
+it come from? Please don't give me a definition and tell me how to compute it.
 I would like to know how it came to be; or, at least, how might one
 have thought of it. The rest of this paper tries to do just that.
 
 \section{ Vectors, Distance Relationships, and Projections}
-Let's start with the real line and solve a simple problem. If a car starts at 
-point $p_0$ on the real line and moves at a velocity of $v$ when will the car 
-reach the point $p_1$?
-
+Let's start with the real line and solve a simple problem. 
+If a car starts at 
+point $p$ on the real line and moves at a velocity of $v$ when will the car 
+reach the point $q$? We assume that this problem is non-trivial:
+\begin{itemize}
+	\item{$v \ne 0$.}
+	\item{$p \ne q$.}
+\end{itemize}
 
 That is, find a $t^*$ so that
-$$ p_0 + t^* v = p_1$$
+$$ p + t^* v = q$$
 So $t^*$ satisfies:
-$$ t^* \, v = p_1 - p_0$$
-Note: we can interpret this last equation as shifting the starting point 
-to $0$ and then solving for $t^*$.
+$$ t^* \, v = q - p$$
 
-Since $v$ is a number we can divide and solve for 
+Since $v$ is a (non-zero) number we can divide and solve for 
 $t^*$:%\footnote{Note: $t^*$ can be negative.}
-$$ t^* = \frac{p_1 - p_0}{v} $$
+\be
+	t^* & = & \frac{q - p}{v} \label{closest_1}
+\ee
+This is the solution {\em provided\/} 
+$t^*$ is not negative.
 
-This is the solution {\em provided\/} $v$ is not $0$.
+In other words, there is no solution if the car is not 
+moving towards $q$.
 
-A vector is just a list of numbers. A first use case is to represent points 
-in 2 and 3 dimensional space, but there are a lot of applications where the 
-list of numbers is larger than 2 or 3. Keeping with the car example, a more 
+We note, however, in this simple example that there is an answer to the question:
+"What is the closest point to $q$ that the car can get to?"
+The answer is $q$ when the car moves towards $q$ at a non-zero velocity; otherwise,
+it is $p$.
+
+We now look at the same problem in 2-dimensions. Points in two dimensions 
+are described by a point in a plane which can be represented as a pair of 
+two real numbers, $(x, y)$. More generally, one can describe a point in 3-dimensions
+by a triple of numbers, $(x, y, z)$. Our plan is to try and examine the "car"
+problem in high dimensions and look for a pattern. We will even look beyond
+three dimensions!
+
+e now try to mimic the ``car'' argument we had in 1-dimension. But we first 
+note that to mimic it more consistently, we should have some way of adding/subtracting
+points(tuples) and the ability to divide by {\em numbers\/}.
+
+We do this by replacing our ``tuple'' notation of $(x,y)$ with the {\em vector\/}
+notation: $[x, y]$. Either way using tuple or vector notation is really
+a way to represent an ordered set of numbers. We will use the vector notation
+because that is what mathematicians use. 
+
+We also want to simplify the number of names we use, this is especially useful
+when looking at dimensions beyond 3. We will use bold font, ${\bf x}$, to mean 
+a vector (for now in 2 dimensions) whose components are: $x_1, x_2$.
+But to mimic the 1-dimensional argument
+we need to know how to add/subtract vectors and how to ``stretch`` a vector with 
+multiplication by a number. We will use the name that mathematicians use for number -- {\em scalar\/}.
+But this is something we learn in high school -- we simply add/subtract the components 
+and for multiplication by numbers we just multiple each component separately.
+We generalize this from 2 or 3 dimensions so that vectors may represent $n$ dimensions.
+All this means is that a vector is an ordered set of numbers of a specific length.
+Here is the formal definition of how to add/subtract them and multiply them by scalars.
+{\begin{theorem}{Let ${\bf x}, {\bf y}$ be vectors and let $a$ be a number.
+		We define vector addition and scalar multiplication as:}
+\end{theorem}
+\be
+	{\bf x} + {\bf y} & \equiv & [x_1 + y_1,\, x_2 + y_2 ] \\
+	a * {\bf x} & \equiv & [a x_1, \, a y_1]
+\ee
+We drop the '*' operator when multiplying a vector by a number -- just as
+we do in algebra, writing: $a\, x$ instead of $a * x$.
+
+Keeping with the ``car'' example, a more 
 realistic problem would be to drive on a surface -- in two dimensions -- and 
 solve the problem above. To do so, we need a way to multiply a 
 number (time), $t$, with a velocity vector, representing both a speed and 
@@ -58,64 +108,45 @@ Over time, $t$, the path swept out, or {\em spanned\/} by the car is a
 line in two dimensional space: 
 $L = \{{\bf p} + t \, {\bf v} \, | \, t \in R\}$.
 
-We need to define what addition between two vectors is and what scalar 
-multiplication is in 2-D space. We define it for the more general case 
-of $n$ dimensional space as the idea is the same. We consider the space of 
-$n$ dimensional vectors as the collection of all lists of numbers of 
-length $n$. Every element from this space, $p$,
-will be written ${\bf p} = [p_1, p_2, \ldots, p_n]$.
-We consider this notation as not just a set of numbers but a set with order. 
-That is, the vector [1,2] is different from the vector [2,1].
-
-${\bf Def}$: Let ${\bf u}$ and ${\bf v}$ be two vectors in n-dimensional space. 
-Vector addition is defined as a function of the form: 
-${\rm vadd}(R^n, R^n) \mapsto R^n$. 
-
-We use the ``infix'' form of this function using the more 
-recognizable symbol ``+'' to define this operation as
-$$ ({\bf u} + {\bf v})_i \equiv u_i + v_i \quad \forall i \in [1,n]$$
-Scalar multiplication is defined as a function of the form: 
-${\rm smul}(\lambda, R^n) \mapsto R^n$. 
-
-We use the ``infix'' form of this function using
-the recognizable symbol ``*'' to define this operation as:
-$$ (\lambda * {\bf u})_i \equiv \lambda \, u_i \quad \forall i \in [1,n]$$
-
-Going forward, we will use the proximity of scalar, 
-$\lambda$ with a vector, ${\bf u}$ to mean scalar multiplication just as we 
-do with variables representing numbers.
-
 These definitions make sense in that the new position of a ``car'' after time 
-$t$ when starting at position ${\bf p}_0$ is determined by taking each of the 
+$t$ when starting at position ${\bf p}$ is determined by taking each of the 
 component positions and adjusting them by adding ${\bf t}$ times the 
 corresponding velocity component.
 
 You can think of the line as the collection of points a car passes over 
-with a starting position of ${\bf p}$ and velocity ${\bf v}$ at time $t$.
+with a starting position of ${\bf p}_0$ and velocity ${\bf v}$ at time $t$.
 Let's repeat the problem we worked out in the scalar case:
-At what time, if any, will the car reach the point ${\bf q}$?
+At what time, if any, will the car reach the point ${\bf q}$ starting at ${\bf p}$?
 So, we need to solve for some $t^*$ so that: 
 $${\bf p} + t^* {\bf v} = {\bf q}$$
 We see that $t^*$ must satisfy
-$$ t^*{\bf v} = {\bf q} - {\bf p}$$
+\be 
+	t^*{\bf v} & = & {\bf q} - {\bf p} \label{car_2_shift}
+\ee
 But now, we can't just divide by ${\bf v}$ to get the answer, $t^*$, 
 as ${\bf v}$ is not a number.
-In any event, if ${\bf v}$ is not pointing to the destination, 
+
+We can think of a $(\ref{car_2_shift})$ as a shifted version of the 
+origin problem. Instead of starting at a point, $p$, we are starting at 
+the origin $0$ and trying to "hit" ${\bf q}$ using the directional speed, ${\bf v}$.
+
+In any event, if ${\bf v}$ is not pointing {\em exactly\/} to the destination, 
 ${\bf q} - {\bf p}$, there is no chance of finding a solution.
 
-How about a different question? Drive a car on one of the roads near 
-${\bf p}_0$ and drop someone off on this road at the point closest to a 
-point ${\bf p}_1$. 
-In more mathematical terms: Starting at ${\bf p}_0$, drive with velocity 
+Here's a different question: Drive a car on one of the roads passing through 
+${\bf p}$ and drop someone off on this road at the point closest to the  
+point ${\bf q}$. 
+
+In more mathematical terms: Starting at ${\bf p}$, drive with velocity 
 ${\bf v}$ (go along some road at a fixed speed) and find the time $t^*$ at 
 which I can drop off a passenger so that I am as close as possible to the 
-destination, ${\bf p}_1$. 
+destination, ${\bf q}$. 
 
 Need to solve: Find $t^*$ so that the distance between $t \, {\bf v}$ and 
-$({\bf p}_1 - {\bf p}_0)$; which is the same as minimizing the length of 
-$t \, {\bf v} - ({\bf p}_1 - {\bf p}_0)$. 
+$({\bf q} - {\bf p})$; which is the same as minimizing the length of 
+$t \, {\bf v} - ({\bf q} - {\bf p})$. 
 This is the same as finding the time to get to the closest point to the 
-vector ${\bf p}_1 - {\bf p}_0$ when starting at $0$.
+vector ${\bf q} - {\bf p}$ when starting at $0$.
 
 So, we look instead at the simpler problem: Starting at ${\bf 0}$ and 
 driving with a velocity of ${\bf v}$, find $t^*$ so as to minimize the 
@@ -123,16 +154,16 @@ distance to a given vector, ${\bf p}$.
 We will also generalize this to $n$ dimensions and {\em define\/} the 
 length of a vector, ${\bf x}$, as a generalization of the distance formula 
 for vectors in 2 and 3  dimensions; namely, 
-length(${\bf x}$) = $\sqrt{\sum_{i=1}^n x_i^2}$.
+length(${\bf x}$) = $\sqrt{\sum_{i=1}^n x_i^2}$.%
+\footnote{Minimizing the square of the distance is the same as minimizing 
+the distance, and its also easier from the perspective of calculus.}
 $$ \mathop{\rm min}_{t} \sum_{i=1}^n (p_i - t v_i)^2 $$
 Using calculus, the minimum distance is achieved when the derivative 
-at $t^*$ is $0$.
-$$ -2 \sum_{i=1}^n (p_i - t^* v_i)v_i = 0$$
+at $t^*$ is $0$.$$ -2 \sum_{i=1}^n (p_i - t^* v_i)v_i = 0$$
 $$t^* = \frac{\sum_{i=1}^n p_i v_i}{\sum_{i=1}^n v_i^2}$$
 The point that is closest along the line {\em spanned\/} by ${\bf v}$ is 
 called the projection of ${\bf p}$ onto ${\bf v}$.
-Denoted as $P_{\bf v}({\bf p})$
-It is given by:
+Denoted as $P_{\bf v}({\bf p})$, it is given by:
 $$ P_{\bf v}({\bf p}) = \frac{\sum_{i=1}^n p_i v_i}{\sum_{i=1}^n v_i^2} \bf v $$
 We introduce a function that is a refactoring\footnote{This is a common 
 practice in the software engineering world. If we start repeating code we refactor into 
@@ -140,8 +171,10 @@ a subroutine.} of the essential element of the formula.
 We see that we are repeating a sum in the numerator and the denominator.
 
 Define the ``Dot Product'' between two vectors as: 
+\begin{DD}{The Dot Product of two vectors is defined by}
 $${\bf a} {\boldsymbol \cdot} {\bf b} = \sum_{i=1}^n a_i b_i$$
-Now the numerator and denominator in the fraction in the projection 
+\end{DD}
+Now the numerator and denominator in the fraction of the projection 
 formula can be written:
 \begin{eqnarray*}
   \sum_{i=1}^n p_i v_i & = & {\bf p} {\boldsymbol \cdot} {\bf v} \\
@@ -154,7 +187,7 @@ With this refactoring, the projection formula can be simplified to:
 \ee
 
 We use the function, $\| \cdot \|$ to denote length of a vector:
-$$ \|{\bf x}\|^2 = \sum_{i=1}^n x^2$$
+$$ \|{\bf x}\|^2 = \sum_{i=1}^n x_i^2$$
 But this can be written more succinctly in terms of the dot product: 
 $$ \|{\bf x}\|^2 = {\bf x} {\boldsymbol \cdot} {\bf x} $$
 
@@ -193,10 +226,11 @@ and the derivation proceeds using only the {\em multiplicative properties\/}.
 
 Notice that the optimization problem minimizes distance and we can write 
 distance as a dot product of a vector with itself, the optimization
-is defined entirely with respect to scalar multiplication and the dot product.
-Further, all of the terms involving the dot product are constants as far as 
-the optimization is concerned and this is again just 
-a problem in single variable calculus. Taking the derivative in $t$ and 
+is defined entirely with respect to scalar multiplication and dot product of {\em constants\/}.
+These constants do {\em NOT\/} affect the optimization; and so, the optimization 
+becomes an optimization in one variable -- that is, we only need single variable calculus.
+
+Taking the derivative in $t$ and 
 solving for $t$ when the derivative is 0 gives 
 the minimal $t$ which we will call $t^*$. The derivative is:
 \be
@@ -223,13 +257,13 @@ $$ P_{\lambda {\bf v}}({\bf p}) = \frac{{\bf p} {\boldsymbol \cdot} {\bf v}_1}{\
 This says that the projection of ${\bf p}$ onto ${\bf v}$ is independent of 
 the length of the vector ${\bf v}$. That is, it only depends on its ``direction''.
 (It doesn't matter how fast you drive me in a given direction, the place 
-you drop me off to be as close to ${\bf p}$ is going to be the same.)
+you drop me off to be as closets to ${\bf p}$ is going to be the same.)
 
 What about the projection of a multiple of ${\bf p}$ onto ${\bf v}$, or 
 combinations of ${\bf p}$ with other vectors onto ${\bf v}$.
 
-It is not hard to show that: (they follow from the ``multiplicative properties''
-of the dot product)
+Using the ``multiplicative properties'' of the dot product, 
+it is not hard to show the following: 
 \bi
   \item{$P_{\bf v}(P_{\bf v}({\bf p})) = P_{\bf v}({\bf p})$.}
   \item{$P_{\bf v}(\lambda {\bf p}) = \lambda P_{\bf v}({\bf p})$.}
@@ -262,7 +296,7 @@ pick a {\em canonical} representative. The simplest thing to do is to
 pick the one in the same direction (orientation -- it is a positive 
 multiple of ${\bf v}$) with unit length.
 If ${\bf u}$ is this vector, then the projection onto the direction ${\bf v}$ is:
-$$ P_{{\bf u}}({\bf p}) = {\bf p} {\boldsymbol \cdot} {\bf u}\, {\bf u}$$
+$$ P_{{\bf u}}({\bf p}) = \left({\bf p} {\boldsymbol \cdot} {\bf u}\right) {\bf u}$$
 If we continue to think of $P_{\bf v}({\bf p})$ as the component in the 
 ${\bf v}$ direction, then what is the other component that we add to this 
 to get ${\bf p}$?
@@ -306,7 +340,7 @@ One can show using induction that if the vectors $\{{\bf w}_i\}_{i=1}^m$ are
 pairwise orthogonal and sum to ${\bf p}$, then
 \be
   \sum_{i=1}^m {\bf w}_i & = & {\bf p} \nonumber \\
-  {\bf w}_i {\boldsymbol \cdot} {\bf w}_j  & = & 0 \quad \forall i, j \in [1, m] i \ne j \nonumber \\
+  {\bf w}_i {\boldsymbol \cdot} {\bf w}_j  & = & 0 \quad \forall i, j \in [1, m] \; i \ne j \nonumber \\
   \|{\bf p}\|^2 & = & \sum_{i=1}^m \|{\bf w}_i\|^2 
 \ee
 
@@ -362,7 +396,7 @@ If it is the case that in $R^n$ we have $n$ vectors of unit length and which
 are all orthogonal to each other, then by the same reasoning 
 (assuming that these $n$ vectors can span the full space) we have:%
 \footnote{It turns out, as you might imagine, that $n$ orthogonal 
-vectors (each pointing in a ``different directioni'') are always able 
+vectors (each pointing in a ``different direction'') are always able 
 to span $R^n$.}
 
 ${\bf Theorem}$ If ${\bf x}$ is a vector in $R^n$, and 
@@ -511,7 +545,7 @@ Addition and scalar multiplication are defined by:%
 \footnote{This is like vectors where ``x'' is the continuous ``index'' 
 into the ``vector''(function). 
 And just like vectors, to define one you need to explain what the 
-value of the vector is on each index.}
+value of the vector is on each ``index''.}
 \be
   ({\bf f} + {\bf g})(x) & \equiv & f(x) + g(x) \\
   (\lambda * {\bf f})(x) & \equiv & \lambda f(x)
