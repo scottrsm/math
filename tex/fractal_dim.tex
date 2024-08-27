@@ -1,6 +1,5 @@
 \input macro
 
-
 % - Define the macros needed to compute the cantor fractal.
 \def\dup{%
 \setbox0=\hbox{\copy0 \kern\wd0 \copy0}}
@@ -8,6 +7,7 @@
 \newcount \fcount
 \newcount \fcountsponge
 
+\footline{\hss\tenrm\folio\hss}
 
 \def\fracaux{
 \ifnum\fcount>0
