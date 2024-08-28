@@ -4,7 +4,7 @@
 % \usepackage{NewYorker}
 \usepackage{amsmath,amscd}
 
-\title{Origins of Matrix/Vector and Matrix/Matrix Mutiplication}
+\title{Origins of Matrix/Vector and Matrix/Matrix Multiplication}
 \author{R. Scott McIntire}
 \date{Feb 26, 2024}
 \setlength{\textwidth}{6.5in}
@@ -155,8 +155,8 @@ Well, we need to make sense of:
 \end{eqnarray}
 This involves the inverse of the matrix $A$, which we also need to define. Once
 we have the inverse we then need to do matrix-matrix multiplication.
-Let us start with matrix-matrx multiplication.
-This will be determed by the fact that we (just as in the scalar case) demand that the multiplication
+Let us start with matrix-matrix multiplication.
+This will be determined by the fact that we (just as in the scalar case) demand that the multiplication
 be {\em associative\/}.
 \footnote{We know from above that defining how a given matrix acts on all vector
   via matrix/vector multiplication uniquely determines the matrix. So, this is a proper definition of matrix/matrix multiplication.}
@@ -246,29 +246,30 @@ We could think of $a$ as an "operator" and call the set of all possible
 outputs, the range of $a$ and denote it: ${\cal R}(a)$.
 There is another case, $a$ could be zero. In this case it's range is the
 set $\{0\}$. In the first case, with non-zero $a$ it is clear that we can
-find a $x$ to ``hit'' a given value $b$. That is, we can solve $a\, x = b$.
+find an $x$ to ``hit'' a given value $b$. That is, we can solve $a\, x = b$.
 
 One can define the same concept for a matrix, $A$. Using this language
-of ranges, here is what we can say about the scalar problem:
+of ranges, here is what we can say about the scalar problem: $a \, x = b$.
 \begin{description}
-    \item[Unique Solution:]{If $a^{-1}$ exists ($a \neq 0$), there is
-    a unique solution.$(b \in {\cal R}(a))$}
-\item[No Solution;]{If $a^{-1}$ does not exist (i.e., $a = 0$) {\em AND\/}
-    $b \ne 0(b \notin {\cal R}(a))$, then there is no solution.}
-\item[Infinite Solutions;]{If $a^{-1}$ does not exist (i.e., $a = 0$) {\em BUT\/}
-    $b = 0(b \in {\cal R}(a))$, then there are an infinite number of solutions.}
+    \item[Unique Solution:]{If $a^{-1}$ exists ($a \neq 0$), $b$ is any number (that is: $(b \in {\cal R}(a))$}
+		then there is a {\bf unique\/} solution.
+\item[No Solution:]{If $a^{-1}$ does not exist (i.e., $a = 0$) {\em AND\/}
+	$b$ is {\bf not\/} in the range of $a$ (that is: $b \ne 0$), then there is {\bf no\/} solution.}
+\item[Infinite Solutions:]{If $a^{-1}$ does not exist (i.e., $a = 0$) {\em BUT\/}
+	$b$ is in the range of $a$ (that is: $b = 0$), 
+	then there are an {\bf infinite\/} number of solutions.}
 \end{description}
 
-Here is the analog of this solution categorization for the multi-dimensional case:
+Here is the analog of this solution categorization for the multi-dimensional case: $A \, {\bf x} = {\bf b}$.
 \begin{description}
-\item[Unique Solution:]{If $A^{-1}$ exists, there is
-    a unique solution. $b \in R(A)$.}
-\item[No Solution;]{If $A^{-1}$ does not exist {\em AND\/}
-    ${\bf b} \notin {\cal R}(A)$,
-    then there is no solution.}  
-\item[Infinite Solutions;]{If $A^{-1}$ does not exist {\em BUT\/}
-    ${\bf b} \in {\cal R}(A)$,
-    then there are an infinite number of solutions.}  
+	\item[Unique Solution:]{If $A^{-1}$ exists, ${\bf b\/}$ is in the range of $A$ (${\bf b} \in R(A)$)
+		then there is a {\bf unique\/} solution.}
+\item[No Solution:]{If $A^{-1}$ does not exist {\em AND\/}
+	${\bf b\/}$ is not in the range of $A$ (that is ${\bf b} \notin {\cal R}(A)$),
+then there is {\bf no\/} solution.}  
+\item[Infinite Solutions:]{If $A^{-1}$ does not exist {\em BUT\/}
+		${\bf b\/}$ is in the range of $A$ (that is: ${\bf b} \in {\cal R}(A)$),
+then there are an {\bf infinite\/} number of solutions.} 
 \end{description}
 
 \end{document}
