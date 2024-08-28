@@ -4,7 +4,7 @@
 
 \title{Why Lebesgue Integration}
 \author{R. Scott McIntire}
-\date{Aug 16, 2024}
+\date{Aug 28, 2024}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -57,7 +57,7 @@ criterion.
 Examining how Riemann integration works, we see that we need to bound the upper 
 and lower Darboux sums for a given partition of the domain of a function. 
 Let's look for an example where things fail; that is, where 
-a sequence of functions leads to a function for which we ``loose control'' 
+a sequence of functions leads to a function for which we ``lose control'' 
 constraining the upper and lower bounds of the sub-intervals in a way that the 
 convergence theorem fails. Then we might see what we need to add/impose 
 -- in terms of conditions -- on the sequence to make theorem 
@@ -140,7 +140,7 @@ Note the following facts:
 
 What does this say about the integral of $f$? 
 
-Therefore, given an $n \in {\cal N}^+$m for any partition of the interval, $[0,1]$, we can bound the integral of $f$ 
+Therefore, given an $n \in {\cal N}^+$ for any partition of the interval, $[0,1]$, we can bound the integral of $f$ 
 (assuming it is Riemann integrable) by
 \begin{eqnarray*}
 	\int_0^1 f(x) \, dx & =   & \int_0^1 g_{n}(x) \, dx \\
@@ -173,7 +173,7 @@ rational and an irrational number.
 Yet the above analysis suggests that its ``integral'' should exist and its value 
 should be $0$.
 
-Some might respond to the above argument saying:  
+A contrarian response to the above argument might be:
 ``What I really want is to have a theorem for a sequence of 
 'nice functions'. I don't care that you have found Riemann integrable functions that
 don't converge to a Riemann Integrable function''. 
@@ -194,7 +194,8 @@ based on Newton's method to find the $\sqrt{x}$. How would you formalize what
 it means for your sequence to converge -- particularly when $x = 2$; that is, when the
 square root of $2$ doesn't exist in your world?
 
-This suggests that we try a different approach to integration before we even
+We are in an analogous situation. It suggests that 
+we try a different approach to integration before we even
 begin to think of better convergence theorems. 
 
 However, whatever we come up with, we should get the same value for the 
@@ -227,8 +228,7 @@ using a linear combination of characteristic functions:
 
 $f(x) = \chi_{R}(x) + \chi_{IR}(x)$
 
-Here, $R$ is the set of rationals on the interval, $[0,1]$, $IR$ is the set 
-of irrationals on $[0, 1]$.
+Here, $R$ is the set of rationals, and $IR$ is the set of irrationals on interval, $[0, 1]$.
 
 To find the ``area'' under the curve ``$f(x)$'' we would like to multiply the 
 height by the ``width'' of each of the sets. What might this mean?
@@ -238,12 +238,13 @@ But how do we make sense of this?
 
 One way to measure the length of these complicated sets is to try different ``coverings'' 
 of a set by collections of intervals.
-As we know how to measure the length of an interval, the ``length'' of an arbitrary set 
+As we know how to measure the length of an interval%
+\footnote{We denote the length of an interval, $I$, by $|I|$.}, the ``length'' of an arbitrary set 
 would be the infimum of the sum of the lengths over all such coverings.
 We call this ``length'' the {\em Lebesgue outer measure\/}. It is defined more precisely by:
 
 \begin{eqnarray}
-	\mu^*(S) & = & \inf_{\{\cup {I_i}\}_{i=1}^\infty} \sum_{i=1}^\infty {\rm length}(I_i)
+	\mu^*(S) & = & \inf_{\{\cup {I_i}\}_{i=1}^\infty} \sum_{i=1}^\infty |I_i|
 \end{eqnarray}
 
 This notion of measure (length) would not be of much use if the Lebesgue outer measure of
@@ -281,13 +282,17 @@ then we would define the Lebesgue integral for such functions as:
 \begin{eqnarray}
 	\int_a^b h(x) \, dx & = & \sum_{i=1}^N\limits c_i \mu^*(E_i)
 \end{eqnarray}
+That is, we did what we said we would do; namely, we should compute the new integral 
+of a ``simple'' function like the one above by taking its range values (the heights) 
+and then multiplying by the width of the set of points that map to each of the heights. 
+The widths of the sets are found by squeezing all of the ``air`` out.
 
 Going further, we would try to define the Lebesgue Integral of an ``arbitrary''
-function as the limit of integrals of approximating functions that
+function as the limit of integrals of approximating ``simple'' functions  -- ones that
 are a finite linear combinations of characteristic functions.
 
 This is the initial plan. However, there is a problem with this approach. In the next section we 
-provide an aside that describes a potential problem with the Lebesgue outer measure.
+provide an aside that describes a potential problem with the Lebesgue Outer Measure.
 
 
 \section{Outer Measure Aside: Measuring Area in the Real World}
@@ -314,10 +319,10 @@ set, consisting of two combs that fit together perfectly to form a rectangle.
 The teeth of the comb were much finer than the comb from a few days earlier. 
 The retailer said is was much easier to store, you got a finer comb, and you 
 get two combs for almost the price of one; and, better yet, they both 
-fit in the same carrying case.
+fit in the same rectangular carrying case.
 
 The entrepreneur applied his technique to the new combs. 
-He found that, when fit together, they had the area of the resulting rectangle.
+He found that, when fit together, they had the area of the rectangular carrying case.
 He determined the area of this rectangle to be $A$. He then tried each of the 
 combs separately only to find that each of their areas was also $A$!
 It seems that due to the viscosity of the oil and the fine spacing between the 
@@ -338,9 +343,10 @@ $\mu(C) + \mu(C^c) = \mu(O)$
 
 Here, $C^c$ is the complementary set inside of $O$.
 
-In some cases, it wasn't clear what the full object consisted of. A better way 
+In some cases, it wasn't clear what the full object, $O$, consisted of. A better way 
 to describe the limitation was to say that his measurement system was accurate 
-when {\em any\/} bounding frame, $X$ containing a set $C$, the measures of $C$ and 
+when -- for {\em any\/} given bounding frame $X$ containing a set $C$ -- 
+the measures of $C$ and 
 its complement in $X$ added to the measure of $X$. That is,
 
 $\mu(X) = \mu(X \cap C) + \mu(X \cap C^c)$
@@ -348,7 +354,7 @@ $\mu(X) = \mu(X \cap C) + \mu(X \cap C^c)$
 Unfortunately, this was not of much help -- in other words, you know the 
 measurements work on reconstruction only after you've done them.
 He stayed with his original caveat that the measurement works when some object has 
-broken as long as they pieces are not ``too'' jagged.
+broken as long as the pieces are not ``too'' jagged.
 
 
 \section{Back to Outer Measure}
@@ -381,13 +387,14 @@ This is a useless statement. What we want to say, just like the combs from the
 previous section, is that the measure of $C$ added with the measure of its 
 ``natural complement'' gives back the measure of the bounding box -- like the rectangular
 container of the combs. Without some restriction, the compliment is an infinite set.
-The problem then becomes: ``What is the 'natural' bounding box for the set $C$''?
-We get around that problem by requiring that it be true for all bounding boxes.
+The problem then becomes: ``What is the ``natural'' bounding box for the set $C$''?
+We get around that problem by requiring that it be true for all bounding boxes -- 
+then it will be true of the ``natural'' bounding box as well.
 And then realizing that the ``box'' doesn't have to be bounded, we remove that restriction.
 This leaves a clean unambiguous definition for the measure of a set. But also makes it,
 potentially more difficult to use later in practice.
  
-So, given this that we restrict ourselves to these measurable sets it turns out that
+So, given that we restrict ourselves to these measurable sets it turns out that
 the measure behaves in the way one might want. Namely.
 \begin{eqnarray*}
 	\mu^*(A) & = & \sum_{i=1}^N\limits \mu^*(A_i) \quad \text{when} \; A = \mathop{\cup}_{i=1}^N\limits A_i \quad \text{with} \;  A_i \cap A_j = \emptyset \quad \text{if} \; i \neq j \\
@@ -395,7 +402,9 @@ the measure behaves in the way one might want. Namely.
 \end{eqnarray*}
 
 That is, the measure of a set that is composed of a bunch of other disjoint 
-sets should be the sum of the measure of the disjoint sets.
+sets should be the sum of the measure of the disjoint sets. We need this to hold
+for infinite sets as well because in any definition of integration we are going 
+to need to take limits.
 
 And, as you might imagine, the solution to determining when one can apply the 
 outer measure effectively boils done to the above two behaviors.
@@ -413,8 +422,8 @@ When a set, $C$, is known to be measurable we write $\mu(C)$ rather than $\mu^*(
 
 The path to creating a definition of a Lebesgue integral proceeds as mentioned 
 in a previous section -- use approximating functions that are finite linear
-combinations of characteristic functions. Such combinations are called simple 
-functions. They take the role that step functions played for the Riemann integral. 
+combinations of characteristic functions. Such combinations are called ``simple''
+functions. They take the role that step functions played for Riemann integration. 
 
 One way to find such an approximation is by chopping up the range of the function 
 into evenly spaced (if the range is finite) intervals and then looking at the 
@@ -433,10 +442,13 @@ was $1$ on the rationals and $0$ on the irrationals.
 One can also show that the Lebesgue integral coincides with the Riemann integral 
 for ``nice'' functions.
 
-Finally, from this theory one does indeed have less stringent convergence 
-criterion than with Riemann integration that doesn't depend on ``uniform'' convergence.
+Finally, from this theory one does indeed get less stringent convergence 
+criterion than the Riemann counterpart. One can have a criterion that avoids ``uniform'' convergence.
 In fact, essentially, you get a convergence theorem that requires only that a sequence
-of functions converge point-wise to a function and that the sequence of functions 
+of functions converge point-wise to a function%
+\footnote{In fact, one only requires that a sequence of functions converge point-wise 
+to a function `almost everywhere`` -- everywhere except on a set of outer measure $0$.}
+and that the sequence of functions 
 are ``dominated'' -- bounded above -- by a Lebesgue integrable function.
 
 It should be noted that there is an analogy between Riemann and Lebesgue integration 
@@ -445,7 +457,7 @@ system ``completes'' the Rational number system. The Lebesgue integration theory
 the Riemann theory. In fact, with the Lebesgue theory one can create function 
 spaces with a metric that makes them ``complete'' in the same sense as Real 
 numbers; namely, Cauchy sequences always converge in that space. 
-The function space $L_2$ consisting of
+The function space $L_2$ consists of
 all functions $f$ (say over the interval $[0,1]$) that satisfy:
 
 \begin{eqnarray}
@@ -470,7 +482,7 @@ the Riemann integral for the inner product/metric. It would be like
 working with the vector spaces $Q, Q^1, Q^2, \ldots$, where $Q$ is the set 
 of rational numbers. The vector properties would be there, but not 
 the important analytic properties -- and the notion of perpendicularity would
-have problems.
+be missing.
 
 We should mention that, technically, the function space $L_2$ does not 
 consist of functions, it consists of 
@@ -483,7 +495,8 @@ For instance, the fraction that we write as '1/2' is really the
 equivalence class (set) of pairs of integers: 
 \{(1,2), (2,4), (3, 6), (4,8), \ldots \}.
 To be equivalent, any two pairs, $(a, b)$ and $(c, d)$ must satisfy: 
-$a * d = b * c$.
+$a * d = b * c$. That is, each rational number is really an equivalence class (set)
+with an {\em infinite\/} number of points.
 
 In the same way, the Real number $1$ is not the integer $1$, it is actually an equivalence 
 class; namely, the set of all Cauchy sequences that converge to the integer 
