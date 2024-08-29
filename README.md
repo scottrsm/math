@@ -1,5 +1,5 @@
 # math
-## Mathematical Educational Papers and Conjectures
+## Mathematical Educational Papers, new Results, and Conjectures
 
 **NOTE:** Some of the papers are written in ${\LaTeX}$ and others are written in ${\TeX}$.
 
