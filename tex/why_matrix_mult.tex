@@ -6,7 +6,7 @@
 
 \title{Origins of Matrix/Vector and Matrix/Matrix Multiplication}
 \author{R. Scott McIntire}
-\date{Feb 26, 2024}
+\date{Aug 30, 2024}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -158,8 +158,8 @@ we have the inverse we then need to do matrix-matrix multiplication.
 Let us start with matrix-matrix multiplication.
 This will be determined by the fact that we (just as in the scalar case) demand that the multiplication
 be {\em associative\/}.
-\footnote{We know from above that defining how a given matrix acts on all vector
-  via matrix/vector multiplication uniquely determines the matrix. So, this is a proper definition of matrix/matrix multiplication.}
+\footnote{We know from above that defining how a given matrix acts on all vectors --
+  via matrix/vector multiplication -- uniquely determines the matrix. So, this is a proper definition of matrix/matrix multiplication.}
 \begin{eqnarray}
     (B \, A) {\bf x} & \equiv & B (A \, {\bf x}) \quad \forall x \in R^n
 \end{eqnarray}
@@ -195,7 +195,7 @@ vectors ${\bf x}$. Setting ${\bf x}$ to the successive ${\bf e}_i$ vectors defin
 above yields $(\ref{matrix-matrix-mult})$.
 
 
-By $(\ref{identity})$ we need to identify a $n \times n$ matrix which serves as an
+By $(\ref{identity})$ we need to identify an $n \times n$ matrix which serves as an
 identity (in terms of matrix/vector multiplication).
 Let us suppose that we have such a matrix and let's call it $I$.
 Then we must have $I \, {\bf x} = {\bf x} \quad \forall {\bf x} \in R^n$. 
@@ -219,8 +219,8 @@ That is $I_{ij} = \delta_{ij}$.%
                                  1 & \text{if $i = j$;} \\
                                  0 & \text{otherwise.}
                                \end{array} \right.$}
-We have shown that the only candidate matrix that has the identity property, is the
-matrix, $I$. That is, if there is an identity matrix, it must be $I$. Does it satisfy
+We have shown that the only candidate matrix that has the identity property is the
+matrix $I$. That is, if there is an identity matrix, it must be $I$. Does it satisfy
 the property of being an identity matrix (again, in the matrix/vector multiplication world)?
 Do we have $I \, {\bf x} = {\bf x}$ for all ${\bf x} \in R^n$?
 Using the definition of matrix/vector multiplication, $(\ref{matrix-vector-mult})$, we
@@ -235,6 +235,9 @@ One can show that this identity matrix, $I$, is also the identity operator for
 matrix/matrix multiplication.
 
 The only thing left is to know when a matrix inverse exists and how to compute it.
+We do not attempt to do this in this paper. In the next section we continue with
+a qualitative comparison of the solution to the scalar problem, $a\, x = b$, 
+and its vectorized cousin.
 
 
 \section{Qualitative Features of Solutions}
