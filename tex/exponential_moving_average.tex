@@ -15,7 +15,7 @@
 
 \title{Derivation of the Exponential Moving Average}
 \author{R. Scott McIntire}
-\date{Jul 15, 2024}
+\date{Aug 30, 2024}
 
 \begin{document}
 
@@ -111,16 +111,19 @@ property? The answer is no, the property remains:
     \lambda w_{i} &=& w_{i+1} \quad \forall i \in [1, m-1].  \label{o:weights_power}
 \end{eqnarray}
 
-More generally, the general solution to the difference equation:
+More generally, we can find {\em all\/} weights that have a decay factor of $\lambda$ as they
+are solutions of the following difference equation:
 \begin{eqnarray}
 	w_{n+1} & = & \lambda \, w_n \\
 	w_1 & = & \alpha
 \end{eqnarray}
-is 
+
+The solution to this difference equation is:
 \begin{eqnarray}
 	w_n = \alpha \, \lambda^{n-1} \quad n \ge 1
 \end{eqnarray}
-However, we need the weights to be normalized over a window of length, $m$:
+
+However, we need the weights to be {\em normalized\/} over a window of length, $m$:
 \begin{eqnarray}
 \sum_{i=1}^m w_i = 1
 \end{eqnarray}
@@ -129,13 +132,15 @@ Plugging in our general formula for an exponential sequence we have:
 	\sum_{i=1}^m \alpha \lambda^{i-1} & = & 1 \\
 	\alpha \frac{1 - \lambda^m}{1 - \lambda} & = & 1	
 \end{eqnarray}
-Therefore, given $\lambda$ and $m$, the initial weight is given by 
+Therefore, a decay factor, $\lambda$, and averaging window length, $m$, 
+determine {\em the\/} initial weight, $\alpha$, and thus determine {\em the\/}
+associated normalized weights:
 \begin{eqnarray}
 	\alpha = \frac{1 - \lambda}{1 - \lambda^m} \label{o:weights_alpha}
 \end{eqnarray}
 
-{\bf Note:\/} We will use $(\ref{o:var_extend})$, $(\ref{o:weights_normalized}),
-$(\ref{o:weights_power})$, and $(\ref{o:weights_alpha}) in our derivations below.
+{\bf Note:\/} We will use $(\ref{o:var_extend})$, $(\ref{o:weights_normalized})$,
+$(\ref{o:weights_power})$, and $(\ref{o:weights_alpha})$ in our derivations below.
 
 \section{Recursive Formula for EMA}
 We state again the definition of the exponential moving average of $x$ as:
@@ -177,7 +182,7 @@ computer languages typically use one or the other.}
 \section{Recursive Formula for the Std of EMA}
 In practice, one also wants to know a localized standard deviation of the process.
 In applications, one can provide ``Bollinger'' bands around the EMA estimate.
-These bands are some multiple of the standard deviation of the process.
+These bands are (typically) some multiple of the standard deviation of the process.
 
 We derive the standard deviation of the exponential moving average starting
 with the definition of the exponential moving average and its moving variation.%
@@ -215,7 +220,6 @@ The 0-based index formula is:
     g_{n} &=&  \lambda \left( g_{n-1} - f(x_{n-m}) w_{m-1} \right) + \alpha f(x_{n}) \quad \forall n \in [1, N-1] \\
     g_0   &=&  f(x_0) 
 \end{eqnarray}
-
 
 The corresponding $f$ for $(\ref{var})$ is $f(x) = x^2$; 
 consequently, its recursive formula is 
