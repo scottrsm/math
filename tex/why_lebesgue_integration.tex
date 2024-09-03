@@ -4,7 +4,7 @@
 
 \title{Why Lebesgue Integration}
 \author{R. Scott McIntire}
-\date{Aug 28, 2024}
+\date{Sep 03, 2024}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -103,7 +103,7 @@ We know we can do this as the rationals are countable.
 
 Consider the sets, $\{E_{i,n}\}$, defined by:
 
-$E_{i,n} = \left[r_i - \frac{1}{n 2^{-i}}, r_i + \frac{1}{n 2^{-i}}\right]$
+$E_{i,n} = \left[r_i - \frac{1}{n 2^{i}}, r_i + \frac{1}{n 2^{i}}\right]$
 
 A given rational number lies in potentially many of the $E_{i,n}$.
 
@@ -208,9 +208,10 @@ integral calculus.
 
 \section{The Beginnings of a Lebesgue Theory of Integration}
 
-Riemann integration was all about chopping up the {\em Domain\/} of a function into nice 
-pieces and then showing that the upper and lower Darboux sums of a partition 
-went to zero as the partition was refined. Basically, approximating the function 
+Riemann integration was all about chopping up the {\em Domain\/} of a function 
+into a partition of finite intervals and then showing that the difference 
+between the upper and lower Darboux sums of the partition 
+go to zero as the partition is refined. Basically, approximating the function 
 with step functions.
 
 Let's go the other way, based on the example from the previous section, rather 
@@ -232,7 +233,7 @@ Here, $R$ is the set of rationals, and $IR$ is the set of irrationals on interva
 
 To find the ``area'' under the curve ``$f(x)$'' we would like to multiply the 
 height by the ``width'' of each of the sets. What might this mean?
-Well we can think of squeezing all of the points of each set so that there are 
+Well we can think of {\em squeezing\/} all of the points of each set so that there are 
 no more holes and then taking the length of the resulting intervals.
 But how do we make sense of this?
 
@@ -252,7 +253,7 @@ an interval was not its length.
 It is not hard to show that it does indeed coincide with length on 
 intervals -- and also finite collection of intervals.
 
-Well what is the outer measure of the set $R$? We claim is that the ``length'' 
+Well what is the outer measure of the set $R$? We claim that the ``length'' 
 (outer-measure) of the set of rationals on the interval $[0,1]$ is $0$.
 
 Consider the coverings: $I_(r_i - \frac{1}{\epsilon 2^i}, r_i + \frac{1}{\epsilon 2^i})$. 
@@ -262,16 +263,16 @@ Then $\forall \epsilon: \mu^*(R) \le 2 \epsilon$
 
 Consequently, $\mu^*(R) = 0$. This approach will not work with the irrationals 
 as they are not countable. In fact, any countably infinite cover of the 
-irrationals with intervals must have a total length of at least 1. 
+irrationals with intervals must have a total length of at least $1$. 
 If not, there would be some open interval  $[0,1]$, that is not covered. 
 But any such open 
 interval must contain an irrational; therefore all covers must have a total length 
-of at least 1. Since the cover $\{(0,1), (-\epsilon, \epsilon), (1 - \epsilon,1 + \epsilon)\}$
+of at least $1$. Since the cover $\{(0,1), (-\epsilon, \epsilon), (1 - \epsilon,1 + \epsilon)\}$
 is a cover (for an infinite cover, let all other covers sets be set 
 to $(0,1)$), with total length $1 + 2 \epsilon$.
 Consequently, we see that $\mu^*(IR) = 1$.
 
-With this we can define the Lebesgue Integration of the function: 
+With this we can define the Lebesgue Integral of the function: 
 $f(x) = \chi_{R}(x) + \chi_{IR}(x)$ over the interval $[0,1]$ 
 as $1 * \mu^*(R) + 0 * \mu^*(IR) = 1 * 0 + 0 * 1 = 0$.
 
@@ -285,14 +286,16 @@ then we would define the Lebesgue integral for such functions as:
 That is, we did what we said we would do; namely, we should compute the new integral 
 of a ``simple'' function like the one above by taking its range values (the heights) 
 and then multiplying by the width of the set of points that map to each of the heights. 
-The widths of the sets are found by squeezing all of the ``air`` out.
+The widths of the sets are found by {\em squeezing\/} all of the ``air`` out.
 
 Going further, we would try to define the Lebesgue Integral of an ``arbitrary''
-function as the limit of integrals of approximating ``simple'' functions  -- ones that
-are a finite linear combinations of characteristic functions.
+function, $f$, as the limit of integrals of approximating ``simple'' functions  -- ones that
+are a finite linear combinations of characteristic functions with the property
+that they converge pointwise to $f$.
 
 This is the initial plan. However, there is a problem with this approach. In the next section we 
-provide an aside that describes a potential problem with the Lebesgue Outer Measure.
+provide an aside that describes a potential problem with the Lebesgue Outer Measure when 
+used as a measure of ``length''.
 
 
 \section{Outer Measure Aside: Measuring Area in the Real World}
@@ -389,7 +392,7 @@ previous section, is that the measure of $C$ added with the measure of its
 container of the combs. Without some restriction, the compliment is an infinite set.
 The problem then becomes: ``What is the ``natural'' bounding box for the set $C$''?
 We get around that problem by requiring that it be true for all bounding boxes -- 
-then it will be true of the ``natural'' bounding box as well.
+because then, in particular, it will be true of the ``natural'' bounding box as well.
 And then realizing that the ``box'' doesn't have to be bounded, we remove that restriction.
 This leaves a clean unambiguous definition for the measure of a set. But also makes it,
 potentially more difficult to use later in practice.
@@ -447,7 +450,7 @@ criterion than the Riemann counterpart. One can have a criterion that avoids ``u
 In fact, essentially, you get a convergence theorem that requires only that a sequence
 of functions converge point-wise to a function%
 \footnote{In fact, one only requires that a sequence of functions converge point-wise 
-to a function `almost everywhere`` -- everywhere except on a set of outer measure $0$.}
+to a function ``almost everywhere`` -- meaning everywhere except on a set of outer measure $0$.}
 and that the sequence of functions 
 are ``dominated'' -- bounded above -- by a Lebesgue integrable function.
 
@@ -495,11 +498,11 @@ For instance, the fraction that we write as '1/2' is really the
 equivalence class (set) of pairs of integers: 
 \{(1,2), (2,4), (3, 6), (4,8), \ldots \}.
 To be equivalent, any two pairs, $(a, b)$ and $(c, d)$ must satisfy: 
-$a * d = b * c$. That is, each rational number is really an equivalence class (set)
+$a * d = b * c$. More generally, each rational number is really an equivalence class (set)
 with an {\em infinite\/} number of points.
 
-In the same way, the Real number $1$ is not the integer $1$, it is actually an equivalence 
-class; namely, the set of all Cauchy sequences that converge to the integer 
+In the same way, the Real number $1$ is not the Rational number $1$, it is actually an equivalence 
+class; namely, the set of all Cauchy sequences that converge to the Rational 
 $1$ -- the simplest of which is the sequence: $1, 1, 1, 1\ldots$ .
 
 
