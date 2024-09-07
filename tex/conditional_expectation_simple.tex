@@ -21,7 +21,7 @@
 
 \mansubtitle{Measure Theoretic Conditional Expectation}
         {in an Elementary Setting}
-{R. Scott McIntire}{Sep 6, 2024}
+{R. Scott McIntire}{Sep 7, 2024}
 
 \section{Overview}
 The measure theoretic approach to conditional expectation can be confusing
@@ -172,22 +172,26 @@ $$
 \E{f/{\cal F}}(D_2) = \E{f/{\cal F}}(D_4) = \E{f/{\cal F}}(D_6) = C_{\Lambda_2} = 4
 $$
 Since a function is determined once we know what its values are on every $x \in X$, 
-we have found the conditional expectation function, $\E{f/{\cal F}}$, as we know its values on every $x \in X$.
+we have found the conditional expectation function, $\E{f/{\cal F}}$, as we know 
+its values on every $x \in X$.
 
-From equation $(\dagger)$ we see, that the value of the function $(f/{\cal F})$ evaluated on any `x` value in a minimal set, $\Lambda$,
-is 
-
+From equation $(\dagger)$ we see, that the value of the function $(f/{\cal F})$ 
+evaluated on any `x` value in a minimal set, $\Lambda$, is 
 $$
 \eqalignno{
 	\E{f/{\cal F}}(x) & = \frac{\int_\Lambda f \, dP}{P(\Lambda)} & \cr
 }
 $$
-More generally, discrete probability or otherwise, we may think of the sigma algebra, ${\cal F}$, as a coarser ``mesh'' than the sigma algebra, ${\cal E}$.
-And we can think of the value of $\E{f/{\cal F}}$ on any ``minimal'' element of the mesh as the average of the function, $f$, over this minimal 
+More generally, discrete probability or otherwise, we may think of the 
+sigma algebra, ${\cal F}$, as a coarser ``mesh'' than the sigma algebra, ${\cal E}$.
+And we can think of the value of $\E{f/{\cal F}}$ on any ``minimal'' element 
+of the mesh as the average of the function, $f$, over this minimal 
 element with respect to the finer ``mesh'' -- the sigma algebra, ${\cal E}$.
 
-You can think of the conditional expectation as giving the ``best'' representation of a function given a cruder mesh. Just as 
-the ``best'' representation of an image when using a larger pixels would be an average of the more refined image over the cruder mesh
+You can think of the conditional expectation as giving the ``best'' representation 
+of a function given a cruder mesh, ${\cal F}$, than the refined mesh, ${\cal E}$. 
+Just as the ``best'' representation of an image at a larger pixel (crude mesh) would be an 
+average over the smaller pixels (refined mesh) of the larger pixel.
  
 \bye
 
