@@ -31,6 +31,8 @@ In any event the corresponding PDF's are in the directory **pdf/**.
     - Along the way we make an analogy with a "real world" system for measuring the surface area of irregular surfaces.
 - Examination of a Dice throwing problem using Measure Theoretic Conditional Expectation: **tex**/conditional_expectation_simple.tex.
     - Gain a better understanding of Measure Theory via a discrete setting.
+    - Develop an intuition of Conditional Expectation in a measure theoretic setting.
+    - Examine concrete examples of non-measurable functions.
 - Defining Fractal Dimension. 
     - Starts by producing a formula for the volume of an $n$ dimensional sphere.
     - The resulting formula involves the $\Gamma$ function and one can then extend the volume
@@ -56,5 +58,5 @@ In any event the corresponding PDF's are in the directory **pdf/**.
     - Conjectures regarding Primitive Pythagorean Triples: **tex**/conj_pythag_triple.tex.
     - Julia code supporting the Pythagorean triples conjecture via a Jupyter notebook: **src**/Pythag.ipynb.
 
-#### Version 1.4.36
+#### Version 1.4.37
 
