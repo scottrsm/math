@@ -234,18 +234,21 @@ Here, $R$ is the set of rationals, and $IR$ is the set of irrationals on interva
 To find the ``area'' under the curve ``$f(x)$'' we would like to multiply the 
 height by the ``width'' of each of the sets. What might this mean?
 Well we can think of {\em squeezing\/} all of the points of each set so that there are 
-no more holes and then taking the length of the resulting intervals.
+no more holes and then taking the length of the resulting interval.
 But how do we make sense of this?
 
 One way to measure the length of these complicated sets is to try different ``coverings'' 
-of a set by collections of intervals.
-As we know how to measure the length of an interval%
-\footnote{We denote the length of an interval, $I$, by $|I|$.}, the ``length'' of an arbitrary set 
-would be the infimum of the sum of the lengths over all such coverings.
+of a set by collections of intervals and relate the ``length'' of a set to the lengths of
+the covering intervals. Specifically, as
+we know how to measure the length of an interval%
+\footnote{We denote the length of an interval, $I$, by $|I|$.}, an upper bound on 
+the ``length'' of an arbitrary set would be, for a given covering set, 
+the sum of the lengths of the covering intervals.
+We would then define the length of a set to be the infimum over all such covering bounds.
 We call this ``length'' the {\em Lebesgue outer measure\/}. It is defined more precisely by:
 
 \begin{eqnarray}
-	\mu^*(S) & = & \inf_{\{\cup {I_i}\}_{i=1}^\infty} \sum_{i=1}^\infty |I_i|
+	\mu^*(S) & = & \inf_{\mathop{\cup}_{i=1}^\infty\limits I_i \subseteq S} \sum_{i=1}^\infty |I_i| 
 \end{eqnarray}
 
 This notion of measure (length) would not be of much use if the Lebesgue outer measure of
@@ -256,9 +259,9 @@ intervals -- and also finite collection of intervals.
 Well what is the outer measure of the set $R$? We claim that the ``length'' 
 (outer-measure) of the set of rationals on the interval $[0,1]$ is $0$.
 
-Consider the coverings: $I_(r_i - \frac{1}{\epsilon 2^i}, r_i + \frac{1}{\epsilon 2^i})$. 
+Consider the coverings: $I_{(r_i - \frac{1}{\epsilon 2^i}, r_i + \frac{1}{\epsilon 2^i})}$. 
 Then for any
-$\epsilon > 0$, $R \subset \cup_{i=1}^\infty I_(r_i - \frac{1}{\epsilon 2^i}, r_i + \frac{1}{\epsilon 2^i})$
+$\epsilon > 0$, $R \subset \mathop{\cup}_{i=1}^\infty\limits I_{(r_i - \frac{1}{\epsilon 2^i}, r_i + \frac{1}{\epsilon 2^i})}$
 Then $\forall \epsilon: \mu^*(R) \le 2 \epsilon$
 
 Consequently, $\mu^*(R) = 0$. This approach will not work with the irrationals 
