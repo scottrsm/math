@@ -4,7 +4,7 @@
 
 \title{Why Lebesgue Integration}
 \author{R. Scott McIntire}
-\date{Sep 03, 2024}
+\date{Sep 16, 2024}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -41,11 +41,11 @@ uniformly to $f$ on a close bounded interval.
 But this rarely happens in many real world examples and you can imagine that
 mathematicians back in the day
 were getting complaints about such restrictive 
-conditions. They say that many times they don't have this strong condition and yet $(\ref{theorem})$
+conditions. The people who want a better convergence theorem say that many 
+times they don't have this strong condition and yet $(\ref{theorem})$
 holds. Unfortunately, other times it does not. So it seems that there are 
 conditions less rigid than uniform convergence of the sequence of 
 functions which allow $(\ref{theorem})$ to hold.
-The applied people and other mathematicians want better convergence theorems.
 
 There are better theorems and they come from a different kind of integration called 
 the Lebesgue ({\em measure\/}) Theory of Integration.
@@ -374,7 +374,7 @@ Sets like, $C$, are too jagged and its measure doesn't add properly.
 We say that a set, $C$, is {\em measurable\/}
 if for all sets $X$ the following is true:
 \begin{eqnarray}
-	\mu*(X) & = & \mu^*(X \cap C) + \mu^*(X \cap C^c) \label{Carthy}
+	\mu^*(X) & = & \mu^*(X \cap C) + \mu^*(X \cap C^c) \label{Carthy}
 \end{eqnarray}
 
 What we're asking for is that any disjoint pieces constructed using $C$ and 
@@ -391,7 +391,8 @@ infinite length and then $(\ref{Carthy})$ would be the statement:
 $\infty = \text{``Finite value''} + \infty$.
 This is a useless statement. What we want to say, just like the combs from the
 previous section, is that the measure of $C$ added with the measure of its 
-``natural complement'' gives back the measure of the bounding box -- like the rectangular
+``natural complement'' -- coming from a ``natural'' bounding box -- 
+gives back the measure of the bounding box just like the rectangular
 container of the combs. Without some restriction, the compliment is an infinite set.
 The problem then becomes: ``What is the ``natural'' bounding box for the set $C$''?
 We get around that problem by requiring that it be true for all bounding boxes -- 
