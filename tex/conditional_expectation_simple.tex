@@ -101,7 +101,7 @@ However, we know that they also are {\it not\/} in ${\cal F}$ -- contradiction.
 Therefore, our premise that $f(D_1)$ and $f(D_3)$ could 
 take differing values is incorrect.  The same argument shows that $f(D_1)$ and 
 $f(D_5)$ do not differ.
-The argument can be used to show that
+One can repeat the above argument to show that
 $f$ is constant on the other minimal set $\{D_2,D_4,D_6\}$.
 
 Notice that while any function over the measure space $(P,X,{\cal E})$ is measurable, we 
@@ -114,29 +114,44 @@ is a non-measurable function in ${\cal F}$.
 \section{Conditional Expectation}
 Given a probability space $(P,X,{\cal E})$, the conditional expectation of a measurable 
 function $f$ with respect to a sub $\sigma$-algebra ${\cal F}$ is the ${\cal F}$ 
-measurable {\it function\/} (random variable) labeled, $\E{f/{\cal F}}$, such that 
+{\it measurable\/} function labeled, $\E{f/{\cal F}}$, such that 
 $$
 \eqalignno{
 \int_{\Lambda} \E{f/{\cal F}} \, dP & 
 = \int_{\Lambda} f \, dP \quad \forall \Lambda \in {\cal F} & (1) \cr
 }
 $$
-That is, $\E{f/{\cal F}}$ is a measurable function in the probability space $(P,X,{\cal F})$.
-Although it seems that $f$ itself satisfies this equation, you have to be careful. The function 
-we are looking for must be measurable with respect to ${\cal F}$, and since ${\cal F}$ is 
-a sub $\sigma$-algebra of ${\cal E}$, it is quite possible that $f$ is not ${\cal F}$ measurable.
-However, if $f$ is measurable with respect to ${\cal F}$ then it is its own conditional 
-expectation. 
+Let us write this again in, perhaps, an unusual way.
+$$
+\eqalignno{
+	\int_{\Lambda} \E{f/{\cal F}} \, dP_{\cal F} & 
+= \int_{\Lambda} f \, dP \quad \forall \Lambda \in {\cal F} & (1) \cr
+}
+$$
+In this second equation we use the fact that the conditional expectation is a {\it measurable\/} function
+with respect to ${\cal F}$.
+We do this by replacing the measure $P$ on the left hand side with $P_{\cal F}$ to indicate
+that we are using the same measure, but one that is restricted to $\sigma$-algebra ${\cal F}$.
+
+Although it seems that $f$ -- itself -- satisfies the first equation, we have to be careful. The second
+equation is a way to emphasize that the conditional expectation function must be {\it measurable\/}
+with respect to the sigma algebra we are using for integration. The second equation makes clear
+that while, on the right, we are dealing with a ${\cal E}$ measurable function on ${\cal E}$, on the left
+we are not -- we are dealing with a ${\cal F}$ measurable function. Consequently, while $f$ seams 
+like a nature candidate conditional expectation it is not necessarily
+${\cal F}$ measurable. 
+However, if $f$ is measurable with respect to ${\cal F}$ then, by the definition above,  
+it is its own conditional expectation. 
 
 The modern theory of probability -- including conditional expectation -- relies on measure theory
-which has its roots in Lebesgue measure theory used to provide an alternative to the theory of integration.
-From Lebesgue measure theory one is introduced to measurable and non-measurable sets. The problem, in
+which has its roots in Lebesgue measure theory used to provide an alternative to the theory of Riemann Integration.
+From Lebesgue Measure Theory one is introduced to measurable and non-measurable sets. The problem, in
 the context of Lebesgue, is that non-measurable sets exist but specific examples are hard to come by. 
 However, non-measurable sets appear {\it implicitly\/} in the definition of conditional expectation 
 in that if they didn't the definition wouldn't be of any interest.
-If one started out learning measure theory from Lebesgue measure, the definition of conditional 
-expectation might make readers somewhat uneasy. From this context, it is harder to get an 
-intuitive idea of conditional expectation. 
+If one started out learning measure theory from the Lebesgue theory, the definition of conditional 
+expectation might make readers somewhat uneasy as we are confronted with non-measurable sets from the start.
+From this context, it is harder to get an intuitive idea of conditional expectation. 
 
 In the next section we examine the measure theoretic version of conditional expectation 
 in a discrete probabilistic setting where such non-measurable functions are 
@@ -158,54 +173,49 @@ the value of the conditional expectation function on all of $X$.
 Proceeding, we have
 $$
 \eqalignno{
-\int_{\Lambda_1} \E{f/{\cal F}} \, dP & 
-= \int_{\Lambda_1} f \, dP & (2) \cr
+	\int_{\Lambda_1} \E{f/{\cal F}} \, dP_{\cal F} & 
+	= \int_{\Lambda_1} f \, dP & (2) \cr
 }
 $$
 and
 $$
 \eqalignno{
-\int_{\Lambda_2} \E{f/{\cal F}} \, dP & 
-= \int_{\Lambda_2} f \, dP & (3) \cr
+	\int_{\Lambda_2} \E{f/{\cal F}} \, dP_{\cal F} & 
+	= \int_{\Lambda_2} f \, dP & (3) \cr
 }
 $$
 We know $\E{f/{\cal F}}$ is {\it constant\/} on $\Lambda_1$. We label this value as
-$C_{\Lambda_1}$. From (2) we have 
+$\E{f/{\cal F}}(\Lambda_1)$. From (2) we have 
+
 $$
 \eqalignno{
-\int_{\Lambda_1} \E{f/{\cal F}} \, dP  & =  \int_{\Lambda_1} f \, dP & \cr
-C_{\Lambda_1} \int_{\Lambda_1} \, dP & = \int_{\Lambda_1} f \, dP & \cr 
-C_{\Lambda_1} * P(\Lambda_1) & =  \int_{\Lambda_1} f \, dP = f(D_1) * P(D_1) + f(D_3) * P(D_3) & \cr 
-C_{\Lambda_1} * P(\Lambda_1) & = 1 * \frac{1}{6} + 3 * \frac{1}{6} + 5 * \frac{1}{6}  =  \frac{3}{2} & \cr
+\int_{\Lambda_1} \E{f/{\cal F}} \, dP_{\cal F}  & =  \int_{\Lambda_1} f \, dP & \cr
+\E{f/{\cal F}}(\Lambda_1) \int_{\Lambda_1} \, dP_{\cal F} & = \int_{\Lambda_1} f \, dP & \cr 
+\E{f/{\cal_F}}(\Lambda_1) * P_{\cal F}(\Lambda_1) & =  \int_{\Lambda_1} f \, dP = f(D_1) * P(D_1) + f(D_3) * P(D_3) + f(D_5) * P(D_5) & \cr 
+\E{f/{\cal F}}(\Lambda_1)  & =  \int_{\Lambda_1} f \, dP = f(D_1) * \frac{P(D_1)}{P(\Lambda_1)} + f(D_3) * \frac{P(D_3)}{P(\Lambda_1)} + f(D_5) * \frac{P(D_5)}{P(\Lambda_1)} & \cr 
+\E{f/{\cal F}}(\Lambda_1)  & =  \int_{\Lambda_1} f \, dP = 1 * \frac{\frac{1}{6}}{\frac{1}{2}} + 3 * \frac{\frac{1}{6}}{\frac{1}{2}} + 5 * \frac{\frac{1}{6}}{\frac{1}{2}} & \cr 
+\E{f/{\cal F}}(\Lambda_1)  & =  \int_{\Lambda_1} f \, dP = 1 * \frac{1}{3} + 3 * \frac{1}{3} + 5 * \frac{1}{3} & \cr 
+\E{f/{\cal F}}(\Lambda_1)  & = 3 & \cr
 }
 $$
-Since $P(\Lambda_1) = \frac{3}{6} = \frac{1}{2}$, we have that 
-$$
-C_{\Lambda_1} = 3
-$$
-Consequently,
-$$
-\E{f/{\cal F}}(D_1) = \E{f/{\cal F}}(D_3) = C\E{f/{\cal F}}(D_5) = C_{\Lambda_1} = 3
-$$
+
+
 Likewise, $\E{f/{\cal F}}$ is constant on the set $\Lambda_2$. 
 As we did above, we find the value of $\E{f/{\cal F}}$ on the set $\Lambda_2$.
-Let $C_{\Lambda_2}$ be the constant value of $\E{f/{\cal F}}$ on $\Lambda_2$.
+As with $\Lambda_1$, label $\E{f/{\cal F}}(\Lambda_2)$ as the constant value of $\E{f/{\cal F}}$ 
+on $\Lambda_2$.
 We have
+
 $$
 \eqalignno{
-\int_{\Lambda_2} \E{f/{\cal F}} \, dP  & =  \int_{\Lambda_2} f \, dP & \cr
-C_{\Lambda_2} \int_{\Lambda_2} \, dP & = \int_{\Lambda_2} f \, dP & (*)\cr 
-C_{\Lambda_2} * P(\Lambda_2) & = \int_{\Lambda_2} f \, dP = f(D_2) * P(D_2) + f(D_4) * P(D_4) + f(D_6) * P(6) & \cr 
-C_{\Lambda_2} * P(\Lambda_2) & = 2 * \frac{1}{6} +  4 * \frac{1}{6} + 6 * \frac{1}{6} = 2 & \cr
+\int_{\Lambda_2} \E{f/{\cal F}} \, dP_{\cal F}  & =  \int_{\Lambda_2} f \, dP & \cr
+\E{f/{\cal F}}(\Lambda_2) \int_{\Lambda_2} \, dP_{\cal F} & = \int_{\Lambda_2} f \, dP & \cr 
+\E{f/{\cal_F}}(\Lambda_2) * P_{\cal F}(\Lambda_2) & =  \int_{\Lambda_2} f \, dP = f(D_2) * P(D_2) + f(D_4) * P(D_4) + f(D_6) * P(D_6) & \cr 
+\E{f/{\cal F}}(\Lambda_2)  & =  \int_{\Lambda_2} f \, dP = f(D_2) * \frac{P(D_2)}{P(\Lambda_2)} + f(D_4) * \frac{P(D_4)}{P(\Lambda_2)} + f(D_6) * \frac{P(D_6)}{P(\Lambda_2)} & \cr 
+\E{f/{\cal F}}(\Lambda_2)  & =  \int_{\Lambda_2} f \, dP = 2 * \frac{\frac{1}{6}}{\frac{1}{2}} + 4 * \frac{\frac{1}{6}}{\frac{1}{2}} + 6 * \frac{\frac{1}{6}}{\frac{1}{2}}  & \cr 
+\E{f/{\cal F}}(\Lambda_2)  & =  \int_{\Lambda_2} f \, dP = 2 * \frac{1}{3} + 4 * \frac{1}{3} + 6 * \frac{1}{3} & \cr 
+\E{f/{\cal F}}(\Lambda_2)  & = 4 & \cr
 }
-$$
-Since $P(\Lambda_2) = \frac{3}{6} = \frac{1}{2}$, we have that 
-$$
-C_{\Lambda_2} = 4
-$$
-Consequently,
-$$
-\E{f/{\cal F}}(D_2) = \E{f/{\cal F}}(D_4) = \E{f/{\cal F}}(D_6) = C_{\Lambda_2} = 4
 $$
 Since a function is determined once we know what its values are on every $x \in X$, 
 we have found the conditional expectation function, $\E{f/{\cal F}}$, as we know 
@@ -214,12 +224,17 @@ its values on every $x \in X$.
 From equation $(*)$ we see, that the value of the function $\E{f/{\cal F}}$ 
 evaluated on any `x` value in a minimal set, $\Lambda$, is% 
 \footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}{%
-This {\it assumes\/} that $P(\Lambda) \ne 0$.}	
+The notation, $P_{\Lambda}$ means that we have normalized the measure, $P$, so that $P_{\Lambda}(\Lambda) = 1$. To do this we are {\it assuming\/} that $P(\Lambda) \ne 0$.}	
 $$
 \eqalignno{
 	\E{f/{\cal F}}(x) & = \frac{\int_\Lambda f \, dP}{P(\Lambda)} & (4) \cr
+					  & = \int_\Lambda f \, dP_{\Lambda} & \cr
 }
 $$
+That is, the value of the conditional expectation on any minimal set is the {\it weighted average\/}
+of $f$ over the minimal set. The weights are determined by normalizing the 
+probability measure $P$ over the minimal set.
+
 More generally, discrete probability or otherwise, we may think of the 
 $\sigma$-algebra, ${\cal F}$, as a coarser ``mesh'' than the $\sigma$-algebra, ${\cal E}$.
 And we can think of the value of $\E{f/{\cal F}}$ on any ``minimal'' element 
@@ -240,7 +255,7 @@ $$
 }
 $$
 That is, the probability of a set, $A$, is the number of die in $A$ that 
-are not in the set $\{D_1, D_2, D_3\}$ divided by $3$.
+are not in the set $\{D_1, D_3, D_5\}$ divided by $3$.
 With this definition, $P(\Lambda_1) = 0$ and $P(\Lambda_2) = 1$.
 
 Given $P$, we can find the value of $\E{f/{\cal F}}$ on the set $\Lambda_2$ 
@@ -249,12 +264,14 @@ However, we can't use it to find the value $\E{f/{\cal F}}$ on the
 set $\Lambda_1$ as $P(\Lambda_1) = 0$. 
 
 It turns out, we don't have to determine the values with any specificity on $\Lambda_1$.
-We can {\it set\/} the values of $\E{f/{\cal F}}$ on $\Lambda_1$ to $0$; or, to any other value 
-for that matter. The reason for this is that the definition of
-conditional expectation determines a unique element in the function space on ${\cal F}$
+We can {\it set\/} the values of $\E{f/{\cal F}}$ on $\Lambda_1$ to $0$; or, 
+to any other {\it single\/} value for that matter%
 \footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{%
 We know that $\Lambda_1$ is minimal; so, for the conditional expectation function to be measurable 
 it must have the same value on all elements of $\Lambda_1$.}.
+The reason for this is 
+that the definition of conditional expectation determines a unique element in 
+the function space on ${\cal F}$.
 However, each element in such a space is actually an equivalence class of 
 measurable functions over ${\cal F}$ who differ by at most a set of measure $0$. 
 
@@ -263,11 +280,12 @@ the set $\Lambda_1$, but we don't have to, since it's a set of measure $0$, any
 value on this set will give us a function that is in the equivalence class of 
 the conditional expectation element.
 Therefore, we may take $\E{f/{\cal F}}$ to be $0$ on $\Lambda_1$.
-Since we know the value of $\E{f/{\cal F}}$ over all input values in $X$, we have determined
+Now, since we know the value of $\E{f/{\cal F}}$ over all input values in $X$, we have determined
 the conditional expectation with respect to ${\cal F}$.
 
-Notice the traditional approach to conditional expectation doesn't have a way to talk about
-what the value is on such minimal sets of probability $0$.
+Here, with a measure theoretic methodology, we have an elegant way to talk about 
+conditional expectation in a singular context that doesn't exist in the 
+traditional approach.
 
 \bye
 
