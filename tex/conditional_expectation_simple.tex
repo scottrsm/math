@@ -21,7 +21,7 @@
 
 \mansubtitle{Measure Theoretic Conditional Expectation}
         {in an Elementary Setting}
-{R. Scott McIntire}{Sep 21, 2024}
+{R. Scott McIntire}{Sep 22, 2024}
 
 \section{Overview}
 The measure theoretic approach to conditional expectation can be confusing
@@ -63,10 +63,10 @@ g(D_i) = \cases{0 & if $i$ is even;\cr
 1 & if $i$ is odd \cr 
 }
 $$
-In a discrete space the $\sigma$-algebra generated from $g$ is the algebra of sets generated from 
-the sets:
-$g^{-1}(a)$, $a \in (-\infty, \infty)$. Clearly, the interesting sets come from the values $0$ and $1$, all other
-values lead to the empty set. Consequently,
+In a discrete space the $\sigma$-algebra generated from $g$ is the algebra of 
+sets generated from the sets:
+$g^{-1}(a)$, $a \in (-\infty, \infty)$. Clearly, the interesting sets come 
+from the values $0$ and $1$, all other values lead to the empty set. Consequently,
 $$
 \eqalignno{
 	{\cal F} & = \{\emptyset, \{D_1,D_3,D_5\}, \{D_2,D_4,D_6\}, \{D_1,D_2,D_3,D_4,D_5,D_6\}\} & \cr
@@ -78,11 +78,12 @@ This has implications for the $\sigma$-algebra ${\cal F}$.
 
 The claim is that any function, $f$,  
 which is measurable over ${\cal F}$ has the property that $f$ is constant on the sets 
-$\{D_1,D_3,D_5\}$ and $\{D_2,D_4,D_6\}$. More generally, we claim that any measurable function $f$ 
-in ${\cal F}$ must be constant on the {\it minimal\/} elements of the algebra 
---  elements which have no non-trivial subsets.%
+$\{D_1,D_3,D_5\}$ and $\{D_2,D_4,D_6\}$. More generally, we claim that any 
+measurable function, $f$, in a given $\sigma$-algebra must be constant on 
+the {\it minimal\/} elements of the algebra --  elements which have no non-trivial subsets.%
 \footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{%
-	Specifically, in a discrete setting, a set $Z$ in a $\sigma$-algebra, ${\cal H}$, is {\it minimal\/} in ${\cal H}$ if 
+	Specifically, in a discrete setting, a set $Z$ in a $\sigma$-algebra, 
+	${\cal H}$, is {\it minimal\/} in ${\cal H}$ if 
 there is no non-empty, strict subset, $Y$, of $Z$ with $Y \in {\cal H}$.}
 
 To see this suppose that $f(1)$ differs from $f(3)$.
@@ -128,29 +129,34 @@ $$
 = \int_{\Lambda} f \, dP \quad \forall \Lambda \in {\cal F} & (1) \cr
 }
 $$
-In this second equation we use the fact that the conditional expectation is a {\it measurable\/} function
-with respect to ${\cal F}$.
+In this second equation we use the fact that the conditional expectation is 
+a {\it measurable\/} function with respect to ${\cal F}$.
 We do this by replacing the measure $P$ on the left hand side with $P_{\cal F}$ to indicate
 that we are using the same measure, but one that is restricted to $\sigma$-algebra ${\cal F}$.
 
-Although it seems that $f$ -- itself -- satisfies the first equation, we have to be careful. The second
-equation is a way to emphasize that the conditional expectation function must be {\it measurable\/}
-with respect to the sigma algebra we are using for integration. The second equation makes clear
-that while, on the right, we are dealing with a ${\cal E}$ measurable function on ${\cal E}$, on the left
-we are not -- we are dealing with a ${\cal F}$ measurable function. Consequently, while $f$ seams 
-like a nature candidate conditional expectation it is not necessarily
+Although it seems that $f$ -- itself -- satisfies the first equation, we have 
+to be careful. The second equation is a way to emphasize that the conditional 
+expectation function must be {\it measurable\/} with respect to the sigma 
+algebra we are using for integration. The second equation makes clear
+that while, on the right, we are dealing with a ${\cal E}$ measurable 
+function on ${\cal E}$, on the left we are not -- we are dealing with a 
+${\cal F}$ measurable function. Consequently, while $f$ seams 
+like a nature candidate for the conditional expectation it is not necessarily
 ${\cal F}$ measurable. 
 However, if $f$ is measurable with respect to ${\cal F}$ then, by the definition above,  
 it is its own conditional expectation. 
 
-The modern theory of probability -- including conditional expectation -- relies on measure theory
-which has its roots in Lebesgue measure theory used to provide an alternative to the theory of Riemann Integration.
-From Lebesgue Measure Theory one is introduced to measurable and non-measurable sets. The problem, in
-the context of Lebesgue, is that non-measurable sets exist but specific examples are hard to come by. 
-However, non-measurable sets appear {\it implicitly\/} in the definition of conditional expectation 
+The modern theory of probability -- including conditional expectation -- 
+relies on measure theory which has its roots in Lebesgue measure theory -- 
+used to provide an alternative to the theory of Riemann Integration.
+From Lebesgue Measure Theory one is introduced to measurable and non-measurable sets. 
+The problem, in the context of Lebesgue, is that non-measurable sets exist but 
+specific examples are hard to come by. However, non-measurable sets appear 
+{\it implicitly\/} in the definition of conditional expectation 
 in that if they didn't the definition wouldn't be of any interest.
-If one started out learning measure theory from the Lebesgue theory, the definition of conditional 
-expectation might make readers somewhat uneasy as we are confronted with non-measurable sets from the start.
+If one started out learning measure theory from the Lebesgue theory, the 
+definition of conditional expectation might make readers somewhat uneasy as 
+we are confronted with non-measurable sets from the start.
 From this context, it is harder to get an intuitive idea of conditional expectation. 
 
 In the next section we examine the measure theoretic version of conditional expectation 
@@ -161,14 +167,16 @@ the traditional approach to conditional expectation -- except in the ``singular'
 which we discuss in the last section.
 
 \section{Example Calculation of Conditional Expectation}
-Consider the function from two sections back, $f(D_i) = i$, which is measurable in the 
-space $(P,X,{\cal E})$. Let ${\cal F}$ be the sub $\sigma$-algebra of that section.
+Consider the function from the second on an elementary dice example, $f(D_i) = i$, 
+which is measurable in the space $(P,X,{\cal E})$. Let ${\cal F}$ be the 
+sub $\sigma$-algebra of that section.
 We now compute the conditional expectation of $f$ with respect to ${\cal F}$.
 Using (1) we choose the {\it minimal\/} sets: $\Lambda$'s: $\Lambda_1 = \{D_1,D_3,D_5\}$ 
 and $\Lambda_2 = \{D_2,D_4,D_6\}$. Since the conditional expectation function is constant
-on each of these sets, equation (1) will provide a way to find each value on the sets.
+on each of these sets, equation (1) will provide a way to find each value on each the two sets.
 Since the union of $\Lambda_1$ and $\Lambda_2$ constitute the entire set, $X$, we will know
-the value of the conditional expectation function on all of $X$.
+the value of the conditional expectation function on all of $X$; hence we will know the
+conditional expectation function.
 
 Proceeding, we have
 $$
@@ -199,7 +207,6 @@ $$
 }
 $$
 
-
 Likewise, $\E{f/{\cal F}}$ is constant on the set $\Lambda_2$. 
 As we did above, we find the value of $\E{f/{\cal F}}$ on the set $\Lambda_2$.
 As with $\Lambda_1$, label $\E{f/{\cal F}}(\Lambda_2)$ as the constant value of $\E{f/{\cal F}}$ 
@@ -219,21 +226,24 @@ $$
 $$
 Since a function is determined once we know what its values are on every $x \in X$, 
 we have found the conditional expectation function, $\E{f/{\cal F}}$, as we know 
-its values on every $x \in X$.
+its values on every $x \in X$.\footnote{\kern 0.5pt \raise 0.5ex \hbox{$\dag$}}{%
+In the ``Redux'' section we examine more closely what ``knowing the value on every $x$'' means.}
 
 From equation $(*)$ we see, that the value of the function $\E{f/{\cal F}}$ 
-evaluated on any `x` value in a minimal set, $\Lambda$, is% 
+evaluated on any `x' value in a minimal set, $\Lambda$, is% 
 \footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}{%
-The notation, $P_{\Lambda}$ means that we have normalized the measure, $P$, so that $P_{\Lambda}(\Lambda) = 1$. To do this we are {\it assuming\/} that $P(\Lambda) \ne 0$.}	
+The notation, $P_{\Lambda}$ means that we have normalized the measure, $P$, 
+so that $P_{\Lambda}(\Lambda) = 1$. To do this we are {\it assuming\/} 
+that $P(\Lambda) \ne 0$.}
 $$
 \eqalignno{
 	\E{f/{\cal F}}(x) & = \frac{\int_\Lambda f \, dP}{P(\Lambda)} & (4) \cr
 					  & = \int_\Lambda f \, dP_{\Lambda} & \cr
 }
 $$
-That is, the value of the conditional expectation on any minimal set is the {\it weighted average\/}
-of $f$ over the minimal set. The weights are determined by normalizing the 
-probability measure $P$ over the minimal set.
+That is, the value of the conditional expectation on any minimal set is the 
+{\it weighted average\/} of $f$ over the minimal set. The weights are 
+determined by normalizing the probability measure $P$ over the minimal set.
 
 More generally, discrete probability or otherwise, we may think of the 
 $\sigma$-algebra, ${\cal F}$, as a coarser ``mesh'' than the $\sigma$-algebra, ${\cal E}$.
@@ -241,10 +251,11 @@ And we can think of the value of $\E{f/{\cal F}}$ on any ``minimal'' element
 of the mesh as the average of the function, $f$, over this minimal 
 element with respect to the finer ``mesh'' -- the $\sigma$-algebra, ${\cal E}$.
 
-You can think of the conditional expectation as giving the ``best'' representation 
-of a function given a cruder mesh, ${\cal F}$, than the refined mesh, ${\cal E}$. 
-Just as the ``best'' representation of an image at a larger pixel (crude mesh) would be an 
-average over the smaller pixels (refined mesh) of the larger pixel.
+From this perspective, you can think of the conditional expectation as 
+giving the ``best'' representation of a function given a cruder mesh, ${\cal F}$, 
+than the refined mesh, ${\cal E}$. Just as the ``best'' representation of an 
+image at a larger pixel scale (crude mesh) would be an average over smaller 
+scale pixels (refined mesh) of the larger pixel.
  
 \section{Example Redux}
 Let's adjust the dice example probabilities and redo the calculation of the 
@@ -267,8 +278,8 @@ It turns out, we don't have to determine the values with any specificity on $\La
 We can {\it set\/} the values of $\E{f/{\cal F}}$ on $\Lambda_1$ to $0$; or, 
 to any other {\it single\/} value for that matter%
 \footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{%
-We know that $\Lambda_1$ is minimal; so, for the conditional expectation function to be measurable 
-it must have the same value on all elements of $\Lambda_1$.}.
+We know that $\Lambda_1$ is minimal; so, for the conditional expectation 
+function to be measurable it must have the same value on all elements of $\Lambda_1$.}.
 The reason for this is 
 that the definition of conditional expectation determines a unique element in 
 the function space on ${\cal F}$.
@@ -280,8 +291,8 @@ the set $\Lambda_1$, but we don't have to, since it's a set of measure $0$, any
 value on this set will give us a function that is in the equivalence class of 
 the conditional expectation element.
 Therefore, we may take $\E{f/{\cal F}}$ to be $0$ on $\Lambda_1$.
-Now, since we know the value of $\E{f/{\cal F}}$ over all input values in $X$, we have determined
-the conditional expectation with respect to ${\cal F}$.
+Now, since we know the value of $\E{f/{\cal F}}$ over all input values in $X$, 
+we have determined the conditional expectation with respect to ${\cal F}$.
 
 Here, with a measure theoretic methodology, we have an elegant way to talk about 
 conditional expectation in a singular context that doesn't exist in the 
