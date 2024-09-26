@@ -87,18 +87,12 @@ the {\it minimal\/} elements of the algebra --  elements which have no non-trivi
 there is no non-empty, strict subset, $Y$, of $Z$ with $Y \in {\cal H}$.}
 
 To see this suppose that $f(1)$ differs from $f(3)$.
-Then $\{D_1, D_3, D_5\} \cap f^{-1}(f(D_1))$ is a non trivial subset of 
-$\{D_1, D_3, D_5\}$ as is $\{D_1, D_3, D_5\} \cap f^{-1}(f(D_3))$.
-These two sets must differ since $f(D_1)$ and $f(D_3)$ differ. 
-Since ${\cal F}$ is a $\sigma$-algebra and 
-$\{D_1, D_3, D_5\}$, $f^{-1}(f(D_1))$, and $f^{-1}(f(D_3))$ are sets in 
-${\cal F}$, any intersection of these
-sets is also in ${\cal F}$. But since the two sets differ and are non-empty 
-subsets of $\{D_1,D_3,D_5\}$, one 
-of them must be a strict subset of $\{D_1,D_3,D_5\}$. And, since they are each 
-in ${\cal F}$ with ${\cal F}$ an algebra 
-of sets, this strict subset must be in ${\cal F}.$
-However, we know that they also are {\it not\/} in ${\cal F}$ -- contradiction. 
+Then the set, $A = \{D_1, D_3, D_5\} \cap f^{-1}(f(D_1))$, is a {\it strict\/}, non-trivial subset of 
+$\{D_1, D_3, D_5\}$. This is true since $A$, by construction, is a subset of $\{D_1, D_3, D_5\}$;
+$A$ contains $D_1$; and $A$ does not contain $D_3$.
+Since ${\cal F}$ is a $\sigma$-algebra and $A$ is the intersection of the ${\cal F}$ measurable sets 
+$\{D_1, D_3, D_5\}$ and $f^{-1}(f(D_1))$, $A$ must be in ${\cal F}$.
+However, we know that $\{D_1, D_2, D_3\}$ has no strict non-trivial subset in ${\cal F}$  -- contradiction. 
 Therefore, our premise that $f(D_1)$ and $f(D_3)$ could 
 take differing values is incorrect.  The same argument shows that $f(D_1)$ and 
 $f(D_5)$ do not differ.
@@ -121,27 +115,27 @@ That such a unique function exists is a consequence of the Radon-Nikodym theorem
 $$
 \eqalignno{
 \int_{\Lambda} \E{f/{\cal F}} \, dP & 
-= \int_{\Lambda} f \, dP \quad \forall \Lambda \in {\cal F} & (1) \cr
+= \int_{\Lambda} f \, dP \quad \forall \Lambda \in {\cal F} & (1a) \cr
 }
 $$
 Let us write this again in, perhaps, an unusual way.
 $$
 \eqalignno{
 	\int_{\Lambda} \E{f/{\cal F}} \, dP_{\cal F} & 
-= \int_{\Lambda} f \, dP \quad \forall \Lambda \in {\cal F} & (1) \cr
+= \int_{\Lambda} f \, dP \quad \forall \Lambda \in {\cal F} & (1b) \cr
 }
 $$
-In this second equation we use the fact that the conditional expectation is 
+In equation (1b) we use the fact that the conditional expectation is 
 a {\it measurable\/} function with respect to ${\cal F}$.
 We do this by replacing the measure $P$ on the left hand side with $P_{\cal F}$ to indicate
-that we are using the same measure, but one that is restricted to $\sigma$-algebra ${\cal F}$.
+that we are using the same measure, but one that is restricted to the sub $\sigma$-algebra ${\cal F}$.
 
-Although it seems that $f$ -- itself -- satisfies the first equation, we have 
-to be careful. The second equation is a way to emphasize that the conditional 
+Although it seems that $f$ -- itself -- satisfies (1a), we have 
+to be careful. Equation (1b)'s notation emphasizes that the conditional 
 expectation function must be {\it measurable\/} with respect to the sigma 
-algebra we are using for integration. The second equation makes clear
-that while, on the right, we are dealing with a ${\cal E}$ measurable 
-function on ${\cal E}$, on the left we are not -- we are dealing with a 
+algebra we are using for integration. On the right of equation (1b)
+we are dealing with a ${\cal E}$ measurable 
+function on ${\cal E}$, while on the left we are dealing with a 
 ${\cal F}$ measurable function. Consequently, while $f$ seems 
 like a nature candidate for the conditional expectation it is not necessarily
 ${\cal F}$ measurable. 
@@ -162,7 +156,7 @@ definition of conditional expectation might make readers somewhat uneasy as
 we are confronted with non-measurable sets from the very start.
 From this context, it is harder to get an intuitive idea of conditional expectation. 
 
-In the next section we examine the measure theoretic version of conditional expectation 
+In the next section we examine this measure theoretic version of conditional expectation 
 in a discrete probabilistic setting where such non-measurable functions are 
 simple and explicit. In the process, we will provide an intuitive idea of the 
 measure-theoretic definition of conditional expectation which coincides with 
@@ -174,9 +168,9 @@ Consider the function from the second on an elementary dice example, $f(D_i) = i
 which is measurable in the space $(P,X,{\cal E})$. Let ${\cal F}$ be the 
 sub $\sigma$-algebra of that section.
 We now compute the conditional expectation of $f$ with respect to ${\cal F}$.
-Using (1) we choose the {\it minimal\/} sets: $\Lambda_1 = \{D_1,D_3,D_5\}$ 
+Using (1b) we choose the {\it minimal\/} sets: $\Lambda_1 = \{D_1,D_3,D_5\}$ 
 and $\Lambda_2 = \{D_2,D_4,D_6\}$. Since the conditional expectation function is constant
-on each of these sets, equation (1) will provide a way to find each value on each the two sets.
+on each of these sets, equation (1b) will provide a way to find each value on each the two sets.
 Since the union of $\Lambda_1$ and $\Lambda_2$ constitute the entire set, $X$, we will know
 the value of the conditional expectation function on all of $X$; hence we will know the
 conditional expectation function.
@@ -240,8 +234,7 @@ so that $P_{\Lambda}(\Lambda) = 1$. To do this we are {\it assuming\/}
 that $P(\Lambda) \ne 0$.}
 $$
 \eqalignno{
-	\E{f/{\cal F}}\!(x) & = \frac{\int_\Lambda f \, dP}{P(\Lambda)} & (4) \cr
-					  & = \int_\Lambda f \, dP_{\Lambda} & \cr
+	\E{f/{\cal F}}\!(x) & = \frac{\int_\Lambda f \, dP}{P(\Lambda)} = \int_\Lambda f \, dP_{\Lambda} & (4) \cr
 }
 $$
 That is, the value of the conditional expectation on any minimal set is the 
@@ -249,10 +242,11 @@ That is, the value of the conditional expectation on any minimal set is the
 determined by normalizing the probability measure $P$ over the minimal set.
 
 More generally, discrete probability or otherwise, we may think of the 
-$\sigma$-algebra, ${\cal F}$, as a coarser ``mesh'' than the $\sigma$-algebra, ${\cal E}$.
+$\sigma$-algebra, ${\cal F}$, as a coarser ``mesh'' than the finer ``mesh'', 
+$\sigma$-algebra, ${\cal E}$.
 And we can think of the value of $\E{f/{\cal F}}$ on any ``minimal'' element 
 of the mesh as the average of the function, $f$, over this minimal 
-element with respect to the finer ``mesh'' -- the $\sigma$-algebra, ${\cal E}$.
+element with respect to the finer ``mesh''.
 
 From this perspective, you can think of the conditional expectation as 
 giving the ``best'' representation of a function given a cruder mesh, ${\cal F}$, 
