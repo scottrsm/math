@@ -21,7 +21,7 @@
 
 \mansubtitle{Measure Theoretic Conditional Expectation}
         {in an Elementary Setting}
-{R. Scott McIntire}{Sep 27, 2024}
+{R. Scott McIntire}{Sep 30, 2024}
 
 \section{Overview}
 The measure theoretic approach to conditional expectation can be confusing
@@ -379,7 +379,7 @@ Consequently, we may write the above as:
 
 $$
 \eqalignno{
-	E[\E{f / {\cal G}}] & = \int_{X} \E{f / g} \, dP = \int_{X} f \, dP & (6') \cr
+	E[\E{f / g}] & = \int_{X} \E{f / g} \, dP = \int_{X} f \, dP & (6') \cr
 									         & = \int_{\mathop{\cup}_{i=1}^N\limits M_i} f \, dP & \cr
 											 & = \sum_{i=1}^N \int_{M_i} f \, dP & \cr
 											 & = \sum_{i=1}^N \int_{M_i} \E{f / g} \, dP &\cr
@@ -390,6 +390,10 @@ Here, in the term, $\E{f / g} P(M_i)$, $\E{f / g}$ is interpreted as the value o
 We also drop the $dP_{\cal G}$ notation, which was only used as a crutch in the previous part of the paper.
 Lastly, we know from equation (5) how to compute the values of $\E{f / g}$ for all $M_i$ -- even when the probability of
 a ``g'' event is $0$.
+
+Equation (6') says that $E[\E{f / g}] = E[f]$; that is, the expectation of the conditional expectation of $f$
+is the same as the expectation of $f$. Equation (7') gives us a way to compute the expectation of the conditional 
+expectation which can be a computationally efficient way to compute the expectation of $f$.
 
 
 \bye
