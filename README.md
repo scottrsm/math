@@ -43,6 +43,7 @@ In any event the corresponding PDF's are in the directory **pdf/**.
     - Often partial differential equations can be derived from simple balance laws.
 - A derivation of the Exponential Moving Average and its associated moving Standard Deviation: **tex**/exponential_moving_average.tex.
     - Associated un-biased estimates of the moments of the exponential moving average are also given.
+- A derivation of diversification constraints in certain optimization problems.
 
 ### New Mathematical Results
 - A formula to Compute Probability Distributions for Singular Transformations: **tex**/prob_singular_trans.tex.
@@ -59,5 +60,5 @@ In any event the corresponding PDF's are in the directory **pdf/**.
     - Conjectures regarding Primitive Pythagorean Triples: **tex**/conj_pythag_triple.tex.
     - Julia code supporting the Pythagorean triples conjecture via a Jupyter notebook: **src**/Pythag.ipynb.
 
-#### Version 1.4.51
+#### Version 1.4.52
 

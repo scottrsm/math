@@ -1,0 +1,152 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{7.5in}
+\setlength{\hoffset}{-0.75in}
+\setlength{\voffset}{-0.75in}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.5\baselineskip}
+
+\input{latex_macros.tex}
+
+\title{Constructing Diversification Constraints}
+\author{R. Scott McIntire}
+\date{Oct 1, 2024}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{DD}{Def}
+
+\begin{document}
+
+\maketitle
+
+\section{Overview}
+Consider the function function, $f: {\bf R}^n \mapsto {\bf R}$, defined by
+\begin{eqnarray}
+	f({\bf x}) & = & \sum_{i=1}^k x_{[i]} 
+\end{eqnarray}
+From this we see that $f({\bf x})$ is the value of the sum of the $k^{\rm th}$ largest values in its input ${\bf x}$.
+We are interested in optimization problems involving a vector ${\bf x}$ with the sum of the 
+top values constrained by a given value; that is, such that $f(x) \le M$  for some value $M$.
+How could we do this? One way is to write down all possible combinations of the $k$ elements of ${\bf X}$ and write a constraint that bounds their sum to be less than or equal to $M$.  But the number of constraints that one has to write are $n \choose k$. This becomes 
+large very quickly. In the next section we seek a way to represent $f$ to 
+reduce the number of constraints.
+
+\section{The Upper Bound as an Optimization Problem}
+Another way to approach a bound on $f({\bf x})$ is to bound its maximum value.
+Its maximum value can be described by:
+\begin{eqnarray}
+\mathop{\rm max}_{{\bf y} \in {\bf Z}_2^n}\limits \quad {\bf y}^T {\bf x} && \\
+{\bf y}^T {\bf 1} & = & k 
+\end{eqnarray}
+In English this says: "Take the maximum value of all possible sums of $k$ values from ${\bf x}$."
+Although this optimization is succinct, there are still an exponential number of combinations 
+to examine to find the optimal solution in this discrete setting.
+
+{\bf claim:} The solution to the above is the same as: 
+\begin{eqnarray}
+\mathop{\rm max}_{{\bf y} \in {\bf R}^n}\limits \quad {\bf y}^T {\bf x} &&  \\
+{\bf 0} \preceq {\bf y}   \preceq  {\bf 1}&& \\
+\end{eqnarray}
+{\bf NOTE:} We do not prove this claim, asking the reader to accept the result.
+
+This is no longer a discrete problem, it is a continuous optimization problem.
+The solution to this problem is the same the associated problem:
+\begin{eqnarray}
+	\mathop{\rm min}_{{\bf y} \in {\bf R}^n}\limits \quad -{\bf y}^T {\bf x} && \label{op1} \\ 
+	{\bf 0} \preceq {\bf y} \preceq {\bf 1} &&  \label{op2}\\
+	{\bf y}^T {\bf 1} =  k \label{op3} &&
+\end{eqnarray}
+But this problem is a {\it convex\/} problem.
+
+\section{A Dual Description of the Optimization}
+Since the problem described by equations ($\ref{op1}, \ref{op2}, \ref{op3}$), is
+a {\it convex\/} problem, the value of its solution is the same as the value of 
+its associated {\it dual\/} problem.%
+\footnote{Normally one needs to show that a convex problem satisfies Slater's condition.
+But this is not necessary when dealing with linear convex problems.}
+
+To form the dual problem we need the Lagrangian, which is:
+\begin{eqnarray}
+	L({\bf y}, {\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu) &=& -{\bf y}^T {\bf x} - {\boldsymbol \lambda}_1 {\bf y} + {\boldsymbol \lambda}_2 ({\bf y} - {\bf 1}) + \nu (k - {\bf y}^T {\bf 1}) 
+\end{eqnarray}
+
+Set the function $g$:
+\begin{eqnarray}
+	g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_1, \nu) &=& \mathop{\rm inf}_{\bf y} \; L({\bf y}, {\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu) 
+\end{eqnarray}
+
+Substituting for $L$ this becomes
+\begin{eqnarray}
+	g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_1, \nu) &=& \mathop{\rm inf}_{\bf y} \; \left({\bf y}^T \left( -{\bf x} - {\boldsymbol \lambda}_1 + {\boldsymbol \lambda}_2 - \nu {\bf 1} \right) - {\boldsymbol \lambda}_2^T {\bf 1} + \nu \, k  \right)
+\end{eqnarray}
+
+The dual problem is then
+\begin{eqnarray}
+	\mathop{\rm max}_{{{\boldsymbol \lambda}_2 \succeq {\bf 0}} \atop {{{\boldsymbol \lambda}_1 \succeq {\bf 0}} \atop \nu}} g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu) & & 
+\end{eqnarray}
+
+Which is%
+\footnote{Note that $g$ is $-\infty$, unless the term that ${\bf y}$ is ``dotting'' is the zero vector. Consequently, the maximum
+must necessarily occur where the dotting vector is zero.}
+\begin{eqnarray}
+	\mathop{\rm max}_{{{\boldsymbol \lambda}_2 \succeq {\bf 0}} \atop {{{\boldsymbol \lambda}_1 \succeq {\bf 0}} \atop \nu}} - {\boldsymbol \lambda}_2^T {\bf 1} + \nu \, k &&\\ 
+	- {\boldsymbol \lambda}_1 + {\boldsymbol \lambda}_2 - \nu {\bf 1}  &=& {\bf x} 
+\end{eqnarray}
+
+This is equivalent to%
+\footnote{We can remove $n$ variables by eliminating ${\boldsymbol \lambda}_1$ from the equations while keeping
+	the same number of inequalities. We can do this by realizing that ${\boldsymbol \lambda}_2 - \nu {\bf 1} = {\bf x} + {\boldsymbol \lambda}_1$ 
+	expresses the same information as: ${\boldsymbol \lambda}_2 - \nu {\bf 1} \succeq {\bf x}$. Since there is now only one ${\boldsymbol \lambda}$,
+we relabel ${\boldsymbol \lambda}_2$ as ${\boldsymbol \lambda}$.}
+\begin{eqnarray}
+	\mathop{\rm max}_{{{\boldsymbol \lambda} \succeq {\bf 0}} \atop \nu} & - {\boldsymbol \lambda}^T {\bf 1} + \nu \, k & \\
+																		 & {\boldsymbol \lambda} - \nu {\bf 1} \succeq {\bf x} & 
+\end{eqnarray}
+Or,
+\begin{eqnarray}
+	\mathop{\rm max}_{{{\boldsymbol \lambda} \succeq {\bf 0}} \atop \nu} & \quad \nu \, k - {\bf 1}^T {\boldsymbol \lambda} & \\ 
+																		 &  {\bf x} \preceq {\boldsymbol \lambda} - \nu {\bf 1} &
+ \end{eqnarray}
+Since maximizing over $\nu$ or $-\nu$ is the same and there are no restrictions on the sign of $\nu$ we may replace $\nu$ with $-\nu$ 
+in the last equations giving:
+\begin{eqnarray}
+	\mathop{\rm max}_{{{\boldsymbol \lambda} \succeq {\bf 0}} \atop \nu} & \quad -\nu \, k - {{\bf 1}^T \boldsymbol \lambda} & \\ 
+																		 &  {\bf x} \preceq {\boldsymbol \lambda} + \nu {\bf 1} &
+ \end{eqnarray}
+But this is the same as:
+
+\begin{eqnarray}
+	\mathop{\rm min}_{{\boldsymbol \lambda}, \nu} & \quad \nu \, k + {\bf 1}^T {\boldsymbol \lambda} & \\ 
+												  &  {\bf x} \preceq {\boldsymbol \lambda} + \nu {\bf 1} & \\
+												  & {\boldsymbol \lambda} \succeq {\bf 0} & 
+ \end{eqnarray}
+
+\section{A Linear Number of Constraints}
+Therefore, if you wish to bound the top $k$ elements of the vector ${\bf x}$ by $M$ in an optimization problem; that is,
+if you wish to bound $f(x)$ above by $M$, you 
+need to add the following constraints:
+\begin{eqnarray}
+	\nu \, k + {\boldsymbol \lambda}^T {\bf 1}  & \le & M \label{opp1} \\ 
+	{\bf x} & \preceq & {\boldsymbol \lambda} + \nu {\bf 1} \label{opp2} \\
+	{\boldsymbol \lambda} & \succeq & {\bf 0}  \label{opp3}
+\end{eqnarray}
+
+Why? Because the expression $\nu \, k + {\boldsymbol \lambda}^T {\bf 1}$ with
+the constraints (\ref{opp2}) and (\ref{opp3}) applied is {\it always\/} an upper bound to $f(x)$. 
+Consequently, we have the inequality: $f(x) \le \nu \, k + {\boldsymbol \lambda}^T {\bf 1} \le M$.
+The only concern is that there is a gap between the values of $\nu \, k + {\boldsymbol \lambda}^T {\bf 1}$ 
+and $f(x)$ -- making (\ref{opp1}) too restrictive. 
+But this is not the case as the minimum over all ${\boldsymbol \lambda}$ 
+and $\nu$ (subject to (\ref{opp2}) and (\ref{opp3}))is $f(x)$.
+
+Therefore, in order to avoid a combinatorial explosion of inequality constraints, 
+one need only add $(n+1)$ variables (${\boldsymbol \lambda}, \, \nu$) to an optimization problem 
+to provide diversification constraints on a vector of length, $n$.
+The number of new inequality constraints added becomes $(2n+1)$.
+
+\end{document}
+
