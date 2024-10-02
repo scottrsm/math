@@ -110,7 +110,10 @@ a {\it convex\/} problem, the value of its solution is the same as the value of
 its associated {\it dual\/} problem.%
 \footnote{Normally one needs to show that a convex problem satisfies Slater's condition
 	in order to claim that it provides the same value as its associated dual.
-But this is not necessary when dealing with {\it linear\/} convex problems.}
+But this is not necessary when dealing with {\it linear\/} convex problems. 
+Why, you may ask is it {\it linear\/}? The term $-{\bf y}^T {\bf x}$ is
+decidedly non-linear. It is linear if we treat ${\bf x}$ as a constant (we also
+use the term parameter).}
 
 To form the dual problem we need the Lagrangian, which is:%
 \footnote{For the purposes of this optimization, ${\bf x}$ is seen as a parameter
@@ -200,6 +203,18 @@ Therefore, in order to avoid a combinatorial explosion of inequality constraints
 one need only add $(n+1)$ variables (${\boldsymbol \lambda}, \, \nu$) to an 
 optimization problem to provide diversification constraints on a vector of length, $n$.
 The number of new inequality constraints added becomes $(2n+1)$.
+
+One might ask why we couldn't do exactly the same procedure with a simpler characterization we had 
+with equations
+(\ref{op1}), (\ref{op2}), (\ref{op3}), rather than going through so much effort with a dual problem.
+The same number of variables and the same number of constraints are required.
+
+We could do that; however, note that once we take the characterization of a bound on a ``given'' ${\bf x}$ 
+and place into an optimization problem that ``given'' ${\bf x}$ is no longer a constant/parameter.
+It, itself, is part of the optimization. And now, one of the inequalities that we would add
+would be related to (\ref{op1}); that is, the term: $-{\bf y}^T {\bf x}$. But this term
+involves the (now) {\it variable\/} ${\bf x}$ and the new {\it variable\/}, ${\bf y}$ in a decidedly {\it non-linear\/} way.
+What we have shown in this section is that we can provide {\it linear\/} constraints to bound $f({\bf x})$.
 
 \end{document}
 
