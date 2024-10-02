@@ -14,7 +14,7 @@
 
 \title{Constructing Diversification Constraints}
 \author{R. Scott McIntire}
-\date{Oct 1, 2024}
+\date{Oct 2, 2024}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{DD}{Def}
@@ -28,33 +28,75 @@ Consider the function function, $f: {\bf R}^n \mapsto {\bf R}$, defined by
 \begin{eqnarray}
 	f({\bf x}) & = & \sum_{i=1}^k x_{[i]} 
 \end{eqnarray}
-From this we see that $f({\bf x})$ is the value of the sum of the $k^{\rm th}$ largest values in its input ${\bf x}$.
-We are interested in optimization problems involving a vector ${\bf x}$ with the sum of the 
-top values constrained by a given value; that is, such that $f(x) \le M$  for some value $M$.
-How could we do this? One way is to write down all possible combinations of the $k$ elements of ${\bf X}$ and write a constraint that bounds their sum to be less than or equal to $M$.  But the number of constraints that one has to write are $n \choose k$. This becomes 
-large very quickly. In the next section we seek a way to represent $f$ to 
+From this we see that $f({\bf x})$ is the value of the sum of the $k^{\rm th}$ 
+largest values in its input ${\bf x}$.
+We are interested in optimization problems involving a vector ${\bf x}$ 
+with the sum of the top values constrained by a given value; that is, 
+such that $f({\bf x}) \le M$  for some value $M$.
+How could we do this? One way is to write down all possible combinations of the 
+$k$ elements of ${\bf x}$ and write a constraint that bounds their sum to be 
+less than or equal to $M$.  But the number of constraints that one has to 
+write are $n \choose k$. This becomes large very quickly. 
+In the next section we seek a way to represent $f$ to 
 reduce the number of constraints.
 
-\section{The Upper Bound as an Optimization Problem}
-Another way to approach a bound on $f({\bf x})$ is to bound its maximum value.
-Its maximum value can be described by:
+This constraint arises in the world of finance where one wants to perform
+a modification to a portfolio of securities but needs to ensure that the 
+top $k$ securities (notionally) do not exceed some percentage of the 
+total portfolio notional.
+
+\section{The Function $f$ as an Optimization Problem}
+We wish to characterize the value of $f$ on a given vector, ${\bf x}$ as 
+the result of an optimization.
+We claim that for for a given ${\bf x}$, $f({\bf x})$ is the value of 
+the following constrained optimization problem:
 \begin{eqnarray}
 \mathop{\rm max}_{{\bf y} \in {\bf Z}_2^n}\limits \quad {\bf y}^T {\bf x} && \\
 {\bf y}^T {\bf 1} & = & k 
 \end{eqnarray}
 In English this says: "Take the maximum value of all possible sums of $k$ values from ${\bf x}$."
+This is clearly just another way of restating $f({\bf x})$.
 Although this optimization is succinct, there are still an exponential number of combinations 
 to examine to find the optimal solution in this discrete setting.
 
 {\bf claim:} The solution to the above is the same as: 
 \begin{eqnarray}
 \mathop{\rm max}_{{\bf y} \in {\bf R}^n}\limits \quad {\bf y}^T {\bf x} &&  \\
-{\bf 0} \preceq {\bf y}   \preceq  {\bf 1}&& \\
+{\bf 0} \preceq {\bf y}   \preceq  {\bf 1}&& \\ 
+{\bf y}^T {\bf 1}  =  k && \label{integral} 
 \end{eqnarray}
-{\bf NOTE:} We do not prove this claim, asking the reader to accept the result.
+{\bf proof:}
+The new optimization is in a continuous domain. Since its domain, ${\bf R}^n$, 
+includes ${\bf Z}_2^n$, the solution to the continuous problem is at least as 
+large as the solution to the original discrete problem.
+We now show the reverse, by showing that for every optimal solution to the continuous
+problem, ${\bf y}^*$, there is a corresponding ${\bf y}^{**}$ that lives
+in ${\bf Z}_2^n$ yielding the same value for the objective.
 
-This is no longer a discrete problem, it is a continuous optimization problem.
-The solution to this problem is the same the associated problem:
+To this end, let ${\bf y}^*$ be a solution to the continuous problem. If all
+of the values are integral; meaning, take on only the values of $0$ or $1$ we are done.
+Otherwise, collect the components of ${\bf y}^*$ that are non-integral. By 
+the constraint, (\ref{integral}), there must be more than one component. 
+It must also be the case that amongst these ``fractional'' components that
+the corresponding ``x'' values are the same. Otherwise, If two of the components of ${\bf y}$
+had differing ``x'' values, then the ``y'' component with the smaller ``x'' value could
+shift some of its value to the ``y'' component with the larger ``x'' value in 
+a way that keeps the constraint, (\ref{integral}). But this would give a larger 
+value than the optimal maximum -- contradiction. Therefore, all of the 
+``x'' components associated with non-integral ``y'' values must have the same 
+value. The sum of these non-integral values must sum to an integral value, which 
+by necessity, is less than the number of components in ${\bf y}^*$. Suppose this number is
+$j$. Take any $j$ of these ``y'' components. Create a new vector ${\bf y}^\prime$
+and set its values in the following way: Set the components of ${\bf y}^\prime$
+corresponding to the previous $j$ components from ${\bf y}^*$ to be $1$. Set the components
+of ${\bf y}^\prime$ that correspond to the remaining ``fractional'' components of 
+${\bf y}^*$ to $0$. Set the rest of the components of ${\bf y}^\prime$ to the 
+corresponding values from ${\bf y}^*$. We have now shown that a solution vector to the 
+continuous problem is in the feasible set of the discrete problem. Therefore, the
+optimal solution to the discrete problem is at least as large as the solution to the 
+continuous problem. Consequently, the two problems are equivalent.
+
+Note that the solution to continuous problem is the same as the associated problem:
 \begin{eqnarray}
 	\mathop{\rm min}_{{\bf y} \in {\bf R}^n}\limits \quad -{\bf y}^T {\bf x} && \label{op1} \\ 
 	{\bf 0} \preceq {\bf y} \preceq {\bf 1} &&  \label{op2}\\
@@ -66,27 +108,32 @@ But this problem is a {\it convex\/} problem.
 Since the problem described by equations ($\ref{op1}, \ref{op2}, \ref{op3}$), is
 a {\it convex\/} problem, the value of its solution is the same as the value of 
 its associated {\it dual\/} problem.%
-\footnote{Normally one needs to show that a convex problem satisfies Slater's condition.
-But this is not necessary when dealing with linear convex problems.}
+\footnote{Normally one needs to show that a convex problem satisfies Slater's condition
+	in order to claim that it provides the same value as its associated dual.
+But this is not necessary when dealing with {\it linear\/} convex problems.}
 
-To form the dual problem we need the Lagrangian, which is:
+To form the dual problem we need the Lagrangian, which is:%
+\footnote{For the purposes of this optimization, ${\bf x}$ is seen as a parameter
+to the optimization -- essentially a constant with respect to the optimization.
+As such, it customary to treat such parameters as part of a function but separate
+them from the ``true'' variables of the problem with a semi-colon.}
 \begin{eqnarray}
-	L({\bf y}, {\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu) &=& -{\bf y}^T {\bf x} - {\boldsymbol \lambda}_1 {\bf y} + {\boldsymbol \lambda}_2 ({\bf y} - {\bf 1}) + \nu (k - {\bf y}^T {\bf 1}) 
+	L({\bf y}, {\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu; {\bf x}) &=& -{\bf y}^T {\bf x} - {\boldsymbol \lambda}_1 {\bf y} + {\boldsymbol \lambda}_2 ({\bf y} - {\bf 1}) + \nu (k - {\bf y}^T {\bf 1}) 
 \end{eqnarray}
 
 Set the function $g$:
 \begin{eqnarray}
-	g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_1, \nu) &=& \mathop{\rm inf}_{\bf y} \; L({\bf y}, {\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu) 
+	g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_1, \nu; {\bf x}) &=& \mathop{\rm inf}_{\bf y} \; L({\bf y}, {\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu; {\bf x}) 
 \end{eqnarray}
 
 Substituting for $L$ this becomes
 \begin{eqnarray}
-	g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_1, \nu) &=& \mathop{\rm inf}_{\bf y} \; \left({\bf y}^T \left( -{\bf x} - {\boldsymbol \lambda}_1 + {\boldsymbol \lambda}_2 - \nu {\bf 1} \right) - {\boldsymbol \lambda}_2^T {\bf 1} + \nu \, k  \right)
+	g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_1, \nu; {\bf x}) &=& \mathop{\rm inf}_{\bf y} \; \left({\bf y}^T \left( -{\bf x} - {\boldsymbol \lambda}_1 + {\boldsymbol \lambda}_2 - \nu {\bf 1} \right) - {\boldsymbol \lambda}_2^T {\bf 1} + \nu \, k  \right)
 \end{eqnarray}
 
 The dual problem is then
 \begin{eqnarray}
-	\mathop{\rm max}_{{{\boldsymbol \lambda}_2 \succeq {\bf 0}} \atop {{{\boldsymbol \lambda}_1 \succeq {\bf 0}} \atop \nu}} g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu) & & 
+	\mathop{\rm max}_{{{\boldsymbol \lambda}_2 \succeq {\bf 0}} \atop {{{\boldsymbol \lambda}_1 \succeq {\bf 0}} \atop \nu}} g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu; {\bf x}) & & 
 \end{eqnarray}
 
 Which is%
@@ -125,10 +172,11 @@ But this is the same as:
 												  & {\boldsymbol \lambda} \succeq {\bf 0} & 
  \end{eqnarray}
 
-\section{A Linear Number of Constraints}
-Therefore, if you wish to bound the top $k$ elements of the vector ${\bf x}$ by $M$ in an optimization problem; that is,
-if you wish to bound $f(x)$ above by $M$, you 
-need to add the following constraints:
+\section{Characterization of $f$ as O(n) Linear Constraints}
+If one wishes to bound the top $k$ elements of the vector ${\bf x}$ by $M$ in 
+an optimization problem; that is, if you wish to bound $f(x)$ above by $M$, you 
+need to add two new variables, ${\boldsymbol \lambda}$ and $\nu$ along with 
+the following three constraints:
 \begin{eqnarray}
 	\nu \, k + {\boldsymbol \lambda}^T {\bf 1}  & \le & M \label{opp1} \\ 
 	{\bf x} & \preceq & {\boldsymbol \lambda} + \nu {\bf 1} \label{opp2} \\
@@ -136,16 +184,21 @@ need to add the following constraints:
 \end{eqnarray}
 
 Why? Because the expression $\nu \, k + {\boldsymbol \lambda}^T {\bf 1}$ with
-the constraints (\ref{opp2}) and (\ref{opp3}) applied is {\it always\/} an upper bound to $f(x)$. 
-Consequently, we have the inequality: $f(x) \le \nu \, k + {\boldsymbol \lambda}^T {\bf 1} \le M$.
-The only concern is that there is a gap between the values of $\nu \, k + {\boldsymbol \lambda}^T {\bf 1}$ 
+the constraints (\ref{opp2}) and (\ref{opp3}) applied is {\it always\/} 
+an upper bound to $f(x)$. 
+Consequently, we have the inequality: 
+$f(x) \le \nu \, k + {\boldsymbol \lambda}^T {\bf 1} \le M$.
+The only concern remaining is that there may be a gap between the values of 
+$\nu \, k + {\boldsymbol \lambda}^T {\bf 1}$ 
 and $f(x)$ -- making (\ref{opp1}) too restrictive. 
 But this is not the case as the minimum over all ${\boldsymbol \lambda}$ 
-and $\nu$ (subject to (\ref{opp2}) and (\ref{opp3}))is $f(x)$.
+and $\nu$ (subject to (\ref{opp2}) and (\ref{opp3})) is $f(x)$.
+Another way of saying this is that the parameters, ${\boldsymbol \lambda}$ and $\nu$
+provide enough freedom to ${\bf x}$ so that $f({\bf x})$ can be as close to $M$ as one would like.
 
 Therefore, in order to avoid a combinatorial explosion of inequality constraints, 
-one need only add $(n+1)$ variables (${\boldsymbol \lambda}, \, \nu$) to an optimization problem 
-to provide diversification constraints on a vector of length, $n$.
+one need only add $(n+1)$ variables (${\boldsymbol \lambda}, \, \nu$) to an 
+optimization problem to provide diversification constraints on a vector of length, $n$.
 The number of new inequality constraints added becomes $(2n+1)$.
 
 \end{document}
