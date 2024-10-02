@@ -16,14 +16,14 @@
 %\font\pal = pplro at 12pt
 
 \mantitle{Singular Transformations of Probability Density Functions}
-{R. Scott McIntire} {Dec 14, 2023}
+{R. Scott McIntire} {Oct 2, 2024}
 
 \subsection{Overview}
 For non-singular transformations of variables with distributions, there 
 are standard formulas that describe the probability distribution 
 of the target variable. However, in the case of singular transformations,
 there is no immediate formula. Often what is done is to add independent 
-variables in a somewhat add-hoc fashion to make the transformation 
+variables in a somewhat ad hoc fashion to make the transformation 
 non-singular, and then "integrate out" -- if possible -- 
 the independent variables from the resulting formula. 
 Below we describe a procedure to determine the
@@ -54,7 +54,7 @@ P_Y({\bf y}) & = \sum_{i=1}^{k({\bf y})} \int_{\Omega_i}
 {P_X({\bf x}_i({\bf y}; {\bf \mu})) \over \sqrt{\left|Df({\bf x}_i({\bf y}; \mu)) \;
 Df^T({\bf x}_i({\bf y}; \mu))\right|}}
 \; \sqrt{\left|D_{\mu} {\bf x}_i^T({\bf y}; \mu) \; D_{\mu}{\bf x}_i({\bf y}; \mu)\right|}  
-\; d\mu
+\; & d\mu (1) \cr
 }
 $$
 
@@ -210,27 +210,31 @@ $$
 
 Since this is true for all Borel measurable sets, $\Omega_Y$, we have
 $$
-P_Y({\bf y}) =
+\eqalignno{
+P_Y({\bf y}) & =
 \int_{\Omega_{X_2}} 
 {P_X({\bf x}({\bf y}, {\bf x_2})) \over 
 \sqrt{ |Df({\bf x}({\bf y}, {\bf x_2})) Df^T({\bf x}({\bf y}, {\bf x_2}))| } }
-\,  d{\bf x_2}
+\,  d{\bf x_2} & (2) \cr
+}
 $$
 But in this case the component manifold, $\Omega_{X_2}$, is just $f^{-1}({\bf y})$.
 If we parameterize this as ${\bf x}({\bf y}, {\bf \mu})$, then by lemma 2 we
 have
 $$
+\eqalignno{
 P_Y({\bf y}) =
 \int_{f^{-1}(y)}
 {P_X({\bf x}({\bf y}, {\bf \mu})) \over 
 \sqrt{ |Df({\bf x}({\bf y}, {\bf \mu})) Df^T({\bf x}({\bf y}, {\bf \mu})) | } }
 \,  \sqrt{|D_{{\bf \mu}}{\bf x}^T({\bf y}, {\bf \mu})) 
 D_{{\bf \mu}}{\bf x}({\bf y}, {\bf \mu})) | } \, d{\bf \mu}
+}
 $$
 
 In the general case, we may have a situation like $y = x^2$. 
 Here, there are two manifolds that contribute to the probability distribution of $y$.
-More generlly, there may be some number of manifolds which map 
+More generally, there may be some number of manifolds which map 
 onto the target variable. In this case we add the contributions of each 
 to the probability distribution of the target variable, $Y$.
 
@@ -396,7 +400,7 @@ $ \sqrt{|D_{\mu}{\bf x}_1^T(\mu; {\bf y})
 And, $\sqrt{|Df({\bf x}_1(\mu; {\bf y})) \;
 Df^T({\bf x}_1(\mu; {\bf y}))|} = \sqrt{\left|\pmatrix{1 & 1 &
 1 & 0 \cr 1 & -1 & 0 & 1\cr} \pmatrix{1 & 1 \cr 1 & -1 \cr 1 & 0 \cr 0
-& 1 \cr} \right|} = 3 $
+& 1 \cr} \right|} = 3 $j
 
 Therefore, Theorem 1 gives:
 $$
@@ -410,9 +414,50 @@ $$
   (f:{\bf R}^n \mapsto {\bf R})$}
 We assume that the $x_i$ are independent normals with mean $0$ and variance $\sigma^2$.
 When $\sigma = 1$, $y$ has a Chi-squared distribution of order $n$.
-We derive this fact using our formula.
-The set $f^{-1}(y) is a sphere in 
+We derive a generalization of this fact using our formula.
+The set $f^{-1}(y)$ is a sphere in ${\bf R}^n$ of radius $\sqrt{y}$.
+The density function of $y$ is:%
+\footnote{\kern -2pt \raise 0.5ex \hbox{\dag}}{%
+We use the unparameterized form of the transformation formula, equation (2).
+Using the fact that $\Omega_{X_2}$ is $f^{-1}(y)$.}
+$$
+\eqalignno{
+	P_Y(y) & = \int_{\partial B(\sqrt{y})} \frac{P_{\bf X}({\bf x}) \, d{\bf x}}{\sqrt{|Df({\bf x}) \, Df^T({\bf x})|}} & \cr
+}
+$$
+Here, $f({\bf x}) = 2\, {\bf x}$. Consequently, on the sphere of radius, $\sqrt{y}$, we have 
+$\sqrt{|Df({\bf x}) Df^T({\bf x})|} = 2 \sqrt{y}$. Therefore, we may write the above as
+$$
+\eqalignno{
+P_Y(y) & = \int_{\partial B(\sqrt{y})} \frac{P_{\bf X}({\bf x}) \, d{\bf x}}{2\sqrt{y}} & \cr
+}
+$$
+This is
+$$
+\eqalignno{
+	P_Y(y) & = \int_{\partial B(\sqrt{y})} \frac{e^{-\sum_{i=1}^n x_i^2/(2\sigma^2)} \, d{\bf x}}{(2\pi)^{n/2} \sigma^n 2\sqrt{y}} & \cr
+}
+$$
+Which is
+$$
+\eqalignno{
+	P_Y(y) & = \int_{\partial B(\sqrt{y})} \frac{e^{-y/(2\sigma^2)} \, d{\bf x}}{(2\pi)^{n/2} \sigma^n 2\sqrt{y}} & \cr
+}
+$$
 
+Or,
+$$
+\eqalignno{
+	P_Y(y) & = \frac{e^{-y/(2\sigma^2)} \, d{\bf x}}{(2\pi)^{n/2} \sigma^n 2\sqrt{y}} \int_{\partial B(\sqrt{y})} d\, {\bf x}& \cr
+}
+$$
+The surface area of the unit sphere in $n$ dimensions is $2y^{(n-1)/2}\frac{\pi^{n/2}}{\Gamma(n/2)}$.
+Therefore, $P_Y(y)$, may be written:
+$$
+\eqalignno{
+	P_Y(y) & = \frac{y^{n/2 - 1}e^{-y/(2\sigma^2)}}{2^{n/2}\sigma^n \Gamma(n/2)} \quad \hbox{$y > 0$.} & \cr
+}
+$$
 
 
 \subsection{Application to the Distribution of the Ratio of Normals}
