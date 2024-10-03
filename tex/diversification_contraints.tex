@@ -54,7 +54,7 @@ the following constrained optimization problem:
 \mathop{\rm max}_{{\bf y} \in {\bf Z}_2^n}\limits \quad {\bf y}^T {\bf x} && \\
 {\bf y}^T {\bf 1} & = & k 
 \end{eqnarray}
-In English this says: "Take the maximum value of all possible sums of $k$ values from ${\bf x}$."
+In English this says: ``Take the maximum value of all possible sums of $k$ values from ${\bf x}$.''
 This is clearly just another way of restating $f({\bf x})$.
 Although this optimization is succinct, there are still an exponential number of combinations 
 to examine to find the optimal solution in this discrete setting.
@@ -121,7 +121,7 @@ to the optimization -- essentially a constant with respect to the optimization.
 As such, it customary to treat such parameters as part of a function but separate
 them from the ``true'' variables of the problem with a semi-colon.}
 \begin{eqnarray}
-	L({\bf y}, {\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu; {\bf x}) &=& -{\bf y}^T {\bf x} - {\boldsymbol \lambda}_1 {\bf y} + {\boldsymbol \lambda}_2 ({\bf y} - {\bf 1}) + \nu (k - {\bf y}^T {\bf 1}) 
+	L({\bf y}, {\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu; {\bf x}) &=& -{\bf y}^T {\bf x} - {\boldsymbol \lambda}_1^T {\bf y} + {\boldsymbol \lambda}_2^T ({\bf y} - {\bf 1}) + \nu (k - {\bf y}^T {\bf 1}) 
 \end{eqnarray}
 
 Set the function $g$:
@@ -200,8 +200,8 @@ Another way of saying this is that the parameters, ${\boldsymbol \lambda}$ and $
 provide enough freedom to ${\bf x}$ so that $f({\bf x})$ can be as close to $M$ as one would like.
 
 Therefore, in order to avoid a combinatorial explosion of inequality constraints, 
-one need only add $(n+1)$ variables (${\boldsymbol \lambda}, \, \nu$) to an 
-optimization problem to provide diversification constraints on a vector of length, $n$.
+one need only add $(n+1)$ variables, (${\boldsymbol \lambda}, \, \nu$), to an 
+optimization problem to provide diversification constraints on a vector of length $n$.
 The number of new inequality constraints added becomes $(2n+1)$.
 
 One might ask why we couldn't do exactly the same procedure with a simpler characterization we had 
@@ -210,12 +210,15 @@ with equations
 The same number of variables and the same number of constraints are required.
 
 We could do that; however, note that once we take the characterization of a bound on a ``given'' ${\bf x}$ 
-and place into an optimization problem that ``given'' ${\bf x}$ is no longer a constant/parameter.
+and place it into an optimization problem, that ``given'' ${\bf x}$ is no longer a constant.
 It, itself, is part of the optimization. And now, one of the inequalities that we would add
 would be related to (\ref{op1}); that is, the term: $-{\bf y}^T {\bf x}$. But this term
-involves the (now) {\it variable\/} ${\bf x}$ and the new {\it variable\/}, ${\bf y}$ in a decidedly {\it non-linear\/} way.
+involves the (now) {\it variable\/}, ${\bf x}$, and the new {\it variable\/}, ${\bf y}$, in a decidedly {\it non-linear\/} way.
 In fact, the term is not even {\it convex\/}.
-What we have shown in this section is that we can provide {\it linear\/} constraints to bound $f({\bf x})$.
+
+In contrast to this ``easy'' procedure, we have shown in this section that 
+we can add new variables and new {\it linear\/} constraints to bound $f({\bf x})$.
+Whats more, the number of variables and constraints is linear in the size of the vector ${\bf x}$.
 
 \end{document}
 
