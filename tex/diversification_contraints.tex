@@ -14,7 +14,7 @@
 
 \title{Constructing Diversification Constraints}
 \author{R. Scott McIntire}
-\date{Oct 2, 2024}
+\date{Oct 3, 2024}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{DD}{Def}
@@ -177,7 +177,7 @@ But this is the same as:
 
 \section{Characterization of $f$ as O(n) Linear Constraints}
 If one wishes to bound the top $k$ elements of the vector ${\bf x}$ by $M$ in 
-an optimization problem; that is, if you wish to bound $f(x)$ above by $M$, you 
+an optimization problem; that is, if you wish to bound $f({\bf x})$ above by $M$, you 
 need to add two new variables, ${\boldsymbol \lambda}$ and $\nu$ along with 
 the following three constraints:
 \begin{eqnarray}
@@ -188,14 +188,14 @@ the following three constraints:
 
 Why? Because the expression $\nu \, k + {\boldsymbol \lambda}^T {\bf 1}$ with
 the constraints (\ref{opp2}) and (\ref{opp3}) applied is {\it always\/} 
-an upper bound to $f(x)$. 
+an upper bound to $f({\bf x})$. 
 Consequently, we have the inequality: 
-$f(x) \le \nu \, k + {\boldsymbol \lambda}^T {\bf 1} \le M$.
+$f({\bf x}) \le \nu \, k + {\boldsymbol \lambda}^T {\bf 1} \le M$.
 The only concern remaining is that there may be a gap between the values of 
 $\nu \, k + {\boldsymbol \lambda}^T {\bf 1}$ 
-and $f(x)$ -- making (\ref{opp1}) too restrictive. 
+and $f({\bf x})$ -- making (\ref{opp1}) too restrictive. 
 But this is not the case as the minimum over all ${\boldsymbol \lambda}$ 
-and $\nu$ (subject to (\ref{opp2}) and (\ref{opp3})) is $f(x)$.
+and $\nu$ (subject to (\ref{opp2}) and (\ref{opp3})) is $f({\bf x})$.
 Another way of saying this is that the parameters, ${\boldsymbol \lambda}$ and $\nu$
 provide enough freedom to ${\bf x}$ so that $f({\bf x})$ can be as close to $M$ as one would like.
 
