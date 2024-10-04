@@ -14,7 +14,7 @@
 
 \title{Constructing Diversification Constraints}
 \author{R. Scott McIntire}
-\date{Oct 3, 2024}
+\date{Oct 4, 2024}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{DD}{Def}
@@ -29,7 +29,7 @@ Consider the function function, $f: {\bf R}^n \mapsto {\bf R}$, defined by
 	f({\bf x}) & = & \sum_{i=1}^k x_{[i]} 
 \end{eqnarray}
 From this we see that $f({\bf x})$ is the value of the sum of the $k^{\rm th}$ 
-largest values in its input ${\bf x}$.
+largest values of its input ${\bf x}$.
 We are interested in optimization problems involving a vector ${\bf x}$ 
 with the sum of the top values constrained by a given value; that is, 
 such that $f({\bf x}) \le M$  for some value $M$.
@@ -49,7 +49,15 @@ total portfolio notional.
 We wish to characterize the value of $f$ on a given vector, ${\bf x}$ as 
 the result of an optimization.
 We claim that for for a given ${\bf x}$, $f({\bf x})$ is the value of 
-the following constrained optimization problem:
+the following constrained optimization problem:%
+\footnote{A bold font is used to denote vectors. We refer to a constant 
+vector of $0$s as ${\bf 0}$, and likewise we refer to a vector of $1$s
+as ${\bf 1}$. Finally, the statement, ${\bf a} \preceq {\bf b}$, is the 
+statement that every element of the vector ${\bf a}$ is less than or equal
+to the corresponding element in the vector ${\bf b}$. The statement,
+${\bf a} \succeq {\bf b}$, is similar but with each element of ${\bf a}$
+greater than or equal each corresponding element of ${\bf b}$.
+}
 \begin{eqnarray}
 \mathop{\rm max}_{{\bf y} \in {\bf Z}_2^n}\limits \quad {\bf y}^T {\bf x} && \\
 {\bf y}^T {\bf 1} & = & k 
