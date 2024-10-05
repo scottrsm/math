@@ -14,7 +14,7 @@
 
 \title{Constructing Diversification Constraints}
 \author{R. Scott McIntire}
-\date{Oct 4, 2024}
+\date{Oct 5, 2024}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{DD}{Def}
@@ -36,21 +36,21 @@ such that $f({\bf x}) \le M$  for some value $M$.
 How could we do this? One way is to write down all possible combinations of the 
 $k$ elements of ${\bf x}$ and write a constraint that bounds their sum to be 
 less than or equal to $M$.  But the number of constraints that one has to 
-write are $n \choose k$. This becomes large very quickly. 
+write is $n \choose k$. This becomes large very quickly. 
 In the next section we seek a way to represent $f$ to 
 reduce the number of constraints.
 
-This constraint arises in the world of finance where one wants to perform
+This constraint often arises in the world of finance where one wants to perform
 a modification to a portfolio of securities but needs to ensure that the 
-top $k$ securities (notionally) do not exceed some percentage of the 
-total portfolio notional.
+weight of the top $k$ securities (notionally) in a portfolio do not 
+exceed some percentage of the total portfolio notional.
 
 \section{The Function $f$ as an Optimization Problem}
 We wish to characterize the value of $f$ on a given vector, ${\bf x}$ as 
 the result of an optimization.
 We claim that for for a given ${\bf x}$, $f({\bf x})$ is the value of 
 the following constrained optimization problem:%
-\footnote{A bold font is used to denote vectors. We refer to a constant 
+\footnote{A bold font is used to denote vectors. We refer to a  
 vector of $0$s as ${\bf 0}$, and likewise we refer to a vector of $1$s
 as ${\bf 1}$. Finally, the statement, ${\bf a} \preceq {\bf b}$, is the 
 statement that every element of the vector ${\bf a}$ is less than or equal
@@ -62,47 +62,51 @@ greater than or equal each corresponding element of ${\bf b}$.
 \mathop{\rm max}_{{\bf y} \in {\bf Z}_2^n}\limits \quad {\bf y}^T {\bf x} && \\
 {\bf y}^T {\bf 1} & = & k 
 \end{eqnarray}
-In English this says: ``Take the maximum value of all possible sums of $k$ values from ${\bf x}$.''
-This is clearly just another way of restating $f({\bf x})$.
-Although this optimization is succinct, there are still an exponential number of combinations 
-to examine to find the optimal solution in this discrete setting.
+In English this says: ``Take the maximum value of all possible sums of $k$ 
+values from ${\bf x}$.'' This is clearly just another way of restating $f({\bf x})$.
+Although this optimization is succinct, there are still an exponential number 
+of combinations to examine to find the optimal solution in this discrete setting.
 
-{\bf claim:} The solution to the above is the same as: 
+{\bf claim:} The solution to the above is the same as the solution to the 
+{\it continuous\/} optimization problem: 
 \begin{eqnarray}
 \mathop{\rm max}_{{\bf y} \in {\bf R}^n}\limits \quad {\bf y}^T {\bf x} &&  \\
 {\bf 0} \preceq {\bf y}   \preceq  {\bf 1}&& \\ 
 {\bf y}^T {\bf 1}  =  k && \label{integral} 
 \end{eqnarray}
 {\bf proof:}
-The new optimization is in a continuous domain. Since its domain, ${\bf R}^n$, 
+Since its domain, ${\bf R}^n$, 
 includes ${\bf Z}_2^n$, the solution to the continuous problem is at least as 
 large as the solution to the original discrete problem.
-We now show the reverse, by showing that for every optimal solution to the continuous
-problem, ${\bf y}^*$, there is a corresponding ${\bf y}^{**}$ that lives
-in ${\bf Z}_2^n$ yielding the same value for the objective.
+We now show the reverse, by showing that for every optimal solution to the 
+continuous problem, ${\bf y}^*$, there is a corresponding ${\bf y}^\prime$ that 
+lives in ${\bf Z}_2^n$ yielding the same value for the objective.
 
 To this end, let ${\bf y}^*$ be a solution to the continuous problem. If all
-of the values are integral; meaning, take on only the values of $0$ or $1$ we are done.
-Otherwise, collect the components of ${\bf y}^*$ that are non-integral. By 
-the constraint, (\ref{integral}), there must be more than one component. 
+of the values are integral; meaning, take on only the values of $0$ or $1$ we 
+are done. Otherwise, collect the components of ${\bf y}^*$ that are non-integral.
+By the constraint, (\ref{integral}), there must be more than one component. 
 It must also be the case that amongst these ``fractional'' components that
-the corresponding ``x'' values are the same. Otherwise, If two of the components of ${\bf y}$
-had differing ``x'' values, then the ``y'' component with the smaller ``x'' value could
-shift some of its value to the ``y'' component with the larger ``x'' value in 
-a way that keeps the constraint, (\ref{integral}). But this would give a larger 
-value than the optimal maximum -- contradiction. Therefore, all of the 
+the corresponding ``x'' values are the same. Otherwise, If two of the components 
+of ${\bf y}$ had differing ``x'' values, then the ``y'' component with the 
+smaller ``x'' value could shift some of its value to the ``y'' component with 
+the larger ``x'' value in a way that keeps the constraint, (\ref{integral}). 
+But then we would have a larger objective value that the supposed maximum 
+-- contradiction. Therefore, all of the 
 ``x'' components associated with non-integral ``y'' values must have the same 
 value. The sum of these non-integral values must sum to an integral value, which 
-by necessity, is less than the number of components in ${\bf y}^*$. Suppose this number is
-$j$. Take any $j$ of these ``y'' components. Create a new vector ${\bf y}^\prime$
-and set its values in the following way: Set the components of ${\bf y}^\prime$
-corresponding to the previous $j$ components from ${\bf y}^*$ to be $1$. Set the components
-of ${\bf y}^\prime$ that correspond to the remaining ``fractional'' components of 
-${\bf y}^*$ to $0$. Set the rest of the components of ${\bf y}^\prime$ to the 
-corresponding values from ${\bf y}^*$. We have now shown that a solution vector to the 
-continuous problem is in the feasible set of the discrete problem. Therefore, the
-optimal solution to the discrete problem is at least as large as the solution to the 
-continuous problem. Consequently, the two problems are equivalent.
+by necessity, is less than the number of components in ${\bf y}^*$. Suppose 
+this number is $j$. Take any $j$ of these ``y'' components. Create a new 
+vector ${\bf y}^\prime$ and set its values in the following way: Set the 
+components of ${\bf y}^\prime$ corresponding to the previous $j$ components 
+from ${\bf y}^*$ to be $1$. Set the components of ${\bf y}^\prime$ that 
+correspond to the remaining ``fractional'' components of ${\bf y}^*$ to $0$. 
+Set the rest of the components of ${\bf y}^\prime$ to the 
+corresponding values from ${\bf y}^*$. We have now shown that a solution vector 
+to the continuous problem is in the feasible set of the discrete problem. 
+Therefore, the optimal solution to the discrete problem is at least as large as 
+the solution to the continuous problem. Consequently, the two problems are 
+equivalent.
 
 Note that the solution to continuous problem is the same as the associated problem:
 \begin{eqnarray}
@@ -126,8 +130,8 @@ use the term parameter).}
 To form the dual problem we need the Lagrangian, which is:%
 \footnote{For the purposes of this optimization, ${\bf x}$ is seen as a parameter
 to the optimization -- essentially a constant with respect to the optimization.
-As such, it customary to treat such parameters as part of a function but separate
-them from the ``true'' variables of the problem with a semi-colon.}
+As such, it is customary to treat such parameters as part of a function but separate
+them from the ``true'' list of variables of the problem with a semi-colon.}
 \begin{eqnarray}
 	L({\bf y}, {\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu; {\bf x}) &=& -{\bf y}^T {\bf x} - {\boldsymbol \lambda}_1^T {\bf y} + {\boldsymbol \lambda}_2^T ({\bf y} - {\bf 1}) + \nu (k - {\bf y}^T {\bf 1}) 
 \end{eqnarray}
@@ -185,8 +189,8 @@ But this is the same as:
 
 \section{Characterization of $f$ as O(n) Linear Constraints}
 If one wishes to bound the top $k$ elements of the vector ${\bf x}$ by $M$ in 
-an optimization problem; that is, if you wish to bound $f({\bf x})$ above by $M$, you 
-need to add two new variables, ${\boldsymbol \lambda}$ and $\nu$ along with 
+an optimization problem; that is, to bound $f({\bf x})$ above by $M$, one 
+needs to add two new variables, ${\boldsymbol \lambda}$ and $\nu$ along with 
 the following three constraints:
 \begin{eqnarray}
 	\nu \, k + {\boldsymbol \lambda}^T {\bf 1}  & \le & M \label{opp1} \\ 
@@ -204,29 +208,35 @@ $\nu \, k + {\boldsymbol \lambda}^T {\bf 1}$
 and $f({\bf x})$ -- making (\ref{opp1}) too restrictive. 
 But this is not the case as the minimum over all ${\boldsymbol \lambda}$ 
 and $\nu$ (subject to (\ref{opp2}) and (\ref{opp3})) is $f({\bf x})$.
-Another way of saying this is that the parameters, ${\boldsymbol \lambda}$ and $\nu$
-provide enough freedom to ${\bf x}$ so that $f({\bf x})$ can be as close to $M$ as one would like.
+Another way of saying this is that the parameters, ${\boldsymbol \lambda}$ 
+and $\nu$ provide enough freedom to ${\bf x}$ so that $f({\bf x})$ can be 
+as close to $M$ as one would like.
 
 Therefore, in order to avoid a combinatorial explosion of inequality constraints, 
 one need only add $(n+1)$ variables, (${\boldsymbol \lambda}, \, \nu$), to an 
-optimization problem to provide diversification constraints on a vector of length $n$.
-The number of new inequality constraints added becomes $(2n+1)$.
+optimization problem to provide diversification constraints on a vector of 
+length $n$. The number of new inequality constraints added becomes $(2n+1)$.
 
-One might ask why we couldn't do exactly the same procedure with a simpler characterization we had 
-with equations
-(\ref{op1}), (\ref{op2}), (\ref{op3}), rather than going through so much effort with a dual problem.
-The same number of variables and the same number of constraints are required.
+One might ask why we couldn't do exactly the same procedure with the ``simpler''
+characterization we had with equations
+(\ref{op1}), (\ref{op2}), and (\ref{op3}), rather than going through so much 
+effort with a dual problem. The same number of variables and the same number 
+of constraints are required.
 
-We could do that; however, note that once we take the characterization of a bound on a ``given'' ${\bf x}$ 
-and place it into an optimization problem, that ``given'' ${\bf x}$ is no longer a constant.
-It, itself, is part of the optimization. And now, one of the inequalities that we would add
-would be related to (\ref{op1}); that is, the term: $-{\bf y}^T {\bf x}$. But this term
-involves the (now) {\it variable\/}, ${\bf x}$, and the new {\it variable\/}, ${\bf y}$, in a decidedly {\it non-linear\/} way.
+We could do that; however, note that once we take the characterization of a 
+bound on a ``given'' ${\bf x}$ and place it into an optimization problem, that 
+``given'' ${\bf x}$ is no longer a constant. It, itself, is part of the 
+optimization. And now, one of the inequalities that we would add
+would be related to (\ref{op1}); that is, the term: $-{\bf y}^T {\bf x}$. But 
+this term involves the (now) {\it variable\/}, ${\bf x}$, and the new 
+{\it variable\/}, ${\bf y}$, in a decidedly {\it non-linear\/} way.
 In fact, the term is not even {\it convex\/}.
 
-In contrast to this ``easy'' procedure, we have shown in this section that 
-we can add new variables and new {\it linear\/} constraints to bound $f({\bf x})$.
-Whats more, the numbers of variables and constraints are linear in the size of the vector ${\bf x}$.
+In contrast to this ``simpler'' characterization, we have shown that 
+by examining an associated dual problem, $f({\bf x})$ can be bounded if we 
+add new variables and new {\it linear\/} constraints.
+What's more, the numbers of variables and constraints are linear in the length 
+of the vector ${\bf x}$.
 
 \end{document}
 
