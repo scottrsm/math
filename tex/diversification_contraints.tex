@@ -40,10 +40,10 @@ write is $n \choose k$. This becomes large very quickly.
 In the next section we seek a way to represent $f$ to 
 reduce the number of constraints.
 
-This constraint often arises in the world of finance where one wants to perform
-a modification to a portfolio of securities but needs to ensure that the 
-weight of the top $k$ securities (notionally) in a portfolio do not 
-exceed some percentage of the total portfolio notional.
+This constraint often arises in the world of finance where one wants to 
+create (or modify) a portfolio so that the new portfolio has the property
+that its top $k$ securities (notionally) do not exceed some fixed percentage 
+of its total notional.
 
 \section{The Function $f$ as an Optimization Problem}
 We wish to characterize the value of $f$ on a given vector, ${\bf x}$ as 
