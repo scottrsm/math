@@ -143,7 +143,7 @@ Set the function $g$:
 
 Substituting for $L$ this becomes
 \begin{eqnarray}
-	g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_1, \nu; {\bf x}) &=& \mathop{\rm inf}_{\bf y} \; \left({\bf y}^T \left( -{\bf x} - {\boldsymbol \lambda}_1 + {\boldsymbol \lambda}_2 - \nu {\bf 1} \right) - {\boldsymbol \lambda}_2^T {\bf 1} + \nu \, k  \right)
+	g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_1, \nu; {\bf x}) &=& \mathop{\rm inf}_{\bf y} \; \left({\bf y}^T \left( -{\bf x} - {\boldsymbol \lambda}_1 + {\boldsymbol \lambda}_2 - \nu {\bf 1} \right) - {\bf 1}^T {\boldsymbol \lambda}_2 + \nu \, k  \right)
 \end{eqnarray}
 
 The dual problem is then
@@ -155,7 +155,7 @@ Which is%
 \footnote{Note that $g$ is $-\infty$, unless the term that ${\bf y}$ is ``dotting'' is the zero vector. Consequently, the maximum
 must necessarily occur where the dotting vector is zero.}
 \begin{eqnarray}
-	\mathop{\rm max}_{{{\boldsymbol \lambda}_2 \succeq {\bf 0}} \atop {{{\boldsymbol \lambda}_1 \succeq {\bf 0}} \atop \nu}} - {\boldsymbol \lambda}_2^T {\bf 1} + \nu \, k &&\\ 
+	\mathop{\rm max}_{{{\boldsymbol \lambda}_2 \succeq {\bf 0}} \atop {{{\boldsymbol \lambda}_1 \succeq {\bf 0}} \atop \nu}} - {\bf 1}^T {\boldsymbol \lambda}_2 + \nu \, k &&\\ 
 	- {\boldsymbol \lambda}_1 + {\boldsymbol \lambda}_2 - \nu {\bf 1}  &=& {\bf x} 
 \end{eqnarray}
 
@@ -164,11 +164,6 @@ This is equivalent to%
 	the same number of inequalities. We can do this by realizing that ${\boldsymbol \lambda}_2 - \nu {\bf 1} = {\bf x} + {\boldsymbol \lambda}_1$ 
 	expresses the same information as: ${\boldsymbol \lambda}_2 - \nu {\bf 1} \succeq {\bf x}$. Since there is now only one ${\boldsymbol \lambda}$,
 we relabel ${\boldsymbol \lambda}_2$ as ${\boldsymbol \lambda}$.}
-\begin{eqnarray}
-	\mathop{\rm max}_{{{\boldsymbol \lambda} \succeq {\bf 0}} \atop \nu} & - {\boldsymbol \lambda}^T {\bf 1} + \nu \, k & \\
-																		 & {\boldsymbol \lambda} - \nu {\bf 1} \succeq {\bf x} & 
-\end{eqnarray}
-Or,
 \begin{eqnarray}
 	\mathop{\rm max}_{{{\boldsymbol \lambda} \succeq {\bf 0}} \atop \nu} & \quad \nu \, k - {\bf 1}^T {\boldsymbol \lambda} & \\ 
 																		 &  {\bf x} \preceq {\boldsymbol \lambda} - \nu {\bf 1} &
