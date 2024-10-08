@@ -14,7 +14,7 @@
 
 \title{Constructing Diversification Constraints}
 \author{R. Scott McIntire}
-\date{Oct 6, 2024}
+\date{Oct 8, 2024}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{DD}{Def}
@@ -193,18 +193,18 @@ an optimization problem; that is, to bound $f({\bf x})$ above by $M$, one
 needs to add two new variables, ${\boldsymbol \lambda}$ and $\nu$ along with 
 the following three constraints:
 \begin{eqnarray}
-	\nu \, k + {\boldsymbol \lambda}^T {\bf 1}  & \le & M \label{opp1} \\ 
+	\nu \, k + {\bf 1}^T {\boldsymbol \lambda}  & \le & M \label{opp1} \\ 
 	{\bf x} & \preceq & {\boldsymbol \lambda} + \nu {\bf 1} \label{opp2} \\
 	{\boldsymbol \lambda} & \succeq & {\bf 0}  \label{opp3}
 \end{eqnarray}
 
-Why? Because the expression $\nu \, k + {\boldsymbol \lambda}^T {\bf 1}$ with
+Why? Because the expression $\nu \, k + {\bf 1}^T {\boldsymbol \lambda}$ with
 the constraints (\ref{opp2}) and (\ref{opp3}) applied is {\it always\/} 
 an upper bound to $f({\bf x})$. 
 Consequently, we have the inequality: 
-$f({\bf x}) \le \nu \, k + {\boldsymbol \lambda}^T {\bf 1} \le M$.
+$f({\bf x}) \le \nu \, k + {\bf 1}^T {\boldsymbol \lambda} \le M$.
 The only concern remaining is that there may be a gap between the values of 
-$\nu \, k + {\boldsymbol \lambda}^T {\bf 1}$ 
+$\nu \, k + {\bf 1}^T {\boldsymbol \lambda}$ 
 and $f({\bf x})$ -- making (\ref{opp1}) too restrictive. 
 But this is not the case as the minimum over all ${\boldsymbol \lambda}$ 
 and $\nu$ (subject to (\ref{opp2}) and (\ref{opp3})) is $f({\bf x})$.
