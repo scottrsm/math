@@ -133,30 +133,38 @@ to the optimization -- essentially a constant with respect to the optimization.
 As such, it is customary to treat such parameters as part of a function but separate
 them from the ``true'' list of variables of the problem with a semi-colon.}
 \begin{eqnarray}
-	L({\bf y}, {\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu; {\bf x}) &=& -{\bf y}^T {\bf x} - {\boldsymbol \lambda}_1^T {\bf y} + {\boldsymbol \lambda}_2^T ({\bf y} - {\bf 1}) + \nu (k - {\bf y}^T {\bf 1}) 
+	L({\bf y}, {\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu; {\bf x}) &=& 
+	-{\bf y}^T {\bf x} - {\boldsymbol \lambda}_1^T {\bf y} + {\boldsymbol \lambda}_2^T ({\bf y} - {\bf 1}) + \nu (k - {\bf y}^T {\bf 1}) 
 \end{eqnarray}
 
 Set the function $g$:
 \begin{eqnarray}
-	g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_1, \nu; {\bf x}) &=& \mathop{\rm inf}_{\bf y} \; L({\bf y}, {\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu; {\bf x}) 
+	g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_1, \nu; {\bf x}) &=& 
+		\mathop{\rm inf}_{{{\bf y}, {\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2 \in {\bf R}^n} \atop \nu \in R} 
+		\; L({\bf y}, {\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu; {\bf x}) 
 \end{eqnarray}
 
 Substituting for $L$ this becomes
 \begin{eqnarray}
-	g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_1, \nu; {\bf x}) &=& \mathop{\rm inf}_{\bf y} \; \left({\bf y}^T \left( -{\bf x} - {\boldsymbol \lambda}_1 + {\boldsymbol \lambda}_2 - \nu {\bf 1} \right) - {\bf 1}^T {\boldsymbol \lambda}_2 + \nu \, k  \right)
+	g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_1, \nu; {\bf x}) &=& 
+		\mathop{\rm inf}_{{{\bf y}, {\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2 \in {\bf R}^n} \atop \nu \in R} 
+		\; \left({\bf y}^T \left( -{\bf x} - {\boldsymbol \lambda}_1 + {\boldsymbol \lambda}_2 - \nu {\bf 1} \right) \right.
+		- \left. {\bf 1}^T {\boldsymbol \lambda}_2 + \nu \, k  \right)
 \end{eqnarray}
 
 The dual problem is then
 \begin{eqnarray}
-	\mathop{\rm max}_{{{\boldsymbol \lambda}_2 \succeq {\bf 0}} \atop {{{\boldsymbol \lambda}_1 \succeq {\bf 0}} \atop \nu}} g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu; {\bf x}) & & 
+	\mathop{\rm max}_{{{\boldsymbol \lambda}_2 \succeq {\bf 0}} \atop {{{\boldsymbol \lambda}_1 \succeq {\bf 0}} \atop \nu}} 
+		\; g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu; {\bf x}) & & 
 \end{eqnarray}
 
 Which is%
 \footnote{Note that $g$ is $-\infty$, unless the term that ${\bf y}$ is ``dotting'' is the zero vector. Consequently, the maximum
 must necessarily occur where the dotting vector is zero.}
 \begin{eqnarray}
-	\mathop{\rm max}_{{{\boldsymbol \lambda}_2 \succeq {\bf 0}} \atop {{{\boldsymbol \lambda}_1 \succeq {\bf 0}} \atop \nu}} - {\bf 1}^T {\boldsymbol \lambda}_2 + \nu \, k &&\\ 
-	- {\boldsymbol \lambda}_1 + {\boldsymbol \lambda}_2 - \nu {\bf 1}  &=& {\bf x} 
+	\mathop{\rm max}_{{{\boldsymbol \lambda}_2 \succeq {\bf 0}} \atop {{{\boldsymbol \lambda}_1 \succeq {\bf 0}} \atop \nu}} 
+		 & - {\bf 1}^T {\boldsymbol \lambda}_2 + \nu \, k   & \\ 
+		 & - {\boldsymbol \lambda}_1 + {\boldsymbol \lambda}_2 - \nu {\bf 1} = {\bf x} & 
 \end{eqnarray}
 
 This is equivalent to%
@@ -165,14 +173,16 @@ This is equivalent to%
 	expresses the same information as: ${\boldsymbol \lambda}_2 - \nu {\bf 1} \succeq {\bf x}$. Since there is now only one ${\boldsymbol \lambda}$,
 we relabel ${\boldsymbol \lambda}_2$ as ${\boldsymbol \lambda}$.}
 \begin{eqnarray}
-	\mathop{\rm max}_{{{\boldsymbol \lambda} \succeq {\bf 0}} \atop \nu} & \quad \nu \, k - {\bf 1}^T {\boldsymbol \lambda} & \\ 
-																		 &  {\bf x} \preceq {\boldsymbol \lambda} - \nu {\bf 1} &
+	\mathop{\rm max}_{{{\boldsymbol \lambda} \succeq {\bf 0}} \atop \nu} 
+		& \quad \nu \, k - {\bf 1}^T {\boldsymbol \lambda} & \\   
+		& {\bf x} \preceq {\boldsymbol \lambda} - \nu {\bf 1} &
  \end{eqnarray}
 Since maximizing over $\nu$ or $-\nu$ is the same and there are no restrictions on the sign of $\nu$ we may replace $\nu$ with $-\nu$ 
 in the last equations giving:
 \begin{eqnarray}
-	\mathop{\rm max}_{{{\boldsymbol \lambda} \succeq {\bf 0}} \atop \nu} & \quad -\nu \, k - {{\bf 1}^T \boldsymbol \lambda} & \\ 
-																		 &  {\bf x} \preceq {\boldsymbol \lambda} + \nu {\bf 1} &
+	\mathop{\rm max}_{{{\boldsymbol \lambda} \succeq {\bf 0}} \atop \nu} 
+		& \quad -\nu \, k - {{\bf 1}^T \boldsymbol \lambda} & \\ 
+	    &  {\bf x} \preceq {\boldsymbol \lambda} + \nu {\bf 1} &
  \end{eqnarray}
 But this is the same as:
 
@@ -183,10 +193,11 @@ But this is the same as:
  \end{eqnarray}
 
 \section{Characterization of $f$ as O(n) Linear Constraints}
-If one wishes to bound the top $k$ elements of the vector ${\bf x}$ by $M$ in 
-an optimization problem; that is, to bound $f({\bf x})$ above by $M$, one 
-needs to add two new variables, ${\boldsymbol \lambda}$ and $\nu$ along with 
-the following three constraints:
+If one wishes to bound the top $k$ elements of the {\it variable\/} 
+${\bf x} \in {\bf R}^n$ in an optimization problem. That is, 
+bound $f({\bf x})$ above by the value $M$, 
+one needs to add two new variables, ${\boldsymbol \lambda} \in {\bf R}^n$ 
+and $\nu \in R$ along with the following three constraints:
 \begin{eqnarray}
 	\nu \, k + {\bf 1}^T {\boldsymbol \lambda}  & \le & M \label{opp1} \\ 
 	{\bf x} & \preceq & {\boldsymbol \lambda} + \nu {\bf 1} \label{opp2} \\
@@ -207,10 +218,6 @@ Another way of saying this is that the parameters, ${\boldsymbol \lambda}$
 and $\nu$ provide enough freedom to ${\bf x}$ so that $f({\bf x})$ can be 
 as close to $M$ as one would like.
 
-Therefore, in order to avoid a combinatorial explosion of inequality constraints, 
-one need only add $(n+1)$ variables, (${\boldsymbol \lambda}, \, \nu$), to an 
-optimization problem to provide diversification constraints on a vector of 
-length $n$. The number of new inequality constraints added becomes $(2n+1)$.
 
 One might ask why we couldn't do exactly the same procedure with the ``simpler''
 characterization we had with equations
@@ -227,11 +234,10 @@ this term involves the (now) {\it variable\/}, ${\bf x}$, and the new
 {\it variable\/}, ${\bf y}$, in a decidedly {\it non-linear\/} way.
 In fact, the term is not even {\it convex\/}.
 
-In contrast to this ``simpler'' characterization, we have shown that 
-by examining an associated dual problem, $f({\bf x})$ can be bounded if we 
-add new variables and new {\it linear\/} constraints.
-What's more, the numbers of variables and constraints are linear in the length 
-of the vector ${\bf x}$.
+In contrast to this ``simpler'' characterization and the original n{\"a}ive 
+combinatorial approach, we have shown that 
+by examining an associated dual problem, $f({\bf x})$ can be bounded by
+adding $(n+1)$ new variables and $(2n + 1)$ {\it linear\/} constraints.
 
 \end{document}
 
