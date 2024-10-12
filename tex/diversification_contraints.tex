@@ -14,7 +14,7 @@
 
 \title{Constructing Diversification Constraints}
 \author{R. Scott McIntire}
-\date{Oct 10, 2024}
+\date{Oct 12, 2024}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{DD}{Def}
@@ -24,7 +24,12 @@
 \maketitle
 
 \section{Overview}
-Consider the function function, $f: {\bf R}^n \mapsto {\bf R}$, defined by
+Consider the function function, $f: {\bf R}^n \mapsto {\bf R}$, defined by%
+\footnote{
+For a given vector, ${\bf x} \in {\bf R}^n$, create a vector,  
+${\bf x}^\prime$,
+by {\it stably\/} sorting ${\bf x}$ from highest to lowest.
+Define the notation, $x_{[i]}$ by: $x_{[i]} \equiv x_{i}^\prime$.}
 \begin{eqnarray}
 	f({\bf x}) & = & \sum_{i=1}^k x_{[i]} 
 \end{eqnarray}
