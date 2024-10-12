@@ -119,11 +119,11 @@ Note that the solution to continuous problem is the same as the associated probl
 	{\bf 0} \preceq {\bf y} \preceq {\bf 1} &&  \label{op2}\\
 	{\bf y}^T {\bf 1} =  k \label{op3} &&
 \end{eqnarray}
-But this problem is a {\it convex\/} problem.
+Note that this is a {\it convex\/} optimization problem.
 
 \section{A Dual Description of the Optimization}
 Since the problem described by equations ($\ref{op1}, \ref{op2}, \ref{op3}$), is
-a {\it convex\/} problem, the value of its solution is the same as the value of 
+{\it convex\/}, the value of its solution is the same as the value of 
 its associated {\it dual\/} problem.%
 \footnote{Normally one needs to show that a convex problem satisfies Slater's condition
 	in order to claim that it provides the same value as its associated dual.
@@ -198,11 +198,13 @@ But this is the same as:
  \end{eqnarray}
 
 \section{Characterization of $f$ as O(n) Linear Constraints}
-If one wishes to bound the top $k$ elements of the {\it variable\/} 
-${\bf x} \in {\bf R}^n$ in an optimization problem. That is, 
-bound $f({\bf x})$ above by the value $M$, 
-one needs to add two new variables, ${\boldsymbol \lambda} \in {\bf R}^n$ 
-and $\nu \in R$ along with the following three constraints:
+We now apply the results of the previous sections to the following problem:
+Add constraints to an optimization problem that includes a variable ${\bf x} \in {\bf R}^n$
+so that $f({\bf x}) \le M$ for some value $M$.
+
+We claim that one can bound $f({\bf x})$ by adding two new variables,
+${\boldsymbol \lambda} \in {\bf R}^n$ 
+and $\nu \in R$, along with the following three constraints:
 \begin{eqnarray}
 	\nu \, k + {\bf 1}^T {\boldsymbol \lambda}  & \le & M \label{opp1} \\ 
 	{\bf x} & \preceq & {\boldsymbol \lambda} + \nu {\bf 1} \label{opp2} \\
