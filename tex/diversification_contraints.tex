@@ -14,7 +14,7 @@
 
 \title{Constructing Diversification Constraints}
 \author{R. Scott McIntire}
-\date{Oct 12, 2024}
+\date{Oct 13, 2024}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{DD}{Def}
@@ -76,7 +76,7 @@ of combinations to examine to find the optimal solution in this discrete setting
 {\it continuous\/} optimization problem: 
 \begin{eqnarray}
 \mathop{\rm max}_{{\bf y} \in {\bf R}^n}\limits \quad {\bf y}^T {\bf x} &&  \\
-{\bf 0} \preceq {\bf y}   \preceq  {\bf 1}&& \\ 
+{\bf 0} \preceq {\bf y}   \preceq  {\bf 1}&& \label{bound} \\ 
 {\bf y}^T {\bf 1}  =  k && \label{integral} 
 \end{eqnarray}
 {\bf proof:}
@@ -89,37 +89,48 @@ lives in ${\bf Z}_2^n$ yielding the same value for the objective.
 
 To this end, let ${\bf y}^*$ be a solution to the continuous problem. If all
 of the values are integral; meaning, take on only the values of $0$ or $1$ we 
-are done. Otherwise, collect the components of ${\bf y}^*$ that are non-integral.
-By the constraint, (\ref{integral}), there must be more than one component. 
-It must also be the case that amongst these ``fractional'' components that
-the corresponding ``x'' values are the same. Otherwise, if two of the components 
-of ${\bf y}$ had differing ``x'' values, then the ``y'' component with the 
+are done. Otherwise, collect the components of ${\bf y}^*$ that are non-integral;
+that is, have values strictly between $0$ and $1$.
+By the constraint, (\ref{integral}), the sum of these non-integral components
+must sum to an integral value. Consequently, there must be more than one such component. 
+It must also be the case that amongst these non-integral components 
+the corresponding ``x'' values are the same. Otherwise, if two of these components 
+had differing ``x'' values, then the ``y'' component with the 
 smaller ``x'' value could shift some of its value to the ``y'' component with 
-the larger ``x'' value in a way that keeps the constraint, (\ref{integral}). 
-But then we would have a larger objective value that the supposed maximum 
+the larger ``x'' value in such a way as to preserve the constraints, 
+(\ref{bound}) and (\ref{integral}). 
+But then we would have a larger objective value than the supposed maximum 
 -- contradiction. Therefore, all of the 
 ``x'' components associated with non-integral ``y'' values must have the same 
-value. The sum of these non-integral values must sum to an integral value, which 
-by necessity, is less than the number of components in ${\bf y}^*$. Suppose 
-this number is $j$. Take any $j$ of these ``y'' components. Create a new 
-vector ${\bf y}^\prime$ and set its values in the following way: Set the 
-components of ${\bf y}^\prime$ corresponding to the previous $j$ components 
+value. As previously stated, the sum of these non-integral values must sum 
+to an integral value, which by necessity, is less than the number of 
+non-integral components in ${\bf y}^*$. 
+
+Suppose this number is $j$. Take any $j$ of these non-integral ``y'' components. 
+Now, create a new 
+vector ${\bf y}^\prime \in {\bf R}^n$ and set its values in the following way: 
+Set the components of ${\bf y}^\prime$ corresponding to the previous $j$ components 
 from ${\bf y}^*$ to be $1$. Set the components of ${\bf y}^\prime$ that 
-correspond to the remaining ``fractional'' components of ${\bf y}^*$ to $0$. 
+correspond to the remaining non-integral components of ${\bf y}^*$ to $0$. Note
+that with this assignment, the sum of non-integral components of ${\bf y}^*$
+is the same as the sum of the components from the corresponding 
+components of ${\bf y}^\prime$ -- an integral value.
 Set the rest of the components of ${\bf y}^\prime$ to the 
-corresponding values from ${\bf y}^*$. We have now shown that a solution vector 
-to the continuous problem is in the feasible set of the discrete problem. 
+corresponding values from ${\bf y}^*$. We have now shown that for any 
+solution vector to the continuous problem there is a corresponding vector
+that is in the feasible set of the discrete problem and which yields the 
+same value.
 Therefore, the optimal solution to the discrete problem is at least as large as 
 the solution to the continuous problem. Consequently, the two problems are 
 equivalent.
 
-Note that the solution to continuous problem is the same as the associated problem:
+Note that the solution to the continuous problem is the same as the associated problem:
 \begin{eqnarray}
 	\mathop{\rm min}_{{\bf y} \in {\bf R}^n}\limits \quad -{\bf y}^T {\bf x} && \label{op1} \\ 
 	{\bf 0} \preceq {\bf y} \preceq {\bf 1} &&  \label{op2}\\
 	{\bf y}^T {\bf 1} =  k \label{op3} &&
 \end{eqnarray}
-Note that this is a {\it convex\/} optimization problem.
+Treating ${\bf x}$ as a constant, this is a {\it convex\/} optimization problem.
 
 \section{A Dual Description of the Optimization}
 Since the problem described by equations ($\ref{op1}, \ref{op2}, \ref{op3}$), is
@@ -175,7 +186,7 @@ must necessarily occur where the dotting vector is zero.}
 This is equivalent to%
 \footnote{We can remove $n$ variables by eliminating ${\boldsymbol \lambda}_1$ from the equations while keeping
 	the same number of inequalities. We can do this by realizing that ${\boldsymbol \lambda}_2 - \nu {\bf 1} = {\bf x} + {\boldsymbol \lambda}_1$ 
-	expresses the same information as: ${\boldsymbol \lambda}_2 - \nu {\bf 1} \succeq {\bf x}$. Since there is now only one ${\boldsymbol \lambda}$,
+	expresses the same information as ${\boldsymbol \lambda}_2 - \nu {\bf 1} \succeq {\bf x}$. Since there is now only one ${\boldsymbol \lambda}$,
 we relabel ${\boldsymbol \lambda}_2$ as ${\boldsymbol \lambda}$.}
 \begin{eqnarray}
 	\mathop{\rm max}_{{{\boldsymbol \lambda} \succeq {\bf 0}} \atop \nu} 
@@ -199,7 +210,7 @@ But this is the same as:
 
 \section{Characterization of $f$ as O(n) Linear Constraints}
 We now apply the results of the previous sections to the following problem:
-Add constraints to an optimization problem that includes a variable ${\bf x} \in {\bf R}^n$
+Add constraints to an optimization problem that includes a {\it variable} ${\bf x} \in {\bf R}^n$
 so that $f({\bf x}) \le M$ for some value $M$.
 
 We claim that one can bound $f({\bf x})$ by adding two new variables,
