@@ -29,7 +29,8 @@ Consider the function, $f: {\bf R}^n \mapsto {\bf R}$, defined by%
 For a given vector, ${\bf x} \in {\bf R}^n$, create a vector,  
 ${\bf x}^\prime$,
 by {\it stably\/} sorting ${\bf x}$ from highest to lowest.
-Define the notation, $x_{[i]}$ by: $x_{[i]} \equiv x_{i}^\prime$.}
+Define the notation, $x_{[i]}$ by: $x_{[i]} \equiv x_{i}^\prime$.
+Note: For the rest of this paper we assume that $k \in {\bf Z}^+$ with $k \le n$.}
 \begin{eqnarray}
 	f({\bf x}) & = & \sum_{i=1}^k x_{[i]} 
 \end{eqnarray}
@@ -43,7 +44,16 @@ $k$ elements of ${\bf x}$ and write a constraint that bounds their sum to be
 less than or equal to $M$.  But the number of constraints that one has to 
 write is $n \choose k$. This becomes large very quickly. 
 In the next section we seek a way to represent $f$ to 
-reduce the number of constraints.
+reduce the number of constraints.%
+\footnote{A bold font is used to denote vectors. We refer to a  
+vector of $0$s as ${\bf 0}$, and likewise we refer to a vector of $1$s
+as ${\bf 1}$. The mathematical expression, ${\bf a} \preceq {\bf b}$, is to be 
+interpreted as the statement that every element of the vector ${\bf a}$ is 
+less than or equal to the corresponding element in the vector ${\bf b}$. 
+Similarly, the expression, ${\bf a} \succeq {\bf b}$, is the statement that 
+each element of ${\bf a}$ is greater than or equal to each 
+corresponding element of ${\bf b}$.
+}
 
 This constraint often arises in the world of finance where one wants to 
 create (or modify) a portfolio so that the new portfolio has the property
@@ -53,19 +63,11 @@ of its total notional.
 \section{The Function $f$ as an Optimization Problem}
 We wish to characterize the value of $f$ on a given vector, ${\bf x}$ as 
 the result of an optimization.
-We claim that for for a given ${\bf x}$, $f({\bf x})$ is the value of 
-the following constrained optimization problem:%
-\footnote{A bold font is used to denote vectors. We refer to a  
-vector of $0$s as ${\bf 0}$, and likewise we refer to a vector of $1$s
-as ${\bf 1}$. Finally, the statement, ${\bf a} \preceq {\bf b}$, is the 
-statement that every element of the vector ${\bf a}$ is less than or equal
-to the corresponding element in the vector ${\bf b}$. The statement,
-${\bf a} \succeq {\bf b}$, is similar but with each element of ${\bf a}$
-greater than or equal each corresponding element of ${\bf b}$.
-}
+We claim that for a given ${\bf x}$, $f({\bf x})$ is the value of 
+a solution to the following constrained optimization problem:%
 \begin{eqnarray}
-\mathop{\rm max}_{{\bf y} \in {\bf Z}_2^n}\limits \quad {\bf y}^T {\bf x} && \\
-{\bf y}^T {\bf 1} & = & k 
+	\mathop{\rm max}_{{\bf y} \in {\bf Z}_2^n}\limits \quad {\bf y}^T {\bf x} && \label{discrete_objective} \\
+{\bf y}^T {\bf 1} & = & k \label{discrete_integral} 
 \end{eqnarray}
 In English this says: ``Take the maximum value of all possible sums of $k$ 
 values from ${\bf x}$.'' This is clearly just another way of restating $f({\bf x})$.
@@ -73,7 +75,12 @@ Although this optimization is succinct, there are still an exponential number
 of combinations to examine to find the optimal solution in this discrete setting.
 
 {\bf claim:} The solution to the above is the same as the solution to the 
-{\it continuous\/} optimization problem: 
+{\it continuous\/} optimization problem:%
+\footnote{%
+The solution to this problem exists as the supremum of the {\it continuous\/}
+objective function over a closed, bounded set in $R^n$ -- 
+as determined by these particular constraints -- is attained.
+}
 \begin{eqnarray}
 \mathop{\rm max}_{{\bf y} \in {\bf R}^n}\limits \quad {\bf y}^T {\bf x} &&  \\
 {\bf 0} \preceq {\bf y}   \preceq  {\bf 1}&& \label{bound} \\ 
@@ -85,15 +92,20 @@ includes ${\bf Z}_2^n$, the solution to the continuous problem is at least as
 large as the solution to the original discrete problem.
 We now show the reverse, by showing that for every optimal solution to the 
 continuous problem, ${\bf y}^*$, there is a corresponding ${\bf y}^\prime$ that 
-lives in ${\bf Z}_2^n$ yielding the same value for the objective.
+lives in ${\bf Z}_2^n$, satisfying the constraint, (\ref{discrete_integral}), 
+with (\ref{discrete_objective}) yielding the same value as the solution to the
+continuous problem.
 
-To this end, let ${\bf y}^*$ be a solution to the continuous problem. If all
-of the values are integral; meaning, take on only the values of $0$ or $1$ we 
-are done. Otherwise, collect the components of ${\bf y}^*$ that are non-integral;
-that is, have values strictly between $0$ and $1$.
+To this end, let ${\bf y}^* \in {\bf R}^n$ be a solution to the continuous 
+problem. If all of the values are integral, by (\ref{bound}), 
+the only integral values are $0$ or $1$. In this case, we are done -- take 
+${\bf y}^\prime$ to be ${\bf y}^*$.
+
+Otherwise, collect the components of ${\bf y}^*$ 
+that are non-integral; that is, have values strictly between $0$ and $1$.
 By the constraint, (\ref{integral}), the sum of these non-integral components
-must sum to an integral value. Consequently, there must be more than one such component. 
-It must also be the case that amongst these non-integral components 
+must sum to an integral value. Consequently, there must be more than one such
+component. It must also be the case that amongst these non-integral components 
 the corresponding ``x'' values are the same. Otherwise, if two of these components 
 had differing ``x'' values, then the ``y'' component with the 
 smaller ``x'' value could shift some of its value to the ``y'' component with 
@@ -104,24 +116,28 @@ But then we would have a larger objective value than the supposed maximum
 ``x'' components associated with non-integral ``y'' values must have the same 
 value. As previously stated, the sum of these non-integral values must sum 
 to an integral value, which by necessity, is less than the number of 
-non-integral components in ${\bf y}^*$. 
+non-integral components in ${\bf y}^*$. Let us call this number, $j$. 
+Pick any $j$ of these non-integral values, and let $J$ to be the set of their index
+values in ${\bf y}^*$.
+Let ${\tilde J}$ be the set of indices corresponding to the remaining non-integral values
+of ${\bf y}^*$.
 
-Suppose this number is $j$. Take any $j$ of these non-integral ``y'' components. 
 Now, create a new 
-vector ${\bf y}^\prime \in {\bf R}^n$ and set its values in the following way: 
-Set the components of ${\bf y}^\prime$ corresponding to the previous $j$ components 
-from ${\bf y}^*$ to be $1$. Set the components of ${\bf y}^\prime$ that 
-correspond to the remaining non-integral components of ${\bf y}^*$ to $0$. Note
-that with this assignment, the sum of non-integral components of ${\bf y}^*$
-is the same as the sum of the components from the corresponding 
-components of ${\bf y}^\prime$ -- an integral value.
+vector ${\bf y}^\prime \in {\bf Z}_2^n$ and set its values in the following way: 
+Set the values of ${\bf y}^\prime$ corresponding to the indices in $J$
+to be $1$. Set the values of ${\bf y}^\prime$ corresponding to the indices in ${\tilde J}$
+to $0$. Note that with this assignment, the sum of the elements of 
+${\bf y}^*$ with indices in $J \cup {\tilde J}$ is the same as the sum over ${\bf y}^\prime$ 
+with indices in $J \cup {\tilde J}$.
 Set the rest of the components of ${\bf y}^\prime$ to the 
-corresponding values from ${\bf y}^*$. We have now shown that for any 
-solution vector to the continuous problem there is a corresponding vector
-that is in the feasible set of the discrete problem and which yields the 
-same value.
+corresponding values from ${\bf y}^*$. As we have seen, these integral values 
+can only be $0$ or $1$. This means that we ${\bf y}^\prime$ as the property that
+${{\bf y}^\prime}^T {\bf x} = k$. We have now shown that for any 
+solution vector to the continuous problem ${\bf y}^*$ there is a corresponding vector
+${\bf y}^\prime \in {\bf Z}_2^n$ that is in the feasible set of the discrete problem 
+and which yields the same value as the optimal value of the continuous problem.
 Therefore, the optimal solution to the discrete problem is at least as large as 
-the solution to the continuous problem. Consequently, the two problems are 
+any optimal solution to the continuous problem. Consequently, the two problems are 
 equivalent.
 
 Note that the solution to the continuous problem is the same as the associated problem:
@@ -150,20 +166,23 @@ As such, it is customary to treat such parameters as part of a function but sepa
 them from the ``true'' list of variables of the problem with a semi-colon.}
 \begin{eqnarray}
 	L({\bf y}, {\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu; {\bf x}) &=& 
-	-{\bf y}^T {\bf x} - {\boldsymbol \lambda}_1^T {\bf y} + {\boldsymbol \lambda}_2^T ({\bf y} - {\bf 1}) + \nu (k - {\bf y}^T {\bf 1}) 
+	-{\bf y}^T {\bf x} - {\boldsymbol \lambda}_1^T {\bf y} 
+	+ {\boldsymbol \lambda}_2^T ({\bf y} - {\bf 1}) + \nu (k - {\bf y}^T {\bf 1}) 
 \end{eqnarray}
+Here ${\boldsymbol \lambda}_1$, ${\boldsymbol \lambda}_2 \in {\bf R}^n$ and $\nu \in R$
+are the {\it dual\/} variables.
 
 Set the function $g$:
 \begin{eqnarray}
 	g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_1, \nu; {\bf x}) &=& 
-		\mathop{\rm inf}_{{{\bf y}, {\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2 \in {\bf R}^n} \atop \nu \in R} 
+		\mathop{\rm inf}_{\bf y} 
 		\; L({\bf y}, {\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu; {\bf x}) 
 \end{eqnarray}
 
 Substituting for $L$ this becomes
 \begin{eqnarray}
 	g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_1, \nu; {\bf x}) &=& 
-		\mathop{\rm inf}_{{{\bf y}, {\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2 \in {\bf R}^n} \atop \nu \in R} 
+		\mathop{\rm inf}_{\bf y}
 		\; \left({\bf y}^T \left( -{\bf x} - {\boldsymbol \lambda}_1 + {\boldsymbol \lambda}_2 - \nu {\bf 1} \right) \right.
 		- \left. {\bf 1}^T {\boldsymbol \lambda}_2 + \nu \, k  \right)
 \end{eqnarray}
@@ -193,8 +212,8 @@ we relabel ${\boldsymbol \lambda}_2$ as ${\boldsymbol \lambda}$.}
 		& \quad \nu \, k - {\bf 1}^T {\boldsymbol \lambda} & \\   
 		& {\bf x} \preceq {\boldsymbol \lambda} - \nu {\bf 1} &
  \end{eqnarray}
-Since maximizing over $\nu$ or $-\nu$ is the same and there are no restrictions on the sign of $\nu$ we may replace $\nu$ with $-\nu$ 
-in the last equations giving:
+Since maximizing over $\nu$ or $-\nu$ is the same -- as there are no restrictions 
+on $\nu$  -- we may replace $\nu$ with $-\nu$ in the last equations giving:
 \begin{eqnarray}
 	\mathop{\rm max}_{{{\boldsymbol \lambda} \succeq {\bf 0}} \atop \nu} 
 		& \quad -\nu \, k - {{\bf 1}^T \boldsymbol \lambda} & \\ 
