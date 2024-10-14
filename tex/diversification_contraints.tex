@@ -77,7 +77,7 @@ of combinations to examine to find the optimal solution in this discrete setting
 {\bf claim:} The solution to the above is the same as the solution to the 
 {\it continuous\/} optimization problem:%
 \footnote{%
-The solution to this problem exists as the supremum of the {\it continuous\/}
+The solution to this problem exists as the supremum of a {\it continuous\/}
 objective function over a closed, bounded set in $R^n$ -- 
 as determined by these particular constraints -- is attained.
 }
@@ -117,7 +117,7 @@ But then we would have a larger objective value than the supposed maximum
 value. As previously stated, the sum of these non-integral values must sum 
 to an integral value, which by necessity, is less than the number of 
 non-integral components in ${\bf y}^*$. Let us call this number, $j$. 
-Pick any $j$ of these non-integral values, and let $J$ to be the set of their index
+Pick any $j$ of these non-integral values, and let $J$ be the set of their index
 values in ${\bf y}^*$.
 Let ${\tilde J}$ be the set of indices corresponding to the remaining non-integral values
 of ${\bf y}^*$.
@@ -131,9 +131,9 @@ ${\bf y}^*$ with indices in $J \cup {\tilde J}$ is the same as the sum over ${\b
 with indices in $J \cup {\tilde J}$.
 Set the rest of the components of ${\bf y}^\prime$ to the 
 corresponding values from ${\bf y}^*$. As we have seen, these integral values 
-can only be $0$ or $1$. This means that we ${\bf y}^\prime$ as the property that
+can only be $0$ or $1$. This means that ${\bf y}^\prime$ has the property that
 ${{\bf y}^\prime}^T {\bf x} = k$. We have now shown that for any 
-solution vector to the continuous problem ${\bf y}^*$ there is a corresponding vector
+solution vector to the continuous problem ${\bf y}^*$, there is a corresponding vector
 ${\bf y}^\prime \in {\bf Z}_2^n$ that is in the feasible set of the discrete problem 
 and which yields the same value as the optimal value of the continuous problem.
 Therefore, the optimal solution to the discrete problem is at least as large as 
