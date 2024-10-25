@@ -225,11 +225,9 @@ $\chi_{S} = \begin{cases} 1 \quad \text{if $x \in  S$;} \\ 0 \quad \text{otherwi
 Although approximating the function, $f$, from the last section using step 
 functions is unpleasant, it is very easy using characteristic functions -- the complexity 
 is buried in the underlying set, $S$. In our case, we can represent our function {\em exactly\/}
-using a linear combination of characteristic functions:
+using a linear combination of characteristic functions: $f(x) = \chi_{IR}(x)$.
 
-$f(x) = \chi_{R}(x) + \chi_{IR}(x)$
-
-Here, $R$ is the set of rationals, and $IR$ is the set of irrationals on interval, $[0, 1]$.
+Here, $IR$ is the set of irrationals on interval, $[0, 1]$.
 
 To find the ``area'' under the curve ``$f(x)$'' we would like to multiply the 
 height by the ``width'' of each of the sets. What might this mean?
@@ -276,20 +274,20 @@ to $(0,1)$), with total length $1 + 2 \epsilon$.
 Consequently, we see that $\mu^*(IR) = 1$.
 
 With this we can define the Lebesgue Integral of the function: 
-$f(x) = \chi_{R}(x) + \chi_{IR}(x)$ over the interval $[0,1]$ 
-as $1 * \mu^*(R) + 0 * \mu^*(IR) = 1 * 0 + 0 * 1 = 0$.
+$f(x) = \chi_{R}(x)$ over the interval $[0,1]$ 
+as $1 * \mu^*(R) = 1 * 0 = 0$.
 
 In general, if a function can be written as a finite linear combination of 
-characteristic functions: $h(x) = \sum_i^N c_i \chi_{E_i}(x)$,j
-then we would define the Lebesgue integral for such functions as:
+characteristic functions: $h(x) = \sum_i^N c_i \chi_{E_i}(x)$,
+then we would {\em define\/} the Lebesgue integral for such functions as:
 
 \begin{eqnarray}
 	\int_a^b h(x) \, dx & = & \sum_{i=1}^N\limits c_i \mu^*(E_i)
 \end{eqnarray}
 That is, we did what we said we would do; namely, we should compute the new integral 
 of a ``simple'' function like the one above by taking its range values (the heights) 
-and then multiplying by the width of the set of points that map to each of the heights. 
-The widths of the sets are found by {\em squeezing\/} all of the ``air`` out.
+and then multiplying by the ``width'' of the set of points that map to each of the heights. 
+The widths of the sets are found by {\em squeezing\/} all of the ``air'' out.
 
 Going further, we would try to define the Lebesgue Integral of an ``arbitrary''
 function, $f$, as the limit of integrals of approximating ``simple'' functions  -- ones that
@@ -376,36 +374,50 @@ if for all sets $X$ the following is true:
 \begin{eqnarray}
 	\mu^*(X) & = & \mu^*(X \cap C) + \mu^*(X \cap C^c) \label{Carthy}
 \end{eqnarray}
+When a set is measurable we simply write $\mu(C)$ instead of $\mu^*(C)$.
 
 What we're asking for is that any disjoint pieces constructed using $C$ and 
-its compliment must add up properly. When you think about this statement it
+its ``compliment'' must add up properly. When you think about this statement it
 seems clear that we very much need the ``lengths'' of sets and their compliments
 to add properly before we go any further with an integration theory -- this 
-is the least you expect/need with a new integration theory.
+is the least you expect/need from a new integration theory.
 
 But why all the fuss about the intersection with ``any set $X$''.
-Well we could remove $X$ from this definition, but the definition would be 
-meaningless if the ambient space we are dealing with is unbounded. For instance,
-when working with functions on $R$, the complement of a bounded set will have 
-infinite length and then $(\ref{Carthy})$ would be the statement: 
-$\infty = \text{``Finite value''} + \infty$.
-This is a useless statement. What we want to say, just like the combs from the
+Why not just say that $C$ and its compliment add up properly?
+The problem is that the compliment of $C$ might have infinite length, because
+the ambient space containing $C$ is infinite.
+Saying that $C$ and its compliment add up correctly is the statement that 
+the length of $C$ and the length of its compliment is equal to the length 
+of the ambient space: length(C) + $\infty$ = $\infty$ -- a useless statement.
+This won't distinguish any sets as being special; that is, it won't help
+us filter out the badly behaving sets.
+
+What we want to say, just like the combs from the
 previous section, is that the measure of $C$ added with the measure of its 
 ``natural complement'' -- coming from a ``natural'' bounding box -- 
 gives back the measure of the bounding box just like the rectangular
-container of the combs. Without some restriction, the compliment is an infinite set.
-The problem then becomes: ``What is the ``natural'' bounding box for the set $C$''?
-We get around that problem by requiring that it be true for all bounding boxes -- 
-because then, in particular, it will be true of the ``natural'' bounding box as well.
-And then realizing that the ``box'' doesn't have to be bounded, we remove that restriction.
-This leaves a clean unambiguous definition for the measure of a set. But also makes it,
-potentially more difficult to use later in practice.
+container of the combs. Without some restriction, the compliment could be 
+an infinitely large set.
+
+The problem now becomes: ``What is the 'natural' bounding box for the set $C$''?
+We get around that problem by requiring that it be true for {\em all\/} bounding boxes.
+And now, we see what ``X'' accomplishes in the definition of measurability, (\ref{Carthy}).
+The ``X'' in this definition is a stand-in for {\em all\/} bounding boxes; but, in particular,,
+the/any ``natural'' bounding boxes.
+Consequently, (\ref{Carthy}) provides an unambiguous definition to filter out 
+sets that behave badly, why cleanly avoiding 
+the problem of the definition of a set's bounding box.
+However, this definition also makes it potentially more difficult to use in practice.
+
+This definition is called ``Carath\'eodory's Condition'' and is introduced in most
+text books without much motivation.
  
-So, given that we restrict ourselves to these measurable sets it turns out that
+When a set, $C$, is known to be measurable we write $\mu(C)$ rather than $\mu^*(C)$.
+So, given that we restrict ourselves to these ``measurable'' sets it turns out that
 the measure behaves in the way one might want. Namely.
 \begin{eqnarray*}
-	\mu^*(A) & = & \sum_{i=1}^N\limits \mu^*(A_i) \quad \text{when} \; A = \mathop{\cup}_{i=1}^N\limits A_i \quad \text{with} \;  A_i \cap A_j = \emptyset \quad \text{if} \; i \neq j \\
-	\mu^*(A) & = & \sum_{i=1}^\infty\limits \mu^*(A_i) \quad \text{when} \; A = \mathop{\cup}_{i=1}^\infty\limits A_i \quad \text{with} \; A_i \cap A_j = \emptyset \quad \text{if} \; i \neq j
+	\mu(A) & = & \sum_{i=1}^N\limits \mu(A_i) \quad \text{when} \; A = \mathop{\cup}_{i=1}^N\limits A_i \quad \text{with} \;  A_i \cap A_j = \emptyset \quad \text{if} \; i \neq j \\
+	\mu(A) & = & \sum_{i=1}^\infty\limits \mu(A_i) \quad \text{when} \; A = \mathop{\cup}_{i=1}^\infty\limits A_i \quad \text{with} \; A_i \cap A_j = \emptyset \quad \text{if} \; i \neq j
 \end{eqnarray*}
 
 That is, the measure of a set that is composed of a bunch of other disjoint 
@@ -422,8 +434,12 @@ algebra with respect to unions, intersections and complements.
 
 In fact the set of measurable sets is a $\sigma$-algebra:
 The measurable sets are closed under all finite or countably infinite unions, intersections and the complements of these.
+With such a collection of sets one can now define the notion of a ``measurable function''.
 
-When a set, $C$, is known to be measurable we write $\mu(C)$ rather than $\mu^*(C)$.
+With this one can now define the Lebesgue integral for measurable functions.
+One is now in a position to address the convergence theorems discussed at 
+the beginning of this paper.
+
 
 \section{Conclusion}
 
