@@ -1,10 +1,9 @@
-
 \documentclass{article}
 \usepackage{amsmath,amscd}
 
 \title{Why Lebesgue Integration}
 \author{R. Scott McIntire}
-\date{Oct 25, 2024}
+\date{Oct 26, 2024}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -268,7 +267,8 @@ irrationals with intervals must have a total length of at least $1$.
 If not, there would be some open interval  $[0,1]$, that is not covered. 
 But any such open 
 interval must contain an irrational; therefore all covers must have a total length 
-of at least $1$. Since the cover $\{(0,1), (-\epsilon, \epsilon), (1 - \epsilon,1 + \epsilon)\}$
+of at least $1$. Since the cover 
+$\{(0,1), (-\epsilon, \epsilon), (1 - \epsilon,1 + \epsilon)\}$
 is a cover (for an infinite cover, let all other covers sets be set 
 to $(0,1)$), with total length $1 + 2 \epsilon$.
 Consequently, we see that $\mu^*(IR) = 1$.
@@ -286,17 +286,18 @@ then we would {\em define\/} the Lebesgue integral for such functions as:
 \end{eqnarray}
 That is, we did what we said we would do; namely, we should compute the new integral 
 of a ``simple'' function like the one above by taking its range values (the heights) 
-and then multiplying by the ``width'' of the set of points that map to each of the heights. 
-The widths of the sets are found by {\em squeezing\/} all of the ``air'' out.
+and then multiplying by the ``width'' of the set of points that map to each 
+of the heights. The widths of the sets are found by {\em squeezing\/} all 
+of the ``air'' out.
 
 Going further, we would try to define the Lebesgue Integral of an ``arbitrary''
-function, $f$, as the limit of integrals of approximating ``simple'' functions  -- ones that
-are a finite linear combinations of characteristic functions with the property
-that they converge pointwise to $f$.
+function, $f$, as the limit of integrals of approximating ``simple'' 
+functions  -- ones that are a finite linear combinations of characteristic 
+functions with the property that they converge pointwise to $f$.
 
-This is the initial plan. However, there is a problem with this approach. In the next section we 
-provide an aside that describes a potential problem with the Lebesgue Outer Measure when 
-used as a measure of ``length''.
+This is the initial plan. However, there is a problem with this approach. 
+In the next section we provide an aside that describes a potential problem 
+with the Lebesgue Outer Measure when used as a measure of ``length''.
 
 
 \section{Outer Measure Aside: Measuring Area in the Real World}
@@ -331,14 +332,16 @@ He determined the area of this rectangle to be $A$. He then tried each of the
 combs separately only to find that each of their areas was also $A$!
 It seems that due to the viscosity of the oil and the fine spacing between the 
 teeth of the combs, the oil coating did not penetrate the fine crevasses of the 
-comb, treating it as solid -- consequently, the measure of the area was that of the (enclosing) rectangle.
+comb, treating it as solid -- consequently, the measure of the area was 
+that of the (enclosing) rectangle.
 
 
 The entrepreneur had to admit that his technique failed on the combs; 
 there were clearly limitations to his technique. 
 But how would he describe the limitation? Basically, the entrepreneur wanted to 
-be able to advertise that his measurement method could be used for all ``reasonable'' objects. 
-Exceptions would be objects that needed restoration that were broken into two pieces with extremely jagged edges.
+be able to advertise that his measurement method could be used for all 
+``reasonable'' objects. Exceptions would be objects that needed restoration 
+that were broken into two pieces with extremely jagged edges.
 
 What he wanted to say is that given an object, $C$ could be $\mu$ measured 
 {\em if\/} $C$ was inside another object, $O$ and the following was true:
@@ -363,7 +366,7 @@ broken as long as the pieces are not ``too'' jagged.
 
 \section{Back to Outer Measure}
 It turns out that outer measure behaves much like the oil measurement system 
-used in the last section. That is, there are sets, $C$ for which there is at 
+used in the last section. That is, there are sets, $C$, for which there is at 
 least some, $X$, so that
 $\mu^*(X) \neq \mu^*(X \cap C) + \mu^*(X \cap C^c)$
 
@@ -376,8 +379,10 @@ if for all sets $X$ the following is true:
 \end{eqnarray}
 When a set is measurable we simply write $\mu(C)$ instead of $\mu^*(C)$.
 
-What we're asking for is that any disjoint pieces constructed using $C$ and 
-its ``compliment'' must add up properly. When you think about this statement it
+What we're looking for is a requirement to be measurable -- meaning
+outer measure works properly. By this we mean sets must be well behaved
+in the sense that a set and its ``compliment'' must add up to their union.
+When you think about this statement it
 seems clear that we very much need the ``lengths'' of sets and their compliments
 to add properly before we go any further with an integration theory -- this 
 is the least you expect/need from a new integration theory.
@@ -395,93 +400,134 @@ us filter out the badly behaving sets.
 What we want to say, just like the combs from the
 previous section, is that the measure of $C$ added with the measure of its 
 ``natural complement'' -- coming from a ``natural'' bounding box -- 
-gives back the measure of the bounding box just like the rectangular
-container of the combs. Without some restriction, the compliment could be 
+gives back the measure of the bounding box.
+Without some restriction, the compliment could be 
 an infinitely large set.
 
 The problem now becomes: ``What is the 'natural' bounding box for the set $C$''?
-We get around that problem by requiring that it be true for {\em all\/} bounding boxes.
-And now, we see what ``X'' accomplishes in the definition of measurability, (\ref{Carthy}).
-The ``X'' in this definition is a stand-in for {\em all\/} bounding boxes; but, in particular,,
-the/any ``natural'' bounding boxes.
+We can get around this problem by requiring that it be true for {\em all\/} 
+bounding boxes. And now, we see what ``X'' accomplishes in the definition of 
+measurability, (\ref{Carthy}). The ``X'' in this definition is a stand-in for 
+{\em all\/} bounding boxes; but this includes, in particular, the/any 
+bounding boxes that might be considered ``natural''. 
 Consequently, (\ref{Carthy}) provides an unambiguous definition to filter out 
-sets that behave badly, why cleanly avoiding 
+sets that behave badly, while cleanly avoiding 
 the problem of the definition of a set's bounding box.
-However, this definition also makes it potentially more difficult to use in practice.
+However, we've solved one problem, but now have another. Yes, we have 
+a clean definition, but can one use this in practice to show that a 
+set is measurable? The definition is clean, but the burden to show a set is
+measurable has very much increased!
 
-This definition is called ``Carath\'eodory's Condition'' and is introduced in most
-text books without much motivation.
+We have now attempted to motivate the restriction of the length-of-sets 
+measuring method called outer measure to so-call measurable sets via 
+the filtering condition, (\ref{Carthy}).
+This filter is called ``Carath\'eodory's Condition'',
+and is introduced in most text books without much motivation. 
+And yet it is the key idea that makes Lebesgue theory work. 
  
-When a set, $C$, is known to be measurable we write $\mu(C)$ rather than $\mu^*(C)$.
 So, given that we restrict ourselves to these ``measurable'' sets it turns out that
 the measure behaves in the way one might want. Namely.
 \begin{eqnarray*}
-	\mu(A) & = & \sum_{i=1}^N\limits \mu(A_i) \quad \text{when} \; A = \mathop{\cup}_{i=1}^N\limits A_i \quad \text{with} \;  A_i \cap A_j = \emptyset \quad \text{if} \; i \neq j \\
-	\mu(A) & = & \sum_{i=1}^\infty\limits \mu(A_i) \quad \text{when} \; A = \mathop{\cup}_{i=1}^\infty\limits A_i \quad \text{with} \; A_i \cap A_j = \emptyset \quad \text{if} \; i \neq j
+	\mu(A) & = & \sum_{i=1}^N\limits \mu(A_i) \quad \text{when} \; 
+		A = \mathop{\cup}_{i=1}^N\limits A_i \quad \text{with} \;  
+		A_i \cap A_j = \emptyset \quad \text{if} \; i \neq j \\
+	\mu(A) & = & \sum_{i=1}^\infty\limits \mu(A_i) \quad \text{when} \; 
+		A = \mathop{\cup}_{i=1}^\infty\limits A_i \quad \text{with} \; 
+		A_i \cap A_j = \emptyset \quad \text{if} \; i \neq j
 \end{eqnarray*}
 
-That is, the measure of a set that is composed of a bunch of other disjoint 
-sets should be the sum of the measure of the disjoint sets. We need this to hold
+That is, the measure of a set that is composed of a collection of disjoint 
+sets should be the sum of the measures of the disjoint sets. We need this to hold
 for infinite sets as well because in any definition of integration we are going 
 to need to take limits.
-
 And, as you might imagine, the solution to determining when one can apply the 
-outer measure effectively boils done to the above two behaviors.
+outer measure effectively boils down to the above two behaviors.
 
-It turns out that if you restrict to measurable sets, 
-then the resulting sets have the property that they are an 
-algebra with respect to unions, intersections and complements. 
+It turns out that if we restrict ourselves to using only measurable sets, 
+the resulting sets have the property that they are an 
+{\em algebra\/} with respect to unions, intersections and complements. 
+In fact, the set of measurable sets is a {\em $\sigma$-algebra\/}:
+the measurable sets are closed under all finite or countably infinite unions, 
+intersections and the complements of these.
 
-In fact the set of measurable sets is a $\sigma$-algebra:
-The measurable sets are closed under all finite or countably infinite unions, intersections and the complements of these.
-With such a collection of sets one can now define the notion of a ``measurable function''.
+Being an algebra, we can get a good handle on what sets are measurable if we 
+can come up with a good {\em base\/} collection of sets that are {\em easily\/} shown
+to be measurable. From this, we {\em automatically\/} know that a set is measurable 
+-- no matter how complicated -- if it is built out of these base sets
+through some (possibly infinite) combination of set operations.
+From this, we can effectively boot-strapconstruct the set of measurable sets.
+Once a complicated set is determined to be measurable, it is part of the 
+algebra and can be used along with the base measurable sets -- and anything 
+else determined to be in the algebra -- to construct other measurable sets. 
+And we can continue this process ad infinitum.
 
-With this one can now define the Lebesgue integral for measurable functions.
-One is now in a position to address the convergence theorems discussed at 
-the beginning of this paper.
+Recapping, we have realized that our outer measure, a ``natural'' way of 
+measuring the length of sets, is flawed. We found a way to restrict the 
+usage to well behaved sets. Unfortunately, to make the restriction precise, 
+we made the restriction verification very difficult to use. But fortunately, 
+the resulting restricted sets are a {\em $\sigma$-algebra\/} and this helps 
+save the day. We need only do the difficult work of verifying the restriction 
+condition, (\ref{Carthy}), on simple base sets and then we can claim that 
+a much {\em richer\/} collection of sets automatically satisfy the restriction as 
+well and are thus considered measurable sets. If we choose the simple base sets 
+to be the collection of open and closed intervals, we have a collection that 
+is easy to show satisfy, (\ref{Carthy}).
+
+With a healthy collection of measurable sets we can define ``measurable functions``
+as any function that is a simple function or point-wise limits of simple functions.
+The Lebesgue integral of these functions is the corresponding finite or infinite
+sum of the integrals of their constituent simple functions.
+
+Restricting ourselves to measurable sets does have a consequence: just like 
+Riemann integration, we will not be able to integrate all functions, only 
+measurable functions. But, such functions turn out to be a 
+much larger class of functions than the set of Riemann integrable functions.
+
+Now, we are finally in a position to address the convergence theorems 
+discussed at the beginning of this paper.
 
 
 \section{Conclusion}
 
 The path to creating a definition of a Lebesgue integral proceeds as mentioned 
-in a previous section -- use approximating functions that are finite linear
+in the previous sections -- use approximating functions that are finite linear
 combinations of characteristic functions. Such combinations are called ``simple''
 functions. They take the role that step functions played for Riemann integration. 
 
-One way to find such an approximation is by chopping up the range of the function 
-into evenly spaced (if the range is finite) intervals and then looking at the 
-domain values of $f$ that map into this range interval. The set of values in 
-the domain could, potentially, be a complicated set. But if they are all measurable, then 
-one can create an approximating simple lower bound for the integral of $f$ 
-from simple functions based on these sets. This turns out to work provided -- 
-as you should imagine -- that the ``domain'' sets are measurable. This leads to 
-restricting the integration to functions, $f$, that are ``measurable functions''. 
-It turns out that all the usual functions you encountered in first year 
-calculus as well as any piecewise continuous functions are measurable functions. 
-But the set of measurable functions includes functions that are
-not Riemann integrable -- including the function we started out with, $f$, that
-was $1$ on the rationals and $0$ on the irrationals.
+One way to create approximating simple functions is by chopping up the range 
+of the function into evenly spaced (if the range is finite) intervals and then 
+looking at the domain values of $f$ that map into this range interval. 
+The set of values in the domain could, potentially, be a complicated set. 
+But if they are all measurable, then one can create an approximating simple 
+lower bound for the integral of $f$ from simple functions based on these sets. 
+This turns out to work provided -- as you should imagine -- that the ``domain'' 
+sets are measurable. This leads to restricting the integration to functions, $f$, 
+that are ``measurable functions''. It turns out that all the usual functions you 
+encountered in first year calculus as well as any piecewise continuous functions 
+are measurable functions. But the set of measurable functions includes functions 
+that are not Riemann integrable -- including the function we started out with, $f$, 
+that was $1$ on the rationals and $0$ on the irrationals.
 
 One can also show that the Lebesgue integral coincides with the Riemann integral 
 for ``nice'' functions.
 
 Finally, from this theory one does indeed get less stringent convergence 
-criterion than the Riemann counterpart. One can have a criterion that avoids ``uniform'' convergence.
-In fact, essentially, you get a convergence theorem that requires only that a sequence
-of functions converge point-wise to a function%
+criterion than the Riemann counterpart. One can have a criterion that avoids 
+``uniform'' convergence. In fact, essentially, you get a convergence theorem 
+that requires only that a sequence of functions converge point-wise to a function%
 \footnote{In fact, one only requires that a sequence of functions converge point-wise 
-to a function ``almost everywhere`` -- meaning everywhere except on a set of outer measure $0$.}
-and that the sequence of functions 
+to a function ``almost everywhere`` -- meaning everywhere except on a set of 
+outer measure $0$.} and that the sequence of functions 
 are ``dominated'' -- bounded above -- by a Lebesgue integrable function.
 
 It should be noted that there is an analogy between Riemann and Lebesgue integration 
 and the Rational and the Real number systems. In the same way that the Real number 
-system ``completes'' the Rational number system. The Lebesgue integration theory ``completes''
-the Riemann theory. In fact, with the Lebesgue theory one can create function 
-spaces with a metric that makes them ``complete'' in the same sense as Real 
-numbers; namely, Cauchy sequences always converge in that space. 
-The function space $L_2$ consists of
-all functions $f$ (say over the interval $[0,1]$) that satisfy:
+system ``completes'' the Rational number system. The Lebesgue integration 
+theory ``completes'' the Riemann theory. In fact, with the Lebesgue theory 
+one can create function spaces with a metric that makes them ``complete'' 
+in the same sense as Real numbers; namely, Cauchy sequences always converge 
+in that space. The function space $L_2$ consists of all functions $f$ 
+(say over the interval $[0,1]$) that satisfy:
 
 \begin{eqnarray}
 \int_0^1 f^2(x) \, dx < \infty
@@ -518,12 +564,14 @@ For instance, the fraction that we write as '1/2' is really the
 equivalence class (set) of pairs of integers: 
 \{(1,2), (2,4), (3, 6), (4,8), \ldots \}.
 To be equivalent, any two pairs, $(a, b)$ and $(c, d)$ must satisfy: 
-$a * d = b * c$. More generally, each rational number is really an equivalence class (set)
-with an {\em infinite\/} number of points.
+$a * d = b * c$. Also, note that each equivalence class of integer pairs --
+representing a given rational number -- consists of an {\em infinite\/} number 
+of integer pairs.
 
-In the same way, the Real number $1$ is not the Rational number $1$, it is actually an equivalence 
-class; namely, the set of all Cauchy sequences that converge to the Rational 
-$1$ -- the simplest of which is the sequence: $1, 1, 1, 1\ldots$ .
+In the same way, the Real number $1$ is not the Rational number $1$, it is 
+actually an equivalence class; namely, the set of all Cauchy sequences that 
+converge to the Rational number $1$ -- the simplest of which is the 
+sequence: $1, 1, 1, 1\ldots$ .
 
 
 \end{document}
