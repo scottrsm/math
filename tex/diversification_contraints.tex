@@ -14,7 +14,7 @@
 
 \title{Constructing Diversification Constraints}
 \author{R. Scott McIntire}
-\date{Oct 27, 2024}
+\date{Oct 30, 2024}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{DD}{Def}
@@ -132,12 +132,12 @@ ${\bf y}^*$ with indices in $J \cup {\tilde J}$ is the same as the sum over ${\b
 with indices in $J \cup {\tilde J}$.
 Set the rest of the components of ${\bf y}^\prime$ to the 
 corresponding values from ${\bf y}^*$. By our construction, 
-${{\bf y}^\prime}^T {\bf x} = k$. By constraint, (\ref{bound}), the integral 
+${{\bf y}^\prime}^T {\bf 1} = k$. By constraint, (\ref{bound}), the integral 
 values of ${\bf y}^\prime$ which came from ${\bf y}^*$, must
 be either $0$ or $1$. It follows that ${\bf y}^\prime \in {\bf Z}_2^n$ and 
 satisfies the constraint of the discrete problem, (\ref{discrete_integral}). 
 Therefore, ${\bf y}^\prime$ is in the feasible set of the discrete problem and 
-attains the optimal value of the continuous problem; meaning, that the 
+attains the optimal value of the continuous problem; meaning, the 
 solution to the discrete problem is at least as large as any solution to the 
 continuous problem. Consequently, the two optimization problems are equivalent.
 
