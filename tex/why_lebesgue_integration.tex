@@ -3,7 +3,7 @@
 
 \title{Why Lebesgue Integration}
 \author{R. Scott McIntire}
-\date{Oct 26, 2024}
+\date{Nov 1, 2024}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -367,7 +367,7 @@ broken as long as the pieces are not ``too'' jagged.
 \section{Back to Outer Measure}
 It turns out that outer measure behaves much like the oil measurement system 
 used in the last section. That is, there are sets, $C$, for which there is at 
-least some, $X$, so that
+least some, $X$ ("bounding box"), so that
 $\mu^*(X) \neq \mu^*(X \cap C) + \mu^*(X \cap C^c)$
 
 Sets like, $C$, are too jagged and its measure doesn't add properly.
@@ -381,8 +381,8 @@ When a set is measurable we simply write $\mu(C)$ instead of $\mu^*(C)$.
 
 What we're looking for is a requirement to be measurable -- meaning
 outer measure works properly. By this we mean sets must be well behaved
-in the sense that a set and its ``compliment'' must add up to their union.
-When you think about this statement it
+in the sense that the length of a set and the length of its ``compliment'' 
+must add up to their union. When you think about this statement it
 seems clear that we very much need the ``lengths'' of sets and their compliments
 to add properly before we go any further with an integration theory -- this 
 is the least you expect/need from a new integration theory.
@@ -455,33 +455,40 @@ can come up with a good {\em base\/} collection of sets that are {\em easily\/} 
 to be measurable. From this, we {\em automatically\/} know that a set is measurable 
 -- no matter how complicated -- if it is built out of these base sets
 through some (possibly infinite) combination of set operations.
-From this, we can effectively boot-strapconstruct the set of measurable sets.
+From this, we can effectively bootstrap the set of measurable sets.
 Once a complicated set is determined to be measurable, it is part of the 
 algebra and can be used along with the base measurable sets -- and anything 
 else determined to be in the algebra -- to construct other measurable sets. 
 And we can continue this process ad infinitum.
 
-Recapping, we have realized that our outer measure, a ``natural'' way of 
-measuring the length of sets, is flawed. We found a way to restrict the 
-usage to well behaved sets. Unfortunately, to make the restriction precise, 
-we made the restriction verification very difficult to use. But fortunately, 
+Recapping, we have realized that our outer measure -- a ``natural'' way of 
+measuring the length of sets -- is flawed. We found a way to restrict the 
+usage to well behaved sets. {\em Unfortunately\/}, to make the restriction precise, 
+we made the restriction verification very difficult to use. {\em Fortunately\/}, 
 the resulting restricted sets are a {\em $\sigma$-algebra\/} and this helps 
 save the day. We need only do the difficult work of verifying the restriction 
 condition, (\ref{Carthy}), on simple base sets and then we can claim that 
-a much {\em richer\/} collection of sets automatically satisfy the restriction as 
-well and are thus considered measurable sets. If we choose the simple base sets 
+sets formed by complicated set operations on the base set are automatically 
+measurable sets. If we choose the simple base sets 
 to be the collection of open and closed intervals, we have a collection that 
-is easy to show satisfy, (\ref{Carthy}).
+is easy to show satisfy, (\ref{Carthy}), and provide a wealth of complex sets
+via set operations.
 
 With a healthy collection of measurable sets we can define ``measurable functions``
-as any function that is a simple function or point-wise limits of simple functions.
+as any function that is a simple function or is a point-wise limit of simple functions.
+The connection to measurable sets is that the simple functions -- remember they 
+are based on characteristic functions of sets -- use only use measurable sets in 
+their construction.
+
 The Lebesgue integral of these functions is the corresponding finite or infinite
-sum of the integrals of their constituent simple functions.
+sum of the integrals of their constituent simple functions. And again, the Lebesgue
+integral of any base component of simple function -- a characteristic function --
+is 1 * (outer measure (length) of the characteristic set).
 
 Restricting ourselves to measurable sets does have a consequence: just like 
 Riemann integration, we will not be able to integrate all functions, only 
 measurable functions. But, such functions turn out to be a 
-much larger class of functions than the set of Riemann integrable functions.
+much larger and richer class of functions than the set of Riemann integrable functions.
 
 Now, we are finally in a position to address the convergence theorems 
 discussed at the beginning of this paper.
