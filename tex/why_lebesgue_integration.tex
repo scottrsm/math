@@ -224,9 +224,9 @@ $\chi_{S} = \begin{cases} 1 \quad \text{if $x \in  S$;} \\ 0 \quad \text{otherwi
 Although approximating the function, $f$, from the last section using step 
 functions is unpleasant, it is very easy using characteristic functions -- the complexity 
 is buried in the underlying set, $S$. In our case, we can represent our function {\em exactly\/}
-using a linear combination of characteristic functions: $f(x) = \chi_{IR}(x)$.
+as a characteristic function: $f(x) = \chi_{R}(x)$.
 
-Here, $IR$ is the set of irrationals on interval, $[0, 1]$.
+Here, $R$ is the set of rationals on interval, $[0, 1]$.
 
 To find the ``area'' under the curve ``$f(x)$'' we would like to multiply the 
 height by the ``width'' of each of the sets. What might this mean?
@@ -256,39 +256,27 @@ intervals -- and also finite collection of intervals.
 Well what is the outer measure of the set $R$? We claim that the ``length'' 
 (outer-measure) of the set of rationals on the interval $[0,1]$ is $0$.
 
-Consider the coverings: $I_{(r_i - \frac{1}{\epsilon 2^i}, r_i + \frac{1}{\epsilon 2^i})}$. 
+Consider the coverings: $I_{(r_i - \frac{\epsilon}{2^i}, r_i + \frac{\epsilon}{2^i})}$. 
 Then for any
-$\epsilon > 0$, $R \subset \mathop{\cup}_{i=1}^\infty\limits I_{(r_i - \frac{1}{\epsilon 2^i}, r_i + \frac{1}{\epsilon 2^i})}$
-Then $\forall \epsilon: \mu^*(R) \le 2 \epsilon$
+$\epsilon > 0$, $R \subset \mathop{\cup}_{i=1}^\infty\limits I_{(r_i - \frac{\epsilon}{2^i}, r_i + \frac{\epsilon}{2^i})}$
+Then $\forall \epsilon, \epsilon > 0$:
+\begin{eqnarray}
+\mu^*(R) & \le & \sum_{i=1}^\infty  |I_{(r_i - \frac{\epsilon}{2^i}, r_i + \frac{\epsilon}{2^i})}| \\
+		 & = & 2 \epsilon \sum_{i=1}^\infty \frac{1}{2^i} \\
+		 & = & 2 \epsilon
+\end{eqnarray}
+Consequently, $\mu^*(R) = 0$. 
 
-Consequently, $\mu^*(R) = 0$. This approach will not work with the irrationals 
-as they are not countable. In fact, any countably infinite cover of the 
-irrationals with intervals must have a total length of at least $1$. 
-If not, there would be some open interval  $[0,1]$, that is not covered. 
-But any such open 
-interval must contain an irrational; therefore all covers must have a total length 
-of at least $1$. Since the cover 
-$\{(0,1), (-\epsilon, \epsilon), (1 - \epsilon,1 + \epsilon)\}$
-is a cover (for an infinite cover, let all other covers sets be set 
-to $(0,1)$), with total length $1 + 2 \epsilon$.
-Consequently, we see that $\mu^*(IR) = 1$.
-
-With this we can define the Lebesgue Integral of the function: 
+With this we can {\em define\/} the Lebesgue Integral of the function: 
 $f(x) = \chi_{R}(x)$ over the interval $[0,1]$ 
 as $1 * \mu^*(R) = 1 * 0 = 0$.
 
 In general, if a function can be written as a finite linear combination of 
 characteristic functions: $h(x) = \sum_i^N c_i \chi_{E_i}(x)$,
 then we would {\em define\/} the Lebesgue integral for such functions as:
-
 \begin{eqnarray}
-	\int_a^b h(x) \, dx & = & \sum_{i=1}^N\limits c_i \mu^*(E_i)
+	\int h(x) \, dx & = & \sum_{i=1}^N\limits c_i \, \mu^*(E_i)
 \end{eqnarray}
-That is, we did what we said we would do; namely, we should compute the new integral 
-of a ``simple'' function like the one above by taking its range values (the heights) 
-and then multiplying by the ``width'' of the set of points that map to each 
-of the heights. The widths of the sets are found by {\em squeezing\/} all 
-of the ``air'' out.
 
 Going further, we would try to define the Lebesgue Integral of an ``arbitrary''
 function, $f$, as the limit of integrals of approximating ``simple'' 
@@ -298,7 +286,6 @@ functions with the property that they converge pointwise to $f$.
 This is the initial plan. However, there is a problem with this approach. 
 In the next section we provide an aside that describes a potential problem 
 with the Lebesgue Outer Measure when used as a measure of ``length''.
-
 
 \section{Outer Measure Aside: Measuring Area in the Real World}
 An entrepreneur 
@@ -334,7 +321,6 @@ It seems that due to the viscosity of the oil and the fine spacing between the
 teeth of the combs, the oil coating did not penetrate the fine crevasses of the 
 comb, treating it as solid -- consequently, the measure of the area was 
 that of the (enclosing) rectangle.
-
 
 The entrepreneur had to admit that his technique failed on the combs; 
 there were clearly limitations to his technique. 
@@ -405,6 +391,8 @@ Without some restriction, the compliment could be
 an infinitely large set.
 
 The problem now becomes: ``What is the 'natural' bounding box for the set $C$''?
+Unfortunately, this is virtually impossible to say with any precision.
+
 We can get around this problem by requiring that it be true for {\em all\/} 
 bounding boxes. And now, we see what ``X'' accomplishes in the definition of 
 measurability, (\ref{Carthy}). The ``X'' in this definition is a stand-in for 
@@ -413,6 +401,7 @@ bounding boxes that might be considered ``natural''.
 Consequently, (\ref{Carthy}) provides an unambiguous definition to filter out 
 sets that behave badly, while cleanly avoiding 
 the problem of the definition of a set's bounding box.
+
 However, we've solved one problem, but now have another. Yes, we have 
 a clean definition, but can one use this in practice to show that a 
 set is measurable? The definition is clean, but the burden to show a set is
@@ -448,7 +437,7 @@ the resulting sets have the property that they are an
 {\em algebra\/} with respect to unions, intersections and complements. 
 In fact, the set of measurable sets is a {\em $\sigma$-algebra\/}:
 the measurable sets are closed under all finite or countably infinite unions, 
-intersections and the complements of these.
+intersections and the complements of sets within this algebra.
 
 Being an algebra, we can get a good handle on what sets are measurable if we 
 can come up with a good {\em base\/} collection of sets that are {\em easily\/} shown
@@ -467,8 +456,8 @@ usage to well behaved sets. {\em Unfortunately\/}, to make the restriction preci
 we made the restriction verification very difficult to use. {\em Fortunately\/}, 
 the resulting restricted sets are a {\em $\sigma$-algebra\/} and this helps 
 save the day. We need only do the difficult work of verifying the restriction 
-condition, (\ref{Carthy}), on simple base sets and then we can claim that 
-sets formed by complicated set operations on the base set are automatically 
+condition, (\ref{Carthy}), on simple ``base'' sets and then we can claim that 
+sets formed by complicated set operations on the base sets are automatically 
 measurable sets. If we choose the simple base sets 
 to be the collection of open and closed intervals, we have a collection that 
 is easy to show satisfy, (\ref{Carthy}), and provide a wealth of complex sets
@@ -482,7 +471,7 @@ their construction.
 
 The Lebesgue integral of these functions is the corresponding finite or infinite
 sum of the integrals of their constituent simple functions. And again, the Lebesgue
-integral of any base component of simple function -- a characteristic function --
+integral of any base component of a simple function -- a characteristic function --
 is 1 * (outer measure (length) of the characteristic set).
 
 Restricting ourselves to measurable sets does have a consequence: just like 
