@@ -49,7 +49,7 @@
 
 
 
-\mantitle{Defining Fractal Dimension}{R. Scott McIntire}{Mar 22, 2024}
+\mantitle{Defining Fractal Dimension}{R. Scott McIntire}{Nov 3, 2024}
 
 \parindent=0pt
 \parskip=.5\baselineskip
@@ -65,8 +65,8 @@ dimensional classification of $0, 1, 2, 3, \ldots$.%
 that set.}
 Such a notion is motivated by sets that, while constructed in one of the given
 dimensions $0, 1, 2, 3, \dots$; and which are robust with respect to structure, 
-nevertheless have zero "volume" in the ambient space containing the set.
-Such sets beg for a more nuanced "size" metric.
+nevertheless have zero ``volume'' in the ambient space containing the set.
+Such sets beg for a more nuanced ``size'' metric.
 
 The sets that we are interested in are non-physical sets that
 have the property that they retain structure no matter how much 
@@ -83,7 +83,7 @@ after a finite number of expansions. A true fractal, say representing a
 coast line, would retain complicated
 structure no matter how many times a piece of it was magnified.
 Because of this, the length of any section of this idealized coast line is
-infinite. Another "natural" fractal is the surface of a idealized sponge.
+infinite. Another ``natural'' fractal is the surface of a idealized sponge.
 While defined in a three dimensional world, one can construct such a sponge so that
 it retains complicated structure no matter how many times it is magnified.
 In addition, such a constructed sponge could have an infinite surface area and 
@@ -103,7 +103,7 @@ the aforementioned sponge,
 there will be a dimension between two and three where it naturally lives. In
 each case, the fractal dimension is not an actual dimension, 
 it is a way to quantify the density of such complex sets.
-Yet, it should also "agree" with the usual dimensional size of an object 
+Yet, it should also ``agree'' with the usual dimensional size of an object 
 if it is not a fractal. That is, the fractal dimension of a line segment should 
 be 1; the fractal dimension of a triangle sitting in three dimensions should 
 be 2, etc.
@@ -116,6 +116,8 @@ fractal is recovered. This regular structure makes them easier to
 study mathematically than a general fractal. However, before we start
 with more specific examples of fractals, we need to understand what 
 one might mean by fractal dimension.
+
+\eject
 
 \subsection{Volume of an n-Dimensional Sphere}
 The n-dimensional volume of any sphere is easy to compute if one 
@@ -130,7 +132,7 @@ of $B_n(r)$ respectively.
 The relationship between $V_n(r)$ and $S_n(1)$ 
 follows from the following formula:%
 
-${V}_n(r) =  \int_{\partial B_n} \int_0^r \tau^{n-1} \,dS \,d\tau = \left(\int_{\partial B_n} \, dS\right) \left( \int_0^r \tau^{n-1} \, d\tau \right)$
+${V}_n(r) =  \int_{\partial B_n} \int_0^r \tau^{n-1} \,d\tau \,dS = \left(\int_{\partial B_n} \, dS\right) \left( \int_0^r \tau^{n-1} \, d\tau \right)$
 
 The iterated integrals on the right hand side of the above equation can 
 be easily computed, yielding: ${V}_n(r) = {S}_n(1) \frac{r^n}{n}$.
@@ -139,18 +141,18 @@ What remains now is to find a formula for $S_n(r).$
 This can be done by expressing an easily computable 
 n-dimensional integral in $R^n$ as $n$ iterated integrals. 
 And more importantly, this integral may be represented as a {\it different\/} 
-integral involving the surface are of $B_n$.
+spherically symmetric integral involving the surface area of $B_n$.
 
 $$
 \int_{-\infty}^{\infty} e^{-(x_1^2 + x_2^2 + \cdots + x_n^2)} \, dx_1\, dx_2
 \, \cdots \, dx_n = \int_{\partial B_n} \int_0^\infty e^{-r^2} r^{n-1} \,
-dS\, dr
+dr\, dS
 $$
 The left side of the above can be written as an iterated integral of identical 
 one dimensional integrals. The right side of the equation is the same 
-integral in ``spherical coordinates``: this is a convenient choice as 
+integral but written in ``spherical coordinates'' which is a convenient choice as 
 the integrand is spherically symmetric. The left side simplifies to 
-$\int_{-\infty}^{\infty} e^{-x^2} \, dx$ raised to the $n$th power;
+$\int_{-\infty}^{\infty} e^{-x^2} \, dx$ raised to the $n^{\rm th}$ power;
 which is $\pi^{n/2}$. Substituting $t = r^2$ in the inner integral on
 the right hand side we have:
 
@@ -206,7 +208,7 @@ independent of the ambient space of the ball, $R^n$. That is, $\alpha$
 can be either larger or smaller than $n$.
 
 Given that we have defined the fractional dimensional volume of a sphere 
-in "dimension" $\alpha$ we wish to extend this to a definition of the 
+in ``dimension'' $\alpha$ we wish to extend this to a definition of the 
 fractional dimensional volume of {\it any\/} set.
 
 \proclaim Definition. The $\alpha$-dimensional ($\alpha \in R^{+}$) {\it covering\/} 
@@ -218,7 +220,7 @@ $$
 \eqalign{
 	{\cal V}_{\alpha, \epsilon}(S) & = \inf_{\{O_i\}_{i=1}^N} 
     \left\{ \sum_{i=1}^N {V}_\alpha\left({\rm Diam}(O_i) / 2\right) \
-    : S \subseteq \bigcup_{i=1}^N\limits O_i \; \wedge \; \left(\mathop{\rm Max}\limits_{i \in [1,N]} 
+    : S \subseteq \bigcup_{i=1}^N\limits O_i \; \wedge \; \left(\mathop{\rm Min}\limits_{i \in [1,N]} 
     {\rm  Diam}(O_i)\right) \ge \epsilon \right\} 
 }
 $$
@@ -271,10 +273,10 @@ with increasing $\alpha$. This follows from the following two facts:
 \beginEnum
 \enum{For $r \le 0.1$, the $\alpha$-dimensional volume, $V_{\alpha}(r)$, of 
 a sphere monotonically decreases with $\alpha$.}
-\enum{This means that for a given bounded set $S$ and for any fixed 
+This means that for a given bounded set $S$ and for any fixed 
 		$\epsilon \le 0.1$, ${\cal V}_{\alpha, \epsilon}(S)$ is 
-		non-increasing in $\alpha$.}
-		\enum{If for some $\alpha_0 \in R^+$, ${\cal V}_{\alpha_0}(S) < \infty$, then
+	    non-increasing in $\alpha$.
+\enum{If for some $\alpha_0 \in R^+$, ${\cal V}_{\alpha_0}(S) < \infty$, then
 		${\cal V}_{\alpha}(S)$ is monotonically decreasing for 
 		$\alpha \ge \alpha_0$.}
 \endEnum
