@@ -60,5 +60,5 @@ In any event the corresponding PDF's are in the directory **pdf/**.
     - Conjectures regarding Primitive Pythagorean Triples: **tex**/conj_pythag_triple.tex.
     - Julia code supporting the Pythagorean triples conjecture via a Jupyter notebook: **src**/Pythag.ipynb.
 
-#### Version 1.4.86
+#### Version 1.4.87
 
