@@ -14,7 +14,7 @@
 
 \title{Where does the Dot Product Come From?}
 \author{R. Scott McIntire}
-\date{Aug 24, 2024}
+\date{Nov 6, 2024}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{DD}{Def}
@@ -33,33 +33,33 @@ have thought of it. The rest of this paper tries to do just that.
 \section{ Vectors, Distance Relationships, and Projections}
 Let's start with the real line and solve a simple problem. 
 If a car starts at 
-point $p$ on the real line and moves at a velocity of $v$ when will the car 
-reach the point $q$? We assume that this problem is non-trivial:
+point $p_0$ on the real line and moves at a velocity of $v$ when will the car 
+reach the point $p_1$? We assume that this problem is non-trivial:
 \begin{itemize}
 	\item{$v \ne 0$.}
-	\item{$p \ne q$.}
+	\item{$p_0 \ne p_1$.}
 \end{itemize}
 
 That is, find a $t^*$ so that
-$$ p + t^* v = q$$
+$$ p_0 + t^* v = p_1$$
 So $t^*$ satisfies:
-$$ t^* \, v = q - p$$
+$$ t^* \, v = p_1 - p_0$$
 
 Since $v$ is a (non-zero) number we can divide and solve for 
 $t^*$:%\footnote{Note: $t^*$ can be negative.}
 \be
-	t^* & = & \frac{q - p}{v} \label{closest_1}
+	t^* & = & \frac{p_1 - p_0}{v} \label{closest_1}
 \ee
 This is the solution {\em provided\/} 
 $t^*$ is not negative.
 
-In other words, there is no solution if the car is not 
-moving towards $q$.
+In other words, there is no solution if the car is 
+moving away from $q$.
 
 We note, however, in this simple example that there is an answer to the question:
-"What is the closest point to $q$ that the car can get to?"
-The answer is $q$ when the car moves towards $q$ at a non-zero velocity; otherwise,
-it is $p$.
+"What is the closest point to $p_1$ that the car can get to?"
+The answer is $p_1$ when the car moves towards $p_1$ at a non-zero velocity; otherwise,
+it is $p_0$.
 
 We now look at the same problem in 2-dimensions. Points in two dimensions 
 are described by a point in a plane which can be represented as a pair of 
@@ -68,7 +68,7 @@ by a triple of numbers, $(x, y, z)$. Our plan is to try and examine the "car"
 problem in high dimensions and look for a pattern. We will even look beyond
 three dimensions!
 
-e now try to mimic the ``car'' argument we had in 1-dimension. But we first 
+Let's try to mimic the ``car'' argument we had in 1-dimension. But we first 
 note that to mimic it more consistently, we should have some way of adding/subtracting
 points(tuples) and the ability to divide by {\em numbers\/}.
 
@@ -84,7 +84,8 @@ But to mimic the 1-dimensional argument
 we need to know how to add/subtract vectors and how to ``stretch`` a vector with 
 multiplication by a number. We will use the name that mathematicians use for number -- {\em scalar\/}.
 But this is something we learn in high school -- we simply add/subtract the components 
-and for multiplication by numbers we just multiple each component separately.
+and for multiplication by numbers we just multiple each component separately. 
+
 We generalize this from 2 or 3 dimensions so that vectors may represent $n$ dimensions.
 All this means is that a vector is an ordered set of numbers of a specific length.
 Here is the formal definition of how to add/subtract them and multiply them by scalars.
@@ -93,60 +94,64 @@ Here is the formal definition of how to add/subtract them and multiply them by s
 \end{theorem}
 \be
 	{\bf x} + {\bf y} & \equiv & [x_1 + y_1,\, x_2 + y_2 ] \\
-	a * {\bf x} & \equiv & [a x_1, \, a y_1]
+	a * {\bf x} & \equiv & [a x_1, \, a x_2]
 \ee
 We drop the '*' operator when multiplying a vector by a number -- just as
-we do in algebra, writing: $a\, x$ instead of $a * x$.
+we do in algebra, writing: $a\, {\bf x}$ instead of $a * {\bf x}$.
 
 Keeping with the ``car'' example, a more 
 realistic problem would be to drive on a surface -- in two dimensions -- and 
 solve the problem above. To do so, we need a way to multiply a 
 number (time), $t$, with a velocity vector, representing both a speed and 
 a direction. And we need to be able to add this to the original position to 
-get the current position.
+get the current position. This is just what the above definitions of 
+scalar multiplication and vector addition provide.
 Over time, $t$, the path swept out, or {\em spanned\/} by the car is a 
 line in two dimensional space: 
-$L = \{{\bf p} + t \, {\bf v} \, | \, t \in R\}$.
+$L = \{{\bf p} + t \, {\bf v} \, | \, t \in R\}$. Here, $L$ represents
+a collection of ``position'' vectors representing the car's trajectory.
+Check that the {\em units\/} make sense.
 
 These definitions make sense in that the new position of a ``car'' after time 
 $t$ when starting at position ${\bf p}$ is determined by taking each of the 
-component positions and adjusting them by adding ${\bf t}$ times the 
+component positions and adjusting them by adding {\em t} times the 
 corresponding velocity component.
 
-You can think of the line as the collection of points a car passes over 
-with a starting position of ${\bf p}_0$ and velocity ${\bf v}$ at time $t$.
 Let's repeat the problem we worked out in the scalar case:
-At what time, if any, will the car reach the point ${\bf q}$ starting at ${\bf p}$?
+At what time, if any, will the car reach the point ${\bf p}_1$ starting at ${\bf p}_0$?
 So, we need to solve for some $t^*$ so that: 
-$${\bf p} + t^* {\bf v} = {\bf q}$$
+$${\bf p}_0 + t^* {\bf v} = {\bf p}_1$$
 We see that $t^*$ must satisfy
 \be 
-	t^*{\bf v} & = & {\bf q} - {\bf p} \label{car_2_shift}
+	t^*{\bf v} & = & {\bf p}_1 - {\bf p}_0 \label{car_2_shift}
 \ee
 But now, we can't just divide by ${\bf v}$ to get the answer, $t^*$, 
 as ${\bf v}$ is not a number.
 
 We can think of a $(\ref{car_2_shift})$ as a shifted version of the 
-origin problem. Instead of starting at a point, $p$, we are starting at 
-the origin $0$ and trying to "hit" ${\bf q}$ using the directional speed, ${\bf v}$.
+origin problem. Instead of starting at a point, $p_0$, we are starting at 
+the origin $0$ and trying to "hit" ${\bf p}_1$ using the directional speed, ${\bf v}$.
 
 In any event, if ${\bf v}$ is not pointing {\em exactly\/} to the destination, 
-${\bf q} - {\bf p}$, there is no chance of finding a solution.
+${\bf p}_1 - {\bf p}_0$, there is no chance of finding a solution.
 
 Here's a different question: Drive a car on one of the roads passing through 
-${\bf p}$ and drop someone off on this road at the point closest to the  
-point ${\bf q}$. 
+${\bf p}_0$ and drop someone off on this road at the point closest to the  
+point ${\bf p}_1$. 
 
-In more mathematical terms: Starting at ${\bf p}$, drive with velocity 
+In more mathematical terms: Starting at ${\bf p}_0$, drive with velocity 
 ${\bf v}$ (go along some road at a fixed speed) and find the time $t^*$ at 
 which I can drop off a passenger so that I am as close as possible to the 
-destination, ${\bf q}$. 
+destination, ${\bf p}_1$. 
 
-Need to solve: Find $t^*$ so that the distance between $t \, {\bf v}$ and 
-$({\bf q} - {\bf p})$; which is the same as minimizing the length of 
-$t \, {\bf v} - ({\bf q} - {\bf p})$. 
+Need to solve: Find $t^*$ so that the distance between 
+${\bf p}_0 + t \, {\bf v}$ and ${\bf p}_1$ is minimized.
+This can be written as: find the time, $t^*$, which minimizes the length of the
+vector:
+${\bf p}_0 + t\, {\bf v} - {\bf p}_1 =  t \, {\bf v} - ({\bf p}_1 - {\bf p}_0)$.
 This is the same as finding the time to get to the closest point to the 
-vector ${\bf q} - {\bf p}$ when starting at $0$.
+vector ${\bf p}_1 - {\bf p}_0$ using the velocity vector, ${\bf v}$, 
+when starting at ${\bf 0}$.
 
 So, we look instead at the simpler problem: Starting at ${\bf 0}$ and 
 driving with a velocity of ${\bf v}$, find $t^*$ so as to minimize the 
@@ -163,12 +168,12 @@ at $t^*$ is $0$.$$ -2 \sum_{i=1}^n (p_i - t^* v_i)v_i = 0$$
 $$t^* = \frac{\sum_{i=1}^n p_i v_i}{\sum_{i=1}^n v_i^2}$$
 The point that is closest along the line {\em spanned\/} by ${\bf v}$ is 
 called the projection of ${\bf p}$ onto ${\bf v}$.
-Denoted as $P_{\bf v}({\bf p})$, it is given by:
+Denoted as $P_{\bf v}({\bf p}) = t^* {\bf v}$, which is:
 $$ P_{\bf v}({\bf p}) = \frac{\sum_{i=1}^n p_i v_i}{\sum_{i=1}^n v_i^2} \bf v $$
 We introduce a function that is a refactoring\footnote{This is a common 
-practice in the software engineering world. If we start repeating code we refactor into 
-a subroutine.} of the essential element of the formula. 
-We see that we are repeating a sum in the numerator and the denominator.
+practice in the software engineering world. If we start repeating code we 
+refactor it into a subroutine.} of the essential element of the formula  -- as 
+we see that we are repeating a sum in the numerator and the denominator.
 
 Define the ``Dot Product'' between two vectors as: 
 \begin{DD}{The Dot Product of two vectors is defined by}
