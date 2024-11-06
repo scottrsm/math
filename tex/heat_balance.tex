@@ -7,7 +7,7 @@
 \footline{\hss\tenrm\folio\hss}
 
 \mantitle{A Balance Law Interpretation of the Fokker-Planck Equation}
-{R. Scott McIntire}{Nov 22, 2002}
+{R. Scott McIntire}{Nov 6, 2024}
 
 \subsection{Overview}
 
@@ -21,7 +21,7 @@ two derivations and provide a derivation of the Fokker-Planck equation.
 
 We examine the problem of heat flow in $R^n$. First we look at the 
 problem in one dimension and then see how it generalizes to arbitrary
-dimension. The strategy is to write a balance law for the heat in 
+dimensions. The strategy is to write a balance law for the heat in 
 an arbitrary region in $R^n$ based on the conservation of energy. 
 This will lead to a local expression of heat flow;
 namely, a partial differential equation. By relating heat to temperature, 
@@ -39,7 +39,7 @@ Let $h(t,x)$ be the
 heat per unit length at time $t$ and position $x$. Let 
 $f(t,x)$ be the heat flux at time $t$ and position $x$. Where heat 
 flux is defined as the rate at which heat flows
-\footnote{\kern -2pt \raise 0.5ex \hbox{\dag}}{positive means 
+\footnote{\kern -2pt \raise 0.5ex \hbox{\dag}}{Positive means 
 increasing $x$.}. The increase (or decrease) in 
 the heat of 
 the interval $[x_1, x_2]$ over $[t_1, t_2]$ is equal to the integral of
@@ -91,7 +91,11 @@ To get an equation for the temperature, $u$, we must relate it to
 the heat and the heat flux. To do so, we must make 
 {\it assumptions\/} about properties of the material.
 The simplest assumption about the heat is that it is 
-proportional to temperature:
+proportional to temperature:\footnote{\dag}{%
+The temperature of a substance is the average kinetic energy of the material's molecules.
+When we refer to heat we mean the heat density, the amount of heat energy per unit volume.
+The specific heat capacity is a constant that converts the material's temperature to
+its heat density.} 
 $h(t,x) = c \, u(t,x)$. 
 This proportionality constant, $c > 0$, is called the specific heat. 
 The simplest assumption about the heat flux is that it is proportional 
@@ -109,19 +113,18 @@ $$
 The larger the value of $\kappa$, the more rapid the diffusion. Since 
 $\kappa$ is made from two constants, we give an interpretation to understand
 their role. Consider a bar made of different materials and different 
-thicknesses. Let us assume that the differing materials 
-all have the same heat capacity, but different heat flux rate constants.
-Then we have two independent 
-controls: the thickness of the bar controls the value of the 
-specific heat, $c$; and, the material controls the heat flux rate, $k$. 
+thicknesses. With differing materials 
+we have two independent mechanisms controlling heat flow: 
+the heat capacity any portion of the bar controls the value of the 
+specific heat, $c$; and, the insular property of the material controls the heat flux rate, $k$. 
 
 Under these conditions, we can get a better physical 
 understanding of the influence 
-of $c$ and $k$ on $\kappa$. If the bar is thicker at a certain spot, 
+of $c$ and $k$ on $\kappa$. If the bar behaves more like water at a certain spot, 
 it can absorb more heat and 
 therefore, is less diffusive there. 
 If the bar is made of a material that is more 
-insular at a certain spot, the heat flux rate constant goes down and 
+insular at a certain spot, like styrofoam, the heat flux rate constant goes down and 
 therefore, the material is less diffusive there.
 
 We note that $c$ and $k$ may depend on $x$.
@@ -311,9 +314,9 @@ keep the region constant. To this end, let
 ${\bf x} = {\cal X}(\tau, {\bf z})$. The integral becomes:
 $$
 \fracd{d}{d\tau} \int_{\Omega} 
-p(\tau,{\cal X}(t, {\bf z})) \big| 
+p(\tau,{\cal X}(t, {\bf z})) \bigg| 
 \frac{\partial {\cal X}(\tau,{\bf z})}
-{\partial {\bf z}} \big| \; d{\bf z} = 0
+{\partial {\bf z}} \bigg| \; d{\bf z} = 0
 $$
 which is 
 $$
@@ -322,11 +325,11 @@ $$
 \nabla p(\tau, {\cal X}(\tau, {\bf z})) \cdot \dot 
 {\cal X}(\tau, {\bf z})
   \big) 
-\big| \frac{\partial {\cal X}(\tau,{\bf z})}
-{\partial {\bf z}} \big| + 
-p(\tau, {\cal X}(\tau, {\bf z})) \frac{d}{d\tau}  \big| 
+\bigg| \frac{\partial {\cal X}(\tau,{\bf z})}
+{\partial {\bf z}} \bigg| + 
+p(\tau, {\cal X}(\tau, {\bf z})) \frac{d}{d\tau}  \bigg| 
 \frac{\partial {\cal X}(\tau,{\bf z})}
-{\partial {\bf z}} \big| \; d{\bf z} & = 0 & (7) \cr }
+{\partial {\bf z}} \bigg| \; d{\bf z} & = 0 & (7) \cr }
 $$
 It turns out that the derivative, $\frac{d}{d\tau} 
 \big| \frac{\partial {\cal X}(\tau,{\bf z})}
@@ -335,13 +338,13 @@ as\footnote{\kern 1pt \raise 0.5ex \hbox{\dag}}{This is a consequence of
 Louisville's Theorem.}
 $$
 \frac{d}{d\tau} 
-\big| \frac{\partial {\cal X}(\tau,{\bf z})}
-{\partial {\bf z}} \big| =
-\big| \frac{\partial {\cal X}(\tau,{\bf z})}
-{\partial {\bf z}} \big| \; {\rm tr}\big(\nabla {\bf f}
+\bigg| \frac{\partial {\cal X}(\tau,{\bf z})}
+{\partial {\bf z}} \bigg| =
+\bigg| \frac{\partial {\cal X}(\tau,{\bf z})}
+{\partial {\bf z}} \bigg| \; {\rm tr}\big(\nabla {\bf f}
 (\tau, {\cal X}(\tau, {\bf z}))\big) =
-\big| \frac{\partial {\cal X}(\tau,{\bf z})}
-{\partial {\bf z}} \big| \; 
+\bigg| \frac{\partial {\cal X}(\tau,{\bf z})}
+{\partial {\bf z}} \bigg| \; 
 \nabla \cdot {\bf f}(\tau, {\cal X}(\tau, {\bf z}))
 $$
 Therefore, (7) becomes
@@ -353,8 +356,8 @@ $$
 + p(\tau, {\cal X}(\tau, {\bf z}))
 \nabla \cdot {\bf f}(\tau, {\cal X}(\tau, {\bf z}))
 \bigg) 
-\big| \frac{\partial {\cal X}(\tau,{\bf z})}
-{\partial {\bf z}} \big| \; d{\bf z} & = 0 & (8) \cr }
+\bigg| \frac{\partial {\cal X}(\tau,{\bf z})}
+{\partial {\bf z}} \bigg| \; d{\bf z} & = 0 & (8) \cr }
 $$
 Changing coordinates back, (8) becomes
 $$
