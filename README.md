@@ -64,6 +64,7 @@ In any event the corresponding PDF's are in the directory **pdf/**.
 - There is a podcasts directory that discusses some of the papers in this repo.
     - **podcasts**/ math_podcast.wav: On overview of all of the papers in this repo.
     - **podcasts**/ why_lebesgue_integration.wav: A deep dive into the paper **pdf**/why_lebesgue_integration.pdf
+    - **podcasts**/ inner_prod_from_projection.wav: A deep dive into the paper **pdf**/inner_prod_from_projection.pdf
 
-#### Version 1.4.93
+#### Version 1.4.94
 
