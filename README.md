@@ -60,10 +60,10 @@ In any event the corresponding PDF's are in the directory **pdf/**.
     - Conjectures regarding Primitive Pythagorean Triples: **tex**/conj_pythag_triple.tex.
     - Julia code supporting the Pythagorean triples conjecture via a Jupyter notebook: **src**/Pythag.ipynb.
 
-### Podcast
-- There is a podcast directory that discusses some of the papers in this repo.
-    - **podcast**/ math_podcast.wav: On overview of all of the papers in this repo.
-    - **podcast**/ why_lebesgue_integration.wav: A deep dive into the paper **pdf**/why_lebesgue_integration.pdf
+### Podcasts
+- There is a podcasts directory that discusses some of the papers in this repo.
+    - **podcasts**/ math_podcast.wav: On overview of all of the papers in this repo.
+    - **podcasts**/ why_lebesgue_integration.wav: A deep dive into the paper **pdf**/why_lebesgue_integration.pdf
 
-#### Version 1.4.92
+#### Version 1.4.93
 
