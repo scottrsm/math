@@ -61,7 +61,7 @@ In any event the corresponding PDF's are in the directory **pdf/**.
     - Julia code supporting the Pythagorean triples conjecture via a Jupyter notebook: **src**/Pythag.ipynb.
 
 ### Podcasts
-- There is a **podcasts** directory that discusses each of the papers in the directory pdf.
+- There is a **podcasts** directory that discusses each of the papers in the directory **pdf**/.
 
-#### Version 1.4.95
+#### Version 1.4.96
 
