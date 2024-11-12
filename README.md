@@ -60,8 +60,10 @@ In any event the corresponding PDF's are in the directory **pdf/**.
     - Conjectures regarding Primitive Pythagorean Triples: **tex**/conj_pythag_triple.tex.
     - Julia code supporting the Pythagorean triples conjecture via a Jupyter notebook: **src**/Pythag.ipynb.
 
-### Podcasts
-- There is a **podcasts** directory that discusses each of the papers in the directory **pdf**/.
+### Podcast
+- There is a **podcast** directory that discusses each of the papers in the directory **pdf**/.
+- The format is mp3.
+- There is also an RSS feed for the podcast at: https://media.rss.com/motivating-mathematical-concepts-through-problems/feed.xml
 
 #### Version 1.4.96
 
