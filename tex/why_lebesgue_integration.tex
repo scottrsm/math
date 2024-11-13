@@ -460,17 +460,23 @@ condition, (\ref{Carthy}), on simple ``base'' sets and then we can claim that
 sets formed by complicated set operations on the base sets are automatically 
 measurable sets. If we choose the simple base sets 
 to be the collection of open and closed intervals, we have a collection that 
-is easy to show satisfy, (\ref{Carthy}), and provide a wealth of complex sets
+is easy to show satisfy, (\ref{Carthy}), and yet provide a wealth of complex sets
 via set operations.
 
 With a healthy collection of measurable sets we can define ``measurable functions``
-as any function that is a simple function or is a point-wise limit of simple functions.
+as any function that is a simple function or is a pointwise limit of simple functions.
 The connection to measurable sets is that the simple functions -- remember they 
-are based on characteristic functions of sets -- use only use measurable sets in 
+are based on characteristic functions of sets -- use only measurable sets in 
 their construction.
 
-The Lebesgue integral of these functions is the corresponding finite or infinite
-sum of the integrals of their constituent simple functions. And again, the Lebesgue
+Finally, the Lebesgue integral of a measurable function, $f$, is defined to be 
+the supremum of the integrals of
+all simple functions that are less than or equal (pointwise) to $f$. 
+Again, an unambiguous definition, but one that is hard to compute. 
+However, it turns out that -- as one might hope --
+this supremum is the limit of the integrals of {\em any\/} sequence of 
+functions that are monotonically increasing and converge point-wise to $f$.
+And again, the Lebesgue
 integral of any base component of a simple function -- a characteristic function --
 is 1 * (outer measure (length) of the characteristic set).
 
@@ -479,8 +485,19 @@ Riemann integration, we will not be able to integrate all functions, only
 measurable functions. But, such functions turn out to be a 
 much larger and richer class of functions than the set of Riemann integrable functions.
 
-Now, we are finally in a position to address the convergence theorems 
-discussed at the beginning of this paper.
+And now with the proper machinery -- knowing that if a sequence of measurable functions
+converges to another measurable function -- we can work to find conditions
+to address the theorem described at the beginning of this paper; namely, 
+can I interchange the sequence limit with the integral?
+
+It turns out that there is a condition called ``Lebesgue Dominated Convergence''.
+This theorem requires only that the sequence of functions converge "almost everywhere"
+(all but a set of measure $0$) to a function, $f$, and the sequence of functions 
+as well as the function, $f$,
+are all bound above by an integrable function, $g$, having a finite integral.
+This is the kind of result we were hoping for and did see evidence for with 
+the functions converging to our strange function which was $1$ on rationals
+and $0$ otherwise.
 
 
 \section{Conclusion}
@@ -510,7 +527,7 @@ for ``nice'' functions.
 Finally, from this theory one does indeed get less stringent convergence 
 criterion than the Riemann counterpart. One can have a criterion that avoids 
 ``uniform'' convergence. In fact, essentially, you get a convergence theorem 
-that requires only that a sequence of functions converge point-wise to a function%
+that requires only that a sequence of functions converge pointwise to a function%
 \footnote{In fact, one only requires that a sequence of functions converge point-wise 
 to a function ``almost everywhere`` -- meaning everywhere except on a set of 
 outer measure $0$.} and that the sequence of functions 
