@@ -29,21 +29,21 @@ In any event the corresponding PDF's are in the directory **pdf/**.
 - Why do we need Lebesgue integration: **tex**/why_lebesgue_integration.tex.
     - We motivate the Lebesgue Integrals by way of looking for better convergence theorems for Riemann Integrals.
     - Along the way we make an analogy with a "real world" system for measuring the surface area of irregular surfaces.
-- Examination Measure Theoretic Conditional Expectation in a discrete setting: **tex**/conditional_expectation_simple.tex.
-    - Gain a better understanding of Measure Theory via a discrete setting.
+- Examination of Measure Theoretic Conditional Expectation in a discrete setting: **tex**/conditional_expectation_simple.tex.
+    - Gain a better understanding of Measure Theory via a simple discrete setting.
     - Develop an intuition of Conditional Expectation in a measure theoretic setting.
-    - Examine concrete examples of non-measurable functions.
-    - Examine Conditional Expectation in a Singular setting.
+    - Examine concrete examples of *non-measurable* functions.
+    - Examine Conditional Expectation in a *singular* setting.
 - Defining Fractal Dimension. 
     - Starts by producing a formula for the volume of an $n$ dimensional sphere.
-    - The resulting formula involves the $\Gamma$ function and one can then extend the volume
-      of a sphere to non-integral values.
+    - The resulting formula involves the $\Gamma$ function with which one can extend the volume
+      of a sphere to non-integral dimensions.
     - Provides an intuitive sense with examples of the definition of *Fractal Dimension*: **tex**/fractal_dim.tex.
 - A Balance Law approach to the derivation of the Heat and Fokker-Planck equations: **tex**/heat_balance.tex.
-    - Often partial differential equations can be derived from simple balance laws.
+    - Often partial differential equations can be derived from simple *balance laws*.
 - A derivation of the Exponential Moving Average and its associated moving Standard Deviation: **tex**/exponential_moving_average.tex.
-    - Associated un-biased estimates of the moments of the exponential moving average are also given.
-- A derivation of diversification constraints, useful in certain optimization problems.
+    - *Un-biased* estimates of the *moments* of *weighted averages* is also given.
+- A derivation of *diversification constraints*, useful in certain optimization problems.
 
 ### New Mathematical Results
 - A formula to Compute Probability Distributions for Singular Transformations: **tex**/prob_singular_trans.tex.
@@ -52,9 +52,10 @@ In any event the corresponding PDF's are in the directory **pdf/**.
       with ${m < n}$ there are only *ad hoc* procedures. In this paper we provide a systematic way to compute
       the probability distributions for such singular transformations taking into account the *foldings* of such mappings 
       from higher to lower dimensional spaces.
-- Re-Examination of a Linear Unbiased Estimation Problem with a collecton of related Norms: **tex**/prob_linear_unbias_est.tex.
-    - Regardless of norm we get the same unbiased estimate.
-    - The collective invariant implies insights with respect to the original unbiased problem.
+- Re-Examination of a Linear Unbiased Estimation Problem with a collection of related *norms*: **tex**/prob_linear_unbias_est.tex.
+    - Regardless of the norms in this collection we get the same unbiased estimate.
+    - This collective invariant implies that the estimator occurs when using the *limiting norm*.
+      This provides insights with respect to the original unbiased problem.
 - Pythagorean Triples
     - Alternative Proof of an elementary Property of Primitive Pythagorean Triples: **tex**/prop_pythag_triple.tex.
     - Conjectures regarding Primitive Pythagorean Triples: **tex**/conj_pythag_triple.tex.
@@ -65,5 +66,5 @@ In any event the corresponding PDF's are in the directory **pdf/**.
 - The format is mp3.
 - There is also an RSS feed for the podcast at: https://media.rss.com/motivating-mathematical-concepts-through-problems/feed.xml
 
-#### Version 1.4.97
+#### Version 1.4.98
 
