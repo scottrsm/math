@@ -4,7 +4,7 @@
 
 \title{What is a derivative \\ (with applications to Data Science and Physics)}
 \author{R. Scott McIntire}
-\date{Oct, 14, 2024}
+\date{Dec 2, 2024}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -34,14 +34,18 @@ Although this geometric concept has been tied to an algebraic equation,
 is not clear how to compute the derivative, $Df(x)$ for every $x$. This seems
 like a great deal of work and when done we have to produce a function for
 every $x$ -- a relatively complicated thing. It turns out that there is a
-{\em representation\/} result	 that says that all linear functions, $L$,
-$L: R \rightarrow R$ can be mapped to a scalar value.
-Specifically, for each linear function, $L$, there is a scalar, $a_L$, so that%
+{\em representation\/} result that says that all linear functions, $L$,
+$L: R \rightarrow R$ can be mapped to a scalar value. That is, in some sense
+linear functions are no more complicated than a number. This makes sense
+as a function that passes through the origin and is a straight line (a linear function)
+can be completely described by its slope.
+Specifically, the representation result says that 
+for each linear function, $L$, there is a scalar, $a_L$, so that%
 \footnote{We label the scalar with the index $L$ to indicate the dependency on $L$.}
 \begin{eqnarray}
   L(h) & = & a_L \, h
 \end{eqnarray}
-This says nothing more than a linear function, $L$, can be completely determined
+Again, this says nothing more than a linear function, $L$, can be completely determined
 by its slope, $a_L$.
 
 For the linear function $Df(x)$ the associated scalar value we label $f^\prime(x)$
@@ -58,7 +62,7 @@ through approximating cords to the function, $f$.}
   & = & \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h} + 0 \nonumber \\
   & = & \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h}
 \end{eqnarray}
-Although this seems like a great deal of work -- for a given function we need to
+Although this seems like a great deal of work -- as for a given function we need to
 compute this limit for each value of $x$ in its domain -- it turns out that for
 many functions there is a {\em formula\/} that works for the given function
 {\em for all\/}
@@ -67,11 +71,14 @@ function $f(x) = x^2$ at any point can be computed from the formula:
 $f^\prime(x) = 2\, x$. In order to avoid the limit process one can build a
 {\em calculus\/} of formulas in the following way:
 \begin{enumerate}
-\item{Find formulas for a base collection of functions: polynomials, trig, and log
+\item{Find formulas for a base collection of functions: powers functions, trig, and log
 functions, etc.}
 \item{Create formulas for computing the derivative of functions formed in certain
 composite ways: sums, products, ratios, powers, and composition of functions.}
 \end{enumerate}
+For instance, we can build, with the composite operations of sums and products,
+polynomials from power functions. Consequently, we can easily get formulas 
+for the derivatives of polynomials.
 
 \subsection{Application to Optimization}
 At a local maximum or minimum of a function, $x$, the tangent line to
@@ -367,10 +374,29 @@ Since $DJ(y)(h) \; = \; <\!\nabla J(y), h\!>$, we have:
 To find the function $\nabla J(y)$ we need to re-write the RHS of the last equation
 so that it becomes:
 \begin{eqnarray}
-  <\!\nabla J(y), h\!> & = & <\!w, h\!> + \; o(h) \label{uniq}
+  <\!\nabla J(y), h\!> & = & <\!w, h> + \; o(h) \label{uniq}
 \end{eqnarray}
-Then we will have identified our function $\nabla J(y)$, it will be $w$. Why? Because
-equation $(\ref{uniq})$ implies that $w$ and $\nabla J(y)$ must be the same function.
+Then we will have identified our function $\nabla J(y)$, it will be $w$. Why? 
+To show this, fix a given function, $h$, and let $t$ be a scaling parameter.
+Equation $(\ref{uniq})$ implies that
+\begin{eqnarray}
+  <\!\nabla J(y), t\, h\!> & = & <w, \, t\, h> + \; o(t)h 
+\end{eqnarray}
+Or,
+\begin{eqnarray}
+	\frac{t <\nabla J(y) - w, h>}{t} & = &  \frac{o(t)}{t}h 
+\end{eqnarray}
+Which is
+\begin{eqnarray}
+	<\!\nabla J(y) - w, h> & = & \frac{o(t)}{t}h  \label{uniq-t}
+\end{eqnarray}
+
+Taking the limit, $\lim_{t \rightarrow 0}$, of equation, 
+$(\ref{uniq-t})$, we have $<\!\nabla J(y) - w, h> = 0$.
+But this calculation is valid for any function, $h$; consequently, 
+$<\!\nabla J(y) - w, h> = 0 \quad \forall h$.
+Letting $h = \nabla J(y) - w$, we see that $\nabla J(y) - w = 0$.
+That is, $\nabla J(y) \equiv w$.
 
 How do we get $h$ to come out of the inside of the functional $J(y+h)$? Answer, use
 Taylor's expansion on $F$. Continuing, substituting the definition of $J$ in equation
