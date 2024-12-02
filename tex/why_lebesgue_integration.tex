@@ -3,7 +3,7 @@
 
 \title{Why Lebesgue Integration}
 \author{R. Scott McIntire}
-\date{Nov 1, 2024}
+\date{Dec 2, 2024}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -226,7 +226,7 @@ functions is unpleasant, it is very easy using characteristic functions -- the c
 is buried in the underlying set, $S$. In our case, we can represent our function {\em exactly\/}
 as a characteristic function: $f(x) = \chi_{R}(x)$.
 
-Here, $R$ is the set of rationals on interval, $[0, 1]$.
+Here, $R$ is the set of rationals on the interval $[0, 1]$.
 
 To find the ``area'' under the curve ``$f(x)$'' we would like to multiply the 
 height by the ``width'' of each of the sets. What might this mean?
@@ -329,14 +329,14 @@ be able to advertise that his measurement method could be used for all
 ``reasonable'' objects. Exceptions would be objects that needed restoration 
 that were broken into two pieces with extremely jagged edges.
 
-What he wanted to say is that given an object, $C$ could be $\mu$ measured 
+What he wanted to say is that given an object, $C$, it could be $\mu$ measured 
 {\em if\/} $C$ was inside another object, $O$ and the following was true:
 
 $\mu(C) + \mu(C^c) = \mu(O)$
 
 Here, $C^c$ is the complementary set inside of $O$.
 
-In some cases, it wasn't clear what the full object, $O$, consisted of. A better way 
+In some cases, it wasn't clear what the ``natural'' bound box of $C$ should be. A better way 
 to describe the limitation was to say that his measurement system was accurate 
 when -- for {\em any\/} given bounding frame $X$ containing a set $C$ -- 
 the measures of $C$ and 
@@ -344,9 +344,11 @@ its complement in $X$ added to the measure of $X$. That is,
 
 $\mu(X) = \mu(X \cap C) + \mu(X \cap C^c)$
 
-Unfortunately, this was not of much help -- in other words, you know the 
-measurements work on reconstruction only after you've done them.
-He stayed with his original caveat that the measurement works when some object has 
+Using ``any'' bounding box got rid of the need to describe ``the'' bounding box -- which
+was problematic to do in practice.
+But now, a customer would have to find an example of a bounding box where the 
+measurement failed -- an impractical task.
+He decided to stay with his original caveat that the measurement works when some object has 
 broken as long as the pieces are not ``too'' jagged.
 
 
@@ -358,20 +360,20 @@ $\mu^*(X) \neq \mu^*(X \cap C) + \mu^*(X \cap C^c)$
 
 Sets like, $C$, are too jagged and its measure doesn't add properly.
 
-We say that a set, $C$, is {\em measurable\/}
+Lebesgue measure theory does something similar to restrict its measuring sets.
+The theory defines a set, $C$, to be {\em measurable\/}
 if for all sets $X$ the following is true:
 \begin{eqnarray}
 	\mu^*(X) & = & \mu^*(X \cap C) + \mu^*(X \cap C^c) \label{Carthy}
 \end{eqnarray}
 When a set is measurable we simply write $\mu(C)$ instead of $\mu^*(C)$.
 
-What we're looking for is a requirement to be measurable -- meaning
-outer measure works properly. By this we mean sets must be well behaved
+What we're looking for is a minimum requirement for our working measuring sets 
+to work properly. Surely, they should at the very least be such that disjoint sets
+should add properly. 
+By this we mean sets must be well behaved
 in the sense that the length of a set and the length of its ``compliment'' 
-must add up to their union. When you think about this statement it
-seems clear that we very much need the ``lengths'' of sets and their compliments
-to add properly before we go any further with an integration theory -- this 
-is the least you expect/need from a new integration theory.
+must add up to their union. 
 
 But why all the fuss about the intersection with ``any set $X$''.
 Why not just say that $C$ and its compliment add up properly?
@@ -460,7 +462,7 @@ condition, (\ref{Carthy}), on simple ``base'' sets and then we can claim that
 sets formed by complicated set operations on the base sets are automatically 
 measurable sets. If we choose the simple base sets 
 to be the collection of open and closed intervals, we have a collection that 
-is easy to show satisfy, (\ref{Carthy}), and yet provide a wealth of complex sets
+is easy to show satisfy (\ref{Carthy}), and yet provide a wealth of complex sets
 via set operations.
 
 With a healthy collection of measurable sets we can define ``measurable functions``
@@ -469,7 +471,7 @@ The connection to measurable sets is that the simple functions -- remember they
 are based on characteristic functions of sets -- use only measurable sets in 
 their construction.
 
-Finally, the Lebesgue integral of a measurable function, $f$, is defined to be 
+Finally, the Lebesgue integral of a non-negative measurable function, $f$, is defined to be 
 the supremum of the integrals of
 all simple functions that are less than or equal (pointwise) to $f$. 
 Again, an unambiguous definition, but one that is hard to compute. 
@@ -479,6 +481,9 @@ functions that are monotonically increasing and converge point-wise to $f$.
 And again, the Lebesgue
 integral of any base component of a simple function -- a characteristic function --
 is 1 * (outer measure (length) of the characteristic set).
+Finally, a given measurable function, $f$, can be decomposed into a positive and
+a negative function. The integral of each can be done separately and then combined
+to get the Lebesgue integral of $f$.
 
 Restricting ourselves to measurable sets does have a consequence: just like 
 Riemann integration, we will not be able to integrate all functions, only 
@@ -555,12 +560,12 @@ product defined, for two functions $f, g \in L_2$ by
 
 And since it is a complete space, it is what is known as a {\em Hilbert Space\/}.
 A Hilbert space is a vector space with an inner product that is complete with 
-respect to the metric induced from its inner product. 
+respect to the norm induced from its inner product. 
 That is, Cauchy sequences converge to an element in this
 space, just like they do for the finite dimensional Hilbert spaces: $R, R^2, R^3, \ldots$.
 And, much of the behavior of the function space, $L_2$ is replicated from 
 the finite dimensional $R^n$ spaces. This wouldn't be the case if we used
-the Riemann integral for the inner product/metric. It would be like
+the Riemann integral for the inner product/norm. It would be like
 working with the vector spaces $Q, Q^1, Q^2, \ldots$, where $Q$ is the set 
 of rational numbers. The vector properties would be there, but not 
 the important analytic properties -- and the notion of perpendicularity would
