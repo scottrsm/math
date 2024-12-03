@@ -4,7 +4,7 @@
 
 \title{What is a Determinant}
 \author{R. Scott McIntire}
-\date{Oct 20, 2023}
+\date{Dec 3, 2024}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -25,9 +25,9 @@ When $A$ acts on these vectors through matrix multiplication it
 produces the column vectors of $A$ -- by the definition of matrix multiplication.
 
 So, to find the determinant -- the stretching factor of $A$ -- we need to compute the volume of the parallelepiped formed
-from the column vectors of $A$. This is enough as the stretching factor is ratio of the 
+from the column vectors of $A$. This is enough as the stretching factor is the ratio of the 
 change in volume after applying $A$ to the volume of what we started with.  Since the starting 
-point is the unit cube which has a volume of 1, the ratio {\em is\/} the volume of the stretched cube
+point is the unit cube which has a volume of 1, the ratio {\em is\/} the volume of the stretched unit cube
 under the action of $A$.
 
 Given $n$ vectors in $R^n$, how do we find a formula for the parallelepiped volume?
@@ -124,7 +124,7 @@ In this case we have:
 Notice the we could pull out the $\{a_{i,j}\}_{i,j=1}^n$
 because of multi-linearity -- linearity
 refers not just to addition, but also scalar multiplication. 
-Also, We have shown that the degeneracy condition implies anti-symmetry:
+Also, we have shown that the degeneracy condition implies anti-symmetry:
 $V({\bf e}_1, {\bf e}_2) = - V({\bf e}_2, {\bf e}_1)$.
 Finally, we know the volume (area in this case) of $V({\bf e}_1, {\bf e}_2)$. It
 represents the volume of the unit cube (unit square in our case) and its volume is 1.
@@ -162,7 +162,8 @@ of $1, 2, 3$.%
   mappings from the set of integers $\{1, 2, \ldots, n\}$ to itself.}
 In the general case this reduces
 the number of terms in the sum from $n^n$ to $n!$. In the general case, the
-sum becomes:\footnote{$S_n$ is the symmetric group of $n$ objects.}
+sum becomes:\footnote{$S_n$ is the symmetric group of $n$ objects. It consists of 
+all permutations that can be performed on $n$ objects.}
 \begin{eqnarray}
   V({\bf x}_1, {\bf x}_2, \ldots, {\bf x}_n)
   & = & \sum_{\sigma \in S_n} a_{\sigma(1), i} a_{\sigma(2),2} \ldots a_{\sigma(n), n}
@@ -220,6 +221,8 @@ claiming that it is, in fact, a feature. We can claim that we haven't just
 computed the area/volume,
 we have computed the {\em oriented volume\/}.
 If you want the volume you need only take the absolute value of the oriented volume.
+Mathematicians call this a {\it feature\/} rather than a bug; claiming that the determinant gives
+you more than just the volume, you get the {\it oriented volume\/}.
 
 We write the final formula down for reference but now with the caveat that
 the determinant of a matrix is not a positive stretching factor -- the amount that the
