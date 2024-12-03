@@ -49,7 +49,7 @@
 
 
 
-\mantitle{Defining Fractal Dimension}{R. Scott McIntire}{Nov 3, 2024}
+\mantitle{Defining Fractal Dimension}{R. Scott McIntire}{Dec 3, 2024}
 
 \parindent=0pt
 \parskip=.5\baselineskip
@@ -74,15 +74,15 @@ they are magnified. We call this class of sets
 {\it fractal sets}, or
 {\it fractals}. 
 
-A common place example that resembles a fractal is the coast line of
-a beach. If one were to take a map of the coast line and blow it up
+A common place example that resembles a fractal is the coastline of
+a beach. If one were to take a map of the coastline and blow it up
 again and again, one would find that it retains structure in the
 sense that the expanded maps would not ``straighten out``.
 Because this is a physical example, the complicated structure would fade
 after a finite number of expansions. A true fractal, say representing a 
-coast line, would retain complicated
+coastline, would retain complicated
 structure no matter how many times a piece of it was magnified.
-Because of this, the length of any section of this idealized coast line is
+Because of this, the length of any section of this idealized coastline is
 infinite. Another ``natural'' fractal is the surface of a idealized sponge.
 While defined in a three dimensional world, one can construct such a sponge so that
 it retains complicated structure no matter how many times it is magnified.
@@ -90,15 +90,15 @@ In addition, such a constructed sponge could have an infinite surface area and
 also have 0 volume. 
 
 It would be convenient if there was a way to
-measure the density of an idealized coast line to
+measure the density of an idealized coastline to
 indicate that it is, in some sense, larger than a one dimensional
 object; or a way to show that the idealized surface of a sponge is larger than
 two dimensions. This would allow us to compare the ``size'' of such sets
 in a more precise way.
 
 This is what the fractal dimension of a set tries to address. 
-In the case of the coast line, it will give us a dimension between one and two
--- where the coast line ``naturally'' lives. The same with the surface of
+In the case of the coastline, it will give us a dimension between one and two
+-- where the coastline ``naturally'' lives. The same with the surface of
 the aforementioned sponge,
 there will be a dimension between two and three where it naturally lives. In
 each case, the fractal dimension is not an actual dimension, 
@@ -180,7 +180,7 @@ $$
 $$
 And so the volume of an n-dimensional sphere, $B_n(r)$, of radius $r$ is:%
 $$
-{V}_n(r) = \int_{B_n} \, d\mu = \int_{\partial B_n} 
+{V}_n(r) = \int_{B_n(r)} \, d\mu = \int_{\partial B_n} 
 \int_0^r \tau^{n-1} \, d\tau \, dS = \left(\frac{r^n}{n}\right){S}_n(1)
 $$
 Which is
@@ -204,8 +204,8 @@ $$
 $$
 This is a mathematical construct, not a physical one; there is no claim
 here of a physical fractional dimension. Also, note that the value is 
-independent of the ambient space of the ball, $R^n$. That is, $\alpha$ 
-can be either larger or smaller than $n$.
+independent of the ambient space in which the ball might live, say $R^n$. 
+That is, $\alpha$ may be taken to be larger or smaller than $n$.
 
 Given that we have defined the fractional dimensional volume of a sphere 
 in ``dimension'' $\alpha$ we wish to extend this to a definition of the 
@@ -277,7 +277,7 @@ This means that for a given bounded set $S$ and for any fixed
 		$\epsilon \le 0.1$, ${\cal V}_{\alpha, \epsilon}(S)$ is 
 	    non-increasing in $\alpha$.
 \enum{If for some $\alpha_0 \in R^+$, ${\cal V}_{\alpha_0}(S) < \infty$, then
-		${\cal V}_{\alpha}(S)$ is monotonically decreasing for 
+		${\cal V}_{\alpha}(S)$ is non-increasing for 
 		$\alpha \ge \alpha_0$.}
 \endEnum
 
@@ -452,7 +452,7 @@ that the notion of fractal dimension, as an extension to the usual
 notion of dimension, provides a more discriminating view of the size
 of a set.
 
-While physical examples like a coast line or the surface of a sponge do 
+While physical examples like a coastline or the surface of a sponge do 
 not really have
 complexity on an infinite scale, we idealize them as such with
 fractals. Just as ``dimensionless'' points are an idealization useful
