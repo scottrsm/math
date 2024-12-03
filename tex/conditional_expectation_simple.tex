@@ -21,16 +21,18 @@
 
 \mansubtitle{Measure Theoretic Conditional Expectation}
         {in an Elementary Setting}
-{R. Scott McIntire}{Nov 3, 2024}
+{R. Scott McIntire}{Dec 3, 2024}
 
 \section{Overview}
 The measure theoretic approach to conditional expectation can be confusing
 when compared to the traditional approach.
 In what follows we go through a conditional 
 expectation problem within a discrete and familiar setting in an attempt 
-to reduce this confusion. In the example shown, we show explicitly that the 
-conditional expectation function is non-measurable in the origin 
-measure space.
+to reduce this confusion. One of the most confusing/disturbing ideas that 
+one must confront from the very definition of conditional expectation is 
+the notion of non-measurable functions. We work through an explicit
+example where we demonstrate that a given function is not measurable in 
+the ``conditional'' $\sigma$-algebra.
 
 
 \section{Elementary Probability Example}
@@ -156,21 +158,21 @@ definition of conditional expectation might make readers somewhat uneasy as
 we are confronted with non-measurable sets from the very start.
 From this context, it is harder to get an intuitive idea of conditional expectation. 
 
-In the next section we examine this measure theoretic version of conditional expectation 
-in a discrete probabilistic setting where such non-measurable functions are 
-simple and explicit. In the process, we will provide an intuitive idea of the 
+In the next section we compute the measure theoretic conditional expectation 
+of a discrete function. 
+In the process, we provide an intuitive idea of the 
 measure-theoretic definition of conditional expectation which coincides with 
 the traditional approach -- except in the ``singular'' case
 which we discuss in the last section.
 
 \section{Example Calculation of Conditional Expectation}
-Consider the function from the second on an elementary dice example, $f(D_i) = i$, 
+Consider the function from the second section on an elementary dice example, $f(D_i) = i$, 
 which is measurable in the space $(P,X,{\cal E})$. Let ${\cal F}$ be the 
 sub $\sigma$-algebra of that section.
 We now compute the conditional expectation of $f$ with respect to ${\cal F}$.
 Using (1b) we choose the {\it minimal\/} sets: $\Lambda_1 = \{D_1,D_3,D_5\}$ 
 and $\Lambda_2 = \{D_2,D_4,D_6\}$. Since the conditional expectation function is constant
-on each of these sets, equation (1b) will provide a way to find each value on each the two sets.
+on each of these sets, equation (1b) will provide a way to find the value on each set.
 Since the union of $\Lambda_1$ and $\Lambda_2$ constitute the entire set, $X$, we will know
 the value of the conditional expectation function on all of $X$; hence we will know the
 conditional expectation function.
@@ -226,7 +228,7 @@ we have found the conditional expectation function, $\E{f/{\cal F}}$, as we know
 its values on every $x \in X$.\footnote{\kern 0.5pt \raise 0.5ex \hbox{$\dag$}}{%
 In the ``Redux'' section we examine more closely what ``knowing the value on every $x$'' means.}
 
-From equation $(**)$ we see, that the value of the function $\E{f/{\cal F}}$ 
+From equation $(**)$ we see that the value of the function $\E{f/{\cal F}}$ 
 evaluated on any `x' value in a minimal set, $\Lambda$, is% 
 \footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}{%
 The notation, $P_{\Lambda}$ means that we have normalized the measure, $P$, 
@@ -243,7 +245,7 @@ determined by normalizing the probability measure $P$ over the minimal set.
 
 More generally, discrete probability or otherwise, we may think of the 
 $\sigma$-algebra, ${\cal F}$, as a coarser ``mesh'' than the finer ``mesh'', 
-$\sigma$-algebra, ${\cal E}$.
+$\sigma$-algebra ${\cal E}$.
 And we can think of the value of $\E{f/{\cal F}}$ on any ``minimal'' element 
 of the mesh as the average of the function, $f$, over this minimal 
 element with respect to the finer ``mesh''.
@@ -306,39 +308,39 @@ conditional expectation in a singular context that doesn't exist in the
 traditional approach.
 
 \section{A Discrete Conditional Expectation Result}
-We generalize the discusion from the previous sections and work with functions
+We generalize the discussion from the previous sections and work with functions
 on discrete sets with a given algebra of sets.
 
-{\bf Definition:} Given a discrete set $X$ and an algebra of sets ${\cal E}$,
-a set $A$ is minimal in $X$ with respect to ${\cal E}$ iff $A \in {\cal E}$
-and no proper subset of $A$ is contained in ${\cal E}$.
+{\bf Definition:} Given a discrete set $X$ and an algebra of sets ${\cal F}$,
+a set $A$ is minimal in $X$ with respect to ${\cal F}$ iff $A \in {\cal F}$
+and no proper subset of $A$ is contained in ${\cal F}$.
 
 Let $X$ be a set with a finite number of elements.
-For any given $\sigma$-algebra, ${\cal E}$, (in this case algebra) of sets of $X$, 
-let $M_{\cal E} = \{M_i\}_{i=1}^N$
-be the set of all {\it distinct\/} minimal sets of $X$ in ${\cal E}$. 
-The set $M_{\cal E}$ 
+For any given $\sigma$-algebra, ${\cal F}$, (in this case algebra) of sets of $X$, 
+let $M_{\cal F} = \{M_i\}_{i=1}^N$
+be the set of all {\it distinct\/} minimal sets of $X$ in ${\cal F}$. 
+The set $M_{\cal F}$ 
 exists as we are dealing with a finite set $X$ with a finite power set $2^X$. 
-The set $M_{\cal E}$ is formed simply by examining each element in the power 
-set of $X$ and adding it to $M_{\cal E}$ if it is minimal in ${\cal E}$.
+The set $M_{\cal F}$ is formed simply by examining each element in the power 
+set of $X$ and adding it to $M_{\cal F}$ if it is minimal in ${\cal F}$.
 
 {\bf claim:\/} 
-The set $M_{\cal E}$ is a {\it partition\/} of the set $X$.
+The set $M_{\cal F}$ is a {\it partition\/} of the set $X$.
 Meaning:
 
 \beginEnum
 	\item{$\forall i,j \in 1:N \quad M_i \cap M_j = \emptyset \quad (i \ne j)$;}
 	\item{$X = \mathop{\cup}_{i=1}^N\limits M_i$.}
-	\item{The algebra generated by the sets in $M_{\cal E}$ is the collection 
+	\item{The algebra generated by the sets in $M_{\cal F}$ is the collection 
 			of the unions of each 
-			element in the power set of $M_{\cal E}$.
-		Further, the algebra generated is ${\cal E}$.}
+			element in the power set of $M_{\cal F}$.
+		Further, the algebra generated is ${\cal F}$.}
 \endEnum
 We already know that minimal sets must have the first property otherwise if there were
 two minimal sets whose intersection was not $\emptyset$ then the sets would either be the same
 or they would each have a {\it strict\/} non-trivial subset. But since each of the two minimal
-sets is in ${\cal E}$, an algebra, there intersection is also. But this is a contradiction as
-each are minimal sets in ${\cal E}$.
+sets is in ${\cal F}$, an algebra, there intersection is also. But this is a contradiction as
+each are minimal sets in ${\cal F}$.
 
 We prove the second property by contradiction. If the union of minimal sets did not span $X$,
 then the set, $Z_0 = \bigl\{\mathop{\cup}_{i=1}^N\limits M_i\bigr\}^c$, is non-empty. 
@@ -346,60 +348,67 @@ The set $Z_0$ cannot be minimal as we have already accounted for all minimal
 sets in our collection. Set ${\cal H} = 2^{Z_0} \backslash Z_0$ -- the
 power set of $Z_0$ less $Z_0$. Note that for $Z_0$ to be non-minimal, it 
 cannot consist of $1$ element. Therefore, ${\cal H}$ is a non-empty collection 
-of sets. If none of the non-empty sets are in ${\cal E}$, then $Z_0$ is 
+of sets. If none of the non-empty sets are in ${\cal F}$, then $Z_0$ is 
 minimal  -- a contradiction. Therefore, there must be a non-trivial strict subset of 
-$Z_0$, $Z_1$, that is in ${\cal E}$. We can repeat this argument with $Z_1$ to 
+$Z_0$, $Z_1$, that is in ${\cal F}$. We can repeat this argument with $Z_1$ to 
 produce, $Z_2$, $\ldots Z_i$ producing $Z_{i+1}$, etc; noting, that each time this
 is done the number of elements in the current ``$Z$ set'' decreases by at least $1$. 
 Consequently, the process cannot proceed indefinitely. Let $m$ be the step 
 where this process fails; that is, there is no strict subset, $Z_m$, of set $Z_{m-1}$
-which is a subset of ${\cal E}$. But this means that 
+which is a subset of ${\cal F}$. But this means that 
 $Z_m$ is minimal by definition -- contradiction.
 Consequently, the second property holds.
 
 The third property follows as none of the $\mathop{\{M_i\}}_{i=1}^N$ can produce sets of 
 finer granularity than themselves, they behave as if they were single elements. Therefore,
 the only way to produce new sets is by union, and consequently, the collection of 
-all elements generated is the collection of the union of each element from the 
+all Elements generated is the collection of the union of each element from the 
 power set of $\mathop{\{M_i\}}_{i=1}^N$.
-Finally, if we label ${\cal G}$ as the algebra generated by $M_{\cal E}$, then since 
-its generator sets, $\{M\}_{i=1}^N$ are elements of ${\cal E}$, it must be the 
-case that ${\cal G} \subseteq {\cal E}$. To show equality, suppose
-that there is a set $F \in {\cal E}$ but $F \notin {\cal G}$. But 
+Finally, if we label ${\cal G}$ as the algebra generated by $M_{\cal F}$, then since 
+its generator sets, $\{M\}_{i=1}^N$ are elements of ${\cal F}$, it must be the 
+case that ${\cal G} \subseteq {\cal F}$. To show equality, suppose
+that there is a set $F \in {\cal F}$ but $F \notin {\cal G}$. But 
 $F = F \cap X = F \cap \mathop{\cup}_{i=1}^N\limits M_i = \mathop{\cup}_{i=1}^N\limits F \cap M_i$.
-Since for a given $i$, $M_i$ is minimal in ${\cal E}$, and $F \in {\cal E}$,
+Since for a given $i$, $M_i$ is minimal in ${\cal F}$, and $F \in {\cal F}$,
 the intersection must be either $M_i$ or $\emptyset$. Consequently, $F$ is
 a union of an element of the power set of $\{M\}_{i=1}^N$, which has 
-been shown to be a member of ${\cal G}$. Consequently, ${\cal G} \equiv {\cal E}$.
+been shown to be a member of ${\cal G}$. Consequently, ${\cal G} \equiv {\cal F}$.
 
-We now examine the expectation of the conditional expectation, $\E{f / {\cal E}}$.
+We now assume that a function, $f$, is a measurable function in a probability space with 
+values in the discrete set $X$; with probability measure, $P$; and $\sigma$-algebra, ${\cal E}$.
+We assume that ${\cal F}$ is a sub $\sigma$-algebra of ${\cal E}$ and
+examine the expectation of the conditional expectation, $\E{f / {\cal F}}$.%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{%
+Remember, the conditional expectation is not a number; it is a probability function.
+As such, it too has an expectation. 
+}
 
 $$
 \eqalignno{
-E[\E{f / {\cal E}}] & = \int_{X} \E{f / {\cal E}} \, dP_{\cal E}  = \int_{X} f \, dP & (6) \cr
+E[\E{f / {\cal F}}] & = \int_{X} \E{f / {\cal F}} \, dP_{\cal F}  = \int_{X} f \, dP & (6) \cr
 									         & = \int_{\mathop{\cup}_{i=1}^N\limits M_i} f \, dP & \cr
 											 & = \sum_{i=1}^N \int_{M_i} f \, dP & \cr
-											 & = \sum_{i=1}^N \int_{M_i} \E{f / {\cal E}} \, dP_{\cal E} &\cr
-											 & = \sum_{i=1}^N \E{f / {\cal E}}\!(M_i)\, P(M_i) & (7) \cr
+											 & = \sum_{i=1}^N \int_{M_i} \E{f / {\cal F}} \, dP_{\cal F} &\cr
+											 & = \sum_{i=1}^N \E{f / {\cal F}}\!(M_i)\, P(M_i) & (7) \cr
 }
 $$
-In equation (6) we have the following identity: $E[\E{f /{\cal E}}]= E[f]$.
-From equation (7) we have that the expectation of the conditional expectation
+In equation (6) we have the following identity: $E[\E{f /{\cal F}}]= E[f]$.
+From equation (7) we have that the expectation of the conditional Expectation
 of a $\sigma$-algebra generated by minimal sets is just the weighted sum of 
-the values of the conditional expectation on these sets.
+the values of the conditional Expectation on these sets.
 
 Finally, if $g$ is a discrete function, the collection of all non-trivial sets 
 of the form $g^{-1}(a) \quad a \in (-\infty, \infty)$
 is a finite collection of sets, $\mathop{\{M_i\}}_{i=1}^N$, for some positive 
 integer $N$.%
-\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}{%
 	Each of the sets from the collection, $\mathop{\{M_i\}_{i=1}^N}$, corresponds to $N$
 	distinct $a$'s: $\mathop{\{a_i\}}_{i=1}^N$, where each ``a'' is a real number.
 }
 The collection of the union of 
 each element from the power set of these sets
-generates an algebra, ${\cal E}$, with each $M_i\; (i \in Z^+, i \in [1,N])$ being 
-the minimal sets in this algebra. We write $\E{f / g}$ to mean $\E{f / {\cal E}}$.
+generates an algebra, ${\cal F}$, with each $M_i\; (i \in Z^+, i \in [1,N])$ being 
+the minimal sets in this algebra. We write $\E{f / g}$ to mean $\E{f / {\cal F}}$.
 Consequently, we may write the above as:
 
 $$
@@ -411,14 +420,14 @@ $$
 											 & = \sum_{i=1}^N \E{f / g}\, P(M_i) & (7') \cr
 }
 $$
-Here, in the term, $\E{f / g} P(M_i)$, $\E{f / g}$ is interpreted as the value of $\E{f / {\cal E}}$ on the set $M_i$.
-We also drop the $dP_{\cal E}$ notation, which was only used as a crutch in the previous part of the paper.
+Here, in the term, $\E{f / g} P(M_i)$, $\E{f / g}$ is interpreted as the value of $\E{f / {\cal F}}$ on the set $M_i$.
+We also drop the $dP_{\cal F}$ notation, which was only used as a crutch in the previous part of the paper.
 Lastly, we know from equation (5) how to compute the values of $\E{f / g}$ for all $M_i$ -- even when the probability of
 a ``g'' event is $0$.
 
-Equation (6') says that $E[\E{f / g}] = E[f]$; that is, the expectation of the conditional expectation of $f$
+Equation (6') says that $E[\E{f / g}] = E[f]$; that is, the expectation of the conditional Expectation of $f$
 is the same as the expectation of $f$. Equation (7') stats that 
-the conditional expectation of a discrete function is the weighted average of 
+the conditional Expectation of a discrete function is the weighted average of 
 the values of $f$ over its level sets where the corresponding weights are
 probabilities of "x" values of each level set. By "x" values for level set $i$ 
 we mean $f^{-1}(v_i)$ where $v_i$ is the associated $f$ value of level set $i$.
