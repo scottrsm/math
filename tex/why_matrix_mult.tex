@@ -6,7 +6,7 @@
 
 \title{Origins of Matrix/Vector and Matrix/Matrix Multiplication}
 \author{R. Scott McIntire}
-\date{Aug 30, 2024}
+\date{Dec 4, 2024}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -138,64 +138,79 @@ the left hand side of $(\ref{vector-form})$.
 
 Another way to write this is:
 \begin{eqnarray}
-  A {\bf x} & = & \sum_{i=1}^n x_i {\bf A}^i
+  A {\bf x} & = & \sum_{j=1}^n x_j {\bf A}^j
 \end{eqnarray}
-Here, ${\bf A}^i$ is the $i^{\rm th}$ column of $A$. Applying $A$ to the special
-vectors, ${\bf e}_i$
--- which are $0$ everywhere except at $i$ where they are $1$ --
-we see that $A \, {\bf e}_i = {\bf A}^i$. Consequently, this matrix/vector
+Here, ${\bf A}^j$ is the $j^{\rm th}$ column vector of $A$. Applying $A$ to the special
+vectors, ${\bf e}_j$
+-- which are $0$ everywhere except at $j$ where they are $1$ --
+we see that $A \, {\bf e}_j = {\bf A}^j$. 
+Consequently, this matrix/vector
 multiplication determines $A$ uniquely
 -- if there is another matrix, its columns would have to match $A$.
 
+We note the following for future reference.
+\begin{eqnarray}
+	[{\bf A}^j]_i = A_{i, j} \label{vec-matrix-index}
+\end{eqnarray}
+That is, the $i^{\rm th}$ entry of the column vector, ${\bf A}^j$, is the
+$i^{\rm th}$ row,  $j^{\rm th}$ column of the matrix $A$. 
+
 To complete the solution outline, matrix/matrix multiplication is needed
-via $(\ref{assoc})$. How must this be defined?
+to go from equation $(\ref{inv})$ to $(\ref{assoc})$. How must this be defined?
 Well, we need to make sense of:
 \begin{eqnarray}
   (A^{-1} A) {\bf x} & = & A^{-1} (A \, {\bf x}) 
 \end{eqnarray}
-This involves the inverse of the matrix $A$, which we also need to define. Once
-we have the inverse we then need to do matrix-matrix multiplication.
-Let us start with matrix-matrix multiplication.
-This will be determined by the fact that we (just as in the scalar case) demand that the multiplication
-be {\em associative\/}.
-\footnote{We know from above that defining how a given matrix acts on all vectors --
-  via matrix/vector multiplication -- uniquely determines the matrix. So, this is a proper definition of matrix/matrix multiplication.}
+This involves the inverse of the matrix $A$, which we also need to define. 
+What we are imposing on matrix multiplication is that it be associative in the
+specific case of a matrix and its inverse. But this is not what happens in the scalar case;
+associativity works not just for a special case of multiplication, but for all numbers.
+We will forgo what the inverse of a matrix might mean and focus now on imposing the 
+condition that matrix/matrix multiplication be associative -- just as multiplication is for numbers. 
+Specifically, the condition we impose is:
 \begin{eqnarray}
-    (B \, A) {\bf x} & \equiv & B (A \, {\bf x}) \quad \forall x \in R^n
+	(B\, A) {\bf x} & = & B (A \, {\bf x}) \quad \forall {\bf x} \in R^n \label{ASSOC}
 \end{eqnarray}
-This definition would mean that $B \, A$ is a new $n \times n$ matrix whose
-$i^{\rm th}$ entry -- when acting on an arbitrary vector ${\bf x}$ --
-is (using $(\ref{matrix-vector-mult})$ twice):
+Notice that we are imposing what matrix/matrix multiplication is by saying how the 
+new matrix formed, $B \, A$, acts on an {\em arbitrary\/} vector, ${\bf x}$. And we 
+specify that action by the right hand side of $(\ref{ASSOC})$, which involves only matrix/vector
+multiplication -- something we already know.
+
+We want to emphasize that this is a strong condition to impose; meaning, that the 
+requirement that this is true for {\em all\/} ${\bf x}$ gives us a lot to work with.
+For instance, if one had two $n\times n$ matrices, $C$ and $D$, what could you conclude if someone
+told you that $C {\bf x} = D {\bf x}$ for {\em some\/} $n$ vector, ${\bf x}$?
+Well, the answer is: not much.
+However, if I told you that $C {\bf x} = D {\bf x}$ {\em for all\/} ${\bf x}$, what could you say?
+I claim that tells us that $C \equiv D$; meaning that every entry in $C$ is the same as the corresponding
+entry in $D$. We can see this by applying $C$ and $D$ to each of the ${\bf e}_i$, ($i \in [1, n]$) vectors.
+For each $i$, $C {\bf e}_i$ and $D {\bf e}_i$ pick off the $i^{\rm th}$ column of 
+$C$ and $D$ respectively. So we see that each column of $C$ and $D$ must match; consequently,
+$C \equiv D$.
+
+We apply this idea to $(\ref{ASSOC})$ to find a formula for matrix/matrix multiplication.
+Since $(\ref{ASSOC})$ must be true {\em for all\/} ${\bf x}$ we can choose the vectors $\{\bf e\}_{i=1}^n$.
+This gives us the following equations:
 \begin{eqnarray}
-    \left[(B \, A) {\bf x}\right]_i &  = & \left[B (A \, {\bf x})\right]_i = \sum_{k=1}^n B_{ik} \left(\sum_{j=1}^n A_{kj} x_j\right) \quad \forall x \in R^n, \forall i \in [1,n]
-\end{eqnarray}
-Using $(\ref{matrix-vector-mult})$ on the left hand side yields:
-\begin{eqnarray}
-  \sum_{j=1}^n (B \, A)_{ij} x_j &  = & \sum_{k=1}^n B_{ik} \left(\sum_{j=1}^n A_{kj} x_j\right)
+    (B \, A) {\bf e}_j & = & B (A \, {\bf e}_j) 
 \end{eqnarray}
 Or,
 \begin{eqnarray}
-  \sum_{j=1}^n (B \, A)_{ij} x_j &  = & \sum_{k=1}^n \sum_{j=1}^n B_{ik} A_{kj} x_j
+	({\bf B} \, {\bf A})^j & = & B  {\bf A}^j 
 \end{eqnarray}
-Changing the order of summation on the right hand side, this is:
+For any given, $i$, the $i^{\rm th}$ entry of the left and right hand side is
+(after using the definition of matrix/vector multiplication, $(\ref{matrix-vector-mult})$ on the right hand side)
 \begin{eqnarray}
-  \sum_{j=1}^n (B \, A)_{ij} x_j &  = & \sum_{j=1}^n \left(\sum_{k=1}^n B_{ik} A_{kj}\right) x_j \label{matrix-matrix-deriv}
+	\left[({\bf B} \, {\bf A})^j\right]_i & = & \sum_{k=1}^n B_{i,k}  \left[{\bf A}^j\right]_k  \quad \forall i \in [1, n]
 \end{eqnarray}
-Or,
+Using $(\ref{vec-matrix-index})$ on the left and right hand sides of the previous equation we have
 \begin{eqnarray}
-    \sum_{j=1}^n \left[ (B \, A)_{ij} - \left(\sum_{k=1}^n B_{ik} A_{kj}\right)\right] x_j & = & 0\label{matrix-matrix-deriv-2}
+	(B \, A)_{i, j} & = & \sum_{k=1}^n B_{i, k}  A_{k, j}  \label{matrix-matrix-mult}
 \end{eqnarray}
-This suggests that the $i^{\rm th}, j^{\rm th}$ entry of the multiplication of $B$ and $A$ is:
-\begin{eqnarray}
-    (B \, A)_{ij} & = & \sum_{k=1}^n B_{ik} A_{kj} \label{matrix-matrix-mult} \quad \forall i \in R^n, \forall j \in R^n
-\end{eqnarray}
+And we are done, we have shown what the new matrix, $B \, A$ is by showing what every entry, $i, j$ of
+the new matrix is.
 
-To see that this follows, notice that $(\ref{matrix-matrix-deriv-2})$ must hold for all
-vectors ${\bf x}$. Setting ${\bf x}$ to the successive ${\bf e}_i$ vectors defined
-above yields $(\ref{matrix-matrix-mult})$.
-
-
-By $(\ref{identity})$ we need to identify an $n \times n$ matrix which serves as an
+The next order of business is to identify an $n \times n$ matrix which serves as an
 identity (in terms of matrix/vector multiplication).
 Let us suppose that we have such a matrix and let's call it $I$.
 Then we must have $I \, {\bf x} = {\bf x} \quad \forall {\bf x} \in R^n$. 
