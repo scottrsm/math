@@ -7,16 +7,22 @@
 
 \footline{\hss\tenrm\folio\hss}
 
-%% The length of a page is 10in.
-%%\vsize=10in
+% Step 1: Load the bold math italic font
+\font\tenbmi=cmmib10
 
-%\font\helv = phvr
-%\font\times = ptmr
-%\font\zap = pzcmi at 12pt
-%\font\pal = pplro at 12pt
+% Step 2: Allocate a new math family
+\newfam\bmitfam
+
+% Step 3: Assign the font to the new math family
+\textfont\bmitfam=\tenbmi
+\scriptfont\bmitfam=\tenbmi
+\scriptscriptfont\bmitfam=\tenbmi
+
+% Step 4: Define the bold mu symbol
+\mathchardef\boldmu="116\bmitfam
 
 \mantitle{Singular Transformations of Probability Density Functions}
-{R. Scott McIntire} {Oct 2, 2024}
+{R. Scott McIntire} {Dec 3, 2024}
 
 \subsection{Overview}
 For non-singular transformations of variables with distributions, there 
@@ -24,7 +30,7 @@ are standard formulas that describe the probability distribution
 of the target variable. However, in the case of singular transformations,
 there is no immediate formula. Often what is done is to add independent 
 variables in a somewhat ad hoc fashion to make the transformation 
-non-singular, and then "integrate out" -- if possible -- 
+non-singular, and then ``integrate out'' -- if possible -- 
 the independent variables from the resulting formula. 
 Below we describe a procedure to determine the
 target distribution with a more systematic process.
@@ -41,8 +47,8 @@ such that $f: R^n \mapsto R^m$ and $m < n$.
           If for each
           ${\bf y}$, $f^{-1}({\bf y})$ is a union of $k({\bf y})$ 
           disjoint $C^1$ $n-m$ dimensional manifolds with
-          parameterizations ${\bf x}_i({\bffam \mu} ; {\bf y}), \;
-          i~\in~[1,k({\bf y})], \; \mu \in \Omega_i \subset {\bf R}^{n-m}$,
+          parameterizations ${\bf x}_i(\mu ; {\bf y}), \;
+          i\in[1,k({\bf y})], \; \mu \in \Omega_i \subset {\bf R}^{n-m}$,
           with $P_X({\bf x})$ being the continuous probability
           density function of the random variable $X$, then the 
           density function $P_Y({\bf y})$ of the random variable $Y$ 
@@ -54,7 +60,7 @@ P_Y({\bf y}) & = \sum_{i=1}^{k({\bf y})} \int_{\Omega_i}
 {P_X({\bf x}_i({\bf y}; {\bf \mu})) \over \sqrt{\left|Df({\bf x}_i({\bf y}; \mu)) \;
 Df^T({\bf x}_i({\bf y}; \mu))\right|}}
 \; \sqrt{\left|D_{\mu} {\bf x}_i^T({\bf y}; \mu) \; D_{\mu}{\bf x}_i({\bf y}; \mu)\right|}  
-\; & d\mu (1) \cr
+\; d \mu & (1) \cr
 }
 $$
 
