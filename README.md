@@ -66,5 +66,5 @@ In any event the corresponding PDF's are in the directory **pdf/**.
 - The format is mp3.
 - There is also an RSS feed for the podcast at: https://media.rss.com/motivating-mathematical-concepts-through-problems/feed.xml
 
-#### Version 1.5.3
+#### Version 1.5.4
 

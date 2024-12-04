@@ -197,7 +197,8 @@ But this can be written more succinctly in terms of the dot product:
 $$ \|{\bf x}\|^2 = {\bf x} {\boldsymbol \cdot} {\bf x} $$
 
 
-Getting back to the original problem, the closest point to ${\bf p}_1$ is:
+Getting back to the original problem, the closest point to ${\bf p}_1$ when
+starting at ${\bf p}_0$ and moving along ${\bf v}$ is:
 $$ P_{\bf v}({\bf p}_1 - {\bf p}_0) = \frac{({\bf p}_1 - {\bf p}_0) 
     {\boldsymbol \cdot}{\bf v}}{{\bf v} {\boldsymbol \cdot} {\bf v}} {\bf v}$$
 
@@ -262,7 +263,7 @@ $$ P_{\lambda {\bf v}}({\bf p}) = \frac{{\bf p} {\boldsymbol \cdot} {\bf v}_1}{\
 This says that the projection of ${\bf p}$ onto ${\bf v}$ is independent of 
 the length of the vector ${\bf v}$. That is, it only depends on its ``direction''.
 (It doesn't matter how fast you drive me in a given direction, the place 
-you drop me off to be as closets to ${\bf p}$ is going to be the same.)
+you drop me off to be as close to ${\bf p}$ is going to be the same.)
 
 What about the projection of a multiple of ${\bf p}$ onto ${\bf v}$, or 
 combinations of ${\bf p}$ with other vectors onto ${\bf v}$.
@@ -529,8 +530,10 @@ the inner product.
 
 Example: We can define the following inner product on $R^n$. 
 Let ${\bf w}$ be a given vector with the following properties:
-$$ \sum_{i=1}^n w_i = 1 $$
-$$ w_i > 0 \; \forall i \in [1,n] $$
+\begin{enumerate}
+	\item{$\sum_{i=1}^n w_i = 1 $}
+	\item{$ w_i > 0 \quad \forall i \in [1,n] $}
+\end{enumerate}
 Then we can define an inner product, $\langle \cdot, \cdot \rangle$ as:
 $$ \langle {\bf x}, {\bf y} \rangle \equiv \sum_{i=1}^n w_i x_i y_i$$
 This modified ``dot product'' allows us to favour or discount some components 
