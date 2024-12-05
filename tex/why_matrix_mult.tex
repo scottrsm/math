@@ -6,7 +6,7 @@
 
 \title{Origins of Matrix/Vector and Matrix/Matrix Multiplication}
 \author{R. Scott McIntire}
-\date{Dec 4, 2024}
+\date{Dec 5, 2024}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -119,7 +119,7 @@ In the process, we will need to:
     \item{Define matrix-vector multiplication.}
     \item{Define matrix-matrix multiplication.}
     \item{Define the identity matrix.}
-    \item{Define inverse matrix.}
+    \item{Define the inverse matrix.}
 \end{itemize}
 
 How do we make sense of this matrix/vector syntax? It should have
@@ -155,7 +155,24 @@ We note the following for future reference.
 That is, the $i^{\rm th}$ entry of the column vector, ${\bf A}^j$, is the
 $i^{\rm th}$ row,  $j^{\rm th}$ column of the matrix $A$. 
 
-To complete the solution outline, matrix/matrix multiplication is needed
+Before moving on with our outline, we note one very important property of 
+matrix/vector multiplication: It is {\em linear\/}.
+By that we mean the following:%
+\footnote{Here, we assume the reader has a passing knowledge of vector addition.}
+\begin{eqnarray}
+	A( a {\bf x} + b{\bf y} ) & = & a\, A{\bf x} + b\, A{\bf y}
+\end{eqnarray}
+One can show this from our definition of matrix/vector multiplication which we
+leave to the reader. What this means in practice is that for a given vector, ${\bf z} = a{\bf x} + b{\bf y}$,
+we can compute $A {\bf z}$ by computing $A$ on the ``components'' of ${\bf zl}$ and then multiplying by scalars and adding
+the resulting vectors.
+This can be an easier way to compute the action of a matrix on vector in some cases.
+The result above can be extended to arbitrary sums as:
+\begin{eqnarray}
+	A\left( \sum_{j=1}^n c_j {\bf x}_j \right) & = & \sum_{j=1}^n c_j A {\bf x}_j \label{linearity}
+\end{eqnarray}
+
+Continuing with our solution outline, matrix/matrix multiplication is needed
 to go from equation $(\ref{inv})$ to $(\ref{assoc})$. How must this be defined?
 Well, we need to make sense of:
 \begin{eqnarray}
@@ -184,12 +201,13 @@ Well, the answer is: not much.
 However, if I told you that $C {\bf x} = D {\bf x}$ {\em for all\/} ${\bf x}$, what could you say?
 I claim that tells us that $C \equiv D$; meaning that every entry in $C$ is the same as the corresponding
 entry in $D$. We can see this by applying $C$ and $D$ to each of the ${\bf e}_i$, ($i \in [1, n]$) vectors.
-For each $i$, $C {\bf e}_i$ and $D {\bf e}_i$ pick off the $i^{\rm th}$ column of 
+For each $i$, $C {\bf e}_j$ and $D {\bf e}_j$ pick off the $j^{\rm th}$ column of 
 $C$ and $D$ respectively. So we see that each column of $C$ and $D$ must match; consequently,
 $C \equiv D$.
 
 We apply this idea to $(\ref{ASSOC})$ to find a formula for matrix/matrix multiplication.
-Since $(\ref{ASSOC})$ must be true {\em for all\/} ${\bf x}$ we can choose the vectors $\{\bf e\}_{i=1}^n$.
+Since $(\ref{ASSOC})$ must be true {\em for all\/} ${\bf x}$; in particular, it must be
+true for the vectors $\{\bf e\}_{i=1}^n$.
 This gives us the following equations:
 \begin{eqnarray}
     (B \, A) {\bf e}_j & = & B (A \, {\bf e}_j) 
@@ -209,15 +227,34 @@ Using $(\ref{vec-matrix-index})$ on the left and right hand sides of the previou
 \end{eqnarray}
 And we are done, we have shown what the new matrix, $B \, A$ is by showing what every entry, $i, j$ of
 the new matrix is.
+So using this set of vectors, $\{{\bf e}_j\}_{j=1}^n$, we have completely determined what 
+the matrix multiplication of $B \, A$ is in order that matrix/matrix multiplication be 
+associative when using these vectors. Does this mean that associativity works for 
+{\em arbitrary\/} vectors? The answer is yes and this is because of the linearity of
+matrix/vector multiplication. Any given ${\bf x}$ can be written as a {\em linear combination\/}
+of the vectors $\{{\bf e}_j\}_{j=1}^n$: ${\bf x} = a_1 {\bf e}_1 + a_2 {\bf e_2} + \cdots + a_n {\bf e}_n$.
+Matrix multiply the left and right hand sides by the matrix, $B\,A$. This gives
+\begin{eqnarray}
+	(B\, A){\bf x} & = & (B \, A)\left(\sum_{j=1}^n a_j {\bf e}_j\right) \quad\quad \text{Replace ${\bf x}$ with its components.}\nonumber \\
+				   & = &\sum_{j=1}^n a_j (B \, A){\bf e}_j \quad\quad \text{{\em Linearity\/} of matrix, $(B \, A)$.}\nonumber \\
+				   & = &\sum_{j=1}^n a_j B (A{\bf e}_j) \quad\quad \text{{\em Associativity\/} of matrix multiplication on ${\bf e}_j$.}\nonumber \\
+				   & = &B\left(\sum_{j=1}^n a_j A{\bf e}_j\right) \quad\quad \text{{\em Linearity\/} of matrix $B$.}\nonumber \\
+				   & = &B\left( A\left(\sum_{j=1}^n a_j {\bf e}_j\right)\right) \quad\quad \text{{\em Linearity\/} of matrix $A$.}\nonumber \\
+				   & = &B( A {\bf x}) \quad\quad \text{Replace components with ${\bf x}$.}
+\end{eqnarray}
+In the above calculations, we applied our new matrix, $(B \, A)$ to an arbitrary ${\bf x}$, and 
+used the {\em linearity\/} of matrix/vector multiplication and the {\em associativity\/}
+of matrix/matrix multiplication on the components, to show that matrix/matrix
+multiplication, as we have defined it, is associative -- irrespective of the input.
 
 The next order of business is to identify an $n \times n$ matrix which serves as an
 identity (in terms of matrix/vector multiplication).
 Let us suppose that we have such a matrix and let's call it $I$.
 Then we must have $I \, {\bf x} = {\bf x} \quad \forall {\bf x} \in R^n$. 
 Then, it is not hard
-to see that $I \, {\bf e}_{i} = {\bf e}_i \quad \forall i \in [1, n]$. 
-However, we know that $I \, {\bf e}_i = I^i$. Therefore, $I$
-must have the property that ${\bf I^i} = {\bf e}_i$. Consequently $I$ must have the form:
+to see that $I \, {\bf e}_{j} = {\bf e}_j \quad \forall j \in [1, n]$. 
+However, we know that $I \, {\bf e}_j = I^j$. Therefore, $I$
+must have the property that ${\bf I^j} = {\bf e}_j$. Consequently $I$ must have the form:
 \begin{eqnarray}
   I & = & \left[
       \begin{array}{cccccc}
@@ -234,17 +271,18 @@ That is $I_{ij} = \delta_{ij}$.%
                                  1 & \text{if $i = j$;} \\
                                  0 & \text{otherwise.}
                                \end{array} \right.$}
-We have shown that the only candidate matrix that has the identity property is the
-matrix $I$. That is, if there is an identity matrix, it must be $I$. Does it satisfy
+We have shown that the only candidate for the identity matrix with respect to 
+matrix/vector multiplication is the matrix $I$. That is, if there is an 
+identity matrix, it must be $I$. Does it satisfy
 the property of being an identity matrix (again, in the matrix/vector multiplication world)?
-Do we have $I \, {\bf x} = {\bf x}$ for all ${\bf x} \in R^n$?
-Using the definition of matrix/vector multiplication, $(\ref{matrix-vector-mult})$, we
-have for any given, $i$:
+That is, do we have $I \, {\bf x} = {\bf x}$ for all ${\bf x} \in R^n$?
+As before, we can express ${\bf x}$ as: ${\bf x} = \sum_{j=1}^n c_j {\bf e}_j$.
+By the {\em linearity\/} of matrix/vector multiplication, we have
 \begin{eqnarray}
-  \left[I {\bf x}\right]_i & = & \sum_{i=1}^n I_{ij} x_j \nonumber \\
-                           & = & \sum_{i=1}^n \delta_{ij} x_j \nonumber \\
-                           & = & x_i \nonumber \\
-                           & = & [{\bf x}]_i
+	I {\bf x} & = & I\left( \sum_{j=1}^n c_j {\bf e}_j \right)  \quad\quad \text{Replace ${\bf x}$ with components.} \nonumber \\
+							 & = & \sum_{j=1}^n c_j  I{\bf e}_j \quad\quad \text{{\em Linearity\/} of matrix/vector multiplication.} \nonumber \\
+							 & = & \sum_{j=1}^n c_j {\bf e}_j \quad\quad \text{{\em Identity\/} of $I$ on components.}\nonumber \\
+							 & = & {\bf x} \quad\quad \text{Replace components with ${\bf x}$.}
 \end{eqnarray}
 One can show that this identity matrix, $I$, is also the identity operator for
 matrix/matrix multiplication.
