@@ -164,7 +164,7 @@ By that we mean the following:%
 \end{eqnarray}
 One can show this from our definition of matrix/vector multiplication which we
 leave to the reader. What this means in practice is that for a given vector, ${\bf z} = a{\bf x} + b{\bf y}$,
-we can compute $A {\bf z}$ by computing $A$ on the ``components'' of ${\bf zl}$ and then multiplying by scalars and adding
+we can compute $A {\bf z}$ by computing $A$ on the ``components'' of ${\bf z}$ and then multiplying by scalars and adding
 the resulting vectors.
 This can be an easier way to compute the action of a matrix on vector in some cases.
 The result above can be extended to arbitrary sums as:
@@ -207,7 +207,7 @@ $C \equiv D$.
 
 We apply this idea to $(\ref{ASSOC})$ to find a formula for matrix/matrix multiplication.
 Since $(\ref{ASSOC})$ must be true {\em for all\/} ${\bf x}$; in particular, it must be
-true for the vectors $\{\bf e\}_{i=1}^n$.
+true for the vectors $\{\bf e\}_{j=1}^n$.
 This gives us the following equations:
 \begin{eqnarray}
     (B \, A) {\bf e}_j & = & B (A \, {\bf e}_j) 
@@ -254,7 +254,7 @@ Then we must have $I \, {\bf x} = {\bf x} \quad \forall {\bf x} \in R^n$.
 Then, it is not hard
 to see that $I \, {\bf e}_{j} = {\bf e}_j \quad \forall j \in [1, n]$. 
 However, we know that $I \, {\bf e}_j = I^j$. Therefore, $I$
-must have the property that ${\bf I^j} = {\bf e}_j$. Consequently $I$ must have the form:
+must have the property that ${\bf I^j} = {\bf e}_j$. Consequently, $I$ must have the form:
 \begin{eqnarray}
   I & = & \left[
       \begin{array}{cccccc}
@@ -266,11 +266,6 @@ must have the property that ${\bf I^j} = {\bf e}_j$. Consequently $I$ must have 
       \end{array}
   \right]
 \end{eqnarray}
-That is $I_{ij} = \delta_{ij}$.%
-\footnote{$\delta_{ij} = \left\{\begin{array}{ll}
-                                 1 & \text{if $i = j$;} \\
-                                 0 & \text{otherwise.}
-                               \end{array} \right.$}
 We have shown that the only candidate for the identity matrix with respect to 
 matrix/vector multiplication is the matrix $I$. That is, if there is an 
 identity matrix, it must be $I$. Does it satisfy
