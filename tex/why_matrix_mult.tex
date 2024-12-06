@@ -6,7 +6,7 @@
 
 \title{Origins of Matrix/Vector and Matrix/Matrix Multiplication}
 \author{R. Scott McIntire}
-\date{Dec 5, 2024}
+\date{Dec 6, 2024}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -166,8 +166,8 @@ One can show this from our definition of matrix/vector multiplication which we
 leave to the reader. What this means in practice is that for a given vector, ${\bf z} = a{\bf x} + b{\bf y}$,
 we can compute $A {\bf z}$ by computing $A$ on the ``components'' of ${\bf z}$ and then multiplying by scalars and adding
 the resulting vectors.
-This can be an easier way to compute the action of a matrix on vector in some cases.
-The result above can be extended to arbitrary sums as:
+This can be an easier way to compute the action of a matrix on a vector in some cases.
+The linearity result above can be extended to arbitrary sums as:
 \begin{eqnarray}
 	A\left( \sum_{j=1}^n c_j {\bf x}_j \right) & = & \sum_{j=1}^n c_j A {\bf x}_j \label{linearity}
 \end{eqnarray}
@@ -200,34 +200,34 @@ told you that $C {\bf x} = D {\bf x}$ for {\em some\/} $n$ vector, ${\bf x}$?
 Well, the answer is: not much.
 However, if I told you that $C {\bf x} = D {\bf x}$ {\em for all\/} ${\bf x}$, what could you say?
 I claim that tells us that $C \equiv D$; meaning that every entry in $C$ is the same as the corresponding
-entry in $D$. We can see this by applying $C$ and $D$ to each of the ${\bf e}_i$, ($i \in [1, n]$) vectors.
-For each $i$, $C {\bf e}_j$ and $D {\bf e}_j$ pick off the $j^{\rm th}$ column of 
+entry in $D$. We can see this by applying $C$ and $D$ to each of the ${\bf e}_j$, ($j \in [1, n]$) vectors.
+For each $j$, $C {\bf e}_j$ and $D {\bf e}_j$ pick off the $j^{\rm th}$ column of 
 $C$ and $D$ respectively. So we see that each column of $C$ and $D$ must match; consequently,
 $C \equiv D$.
 
 We apply this idea to $(\ref{ASSOC})$ to find a formula for matrix/matrix multiplication.
 Since $(\ref{ASSOC})$ must be true {\em for all\/} ${\bf x}$; in particular, it must be
-true for the vectors $\{\bf e\}_{j=1}^n$.
+true for the vectors $\{{\bf e}_j\}_{j=1}^n$.
 This gives us the following equations:
 \begin{eqnarray}
-    (B \, A) {\bf e}_j & = & B (A \, {\bf e}_j) 
+	(B \, A) {\bf e}_j & = & B (A \, {\bf e}_j) \quad\quad \text{$j \in [1,n]$} 
 \end{eqnarray}
 Or,
 \begin{eqnarray}
-	({\bf B} \, {\bf A})^j & = & B  {\bf A}^j 
+	({\bf B} \, {\bf A})^j & = & B  {\bf A}^j \quad\quad \text{$j \in [1, n]$}
 \end{eqnarray}
 For any given, $i$, the $i^{\rm th}$ entry of the left and right hand side is
 (after using the definition of matrix/vector multiplication, $(\ref{matrix-vector-mult})$ on the right hand side)
 \begin{eqnarray}
-	\left[({\bf B} \, {\bf A})^j\right]_i & = & \sum_{k=1}^n B_{i,k}  \left[{\bf A}^j\right]_k  \quad \forall i \in [1, n]
+	\left[({\bf B} \, {\bf A})^j\right]_i & = & \sum_{k=1}^n B_{i,k}  \left[{\bf A}^j\right]_k  \quad \forall i,j \quad i \in [1, n] \wedge j \in [1.n]
 \end{eqnarray}
 Using $(\ref{vec-matrix-index})$ on the left and right hand sides of the previous equation we have
 \begin{eqnarray}
-	(B \, A)_{i, j} & = & \sum_{k=1}^n B_{i, k}  A_{k, j}  \label{matrix-matrix-mult}
+	(B \, A)_{i, j} & = & \sum_{k=1}^n B_{i, k}  A_{k, j}  \quad \forall i,j \quad i \in [1, n] \wedge j \in [1.n] \label{matrix-matrix-mult}
 \end{eqnarray}
-And we are done, we have shown what the new matrix, $B \, A$ is by showing what every entry, $i, j$ of
+And we are done, we have shown what the new matrix, $B \, A$ is by showing what every entry, $(B\, A)_{i, j}$, of
 the new matrix is.
-So using this set of vectors, $\{{\bf e}_j\}_{j=1}^n$, we have completely determined what 
+So using the set of vectors, $\{{\bf e}_j\}_{j=1}^n$, we have completely determined what 
 the matrix multiplication of $B \, A$ is in order that matrix/matrix multiplication be 
 associative when using these vectors. Does this mean that associativity works for 
 {\em arbitrary\/} vectors? The answer is yes and this is because of the linearity of
@@ -245,14 +245,14 @@ Matrix multiply the left and right hand sides by the matrix, $B\,A$. This gives
 In the above calculations, we applied our new matrix, $(B \, A)$ to an arbitrary ${\bf x}$, and 
 used the {\em linearity\/} of matrix/vector multiplication and the {\em associativity\/}
 of matrix/matrix multiplication on the components, to show that matrix/matrix
-multiplication, as we have defined it, is associative -- irrespective of the input.
+multiplication, as we have defined it, is associative -- irrespective of the input vector.
 
 The next order of business is to identify an $n \times n$ matrix which serves as an
 identity (in terms of matrix/vector multiplication).
 Let us suppose that we have such a matrix and let's call it $I$.
 Then we must have $I \, {\bf x} = {\bf x} \quad \forall {\bf x} \in R^n$. 
-Then, it is not hard
-to see that $I \, {\bf e}_{j} = {\bf e}_j \quad \forall j \in [1, n]$. 
+Then, in particular,  
+$I \, {\bf e}_{j} = {\bf e}_j \quad \forall j \in [1, n]$. 
 However, we know that $I \, {\bf e}_j = I^j$. Therefore, $I$
 must have the property that ${\bf I^j} = {\bf e}_j$. Consequently, $I$ must have the form:
 \begin{eqnarray}
@@ -264,11 +264,11 @@ must have the property that ${\bf I^j} = {\bf e}_j$. Consequently, $I$ must have
         0 & 0 & 0 & 0 & \ddots & 0 \\
         0 & 0 & 0 & 0 & \cdots & 1 \\
       \end{array}
-  \right]
+  \right] \label{identity-matrix}
 \end{eqnarray}
 We have shown that the only candidate for the identity matrix with respect to 
 matrix/vector multiplication is the matrix $I$. That is, if there is an 
-identity matrix, it must be $I$. Does it satisfy
+identity matrix, it must be the matrix of equation $(\ref{identity-matrix})$. Does it satisfy
 the property of being an identity matrix (again, in the matrix/vector multiplication world)?
 That is, do we have $I \, {\bf x} = {\bf x}$ for all ${\bf x} \in R^n$?
 As before, we can express ${\bf x}$ as: ${\bf x} = \sum_{j=1}^n c_j {\bf e}_j$.
