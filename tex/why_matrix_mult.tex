@@ -73,6 +73,25 @@ The multi-dimensional case can be rewritten in vector terms as:
                  \end{array}
    \right] \label{vector-form}
 \end{eqnarray}
+We can replace the tedious list of sums on the left hand side of the above
+with standard mathematical summing notation:
+\begin{eqnarray}
+  \left[
+  \begin{array}{c}
+	\sum_{j=1}^n a_{1, j} x_j \\ 
+	\sum_{j=1}^n a_{2, j} x_j \\ 
+	\cdots \\
+	\sum_{j=1}^n a_{n, j} x_j \\ 
+  \end{array}
+  \right] & = & \left[
+                 \begin{array}{c}
+                   b_1 \\
+                   b_2 \\
+                   \vdots \\
+                   b_n
+                 \end{array}
+   \right] \label{vector-form1}
+\end{eqnarray}
 Two things need to be done: treat the $x$'s as a unit -- as we did with the
 $b$'s -- and separate the $a$ coefficients from the $x$'s. This must be done formally
 and yet have the same meaning as the original problem formulation.
@@ -101,33 +120,39 @@ This is done in the most natural of ways:
                   \vdots \\
                   b_n
                 \end{array}
-  \right] \label{matrix-form}
+  \right] \label{matrix-form2}
 \end{eqnarray}
-Taking the rectangular collection (matrix) of $a$'s to be $A$; the (vector) collection
+Taking the rectangular collection (matrix) of $a$'s to be represented by 
+$A$; the (vector) collection
 of $x$'s to be ${\bf x}$; and the collection of the $b$'s to be ${\bf b}$;
-we may write $(\ref{matrix-form})$ as:
+we may write $(\ref{matrix-form2})$ as:%
+\footnote{In general, we use uppercase italic letters for matrices; lowercase bold italic letters
+for vectors; and lowercase italic letters for scalars.}
 \begin{eqnarray}
   A \, {\bf x} & = & {\bf b} \label{concise-matrix-form}
 \end{eqnarray}
 This now looks like the scalar problem, $(\ref{scalar-problem})$.
+Just as one writes $a \, x = b$, interpreting the proximity of $a$ and $x$ to mean
+multiplication, we want the proximity of $A$ and ${\bf x}$ to mean matrix/vector
+multiplication -- something we need to work out.
 
-We proceed to try solving using the solution procedure used above for the scalar case.
-In the process, we will need to:
+We proceed to try solving $(\ref{concise-matrix-form})$ using the solution 
+procedure used above for the scalar case. In the process, we need to:
 \begin{itemize}
     \item{Vectorize the input variable $x$ and the outputs $b$. -- {\bf Done}.}
-    \item{Define an, $a$, matrix. -- {\bf Done}.}
+    \item{Define an, ``$a$'', matrix. -- {\bf Done}.}
     \item{Define matrix-vector multiplication.}
     \item{Define matrix-matrix multiplication.}
     \item{Define the identity matrix.}
     \item{Define the inverse matrix.}
 \end{itemize}
+How do we make sense of this matrix/vector syntax on the left hand side of 
+$(\ref{concise-matrix-form})$? It should have
+the proper meaning; that is, $(\ref{matrix-form2})$
+should have the same meaning as $(\ref{vector-form1})$.
 
-How do we make sense of this matrix/vector syntax? It should have
-the proper meaning; that is, $(\ref{matrix-form})$
-should have the same meaning as $(\ref{vector-form})$.
-
-Examining $(\ref{matrix-form})$ and the left hand side of
-$(\ref{vector-form})$, gives us our definition of matrix/vector multiplication:
+Examining $(\ref{matrix-form2})$ and the left hand side of
+$(\ref{vector-form1})$, gives us our definition of matrix/vector multiplication:
 \begin{eqnarray}
   \left[A \, {\bf x}\right]_i & \equiv & \sum_{j=1}^n A_{ij} x_j
                                          \label{matrix-vector-mult}
@@ -158,7 +183,7 @@ $i^{\rm th}$ row,  $j^{\rm th}$ column of the matrix $A$.
 Before moving on with our outline, we note one very important property of 
 matrix/vector multiplication: It is {\em linear\/}.
 By that we mean the following:%
-\footnote{Here, we assume the reader has a passing knowledge of vector addition.}
+\footnote{Here, we assume the reader has a passing knowledge of how vectors are added and multiplied by scalars.}
 \begin{eqnarray}
 	A( a {\bf x} + b{\bf y} ) & = & a\, A{\bf x} + b\, A{\bf y}
 \end{eqnarray}
@@ -183,7 +208,7 @@ What we are imposing on matrix multiplication is that it be associative in the
 specific case of a matrix and its inverse. But this is not what happens in the scalar case;
 associativity works not just for a special case of multiplication, but for all numbers.
 We will forgo what the inverse of a matrix might mean and focus now on imposing the 
-condition that matrix/matrix multiplication be associative -- just as multiplication is for numbers. 
+condition that matrix/matrix multiplication be associative -- just as multiplication is for {\em all\/} numbers. 
 Specifically, the condition we impose is:
 \begin{eqnarray}
 	(B\, A) {\bf x} & = & B (A \, {\bf x}) \quad \forall {\bf x} \in R^n \label{ASSOC}
@@ -217,7 +242,8 @@ Or,
 	({\bf B} \, {\bf A})^j & = & B  {\bf A}^j \quad\quad \text{$j \in [1, n]$}
 \end{eqnarray}
 For any given, $i$, the $i^{\rm th}$ entry of the left and right hand side is
-(after using the definition of matrix/vector multiplication, $(\ref{matrix-vector-mult})$ on the right hand side)
+(after using the definition of matrix/vector 
+multiplication, $(\ref{matrix-vector-mult})$, on the right hand side)
 \begin{eqnarray}
 	\left[({\bf B} \, {\bf A})^j\right]_i & = & \sum_{k=1}^n B_{i,k}  \left[{\bf A}^j\right]_k  \quad \forall i,j \quad i \in [1, n] \wedge j \in [1.n]
 \end{eqnarray}
