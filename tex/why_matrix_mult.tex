@@ -183,7 +183,10 @@ $i^{\rm th}$ row,  $j^{\rm th}$ column of the matrix $A$.
 Before moving on with our outline, we note one very important property of 
 matrix/vector multiplication: It is {\em linear\/}.
 By that we mean the following:%
-\footnote{Here, we assume the reader has a passing knowledge of how vectors are added and multiplied by scalars.}
+\footnote{Here, we assume the reader has a passing knowledge of how vectors 
+are added and multiplied by scalars. Another way to say this is that matrix/vector
+multiplication {\em distributes\/} over scalar multiplication and vector addition.}
+
 \begin{eqnarray}
 	A( a {\bf x} + b{\bf y} ) & = & a\, A{\bf x} + b\, A{\bf y}
 \end{eqnarray}
@@ -206,9 +209,9 @@ Well, we need to make sense of:
 This involves the inverse of the matrix $A$, which we also need to define. 
 What we are imposing on matrix multiplication is that it be associative in the
 specific case of a matrix and its inverse. But this is not what happens in the scalar case;
-associativity works not just for a special case of multiplication, but for all numbers.
+associativity works not just for a special case of multiplication, but for {\em all\/} numbers.
 We will forgo what the inverse of a matrix might mean and focus now on imposing the 
-condition that matrix/matrix multiplication be associative -- just as multiplication is for {\em all\/} numbers. 
+condition that matrix/matrix multiplication be associative; meaning for {\em all\/} input vectors.
 Specifically, the condition we impose is:
 \begin{eqnarray}
 	(B\, A) {\bf x} & = & B (A \, {\bf x}) \quad \forall {\bf x} \in R^n \label{ASSOC}
@@ -216,7 +219,7 @@ Specifically, the condition we impose is:
 Notice that we are imposing what matrix/matrix multiplication is by saying how the 
 new matrix formed, $B \, A$, acts on an {\em arbitrary\/} vector, ${\bf x}$. And we 
 specify that action by the right hand side of $(\ref{ASSOC})$, which involves only matrix/vector
-multiplication -- something we already know.
+multiplication -- something we have defined.
 
 We want to emphasize that this is a strong condition to impose; meaning, that the 
 requirement that this is true for {\em all\/} ${\bf x}$ gives us a lot to work with.
@@ -262,15 +265,15 @@ of the vectors $\{{\bf e}_j\}_{j=1}^n$: ${\bf x} = a_1 {\bf e}_1 + a_2 {\bf e_2}
 Matrix multiply the left and right hand sides by the matrix, $B\,A$. This gives
 \begin{eqnarray}
 	(B\, A){\bf x} & = & (B \, A)\left(\sum_{j=1}^n a_j {\bf e}_j\right) \quad\quad \text{Replace ${\bf x}$ with its components.}\nonumber \\
-				   & = &\sum_{j=1}^n a_j (B \, A){\bf e}_j \quad\quad \text{{\em Linearity\/} of matrix, $(B \, A)$.}\nonumber \\
-				   & = &\sum_{j=1}^n a_j B (A{\bf e}_j) \quad\quad \text{{\em Associativity\/} of matrix multiplication on ${\bf e}_j$.}\nonumber \\
-				   & = &B\left(\sum_{j=1}^n a_j A{\bf e}_j\right) \quad\quad \text{{\em Linearity\/} of matrix $B$.}\nonumber \\
-				   & = &B\left( A\left(\sum_{j=1}^n a_j {\bf e}_j\right)\right) \quad\quad \text{{\em Linearity\/} of matrix $A$.}\nonumber \\
+				   & = &\sum_{j=1}^n a_j (B \, A){\bf e}_j \quad\quad \text{{\em Linearity\/} of matrix/vector multiplication by $(B \, A)$.}\nonumber \\
+				   & = &\sum_{j=1}^n a_j B (A{\bf e}_j) \quad\quad \text{{\em Associativity\/} of matrix/matrix multiplication on ${\bf e}_j$.}\nonumber \\
+				   & = &B\left(\sum_{j=1}^n a_j A{\bf e}_j\right) \quad\quad \text{{\em Linearity\/} of matrix/vector multiplication by $B$.}\nonumber \\
+				   & = &B\left( A\left(\sum_{j=1}^n a_j {\bf e}_j\right)\right) \quad\quad \text{{\em Linearity\/} of matrix/vector multiplication by  $A$.}\nonumber \\
 				   & = &B( A {\bf x}) \quad\quad \text{Replace components with ${\bf x}$.}
 \end{eqnarray}
 In the above calculations, we applied our new matrix, $(B \, A)$ to an arbitrary ${\bf x}$, and 
 used the {\em linearity\/} of matrix/vector multiplication and the {\em associativity\/}
-of matrix/matrix multiplication on the components, to show that matrix/matrix
+of matrix/matrix multiplication on the components, $\{{\bf e}_j\}_{j=1}^n$, to show that matrix/matrix
 multiplication, as we have defined it, is associative -- irrespective of the input vector.
 
 The next order of business is to identify an $n \times n$ matrix which serves as an
