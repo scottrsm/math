@@ -79,16 +79,16 @@ with standard mathematical summing notation:
 \begin{eqnarray}
   \left[
   \begin{array}{c}
-	\sum_{j=1}^n a_{1, j} x_j \\ 
-	\sum_{j=1}^n a_{2, j} x_j \\ 
+	\sum_{j=1}^n a_{1j} x_j        \\ 
+	\sum_{j=1}^n a_{2j} x_j        \\ 
   \specialcell{\hfill\vdots\hfill} \\
-	\sum_{j=1}^n a_{n, j} x_j \\ 
+	\sum_{j=1}^n a_{nj} x_j        \\ 
   \end{array}
   \right] & = & \left[
                  \begin{array}{c}
-                   b_1 \\
-                   b_2 \\
-                   \vdots \\
+                   b_1     \\
+                   b_2     \\
+                   \vdots  \\
                    b_n
                  \end{array}
    \right] \label{vector-form1}
@@ -100,24 +100,24 @@ This is done in the most natural of ways:
 \begin{eqnarray}
   \left[
   \begin{array}{cccc}
-    a_{11} & a_{12} & \cdots & a_{1n} \\
-    a_{21} & a_{22} & \cdots & a_{2n} \\
-		   && \specialcell{\hfill\vdots\hfill}& \\
-    a_{n1} & a_{n2} & \cdots & a_{nn} \\
+    a_{11} & a_{12} & \cdots & a_{1n}     \\
+	a_{21} & a_{22} & \cdots & a_{2n}     \\
+	&& \specialcell{\hfill\vdots\hfill} & \\
+    a_{n1} & a_{n2} & \cdots & a_{nn}     \\
     \end{array}
   \right]
   \left[
   \begin{array}{c}
-    x_1 \\
-    x_2 \\
+    x_1    \\
+    x_2    \\
     \vdots \\
     x_n
   \end{array}
   \right] & = &
                 \left[
                 \begin{array}{c}
-                  b_1 \\
-                  b_2 \\
+                  b_1    \\
+                  b_2    \\
                   \vdots \\
                   b_n
                 \end{array}
@@ -168,22 +168,69 @@ $(\ref{vector-form1})$, gives us our definition of matrix/vector multiplication:
 \end{eqnarray}
 That is, $A$ acts on a vector, ${\bf x}$, to create a new vector, $A \, {\bf x}$,
 whose $i^{\rm th}$ entry is the $i^{\rm th}$ entry of
-the left hand side of $(\ref{vector-form})$.
+the left hand side of $(\ref{vector-form1})$.
 
 Another way to write this is:
 \begin{eqnarray}
 A {\bf x} & = & \sum_{j=1}^n x_j {\bf A}^j
 \end{eqnarray}
-Here, ${\bf A}^j$ is the $j^{\rm th}$ column vector of $A$. Applying $A$ to the special
+Here, ${\bf A}^j$ is the $j^{\rm th}$ column vector of $A$. 
+
+This can be seen by writing $(\ref{vector-form})$ as:%
+\footnote{Here, we assume the reader has a passing knowledge of how vectors 
+are added and multiplied by scalars.}
+\begin{eqnarray}
+  \begin{array}{ccc}
+	  x_1 \left[ \begin{array}{c}
+			  a_{11} \\
+			  a_{21} \\
+		  	  \vdots \\
+			  a_{n1}
+		     \end{array}
+	      \right]
+		  +  
+	  x_2 \left[ \begin{array}{c}
+			  a_{12} \\
+			  a_{22} \\
+		  	  \vdots \\
+			  a_{n2}
+		     \end{array}
+	      \right]
+		  + \; \cdots \;
+		  + 
+	  x_n \left[ \begin{array}{c}
+			  a_{1n} \\
+			  a_{2n} \\
+		  	  \vdots \\
+			  a_{nn}
+		     \end{array}
+	      \right]
+	  & = &
+                \left[
+                \begin{array}{c}
+                  b_1    \\
+                  b_2    \\
+                  \vdots \\
+                  b_n
+                \end{array}
+  \right] 
+  \end{array} \label{matrix-form3}
+\end{eqnarray}
+
+From this we can see that matrix/vector multiplication of $A$ on ${\bf x}$ is
+a ``weighted'' combination of the columns of $A$ using the elements of ${\bf x}$
+as the weights. Notice that if we pick an ``${\bf x}$'' with all of the weight 
+concentrated on the $j^{\rm th}$ entry, then matrix/vector multiplication on this 
+specific vector yields the $j^{\rm th}$ 
+column of $A$, ${\bf A}^j$. Specifically, applying $A$ to the special
 vectors, ${\bf e}_j$
 -- which are $0$ everywhere except at $j$ where they are $1$ --
 we see that $A \, {\bf e}_j = {\bf A}^j$. 
-Consequently, this matrix/vector
-multiplication determines $A$ uniquely
--- if there is another matrix, its columns would have to match $A$.
-From this we can see that matrix/vector multiplication of $A$ on ${\bf x}$ is
-a ``weighted'' combination of the columns of $A$ using the elements of ${\bf x}$
-as the weights.
+Consequently, matrix/vector multiplication on this set of vectors
+uniquely determines $A$
+-- if there is another matrix that gives the same result for these vectors with
+respect to matrix/vector multiplication, 
+its columns would have to match $A$.
 
 We note the following for future reference.
 \begin{eqnarray}
@@ -195,9 +242,8 @@ $i^{\rm th}$ row,  $j^{\rm th}$ column of the matrix $A$.
 Before moving on with our outline, we note one very important property of 
 matrix/vector multiplication: It is {\em linear\/}.
 By that we mean the following:%
-\footnote{Here, we assume the reader has a passing knowledge of how vectors 
-are added and multiplied by scalars. You might ask: ``How did someone think up such a 
-strange property?''. But it is not strange, it is what one might hope for, as all we
+\footnote{You might ask: ``How did someone think up such a 
+strange property?'' But it is not strange, it is what one might hope for, as all we
 are saying is that matrix/vector multiplication works the same way that ordinary {\em scalar\/} 
 multiplication does -- it {\em distributes\/} over addition and scalar multiplication.} 
 
@@ -274,7 +320,8 @@ So using the set of vectors, $\{{\bf e}_j\}_{j=1}^n$, we have completely determi
 the matrix multiplication of $B \, A$ is in order that matrix/matrix multiplication be 
 associative when using these vectors. Does this mean that associativity works for 
 {\em arbitrary\/} vectors? The answer is yes and this is because of the linearity of
-matrix/vector multiplication. Any given ${\bf x}$ can be written as a {\em linear combination\/}
+matrix/vector multiplication. Any given ${\bf x}$ can be written as a {\em linear combination\/}%
+\footnote{Again, we assume the reader is familiar with expanding a vector in terms of the standard basis vectors.}
 of the vectors $\{{\bf e}_j\}_{j=1}^n$: ${\bf x} = a_1 {\bf e}_1 + a_2 {\bf e_2} + \cdots + a_n {\bf e}_n$.
 Matrix multiply the left and right hand sides by the matrix, $B\,A$. This gives
 \begin{eqnarray}
@@ -288,7 +335,7 @@ Matrix multiply the left and right hand sides by the matrix, $B\,A$. This gives
 In the above calculations, we applied our new matrix, $(B \, A)$ to an arbitrary ${\bf x}$, and 
 used the {\em linearity\/} of matrix/vector multiplication and the {\em associativity\/}
 of matrix/matrix multiplication on the components, $\{{\bf e}_j\}_{j=1}^n$, to show that matrix/matrix
-multiplication, as we have defined it, is associative -- irrespective of the input vector.
+multiplication, as we have defined it, is associative -- {\em irrespective\/} of the input vector.
 
 The next order of business is to identify an $n \times n$ matrix which serves as an
 identity (in terms of matrix/vector multiplication).
@@ -334,10 +381,10 @@ and its vectorized cousin.
 
 \section{Qualitative Features of Solutions}
 We can view the multiplication of two numbers, $a$ and $x$, as just that.
-Or, we can think of $a$ being fixed and letting $x$ "run-through" all 
+Or, we can think of $a$ being fixed and letting $x$ ``run-through'' all 
 numbers. Here we see two cases: if $a \neq 0$, then letting $x$ run
 through all of the numbers in $R$ will produce all of the numbers in $R$.
-We could think of $a$ as an "operator" and call the set of all possible 
+We could think of $a$ as an ``operator'' and call the set of all possible 
 outputs, the range of $a$ and denote it: ${\cal R}(a)$.
 There is another case, $a$ could be zero. In this case it's range is the
 set $\{0\}$. In the first case, with non-zero $a$ it is clear that we can
