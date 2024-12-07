@@ -1,12 +1,13 @@
 \documentclass{article}
-% \usepackage{fonttable,textcomp}
-% \usepackage[T1]{fontenc}
-% \usepackage{NewYorker}
 \usepackage{amsmath,amscd}
+
+\makeatletter
+\newcommand{\specialcell}[1]{\ifmeasuring@#1\else\omit$\displaystyle#1$\ignorespaces\fi}
+\makeatother
 
 \title{Origins of Matrix/Vector and Matrix/Matrix Multiplication}
 \author{R. Scott McIntire}
-\date{Dec 6, 2024}
+\date{Dec 7, 2024}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -46,7 +47,7 @@ With this in mind, the multi-dimensional linear problem can be written:
 \begin{eqnarray*}
   a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n & = & b_1 \\
   a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n & = & b_2 \\
-  \cdots & = & \cdots \\
+  \specialcell{\hfil\cdots\hfil} & = & \vdots \\
   a_{n1} x_1 + a_{n2} x_2 + \cdots + a_{nn} x_n & = & b_n 
 \end{eqnarray*}
 Here, $a_{ij}$ is the coefficient in the $i^{\rm th}$ row and $j^{\rm th}$ column.
@@ -58,11 +59,11 @@ a single unit. Our single unit will be the {\em vector\/} of the $b$'s.
 The multi-dimensional case can be rewritten in vector terms as:
 \begin{eqnarray}
   \left[
-  \begin{array}{c}
-  a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n \\
-  a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n \\
-  \cdots  \\
-    a_{n1} x_1 + a_{n2} x_2 + \cdots + a_{nn} x_n
+	  \begin{array}{c}
+	  a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n  \\
+	  a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n \\
+  \specialcell{\hfil\vdots\hfil}  \\
+  a_{n1} x_1 + a_{n2} x_2 + \cdots + a_{nn} x_n 
   \end{array}
   \right] & = & \left[
                  \begin{array}{c}
@@ -80,7 +81,7 @@ with standard mathematical summing notation:
   \begin{array}{c}
 	\sum_{j=1}^n a_{1, j} x_j \\ 
 	\sum_{j=1}^n a_{2, j} x_j \\ 
-	\cdots \\
+  \specialcell{\hfill\vdots\hfill} \\
 	\sum_{j=1}^n a_{n, j} x_j \\ 
   \end{array}
   \right] & = & \left[
@@ -101,7 +102,7 @@ This is done in the most natural of ways:
   \begin{array}{cccc}
     a_{11} & a_{12} & \cdots & a_{1n} \\
     a_{21} & a_{22} & \cdots & a_{2n} \\
-    \vdots \\
+		   && \specialcell{\hfill\vdots\hfill}& \\
     a_{n1} & a_{n2} & \cdots & a_{nn} \\
     \end{array}
   \right]
@@ -146,8 +147,16 @@ procedure used above for the scalar case. In the process, we need to:
     \item{Define the identity matrix.}
     \item{Define the inverse matrix.}
 \end{itemize}
+Here, in our new notation, is what the solution outline looks like for the multi-dimensional problem:
+\begin{eqnarray}
+	A \, {\bf x} & = & {\bf b} \label{concise-matrix-form2}\\
+	A^{-1} ( A \, {\bf x} ) & = & A^{-1} {\bf b} \quad \quad \text{(Matrix/vector multiply the vector equation by $A$ Inverse)} \label{inv-vec} \\
+	(A^{-1} A) {\bf x} & = & A^{-1} {\bf b} \quad \quad \text{(Use associativity of matrix/matrix multiplication)} \label{assoc-vec} \\
+	I \, {\bf x} & = & A^{-1} {\bf b} \quad \quad \text{(What Inverse matrix/matrix multiplication does)} \label{inv-mult-vec} \\
+	{\bf x} & = & A^{-1} {\bf b} \quad \quad \text{(What identity matrix/vector multiplication does)} \label{identity-vec}
+\end{eqnarray}
 How do we make sense of this matrix/vector syntax on the left hand side of 
-$(\ref{concise-matrix-form})$? It should have
+$(\ref{concise-matrix-form2})$? It should have
 the proper meaning; that is, $(\ref{matrix-form2})$
 should have the same meaning as $(\ref{vector-form1})$.
 
@@ -163,7 +172,7 @@ the left hand side of $(\ref{vector-form})$.
 
 Another way to write this is:
 \begin{eqnarray}
-  A {\bf x} & = & \sum_{j=1}^n x_j {\bf A}^j
+A {\bf x} & = & \sum_{j=1}^n x_j {\bf A}^j
 \end{eqnarray}
 Here, ${\bf A}^j$ is the $j^{\rm th}$ column vector of $A$. Applying $A$ to the special
 vectors, ${\bf e}_j$
@@ -172,6 +181,9 @@ we see that $A \, {\bf e}_j = {\bf A}^j$.
 Consequently, this matrix/vector
 multiplication determines $A$ uniquely
 -- if there is another matrix, its columns would have to match $A$.
+From this we can see that matrix/vector multiplication of $A$ on ${\bf x}$ is
+a ``weighted'' combination of the columns of $A$ using the elements of ${\bf x}$
+as the weights.
 
 We note the following for future reference.
 \begin{eqnarray}
@@ -184,8 +196,10 @@ Before moving on with our outline, we note one very important property of
 matrix/vector multiplication: It is {\em linear\/}.
 By that we mean the following:%
 \footnote{Here, we assume the reader has a passing knowledge of how vectors 
-are added and multiplied by scalars. Another way to say this is that matrix/vector
-multiplication {\em distributes\/} over scalar multiplication and vector addition.}
+are added and multiplied by scalars. You might ask: ``How did someone think up such a 
+strange property?''. But it is not strange, it is what one might hope for, as all we
+are saying is that matrix/vector multiplication works the same way that ordinary {\em scalar\/} 
+multiplication does -- it {\em distributes\/} over addition and scalar multiplication.} 
 
 \begin{eqnarray}
 	A( a {\bf x} + b{\bf y} ) & = & a\, A{\bf x} + b\, A{\bf y}
@@ -194,14 +208,14 @@ One can show this from our definition of matrix/vector multiplication which we
 leave to the reader. What this means in practice is that for a given vector, ${\bf z} = a{\bf x} + b{\bf y}$,
 we can compute $A {\bf z}$ by computing $A$ on the ``components'' of ${\bf z}$ and then multiplying by scalars and adding
 the resulting vectors.
-This can be an easier way to compute the action of a matrix on a vector in some cases.
+This can be an easier way to compute the {\em action\/} of a matrix on a vector in some cases.
 The linearity result above can be extended to arbitrary sums as:
 \begin{eqnarray}
 	A\left( \sum_{j=1}^n c_j {\bf x}_j \right) & = & \sum_{j=1}^n c_j A {\bf x}_j \label{linearity}
 \end{eqnarray}
 
 Continuing with our solution outline, matrix/matrix multiplication is needed
-to go from equation $(\ref{inv})$ to $(\ref{assoc})$. How must this be defined?
+to go from equation $(\ref{inv-vec})$ to $(\ref{assoc-vec})$. How must this be defined?
 Well, we need to make sense of:
 \begin{eqnarray}
   (A^{-1} A) {\bf x} & = & A^{-1} (A \, {\bf x}) 
@@ -254,7 +268,7 @@ Using $(\ref{vec-matrix-index})$ on the left and right hand sides of the previou
 \begin{eqnarray}
 	(B \, A)_{i, j} & = & \sum_{k=1}^n B_{i, k}  A_{k, j}  \quad \forall i,j \quad i \in [1, n] \wedge j \in [1.n] \label{matrix-matrix-mult}
 \end{eqnarray}
-And we are done, we have shown what the new matrix, $B \, A$ is by showing what every entry, $(B\, A)_{i, j}$, of
+And we are done, we have shown what the new matrix, $B \, A$, is by showing what every entry, $(B\, A)_{i, j}$, of
 the new matrix is.
 So using the set of vectors, $\{{\bf e}_j\}_{j=1}^n$, we have completely determined what 
 the matrix multiplication of $B \, A$ is in order that matrix/matrix multiplication be 
@@ -282,7 +296,7 @@ Let us suppose that we have such a matrix and let's call it $I$.
 Then we must have $I \, {\bf x} = {\bf x} \quad \forall {\bf x} \in R^n$. 
 Then, in particular,  
 $I \, {\bf e}_{j} = {\bf e}_j \quad \forall j \in [1, n]$. 
-However, we know that $I \, {\bf e}_j = I^j$. Therefore, $I$
+However, we know that $I \, {\bf e}_j = {\bf I}^j$. Therefore, $I$
 must have the property that ${\bf I^j} = {\bf e}_j$. Consequently, $I$ must have the form:
 \begin{eqnarray}
   I & = & \left[
@@ -290,7 +304,8 @@ must have the property that ${\bf I^j} = {\bf e}_j$. Consequently, $I$ must have
         1 & 0 & 0 & 0 & \cdots & 0 \\
         0 & 1 & 0 & 0 & \cdots & 0 \\
         0 & 0 & 1 & 0 & \cdots & 0 \\
-        0 & 0 & 0 & 0 & \ddots & 0 \\
+		  &&&&\specialcell{\hfil\ddots\hfil}  & \vdots  \\
+        0 & 0 & 0 & 0 & \cdots & 0 \\
         0 & 0 & 0 & 0 & \cdots & 1 \\
       \end{array}
   \right] \label{identity-matrix}
