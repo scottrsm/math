@@ -7,7 +7,7 @@
 
 \title{Origins of Matrix/Vector and Matrix/Matrix Multiplication}
 \author{R. Scott McIntire}
-\date{Dec 7, 2024}
+\date{Dec 13, 2024}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -36,9 +36,9 @@ Here is a very explicit solution keeping an eye towards generalization.
 \begin{eqnarray}
   a \, x & = & b \\
   a^{-1} ( a \, x ) & = & a^{-1} b \quad \quad \text{(Multiply by Inverse)} \label{inv} \\
-  (a^{-1} a) x & = & a^{-1} b \quad \quad \text{(Use associativity of multiplication)} \label{assoc} \\
+  (a^{-1} a) x & = & a^{-1} b \quad \quad \text{(Use Associativity of multiplication)} \label{assoc} \\
   1 \, x & = & a^{-1} b \quad \quad \text{(What Inverse multiplication does)} \label{inv-mult} \\
-  x & = & a^{-1} b \quad \quad \text{(What identity multiplication does)} \label{identity}
+  x & = & a^{-1} b \quad \quad \text{(What Identity multiplication does)} \label{identity}
 \end{eqnarray}
 
 The multi-dimensional problem has a lot more variables and coefficients.
@@ -132,6 +132,8 @@ for vectors; and lowercase italic letters for scalars.}
 \begin{eqnarray}
   A \, {\bf x} & = & {\bf b} \label{concise-matrix-form}
 \end{eqnarray}
+Here, $A$, represents the ``matrix'' of the $a$'s, with $A_{i,j} = a_ij$; meaning, that the
+$i^{\rm th}$ row and $j^{\rm th}$ column of $A$ is $a_{ij}$.
 This now looks like the scalar problem, $(\ref{scalar-problem})$.
 Just as one writes $a \, x = b$, interpreting the proximity of $a$ and $x$ to mean
 multiplication, we want the proximity of $A$ and ${\bf x}$ to mean matrix/vector
@@ -153,9 +155,9 @@ Here, in our new notation, is what the solution outline looks like for the multi
 \begin{eqnarray}
 	A \, {\bf x} & = & {\bf b} \label{concise-matrix-form2}\\
 	A^{-1} ( A \, {\bf x} ) & = & A^{-1} {\bf b} \quad \quad \text{(Matrix/vector multiply the vector equation by $A$ Inverse)} \label{inv-vec} \\
-	(A^{-1} A) {\bf x} & = & A^{-1} {\bf b} \quad \quad \text{(Use associativity of matrix/matrix multiplication)} \label{assoc-vec} \\
+	(A^{-1} A) {\bf x} & = & A^{-1} {\bf b} \quad \quad \text{(Use Associativity of matrix/matrix multiplication)} \label{assoc-vec} \\
 	I \, {\bf x} & = & A^{-1} {\bf b} \quad \quad \text{(What Inverse matrix/matrix multiplication does)} \label{inv-mult-vec} \\
-	{\bf x} & = & A^{-1} {\bf b} \quad \quad \text{(What identity matrix/vector multiplication does)} \label{identity-vec}
+	{\bf x} & = & A^{-1} {\bf b} \quad \quad \text{(What Identity matrix/vector multiplication does)} \label{identity-vec}
 \end{eqnarray}
 How do we make sense of this matrix/vector syntax on the left hand side of 
 $(\ref{concise-matrix-form2})$? It should have
@@ -174,7 +176,7 @@ the left hand side of $(\ref{vector-form1})$.
 
 Another way to write this is:
 \begin{eqnarray}
-A {\bf x} & = & \sum_{j=1}^n x_j {\bf A}^j
+	A {\bf x} & = & \sum_{j=1}^n x_j {\bf A}^j \label{mult-as-vec-combo}
 \end{eqnarray}
 Here, ${\bf A}^j$ is the $j^{\rm th}$ column vector of $A$. 
 
@@ -247,7 +249,7 @@ By that we mean the following:%
 \footnote{You might ask: ``How did someone think up such a 
 strange property?'' But it is not strange, it is what one might hope for, as all we
 are saying is that matrix/vector multiplication works the same way that ordinary {\em scalar\/} 
-multiplication does -- it {\em distributes\/} over addition and scalar multiplication.} 
+multiplication does -- it {\em distributes\/} through addition and scalar multiplication.} 
 
 \begin{eqnarray}
 	A( a {\bf x} + b{\bf y} ) & = & a\, A{\bf x} + b\, A{\bf y}
@@ -273,7 +275,7 @@ What we are imposing on matrix multiplication is that it be associative in the
 specific case of a matrix and its inverse. But this is not what happens in the scalar case;
 associativity works not just for a special case of multiplication, but for {\em all\/} numbers.
 We will forgo what the inverse of a matrix might mean and focus now on imposing the 
-condition that matrix/matrix multiplication be associative; meaning for {\em all\/} input vectors.
+condition that matrix/matrix multiplication be associative; meaning, associative for {\em all\/} input vectors.
 Specifically, the condition we impose is:
 \begin{eqnarray}
 	(B\, A) {\bf x} & = & B (A \, {\bf x}) \quad \forall {\bf x} \in R^n \label{ASSOC}
@@ -310,7 +312,7 @@ For any given, $i$, the $i^{\rm th}$ entry of the left and right hand side is
 (after using the definition of matrix/vector 
 multiplication, $(\ref{matrix-vector-mult})$, on the right hand side)
 \begin{eqnarray}
-	\left[({\bf B} \, {\bf A})^j\right]_i & = & \sum_{k=1}^n B_{i,k}  \left[{\bf A}^j\right]_k  \quad \forall i,j \quad i \in [1, n] \wedge j \in [1.n]
+	\left[({\bf B} \, {\bf A})^j\right]_i & = & \sum_{k=1}^n B_{i,k}  \left[{\bf A}^j\right]_k  \quad \forall i,j \quad i,j \in [1, n]
 \end{eqnarray}
 Using $(\ref{vec-matrix-index})$ on the left and right hand sides of the previous equation we have
 \begin{eqnarray}
@@ -327,9 +329,9 @@ matrix/vector multiplication. Any given ${\bf x}$ can be written as a {\em linea
 of the vectors $\{{\bf e}_j\}_{j=1}^n$: ${\bf x} = a_1 {\bf e}_1 + a_2 {\bf e_2} + \cdots + a_n {\bf e}_n$.
 Matrix multiply the left and right hand sides by the matrix, $B\,A$. This gives
 \begin{eqnarray}
-	(B\, A){\bf x} & = & (B \, A)\left(\sum_{j=1}^n a_j {\bf e}_j\right) \quad\quad \text{Replace ${\bf x}$ with its components.}\nonumber \\
+	(B\, A){\bf x} & = & (B \, A)\left(\sum_{j=1}^n a_j {\bf e}_j\right) \quad\quad \text{Replace ${\bf x}$ with its components, ${\bf e}_j$.}\nonumber \\
 				   & = &\sum_{j=1}^n a_j (B \, A){\bf e}_j \quad\quad \text{{\em Linearity\/} of matrix/vector multiplication by $(B \, A)$.}\nonumber \\
-				   & = &\sum_{j=1}^n a_j B (A{\bf e}_j) \quad\quad \text{{\em Associativity\/} of matrix/matrix multiplication on ${\bf e}_j$.}\nonumber \\
+				   & = &\sum_{j=1}^n a_j B (A{\bf e}_j) \quad\quad \text{{\em Associativity\/} of matrix/matrix multiplication on components, ${\bf e}_j$.}\nonumber \\
 				   & = &B\left(\sum_{j=1}^n a_j A{\bf e}_j\right) \quad\quad \text{{\em Linearity\/} of matrix/vector multiplication by $B$.}\nonumber \\
 				   & = &B\left( A\left(\sum_{j=1}^n a_j {\bf e}_j\right)\right) \quad\quad \text{{\em Linearity\/} of matrix/vector multiplication by  $A$.}\nonumber \\
 				   & = &B( A {\bf x}) \quad\quad \text{Replace components with ${\bf x}$.}
@@ -367,9 +369,9 @@ That is, do we have $I \, {\bf x} = {\bf x}$ for all ${\bf x} \in R^n$?
 As before, we can express ${\bf x}$ as: ${\bf x} = \sum_{j=1}^n c_j {\bf e}_j$.
 By the {\em linearity\/} of matrix/vector multiplication, we have
 \begin{eqnarray}
-	I {\bf x} & = & I\left( \sum_{j=1}^n c_j {\bf e}_j \right)  \quad\quad \text{Replace ${\bf x}$ with components.} \nonumber \\
+	I {\bf x} & = & I\left( \sum_{j=1}^n c_j {\bf e}_j \right)  \quad\quad \text{Replace ${\bf x}$ with components, ${\bf e}_j$.} \nonumber \\
 							 & = & \sum_{j=1}^n c_j  I{\bf e}_j \quad\quad \text{{\em Linearity\/} of matrix/vector multiplication.} \nonumber \\
-							 & = & \sum_{j=1}^n c_j {\bf e}_j \quad\quad \text{{\em Identity\/} of $I$ on components.}\nonumber \\
+							 & = & \sum_{j=1}^n c_j {\bf e}_j \quad\quad \text{{\em Identity\/} of $I$ on components, ${\bf e}_j$.}\nonumber \\
 							 & = & {\bf x} \quad\quad \text{Replace components with ${\bf x}$.}
 \end{eqnarray}
 One can show that this identity matrix, $I$, is also the identity operator for
@@ -392,11 +394,14 @@ There is another case, $a$ could be zero. In this case it's range is the
 set $\{0\}$. In the first case, with non-zero $a$ it is clear that we can
 find an $x$ to ``hit'' a given value $b$. That is, we can solve $a\, x = b$.
 
-One can define the same concept for a matrix, $A$. Using this language
+One can define the same concept for a matrix, $A$. In this case, we produce a 
+``space'' of all possible outputs of $A$ ``acting'' using all possible input vectors; 
+that is, all $x \in R^n$. This amount to, using $(\ref{mult-as-vec-combo})$, the set of all 
+{\em linear combinations\/} of the columns of $A$. Using this language
 of ranges, here is what we can say about the scalar problem: $a \, x = b$.
 \begin{description}
-    \item[Unique Solution:]{If $a^{-1}$ exists ($a \neq 0$), $b$ is any number (that is: $(b \in {\cal R}(a))$}
-		then there is a {\bf unique\/} solution.
+	\item[Unique Solution:]{If $a^{-1}$ exists ($a \neq 0$), 
+		then there is a {\bf unique\/} solution.}
 \item[No Solution:]{If $a^{-1}$ does not exist (i.e., $a = 0$) {\em AND\/}
 	$b$ is {\bf not\/} in the range of $a$ (that is: $b \ne 0$), then there is {\bf no\/} solution.}
 \item[Infinite Solutions:]{If $a^{-1}$ does not exist (i.e., $a = 0$) {\em BUT\/}
@@ -406,7 +411,7 @@ of ranges, here is what we can say about the scalar problem: $a \, x = b$.
 
 Here is the analog of this solution categorization for the multi-dimensional case: $A \, {\bf x} = {\bf b}$.
 \begin{description}
-	\item[Unique Solution:]{If $A^{-1}$ exists, ${\bf b\/}$ is in the range of $A$ (${\bf b} \in R(A)$)
+	\item[Unique Solution:]{If $A^{-1}$ exists, 
 		then there is a {\bf unique\/} solution.}
 \item[No Solution:]{If $A^{-1}$ does not exist {\em AND\/}
 	${\bf b\/}$ is not in the range of $A$ (that is ${\bf b} \notin {\cal R}(A)$),
