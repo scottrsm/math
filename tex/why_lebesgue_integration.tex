@@ -129,21 +129,24 @@ It is easy to see that each $g_n$ is a {\em representation\/} of the function $f
 that is, $f \equiv g_n$.
 
 Note the following facts:
-\begin{eqnarray*}
-	\int_0^1 S_{i}(x) I_{E_{i,n}}(x)\, dx \le \overbrace{1}^{\text{Max Height}} * \overbrace{2\frac{1}{n2^{i}}}^{\text{Width of $E_{i,n}$}} 
-														  & = & \frac{1}{n2^{i-1}} \\
-  \sum_{i=1}^\infty \int_0^1 S_{i}(x) I_{E_{i,n}}(x)\, dx & \le & \sum_{i=1}^\infty\limits \frac{1}{n2^{i-1}}  \\ 
-														  & =  & \frac{2}{n} \sum_{i=1}^\infty\limits \frac{1}{2^{i}} \\
-													  	  & =  & \frac{2}{n}
- \end{eqnarray*}
+\begin{eqnarray}
+	\int_0^1 S_{i}(x) I_{E_{i,n}}(x)\, dx \le \int_{0}^1 I_{E_{i,n}}(x) \, dx & = & \frac{2}{n2^{i}} \nonumber \\
+	\int_0^1 f(x) \, dx = \int_0^1 g_n(x) \, dx & = & \int_0^1 \sum_{i=1}^\infty  S_{i}(x) I_{E_{i,n}}(x)\, dx  \label{sum-limit-exchange} \\
+												& = & \sum_{i=1}^\infty \int_0^1   S_{i}(x) I_{E_{i,n}}(x)\, dx \nonumber \\ 
+											    & \le & \sum_{i=1}^\infty\limits \frac{2}{n2^{i}}  \nonumber \\ 
+											    & =  & \frac{2}{n} \sum_{i=1}^\infty\limits \frac{1}{2^{i}} \nonumber \\
+											    & =  & \frac{2}{n} \nonumber
+ \end{eqnarray}
+
+For the sake of the argument above -- to get an upper bound on the integral of $f$ -- we are assuming that 
+$f(x)$ (and consequently, $g_n(x)$) are Riemann integrable and that we 
+can exchange the integral and sum in equation $(\ref{sum-limit-exchange})$.
 
 What does this say about the integral of $f$? 
-
-Therefore, given an $n \in {\cal N}^+$ for any partition of the interval, $[0,1]$, we can bound the integral of $f$ 
+We have given an $n \in {\cal N}^+$ for any partition of the interval, $[0,1]$, we can bound the integral of $f$ 
 (assuming it is Riemann integrable) by
 \begin{eqnarray*}
 	\int_0^1 f(x) \, dx & =   & \int_0^1 g_{n}(x) \, dx \\
-						& \le & \text{(Darboux Upper Sum)}(g_n)  \\
 						& \le & \sum_{i=1}^\infty 1 * \text{length}(I_{E_{i,n}}(x)) \\
 						& \le & \frac{2}{n}
 \end{eqnarray*}
@@ -165,7 +168,7 @@ It turns out that the answer is NO!
 If you look at any given partition of the domain, the approximating lower 
 and upper Darboux sums, are always 
 always $0$ and $1$ respectively. To see this, note that 
-over any sub-interval of the sums the minimum (infimum) value is always 0 and 
+over any sub-interval of the sums, the minimum (infimum) value is always 0 and 
 the maximum (supremum) is always 1 -- because on any interval there is always a 
 rational and an irrational number.
 
