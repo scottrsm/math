@@ -132,23 +132,22 @@ Note the following facts:
 \begin{eqnarray}
 	\int_0^1 S_{i}(x) I_{E_{i,n}}(x)\, dx \le \int_{0}^1 I_{E_{i,n}}(x) \, dx & = & \frac{2}{n2^{i}} \nonumber \\
 	\int_0^1 f(x) \, dx = \int_0^1 g_n(x) \, dx & = & \int_0^1 \sum_{i=1}^\infty  S_{i}(x) I_{E_{i,n}}(x)\, dx  \label{sum-limit-exchange} \\
-												& = & \sum_{i=1}^\infty \int_0^1   S_{i}(x) I_{E_{i,n}}(x)\, dx \nonumber \\ 
-											    & \le & \sum_{i=1}^\infty\limits \frac{2}{n2^{i}}  \nonumber \\ 
-											    & =  & \frac{2}{n} \sum_{i=1}^\infty\limits \frac{1}{2^{i}} \nonumber \\
-											    & =  & \frac{2}{n} \nonumber
+												& \le & \sum_{i=1}^\infty \int_0^1   S_{i}(x) I_{E_{i,n}}(x)\, dx  + O\left(\frac{1}{n}\right) \nonumber \\ 
+												& \le & \sum_{i=1}^\infty\limits \frac{2}{n2^{i}} + O\left(\frac{1}{n}\right) \nonumber \\ 
+												& =  & \frac{2}{n} \sum_{i=1}^\infty\limits \frac{1}{2^{i}}  + O(\frac{1}{n}) \nonumber \\
+												& =  & \frac{2}{n} + O\left(\frac{1}{n}\right) \nonumber
  \end{eqnarray}
 
 For the sake of the argument above -- to get an upper bound on the integral of $f$ -- we are assuming that 
 $f(x)$ (and consequently, $g_n(x)$) are Riemann integrable and that we 
-can exchange the integral and sum in equation $(\ref{sum-limit-exchange})$.
+can exchange the integral and sum in equation $(\ref{sum-limit-exchange})$ subject to, potentially, a small error of magnitude $O(\frac{1}{n})$.
 
 What does this say about the integral of $f$? 
 We have given an $n \in {\cal N}^+$ for any partition of the interval, $[0,1]$, we can bound the integral of $f$ 
 (assuming it is Riemann integrable) by
 \begin{eqnarray*}
 	\int_0^1 f(x) \, dx & =   & \int_0^1 g_{n}(x) \, dx \\
-						& \le & \sum_{i=1}^\infty 1 * \text{length}(I_{E_{i,n}}(x)) \\
-						& \le & \frac{2}{n}
+						& \le & \frac{2}{n} + O\left(\frac{1}{n}\right)
 \end{eqnarray*}
 
 Since this is true for all $n \in {\cal N}^+$, the integral of $f$ must be $\le 0$. 
