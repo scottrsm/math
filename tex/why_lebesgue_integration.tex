@@ -3,7 +3,7 @@
 
 \title{Why Lebesgue Integration}
 \author{R. Scott McIntire}
-\date{Dec 2, 2024}
+\date{Dec 29, 2024}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -156,7 +156,7 @@ integral of $f$ must be $0$.
 
 So, in trying to find an example where the theorem failed, we didn't succeed. 
 Even using a sequence of discontinuous functions we still got convergence without 
-requiring uniform convergence. This is suggestive that we may not, in general, 
+requiring uniform convergence. This suggests that we may not, in general, 
 need a very stringent condition for the theorem to hold.
 
 But wait, we are assuming that the function $f$ is a Riemann integrable function. 
@@ -269,7 +269,7 @@ Then $\forall \epsilon, \epsilon > 0$:
 \end{eqnarray}
 Consequently, $\mu^*(R) = 0$. 
 
-With this we can {\em define\/} the Lebesgue Integral of the function: 
+With this we can {\em define\/} the Lebesgue integral of the function: 
 $f(x) = \chi_{R}(x)$ over the interval $[0,1]$ 
 as $1 * \mu^*(R) = 1 * 0 = 0$.
 
@@ -280,7 +280,7 @@ then we would {\em define\/} the Lebesgue integral for such functions as:
 	\int h(x) \, dx & = & \sum_{i=1}^N\limits c_i \, \mu^*(E_i)
 \end{eqnarray}
 
-Going further, we would try to define the Lebesgue Integral of an ``arbitrary''
+Going further, we would try to define the Lebesgue integral of an ``arbitrary''
 function, $f$, as the limit of integrals of approximating ``simple'' 
 functions  -- ones that are a finite linear combinations of characteristic 
 functions with the property that they converge pointwise to $f$.
@@ -370,9 +370,10 @@ if for all sets $X$ the following is true:
 \end{eqnarray}
 When a set is measurable we simply write $\mu(C)$ instead of $\mu^*(C)$.
 
-What we're looking for is a minimum requirement for our working measuring sets 
-to work properly. Surely, they should at the very least be such that disjoint sets
-should add properly. 
+What we're looking for is a minimum requirement to impose on ``measurable'' sets
+so they behave properly. Surely, at the very least, disjoint sets
+should add properly; and further, disjoint sets that are ``tangled'' together
+should add up properly.
 By this we mean sets must be well behaved
 in the sense that the length of a set and the length of its ``compliment'' 
 must add up to their union. 
