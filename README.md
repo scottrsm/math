@@ -11,6 +11,8 @@ In any event the corresponding PDF's are in the directory **pdf/**.
 
 ### Math Education
 - The Essentials of Calculus (Discrete and Continuous): **pdf**/essential_calculus.pdf.
+    This is a small book which tries to motivate differential and integral Calculus through
+    motivating problems.
     - Provides a view connecting the continuous Calculus with the Discrete Calculus.
     - In addition, it connects differential equations with difference equations.
     - Background material and tangential topics have been placed in appendices to keep
@@ -20,7 +22,7 @@ In any event the corresponding PDF's are in the directory **pdf/**.
     - This is such an important idea, but viewing it in the right way can bring
        fantastic generalizations.
 - Why is Matrix Multiplication the way it is: **tex**/why_matrix_mult.tex.
-    - We motivate this by solving the natural generalization of: $$a * x = b$$.
+    - We motivate this by solving the natural generalization of the scalar problem: $$a * x = b$$.
 - What is the Determinant: **tex**/what_is_a_determinant.tex.
     - This is almost always introduced by the formula rather than what it means.
 - Where does the "dot-product" come from: **tex**/inner_prod_from_projection.tex.
