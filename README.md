@@ -22,7 +22,7 @@ In any event the corresponding PDF's are in the directory **pdf/**.
     - This is such an important idea, but viewing it in the right way can bring
        fantastic generalizations.
 - Why is Matrix Multiplication the way it is: **tex**/why_matrix_mult.tex.
-    - We motivate this by solving the natural generalization of the scalar problem: a * x = b.
+    - We motivate this by solving the natural generalization of the scalar problem: ${a * x = b}$.
 - What is the Determinant: **tex**/what_is_a_determinant.tex.
     - This is almost always introduced by the formula rather than what it means.
 - Where does the "dot-product" come from: **tex**/inner_prod_from_projection.tex.
@@ -38,7 +38,7 @@ In any event the corresponding PDF's are in the directory **pdf/**.
     - Examine Conditional Expectation in a *singular* setting.
 - Defining Fractal Dimension. 
     - Starts by producing a formula for the volume of an n dimensional sphere.
-    - The resulting formula involves Gamma function with which one can extend the volume
+    - The resulting formula involves ${\Gamma}$ function with which one can extend the volume
       of a sphere to non-integral dimensions.
     - Provides an intuitive sense with examples of the definition of *Fractal Dimension*: **tex**/fractal_dim.tex.
 - A Balance Law approach to the derivation of the Heat and Fokker-Planck equations: **tex**/heat_balance.tex.
