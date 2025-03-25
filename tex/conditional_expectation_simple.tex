@@ -418,10 +418,11 @@ $$
 									         & = \int_{\mathop{\cup}_{i=1}^N\limits M_i} f \, dP & \cr
 											 & = \sum_{i=1}^N \int_{M_i} f \, dP & \cr
 											 & = \sum_{i=1}^N \int_{M_i} \E{f / g} \, dP &\cr
-											 & = \sum_{i=1}^N \E{f / g}\, P(M_i) & (7') \cr
+											 & = \sum_{i=1}^N \E{f / g}(M_i)\, P(M_i) & (7') \cr
 }
 $$
-Here, in the term, $\E{f / g} P(M_i)$, $\E{f / g}$ is interpreted as the value of $\E{f / {\cal F}}$ on the set $M_i$.
+Here, the term, $\E{f / g}(M_i)$ is interpreted as the value of $\E{f / {\cal F}}$ on {\it any\/} element of the set $M_i$ -- 
+as the value of the function $\E{f / {\cal F}}$ is constant on $M_i$.
 We also drop the $dP_{\cal F}$ notation, which was only used as a crutch in the previous part of the paper.
 Lastly, we know from equation (5) how to compute the values of $\E{f / g}$ for all $M_i$ -- even when the probability of
 a ``g'' event is $0$.
