@@ -21,7 +21,7 @@
 
 \mansubtitle{Measure Theoretic Conditional Expectation}
         {in an Elementary Setting}
-{R. Scott McIntire}{Dec 3, 2024}
+{R. Scott McIntire}{Mar 25, 2025}
 
 \section{Overview}
 The measure theoretic approach to conditional expectation can be confusing
@@ -140,7 +140,8 @@ we are dealing with a ${\cal E}$ measurable
 function on ${\cal E}$, while on the left we are dealing with a 
 ${\cal F}$ measurable function. Consequently, while $f$ seems 
 like a nature candidate for the conditional expectation it is not necessarily
-${\cal F}$ measurable. 
+${\cal F}$ measurable. In fact, for any non-trivial application of conditional 
+expectation, $f$ is {\it non-measurable\/} with respect to the sub $\sigma$-algebra, ${\cal F}$.
 However, if $f$ is measurable with respect to ${\cal F}$ then, by the definition above,  
 it is its own conditional expectation. 
 
@@ -163,7 +164,7 @@ of a discrete function.
 In the process, we provide an intuitive idea of the 
 measure-theoretic definition of conditional expectation which coincides with 
 the traditional approach -- except in the ``singular'' case
-which we discuss in the last section.
+which we discuss the ``Redux'' section of this paper.
 
 \section{Example Calculation of Conditional Expectation}
 Consider the function from the second section on an elementary dice example, $f(D_i) = i$, 
@@ -429,7 +430,7 @@ Equation (6') says that $E[\E{f / g}] = E[f]$; that is, the expectation of the c
 is the same as the expectation of $f$. Equation (7') stats that 
 the conditional Expectation of a discrete function is the weighted average of 
 the values of $f$ over its level sets where the corresponding weights are
-probabilities of "x" values of each level set. By "x" values for level set $i$ 
+probabilities of ``x'' values of each level set. By ``x'' values for level set $i$ 
 we mean $f^{-1}(v_i)$ where $v_i$ is the associated $f$ value of level set $i$.
 
 
