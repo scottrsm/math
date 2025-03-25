@@ -1,11 +1,11 @@
 # math
 ## Mathematical Educational Papers, new Results, and Conjectures
 
-**NOTE:** Some of the papers are written in LaTeX and others are written in TeX.
+**NOTE:** Some of the papers are written in ${\LaTeX}$ and others are written in ${\TeX}$.
 
 The TeX papers have an "input macro" statement at the beginning of their files.
 You can identify the TeX files as opposed to the ${\LaTeX}$ files by (in Linux)
-moving to the 'tex' directory and issuing the command: grep -l 'input macro' *.tex .
+moving to the 'tex' directory and issuing the command: grep -l 'input macro'  *.tex .
 
 In any event the corresponding PDF's are in the directory **pdf/**.
 
@@ -50,8 +50,8 @@ In any event the corresponding PDF's are in the directory **pdf/**.
 ### New Mathematical Results
 - A formula to Compute Probability Distributions for Singular Transformations: **tex**/prob_singular_trans.tex.
     - There is a standard formula when computing the probability distribution for
-      non-singular transformations. However, when it comes to singular transformations of the form: f: Rn -> Rm
-      with m < n there are only *ad hoc* procedures. In this paper we provide a systematic way to compute
+      non-singular transformations. However, when it comes to singular transformations of the form: ${f: R^n \rightarrow R^m}$
+      with ${m < n}$ there are only *ad hoc* procedures. In this paper we provide a systematic way to compute
       the probability distributions for such singular transformations taking into account the *foldings* of such mappings 
       from higher to lower dimensional spaces.
 - Re-Examination of a Linear Unbiased Estimation Problem with a collection of related *norms*: **tex**/prob_linear_unbias_est.tex.
