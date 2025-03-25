@@ -38,8 +38,8 @@ In any event the corresponding PDF's are in the directory **pdf/**.
     - Examine Conditional Expectation in a *singular* setting.
 - Defining Fractal Dimension. 
     - Starts by producing a formula for the volume of an n dimensional sphere.
-    - The resulting formula involves ${\Gamma}$ function with which one can extend the volume
-      of a sphere to non-integral dimensions.
+    - The resulting formula involves the *gamma* function with which one can extend a volume formula  
+      for a sphere to non-integral dimensions.
     - Provides an intuitive sense with examples of the definition of *Fractal Dimension*: **tex**/fractal_dim.tex.
 - A Balance Law approach to the derivation of the Heat and Fokker-Planck equations: **tex**/heat_balance.tex.
     - Often partial differential equations can be derived from simple *balance laws*.
@@ -68,5 +68,5 @@ In any event the corresponding PDF's are in the directory **pdf/**.
 - The format is mp3.
 - There is also an RSS feed for the podcast at: https://media.rss.com/motivating-mathematical-concepts-through-problems/feed.xml
 
-#### Version 1.5.20
+#### Version 1.5.21
 
