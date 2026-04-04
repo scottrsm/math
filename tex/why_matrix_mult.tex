@@ -7,7 +7,7 @@
 
 \title{Origins of Matrix/Vector and Matrix/Matrix Multiplication}
 \author{R. Scott McIntire}
-\date{Dec 13, 2024}
+\date{Apr 4, 2026}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -132,7 +132,7 @@ for vectors; and lowercase italic letters for scalars.}
 \begin{eqnarray}
   A \, {\bf x} & = & {\bf b} \label{concise-matrix-form}
 \end{eqnarray}
-Here, $A$, represents the ``matrix'' of the $a$'s, with $A_{i,j} = a_ij$; meaning, that the
+Here, $A$, represents the ``matrix'' of the $a$'s, with $A_{i,j} = a_{ij}$; meaning, that the
 $i^{\rm th}$ row and $j^{\rm th}$ column of $A$ is $a_{ij}$.
 This now looks like the scalar problem, $(\ref{scalar-problem})$.
 Just as one writes $a \, x = b$, interpreting the proximity of $a$ and $x$ to mean
@@ -316,7 +316,7 @@ multiplication, $(\ref{matrix-vector-mult})$, on the right hand side)
 \end{eqnarray}
 Using $(\ref{vec-matrix-index})$ on the left and right hand sides of the previous equation we have
 \begin{eqnarray}
-	(B \, A)_{i, j} & = & \sum_{k=1}^n B_{i, k}  A_{k, j}  \quad \forall i,j \quad i \in [1, n] \wedge j \in [1.n] \label{matrix-matrix-mult}
+	(B \, A)_{i, j} & = & \sum_{k=1}^n B_{i, k}  A_{k, j}  \quad \forall i,j \quad i \in [1, n] \wedge j \in [1,n] \label{matrix-matrix-mult}
 \end{eqnarray}
 And we are done, we have shown what the new matrix, $B \, A$, is by showing what every entry, $(B\, A)_{i, j}$, of
 the new matrix is.
@@ -351,13 +351,12 @@ However, we know that $I \, {\bf e}_j = {\bf I}^j$. Therefore, $I$
 must have the property that ${\bf I^j} = {\bf e}_j$. Consequently, $I$ must have the form:
 \begin{eqnarray}
   I & = & \left[
-      \begin{array}{cccccc}
-        1 & 0 & 0 & 0 & \cdots & 0 \\
-        0 & 1 & 0 & 0 & \cdots & 0 \\
-        0 & 0 & 1 & 0 & \cdots & 0 \\
-		  &&&&\specialcell{\hfil\ddots\hfil}  & \vdots  \\
-        0 & 0 & 0 & 0 & \cdots & 0 \\
-        0 & 0 & 0 & 0 & \cdots & 1 \\
+      \begin{array}{ccccc}
+        1 & 0 & 0  & \cdots & 0 \\
+        0 & 1 & 0  & \cdots & 0 \\
+        0 & 0 & 1  & \cdots & 0 \\
+		  &&&\specialcell{\hfil\ddots\hfil}  & \vdots  \\
+        0 & 0 & 0  & \cdots & 1 \\
       \end{array}
   \right] \label{identity-matrix}
 \end{eqnarray}
@@ -396,7 +395,7 @@ find an $x$ to ``hit'' a given value $b$. That is, we can solve $a\, x = b$.
 
 One can define the same concept for a matrix, $A$. In this case, we produce a 
 ``space'' of all possible outputs of $A$ ``acting'' using all possible input vectors; 
-that is, all $x \in R^n$. This amount to, using $(\ref{mult-as-vec-combo})$, the set of all 
+that is, all $x \in R^n$. This amounts to, using $(\ref{mult-as-vec-combo})$, the set of all 
 {\em linear combinations\/} of the columns of $A$. Using this language
 of ranges, here is what we can say about the scalar problem: $a \, x = b$.
 \begin{description}

@@ -7,19 +7,19 @@
 \footline{\hss\tenrm\folio\hss}
 
 \mantitle{Properties of a Linear Unbiased Minimum Variance Estimator}
-{R. Scott McIntire}{Dec 29, 2023}
+{R. Scott McIntire}{Apr 4, 2026}
 
 \section{Overview}
 A standard problem is to find the linear unbiased ``minimum'' variance estimator
 for the over determined problem\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}
 {This means that $n > m$.}: $A {\bf x} = {\bf b}$, where 
-$A$ is $nxm$ and ${\bf x}$ and
-${\bf b}$ are $mx1$ and $nx1$ random variables respectively. The
+$A$ is $n \times m$ and ${\bf x}$ and
+${\bf b}$ are $m \times 1$ and $n \times 1$ random variables respectively. The
 covariance of ${\bf b}$ is given as $V$ and is assumed invertible. 
 We look for a linear unbiased estimator for ${\bf x}$ of the form 
 ${\bf x}^* = L {\bf b}$, where $L\in {\bf R}^{mn}$. Since ${\bf x}^*$
 is unbiased we must have 
-$E{{\bf x} - {\bf x}^*} = E[{\bf x} - L
+$E[{\bf x} - {\bf x}^*] = E[{\bf x} - L
   {\bf b}] = E[{\bf x} - LA{\bf x}]$. We satisfy this constraint by
 requiring that $LA = I$. This implies that $A$ and $L$ have rank $m$.
 The covariance of $L{\bf b}$ is $LVL^T$. The problem now is to find
@@ -36,7 +36,7 @@ The matrix of interest, $LVL^T$ is positive definite
     symmetric; in this case, each of the ``trace'' 
 expressions, $\root k \of {{\rm
           tr}\left(M^k\right)} \;\; (k \in [1,\infty ))$, is a norm for a 
-positive definite matrix $M_{mxm}$.
+positive definite matrix $M_{m \times m}$.
 
 \section{Do the Norms Matter?}
 The question is, do different choices of norms lead to a different
@@ -206,7 +206,7 @@ $$
 
 
 Therefore, it does not matter which of the matrix norms we
-use: the "best" linear unbiased estimator is the same.
+use: the ''best'' linear unbiased estimator is the same.
 
 \vskip .25in
 \section{Related features of ``the'' best estimator}
@@ -284,9 +284,9 @@ $x^*$ is also a solution.
 least squares problem, $L^*{\bf b} =
 (A^TV^{-1}A)^{-1}A^TV^{-1}{\bf b}$, is also the solution that
 minimizes the maximum eigenvalue of the estimator's covariance matrix, 
-$LVL^T$, subject to the constraint $L_{mxn}A_{nxm} = I_{mxm}$.
+$LVL^T$, subject to the constraint $L_{m \times n}A_{n \times m} = I_{m \times m}$.
 
-{\bf Proof:\/} We apply Lemma 1 with $\Omega$ equal to the $mxm$ symmetric
+{\bf Proof:\/} We apply Lemma 1 with $\Omega$ equal to the $m \times m$ symmetric
 matrices; $\varphi$ equal to the $L_2$ matrix norm; and
 $\varphi_n$ equal to the $n^{\rm th}$ trace norm. Theorem 1 follows
 after collecting the facts: 

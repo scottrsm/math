@@ -4,7 +4,7 @@
 
 \title{What is a derivative \\ (with applications to Data Science and Physics)}
 \author{R. Scott McIntire}
-\date{Dec 2, 2024}
+\date{Apr 4, 2026}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -31,7 +31,7 @@ and $o(h)$ is a higher order error ($h^2$, for example) in the sense that
 $\lim_{h\rightarrow 0} \frac{o(h)}{h} = 0$.
 
 Although this geometric concept has been tied to an algebraic equation,
-is not clear how to compute the derivative, $Df(x)$ for every $x$. This seems
+it is not clear how to compute the derivative, $Df(x)$ for every $x$. This seems
 like a great deal of work and when done we have to produce a function for
 every $x$ -- a relatively complicated thing. It turns out that there is a
 {\em representation\/} result that says that all linear functions, $L$,
@@ -93,7 +93,7 @@ and minima by solving for all points $x$ such that $f^\prime(x) = 0$.
 
 {\bf Example:\/} Find the point $x^*$ which maximizes the function $f(x) = x(12 - 2x)^2$
 over the interval $[0,6]$. We find all points $x$ such that $f^\prime(x) = 0$.
-It turns out that the $f^\prime(x) = 144 - 96x + 12x^2$. Solving for $x$,
+It turns out that $f^\prime(x) = 144 - 96x + 12x^2$. Solving for $x$,
 $144 - 96x + 12x^2 = 0$ (same as $12 - 8x + x^2 = 0$) we have two solutions: $\{2, 6\}$.
 The ``x''{} values that are candidates which produce the maximum value of the function $f$
 are then: $\{0, 2, 6\}$ -- the union of the local maxima and the boundary points.
@@ -117,7 +117,7 @@ above.
 \end{eqnarray}
 Here, $Df({\bf x})$ is a linear function from $R^n$ to $R$ and
 $o({\bf h})$ is the higher order error term, higher order in the sense that
-$\lim_{{\bf h} \rightarrow {\bf 0}}\frac{o({\bf h})}{\|{\bf h}\|} \rightarrow 0$.
+$\lim_{{\bf h} \rightarrow {\bf 0}}\frac{o({\bf h})}{\|{\bf h}\|} = 0$.
 
 Again, the function $Df({\bf x})$ is a rather abstract and difficult to work with.
 There is as in the scalar case a {\em representation\/} result:
@@ -239,7 +239,7 @@ They are also used to train Artificial Deep Neural Networks.
 \end{eqnarray}
 Here ${\bf Df}({\bf x})$ is a linear function from $R^n$ to $R^m$ and
 ${\bf o}({\bf h})$ is a higher order error term, higher order in the sense that
-$\lim_{{\bf h} \rightarrow {\bf 0}}\frac{\|{\bf o}({\bf h})\|}{\|{\bf h}\|} \rightarrow 0$.
+$\lim_{{\bf h} \rightarrow {\bf 0}}\frac{\|{\bf o}({\bf h})\|}{\|{\bf h}\|} = 0$.
 
 There is a {\em representation\/} result that says that any linear map from $R^n$ to $R^m$ can
 be represented by a matrix once coordinates have been chosen.
@@ -432,7 +432,7 @@ second term in $(\ref{rinfder})$:
 \int_a^b \frac{\partial F}{\partial y^\prime}(x, y(x), y^\prime(x))h^\prime(x) \, dx
 & = &
 \left. \frac{\partial F}{\partial y^\prime}(x, y(x), y^\prime(x))
-  h^\prime(x)\right|_{x=a}^{x=b} \nonumber \\
+  h(x)\right|_{x=a}^{x=b} \nonumber \\
 & - & \int_a^b \frac{d}{dx}
 \left[
   \frac{\partial F}{\partial y^\prime}(x, y(x), y^\prime(x))
@@ -454,12 +454,12 @@ we claim that with this restriction of function, $DJ(y)$ is still unique.
 With this choice of $h$,
 equation $(\ref{rinfder})$ becomes:
 \begin{eqnarray}
-  <\!\nabla J(y), h\!>  & = & \int_a^b F(x, (y+h)(x), (y^\prime + h^\prime)(x) \, dx
+  <\!\nabla J(y), h\!>  & = & \int_a^b F(x, (y+h)(x), (y^\prime + h^\prime)(x) )\, dx
   - \int_a^b F(x, y(x), y^\prime(x)) \, dx  + o(h) \nonumber \\
   & = & \int_a^b \frac{\partial F}{\partial y}(x, y(x), y^\prime(x))h(x)\, dx
 + \int_a^b \frac{\partial F}{\partial y^\prime}(x, y(x), y^\prime(x))h^\prime(x) \, dx
 + o(h) \nonumber \\
-& = & \int_a^b \left[ \frac{\partial F}{\partial y}(x, y(x), y^\prime(x))h(x) -
+& = & \int_a^b \left[ \frac{\partial F}{\partial y}(x, y(x), y^\prime(x)) -
 \frac{d}{dx}\frac{\partial F}{\partial y^\prime}(x, y(x), y^\prime(x))\right]h(x)\, dx
 + o(h)
 \end{eqnarray}
@@ -498,10 +498,10 @@ where the derivative of the Lagrangian is zero.
 The Lagrangian of a mass hanging from a spring is%
 \footnote{We replace the ``dummy''{} variable $x$ in our equations with $t$.}
 \begin{eqnarray}
-  J(y) & = & \int_0^T \overbrace{\frac{1}{2}  k y(t)^2}^{\text{Potential Energy}}
-                    - \overbrace{\frac{1}{2} m {y^\prime(t)}^2}^{\text{Kinetic Energy}} \, dt
+  J(y) & = & \int_0^T \overbrace{\frac{1}{2} m {y^\prime(t)}^2}^{\text{Kinetic Energy}} 
+                    - \overbrace{\frac{1}{2}  k y(t)^2}^{\text{Potential Energy}}\, dt
 \end{eqnarray}
-In this case, $F(t, y, y^\prime) = \frac{1}{2} k y^2 - \frac{1}{2} m {y^\prime}^2$.
+In this case, $F(t, y, y^\prime) = \frac{1}{2} m {y^\prime}^2 - \frac{1}{2} k y^2 $.
 Therefore, we need to find a function, $y$, such that $(\nabla J(y))(t) = 0 \quad \forall t \in[0,T]$. This
 equation becomes (using the dummy variable $t$):
 \begin{eqnarray}
@@ -510,12 +510,12 @@ equation becomes (using the dummy variable $t$):
 \end{eqnarray}
 The partial derivatives of $F$ are computed as:
 \begin{eqnarray}
-  \frac{\partial F}{\partial y} & = & k y \\
-  \frac{\partial F}{\partial y^\prime} & = & -my^\prime
+  \frac{\partial F}{\partial y} & = & -k y \\
+  \frac{\partial F}{\partial y^\prime} & = & my^\prime
 \end{eqnarray}
 Substituting into $(\ref{example_euler})$ we have:
 \begin{eqnarray}
-  k y(t) - \frac{d}{dt} \left[ - m y^\prime(t) \right] = 0
+  -k\, y(t) - \frac{d}{dt} \left[ - m y^\prime(t) \right] = 0
 \end{eqnarray}
 Or,
 \begin{eqnarray}

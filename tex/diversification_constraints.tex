@@ -14,7 +14,7 @@
 
 \title{Constructing Diversification Constraints}
 \author{R. Scott McIntire}
-\date{Oct 30, 2024}
+\date{Apr 4, 2026}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{DD}{Def}
@@ -34,7 +34,7 @@ Note: For the rest of this paper we assume that $k \in {\bf Z}^+$ with $k \le n$
 \begin{eqnarray}
 	f({\bf x}) & = & \sum_{i=1}^k x_{[i]} 
 \end{eqnarray}
-From this we see that $f({\bf x})$ is the value of the sum of the $k^{\rm th}$ 
+From this we see that $f({\bf x})$ is the value of the sum of the $k$ 
 largest values of its input ${\bf x}$.
 We are interested in optimization problems involving a vector ${\bf x}$ 
 with the sum of the top values constrained by a given value; that is, 
@@ -175,14 +175,14 @@ are the {\it dual\/} variables.
 
 Set the function $g$:
 \begin{eqnarray}
-	g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_1, \nu; {\bf x}) &=& 
+	g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu; {\bf x}) &=& 
 		\mathop{\rm inf}_{\bf y} 
 		\; L({\bf y}, {\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu; {\bf x}) 
 \end{eqnarray}
 
 Substituting for $L$ this becomes
 \begin{eqnarray}
-	g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_1, \nu; {\bf x}) &=& 
+	g({\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu; {\bf x}) &=& 
 		\mathop{\rm inf}_{\bf y}
 		\; \left({\bf y}^T \left( -{\bf x} - {\boldsymbol \lambda}_1 + {\boldsymbol \lambda}_2 - \nu {\bf 1} \right) \right.
 		- \left. {\bf 1}^T {\boldsymbol \lambda}_2 + \nu \, k  \right)

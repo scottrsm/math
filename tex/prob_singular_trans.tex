@@ -22,7 +22,7 @@
 \mathchardef\boldmu="116\bmitfam
 
 \mantitle{Singular Transformations of Probability Density Functions}
-{R. Scott McIntire} {Dec 3, 2024}
+{R. Scott McIntire} {Apr 4, 2026}
 
 \subsection{Overview}
 For non-singular transformations of variables with distributions, there 
@@ -39,7 +39,7 @@ target distribution with a more systematic process.
 We provide and prove a theorem for constructing the probability 
 density function of a random variable $Y$ which is a singular function of a 
 random variable $X$. By singular, we mean that $Y = f(X)$ with $f$ a function
-such that $f: R^n \mapsto R^m$ and $m < n$. 
+such that $f: {\bf R}^n \mapsto {\bf R}^m$ and $m < n$. 
 
 \proclaim Theorem 1. Let $f : {\cal D} \subset {\bf R}^n \mapsto {\bf R}^m$ be a continuously
           differentiable function with $n > m$. In addition,
@@ -77,7 +77,7 @@ inverse of $A$ is $A^T (AA^T)^{-1}$.
 ${\bf proof:}$ A given ${\bf x} \in R^n$ can be written uniquely 
 as ${\bf x} = {\bf x_1} + {\bf x_2}$ 
 where ${\bf x_1} \in R(A^T)$ and ${\bf x_2} \in N(A)$. For a given 
-${\bf y} \in R^m$, it easy to show that there is a unique 
+${\bf y} \in R^m$, it is easy to show that there is a unique 
 ${\bf x_p} \in R(A^T)$ such that 
 $A {\bf x_p} = {\bf y}$. The set of all ${\bf x} \in R^n$ such that 
 $A{\bf x} = {\bf y}$ has the form 
@@ -94,7 +94,7 @@ $$
 The solution of this can be found using Lagrange multipliers. The resulting
 minimization problem is :
 $$
-\min_{\bf x} F({\bf x}) = \min_{\bf x} \|{\bf x}\|^2 + \langle{\bf \lambda}, {\bf y} - A{\bf x\rangle}
+\min_{\bf x} F({\bf x}) = \min_{\bf x} \|{\bf x}\|^2 + \langle{\bf \lambda}, {\bf y} - A{\bf x}\rangle
 $$
 At a minimum, ${\bf x}^*$, $DF({\bf x}^*) ({\bf h}) = {\bf 0}$. 
 $DF({\bf x}^*)$ 
@@ -133,8 +133,8 @@ This implies that $P^TP \equiv I$. The change in volume of the
 unit cube under $PA$ is the same as $A$ as P preserves volumes. However,
 $PA$ is a map from $R^n$ to $R^n$, so it changes the volume of the unit cube
 by $|PA|$. Since for given transformations, $B, C: R^n \mapsto R^n$ we have 
-$|B^T| = B$ and $|BC| = |B| |C|$, it follows that 
-$|PA|^2 = |PA| |PA| = |A^TP^T| |PA| = |A^TP^T P A| = |A^TA|$. The last 
+$|B^T| = |B|$ and $|BC| = |B| |C|$, it follows that
+$|PA|^2 = |PA| |PA| = |A^TP^T| |PA| = |A^TP^T P A| = |A^TA|$. The last
 equality comes from the fact that $P^TP = I$.
 Therefore, the change in volume is $\sqrt{|A^TA|}$.
 
@@ -233,8 +233,8 @@ P_Y({\bf y}) =
 \int_{f^{-1}(y)}
 {P_X({\bf x}({\bf y}, {\bf \mu})) \over 
 \sqrt{ |Df({\bf x}({\bf y}, {\bf \mu})) Df^T({\bf x}({\bf y}, {\bf \mu})) | } }
-\,  \sqrt{|D_{{\bf \mu}}{\bf x}^T({\bf y}, {\bf \mu})) 
-D_{{\bf \mu}}{\bf x}({\bf y}, {\bf \mu})) | } \, d{\bf \mu}
+\,  \sqrt{|D_{{\bf \mu}}{\bf x}^T({\bf y}, {\bf \mu})
+D_{{\bf \mu}}{\bf x}({\bf y}, {\bf \mu}) | } \, d{\bf \mu}
 }
 $$
 
@@ -283,7 +283,7 @@ $ \sqrt{|D_{\mu}{\bf x}_1^T(\mu; y)
 $$
 \eqalign{
 \sqrt{|Df({\bf x}_1(\mu; y)) \; Df^T({\bf x}_1(\mu; y))|} & = \|\nabla_{\bf x}  f({\bf x}_1(\mu; y)) \| \cr
-& = (1/x_{1,2}(\mu; y), -x_{1,1}(\mu; y)/x_{1,2}(\mu; y)^2)\| \cr
+& = \|(1/x_{1,2}(\mu; y), -x_{1,1}(\mu; y)/x_{1,2}(\mu; y)^2)\| \cr
 & = \sqrt{1 + y^2} / |\mu|
 }
 $$
@@ -304,11 +304,11 @@ ${\bf x}_2(\mu; y) = (\mu, - \sqrt{y - \mu^2})^T$ with $\mu \in
 [-\sqrt{y}, \sqrt{y}]$. 
  
 $ \sqrt{|D_{\mu}{\bf x}_1^T(\mu; y)
-\; D_{\mu}{\bf x}_1(\mu; y)|} = \|(1, -\mu/\sqrt{y - \mu^2} \| =
- \sqrt{y/(y - \mu^2)}$. 
- 
+\; D_{\mu}{\bf x}_1(\mu; y)|} = \|(1, -\mu/\sqrt{y - \mu^2})\| =
+ \sqrt{y/(y - \mu^2)}$.
+
 $ \sqrt{|D_{\mu}{\bf x}_2^T(\mu; y)
-\; D_{\mu}{\bf x}_2(\mu; y)|} = \|(1, \mu/\sqrt{y - \mu^2} \| =
+\; D_{\mu}{\bf x}_2(\mu; y)|} = \|(1, \mu/\sqrt{y - \mu^2})\| =
  \sqrt{y/(y - \mu^2)}$. 
 
 $\sqrt{|Df({\bf x}_1(\mu; y)) \;
@@ -406,7 +406,7 @@ $ \sqrt{|D_{\mu}{\bf x}_1^T(\mu; {\bf y})
 And, $\sqrt{|Df({\bf x}_1(\mu; {\bf y})) \;
 Df^T({\bf x}_1(\mu; {\bf y}))|} = \sqrt{\left|\pmatrix{1 & 1 &
 1 & 0 \cr 1 & -1 & 0 & 1\cr} \pmatrix{1 & 1 \cr 1 & -1 \cr 1 & 0 \cr 0
-& 1 \cr} \right|} = 3 $j
+& 1 \cr} \right|} = 3$
 
 Therefore, Theorem 1 gives:
 $$
@@ -431,7 +431,7 @@ $$
 	P_Y(y) & = \int_{\partial B(\sqrt{y})} \frac{P_{\bf X}({\bf x}) \, d{\bf x}}{\sqrt{|Df({\bf x}) \, Df^T({\bf x})|}} & \cr
 }
 $$
-Here, $f({\bf x}) = 2\, {\bf x}$. Consequently, on the sphere of radius, $\sqrt{y}$, we have 
+Here, $Df({\bf x}) = 2\, {\bf x}^T$. Consequently, on the sphere of radius, $\sqrt{y}$, we have 
 $\sqrt{|Df({\bf x}) Df^T({\bf x})|} = 2 \sqrt{y}$. Therefore, we may write the above as
 $$
 \eqalignno{
@@ -454,10 +454,10 @@ $$
 Or,
 $$
 \eqalignno{
-	P_Y(y) & = \frac{e^{-y/(2\sigma^2)} \, d{\bf x}}{(2\pi)^{n/2} \sigma^n 2\sqrt{y}} \int_{\partial B(\sqrt{y})} d\, {\bf x}& \cr
+	P_Y(y) & = \frac{e^{-y/(2\sigma^2)}}{(2\pi)^{n/2} \sigma^n 2\sqrt{y}} \int_{\partial B(\sqrt{y})} d\, {\bf x}& \cr
 }
 $$
-The surface area of the unit sphere in $n$ dimensions is $2y^{(n-1)/2}\frac{\pi^{n/2}}{\Gamma(n/2)}$.
+The surface area of a sphere of radius $\sqrt{y}$ in $n$ dimensions is $2y^{(n-1)/2}\frac{\pi^{n/2}}{\Gamma(n/2)}$.
 Therefore, $P_Y(y)$, may be written:
 $$
 \eqalignno{

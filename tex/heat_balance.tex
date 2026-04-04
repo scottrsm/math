@@ -7,7 +7,7 @@
 \footline{\hss\tenrm\folio\hss}
 
 \mantitle{A Balance Law Interpretation of the Fokker-Planck Equation}
-{R. Scott McIntire}{Nov 6, 2024}
+{R. Scott McIntire}{Apr 4, 2026}
 
 \subsection{Overview}
 
@@ -50,7 +50,7 @@ $$
 \int_{x_1}^{x_2} h(t_2,x) - h(t_1,x) \; dx  = 
 \int_{t_1}^{t_2} f(t, x_1) - f(t,x_2) \; dt
 $$
-Now, divide this expression by $1 / (t_2 - t_1)$ and take the 
+Now, divide this expression by $(t_2 - t_1)$ and take the
 limit as $t_2 \rightarrow t_1$. This gives:
 $$
 \eqalignno{
@@ -69,7 +69,7 @@ change of the heat in the interval $[x_1, x_2]$ is equal to the rate
 at which heat enters through the boundary.
 
 
-By the {\it the Fundamental Theorem of Calculus\/}, 
+By the {\it Fundamental Theorem of Calculus\/}, 
 $\int_{x_1}^{x_2} f_x(t_1, x) \, dx = f(t_1, x_2) - f(t_1, x_1)$.
 Therefore, bringing the right hand side to the left hand side in equation 
 (1) we may write{$\vphantom |$}:
@@ -108,7 +108,7 @@ $$
 Letting $\kappa = k / c$ we obtain the one dimensional heat equation 
 with diffusion constant $\kappa$:
 $$
-\fracd{\partial u}{\partial t} = \kappa \fracd{\partial^2 u}{\partial^2 x}
+\fracd{\partial u}{\partial t} = \kappa \fracd{\partial^2 u}{\partial x^2}
 $$
 The larger the value of $\kappa$, the more rapid the diffusion. Since 
 $\kappa$ is made from two constants, we give an interpretation to understand
@@ -192,7 +192,7 @@ change of the heat in the region $\Omega$ is equal to the rate
 at which heat enters through the boundary.
 
 
-By the {\it the Fundamental Theorem of Calculus\/}, 
+By the {\it Fundamental Theorem of Calculus\/}, 
 $\int_{\Omega} \nabla \cdot {\bf f}(t_1, {\bf x}) \, d{\bf x} = 
 \oint_{\partial \Omega} {\bf f}(t_1, {\bf x}) \cdot {\bf n} \, d{\bf S}$.
 Therefore, bringing the right hand side to the left hand side in equation 
@@ -334,8 +334,8 @@ $$
 It turns out that the derivative, $\frac{d}{d\tau} 
 \big| \frac{\partial {\cal X}(\tau,{\bf z})}
 {\partial {\bf z}} \big|$, may be written 
-as\footnote{\kern 1pt \raise 0.5ex \hbox{\dag}}{This is a consequence of 
-Louisville's Theorem.}
+as\footnote{\kern 1pt \raise 0.5ex \hbox{\dag}}{This is a consequence of
+Liouville's Theorem.}
 $$
 \frac{d}{d\tau} 
 \bigg| \frac{\partial {\cal X}(\tau,{\bf z})}
@@ -350,7 +350,7 @@ $$
 Therefore, (7) becomes
 $$
 \eqalignno{
-\int_{\Omega} \bigg( p_\tau(\tau, {\cal X}(t, {\bf z})) + 
+\int_{\Omega} \bigg( p_\tau(\tau, {\cal X}(\tau, {\bf z})) +
 \nabla p(\tau, {\cal X}(\tau, {\bf z})) \cdot 
 {\bf f}(\tau, {\cal X}(\tau, {\bf z}))
 + p(\tau, {\cal X}(\tau, {\bf z}))
@@ -652,7 +652,7 @@ v_i  + \sum_{i=1}^n
 \big(p(t, {\bf x}, {\bf v}) f_i(t, {\bf x}, {\bf v}) \big)
 & = \kappa 
 \sum_{i=1}^n 
-\fracd{\partial^2 p(t, {\bf x}, {\bf v})}{\partial^2 v_i}
+\fracd{\partial^2 p(t, {\bf x}, {\bf v})}{\partial v_i^2}
   & (26a) \cr
 p(0, {\bf x}, {\bf v}) = P_{X,V}({\bf x}, {\bf v}) & & (26b)  \cr }
 $$
@@ -663,7 +663,7 @@ $$
 \fracd{\partial p(t , x, v)}{\partial x} v +
 \fracd{\partial}{\partial v} 
 \big( p(t, x, v) f(t, x, v) \big) & = 
-\kappa \fracd{\partial^2 p(t, x, v)} {\partial^2 v} & (27a) \cr
+\kappa \fracd{\partial^2 p(t, x, v)} {\partial v^2} & (27a) \cr
 p(0, x, v) = P_{X,V}(x, v) & & (27b) \cr }
 $$
 \bye

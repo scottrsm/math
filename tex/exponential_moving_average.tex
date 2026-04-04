@@ -15,7 +15,7 @@
 
 \title{Derivation of the Exponential Moving Average}
 \author{R. Scott McIntire}
-\date{Aug 30, 2024}
+\date{Apr 4, 2026}
 
 \begin{document}
 
@@ -252,7 +252,7 @@ and smoothly move from that to the estimate above over the averaging windows whe
 \section{How to Specify the $\lambda$ Factor}
 When using the EMA, practitioners do not specify the factor $\lambda$ directly; 
 instead they provide the ``half-life'', $H$,  of the decay.
-By the half-file of $\lambda$, we mean the number of powers of $\lambda$, $H$, so that
+By the half-life of $\lambda$, we mean the number of powers of $\lambda$, $H$, so that
 weight $H$ is half the weight of weight $1$. The condition for $H$ is then:
 \begin{eqnarray}
 	\frac{w_H}{w_1} = \frac{1}{2} \\
@@ -310,7 +310,7 @@ If we take the expectation of the weighted sum, $\sum_{i=1}^N x_i w_i$ we find t
 $\E{a x + b y + c} = a \E{x} + b \E{y} + c$, provided $a,b,c$ are constants.}
 
 \begin{eqnarray}
-    \E{\sum_{i=1}^n x_i w_i} &=& \sum_{i=1}^N \E{x_i n_i} = \sum_{i=1}^N \E{x_i} w_i = \mu \sum_{i=1}^N w_i = \mu 
+    \E{\sum_{i=1}^n x_i w_i} &=& \sum_{i=1}^N \E{x_i w_i} = \sum_{i=1}^N \E{x_i} w_i = \mu \sum_{i=1}^N w_i = \mu 
 \end{eqnarray}
 The weighted sum represents an estimate of the true mean of the IID random variables, which is $\mu$.
 And in this case we see that it is a good estimate in that the expected value of the weighed combination
@@ -493,7 +493,7 @@ As a more complicated example we try $r=3$. In this case the formula is:
 \end{flalign}
 Which is
 \begin{flalign}
-    \E{(x_i - {\bar x})^3 w_i} &= M_3 + M_3 \left(-3 \sum_{i=1}^2 w_i^2 + 3 \sum_{i=1}^N w_i^3 - \sum_{i=1}^N w_i^4\right) 
+    \E{(x_i - {\bar x})^3 w_i} &= M_3 + M_3 \left(-3 \sum_{i=1}^N w_i^2 + 3 \sum_{i=1}^N w_i^3 - \sum_{i=1}^N w_i^4\right) 
      - M_3 \left(\sum_{l=1}^N w_l^3 \left(\sum_{i=1}^N w_i\right) - \sum_{i=1}^N w_i^4 \right) &&  
 \end{flalign}
 

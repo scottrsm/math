@@ -4,7 +4,7 @@
 
 \title{What is a Determinant}
 \author{R. Scott McIntire}
-\date{Dec 3, 2024}
+\date{Apr 4, 2026}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -121,7 +121,7 @@ In this case we have:
   & = & a_{1,1} a_{1,2} V({\bf e}_1, {\bf e}_1) + a_{1,1}a_{2,2} V({\bf e}_1, {\bf e}_2) \\
   & + & a_{2,1} a_{1,2} V({\bf e}_2, {\bf e}_1) + a_{2,1} a_{2,2} V({\bf e}_2, {\bf e}_2)
 \end{eqnarray*} 
-Notice the we could pull out the $\{a_{i,j}\}_{i,j=1}^n$
+Notice that we could pull out $\{a_{i,j}\}_{i,j=1}^n$
 because of multi-linearity -- linearity
 refers not just to addition, but also scalar multiplication. 
 Also, we have shown that the degeneracy condition implies anti-symmetry:
@@ -134,7 +134,7 @@ Therefore,
 \end{eqnarray}
 This corresponds with the usual definition of the determinant of the matrix $A$.
 
-In the general case, will have to do all of the permutations of the indices of $a$
+In the general case, we will have to do all of the permutations of the indices of $a$
 upon re-ordering the base vectors into standard form.
 
 Let's see what this looks like in $R^3$.
@@ -166,7 +166,7 @@ sum becomes:\footnote{$S_n$ is the symmetric group of $n$ objects. It consists o
 all permutations that can be performed on $n$ objects.}
 \begin{eqnarray}
   V({\bf x}_1, {\bf x}_2, \ldots, {\bf x}_n)
-  & = & \sum_{\sigma \in S_n} a_{\sigma(1), i} a_{\sigma(2),2} \ldots a_{\sigma(n), n}
+  & = & \sum_{\sigma \in S_n} a_{\sigma(1), 1} a_{\sigma(2),2} \ldots a_{\sigma(n), n}
         V({\bf e}_{\sigma(1)}, {\bf e}_{\sigma(2)}, \ldots, {\bf e}_{\sigma(n)})
 \end{eqnarray}
 Now, how do we compute each of the terms:
@@ -216,7 +216,7 @@ determinant of the matrix $A$ -- becomes:
 {\bf Note:\/} There is a bug with this process. From our reasoning, it follows that
 the volume of $V({\bf e}_2, {\bf e}_1)$ is -1. It seems like this ordering 
 of edges is as valid a way to
-describe the unit square, so why is the area negative? We can fixed this ``bug'' by
+describe the unit square, so why is the area negative? We can fix this ``bug'' by
 claiming that it is, in fact, a feature. We can claim that we haven't just
 computed the area/volume,
 we have computed the {\em oriented volume\/}.
@@ -380,7 +380,7 @@ that $|X(t)|$ satisfies and then solve.
 \begin{eqnarray*}
   \frac{d |X(t)|}{dt} & = & |X(t)| \, {\rm tr}\left(X(t)^{-1} \frac{d X(t)}{dt}\right)
   \quad \text{(by $(\ref{det_deriv})$ and the chain rule)} \\
-  \frac{d |X(t)|}{dt} & = & |X(t)| \, {\rm tr}\left(X(t)^{-1} A X\right) \quad
+  \frac{d |X(t)|}{dt} & = & |X(t)| \, {\rm tr}\left(X(t)^{-1} A X(t)\right) \quad
   \text{(by $(\ref{deq_m})$)} \\
   \frac{d |X(t)|}{dt} & = & |X(t)| \, {\rm tr}(A) \quad
   \text{(by the property of trace: ${\rm tr}(ABC) = {\rm tr}(CAB)$)}
@@ -388,9 +388,9 @@ that $|X(t)|$ satisfies and then solve.
 Therefore, $|X(t)|$ satisfies the following linear {\em scalar differential equation\/}:
 \begin{eqnarray}
   \frac{d |X(t)|}{dt} & = & {\rm tr}(A) \, |X(t)| \\
-  |X(0)| & = & |X0|
+  |X(0)| & = & |X_0|
 \end{eqnarray}
-This is much easier to solve, the solution is $|X(t)| = |X0| \, e^{{\rm tr}(A)\, t}$.
+This is much easier to solve, the solution is $|X(t)| = |X_0| \, e^{{\rm tr}(A)\, t}$.
 
 {\bf Question:\/} What kind of systems (defined by $A$) leave the volumes unchanged?
 

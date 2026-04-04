@@ -14,7 +14,7 @@
 
 \title{Where does the Dot Product Come From?}
 \author{R. Scott McIntire}
-\date{Dec 3, 2024}
+\date{Apr 4, 2026}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{DD}{Def}
@@ -53,8 +53,8 @@ $t^*$:%\footnote{Note: $t^*$ can be negative.}
 This is the solution {\em provided\/} 
 $t^*$ is not negative.
 
-In other words, there is no solution if the car is 
-moving away from $q$.
+In other words, there is no solution if the car is
+moving away from ${\bf p}_1$.
 
 We note, however, in this simple example that there is an answer to the question:
 "What is the closest point to $p_1$ that the car can get to?"
@@ -183,7 +183,7 @@ Now the numerator and denominator in the fraction of the projection
 formula can be written:
 \begin{eqnarray*}
   \sum_{i=1}^n p_i v_i & = & {\bf p} {\boldsymbol \cdot} {\bf v} \\
-  \sum_{i=1}^n v^2 & = & {\bf v} {\boldsymbol \cdot} {\bf v}
+  \sum_{i=1}^n v_i^2 & = & {\bf v} {\boldsymbol \cdot} {\bf v}
 \end{eqnarray*}
 With this refactoring, the projection formula can be simplified to:
 \be
@@ -273,15 +273,15 @@ it is not hard to show the following:
 \bi
   \item{$P_{\bf v}(P_{\bf v}({\bf p})) = P_{\bf v}({\bf p})$.}
   \item{$P_{\bf v}(\lambda {\bf p}) = \lambda P_{\bf v}({\bf p})$.}
-  \item{$P_{\bf v}({\bf p}_1 + {\bf p}_2) = P_{\bf v}({\bf p}_1) + P_{\bf v}({\bf p}_1)$.}
+  \item{$P_{\bf v}({\bf p}_1 + {\bf p}_2) = P_{\bf v}({\bf p}_1) + P_{\bf v}({\bf p}_2)$.}
 \ei
 
 We can combine these three into just two properties:
 \bi
   \item{ $P_{\bf v}(P_{\bf v}({\bf p})) = P_{\bf v}({\bf p})$ -- Makes sense: 
       We shouldn't be able to get closer doing a second projection.}
-\item{ $P_{\bf v}(\lambda_1 {\bf p}_1 + \lambda_2 {\bf p}_2) = 
-    \lambda_1 P_{\bf v}({\bf p}_1) + \lambda_2 P_{\bf v}({\bf p}_1)$ -- 
+\item{ $P_{\bf v}(\lambda_1 {\bf p}_1 + \lambda_2 {\bf p}_2) =
+    \lambda_1 P_{\bf v}({\bf p}_1) + \lambda_2 P_{\bf v}({\bf p}_2)$ --
     Powerful: Can compute projections of expressions easily based on components. }
 \ei
 
@@ -488,7 +488,7 @@ space spanned by collection is given by:
   P_{[{\bf v}_1, \ldots, {\bf v}_m]}({\bf x}) & = & \sum_{i=1}^m ( {\bf x} {\boldsymbol \cdot} {\bf v}_i) {\bf v}_i \label{projection}
 \ee
 Note that when $n = m$, we reproduce formula $(\ref{orthonorm_expansion})$, 
-as $P_{[{\bf v}_1, \ldots, {\bf v}_n}]({\bf x}) = {\bf x}$.
+as $P_{[{\bf v}_1, \ldots, {\bf v}_n]}({\bf x}) = {\bf x}$.
 
 \section{Generalization of Projection based on the essence of the ``Dot Product''}
 
@@ -522,7 +522,7 @@ The length and projection formulas becomes:
 \ee
 
 One of the things we needed was that we could do calculus 
-( we needed to minimization a length in order to find the projection)
+( we needed to minimize a length in order to find the projection)
 and for this we needed a notion of length. The inner product {\em defines\/} 
 a notion of length automatically and all of the calculations proceed as before.
 The only change is that wherever we see a dot product we can replace it with 
