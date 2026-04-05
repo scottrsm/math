@@ -35,8 +35,8 @@ the functions is just $0$ without ever having to attempt the integrations; or,
 derive upper bounds on the integrals to show that 
 the sequence of integrals goes to $0$.
 
-However, a typical condition is that the $f_n$ converge 
-uniformly to $f$ on a close bounded interval. 
+However, a typical condition is that the $f_n$ converge
+uniformly to $f$ on a closed bounded interval. 
 But this rarely happens in many real world examples and you can imagine that
 mathematicians back in the day
 were getting complaints about such restrictive 
@@ -165,8 +165,8 @@ Is it?
 It turns out that the answer is NO! 
 
 If you look at any given partition of the domain, the approximating lower 
-and upper Darboux sums, are always 
-always $0$ and $1$ respectively. To see this, note that 
+and upper Darboux sums, are always
+$0$ and $1$ respectively. To see this, note that 
 over any sub-interval of the sums, the minimum (infimum) value is always 0 and 
 the maximum (supremum) is always 1 -- because on any interval there is always a 
 rational and an irrational number.
@@ -247,7 +247,7 @@ We would then define the length of a set to be the infimum over all such coverin
 We call this ``length'' the {\em Lebesgue outer measure\/}. It is defined more precisely by:
 
 \begin{eqnarray}
-	\mu^*(S) & = & \inf_{\mathop{\cup}_{i=1}^\infty\limits I_i \subseteq S} \sum_{i=1}^\infty |I_i| 
+	\mu^*(S) & = & \inf_{S \subseteq \mathop{\cup}_{i=1}^\infty\limits I_i} \sum_{i=1}^\infty |I_i|
 \end{eqnarray}
 
 This notion of measure (length) would not be of much use if the Lebesgue outer measure of
@@ -273,8 +273,8 @@ With this we can {\em define\/} the Lebesgue integral of the function:
 $f(x) = \chi_{R}(x)$ over the interval $[0,1]$ 
 as $1 * \mu^*(R) = 1 * 0 = 0$.
 
-In general, if a function can be written as a finite linear combination of 
-characteristic functions: $h(x) = \sum_i^N c_i \chi_{E_i}(x)$,
+In general, if a function can be written as a finite linear combination of
+characteristic functions: $h(x) = \sum_{i=1}^N c_i \chi_{E_i}(x)$,
 then we would {\em define\/} the Lebesgue integral for such functions as:
 \begin{eqnarray}
 	\int h(x) \, dx & = & \sum_{i=1}^N\limits c_i \, \mu^*(E_i)
@@ -306,7 +306,7 @@ area of an object $C$.
 
 One day a friend of his pulled out his comb from his pocket and asked him to 
 find the surface area. The technique seemed to work fine, it registered that 
-the comb was a little more that half the area as the comb's container.
+the comb was a little more than half the area as the comb's container.
 
 A few days later the friend came by with a new comb. It was actually a comb 
 set, consisting of two combs that fit together perfectly to form a rectangle.
@@ -375,15 +375,15 @@ so they behave properly. Surely, at the very least, disjoint sets
 should add properly; and further, disjoint sets that are ``tangled'' together
 should add up properly.
 By this we mean sets must be well behaved
-in the sense that the length of a set and the length of its ``compliment'' 
+in the sense that the length of a set and the length of its ``complement'' 
 must add up to their union. 
 
 But why all the fuss about the intersection with ``any set $X$''.
-Why not just say that $C$ and its compliment add up properly?
-The problem is that the compliment of $C$ might have infinite length, because
+Why not just say that $C$ and its complement add up properly?
+The problem is that the complement of $C$ might have infinite length, because
 the ambient space containing $C$ is infinite.
-Saying that $C$ and its compliment add up correctly is the statement that 
-the length of $C$ and the length of its compliment is equal to the length 
+Saying that $C$ and its complement add up correctly is the statement that 
+the length of $C$ and the length of its complement is equal to the length 
 of the ambient space: length(C) + $\infty$ = $\infty$ -- a useless statement.
 This won't distinguish any sets as being special; that is, it won't help
 us filter out the badly behaving sets.
@@ -392,7 +392,7 @@ What we want to say, just like the combs from the
 previous section, is that the measure of $C$ added with the measure of its 
 ``natural complement'' -- coming from a ``natural'' bounding box -- 
 gives back the measure of the bounding box.
-Without some restriction, the compliment could be 
+Without some restriction, the complement could be 
 an infinitely large set.
 
 The problem now becomes: ``What is the 'natural' bounding box for the set $C$''?
@@ -413,14 +413,14 @@ set is measurable? The definition is clean, but the burden to show a set is
 measurable has very much increased!
 
 We have now attempted to motivate the restriction of the length-of-sets 
-measuring method called outer measure to so-call measurable sets via 
+measuring method called outer measure to so-called measurable sets via 
 the filtering condition, (\ref{Carthy}).
 This filter is called ``Carath\'eodory's Condition'',
 and is introduced in most text books without much motivation. 
 And yet it is the key idea that makes Lebesgue theory work. 
  
 So, given that we restrict ourselves to these ``measurable'' sets it turns out that
-the measure behaves in the way one might want. Namely.
+the measure behaves in the way one might want. Namely:
 \begin{eqnarray*}
 	\mu(A) & = & \sum_{i=1}^N\limits \mu(A_i) \quad \text{when} \; 
 		A = \mathop{\cup}_{i=1}^N\limits A_i \quad \text{with} \;  
