@@ -165,7 +165,7 @@ and try to relate it to the present element at index $n$.
 Finally, we may write%
 \footnote{From the definition of $e_n$ and using 
 	$(\ref{o:var_extend})$ $(\ref{o:weights_normalized})$, and $(\ref{o:weights_alpha})$
-$e_1 = \sum_{k=0}^{m-1} x_{n-k} w_{k+1} = x_1 \sum_{k=0}^{m-1} w_{k+1} = x_1 \sum_{k=1}^m w_k = x_1$.}
+$e_1 = \sum_{k=0}^{m-1} x_{1-k} w_{k+1} = x_1 \sum_{k=0}^{m-1} w_{k+1} = x_1 \sum_{k=1}^m w_k = x_1$.}
 \begin{eqnarray}
     e_{n+1} &=&  \lambda \left(e_n - x_{(n+1) - m} w_m \right) + \alpha x_{n+1} \quad \forall n \in [1, N-1] \\
     e_1     &=&  x_1 
@@ -310,7 +310,7 @@ If we take the expectation of the weighted sum, $\sum_{i=1}^N x_i w_i$ we find t
 $\E{a x + b y + c} = a \E{x} + b \E{y} + c$, provided $a,b,c$ are constants.}
 
 \begin{eqnarray}
-    \E{\sum_{i=1}^n x_i w_i} &=& \sum_{i=1}^N \E{x_i w_i} = \sum_{i=1}^N \E{x_i} w_i = \mu \sum_{i=1}^N w_i = \mu 
+    \E{\sum_{i=1}^N x_i w_i} &=& \sum_{i=1}^N \E{x_i w_i} = \sum_{i=1}^N \E{x_i} w_i = \mu \sum_{i=1}^N w_i = \mu 
 \end{eqnarray}
 The weighted sum represents an estimate of the true mean of the IID random variables, which is $\mu$.
 And in this case we see that it is a good estimate in that the expected value of the weighed combination
@@ -414,7 +414,7 @@ We now proceed in the same way as above to compute the bias of more general mome
     &=  \sum_{i=1}^N \E{\left((x_i - \mu) + (\mu - {\bar x})\right)^r} w_i && \\\nonumber 
     &=  \sum_{i=1}^N \E{\sum_{j=0}^r (-1)^j \binom{r}{j} (x_i - \mu)^{r-j}({\bar x} - \mu)^{j}} w_i  && \\\nonumber
     &=  \sum_{i=1}^N \sum_{j=0}^r (-1)^j \binom{r}{j} \E{(x_i - \mu)^{r-j}({\bar x} - \mu)^{j}} w_i  &&\\\nonumber
-    &=  \sum_{i=1}^N \sum_{j=0}^r (-1)^j \binom{r}{j} \E{(x_i - \mu)^{r-j}\left(\sum_{l=1}^n (x_l - \mu)w_l\right)^j} w_i &&\\\nonumber 
+    &=  \sum_{i=1}^N \sum_{j=0}^r (-1)^j \binom{r}{j} \E{(x_i - \mu)^{r-j}\left(\sum_{l=1}^N (x_l - \mu)w_l\right)^j} w_i &&\\\nonumber 
     &=  \sum_{i=1}^N \sum_{j=0}^r (-1)^j \binom{r}{j} \E{(x_i - \mu)^{r-j}\left((x_i - \mu)w_i + \sum_{\substack{l \in [1, N] \\ l \neq i}} (x_l - \mu)w_l\right)^j} w_i &&\\\nonumber 
     &=  \sum_{i=1}^N \sum_{j=0}^r (-1)^j \binom{r}{j} \E{(x_i - \mu)^{r-j}
     \sum_{k=0}^j \binom{j}{k} (x_i - \mu)^{j-k} w_i^{j-k}  \left(\sum_{\substack{l \in [1, N] \\ l \neq i}} (x_l - \mu)w_l\right)^k} w_i &&\\\nonumber 
@@ -452,7 +452,7 @@ for the expected value of the na\"{i}ve $r^{\it th}$ moment:%
     + \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} M_{r-k} && \\\nonumber 
      & \times \left[ \sum_{i=1}^N w_i^{j+1-k} \left( \sum_{\substack{k_1 + k_2 + \, \cdots\,  + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \, k_n \neq 1 }} \binom{k}{k_1, k_2, \, \ldots\, , k_N} 
      \prod_{l=1}^N M_{k_l} w_l^{k_l}\right) \right. &&\\\nonumber
-     &\left. - \sum_{z = 2}^k M_z \left( \sum_{i=1}^N w_i^{i+z+1-k} \sum_{\substack{k_1 + k_2 + \, \cdots\, + k_{N-1} = k-z \\ \forall n, k_n \ge 0\, \wedge\, k_n \neq 1}}
+     &\left. - \sum_{z = 2}^k M_z \left( \sum_{i=1}^N w_i^{j+z+1-k} \sum_{\substack{k_1 + k_2 + \, \cdots\, + k_{N-1} = k-z \\ \forall n, k_n \ge 0\, \wedge\, k_n \neq 1}}
      \binom{k-z}{k_1, k_2, \,\ldots\, , k_{N-1}} \prod_{\substack{l \in [1,N-1]\\ l \neq i}} M_{k_l} w_l^{k_l} \right) \right] &&
 \end{flalign}
 We check the case $r=2$ to see if it coincides with the previous section:
@@ -571,7 +571,7 @@ Therefore, the estimate for the unbiased relative $4^{\it th}$ moment is:
     - 6 \sum_{l=1}^{N-1} \sum_{m=l+1}^N w_l^2 w_m^2 + W_2 W_3  - W_5}{\left(1 - 3W_2 + 6 W_3 -3W_4 \right)}
 \end{flalign}
 
-Since we don't know $M_2 = \sigma^2$, we use our unbiased estimate: $\frac{\sum_{j=1}^N (x - {\bar x})^2 w_i}{1 - \sum_{i=1}^N w_i^2}$.
+Since we don't know $M_2 = \sigma^2$, we use our unbiased estimate: $\frac{\sum_{j=1}^N (x_j - {\bar x})^2 w_j}{1 - \sum_{j=1}^N w_j^2}$.
 We also replace $\E{\sum_{i=1}^N (x_i - {\bar x})^4 w_i}$ with the sample estimate: $\sum_{i=1}^N (x_i - {\bar x})^4 w_i$.
 
 Therefore, our unbiased estimate of the relative Kurtosis is:
