@@ -15,7 +15,7 @@
 
 \title{Derivation of the Exponential Moving Average}
 \author{R. Scott McIntire}
-\date{Apr 4, 2026}
+\date{Apr 5, 2026}
 
 \begin{document}
 
@@ -40,7 +40,7 @@ is defined as:
 \end{eqnarray}
 To get the {\em exponential decay\/} in weights we assume that $w_{k+1} = \lambda w_k$.%
 \footnote{The reason this is called exponential is that it is the discrete
-analog of continuous exponential decay. To see this let $f(x) = e^{-kt}$ 
+analog of continuous exponential decay. To see this let $f(t) = e^{-kt}$ 
 for $k > 0$. Then sampling this function at regular intervals of say $1$ 
 we get the sequence: $\{ e^{-k}, e^{-2k}, e^{-3k}, \ldots \}$.
 Here we can see that the elements of the sequence are powers of a value, $\lambda = e^{-k}$.
@@ -56,7 +56,7 @@ the expression $x_{n-k}$ does not make sense for $k \ge n$. That is, at the
 start of the computation and for a little while, there is not a full window
 of values over a window of length $m$. As there is no information before $x_1$,
 we interpret these values to be $x_1$. 
-We will apply this principal more generally below. 
+We will apply this principle more generally below. 
 That is, if ${\bf z}$ is a data series,
 we extend the definition of ${\bf z}$ so that it is defined for
 indices less than 1 as:
@@ -80,7 +80,7 @@ Regardless of the averaging scheme, we want our weights to sum to one.%
 variables; then, treating the series elements as random variables we can view 
 the moving average as an estimate of their mean, $\mu$. 
 To be a good estimate we would like this estimate to be {\em unbiased\/}:
-$\E{\sum_{k=1}^m x_{n-k} w_{k+1}} = \sum_{k=0}^{m-1} \E{x_{n-k}}w_{k+1}$.
+$\E{\sum_{k=0}^{m-1} x_{n-k} w_{k+1}} = \sum_{k=0}^{m-1} \E{x_{n-k}}w_{k+1}$.
 Which is $\mu \sum_{k=0}^{m-1} w_{k+1} = \mu \sum_{k=1}^{m} w_k = \mu$.}
 But we also want the weights to be exponential; that is, $w_{k+1} = \lambda w_{k}$.
 
@@ -211,14 +211,14 @@ the recursive formula for $(\ref{ema_cmp})$, replacing $x_{n-k}$ with $f(x_{n-k}
 
 The recursive formula for $g_n$ is
 \begin{eqnarray}
-    g_{n+1} &=&  \lambda \left( g_{n} - f(x_{(n+1)-m}) w_m \right) + \alpha f(x_{n+1})   \quad \forall n \in [1, N-1] \\
-    g_1     &=&  f(x_1) 
+    g_{n+1} &=&  \lambda \left( g_{n} - f(x_{(n+1)-m} - c_{(n+1)-m}) w_m \right) + \alpha f(x_{n+1} - c_{n+1})   \quad \forall n \in [1, N-1] \\
+    g_1     &=&  f(x_1 - c_1) 
 \end{eqnarray}
 The 0-based index formula is:
 
 \begin{eqnarray}
-    g_{n} &=&  \lambda \left( g_{n-1} - f(x_{n-m}) w_{m-1} \right) + \alpha f(x_{n}) \quad \forall n \in [1, N-1] \\
-    g_0   &=&  f(x_0) 
+    g_{n} &=&  \lambda \left( g_{n-1} - f(x_{n-m} - c_{n-m}) w_{m-1} \right) + \alpha f(x_{n} - c_n) \quad \forall n \in [1, N-1] \\
+    g_0   &=&  f(x_0 - c_0) 
 \end{eqnarray}
 
 The corresponding $f$ for $(\ref{var})$ is $f(x) = x^2$; 
@@ -526,9 +526,9 @@ The na\"{i}ve estimate for the $4^{\it th}$ moment is:
 This is
 \begin{flalign}
     \E{(x_i - {\bar x})^4 w_i} &= M_4\left(1 -4 \sum_{i=1}^N w_i^2 + 6 \sum_{i=1}^N w_i^3 -4 \sum_{i=1}^N w_i^4 + \sum_{i=1}^N w_i^5 \right) &&\\\nonumber
-    &+ \binom{4}{2}\binom{2}{2} M_2^2 \left( \sum_{l=1}^N w_l^2 \left(\sum_{i=1}^N w_i\right)   - \sum_{j=1}^N w_l^2\left(\sum_{i=1}^N w_i^3 \right)\right) && \\\nonumber
-    &- \binom{4}{3}\binom{3}{2} M_2^2 \left( \sum_{l=1}^N w_l^2 \left(\sum_{i=1}^N w_i^2\right) - \sum_{j=1}^N w_l^2\left(\sum_{i=1}^N w_i^4 \right)\right) && \\\nonumber
-    &+ \binom{4}{4}\binom{4}{2} M_2^2 \left( \sum_{l=1}^N w_l^2 \left(\sum_{i=1}^N w_i^3\right) - \sum_{j=1}^N w_l^2\left(\sum_{i=1}^N w_i^5 \right)\right) && \\\nonumber
+    &+ \binom{4}{2}\binom{2}{2} M_2^2 \left( \sum_{l=1}^N w_l^2 \left(\sum_{i=1}^N w_i\right)   - \sum_{l=1}^N w_l^2\left(\sum_{i=1}^N w_i^3 \right)\right) && \\\nonumber
+    &- \binom{4}{3}\binom{3}{2} M_2^2 \left( \sum_{l=1}^N w_l^2 \left(\sum_{i=1}^N w_i^2\right) - \sum_{l=1}^N w_l^2\left(\sum_{i=1}^N w_i^4 \right)\right) && \\\nonumber
+    &+ \binom{4}{4}\binom{4}{2} M_2^2 \left( \sum_{l=1}^N w_l^2 \left(\sum_{i=1}^N w_i^3\right) - \sum_{l=1}^N w_l^2\left(\sum_{i=1}^N w_i^5 \right)\right) && \\\nonumber
     &+ \binom{4}{4}\binom{4}{4} M_4 \sum_{i=1}^N \left( \sum_{l=1}^N w_l^4 w_i\right) &&\\\nonumber   
     &+ \binom{4}{2,2} M_2^2 \sum_{l=1}^{N-1} \sum_{m=l+1}^N w_l^2 w_m^2 \left(\sum_{i=1}^N w_i\right) &&\\\nonumber 
     &- M_2 \sum_{i=1}^N \left( \sum_{\substack{l \in [1,N]\\ l \neq i}} M_2 w_l^2\right)  w_i^3  - M_4 \sum_{i=1}^N w_i^5  &&\\\nonumber 
