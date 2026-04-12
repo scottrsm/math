@@ -21,7 +21,7 @@
 
 \mansubtitle{Measure Theoretic Conditional Expectation}
         {in an Elementary Setting}
-{R. Scott McIntire}{Apr 4, 2026}
+{R. Scott McIntire}{Apr 12, 2026}
 
 \section{Overview}
 The measure theoretic approach to conditional expectation can be confusing
@@ -36,6 +36,14 @@ the ``conditional'' $\sigma$-algebra.
 
 
 \section{Elementary Probability Example}
+Let us start with a simple example. We have a die with six faces, $D_1, D_2, D_3, D_4, D_5, D_6$.
+Any roll of the die will produce one of these faces with an equal probability. Lets further suppose
+that the value of each side is the number of dots on the die. Know suppose that we when the die is 
+rolled, we don't see the die, but someone tells us partial information -- only that the die is "even" or "odd".
+
+{\bf Question:\/} Given that we only know the even or oddness of the die, what is the "best" quess of the die value?
+Let's try to answer this question using the measure theoretic definition of conditional expectation.
+
 Let $X = \{D_1, D_2, D_3, D_4, D_5, D_6\}$ and define a function $P$ by 
 $P(D_i) = \frac{1}{6}$, for $i\in \{1,2,3,4,5,6\}$. The intent is that $P$ will 
 become a probability measure for the space we construct.
@@ -308,7 +316,7 @@ Here, with a measure theoretic methodology, we have an elegant way to talk about
 conditional expectation in a singular context that doesn't exist in the 
 traditional approach.
 
-\section{A Discrete Conditional Expectation Result}
+\appendix{A Discrete Conditional Expectation Result}
 We generalize the discussion from the previous sections and work with functions
 on discrete sets with a given algebra of sets.
 
@@ -436,5 +444,4 @@ we mean $f^{-1}(v_i)$ where $v_i$ is the associated $f$ value of level set $i$.
 
 
 \bye
-
 
