@@ -3,7 +3,7 @@
 
 \title{Why Lebesgue Integration}
 \author{R. Scott McIntire}
-\date{Dec 29, 2024}
+\date{Apr 25, 2026}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -22,9 +22,9 @@ Suppose the sequence of functions, $f_n$, converge point-wise to a function $f$.
 We wish to find minimal conditions to place on $f_n$ so that the following occurs:
 
 {\bf Theorem?}
-\begin{eqnarray}
-	\lim_{n \rightarrow \infty}\limits \int f_n(x) \, dx & = & \int \lim_{n \rightarrow \infty}\limits f_n(x) \, dx \label{theorem}
-\end{eqnarray}
+\begin{equation}
+	\lim_{n \to \infty} \int f_n(x) \, dx = \int \lim_{n \to \infty} f_n(x) \, dx \label{theorem}
+\end{equation}
 
 Like any good technology this simplifies the work of mathematicians 
 and applied scientists. For instance, suppose the $f_n$ converges to the function $f$ 
@@ -41,10 +41,10 @@ But this rarely happens in many real world examples and you can imagine that
 mathematicians back in the day
 were getting complaints about such restrictive 
 conditions. The people who want a better convergence theorem say that many 
-times they don't have this strong condition and yet $(\ref{theorem})$
+times they don't have this strong condition and yet \eqref{theorem}
 holds. Unfortunately, other times it does not. So it seems that there are 
 conditions less rigid than uniform convergence of the sequence of 
-functions which allow $(\ref{theorem})$ to hold.
+functions which allow \eqref{theorem} to hold.
 
 There are better theorems and they come from a different kind of integration called 
 the Lebesgue ({\em measure\/}) Theory of Integration.
@@ -60,7 +60,7 @@ a sequence of functions leads to a function for which we ``lose control''
 constraining the upper and lower bounds of the sub-intervals in a way that the 
 convergence theorem fails. Then we might see what we need to add/impose 
 -- in terms of conditions -- on the sequence to make theorem 
-$(\ref{theorem})$ true.
+\eqref{theorem} true.
 
 Since we are using Riemann functions, 
 let's start with discontinuous functions 
@@ -70,19 +70,19 @@ trying to make complicated continuous functions that behave badly in the limit.
 We restrict ourselves to functions in the domain $[0, 1]$.
 Consider the following sequence of functions: 
 
-\begin{eqnarray}
-	f_n(x) & = & \begin{cases}  1 \quad \text{if $x$ can be expressed as the fraction, $\frac{p}{q}$ for some $p, q \in {\cal N}$ with $p, q \le n$ ;} \\ 
-	  			        		0 \quad \text{otherwise.} 
+\begin{align}
+	f_n(x) &= \begin{cases}  1 \quad \text{if $x = \frac{p}{q}$ for some $p, q \in {\cal N}$ with $0 \le p \le q \le n$;} \\
+	  			        		0 \quad \text{otherwise.}
 			   	 \end{cases}
-\end{eqnarray}
+\end{align}
 
 You can see that the sequence, $f_n$, converges point-wise to the function 
 
-\begin{eqnarray}
-	f(x) & = & \begin{cases} 1 \quad \text{if $x$ is rational;} \\ 
+\begin{align}
+	f(x) &= \begin{cases} 1 \quad \text{if $x$ is rational;} \\ 
 			                 0 \quad \text{otherwise.} 
 			   \end{cases}
-\end{eqnarray}
+\end{align}
 
 What can we say about the limit of the integrals of $f_n$?
 
@@ -107,48 +107,52 @@ $E_{i,n} = \left[r_i - \frac{1}{n 2^{i}}, r_i + \frac{1}{n 2^{i}}\right]$
 A given rational number lies in potentially many of the $E_{i,n}$.
 
 Define the functions, $S_i$ by
-\begin{eqnarray}
-	S_{i}(x) & = & \begin{cases} 1 \quad \text{if $x = r_i$}; \\ 
+\begin{align}
+	S_{i}(x) &= \begin{cases} 1 \quad \text{if $x = r_i$}; \\ 
 	 							  0 \quad \text{otherwise.} 
 					\end{cases}
-\end{eqnarray}
+\end{align}
 
 Below we make use of the notation: 
 
-\begin{eqnarray}
-I_X(x) & = & \begin{cases} 1 \quad \text{if $x \in X$}; \\ 0 \quad \text{otherwise.} \end{cases}
-\end{eqnarray}
+\begin{align}
+I_X(x) &= \begin{cases} 1 \quad \text{if $x \in X$}; \\ 0 \quad \text{otherwise.} \end{cases}
+\end{align}
 
 Finally, define, $g_n$ by
 
-\begin{eqnarray}
-	g_{n}(x) & = & \sum_{i=1}^\infty\limits S_{i}(x) I_{E_{i,n}}(x)
-\end{eqnarray}
+\begin{align}
+	g_{n}(x) &= \sum_{i=1}^\infty\limits S_{i}(x) I_{E_{i,n}}(x)
+\end{align}
 
 It is easy to see that each $g_n$ is a {\em representation\/} of the function $f$; 
 that is, $f \equiv g_n$.
 
 Note the following facts:
-\begin{eqnarray}
-	\int_0^1 S_{i}(x) I_{E_{i,n}}(x)\, dx \le \int_{0}^1 I_{E_{i,n}}(x) \, dx & = & \frac{2}{n2^{i}} \nonumber \\
-	\int_0^1 f(x) \, dx = \int_0^1 g_n(x) \, dx & = & \int_0^1 \sum_{i=1}^\infty  S_{i}(x) I_{E_{i,n}}(x)\, dx  \label{sum-limit-exchange} \\
-												& \le & \sum_{i=1}^\infty \int_0^1   S_{i}(x) I_{E_{i,n}}(x)\, dx  + O\left(\frac{1}{n}\right) \nonumber \\ 
-												& \le & \sum_{i=1}^\infty\limits \frac{2}{n2^{i}} + O\left(\frac{1}{n}\right) \nonumber \\ 
-												& =  & \frac{2}{n} \sum_{i=1}^\infty\limits \frac{1}{2^{i}}  + O(\frac{1}{n}) \nonumber \\
-												& =  & \frac{2}{n} + O\left(\frac{1}{n}\right) \nonumber
- \end{eqnarray}
+\begin{align}
+	\int_0^1 S_{i}(x) I_{E_{i,n}}(x)\, dx \le \int_{0}^1 I_{E_{i,n}}(x) \, dx &= \frac{2}{n2^{i}} \nonumber \\
+	\int_0^1 f(x) \, dx = \int_0^1 g_n(x) \, dx &= \int_0^1 \sum_{i=1}^\infty  S_{i}(x) I_{E_{i,n}}(x)\, dx  \label{sum-limit-exchange} \\
+												&\le  \sum_{i=1}^\infty \int_0^1   S_{i}(x) I_{E_{i,n}}(x)\, dx  \nonumber \\
+												&\le  \sum_{i=1}^\infty\limits \frac{2}{n2^{i}} \nonumber \\
+												&=  \frac{2}{n} \sum_{i=1}^\infty\limits \frac{1}{2^{i}} \nonumber \\
+												&=  \frac{2}{n} \nonumber
+ \end{align}
 
-For the sake of the argument above -- to get an upper bound on the integral of $f$ -- we are assuming that 
-$f(x)$ (and consequently, $g_n(x)$) are Riemann integrable and that we 
-can exchange the integral and sum in equation $(\ref{sum-limit-exchange})$ subject to, potentially, a small error of magnitude $O(\frac{1}{n})$.
+For the sake of the argument above -- to get an upper bound on the integral of $f$ -- we are assuming that
+$f(x)$ (and consequently, $g_n(x)$) is Riemann integrable and that we
+can exchange the integral and sum in equation \eqref{sum-limit-exchange}.
+(Strictly, the interchange would require uniform convergence or a Lebesgue-style
+dominated/monotone result -- neither of which we have here. The point of the
+heuristic is to show what value the integral of $f$ would have to take if it
+existed.)
 
 What does this say about the integral of $f$? 
-We have given an $n \in {\cal N}^+$ for any partition of the interval, $[0,1]$, we can bound the integral of $f$ 
+Given any $n \in {\cal N}^+$, for any partition of $[0,1]$ we can bound the integral of $f$
 (assuming it is Riemann integrable) by
-\begin{eqnarray*}
-	\int_0^1 f(x) \, dx & =   & \int_0^1 g_{n}(x) \, dx \\
-						& \le & \frac{2}{n} + O\left(\frac{1}{n}\right)
-\end{eqnarray*}
+\begin{align*}
+	\int_0^1 f(x) \, dx &= \int_0^1 g_{n}(x) \, dx \\
+						&\le  \frac{2}{n}.
+\end{align*}
 
 Since this is true for all $n \in {\cal N}^+$, the integral of $f$ must be $\le 0$. 
 But, since $f$ is non-negative, its integral must be $\ge 0$. Therefore, the 
@@ -167,7 +171,7 @@ It turns out that the answer is NO!
 If you look at any given partition of the domain, the approximating lower 
 and upper Darboux sums, are always
 $0$ and $1$ respectively. To see this, note that 
-over any sub-interval of the sums, the minimum (infimum) value is always 0 and 
+over any sub-interval of the partition, the minimum (infimum) value is always 0 and
 the maximum (supremum) is always 1 -- because on any interval there is always a 
 rational and an irrational number.
 
@@ -175,11 +179,11 @@ Yet the above analysis suggests that its ``integral'' should exist and its value
 should be $0$.
 
 A contrarian response to the above argument might be:
-``What I really want is to have a theorem for a sequence of 
-'nice functions'. I don't care that you have found Riemann integrable functions that
-don't converge to a Riemann Integrable function''. 
+``What I really want is to have a theorem for a sequence of
+`nice functions'. I don't care that you have found Riemann integrable functions that
+don't converge to a Riemann Integrable function''.
 
-It turns out; however, that there are sequences of nice functions that converge 
+It turns out, however, that there are sequences of nice functions that converge
 to a non-Riemann integrable function as well!
 
 So, in addition to the conditions we need to ensure that we can interchange 
@@ -217,18 +221,18 @@ with step functions.
 
 Let's go the other way, based on the example from the previous section, rather 
 than step functions, let's break up the function in terms of its {\em Range\/}. 
-In our case there are only two ``Range'' values: $0$ and $1$. From this we get an 
-analog of Riemann's step functions -- 
-so called characteristic functions of sets:
+In our case there are only two ``Range'' values: $0$ and $1$. From this we get an
+analog of Riemann's step functions: characteristic (indicator) functions of
+(possibly complicated) sets:
 
-$\chi_{S} = \begin{cases} 1 \quad \text{if $x \in  S$;} \\ 0 \quad \text{otherwise.} \end{cases}$
+$\chi_{S}(x) = \begin{cases} 1 \quad \text{if $x \in  S$;} \\ 0 \quad \text{otherwise.} \end{cases}$
 
 Although approximating the function, $f$, from the last section using step 
 functions is unpleasant, it is very easy using characteristic functions -- the complexity 
 is buried in the underlying set, $S$. In our case, we can represent our function {\em exactly\/}
-as a characteristic function: $f(x) = \chi_{R}(x)$.
+as a characteristic function: $f(x) = \chi_{Q_{[0,1]}}(x)$.
 
-Here, $R$ is the set of rationals on the interval $[0, 1]$.
+Here, $Q_{[0,1]}$ is the set of rationals on the interval $[0, 1]$.
 
 To find the ``area'' under the curve ``$f(x)$'' we would like to multiply the 
 height by the ``width'' of each of the sets. What might this mean?
@@ -246,39 +250,39 @@ the sum of the lengths of the covering intervals.
 We would then define the length of a set to be the infimum over all such covering bounds.
 We call this ``length'' the {\em Lebesgue outer measure\/}. It is defined more precisely by:
 
-\begin{eqnarray}
-	\mu^*(S) & = & \inf_{S \subseteq \mathop{\cup}_{i=1}^\infty\limits I_i} \sum_{i=1}^\infty |I_i|
-\end{eqnarray}
+\begin{align}
+	\mu^*(S) &= \inf_{S \subseteq \mathop{\cup}_{i=1}^\infty\limits I_i} \sum_{i=1}^\infty |I_i|
+\end{align}
 
 This notion of measure (length) would not be of much use if the Lebesgue outer measure of
 an interval was not its length.
-It is not hard to show that it does indeed coincide with length on 
-intervals -- and also finite collection of intervals.
+It is not hard to show that it does indeed coincide with length on
+intervals -- and also on a finite collection of intervals.
 
-Well what is the outer measure of the set $R$? We claim that the ``length'' 
+Well, what is the outer measure of the set $Q_{[0,1]}$? We claim that the ``length'' 
 (outer-measure) of the set of rationals on the interval $[0,1]$ is $0$.
 
-Consider the coverings: $I_{(r_i - \frac{\epsilon}{2^i}, r_i + \frac{\epsilon}{2^i})}$. 
+Consider the coverings: $I_{(r_i - \frac{\epsilon}{2^i}, r_i + \frac{\epsilon}{2^i})}$.
 Then for any
-$\epsilon > 0$, $R \subset \mathop{\cup}_{i=1}^\infty\limits I_{(r_i - \frac{\epsilon}{2^i}, r_i + \frac{\epsilon}{2^i})}$
-Then $\forall \epsilon, \epsilon > 0$:
-\begin{eqnarray}
-\mu^*(R) & \le & \sum_{i=1}^\infty  |I_{(r_i - \frac{\epsilon}{2^i}, r_i + \frac{\epsilon}{2^i})}| \\
-		 & = & 2 \epsilon \sum_{i=1}^\infty \frac{1}{2^i} \\
-		 & = & 2 \epsilon
-\end{eqnarray}
-Consequently, $\mu^*(R) = 0$. 
+$\epsilon > 0$, $Q_{[0,1]} \subset \mathop{\cup}_{i=1}^\infty\limits I_{(r_i - \frac{\epsilon}{2^i}, r_i + \frac{\epsilon}{2^i})}$.
+Then $\forall \epsilon > 0$:
+\begin{align}
+\mu^*(Q_{[0,1]}) &\le \sum_{i=1}^\infty  |I_{(r_i - \frac{\epsilon}{2^i}, r_i + \frac{\epsilon}{2^i})}| \\
+		 &= 2 \epsilon \sum_{i=1}^\infty \frac{1}{2^i} \\
+		 &= 2 \epsilon
+\end{align}
+Consequently, $\mu^*(Q_{[0,1]}) = 0$.
 
-With this we can {\em define\/} the Lebesgue integral of the function: 
-$f(x) = \chi_{R}(x)$ over the interval $[0,1]$ 
-as $1 * \mu^*(R) = 1 * 0 = 0$.
+With this we can {\em define\/} the Lebesgue integral of the function:
+$f(x) = \chi_{Q_{[0,1]}}(x)$ over the interval $[0,1]$
+as $1 \cdot \mu^*(Q_{[0,1]}) = 1 \cdot 0 = 0$.
 
 In general, if a function can be written as a finite linear combination of
 characteristic functions: $h(x) = \sum_{i=1}^N c_i \chi_{E_i}(x)$,
 then we would {\em define\/} the Lebesgue integral for such functions as:
-\begin{eqnarray}
-	\int h(x) \, dx & = & \sum_{i=1}^N\limits c_i \, \mu^*(E_i)
-\end{eqnarray}
+\begin{align}
+	\int h(x) \, dx &= \sum_{i=1}^N\limits c_i \, \mu^*(E_i)
+\end{align}
 
 Going further, we would try to define the Lebesgue integral of an ``arbitrary''
 function, $f$, as the limit of integrals of approximating ``simple'' 
@@ -300,8 +304,8 @@ The entrepreneur wanted to do something similar to help measure the area of
 non-regular surfaces. He found that a 
 certain oil when painted on a surface would accumulate at a fixed depth. By 
 removing the oil (a proprietary process) and measuring the volume he could 
-compute the area by dividing by this fixed depth. He called this method the 
-``mu'' method and used the symbology $\mu(C)$ to be his measure of the surface 
+compute the area by dividing by this fixed depth. He called this method the
+``mu'' method and used the notation $\mu(C)$ to be his measure of the surface
 area of an object $C$.
 
 One day a friend of his pulled out his comb from his pocket and asked him to 
@@ -311,7 +315,7 @@ the comb was a little more than half the area as the comb's container.
 A few days later the friend came by with a new comb. It was actually a comb 
 set, consisting of two combs that fit together perfectly to form a rectangle.
 The teeth of the comb were much finer than the comb from a few days earlier. 
-The retailer said is was much easier to store, you got a finer comb, and you 
+The retailer said it was much easier to store, you got a finer comb, and you 
 get two combs for almost the price of one; and, better yet, they both 
 fit in the same rectangular carrying case.
 
@@ -320,7 +324,7 @@ He found that, when fit together, they had the area of the rectangular carrying 
 He determined the area of this rectangle to be $A$. He then tried each of the 
 combs separately only to find that each of their areas was also $A$!
 It seems that due to the viscosity of the oil and the fine spacing between the 
-teeth of the combs, the oil coating did not penetrate the fine crevasses of the 
+teeth of the combs, the oil coating did not penetrate the fine crevices of the
 comb, treating it as solid -- consequently, the measure of the area was 
 that of the (enclosing) rectangle.
 
@@ -355,19 +359,21 @@ broken as long as the pieces are not ``too'' jagged.
 
 
 \section{Back to Outer Measure}
-It turns out that outer measure behaves much like the oil measurement system 
-used in the last section. That is, there are sets, $C$, for which there is at 
-least some, $X$ ("bounding box"), so that
-$\mu^*(X) \neq \mu^*(X \cap C) + \mu^*(X \cap C^c)$
+It turns out that outer measure behaves much like the oil measurement system
+used in the last section. That is, there are sets, $C$, for which there is at
+least some $X$ (``bounding box'') so that
+$$
+\mu^*(X) \neq \mu^*(X \cap C) + \mu^*(X \cap C^c).
+$$
 
 Sets like, $C$, are too jagged and its measure doesn't add properly.
 
 Lebesgue measure theory does something similar to restrict its measuring sets.
 The theory defines a set, $C$, to be {\em measurable\/}
 if for all sets $X$ the following is true:
-\begin{eqnarray}
-	\mu^*(X) & = & \mu^*(X \cap C) + \mu^*(X \cap C^c) \label{Carthy}
-\end{eqnarray}
+\begin{align}
+	\mu^*(X) &= \mu^*(X \cap C) + \mu^*(X \cap C^c) \label{Carthy}
+\end{align}
 When a set is measurable we simply write $\mu(C)$ instead of $\mu^*(C)$.
 
 What we're looking for is a minimum requirement to impose on ``measurable'' sets
@@ -421,14 +427,14 @@ And yet it is the key idea that makes Lebesgue theory work.
  
 So, given that we restrict ourselves to these ``measurable'' sets it turns out that
 the measure behaves in the way one might want. Namely:
-\begin{eqnarray*}
-	\mu(A) & = & \sum_{i=1}^N\limits \mu(A_i) \quad \text{when} \; 
+\begin{align*}
+	\mu(A) &= \sum_{i=1}^N\limits \mu(A_i) \quad \text{when} \; 
 		A = \mathop{\cup}_{i=1}^N\limits A_i \quad \text{with} \;  
 		A_i \cap A_j = \emptyset \quad \text{if} \; i \neq j \\
-	\mu(A) & = & \sum_{i=1}^\infty\limits \mu(A_i) \quad \text{when} \; 
+	\mu(A) &= \sum_{i=1}^\infty\limits \mu(A_i) \quad \text{when} \; 
 		A = \mathop{\cup}_{i=1}^\infty\limits A_i \quad \text{with} \; 
 		A_i \cap A_j = \emptyset \quad \text{if} \; i \neq j
-\end{eqnarray*}
+\end{align*}
 
 That is, the measure of a set that is composed of a collection of disjoint 
 sets should be the sum of the measures of the disjoint sets. We need this to hold
@@ -468,7 +474,7 @@ to be the collection of open and closed intervals, we have a collection that
 is easy to show satisfy (\ref{Carthy}), and yet provide a wealth of complex sets
 via set operations.
 
-With a healthy collection of measurable sets we can define ``measurable functions``
+With a healthy collection of measurable sets we can define ``measurable functions''
 as any function that is a simple function or is a pointwise limit of simple functions.
 The connection to measurable sets is that the simple functions -- remember they 
 are based on characteristic functions of sets -- use only measurable sets in 
@@ -499,7 +505,7 @@ to address the theorem described at the beginning of this paper; namely,
 can I interchange the sequence limit with the integral?
 
 It turns out that there is a condition called ``Lebesgue Dominated Convergence''.
-This theorem requires only that the sequence of functions converge "almost everywhere"
+This theorem requires only that the sequence of functions converge ``almost everywhere''
 (all but a set of measure $0$) to a function, $f$, and the sequence of functions 
 as well as the function, $f$,
 are all bound above by an integrable function, $g$, having a finite integral.
@@ -536,30 +542,30 @@ Finally, from this theory one does indeed get less stringent convergence
 criterion than the Riemann counterpart. One can have a criterion that avoids 
 ``uniform'' convergence. In fact, essentially, you get a convergence theorem 
 that requires only that a sequence of functions converge pointwise to a function%
-\footnote{In fact, one only requires that a sequence of functions converge point-wise 
-to a function ``almost everywhere`` -- meaning everywhere except on a set of 
+\footnote{In fact, one only requires that a sequence of functions converge point-wise
+to a function ``almost everywhere'' -- meaning everywhere except on a set of 
 outer measure $0$.} and that the sequence of functions 
 are ``dominated'' -- bounded above -- by a Lebesgue integrable function.
 
-It should be noted that there is an analogy between Riemann and Lebesgue integration 
-and the Rational and the Real number systems. In the same way that the Real number 
-system ``completes'' the Rational number system. The Lebesgue integration 
+It should be noted that there is an analogy between Riemann and Lebesgue integration
+and the Rational and the Real number systems. In the same way that the Real number
+system ``completes'' the Rational number system, the Lebesgue integration
 theory ``completes'' the Riemann theory. In fact, with the Lebesgue theory 
 one can create function spaces with a metric that makes them ``complete'' 
 in the same sense as Real numbers; namely, Cauchy sequences always converge 
 in that space. The function space $L_2$ consists of all functions $f$ 
 (say over the interval $[0,1]$) that satisfy:
 
-\begin{eqnarray}
+\begin{align}
 \int_0^1 f^2(x) \, dx < \infty
-\end{eqnarray}
+\end{align}
 
 Here, the integral is the Lebesgue integral. This space also has an inner 
 product defined, for two functions $f, g \in L_2$ by
 
-\begin{eqnarray}
+\begin{align}
 \langle f, g \rangle \; \equiv \; \int_0^1 f(x)\, g(x)\, dx
-\end{eqnarray}
+\end{align}
 
 And since it is a complete space, it is what is known as a {\em Hilbert Space\/}.
 A Hilbert space is a vector space with an inner product that is complete with 
@@ -569,7 +575,7 @@ space, just like they do for the finite dimensional Hilbert spaces: $R, R^2, R^3
 And, much of the behavior of the function space, $L_2$ is replicated from 
 the finite dimensional $R^n$ spaces. This wouldn't be the case if we used
 the Riemann integral for the inner product/norm. It would be like
-working with the vector spaces $Q, Q^1, Q^2, \ldots$, where $Q$ is the set 
+working with the vector spaces $Q, Q^2, Q^3, \ldots$, where $Q$ is the set
 of rational numbers. The vector properties would be there, but not 
 the important analytic properties -- and the notion of perpendicularity would
 be missing.
@@ -585,7 +591,7 @@ For instance, the fraction that we write as '1/2' is really the
 equivalence class (set) of pairs of integers: 
 \{(1,2), (2,4), (3, 6), (4,8), \ldots \}.
 To be equivalent, any two pairs, $(a, b)$ and $(c, d)$ must satisfy: 
-$a * d = b * c$. Also, note that each equivalence class of integer pairs --
+$a \cdot d = b \cdot c$. Also, note that each equivalence class of integer pairs --
 representing a given rational number -- consists of an {\em infinite\/} number 
 of integer pairs.
 
