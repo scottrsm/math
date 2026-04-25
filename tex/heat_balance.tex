@@ -7,9 +7,9 @@
 \footline{\hss\tenrm\folio\hss}
 
 \mantitle{A Balance Law Interpretation of the Fokker-Planck Equation}
-{R. Scott McIntire}{Apr 4, 2026}
+{R. Scott McIntire}{Apr 25, 2026}
 
-\subsection{Overview}
+\section{Overview}
 
 In this paper we use a balance law to derive the heat equation in one and 
 several dimensions. We also use it to study the propagation of a probability
@@ -72,7 +72,7 @@ at which heat enters through the boundary.
 By the {\it Fundamental Theorem of Calculus\/}, 
 $\int_{x_1}^{x_2} f_x(t_1, x) \, dx = f(t_1, x_2) - f(t_1, x_1)$.
 Therefore, bringing the right hand side to the left hand side in equation 
-(1) we may write{$\vphantom |$}:
+(1) we may write:
 $$
 \int_{x_1}^{x_2} h_t(t_1,x) + f_x(t_1,x) \; dx = 0
 $$
@@ -91,7 +91,7 @@ To get an equation for the temperature, $u$, we must relate it to
 the heat and the heat flux. To do so, we must make 
 {\it assumptions\/} about properties of the material.
 The simplest assumption about the heat is that it is 
-proportional to temperature:\footnote{\dag}{%
+proportional to temperature:\footnote{\raise 0.5ex \hbox{\dag}}{%
 The temperature of a substance is the average kinetic energy of the material's molecules.
 When we refer to heat we mean the heat density, the amount of heat energy per unit volume.
 The specific heat capacity is a constant that converts the material's temperature to
@@ -134,7 +134,7 @@ $$
 \fracd{\partial}{\partial x} \bigg(k(x) \fracd{\partial u}{\partial x}\bigg)
 $$
 Technically, to have similar properties of the heat equation, $c(x)$
-and $k(x)$ should satisfy(for all $x$):
+and $k(x)$ should satisfy (for all $x$):
 
 \beginEnum
 \enum{$c(x) > c_0$ for some $c_0 > 0$.}
@@ -170,8 +170,8 @@ $$
 \; d{\bf S}}}\limits_{\hbox{\small Heat flow rate leaving 
 \hbox{$\Omega$}}} \; dt
 $$
-As in the one dimensional case, divide by $1 / (t_2 - t_1)$ 
-and take the limit as 
+As in the one dimensional case, divide by $(t_2 - t_1)$
+and take the limit as
 $t_2 \rightarrow t_1$. This gives:
 $$
 \eqalignno{
@@ -192,11 +192,11 @@ change of the heat in the region $\Omega$ is equal to the rate
 at which heat enters through the boundary.
 
 
-By the {\it Fundamental Theorem of Calculus\/}, 
-$\int_{\Omega} \nabla \cdot {\bf f}(t_1, {\bf x}) \, d{\bf x} = 
+By the {\it Divergence Theorem\/},
+$\int_{\Omega} \nabla \cdot {\bf f}(t_1, {\bf x}) \, d{\bf x} =
 \oint_{\partial \Omega} {\bf f}(t_1, {\bf x}) \cdot {\bf n} \, d{\bf S}$.
 Therefore, bringing the right hand side to the left hand side in equation 
-(3) we may write{$\vphantom |$}:
+(3) we may write:
 $$
 \int_{\Omega} h_t(t_1, {\bf x}) + \nabla \cdot {\bf f}(t_1, {\bf x}) 
 \; d{\bf x} = 0
@@ -243,7 +243,7 @@ $$
 \nabla \cdot \bigg(K({\bf x}) \nabla u \bigg)
 $$
 Technically, to have similar properties of the heat equation, $c({\bf x})$
-and $K({\bf x})$ should satisfy(for all ${\bf x}$):
+and $K({\bf x})$ should satisfy (for all ${\bf x}$):
 
 \beginEnum
 \enum{$c({\bf x}) > c_0$ for some $c_0 > 0$;}
@@ -268,22 +268,22 @@ the temperature gradient.
 In this section, we wish to derive equations for the propagation of 
 probability density functions driven by systems of differential equations.
 
-\subsection{A first Order System}
+\subsection{A First Order System}
 Given a first order system of differential equations of the form:
 $$
 \eqalignno{
 \dot {\bf x} =  {\bf f}(t, {\bf x}) & & (5a) \cr
-{\bf x}(0) = {\bf x_0}  & & (5b) \cr }
+{\bf x}(0) = {\bf x}_0  & & (5b) \cr }
 $$
-let ${\cal X}(t; {\bf x_0})$ be the solution; 
+let ${\cal X}(t; {\bf x}_0)$ be the solution; 
 which is assumed to be invertible 
 on the interval $[0,T)$.
-That is, for each $t \in [0,T)$, ${\cal X}(t; \cdot): R^n \mapsto R^n$ 
+That is, for each $t \in [0,T)$, ${\cal X}(t; \cdot): R^n \to R^n$
 is invertible. If $X$ is a random variable with 
 probability density function $P_X({\bf x})$, then we wish to compute 
 the probability density function of the random variable induced by 
-applying the transformation 
-${\cal X}(t; {\bf \cdot})$ to the random variable $X$.
+applying the transformation
+${\cal X}(t; \cdot)$ to the random variable $X$.
 This will be done by writing down a balance law for a 
 suitable probabilistic expression. As in previous sections, we will not 
 obtain a formula for the induced probability density function; rather, 
@@ -313,8 +313,8 @@ To compute the derivative we change the integration variable so as to
 keep the region constant. To this end, let 
 ${\bf x} = {\cal X}(\tau, {\bf z})$. The integral becomes:
 $$
-\fracd{d}{d\tau} \int_{\Omega} 
-p(\tau,{\cal X}(t, {\bf z})) \bigg| 
+\fracd{d}{d\tau} \int_{\Omega}
+p(\tau,{\cal X}(\tau, {\bf z})) \bigg|
 \frac{\partial {\cal X}(\tau,{\bf z})}
 {\partial {\bf z}} \bigg| \; d{\bf z} = 0
 $$
@@ -406,8 +406,8 @@ Consider the second order system of differential equations of the form:
 $$
 \eqalignno{
 \ddot {\bf x} =  {\bf f}(t, {\bf x}, \dot {\bf x}) & & (11a) \cr
-{\bf x}(0) = {\bf x_0} & & (11b)  \cr
-\dot {\bf x}(0) = {\bf v_0} & & (11c)  \cr} 
+{\bf x}(0) = {\bf x}_0 & & (11b)  \cr
+\dot {\bf x}(0) = {\bf v}_0 & & (11c)  \cr} 
 $$
 This may be written as a first order system as follows: 
 Let ${\bf v} = \dot {\bf x}$, then (11a-c) may be written as
@@ -415,15 +415,15 @@ $$
 \eqalignno{
 \dot {\bf x}  & = {\bf v} &  (12a) \cr
 \dot {\bf v}  & =  {\bf f}(t, {\bf x}, {\bf v}) &  (12b) \cr
-{\bf x}(0)  & = {\bf x_0}  & (12c) \cr 
-{\bf v}(0)  & = {\bf v_0}  & (12d) \cr }
+{\bf x}(0)  & = {\bf x}_0  & (12c) \cr 
+{\bf v}(0)  & = {\bf v}_0  & (12d) \cr }
 $$
 We can use the result of the last section to write a formula for the 
 propagation of the probability density function. Let $P_{X,V}({\bf x},{\bf v})$
 be the joint probability density function for random variables $X$ and $V$.
-Let $p(t,{\bf x},{\bf v}) = 
-P_{{\cal X}(t; X, Y), {\cal V}(t; X, Y)}({\bf x}, {\bf v})$ 
-denote the probability density function of the pair, $(X, Y)$, transformed by
+Let $p(t,{\bf x},{\bf v}) =
+P_{{\cal X}(t; X, V), {\cal V}(t; X, V)}({\bf x}, {\bf v})$
+denote the probability density function of the pair $(X, V)$, transformed by
 the solution of (12a-d) at time $t$.
 From the previous section, $p$ satisfies 
 \footnote{\kern -3pt \raise 0.5ex \hbox{\dag}}
@@ -505,7 +505,7 @@ $$
 \oint_{\partial \Omega_\tau} \big(A({\bf x}) \nabla p(\tau, {\bf x}) \big)
 \cdot {\bf n} \; d{\bf S} & (17) \cr}
 $$
-Using the {\it Fundamental Theorem of Calculus\/} on the right hand side 
+Using the {\it Divergence Theorem\/} on the right hand side
 of (17) and combining with the left hand side, we have
 $$
 \eqalignno{
@@ -560,10 +560,10 @@ P_{{\cal X}(t, X), {\cal V}(t, V)}({\bf x}, {\bf v})$
 be the joint probability density function for the 
 random variables $\{X, V\}$ transformed 
 by $\{{\cal X}(t, \cdot)~,~{\cal V}(t, \cdot)\}$. 
-As before, let $\widehat \Omega$ be an arbitrary region in $R^n {\rm x} R^n$, 
+As before, let $\widehat \Omega$ be an arbitrary region in $R^n \times R^n$, 
 and let 
 $\Omega_\tau$ parameterize a family 
-of regions in $R^n {\rm x} R^n$ such that 
+of regions in $R^n \times R^n$ such that 
 $\Omega_0 = \Omega$ and $\Omega_t = \widehat \Omega$.
 
 We assume, as in the previous section that the primary dynamics of the 
@@ -576,14 +576,14 @@ That is, the instantaneous balance law (6) becomes
 $$
 \eqalignno{
 \fracd{d}{d\tau} \int_{\Omega_\tau} p(\tau,{\bf x}, {\bf v}) \; 
-d({\bf x} \hbox{\small x} {\bf v}) & 
+d({\bf x} \times {\bf v}) & 
 = \oint_{\partial \Omega_\tau} \pmatrix{ 0 \! \! &, \;
 A({\bf x}, {\bf v}) \nabla_{\bf v} 
-p(\tau, {\bf x}, {\bf v})} \cdot \pmatrix{{\bf n_x} \cr
-{\bf n_v}} \; d({\bf S_x} \raise 1pt \hbox{\small x} {\bf S_v}) & (21) \cr}
+p(\tau, {\bf x}, {\bf v})} \cdot \pmatrix{{\bf n}_x \cr
+{\bf n}_v} \; d({\bf S}_x \times {\bf S}_v) & (21) \cr}
 $$
-The left hand side has been previously calculated; so, using the 
-{\it Fundamental Theorem of Calculus\/} on the right hand side, we may 
+The left hand side has been previously calculated; so, using the
+{\it Divergence Theorem\/} on the right hand side, we may
 write
 $$
 \eqalignno{
@@ -592,7 +592,7 @@ $$
 \nabla_{\bf v} \cdot \big( p(\tau, {\bf x}, {\bf v}) 
 {\bf f}(\tau, {\bf x}, {\bf v}) \big) & & \cr
  - \nabla_{\bf v} \cdot \big(A({\bf x}, {\bf v}) \nabla_{\bf v} 
-p(\tau, {\bf x}, {\bf v})\big) \; d({\bf x} \hbox{\small x} {\bf v})
+p(\tau, {\bf x}, {\bf v})\big) \; d({\bf x} \times {\bf v})
  & = 0 & (22) \cr}
 $$
 Again, $\widehat \Omega = \Omega_t$ and $t$ arbitrary imply that the 
