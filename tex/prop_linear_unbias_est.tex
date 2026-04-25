@@ -28,16 +28,13 @@ minimized in some sense.
 
 The problem may be restated as choosing $L$ to ``minimize'' the norm of $LVL^T$
 subject to the constraint $LA = I$. The question is what norm does one
-use. The ``natural'' norm of a matrix is $\sqrt{{\rm
-    tr}\left(M^TM\right)}$. This 
+use. The ``natural'' norm of a matrix is $\sqrt{{\rm tr}\left(M^TM\right)}$. This 
     follows from considering the standard basis in ${\bf R}^{n \times m}$ and
     using the usual norm of the vector space ${\bf R}^{n \times m}$. 
 The matrix of interest, $LVL^T$, is positive definite
     symmetric; in this case, each of the ``trace''
-expressions, $\root k \of {{\rm
-          tr}\left(M^k\right)} \;\; (k \in [1,\infty ))$, is a norm for a
-positive definite matrix $M_{m \times m}$ (these are the {\it Schatten\/}
-$k$-norms of $M$).
+    expressions, $\root k \of {{\rm  tr}\left(M^k\right)} \;\; (k \in [1,\infty ))$, is a norm for a
+positive definite matrix $M_{m \times m}$ (these are the {\it Schatten\/} $k$-norms.)
 
 \section{Do the Norms Matter?}
 The question is, do different choices of norms lead to a different
@@ -269,13 +266,13 @@ $LVL^T$, subject to the constraint $L_{m \times n}A_{n \times m} = I_{m \times m
 
 {\bf Proof.} We apply Lemma 1 with the variable $L \in {\bf R}^{m \times n}$,
 $\Omega = \{L \in {\bf R}^{m \times n} : LA = I\}$ (closed),
-$\varphi_n(L) = \sqrt[n]{{\rm tr}((LVL^T)^n)}$ (the $n^{\rm th}$ Schatten norm of $LVL^T$),
+$\varphi_n(L) = \root n \of {{\rm tr}((LVL^T)^n)}$ (the $n^{\rm th}$ Schatten norm of $LVL^T$),
 and $\varphi(L) = \lambda_{\max}(LVL^T)$ (the spectral norm of $LVL^T$, which is
 positive semi-definite). The constraint $g(L) = 0$ is vacuous since $\Omega$ already
 encodes $LA = I$. Theorem 1 follows after collecting the facts:
 
 \item{For a positive semi-definite matrix with eigenvalues $\lambda_i \ge 0$,
-$\sqrt[k]{\sum_i \lambda_i^k} \to \max_i \lambda_i$ as $k \to \infty$.}
+$\root k \of {\sum_i \lambda_i^k} \to \max_i \lambda_i$ as $k \to \infty$.}
 \item{The $L_2$ matrix norm of a positive semi-definite matrix is its
 maximum eigenvalue.}
 \item{The $L_2$ norm is coercive.}
