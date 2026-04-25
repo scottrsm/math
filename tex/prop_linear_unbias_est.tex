@@ -7,17 +7,17 @@
 \footline{\hss\tenrm\folio\hss}
 
 \mantitle{Properties of a Linear Unbiased Minimum Variance Estimator}
-{R. Scott McIntire}{Apr 4, 2026}
+{R. Scott McIntire}{Apr 25, 2026}
 
 \section{Overview}
 A standard problem is to find the linear unbiased ``minimum'' variance estimator
-for the over determined problem\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}
+for the overdetermined problem\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}
 {This means that $n > m$.}: $A {\bf x} = {\bf b}$, where 
 $A$ is $n \times m$ and ${\bf x}$ and
 ${\bf b}$ are $m \times 1$ and $n \times 1$ random variables respectively. The
 covariance of ${\bf b}$ is given as $V$ and is assumed invertible. 
 We look for a linear unbiased estimator for ${\bf x}$ of the form 
-${\bf x}^* = L {\bf b}$, where $L\in {\bf R}^{mn}$. Since ${\bf x}^*$
+${\bf x}^* = L {\bf b}$, where $L\in {\bf R}^{m \times n}$. Since ${\bf x}^*$
 is unbiased we must have 
 $E[{\bf x} - {\bf x}^*] = E[{\bf x} - L
   {\bf b}] = E[{\bf x} - LA{\bf x}]$. We satisfy this constraint by
@@ -30,13 +30,14 @@ The problem may be restated as choosing $L$ to ``minimize'' the norm of $LVL^T$
 subject to the constraint $LA = I$. The question is what norm does one
 use. The ``natural'' norm of a matrix is $\sqrt{{\rm
     tr}\left(M^TM\right)}$. This 
-    follows from considering the standard basis in ${\bf R}^{nm}$ and
-    using the usual norm of the vector space ${\bf R}^{nm}$. 
-The matrix of interest, $LVL^T$ is positive definite
-    symmetric; in this case, each of the ``trace'' 
+    follows from considering the standard basis in ${\bf R}^{n \times m}$ and
+    using the usual norm of the vector space ${\bf R}^{n \times m}$. 
+The matrix of interest, $LVL^T$, is positive definite
+    symmetric; in this case, each of the ``trace''
 expressions, $\root k \of {{\rm
-          tr}\left(M^k\right)} \;\; (k \in [1,\infty ))$, is a norm for a 
-positive definite matrix $M_{m \times m}$.
+          tr}\left(M^k\right)} \;\; (k \in [1,\infty ))$, is a norm for a
+positive definite matrix $M_{m \times m}$ (these are the {\it Schatten\/}
+$k$-norms of $M$).
 
 \section{Do the Norms Matter?}
 The question is, do different choices of norms lead to a different
@@ -48,7 +49,7 @@ $$
 F(L; k) = {\rm tr}\left((LVL^T)^k - (LA - I)\Lambda_{k}^T\right) 
 \quad k \in [1,\infty)
 $$
-where, $\Lambda_k \in {\bf R}^{mm}$ is a Lagrange multiplier.
+where $\Lambda_k \in {\bf R}^{m \times m}$ is a Lagrange multiplier.
 
 The derivative of $F$ with respect to $L$ is given by:
 $$
@@ -61,30 +62,33 @@ $$
 \eqalignno{
 & {\rm tr}\left[ k(L^*VL^{*T})^{k-1}(HVL^{*T} + L^*VH^T) - 
 HA\Lambda_k^T\right] = 0
-  \quad \forall H \in {\bf R}^{mn} & (1) \cr}
+  \quad \forall H \in {\bf R}^{m \times n} & (1) \cr}
 $$
 
 Before going further we list some facts regarding the trace inner product that 
 will be used in the rest of the paper.
 
-\item{$\forall H \in R^{nn},\; H \; \hbox{ anti-symmetric} \; \Rightarrow \; {\rm tr}(H) = 0$.}
-\item{Given a matrix $A \in R^{mn}$: $\forall H \in R^{mn},\; {\rm tr}(A^T H) = 0 \; \Rightarrow \; A \equiv 0.$}
-\item{$\forall A,H \in R^{nn}, \;A \; {\rm symmetric} \; \wedge \; H \; \hbox{anti-symmetric}\;  \Rightarrow \; {\rm tr}(A^T H) = 0$.}
-\item{Given a matrix $A \in R^{nn}$: $\forall H \in R^{nn}, \; H \; \hbox{anti-symmetric} \; \wedge \; {\rm tr}(A^T H) = 0 \; \Rightarrow A \; \hbox{is symmetric}$.}
-\item{Given a matrix $A \in R^{nn}$: $\forall H \in R^{nn}, \; A \; \hbox{symmetric} \; \wedge \; H \; \hbox{symmetric} \; \wedge \; {\rm tr}(A^T H) = 0 \; \Rightarrow A \equiv 0$.}
+\item{$\forall H \in {\bf R}^{n \times n},\; H \; \hbox{ anti-symmetric} \; \Rightarrow \; {\rm tr}(H) = 0$.}
+\item{Given a matrix $A \in {\bf R}^{m \times n}$: $\forall H \in {\bf R}^{m \times n},\; {\rm tr}(A^T H) = 0 \; \Rightarrow \; A \equiv 0.$}
+\item{$\forall A,H \in {\bf R}^{n \times n}, \;A \; {\rm symmetric} \; \wedge \; H \; \hbox{anti-symmetric}\;  \Rightarrow \; {\rm tr}(A^T H) = 0$.}
+\item{Given a matrix $A \in {\bf R}^{n \times n}$: $\forall H \in {\bf R}^{n \times n}, \; H \; \hbox{anti-symmetric} \; \wedge \; {\rm tr}(A^T H) = 0 \; \Rightarrow A \; \hbox{is symmetric}$.}
+\item{Given a matrix $A \in {\bf R}^{n \times n}$: $\forall H \in {\bf R}^{n \times n}, \; A \; \hbox{symmetric} \; \wedge \; H \; \hbox{symmetric} \; \wedge \; {\rm tr}(A^T H) = 0 \; \Rightarrow A \equiv 0$.}
 
 The first fact follows from a property of square matrices; namely,
 ${\rm tr}(A) = {\rm tr}(A^T)$; and the definition of an anti-symmetric $A$, $A^T = -A$.
 The second fact follows since any inner product on a vector space, $V$, satisfies: 
 $\forall y \in V, \langle x, y \rangle = 0 \; \Rightarrow \; x \equiv 0$. 
-The third fact follows since if $S$ and $W$ are symmetric and anti-symmetric matrices in $R^{nn}$, then
-${\rm tr}(S \, W) = {\rm tr}((S \, W)^T) = {\rm tr}(W^T \, S^T) = -{\rm tr}(W \, S) = - {\rm tr}(S\, W)$
+The third fact follows -- using Fact 1 (or rather its underlying identity ${\rm tr}(M) = {\rm tr}(M^T)$) -- as follows.
+If $S$ and $W$ are symmetric and anti-symmetric matrices in ${\bf R}^{n \times n}$, then
+${\rm tr}(S \, W) = {\rm tr}((S \, W)^T) = {\rm tr}(W^T \, S^T) = -{\rm tr}(W \, S) = - {\rm tr}(S\, W)$.
 This implies that ${\rm tr}(S \, W) = 0$.
-The fourth fact follows using that fact that any matrix $A \in R^{nn}$ can be written uniquely as a sum of a symmetric
-and an anti-symmetric matrix: $A = A^{s} + A^{w}$. Therefore, ${\rm tr}(A^T H) = 0$ implies that
-${\rm tr}((A^{s} - A^{w}) H)) = 0$. Using the second fact, ${\rm tr}((A^w)^T H) = 0$. Since this is true for any
-anti-symmetric $H$, choosing $H$ to be $A^{w}$ and using the fact that the trace inner product induces a norm, we 
-see that $A^{w} \equiv 0$. And thus $A$ is symmetric.
+The fourth fact follows from the unique decomposition of any matrix
+$A \in {\bf R}^{n \times n}$ as a sum of a symmetric and an anti-symmetric matrix:
+$A = A^{s} + A^{w}$, so $A^T = A^{s} - A^{w}$. For any anti-symmetric $H$,
+${\rm tr}(A^T H) = {\rm tr}(A^s H) - {\rm tr}(A^w H) = -{\rm tr}(A^w H)$ by Fact 3.
+So if ${\rm tr}(A^T H) = 0$ for all anti-symmetric $H$, then ${\rm tr}(A^w H) = 0$ for all
+such $H$. Setting $H = A^w$ gives ${\rm tr}((A^w)^2) = -{\rm tr}((A^w)^T A^w) = -\|A^w\|_F^2 = 0$,
+so $A^{w} \equiv 0$ and $A$ is symmetric.
 The fifth fact follows by setting $H$ to $A$. Again, the fact that the trace inner product induces a norm implies 
 that $A = 0$.
 
@@ -104,14 +108,14 @@ $$
 L^* = (A^TV^{-1}A)^{-1}A^TV^{-1}
 $$
 
-We now proceed with the case when $k > 1$. Given any ${\tilde H} \in {\bf R}^{mm}$, 
+We now proceed with the case when $k > 1$. Given any ${\tilde H} \in {\bf R}^{m \times m}$, 
 let $H = {\tilde H}A^TV^{-1}$. Then equation (1) becomes:
 
 $$
 \eqalignno{
 & {\rm tr}\left[ k(L^*VL^{*T})^{k-1}({\tilde H}A^TL^{*T} + L^*A{\tilde H}^T) -
   {\tilde H}(A^TV^{-1}A)\Lambda_k^T\right]
-= 0 \quad \forall {\tilde H} \in {\bf R}^{mm}  \cr }
+= 0 \quad \forall {\tilde H} \in {\bf R}^{m \times m}  \cr }
 $$
 
 Or,
@@ -119,40 +123,23 @@ $$
 \eqalignno{
 & {\rm tr}\left[ k(L^*VL^{*T})^{k-1}({\tilde H} + {\tilde H}^T) -
   {\tilde H}(A^TV^{-1}A)\Lambda_k^T\right]
-= 0 \quad \forall {\tilde H} \in {\bf R}^{mm} & (3)  \cr }
+= 0 \quad \forall {\tilde H} \in {\bf R}^{m \times m} & (3)  \cr }
 $$
 since $L^*A = I$ and $A^TL^{*T} = I$.
 
 
-Given any $H^\prime \in {\bf R}^{mm}$, consider ${\tilde H} =
-H^{\prime}(A^TV^{-1}A)^{-1}$ with $H^\prime$
-anti-symmetric. Since the trace of the product of symmetric 
-and anti-symmetric square matrices is $0$, equation
-(3) becomes ${\rm tr}(H^\prime\Lambda_k^T) = 0 \quad \forall
-H_{mxm}^\prime$ with $H^\prime$ anti-symmetric. This implies that
-$\Lambda_k$ is symmetric.
-
-Equation (3) is true for all symmetric ${\tilde H}$. In this case it
-reads:
-
+Equation (3) holds for all ${\tilde H} \in {\bf R}^{m \times m}$. Let
+$M = (L^*VL^{*T})^{k-1}$ and $C = A^TV^{-1}A$. Since $M$ is symmetric,
+${\rm tr}(M(\tilde H + \tilde H^T)) = 2\,{\rm tr}(\tilde H M)$ by cyclic
+invariance, so (3) reads
 $$
-\eqalignno{
-& {\rm tr}\left[ \biggl(2k(L^*VL^{*T})^{k-1} -
-  \Lambda_k(A^TV^{-1}A)\biggr) {\tilde H}\right]
-= 0 \quad \forall {\tilde H} \in {\bf R}^{mm} \;, \; {\tilde H} \; {\rm
-  symmetric} & (3s)  \cr }
+{\rm tr}\bigl[\tilde H (2kM - C\Lambda_k^T)\bigr] = 0
+\quad \forall {\tilde H} \in {\bf R}^{m \times m}.
 $$
-
-Since $(L^*VL^{*T})^{k-1}$ and $\Lambda_k(A^TV^{-1}A)$ are both
-symmetric, equation (3s) implies that 
+By Fact 2, $2kM - C\Lambda_k^T = 0$. Since $A$ has rank $m$,
+$(A^TV^{-1}A)^{-1}$ exists, and we can solve for $\Lambda_k^T$:
 $$
-2k(L^*VL^{*T})^{k-1} - \Lambda_k(A^TV^{-1}A) = 0 
-$$
-
-Since $A$ has rank $m$, $(A^TV^{-1}A)^{-1}$ exists and we can solve for 
-$\Lambda_k$.
-$$
-\Lambda_k = 2k(L^*VL^{*T})^{k-1}(A^TV^{-1}A)^{-1}
+\Lambda_k^T = 2k\,(A^TV^{-1}A)^{-1}(L^*VL^{*T})^{k-1}.
 $$
 
 Equation (1) now becomes:
@@ -160,7 +147,7 @@ Equation (1) now becomes:
 $$
 {\rm tr}\left[k(L^*VL^{*T})^{k-1}(HVL^{*T} + L^*VH^T) -
   2kHA(A^TV^{-1}A)^{-1}(L^*VL^{*T})^{k-1}\right] = 0 \quad 
-\forall H \in {\bf R}^{mn}
+\forall H \in {\bf R}^{m \times n}
 $$
 
 Or,
@@ -168,14 +155,14 @@ Or,
 $$
 {\rm tr}\left[\biggl( (HVL^{*T} + L^*VH^T) / 2 -
   HA(A^TV^{-1}A)^{-1}\biggr) (L^*VL^{*T})^{k-1}\right] = 0 \quad 
-  \forall H \in {\bf R}^{mn}
+  \forall H \in {\bf R}^{m \times n}
 $$
 
 Which may be written
 $$
 {\rm tr}\left[\biggl( HVL^{*T} + ( L^*VH^T  - HVL^{*T} )/ 2 -
   HA(A^TV^{-1}A)^{-1}\biggr) (L^*VL^{*T})^{k-1}\right] = 0 \quad 
-  \forall H \in {\bf R}^{mn}
+  \forall H \in {\bf R}^{m \times n}
 $$
 
 Since $( L^*VH^T  - HVL^{*T} )/ 2$ is anti-symmetric and $(L^*VL^{*T})^{k-1}$
@@ -185,7 +172,7 @@ the last equation as
 $$
  {\rm tr}\left[\biggl( HVL^{*T} -
   HA(A^TV^{-1}A)^{-1}\biggr) (L^*VL^{*T})^{k-1}\right] = 0 \quad \forall H
-    \in {\bf R}^{mn}
+    \in {\bf R}^{m \times n}
 $$
 
 Or,
@@ -193,7 +180,7 @@ Or,
 $$
  {\rm tr}\left[H\biggl( VL^{*T} -
   A(A^TV^{-1}A)^{-1}\biggr) (L^*VL^{*T})^{k-1}\right] = 0 \quad \forall H
-    \in {\bf R}^{mn} 
+    \in {\bf R}^{m \times n} 
 $$
 
 This implies that $\left( VL^{*T} - A(A^TV^{-1}A)^{-1}\right)
@@ -206,45 +193,39 @@ $$
 
 
 Therefore, it does not matter which of the matrix norms we
-use: the ''best'' linear unbiased estimator is the same.
+use: the ``best'' linear unbiased estimator is the same.
 
 \vskip .25in
-\section{Related features of ``the'' best estimator}
+\section{Best Estimator under the Spectral Norm}
 We now use the results of the trace norms above to show that 
 the estimator obtained has the smallest maximum eigenvalue 
 over all linear estimators.
 
-\proclaim Lemma 1. If $\Omega$ is a closed set in $R^m$ and if 
-$x^* \in \Omega$ is a solution to the family of
-problems: \break ${\rm Min}\;\varphi_k(x)\;{\rm over}\;\{x \in \Omega:
-g(x) = 0\} \; k \in [1,\infty)$; further, 
+\proclaim Lemma 1. If $\Omega$ is a closed set in ${\bf R}^m$ and if
+$x^* \in \Omega$ is a {\it common\/} solution to
+$\min_{\{x \in \Omega: g(x) = 0\}}\;\varphi_k(x)$
+for {\it every\/} $k \in [1,\infty)$; further,
 if  $\varphi_k$ are functions which converge point-wise to the
-continuous function $\varphi$ on $\Omega$ with the accretive property
-that 
+continuous function $\varphi$ on $\Omega$ with the coercive property
+that
 $\lim_{\|x\| \rightarrow \infty}\limits
-\varphi(x) \rightarrow \infty$, then 
-$x^* \in \mathop{\rm Min}_{\{x \in \Omega: g(x) = 0\}}\limits \varphi(x) $
+\varphi(x) \rightarrow \infty$, then
+$x^* \in \mathop{\rm argmin}_{\{x \in \Omega: g(x) = 0\}} \varphi(x).$
 
-{\bf Proof:\/} 
+{\bf Proof.} 
 
 {\it Existence:\/}
-We know there is a non empty set of points that satisfy
-$\{x \in \Omega: g(x) = 0\}$. If the minimum of $\varphi$ is attained 
-on this set, then a solution exists. Otherwise, the infimum on this set 
-is finite, by the accretive property of $\varphi$. 
-Let $x_n$ be a sequence of points in this set 
-such that $\varphi(x_n)$ converges to the infimum. Again, by the
-accretive property, the $\{x_n\}$ are bounded in $\Omega$. Therefore,
-since $\Omega$ is closed, 
-there exists a subsequence of the $x_n$ which converges to a point, say
+The set $\{x \in \Omega: g(x) = 0\}$ is non-empty.
+Let $\{x_n\}$ be a minimizing sequence in this set; that is, $\varphi(x_n)$
+converges to the infimum.
+By the coercive property of $\varphi$, $\{x_n\}$ is bounded.
+Since $\Omega$ is closed, a subsequence converges to some
 $x^\prime \in \Omega$. By the continuity of $\varphi$ on $\Omega$,
-$x^\prime$ 
-must attain the infimum of
-$\varphi$ on the set $\{x \in \Omega : g(x) = 0\}$; so that a solution exists.
+$\varphi(x^\prime)$ equals the infimum, which is therefore finite and attained.
 
 We proceed to show that $x^*$ is a solution.
 Let ${\tilde x}$ be a solution of the problem 
-${\rm Min}\; \varphi(x) \; {\rm over} \; \{x \in \Omega : g(x) = 0\}$;
+$\min_{\{x \in \Omega : g(x) = 0\}}\; \varphi(x)$;
 then for any $\epsilon > 0$, we have, for sufficiently large $n$, 
 (since $\varphi_n$ converges point-wise to $\varphi$)
 $$
@@ -286,16 +267,18 @@ least squares problem, $L^*{\bf b} =
 minimizes the maximum eigenvalue of the estimator's covariance matrix, 
 $LVL^T$, subject to the constraint $L_{m \times n}A_{n \times m} = I_{m \times m}$.
 
-{\bf Proof:\/} We apply Lemma 1 with $\Omega$ equal to the $m \times m$ symmetric
-matrices; $\varphi$ equal to the $L_2$ matrix norm; and
-$\varphi_n$ equal to the $n^{\rm th}$ trace norm. Theorem 1 follows
-after collecting the facts: 
+{\bf Proof.} We apply Lemma 1 with the variable $L \in {\bf R}^{m \times n}$,
+$\Omega = \{L \in {\bf R}^{m \times n} : LA = I\}$ (closed),
+$\varphi_n(L) = \sqrt[n]{{\rm tr}((LVL^T)^n)}$ (the $n^{\rm th}$ Schatten norm of $LVL^T$),
+and $\varphi(L) = \lambda_{\max}(LVL^T)$ (the spectral norm of $LVL^T$, which is
+positive semi-definite). The constraint $g(L) = 0$ is vacuous since $\Omega$ already
+encodes $LA = I$. Theorem 1 follows after collecting the facts:
 
-\item{The maximum eigenvalue of a symmetric matrix is the result of 
-taking the limit of the trace norms of a symmetric matrix.}
-\item{The $L_2$ norm applied to a symmetric matrix is the maximum
-eigenvalue of that matrix.}
-\item{The $L_2$ norm is accretive.}
+\item{For a positive semi-definite matrix with eigenvalues $\lambda_i \ge 0$,
+$\sqrt[k]{\sum_i \lambda_i^k} \to \max_i \lambda_i$ as $k \to \infty$.}
+\item{The $L_2$ matrix norm of a positive semi-definite matrix is its
+maximum eigenvalue.}
+\item{The $L_2$ norm is coercive.}
 
 
 \bye
