@@ -12,15 +12,14 @@
 
 \title{Conjectures for Primitive Pythagorean Triples}
 \author{R. Scott McIntire}
-\date{Apr 4, 2026}
+\date{Apr 26, 2026}
 
-\newtheorem{theorem}{Theorem}\theoremstyle{plain}
-\newtheorem{thm}{Theorem}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{conjecture}{Conjecture}
 
 \theoremstyle{definition}
-\newtheorem{defn}[thm]{Definition}
-
-\newtheorem{conjecture}{Conjecture}\theoremstyle{plain}
+\newtheorem{defn}{Definition}
 
 
 \begin{document}
@@ -28,26 +27,27 @@
 
 
 \section{Overview}
-We list a few conjectures regarding the set, ${\cal H}$, of primitive 
-Pythagorean hypotenuses. This is the set constructed by taking the 
-``hypotenuse'' value from all primitive Pythagorean triples -- corresponding 
-to the lengths of the sides of right triangles with integer sides with 
-no common factors.
+We discuss the set ${\cal H}$ of primitive Pythagorean hypotenuses --
+the ``hypotenuse'' values that arise from primitive Pythagorean triples
+(right triangles with integer sides sharing no common factor) --
+recall the classical theorems describing its structure, and state
+an open conjecture about the cumulative parity of its prime elements.
 
 A related set, ${\cal H}_p$, is the subset of ${\cal H}$ that are primes. 
 That is, primitive Pythagorean hypotenuses that are prime.
 
-Below we list the main conjectures informally in order of 
-complexity:
+Two of the three observations below turn out to be classical theorems —
+we recall them for orientation — while the third remains an open conjecture
+of mine, which is the focus of this note.
 \begin{enumerate}
-    \item{{\bf Partition of ${\cal H}$:\/}}{ ${\cal H}$ can be {\em partitioned\/} 
-      into two disjoint infinite sets: 
-    the set of all powers of Pythagorean primes; and the set of all 
-        hypotenuses that come from more than one primitive Pythagorean triple.}
-    \item{{\bf Complexity of ${\bf {\cal H}_p}$}: \/}{The set of Pythagorean primes, 
-      ${\cal H}_p$, is infinite.}
-  \item{${\bf {\cal H}_p} \sim \mathbb{P}$: \/}{${\cal H}_p$ is also {\em similar\/} and as {\em complex\/} as 
-        the primes when measured using certain metrics.}
+    \item \textbf{Partition of ${\cal H}$} (theorem): ${\cal H}$ is {\em partitioned\/}
+      into two disjoint infinite sets: the set of all powers of Pythagorean primes,
+      and the set of all hypotenuses arising from more than one primitive Pythagorean triple.
+    \item \textbf{Infinitude of ${\cal H}_p$} (Dirichlet): The set of Pythagorean
+      primes is infinite.
+    \item \textbf{${\cal H}_p \sim \mathbb{P}$} (conjecture): ${\cal H}_p$ is {\em similar\/}
+      to and as {\em complex\/} as the primes when measured by certain
+      cumulative-parity metrics.
 \end{enumerate}
 
 
@@ -59,144 +59,183 @@ numbers with the symbol $\mathbb{N}$%
 and we use the symbol $\mathbb{P}$ to denote the set of prime numbers.
 
 
-\defn{\em Pythagorean Triples\/} denoted, ${\cal T}$, are  triplets of 
-numbers representing the length of the sides of
-right triangles where all the sides are integers. Specifically,
+\begin{defn}
+{\em Pythagorean Triples\/}, denoted ${\cal T}$, are triples of
+numbers representing the lengths of the sides of right triangles where all the sides are integers.%
+\footnote{Triples are taken as ordered, so $(3,4,5)$ and $(4,3,5)$ are
+distinct elements of ${\cal T}$.}
+Specifically,
 \begin{eqnarray}
-  {\cal T} & = & \{ (x,y,z) \; | \; (x,y,z) \in \mathbb{N}^3 \; \wedge \; x^2 + y^2 = z^2 \}
+  {\cal T} & = & \{ (x,y,z) \; | \; (x,y,z) \in \mathbb{N}^3 \; \wedge \; x^2 + y^2 = z^2 \}.
 \end{eqnarray}
-The usual definition.
+\end{defn}
 
-\defn{\em Primitive Pythagorean Triples\/} denoted, ${\cal T}_p$, are 
-Pythagorean Triples which have no common factors. Specifically,
+\begin{defn}
+{\em Primitive Pythagorean Triples\/}, denoted ${\cal T}_p$, are
+Pythagorean triples whose legs share no common factor:%
+\footnote{Since any common divisor of $x$ and $y$ also divides $z$,
+$\gcd(x,y) = 1$ is equivalent to $\gcd(x,y,z) = 1$, the usual primality condition.}
 \begin{eqnarray}
-  {\cal T}_p & = & \{ (x,y,z) \; | \; (x,y,z) \in \mathbb{N}^3 \; \wedge \; \gcd(x,y) = 1 \; \wedge \; x^2 + y^2 = z^2 \}
+  {\cal T}_p & = & \{ (x,y,z) \; | \; (x,y,z) \in \mathbb{N}^3 \; \wedge \; \gcd(x,y) = 1 \; \wedge \; x^2 + y^2 = z^2 \}.
 \end{eqnarray}
-The usual definition.
+\end{defn}
 
-\defn{\em Primitive Pythagorean Hypotenuses\/} denoted, ${\cal H}$, defined by:
+\begin{defn}
+{\em Primitive Pythagorean Hypotenuses\/}, denoted ${\cal H}$, are defined by:
 \begin{eqnarray}
-  {\cal H} & = & \{ z \; | \; \exists (x,y) \in \mathbb{N}^2, \;  (x,y,z) \in {\cal T}_p \}
+  {\cal H} & = & \{ z \; | \; \exists (x,y) \in \mathbb{N}^2, \;  (x,y,z) \in {\cal T}_p \}.
 \end{eqnarray}
-This represents the set of all possible hypotenuses of primitive Pythagorean triples.
+This is the set of all possible hypotenuses of primitive Pythagorean triples.
+\end{defn}
 
-\defn{\em Pythagorean Primes\/} denoted, ${\cal H}_p$, defined by:
+\begin{defn}
+{\em Pythagorean Primes\/}, denoted ${\cal H}_p$, are defined by:
 \begin{eqnarray}
-  {\cal H}_p & = & \{ z \; | \; \exists (x,y) \in \mathbb{N}^2, \, (x,y,z) \in {\cal T}_p \; \wedge \; z \in \mathbb{P} \}
+  {\cal H}_p & = & \{ z \; | \; \exists (x,y) \in \mathbb{N}^2, \, (x,y,z) \in {\cal T}_p \; \wedge \; z \in \mathbb{P} \}.
 \end{eqnarray}
-This represents the set of all possible lengths of hypotenuses of right 
-triangles with integer sides that are prime.
+This is the set of primes that occur as hypotenuses of primitive Pythagorean triples.
+\end{defn}
 
-\defn{\em Duplicate Primitive Hypotenuses\/} denoted ${\cal H}_d$, defined by:
+\begin{defn}
+{\em Duplicate Primitive Hypotenuses\/}, denoted ${\cal H}_d$, are defined by:
 \begin{eqnarray}
-  {\cal H}_{d} & = & \{ z \; | \; \exists\, (x_1, x_2, y_1, y_2) \in \mathbb{N}^4, \; 
-      (x_1,y_1,z) \in {\cal T}_p \; \wedge \; (x_2, y_2, z) \in {\cal T}_p \; \wedge \; x_1 \neq x_2 \}  
+  {\cal H}_{d} & = & \{ z \; | \; \exists\, (x_1, x_2, y_1, y_2) \in \mathbb{N}^4, \;
+      (x_1,y_1,z) \in {\cal T}_p \; \wedge \; (x_2, y_2, z) \in {\cal T}_p \; \wedge \; \{x_1, y_1\} \neq \{x_2, y_2\} \}.
 \end{eqnarray}
-This represents the set of all primitive hypotenuses that can be found in 
-more than one primitive Pythagorean triple.
+This is the set of primitive hypotenuses that arise from more than one
+{\em distinct\/} primitive Pythagorean triple (i.e.\ not merely a swap of legs).
+\end{defn}
 
-\defn{\em  Primitive Hypotenuses Powers\/} denoted ${\cal H}_u$, defined by:
+\begin{defn}
+{\em Primitive Hypotenuses Powers\/}, denoted ${\cal H}_u$, are defined by:
 \begin{eqnarray}
-  {\cal H}_u & = & \{ z \; | \; \exists\,(p,n) \in ({\cal H}_p, \mathbb{N}), \; z = p^n \}
+  {\cal H}_u & = & \{ z \; | \; \exists\,(p,n) \in {\cal H}_p \times \mathbb{N}, \; z = p^n \}.
 \end{eqnarray}
-This represents the set of all powers of Pythagorean primes.
+This is the set of all powers of Pythagorean primes.
+\end{defn}
 
 
-\defn{\em The Prime Parity\/} function, $\Pi$, is defined on any prime, $p$, with $p \ge 5$ by:
+\begin{defn}
+The {\em Prime Parity\/} function, $\Pi$, is defined on any prime $p$ with $p \ge 5$ by:
 \begin{eqnarray}
   \Pi(p) = \begin{cases}
   \hphantom{-}1\hfil & \exists n \in \mathbb{N}, p = 6n + 1 \\
             -1 \hfil & \exists n \in \mathbb{N}, p = 6n - 1 \\
-             \end{cases} 
+             \end{cases}
 \end{eqnarray}
+\end{defn}
 
-\defn{\em First Deviation\/} function, $\Delta_p$, is defined by:%
-\footnote{If for a given $n$, 
+\begin{defn}
+The {\em First Deviation\/} function, $\Delta_p$, is defined by:%
+\footnote{If for a given $n$,
 $\left\{ m \; \left| \; n \le \left( \sum_{i=1}^m \Pi({\cal H}_p[i]) - \sum_{i=3}^{m+2} \Pi(\mathbb{P}[i]) \right. \right) \right\} = \emptyset$, we set $\Delta_p(n) = \infty$.}
 \begin{eqnarray}
-\Delta_p(n) = \mathop{\rm min}\limits_{m} \left\{ m \; \left| \; n \le \left( \sum_{i=1}^m \Pi({\cal H}_p[i]) - \sum_{i=3}^{m+2} \Pi(\mathbb{P}[i])\right. \right) \right\} 
+\Delta_p(n) = \min_{m} \left\{ m \; \left| \; n \le \left( \sum_{i=1}^m \Pi({\cal H}_p[i]) - \sum_{i=3}^{m+2} \Pi(\mathbb{P}[i])\right. \right) \right\}
 \end{eqnarray}
+\end{defn}
 
-\eject
-{\bf Notes:} 
+\newpage
+\textbf{Notes:}
 \begin{itemize}
-  \item{The subscript $u$ in the name ${\cal H}_u$ is not yet justified.}
-  \item{${\cal H}_p$ is a {\em proper\/} subset of the primes: ${\cal H}_p \subset \mathbb{P}$.}
-  \item{If the sets above are treated as lists, they are indexed in sorted order.}
-  \item{Clearly, $\Delta_p$ is a non-decreasing function.}
+  \item The subscript $u$ in the name ${\cal H}_u$ is not yet justified.
+  \item ${\cal H}_p$ is a {\em proper\/} subset of the primes: ${\cal H}_p \subset \mathbb{P}$.
+  \item If the sets above are treated as lists, they are indexed in sorted order.
+  \item Clearly, $\Delta_p$ is a non-decreasing function.
 \end{itemize}
 
 First we list a few facts and state a couple of known theorems before proceeding:
 \begin{enumerate}
-  \item{The Pythagorean primes are of the form $4n + 1$.
+  \item The Pythagorean primes are of the form $4n + 1$.
       This is a special case of a more general theorem proven by
         Pierre de Fermat, known as Fermat's theorem on sums of two squares.
       According to this theorem, an odd prime number $p$ can be expressed as
         the sum of two squares if and only if
       $p$ is congruent to $1$ modulo $4$, i.e., $p = 4n + 1$ for some
-        positive integer $n$.}
-  \item{Moreover, the distribution of primes of the form $4n + 1$ has
+        positive integer $n$.
+  \item Moreover, the distribution of primes of the form $4n + 1$ has
       been studied extensively.
       The German mathematician Peter Gustav Lejeune Dirichlet proved that
         there are infinitely many primes of the form $4n + 1$, a result known as
       Dirichlet's theorem on arithmetic progressions.
       This theorem, which generalizes the case of Pythagorean primes, states
-        that for any two positive coprime numbers a and d,
+        that for any two positive coprime numbers $a$ and $d$,
       there are infinitely many primes of the form $a + nd$, where $n$ is a
-        non-negative integer.}
-  \item{In the case of Pythagorean primes, we can take a = 1 and d = 4 to
-      get the form 4n + 1.
+        non-negative integer.
+  \item In the case of Pythagorean primes, we can take $a = 1$ and $d = 4$ to
+      get the form $4n + 1$.
         Dirichlet's theorem thus guarantees that there are infinitely
         many Pythagorean primes.
       This is a profound result, as it extends the prime number theorem,
       which states that there are infinitely many prime numbers, to
-      arithmetic progressions.}
+      arithmetic progressions.
 \end{enumerate}
-From these results we get the following structure theorem for 
-    Pythagorean hypotenuses:
-\theorem{The set ${\cal H}_p = \{ p \; | \; p \in \mathbb{P} \; \wedge \; p = 1 \; {\rm mod}\;  4\}$}
-\theorem{The set ${\cal H}$ has a unique factorization in ${\cal H}_p$.}
-         That is, each element of ${\cal H}$ can be uniquely written as a product of powers from ${\cal H}_p$:
-         \begin{eqnarray}
-           \forall h \in {\cal H},\, \exists ! N \in \mathbb{N}, \, \exists ! ({\bf p},{\bf k}) \in \left({\cal H}_p^{N}, \mathbb{N}^{N}\right): h = \prod_{i=1}^N p_{i}^{k_i}.
-         \end{eqnarray}
+From these results we get the following characterization of Pythagorean primes:
+\begin{theorem}
+${\cal H}_p = \{ p \; | \; p \in \mathbb{P} \; \wedge \; p \equiv 1 \pmod{4}\}$.
+\end{theorem}
+And the following structure theorem for Pythagorean hypotenuses:
+\begin{theorem}
+The set ${\cal H}$ has a unique factorization (up to ordering) in ${\cal H}_p$:
+each element of ${\cal H}$ can be uniquely written as a product of powers from ${\cal H}_p$,
+\begin{eqnarray}
+  \forall h \in {\cal H},\, \exists ! N \in \mathbb{N}, \, \exists ! ({\bf p},{\bf k}) \in \left({\cal H}_p^{N} \times \mathbb{N}^{N}\right): h = \prod_{i=1}^N p_{i}^{k_i},
+\end{eqnarray}
+where uniqueness is up to permutation of the index $i$.
+\end{theorem}
 
-\eject
+A classical consequence is the following partition theorem, which I had originally
+stated as a conjecture but which follows from the count of primitive
+representations of $n$ as a sum of two squares:
+\begin{theorem}\label{thm:partition}
+The set ${\cal H}$ is partitioned by ${\cal H}_d$ and ${\cal H}_u$:
+\begin{enumerate}
+  \item $\hphantom{|{\cal H}_d|}{\cal H} = {\cal H}_{d} \cup {\cal H}_u$;
+  \item $\hphantom{|{\cal H}_d|}\emptyset = {\cal H}_{d} \cap {\cal H}_u$;
+  \item $\hphantom{\emptyset}|{\cal H}_d| = \infty$.
+\end{enumerate}
+\end{theorem}
+
+\textbf{Proof sketch.} For $n \in {\cal H}$, the number of primitive Pythagorean
+triples with hypotenuse $n$ equals $2^{k-1}$, where $k$ is the number of
+distinct prime factors of $n$ (all of which lie in ${\cal H}_p$ by Theorem~2).
+This count is a classical consequence of the unique factorization of $n$ in
+the Gaussian integers. Hence $n$ has exactly one primitive representation iff
+$k = 1$, i.e.\ iff $n$ is a power of a single Pythagorean prime ($n \in {\cal H}_u$);
+otherwise $n \in {\cal H}_d$. This gives the partition. The infinitude of
+${\cal H}_d$ follows from the infinitely many distinct products $p \cdot q$
+with $p, q \in {\cal H}_p$ and $p \neq q$ (Dirichlet).\hfill$\square$
+
+\newpage
 \section{McIntire's Pythagorean Triple Conjectures}
 
-\conjecture{The set ${\cal H}$ is partitioned by the sets ${\cal H}_d$ and ${\cal H}_u$:}
-\begin{enumerate}
-  \item{$\hphantom{|{\cal H}_d|}{\cal H} = {\cal H}_{d} \cup {\cal H}_u$;}
-  \item{$\hphantom{|{\cal H}_d|}\emptyset = {\cal H}_{d} \cap {\cal H}_u$};
-  \item{$\hphantom{\emptyset}|{\cal H}_d| = \infty$.}
-\end{enumerate}
+The remaining open conjecture concerns the {\em cumulative parity\/} of
+${\cal H}_p$ — the running sum $\sum_{i=1}^n \Pi({\cal H}_p[i])$ — and how
+it compares to the corresponding sum over all primes $\geq 5$.
 
-In simple terms the conjecture says that the set of all
-primitive Pythagorean hypotenuses is the union of two disjoint infinite sets:
-the set of powers of Pythagorean primes; and the set of all hypotenuses
-that come from more than one primitive Pythagorean triple.
-
-\conjecture{Properties of the cumulative parity of ${\cal H}_p$ indicates 
-that it is non-trivial:}
+\begin{conjecture}\label{conj:parity}
+The cumulative parity of ${\cal H}_p$ exhibits the following non-trivial behavior:
 \begin{enumerate}
-  \item{$\lim\limits_{n \rightarrow \infty} \frac{\sum\limits_{i=1}^n \Pi({\cal H}_p[i])}{n} = 0$;}
-  \item{$\forall n\in \mathbb{N}, \Delta_p(n) < \infty$;}
-  \item{$ \lim\limits_{n \rightarrow \infty} \frac{\Delta_p(n)}{n^{\ln(2 \pi)}} = 41$.}
+  \item $\lim\limits_{n \rightarrow \infty} \dfrac{\sum\limits_{i=1}^n \Pi({\cal H}_p[i])}{n} = 0$;
+  \item $\forall n\in \mathbb{N}, \Delta_p(n) < \infty$;
+  \item $\lim\limits_{n \rightarrow \infty} \dfrac{\Delta_p(n)}{n^{\ln(2 \pi)}} = 41$.%
+\footnote{The exponent $\ln(2\pi) \approx 1.838$ and the constant $41$ are
+based on numerical fitting; we do not have a heuristic derivation. Readers
+should treat the precise values as empirical, subject to revision as more
+data becomes available.}
 \end{enumerate}
+\end{conjecture}
 
-These last conjectures suggest that the Pythagorean primes are non-trivial 
-in a way similar to the primes.
-\begin{enumerate}
-  \item{The first conjecture states that the ${\cal H}_p$ primes are 
-      "spread out" in a way similar to the set of all primes.}
-  \item{From numerical experiments, its seems that the cumulative parity 
-      of ${\cal H}_p$ is "on average" lower than the cumulative parity of all primes.
-      The second and third conjectures suggest that there 
-      are non-trivial deviations from this rule. This "mixing" of the 
-        cumulative parity of ${\cal H}_p$ with that of $\mathbb{P}$ 
-      suggests that the Pythagorean primes are as "complex" as the set of 
-        all primes.}
-\end{enumerate}
+The three sub-conjectures together suggest that the Pythagorean primes
+are ``as complex as'' the full set of primes when measured by their
+parity behavior. Sub-conjecture~1 says the $\pm 1$ values $\Pi({\cal H}_p[i])$
+average to zero, so ${\cal H}_p$ is spread evenly between residues $1$ and
+$-1 \pmod 6$ in the long run, mirroring $\mathbb{P}$. Numerically, however,
+the cumulative parity of ${\cal H}_p$ tends to run lower than that of
+$\mathbb{P}$; sub-conjectures~2 and~3 quantify how often and how far the
+${\cal H}_p$ sum nonetheless overtakes the $\mathbb{P}$ sum, asserting that
+deviations of any size $n$ do occur ($\Delta_p(n) < \infty$) and that they
+grow at the polynomial rate $n^{\ln(2\pi)}$. This ``mixing'' is what we mean
+by saying ${\cal H}_p$ is non-trivial in a way similar to $\mathbb{P}$.
 
 \end{document}
 
