@@ -11,15 +11,16 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.5\baselineskip}
 
-\newcommand{\E}[1] {\mathbbm E\left[#1\right]}
+\newcommand{\E}[1]{\mathbbm E\left[#1\right]}
+
+\input{latex_macros.tex}
 
 \title{Derivation of the Exponential Moving Average}
 \author{R. Scott McIntire}
-\date{Apr 5, 2026}
+\date{Apr 26, 2026}
 
 \begin{document}
 
-\input{latex_macros.tex}
 \maketitle
 
 \section{Overview}
@@ -27,7 +28,7 @@
 The essence of the {\em exponential moving average\/} (EMA) is to provide 
 a {\em localized\/} estimate of a time series as it proceeds. It does 
 this by using a weighted average of the values in a ``window'' around each point 
-of the series in way that each summand in 
+of the series in a way that each summand in
 the average is multiplied by powers of a factor, $\lambda$,
 in the interval $(0,1)$.
 In what follows below we will assume a 1-based index, and that 
@@ -40,10 +41,10 @@ is defined as:
 \end{eqnarray}
 To get the {\em exponential decay\/} in weights we assume that $w_{k+1} = \lambda w_k$.%
 \footnote{The reason this is called exponential is that it is the discrete
-analog of continuous exponential decay. To see this let $f(t) = e^{-kt}$ 
-for $k > 0$. Then sampling this function at regular intervals of say $1$ 
-we get the sequence: $\{ e^{-k}, e^{-2k}, e^{-3k}, \ldots \}$.
-Here we can see that the elements of the sequence are powers of a value, $\lambda = e^{-k}$.
+analog of continuous exponential decay. To see this let $f(t) = e^{-\beta t}$
+for $\beta > 0$. Then sampling this function at regular intervals of say $1$
+we get the sequence: $\{ e^{-\beta}, e^{-2\beta}, e^{-3\beta}, \ldots \}$.
+Here we can see that the elements of the sequence are powers of a value, $\lambda = e^{-\beta}$.
 That is, the sequence is nothing other than: $\{\lambda, \lambda^2, \lambda^3, \ldots \}$.}
 Since the parameter $\lambda$ is in the interval $(0,1)$, it represents a decay factor. 
 Notice that the indices of ${\bf x}$ and that of ${\bf w}$ go in the ``opposite direction''.
@@ -62,10 +63,7 @@ we extend the definition of ${\bf z}$ so that it is defined for
 indices less than 1 as:
 
 \begin{eqnarray}
-    z_{k} &=&  \begin{cases}
-     z_{k} & k \ge 1; \cr
-     z_1 & \text{otherwise}. \cr
- \end{cases} \label{o:var_extend}
+    z_{k} &\equiv& z_{\max(k,\, 1)} \label{o:var_extend}
 \end{eqnarray}
 
 While we can use $(\ref{ema_def})$ to compute the EMA it is {\em inefficient\/}. 
@@ -139,7 +137,7 @@ associated normalized weights:
 	\alpha = \frac{1 - \lambda}{1 - \lambda^m} \label{o:weights_alpha}
 \end{eqnarray}
 
-{\bf Note:\/} We will use $(\ref{o:var_extend})$, $(\ref{o:weights_normalized})$,
+{\bf Note.} We will use $(\ref{o:var_extend})$, $(\ref{o:weights_normalized})$,
 $(\ref{o:weights_power})$, and $(\ref{o:weights_alpha})$ in our derivations below.
 
 \section{Recursive Formula for EMA}
@@ -172,7 +170,7 @@ $e_1 = \sum_{k=0}^{m-1} x_{1-k} w_{k+1} = x_1 \sum_{k=0}^{m-1} w_{k+1} = x_1 \su
 \end{eqnarray}
 
 The corresponding 0-based index formula is:%
-\footnote{We write the formulas down for both 1 and  0 based vector indices because
+\footnote{We write the formulas down for both 1- and 0-based vector indices because
 computer languages typically use one or the other.}
 \begin{eqnarray}
     e_{n} &=&  \lambda \left( e_{n-1} - x_{(n-m)} w_{m-1} \right) + \alpha x_{n}  \quad \forall n \in [1, N-1] \\
@@ -194,8 +192,16 @@ This means that it can be pre-computed independently of the data series.}
 
 \begin{eqnarray}
     e_n &=&  \sum_{k=0}^{m-1} x_{n-k} w_{k+1} \label{ema_cmp} \\
-    v_n &=&  \sum_{k=0}^{m-1} (x_{n-k} - e_{n-k})^2 w_{k+1}  \label{var} 
+    v_n &=&  \sum_{k=0}^{m-1} (x_{n-k} - e_{n-k})^2 w_{k+1}  \label{var}
 \end{eqnarray}
+Note that the variance \eqref{var} measures squared deviation of each $x_{n-k}$ from
+its own time's EMA $e_{n-k}$, rather than from the current $e_n$. This choice lets the
+recursive update for $v_n$ be derived using the same machinery as $e_n$.%
+\footnote{The unbiasing factor $1 - \sum_{i=1}^m w_i^2$ derived in the appendix
+assumes a single common center, ${\bar x} = \sum_i x_i w_i$, applied to every summand.
+Here each summand uses its own center $e_{n-k}$, so the correction is applied as a
+working approximation; an exact unbiased correction for centers $e_{n-k}$ would
+require a separate derivation.}
 
 Note, that the form of the two equations is identical; that is, 
 they both have the form:
@@ -242,24 +248,24 @@ Finally, the standard deviation of the exponential moving average is:%
     s_{n} &=& \sqrt{\frac{v_n}{1 - \sum_{i=1}^m w_i^2}}  
 \end{eqnarray}
 The variance corrective factor\footnote{This factor is derived in the appendix.}, $1 - \sum_{i=1}^m w_i^2$,
-is a one time calculation independent of $n$. This factor is the standard 
+is a one-time calculation independent of $n$. This factor is the standard 
 correction when determining empirical variance of a weighted average.
 
-{\bf Note:\/} In practice, one may wish to use some prior estimate of the standard deviation of the process
+{\bf Note.} In practice, one may wish to use some prior estimate of the standard deviation of the process
 and smoothly move from that to the estimate above over the averaging windows when $n \in [1, m]$.
 
 
 \section{How to Specify the $\lambda$ Factor}
-When using the EMA, practitioners do not specify the factor $\lambda$ directly; 
-instead they provide the ``half-life'', $H$,  of the decay.
-By the half-life of $\lambda$, we mean the number of powers of $\lambda$, $H$, so that
-weight $H$ is half the weight of weight $1$. The condition for $H$ is then:
+When using the EMA, practitioners do not specify the factor $\lambda$ directly;
+instead they provide the ``half-life'', $H$, of the decay.
+The {\em half-life\/} is the number of steps $H$ such that $w_H / w_1 = 1/2$.
+Substituting $w_n = \alpha \lambda^{n-1}$ gives:
 \begin{eqnarray}
-	\frac{w_H}{w_1} = \frac{1}{2} \\
-	\frac{\alpha \lambda^{H-1}}{\alpha} &=& \lambda^{H-1} = \frac{1}{2}
+	\frac{w_H}{w_1} &=& \frac{\alpha \lambda^{H-1}}{\alpha} = \lambda^{H-1} = \frac{1}{2}
 \end{eqnarray}
-This can only be satisfied approximately for a given $\lambda$. 
-\footnote{Note that $H$ must be no more than the window length, $m$.} 
+For a given $\lambda$, the integer $H$ satisfying this exactly may not exist;
+in practice we use the closest integer.\footnote{Note that $H$ must be greater than $1$
+and no more than the window length, $m$.}
 
 In our case we are interested in the reverse; namely, given a half-life, $H$, 
 determine the decay factor $\lambda$. To do this we solve the equation $\lambda^{H-1} = \frac{1}{2}$
@@ -278,11 +284,11 @@ The formula to determine $\lambda$ given the half-life $H$ is:
     \lambda &=& e^{-\frac{\log(2)}{H-1}}
 \end{eqnarray}
 
-For example, if the window of the moving average is $10$, you might decide that the 
-half-life occur around the middle of the window. Setting $H$ to be 5, the decay factor, $\lambda$ 
-is $e^{-\frac{\log(2)}{4}} = 0.8408964152537145$.
+For example, if the window of the moving average is $10$, you might decide that the
+half-life occurs around the middle of the window. Setting $H$ to be 5, the decay factor, $\lambda$ 
+is $e^{-\frac{\log(2)}{4}} \approx 0.8409$.
 
-\eject
+\newpage
 
 \appendix
 
@@ -293,16 +299,16 @@ In what follows we assume that we are given a sequence of independent identicall
 $\{x_i\}_{i=1}^N$ and corresponding weights: $\{w_i\}_{i=1}^N$.
 We assume that the random variables have a mean and a variance:
 \begin{eqnarray}
-    \E{x_i} &=& \mu  \quad \forall i, i \in [1, N] \\
-    \E{(x_i - \mu)}^2 &=& \sigma^2 \quad \forall i, i \in [1, N]  
+    \E{x_i} &=& \mu  \quad \forall i \in [1, N] \\
+    \E{(x_i - \mu)^2} &=& \sigma^2 \quad \forall i \in [1, N]
 \end{eqnarray}
 
 We assume that the weights are non-negative and are normalized:%
-\footnote{We also assume that the weight is not concentrated at any
-one index.}
+\footnote{We also assume that the weight is not concentrated at a
+single index.}
 \begin{itemize}
-    \item{$\sum_{i=1}^N w_i = 1$}
-    \item{$\forall i, 0 \le w_i < 1$}
+    \item $\sum_{i=1}^N w_i = 1$
+    \item $\forall i, 0 \le w_i < 1$
 \end{itemize}
 
 If we take the expectation of the weighted sum, $\sum_{i=1}^N x_i w_i$ we find that it is $\mu$:%
@@ -313,14 +319,14 @@ $\E{a x + b y + c} = a \E{x} + b \E{y} + c$, provided $a,b,c$ are constants.}
     \E{\sum_{i=1}^N x_i w_i} &=& \sum_{i=1}^N \E{x_i w_i} = \sum_{i=1}^N \E{x_i} w_i = \mu \sum_{i=1}^N w_i = \mu 
 \end{eqnarray}
 The weighted sum represents an estimate of the true mean of the IID random variables, which is $\mu$.
-And in this case we see that it is a good estimate in that the expected value of the weighed combination
+And in this case we see that it is a good estimate in that the expected value of the weighted combination
 of the random variables is $\mu$. 
 
 We refer to such ``good'' estimates as {\em unbiased estimators\/}.
 
 Now consider the sum $\sum_{i=1}^N (x_i - \mu)^2 w_i$.
 People use this as an estimate of the variance of the random variables. Is this a ``good'' (unbiased) estimate?
-Yes, it is as: $\E{\sum_{i=1}^N (x_i - \mu)^2 w_i} = \sum_{i=1}^N \E{(x_i- \mu)^2} w_i = \sigma^2 \sum_{i=1}^N w_i = \sigma^2$
+Yes, it is as: $\E{\sum_{i=1}^N (x_i - \mu)^2 w_i} = \sum_{i=1}^N \E{(x_i- \mu)^2} w_i = \sigma^2 \sum_{i=1}^N w_i = \sigma^2$.
 
 But what if we replace the true mean, $\mu$, above with our estimate: ${\bar x} = \sum_{i=1}^N x_i w_i$?
 In this case it turns out that the resulting estimate for the variance is {\em biased\/}.
@@ -328,258 +334,247 @@ However, it happens that we are ``off'' by a certain factor and that factor depe
 we use.%
 \footnote{In fact, the factor doesn't depend on the ordering of the weights.}
 
-To find this factor we examine the expected value of the straight forward formula one would imagine
+To find this factor we examine the expected value of the straightforward formula one would imagine
 using to estimate the variance of the random variables.
 
-\begin{flalign}
-    \E{\sum_{i=1}^N (x_i - {\bar x})^2 w_i} &= \sum_{i=1}^N \E{(x_i - {\bar x})^2} w_i &&\\\nonumber
-    &= \sum_{i=1}^N \E{\left((x_i - \mu) + (\mu - {\bar x})\right)^2} w_i &&\\\nonumber 
-    &= \sum_{i=1}^N \E{(x_i - \mu)^2 - 2(x_i - \mu)({\bar x} - \mu ) + ({\bar x} - \mu)^2} w_i &&\\\nonumber 
+\begin{align}
+    \E{\sum_{i=1}^N (x_i - {\bar x})^2 w_i} &= \sum_{i=1}^N \E{(x_i - {\bar x})^2} w_i \\\nonumber
+    &= \sum_{i=1}^N \E{\left((x_i - \mu) + (\mu - {\bar x})\right)^2} w_i \\\nonumber 
+    &= \sum_{i=1}^N \E{(x_i - \mu)^2 - 2(x_i - \mu)({\bar x} - \mu ) + ({\bar x} - \mu)^2} w_i \\\nonumber 
     &= \sum_{i=1}^N \left( \E{(x_i - \mu)^2} + \E{({\bar x} - \mu)^2}
-              - 2\E{(x_i - \mu) ({\bar x} - \mu) } \right) w_i && \label{standard_emp_var} 
-\end{flalign}
+              - 2\E{(x_i - \mu) ({\bar x} - \mu) } \right) w_i \label{standard_emp_var}
+\end{align}
 We separately compute the expectation of each of the three summands.
 \begin{eqnarray}
     \E{(x_i - \mu)^2} &=& \sigma^2
 \end{eqnarray}
 
-\begin{flalign}
-    \E{({\bar x} - \mu)^2} &= \E{\left( \left(\sum_{j=1}^N x_j w_j\right) - \mu \right)^2} &&\\\nonumber 
-     &=  \E{\left( \sum_{j=1}^N (x_j w_j - \mu w_j) \right)^2} &&\\\nonumber 
-     &=  \E{\left( \sum_{j=1}^N (x_j - \mu)w_j \right)^2} &&\\\nonumber 
-     &=  \E{\left( \sum_{j=1}^N (x_j - \mu)w_j \right) \left(\sum_{k=1}^N (x_k - \mu) w_k\right)} &&\\\nonumber 
-     &=  \E{ \sum_{j=1}^N \sum_{k=1}^N  (x_j - \mu) (x_k - \mu) w_j w_k}   &&\\\nonumber
-     &=  \left( \sum_{j=1}^N \sum_{k=1}^N  \E{(x_j - \mu) (x_k - \mu)}w_j w_k\right) &&\\\nonumber 
-     &=  \left( \sum_{j=1}^N \sum_{k=1}^N  \sigma^2 w_j w_k \delta_{j,k}\right) &&\\\nonumber 
-     &=  \left( \sum_{j=1}^N \sigma^2 w_j^2 \right)  &&\\\nonumber 
-     &=  \sigma^2 \left( \sum_{j=1}^N w_j^2 \right) && 
-\end{flalign}
+\begin{align}
+    \E{({\bar x} - \mu)^2} &= \E{\left( \left(\sum_{j=1}^N x_j w_j\right) - \mu \right)^2} \\\nonumber 
+     &=  \E{\left( \sum_{j=1}^N (x_j w_j - \mu w_j) \right)^2} \\\nonumber 
+     &=  \E{\left( \sum_{j=1}^N (x_j - \mu)w_j \right)^2} \\\nonumber 
+     &=  \E{\left( \sum_{j=1}^N (x_j - \mu)w_j \right) \left(\sum_{k=1}^N (x_k - \mu) w_k\right)} \\\nonumber 
+     &=  \E{ \sum_{j=1}^N \sum_{k=1}^N  (x_j - \mu) (x_k - \mu) w_j w_k}   \\\nonumber
+     &=  \left( \sum_{j=1}^N \sum_{k=1}^N  \E{(x_j - \mu) (x_k - \mu)}w_j w_k\right) \\\nonumber 
+     &=  \left( \sum_{j=1}^N \sum_{k=1}^N  \sigma^2 w_j w_k \delta_{j,k}\right) \\\nonumber 
+     &=  \left( \sum_{j=1}^N \sigma^2 w_j^2 \right)  \\\nonumber
+     &=  \sigma^2 \left( \sum_{j=1}^N w_j^2 \right)
+\end{align}
 
-\begin{flalign}
-    \E{(x_i - \mu)({\bar x} - \mu)}  &= \E{(x_i - \mu) \left( \left( \sum_{j=1}^N x_j w_j\right) - \mu \right)} &&\\\nonumber 
-    &=  \E{ (x_i - \mu) \left( \sum_{j=1}^N (x_j - \mu)w_j\right) } &&\\\nonumber 
-    &=  \E{ \sum_{j=1}^N (x_i - \mu) (x_j - \mu)w_j} &&\\\nonumber 
-    &=  \sum_{j=1}^N \E{(x_i - \mu) (x_j - \mu)} w_j &&\\\nonumber 
-    &=  \sum_{j=1}^N \sigma^2 w_j \delta_{i,j} &&\\\nonumber 
-    &=  \sigma^2 w_i  &&\\\nonumber  
-\end{flalign}
+\begin{align}
+    \E{(x_i - \mu)({\bar x} - \mu)}  &= \E{(x_i - \mu) \left( \left( \sum_{j=1}^N x_j w_j\right) - \mu \right)} \\\nonumber 
+    &=  \E{ (x_i - \mu) \left( \sum_{j=1}^N (x_j - \mu)w_j\right) } \\\nonumber 
+    &=  \E{ \sum_{j=1}^N (x_i - \mu) (x_j - \mu)w_j} \\\nonumber 
+    &=  \sum_{j=1}^N \E{(x_i - \mu) (x_j - \mu)} w_j \\\nonumber 
+    &=  \sum_{j=1}^N \sigma^2 w_j \delta_{i,j} \\\nonumber 
+    &=  \sigma^2 w_i
+\end{align}
 
-Continuing with $(\ref{standard_emp_var})$ we have
-
-\begin{flalign*}
-    \E{ \sum_{i=1}^N (x_i - {\bar x})^2 w_i } &= \sum_{i=1}^N \E{(x_i - {\bar x})^2} w_i &&\\
-    &=  \sum_{i=1}^N \E{\left((x_i - \mu) + (\mu - {\bar x})\right)^2} w_i &&\\
-    &=  \sum_{i=1}^N \E{(x_i - \mu)^2 - 2(x_i - \mu)({\bar x} - \mu ) + ({\bar x} - \mu)^2} w_i &&\\
-    &=  \sum_{i=1}^N \left( \E{(x_i - \mu)^2}  
-    + \E{\left(\sum_{j=1}^N (x_j - \mu)w_j\right)^2} 
-              - 2\E{(x_i - \mu) \left(\sum_{j=1}^N (x_j - \mu)w_j\right) } \right)  w_i &&\\
-    &=  \sum_{i=1}^N \left( \E{(x_i - \mu)^2}  
-    + \left(\sum_{j=1}^N \E{(x_j - \mu)^2}w_j^2 \right)  
-              - 2\E{(x_i - \mu) \left(\sum_{j=1}^N (x_j - \mu)w_j\right)  } \right)  w_i &&\\
-    &=  \sum_{i=1}^N \left(\sigma^2  + \sigma^2 \sum_{j=1}^N w_j^2 - 2 \left( \sum_{j=1}^N \E{(x_i - \mu) (x_j - \mu)} w_j \right)\right)w_i  &&\\
-    &=  \sum_{i=1}^N \left(\sigma^2  + \sigma^2 \sum_{j=1}^N w_j^2 - 2 \left( \sum_{j=1}^N \sigma^2 \delta_{i,j} w_j \right)\right)w_i  &&\\
-    &=  \sigma^2 \sum_{i=1}^N \left(1  + \sum_{j=1}^N w_j^2 - 2 w_i \right)w_i  &&\\
-    &=  \sigma^2 + \sigma^2 \left( \sum_{j=1}^N w_j^2 \right) - 2\sigma^2 \left( \sum_{i=1}^N w_i^2 \right) &&\\ 
-    &=  \sigma^2\left(1 - \sum_{i=1}^N w_i^2\right)  &&
-\end{flalign*}
-Therefore, to make $\sum_{i=1}^N (x - {\bar x})^2 w_i$ an unbiased estimator of the variance $\sigma^2$ 
+Substituting these three results into $(\ref{standard_emp_var})$:
+\begin{align*}
+    \E{\sum_{i=1}^N (x_i - {\bar x})^2 w_i}
+    &= \sum_{i=1}^N \left( \sigma^2 + \sigma^2 \sum_{j=1}^N w_j^2 - 2\sigma^2 w_i \right) w_i \\
+    &= \sigma^2 + \sigma^2 \sum_{j=1}^N w_j^2 - 2\sigma^2 \sum_{i=1}^N w_i^2 \\
+    &= \sigma^2 \left(1 - \sum_{i=1}^N w_i^2\right)
+\end{align*}
+Therefore, to make $\sum_{i=1}^N (x_i - {\bar x})^2 w_i$ an unbiased estimator of the variance $\sigma^2$
 we need to correct by dividing by the factor $\left( 1 - \sum_{i=1}^N w_i^2 \right)$.%
-\footnote{Note, this factor is non-zero when the weights are not concentrated at one point.
+\footnote{Note, this factor is non-zero when the weights are not concentrated at a single index.
 As a consequence, the formula requires $N > 1$.}
 
 Consequently, $\frac{1}{1 - \sum_{i=1}^N w_i^2} \sum_{i=1}^N (x_i - {\bar x})^2 w_i$ 
 is an unbiased estimator for the variance of any of the IID variables: $\{x_i\}_{i=1}^N$. 
 The unbiased standard deviation is then
-\begin{flalign}
+\begin{align}
     \sqrt{\frac{1}{1 - \sum_{i=1}^N w_i^2} \sum_{i=1}^N (x_i - {\bar x})^2 w_i} 
-\end{flalign}
+\end{align}
 
 What is the formula when the weights are evenly distributed? That would mean that the weights are $w_i = \frac{1}{N}$.
 In this case the estimate for the standard deviation of the random variables is:
-\begin{flalign*}
+\begin{align*}
      \sqrt{\frac{1}{1 - \sum_{i=1}^N \left(\frac{1}{N}\right)^2} \sum_{i=1}^N (x_i - {\bar x})^2 \frac{1}{N}} 
-                   &=  \sqrt{\frac{1}{1 - \frac{1}{N}} \frac{1}{N} \sum_{i=1}^N (x_i - {\bar x})^2 } &&\\
-                   &=  \sqrt{\frac{1}{\frac{N - 1}{N}} \frac{1}{N} \sum_{i=1}^N (x_i - {\bar x})^2 } &&\\
-                   &=  \sqrt{\frac{N}{N - 1} \frac{1}{N} \sum_{i=1}^N (x_i - {\bar x})^2 } &&\\
-                   &=  \sqrt{\frac{1}{N - 1} \sum_{i=1}^N (x_i - {\bar x})^2 } &&
-\end{flalign*}
+                   &=  \sqrt{\frac{1}{1 - \frac{1}{N}} \frac{1}{N} \sum_{i=1}^N (x_i - {\bar x})^2 } \\
+                   &=  \sqrt{\frac{1}{\frac{N - 1}{N}} \frac{1}{N} \sum_{i=1}^N (x_i - {\bar x})^2 } \\
+                   &=  \sqrt{\frac{N}{N - 1} \frac{1}{N} \sum_{i=1}^N (x_i - {\bar x})^2 } \\
+                   &=  \sqrt{\frac{1}{N - 1} \sum_{i=1}^N (x_i - {\bar x})^2 } 
+\end{align*}
 We see that we end up with the usual ``sample'' standard deviation.
 
 \subsection{Bias of Arbitrary Sample Moments.}
 
 We now proceed in the same way as above to compute the bias of more general moments.
+The strategy mirrors the second-moment derivation: rewrite $x_i - {\bar x} = (x_i - \mu) + (\mu - {\bar x})$
+and expand the $r^{\it th}$ power via the binomial theorem.
+The resulting power of $\sum_l (x_l - \mu) w_l$ is then expanded by the multinomial theorem,
+splitting off the $l = i$ term so that independence may be used when the expectation is distributed
+across the product.
 
-\begin{flalign}
-    \E{\sum_{i=1}^N (x_i - {\bar x})^r w_i} &=  \sum_{i=1}^N \E{(x_i - {\bar x})^r} w_i && \\\nonumber 
-    &=  \sum_{i=1}^N \E{\left((x_i - \mu) + (\mu - {\bar x})\right)^r} w_i && \\\nonumber 
-    &=  \sum_{i=1}^N \E{\sum_{j=0}^r (-1)^j \binom{r}{j} (x_i - \mu)^{r-j}({\bar x} - \mu)^{j}} w_i  && \\\nonumber
-    &=  \sum_{i=1}^N \sum_{j=0}^r (-1)^j \binom{r}{j} \E{(x_i - \mu)^{r-j}({\bar x} - \mu)^{j}} w_i  &&\\\nonumber
-    &=  \sum_{i=1}^N \sum_{j=0}^r (-1)^j \binom{r}{j} \E{(x_i - \mu)^{r-j}\left(\sum_{l=1}^N (x_l - \mu)w_l\right)^j} w_i &&\\\nonumber 
-    &=  \sum_{i=1}^N \sum_{j=0}^r (-1)^j \binom{r}{j} \E{(x_i - \mu)^{r-j}\left((x_i - \mu)w_i + \sum_{\substack{l \in [1, N] \\ l \neq i}} (x_l - \mu)w_l\right)^j} w_i &&\\\nonumber 
+\begin{align}
+    \E{\sum_{i=1}^N (x_i - {\bar x})^r w_i} &=  \sum_{i=1}^N \E{(x_i - {\bar x})^r} w_i \\\nonumber
+    &=  \sum_{i=1}^N \E{\left((x_i - \mu) + (\mu - {\bar x})\right)^r} w_i \\\nonumber 
+    &=  \sum_{i=1}^N \E{\sum_{j=0}^r (-1)^j \binom{r}{j} (x_i - \mu)^{r-j}({\bar x} - \mu)^{j}} w_i  \\\nonumber
+    &=  \sum_{i=1}^N \sum_{j=0}^r (-1)^j \binom{r}{j} \E{(x_i - \mu)^{r-j}({\bar x} - \mu)^{j}} w_i  \\\nonumber
+    &=  \sum_{i=1}^N \sum_{j=0}^r (-1)^j \binom{r}{j} \E{(x_i - \mu)^{r-j}\left(\sum_{l=1}^N (x_l - \mu)w_l\right)^j} w_i \\\nonumber 
+    &=  \sum_{i=1}^N \sum_{j=0}^r (-1)^j \binom{r}{j} \E{(x_i - \mu)^{r-j}\left((x_i - \mu)w_i + \sum_{\substack{l \in [1, N] \\ l \neq i}} (x_l - \mu)w_l\right)^j} w_i \\\nonumber 
     &=  \sum_{i=1}^N \sum_{j=0}^r (-1)^j \binom{r}{j} \E{(x_i - \mu)^{r-j}
-    \sum_{k=0}^j \binom{j}{k} (x_i - \mu)^{j-k} w_i^{j-k}  \left(\sum_{\substack{l \in [1, N] \\ l \neq i}} (x_l - \mu)w_l\right)^k} w_i &&\\\nonumber 
+    \sum_{k=0}^j \binom{j}{k} (x_i - \mu)^{j-k} w_i^{j-k}  \left(\sum_{\substack{l \in [1, N] \\ l \neq i}} (x_l - \mu)w_l\right)^k} w_i \\\nonumber 
     &=  \sum_{i=1}^N \sum_{j=0}^r \sum_{k=0}^j (-1)^j \binom{r}{j} \binom{j}{k} \E{(x_i - \mu)^{r-k}w_i^{j-k}
-     \left(\sum_{\substack{l \in [1, N] \\ l \neq i}} (x_l - \mu)w_l\right)^k} w_i &&\\\nonumber 
+     \left(\sum_{\substack{l \in [1, N] \\ l \neq i}} (x_l - \mu)w_l\right)^k} w_i \\\nonumber 
     &=  \sum_{i=1}^N \sum_{j=0}^r \sum_{k=0}^j (-1)^j \binom{r}{j} \binom{j}{k} \E{(x_i - \mu)^{r-k}} 
-     \E{\left(\sum_{\substack{l \in [1,N] \\ l \neq i}} (x_l - \mu)w_l\right)^k} w_i^{j+1-k} &&\\\nonumber 
-    &=  \sum_{i=1}^N \sum_{j=0}^r  (-1)^j \binom{r}{j} \E{(x_i - \mu)^{r}} w_i^{j+1} &&\\\nonumber 
+     \E{\left(\sum_{\substack{l \in [1,N] \\ l \neq i}} (x_l - \mu)w_l\right)^k} w_i^{j+1-k} \\\nonumber 
+    &=  \sum_{i=1}^N \sum_{j=0}^r  (-1)^j \binom{r}{j} \E{(x_i - \mu)^{r}} w_i^{j+1} \\\nonumber 
     & \quad + \sum_{i=1}^N \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} \E{(x_i - \mu)^{r-k}}
-     \E{\left(\sum_{\substack{l \in [1, N] \\ l \neq i}} (x_l - \mu)w_l\right)^k} w_i^{j+1-k} &&\\\nonumber  &&
-\end{flalign}
+     \E{\left(\sum_{\substack{l \in [1, N] \\ l \neq i}} (x_l - \mu)w_l\right)^k} w_i^{j+1-k}
+\end{align}
 
-Consequently,
-\begin{flalign}
-    \E{\sum_{i=1}^N (x_i - {\bar x})^r w_i} &=  M_r + M_r \sum_{j=1}^r  (-1)^j \binom{r}{j} \sum_{i=1}^N w_i^{j+1} 
-     + \sum_{i=1}^N \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} M_{r-k} && \\\nonumber
+Separating out the $j=0$ term (which yields the bare $M_r$) and noting the
+$k=1$ contributions vanish because $\E{x_l - \mu} = 0$, we restrict the inner
+multinomial sum to indices with $k_n \neq 1$ and obtain
+\begin{align}
+    \E{\sum_{i=1}^N (x_i - {\bar x})^r w_i} &=  M_r + M_r \sum_{j=1}^r  (-1)^j \binom{r}{j} \sum_{i=1}^N w_i^{j+1}
+     + \sum_{i=1}^N \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} M_{r-k} \\\nonumber
     & \quad  \times \E{\sum_{\substack{k_1 + k_2 + \, \cdots\, + k_N = k \\ \forall n, k_n \ge 0  \\ k_i = 0}} \binom{k}{k_1, k_2, \, \ldots\, , k_N} 
-    \prod_{\substack{l \in [1,N] \\ l \neq i}} (x_l - \mu)^{k_l} w_l^{k_l}} w_i^{j+1-k} &&\\\nonumber 
+    \prod_{\substack{l \in [1,N] \\ l \neq i}} (x_l - \mu)^{k_l} w_l^{k_l}} w_i^{j+1-k} \\\nonumber 
     &=  M_r + M_r \sum_{j=1}^r  (-1)^j \binom{r}{j} \sum_{i=1}^N w_i^{j+1} 
-    + \sum_{i=1}^N \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} M_{r-k} &&\\\nonumber
+    + \sum_{i=1}^N \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} M_{r-k} \\\nonumber
     & \quad  \times  \sum_{\substack{k_1 + k_2 + \, \cdots\, + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \,k_n \neq 1 \\ k_i = 0}} \binom{k}{k_1, k_2, \, \ldots\,, k_N} 
-    \left(\prod_{\substack{l \in [1,N] \\ l \neq i}} \E{(x_l - \mu)^{k_l}} w_l^{k_l}\right) w_i^{j+1-k} &&\\\nonumber 
+    \left(\prod_{\substack{l \in [1,N] \\ l \neq i}} \E{(x_l - \mu)^{k_l}} w_l^{k_l}\right) w_i^{j+1-k} \\\nonumber 
     &=  M_r + M_r \sum_{j=1}^r  (-1)^j \binom{r}{j} \sum_{i=1}^N w_i^{j+1} 
-    + \sum_{i=1}^N \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} M_{r-k} &&\\\nonumber
+    + \sum_{i=1}^N \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} M_{r-k} \\\nonumber
     & \quad  \times  \sum_{\substack{k_1 + k_2 + \, \cdots\,  + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \,k_n \neq 1 \\ k_i = 0}} \binom{k}{k_1, k_2, \, \ldots\, , k_N} 
-    \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) w_i^{j+1-k} &&\\\nonumber 
-\end{flalign}
-Here, we use the notation, $M_r$, for the $r^{\it th}$ moment of the distribution of the $\{x_i\}_{i=1}^N$.
+    \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) w_i^{j+1-k}
+\end{align}
+Here, we use the notation $M_r \equiv \E{(x_i - \mu)^r}$ for the $r^{\it th}$ central moment of the distribution of the $\{x_i\}_{i=1}^N$ (so that $M_2 = \sigma^2$).
 
-We break up the multinomial formula into a sum with respect to $k_i$ producing the final formula
-for the expected value of the na\"{i}ve $r^{\it th}$ moment:%
+We now drop the $k_i = 0$ constraint by allowing $k_i$ to take any value in
+$\{0\} \cup \{2, 3, \ldots, k\}$ — yielding an inner sum that no longer depends on $i$ —
+and subtract back the $k_i \in \{2, \ldots, k\}$ contributions as a separate $z$-indexed
+sum, with $z = k_i$. The multinomial coefficient with one slot equal to $z$ factors as
+$\binom{k}{z}\binom{k-z}{k_1, \ldots, k_{N-1}}$, which produces the $\binom{k}{z}$
+prefactor in the subtraction below.%
 \footnote{We use the standard interpretation of any sum of the form, $\sum_{i=n}^m f(i)$, to be $0$ if $m < n$.}
-\begin{flalign}
-    \E{ (x_i - {\bar x})^r w_i} &= M_r + M_r \sum_{j=1}^r  (-1)^j \binom{r}{j} \sum_{i=1}^N w_i^{j+1} 
-    + \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} M_{r-k} && \\\nonumber 
-     & \times \left[ \sum_{i=1}^N w_i^{j+1-k} \left( \sum_{\substack{k_1 + k_2 + \, \cdots\,  + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \, k_n \neq 1 }} \binom{k}{k_1, k_2, \, \ldots\, , k_N} 
-     \prod_{l=1}^N M_{k_l} w_l^{k_l}\right) \right. &&\\\nonumber
-     &\left. - \sum_{z = 2}^k M_z \left( \sum_{i=1}^N w_i^{j+z+1-k} \sum_{\substack{k_1 + k_2 + \, \cdots\, + k_{N-1} = k-z \\ \forall n, k_n \ge 0\, \wedge\, k_n \neq 1}}
-     \binom{k-z}{k_1, k_2, \,\ldots\, , k_{N-1}} \prod_{\substack{l \in [1,N-1]\\ l \neq i}} M_{k_l} w_l^{k_l} \right) \right] &&
-\end{flalign}
+\begin{align}
+    \E{ (x_i - {\bar x})^r w_i} &= M_r + M_r \sum_{j=1}^r  (-1)^j \binom{r}{j} \sum_{i=1}^N w_i^{j+1}
+    + \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} M_{r-k} \\\nonumber
+     & \times \left[ \sum_{i=1}^N w_i^{j+1-k} \left( \sum_{\substack{k_1 + k_2 + \, \cdots\,  + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \, k_n \neq 1 }} \binom{k}{k_1, k_2, \, \ldots\, , k_N}
+     \prod_{l=1}^N M_{k_l} w_l^{k_l}\right) \right. \\\nonumber
+     &\left. - \sum_{z = 2}^k \binom{k}{z} M_z \left( \sum_{i=1}^N w_i^{j+z+1-k} \sum_{\substack{k_1 + k_2 + \, \cdots\, + k_{N-1} = k-z \\ \forall n, k_n \ge 0\, \wedge\, k_n \neq 1}}
+     \binom{k-z}{k_1, k_2, \,\ldots\, , k_{N-1}} \prod_{\substack{l \in [1,N-1]\\ l \neq i}} M_{k_l} w_l^{k_l} \right) \right]
+\end{align}
 We check the case $r=2$ to see if it coincides with the previous section:
 
-\begin{flalign}
+\begin{align}
     \E{(x_i - {\bar x})^2 w_i} &= \sigma^2 + \sigma^2 \sum_{j=1}^2  (-1)^j \binom{2}{j} \sum_{i=1}^N w_i^{j+1} 
-    +  \sum_{j=2}^2 \sum_{k=2}^j (-1)^j \binom{2}{j} \binom{j}{k} M_{2-k} && \\\nonumber 
+    +  \sum_{j=2}^2 \sum_{k=2}^j (-1)^j \binom{2}{j} \binom{j}{k} M_{2-k} \\\nonumber 
      & \times \sum_{i=1}^N \left[ \sum_{\substack{k_1 + k_2 + \, \cdots\, + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \, k_n \neq 1 }} \binom{k}{k_1, k_2, \, \ldots\, , k_N} 
-     \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) w_i^{j+1-k}  \right. &&\\\nonumber
-     &\left. - \sum_{z = 2}^k M_z \sum_{\substack{k_1 + k_2 +\, \cdots\, + k_{N-1} = k-z \\ \forall n, k_n \ge 0\, \wedge\, k_n \neq 1}}
-     \binom{k-z}{k_1, k_2, \, \ldots\, , k_{N-1}} \left(\prod_{\substack{l \in [1,N-1]\\ l \neq i}} M_{k_l} w_l^{k_l} \right)  w_i^{j+z+1-k} \right] &&
-\end{flalign}
+     \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) w_i^{j+1-k}  \right. \\\nonumber
+     &\left. - \sum_{z = 2}^k \binom{k}{z} M_z \sum_{\substack{k_1 + k_2 +\, \cdots\, + k_{N-1} = k-z \\ \forall n, k_n \ge 0\, \wedge\, k_n \neq 1}}
+     \binom{k-z}{k_1, k_2, \, \ldots\, , k_{N-1}} \left(\prod_{\substack{l \in [1,N-1]\\ l \neq i}} M_{k_l} w_l^{k_l} \right)  w_i^{j+z+1-k} \right]
+\end{align}
 
 This becomes
-\begin{flalign}
-    \E{(x_i - {\bar x})^2 w_i} &= \sigma^2 + \sigma^2 \sum_{j=1}^2  (-1)^j \binom{2}{j} \sum_{i=1}^N w_i^{j+1} &&\\\nonumber 
+\begin{align}
+    \E{(x_i - {\bar x})^2 w_i} &= \sigma^2 + \sigma^2 \sum_{j=1}^2  (-1)^j \binom{2}{j} \sum_{i=1}^N w_i^{j+1} \\\nonumber 
      & + \sum_{\substack{k_1 + k_2 + \, \cdots \, + k_N = 2 \\ \forall n, k_n \ge 0 \, \wedge \, k_n \neq 1 }} \binom{2}{k_1, k_2,\, \ldots\, , k_N} 
-     \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) \left(\sum_{i=1}^N w_i \right)  - \sigma^2  \left(\sum_{i=1}^N w_i^{3} \right) &&
-\end{flalign}
+     \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) \left(\sum_{i=1}^N w_i \right)  - \sigma^2  \left(\sum_{i=1}^N w_i^{3} \right) 
+\end{align}
 Which is
-\begin{flalign}
+\begin{align}
     \E{(x_i - {\bar x})^2 w_i} &= \sigma^2 + \sigma^2 \left( -2\sum_{i=1}^N w_i^2 + \sum_{i=1}^N w_i^3\right) 
-     +  \sigma^2 \sum_{l=1}^N w_l^2\left(\sum_{i=1}^N w_i\right) - \sigma^2  \left(\sum_{i=1}^N w_i^{3} \right) &&\\\nonumber
-\end{flalign}
+     +  \sigma^2 \sum_{l=1}^N w_l^2\left(\sum_{i=1}^N w_i\right) - \sigma^2  \left(\sum_{i=1}^N w_i^{3} \right)
+\end{align}
 This becomes
-\begin{flalign}
-    \E{(x_i - {\bar x})^2 w_i} &= \sigma^2\left(1 - \sum_{i=1}^N w_i^2\right) &&
-\end{flalign}
+\begin{align}
+    \E{(x_i - {\bar x})^2 w_i} &= \sigma^2\left(1 - \sum_{i=1}^N w_i^2\right) 
+\end{align}
 
 As a more complicated example we try $r=3$. In this case the formula is:
-\begin{flalign}
+\begin{align}
     \E{(x_i - {\bar x})^3 w_i} &= M_3 + M_3 \sum_{j=1}^3  (-1)^j \binom{3}{j} \sum_{i=1}^N w_i^{j+1} 
-    + \sum_{j=2}^3 \sum_{k=2}^j (-1)^j \binom{3}{j} \binom{j}{k} M_{3-k} && \\\nonumber 
+    + \sum_{j=2}^3 \sum_{k=2}^j (-1)^j \binom{3}{j} \binom{j}{k} M_{3-k} \\\nonumber 
      & \times \sum_{i=1}^N \left[ \sum_{\substack{k_1 + k_2 + \, \cdots\, + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \, k_n \neq 1 }} \binom{k}{k_1, k_2, \, \ldots\,, k_N} 
-     \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) w_i^{j+1-k} \right. &&\\\nonumber
-     &\left. - \sum_{z = 2}^k M_z \sum_{\substack{k_1 + k_2 + \, \cdots\, + k_{N-1} = k-z \\ \forall n, k_n \ge 0\, \wedge\, k_n \neq 1}}
-     \binom{k-z}{k_1, k_2, \, \ldots\, , k_{N-1}} \left(\prod_{\substack{l \in [1,N-1]\\ l \neq i}} M_{k_l} w_l^{k_l} \right) w_i^{j+z+1-k} \right] &&
-\end{flalign}
+     \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) w_i^{j+1-k} \right. \\\nonumber
+     &\left. - \sum_{z = 2}^k \binom{k}{z} M_z \sum_{\substack{k_1 + k_2 + \, \cdots\, + k_{N-1} = k-z \\ \forall n, k_n \ge 0\, \wedge\, k_n \neq 1}}
+     \binom{k-z}{k_1, k_2, \, \ldots\, , k_{N-1}} \left(\prod_{\substack{l \in [1,N-1]\\ l \neq i}} M_{k_l} w_l^{k_l} \right) w_i^{j+z+1-k} \right]
+\end{align}
 Which is
-\begin{flalign}
+\begin{align}
     \E{(x_i - {\bar x})^3 w_i} &= M_3 + M_3 \left(-3 \sum_{i=1}^N w_i^2 + 3 \sum_{i=1}^N w_i^3 - \sum_{i=1}^N w_i^4\right) 
-     - M_3 \left(\sum_{l=1}^N w_l^3 \left(\sum_{i=1}^N w_i\right) - \sum_{i=1}^N w_i^4 \right) &&  
-\end{flalign}
+     - M_3 \left(\sum_{l=1}^N w_l^3 \left(\sum_{i=1}^N w_i\right) - \sum_{i=1}^N w_i^4 \right)
+\end{align}
 
 Or,
-\begin{flalign}
-    \E{(x_i - {\bar x})^3 w_i} &= M_3\left(1 - 3\sum_{i=1}^N w_i^2 + 2\sum_{i=1}^N w_i^3\right) && 
-\end{flalign}
-Therefore, the corresponding unbiased estimator for the $3^{\it rd}$ moment is:%
-\footnote{As mentioned in the case of the second moment, this formula does not apply when 
-the weights are concentrated at one point. Consequently, we must have $N > 1$.}
-\begin{eqnarray}
-    && \frac{\sum_{i=1}^N (x_i - {\bar x})^3 w_i}{1 - 3\sum_{i=1}^N w_i^2 + 2\sum_{i=1}^N w_i^3} 
-\end{eqnarray}
+\begin{align}
+    \E{(x_i - {\bar x})^3 w_i} &= M_3\left(1 - 3\sum_{i=1}^N w_i^2 + 2\sum_{i=1}^N w_i^3\right)
+\end{align}
+Therefore, the corresponding unbiased estimator for the $3^{\it rd}$ central moment is:%
+\footnote{As mentioned in the case of the second moment, this formula does not apply when
+the weights are concentrated at a single index. Consequently, we must have $N > 1$.}
+\begin{equation}
+    \frac{\sum_{i=1}^N (x_i - {\bar x})^3 w_i}{1 - 3\sum_{i=1}^N w_i^2 + 2\sum_{i=1}^N w_i^3}
+\end{equation}
 
 
 In the more general case, $r > 3$, there may be more work to determine a corrective procedure
 to render the na\"{i}ve $r^{\it th}$ moment unbiased.
  
-As a last example we try the case $r=4$.
-The na\"{i}ve estimate for the $4^{\it th}$ moment is:
+As a last example we try the case $r=4$. Substituting directly into the general
+formula above gets unwieldy; we instead organize the computation by the value
+of $k$, the power of $\sum_{l \neq i} (x_l - \mu) w_l$ that appears.
 
-\begin{flalign}
-    \E{(x_i - {\bar x})^4 w_i} &= M_4 + M_4 \sum_{j=1}^4  (-1)^j \binom{4}{j} \sum_{i=1}^N w_i^{j+1} 
-    + \sum_{j=2}^4 \sum_{k=2}^j (-1)^j \binom{4}{j} \binom{j}{k} M_{4-k} && \\\nonumber 
-     & \times \sum_{i=1}^N \left[ \sum_{\substack{k_1 + k_2 + \, \cdots\, + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \, k_n \neq 1 }} \binom{k}{k_1, k_2, \, \ldots\,, k_N} 
-     \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right)  w_i^{j+1-k} \right. &&\\\nonumber
-     &\left. - \sum_{z = 2}^k M_z \sum_{\substack{k_1 + k_2 + \, \cdots\,  + k_{N-1} = k-z \\ \forall n, k_n \ge 0\, \wedge\, k_n \neq 1}}
-     \binom{k-z}{k_1, k_2, \, \ldots\, , k_{N-1}} \left(\prod_{\substack{l \in [1,N-1]\\ l \neq i}} M_{k_l} w_l^{k_l} \right)  w_i^{j+z+1-k} \right] &&
-\end{flalign}
-This is
-\begin{flalign}
-    \E{(x_i - {\bar x})^4 w_i} &= M_4\left(1 -4 \sum_{i=1}^N w_i^2 + 6 \sum_{i=1}^N w_i^3 -4 \sum_{i=1}^N w_i^4 + \sum_{i=1}^N w_i^5 \right) &&\\\nonumber
-    &+ \binom{4}{2}\binom{2}{2} M_2^2 \left( \sum_{l=1}^N w_l^2 \left(\sum_{i=1}^N w_i\right)   - \sum_{l=1}^N w_l^2\left(\sum_{i=1}^N w_i^3 \right)\right) && \\\nonumber
-    &- \binom{4}{3}\binom{3}{2} M_2^2 \left( \sum_{l=1}^N w_l^2 \left(\sum_{i=1}^N w_i^2\right) - \sum_{l=1}^N w_l^2\left(\sum_{i=1}^N w_i^4 \right)\right) && \\\nonumber
-    &+ \binom{4}{4}\binom{4}{2} M_2^2 \left( \sum_{l=1}^N w_l^2 \left(\sum_{i=1}^N w_i^3\right) - \sum_{l=1}^N w_l^2\left(\sum_{i=1}^N w_i^5 \right)\right) && \\\nonumber
-    &+ \binom{4}{4}\binom{4}{4} M_4 \sum_{i=1}^N \left( \sum_{l=1}^N w_l^4 w_i\right) &&\\\nonumber   
-    &+ \binom{4}{2,2} M_2^2 \sum_{l=1}^{N-1} \sum_{m=l+1}^N w_l^2 w_m^2 \left(\sum_{i=1}^N w_i\right) &&\\\nonumber 
-    &- M_2 \sum_{i=1}^N \left( \sum_{\substack{l \in [1,N]\\ l \neq i}} M_2 w_l^2\right)  w_i^3  - M_4 \sum_{i=1}^N w_i^5  &&\\\nonumber 
-\end{flalign}
+Let $y_i = x_i - \mu$ and $z = {\bar x} - \mu = \sum_{l=1}^N y_l w_l$. Split
+$z = y_i w_i + s_i$, where
+\begin{align*}
+    s_i &\equiv \sum_{\substack{l \in [1,N]\\ l \neq i}} y_l w_l
+\end{align*}
+is independent of $y_i$. Expanding $(x_i - {\bar x})^4 = (y_i - z)^4$ via the
+binomial theorem, and then $z^k = (y_i w_i + s_i)^k$ via a second application,
+gives:
+\begin{align}
+    \E{\sum_{i=1}^N (x_i - {\bar x})^4 w_i} &= \sum_{j=0}^4 \sum_{k=0}^j (-1)^j \binom{4}{j} \binom{j}{k} M_{4-k} \sum_{i=1}^N w_i^{j-k+1} \E{s_i^k}.
+    \label{r4_master}
+\end{align}
 
-\begin{flalign}
-    \E{(x_i - {\bar x})^4 w_i} &= M_4\left(1 -3 \sum_{i=1}^N w_i^2 + 6 \sum_{i=1}^N w_i^3 - 3 \sum_{i=1}^N w_i^4 
-    + \sum_{i=1}^N w_i^5 - \sum_{i=1}^N w_i^5 \right) &&\\\nonumber
-    &+ 6 M_2^2 \left(\sum_{i=1}^N w_i^2 - \left(\sum_{i=1}^N w_i^2\right) \left(\sum_{i=1}^N w_i^3 \right) \right) &&\\\nonumber
-    &- 12 M_2^2 \left(\left( \sum_{i=1}^N w_i^2\right) \left(\sum_{i=1}^N w_i^2 \right) - \left(\sum_{i=1}^N w_i^2 \right) \left( \sum_{i=1}^N w_i^4 \right) \right) &&\\\nonumber
-    &+ 6 M_2^2 \left( \left( \sum_{i=1}^N w_i^2 \right) \left( \sum_{i=1}^N w_i^3 \right) - \left( \sum_{i=1}^N w_i^2 \right) \left(\sum_{i=1}^N w_i^5 \right) \right) &&\\\nonumber
-    &+ 6 M_2^2 \sum_{l=1}^{N-1} \sum_{m=l+1}^N w_l^2 w_m^2 &&\\\nonumber
-    &- M_2^2 \sum_{i=1}^N \left( \sum_{\substack{l \in [1,N]\\ l \neq i}} w_l^2\right) w_i^3 &&\\\nonumber 
-\end{flalign}
+Let $W_j = \sum_{i=1}^N w_i^j$. We collect the contributions by the value of $k$:
+\begin{itemize}
+    \item $k=0$: $\E{s_i^0} = 1$, giving
+        $M_4 \sum_{j=0}^4 (-1)^j \binom{4}{j} W_{j+1} = M_4 (1 - 4 W_2 + 6 W_3 - 4 W_4 + W_5)$.
+    \item $k=1$: $\E{s_i^1} = 0$.
+    \item $k=2$: $\E{s_i^2} = M_2 (W_2 - w_i^2)$, $M_{4-k} = M_2$, summed over $j \in \{2,3,4\}$:
+        $M_2^2 \big[\,6 (W_2 - W_3) - 12 (W_2^2 - W_4) + 6 (W_2 W_3 - W_5)\,\big]$.
+    \item $k=3$: $M_{4-k} = M_1 = 0$.
+    \item $k=4$: only $j=4$ contributes, with $\E{s_i^4} = M_4 (W_4 - w_i^4) + 6 M_2^2 \big[\,\tfrac{1}{2}(W_2^2 - W_4) - w_i^2 W_2 + w_i^4\,\big]$, giving
+        $M_4 (W_4 - W_5) + 6 M_2^2 \big[\,\tfrac{1}{2}(W_2^2 - W_4) - W_2 W_3 + W_5\,\big]$.
+\end{itemize}
+Adding these (the $W_5$ terms cancel in the $M_4$ piece; the $W_2 W_3$ and $W_5$
+terms cancel in the $M_2^2$ piece, and $6 \cdot \tfrac{1}{2}(W_2^2 - W_4) = 3 W_2^2 - 3 W_4$):
+\begin{align}
+    \E{\sum_{i=1}^N (x_i - {\bar x})^4 w_i} &= M_4 (1 - 4 W_2 + 6 W_3 - 3 W_4)
+    + 3 M_2^2 (2 W_2 - 2 W_3 - 3 W_2^2 + 3 W_4).
+    \label{r4_final}
+\end{align}
 
-Let $W_j = \sum_{i=1}^N w_i^j$ for $j \in [1,5]$. We may then write the above as:
-\begin{flalign}
-    \E{(x_i - {\bar x})^4 w_i} &= M_4\left(1 - 3W_2 + 6 W_3 -3W_4 \right) &&\\\nonumber
-    &+  6M_2^2 W_2 -12 M_2^2 W_2^2 + 12M_2^2W_2 W_4 - 6M_2^2 W_2 W_5  &&\\\nonumber 
-    &+ 6M_2^2 \sum_{l=1}^{N-1} \sum_{m=l+1}^N w_l^2 w_m^2 - M_2^2 \sum_{i=1}^N \sum_{\substack{l \in [1,N]\\ l \neq i}} w_l^2 w_i^3 
-\end{flalign}
+As a check, at $N = 2$ with $w_1 = w_2 = \tfrac{1}{2}$ ($W_2 = \tfrac{1}{2}$,
+$W_3 = \tfrac{1}{4}$, $W_4 = \tfrac{1}{8}$): the $M_4$ coefficient is
+$1 - 2 + \tfrac{3}{2} - \tfrac{3}{8} = \tfrac{1}{8}$, and the $M_2^2$ coefficient is
+$3(1 - \tfrac{1}{2} - \tfrac{3}{4} + \tfrac{3}{8}) = \tfrac{3}{8}$, matching the direct
+evaluation $\tfrac{M_4}{8} + \tfrac{3 M_2^2}{8}$.
 
-Or,
-\begin{flalign}
-    \E{(x_i - {\bar x})^4 w_i} &= M_4\left(1 - 3W_2 + 6 W_3 -3W_4 \right) &&\\\nonumber
-    &+  6M_2^2 W_2 -12 M_2^2 W_2^2 + 12M_2^2W_2 W_4 - 6M_2^2 W_2 W_5  &&\\\nonumber 
-    &+ 6M_2^2 \sum_{l=1}^{N-1} \sum_{m=l+1}^N w_l^2 w_m^2 - M_2^2 W_2 W_3  + M_2^2 W_5
-\end{flalign}
+The corresponding relation for the relative $4^{\it th}$ moment is:
+\begin{align}
+    \frac{M_4}{M_2^2} &= \frac{\E{\sum_{i=1}^N (x_i - {\bar x})^4 w_i} / M_2^2 - 3 (2 W_2 - 2 W_3 - 3 W_2^2 + 3 W_4)}{1 - 4 W_2 + 6 W_3 - 3 W_4}.
+\end{align}
 
-The relative $4^{\it th}$ na\"{i}ve moment becomes:
-\begin{flalign}
-    \frac{\E{(x_i - {\bar x})^4 w_i}}{M_2^2} &= \frac{M_4}{M_2^2} \left(1 - 3W_2 + 6 W_3 -3W_4 \right) &&&&\\\nonumber
-    &+  6 W_2 -12 W_2^2 + 12W_2 W_4 - 6 W_2 W_5  &&\\\nonumber 
-    &+ 6 \sum_{l=1}^{N-1} \sum_{m=l+1}^N w_l^2 w_m^2 - W_2 W_3  + W_5
-\end{flalign}
-Therefore, the estimate for the unbiased relative $4^{\it th}$ moment is:
-\begin{flalign}
-    \frac{M_4}{M_2^2} &= \frac{\frac{\E{(x_i - {\bar x})^4 w_i}}{M_2^2} 
-    -  6 W_2 +12 W_2^2 - 12W_2 W_4 + 6 W_2 W_5  
-    - 6 \sum_{l=1}^{N-1} \sum_{m=l+1}^N w_l^2 w_m^2 + W_2 W_3  - W_5}{\left(1 - 3W_2 + 6 W_3 -3W_4 \right)}
-\end{flalign}
-
-Since we don't know $M_2 = \sigma^2$, we use our unbiased estimate: $\frac{\sum_{j=1}^N (x_j - {\bar x})^2 w_j}{1 - \sum_{j=1}^N w_j^2}$.
-We also replace $\E{\sum_{i=1}^N (x_i - {\bar x})^4 w_i}$ with the sample estimate: $\sum_{i=1}^N (x_i - {\bar x})^4 w_i$.
-
-Therefore, our unbiased estimate of the relative Kurtosis is:
-\begin{flalign}
-    \frac{M_4}{M_2^2} &= \frac{\frac{(1 - W_2)^2 \sum_{i=1}^N (x_i - {\bar x})^4 w_i }{\left(\sum_{i=1}^N  \left(x_i - {\bar x}\right)^2 w_i\right)^2  } 
-    -  6 W_2 +12 W_2^2 - 12W_2 W_4 + 6 W_2 W_5  
-    - 6 \sum_{l=1}^{N-1} \sum_{m=l+1}^N w_l^2 w_m^2 + W_2 W_3  - W_5}{\left(1 - 3W_2 + 6 W_3 -3W_4 \right)}
-\end{flalign}
+Since we don't know $M_2 = \sigma^2$, we use our unbiased estimate
+${\widehat M}_2 = \frac{\sum_{j=1}^N (x_j - {\bar x})^2 w_j}{1 - W_2}$.
+We also replace $\E{\sum_{i=1}^N (x_i - {\bar x})^4 w_i}$ with the sample estimate
+$\sum_{i=1}^N (x_i - {\bar x})^4 w_i$. Our estimate of the relative kurtosis is then:
+\begin{align}
+    \frac{M_4}{M_2^2} &\approx \frac{
+        \displaystyle \frac{(1 - W_2)^2 \sum_{i=1}^N (x_i - {\bar x})^4 w_i}{\left(\sum_{j=1}^N (x_j - {\bar x})^2 w_j\right)^2}
+        - 3 (2 W_2 - 2 W_3 - 3 W_2^2 + 3 W_4)
+    }{1 - 4 W_2 + 6 W_3 - 3 W_4}.
+\end{align}
 
 \end{document}
 
