@@ -7,7 +7,7 @@
 \footline{\hss\tenrm\folio\hss}
 
 \mantitle{A Balance Law Interpretation of the Fokker-Planck Equation}
-{R. Scott McIntire}{Apr 25, 2026}
+{R. Scott McIntire}{Apr 26, 2026}
 
 \section{Overview}
 
@@ -37,9 +37,9 @@ derive a balance law for the heat contained in an arbitrary interval
 $[x_1,x_2]$ over an arbitrary time interval $[t_1, t_2]$. 
 Let $h(t,x)$ be the 
 heat per unit length at time $t$ and position $x$. Let 
-$f(t,x)$ be the heat flux at time $t$ and position $x$. Where heat 
+$f(t,x)$ be the heat flux at time $t$ and position $x$, where heat
 flux is defined as the rate at which heat flows
-\footnote{\kern -2pt \raise 0.5ex \hbox{\dag}}{Positive means 
+\footnote{\kern -2pt \raise 0.5ex \hbox{\dag}}{Positive means
 increasing $x$.}. The increase (or decrease) in 
 the heat of 
 the interval $[x_1, x_2]$ over $[t_1, t_2]$ is equal to the integral of
@@ -115,16 +115,16 @@ $\kappa$ is made from two constants, we give an interpretation to understand
 their role. Consider a bar made of different materials and different 
 thicknesses. With differing materials 
 we have two independent mechanisms controlling heat flow: 
-the heat capacity any portion of the bar controls the value of the 
-specific heat, $c$; and, the insular property of the material controls the heat flux rate, $k$. 
+the heat capacity of any portion of the bar controls the value of the
+specific heat, $c$; and, the insulating property of the material controls the heat flux rate, $k$.
 
 Under these conditions, we can get a better physical 
 understanding of the influence 
 of $c$ and $k$ on $\kappa$. If the bar behaves more like water at a certain spot, 
 it can absorb more heat and 
 therefore, is less diffusive there. 
-If the bar is made of a material that is more 
-insular at a certain spot, like styrofoam, the heat flux rate constant goes down and 
+If the bar is made of a material that is more
+insulating at a certain spot, like styrofoam, the heat flux rate constant goes down and
 therefore, the material is less diffusive there.
 
 We note that $c$ and $k$ may depend on $x$.
@@ -151,10 +151,10 @@ deriving a balance law for the heat contained in an arbitrary region
 $\Omega$ over an arbitrary time interval $[t_1, t_2]$. 
 Let $h(t,{\bf x})$ be the 
 heat per unit volume at time $t$ and position ${\bf x}$. Let 
-${\bf f}(t,{\bf x})$ be the heat flux at time $t$ and position ${\bf x}$. 
-Where heat flux is defined as a vector describing the rate at which heat flows
+${\bf f}(t,{\bf x})$ be the heat flux at time $t$ and position ${\bf x}$,
+where heat flux is defined as a vector describing the rate at which heat flows
 per area\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}
-{By area we mean  the n-1 dimensional area.}.
+{By area we mean the $(n-1)$-dimensional area.}.
 The increase (or decrease) in 
 the heat of 
 the region $\Omega$ over $[t_1, t_2]$ is equal to the integral of the 
@@ -166,7 +166,7 @@ $$
 \int_{t_1}^{t_2} \!\! 
 \mathop{\underbrace{\oint_{\partial \Omega} 
 \mathop{\overbrace{{\bf f}(t, {\bf x}) \cdot {\bf n}}}\limits^
-{\hbox{\small Heat flow rate per unit area leaving  \hbox{$\Omega$}}}
+{\hbox{\small Heat flow rate per unit area leaving \hbox{$\Omega$}}}
 \; d{\bf S}}}\limits_{\hbox{\small Heat flow rate leaving 
 \hbox{$\Omega$}}} \; dt
 $$
@@ -201,8 +201,8 @@ $$
 \int_{\Omega} h_t(t_1, {\bf x}) + \nabla \cdot {\bf f}(t_1, {\bf x}) 
 \; d{\bf x} = 0
 $$
-If we {\it assume\/} that the integrand is continuous, then since the 
-region $\Omega$ is arbitrary, the integrand must vanish for all $x$;
+If we {\it assume\/} that the integrand is continuous, then since the
+region $\Omega$ is arbitrary, the integrand must vanish for all ${\bf x}$;
 that is,
 $$
 h_t(t_1, {\bf x}) + \nabla \cdot {\bf f}(t_1, {\bf x}) = 0
@@ -232,7 +232,7 @@ $$
 c \, u_t(t, {\bf x}) - K \nabla \cdot \nabla u(t, {\bf x}) = 0
 $$
 Letting $\kappa = K / c$ and noting that $\Delta = \nabla \cdot \nabla$, 
-we obtain the n-dimensional heat equation with diffusion constant $\kappa$.
+we obtain the $n$-dimensional heat equation with diffusion constant $\kappa$.
 $$
 \fracd{\partial u}{\partial t} =  \kappa \, \Delta u 
 $$
@@ -255,7 +255,7 @@ continuously differentiable with respect to ${\bf x}$.}
 \endEnum
 
 
-When $K({\bf x})$ is a matrix, the heat flux vector $f(t,{\bf x})$ will not, 
+When $K({\bf x})$ is a matrix, the heat flux vector ${\bf f}(t,{\bf x})$ will not,
 in general, point in the direction opposite of the maximum 
 temperature increase. This may be interpreted physically as having a material
 that has a different heat flow rate in different directions. In this case,
@@ -302,7 +302,7 @@ under the action of the differential equation (5a-b).
 Let 
 $p(t,{\bf x}) = P_{{\cal X}(t;X)}({\bf x})$ be the probability
 density function of the induced random variable ${\cal X}(t; X)$. 
-The conservation of probability of $P_{{\cal X}(t, X)}(\Omega_t)$ 
+The conservation of probability of $P_{{\cal X}(t; X)}(\Omega_t)$
 is expressed mathematically as an instantaneous balance law:
 $$
 \eqalignno{
@@ -375,10 +375,9 @@ $$
 $$
 Equation (9) is true for all $\tau \in [0, T)$, 
 in particular it is true for $\tau = t$.
-If we assume that the integrand in (9) is continuous and since 
-$\widehat \Omega = \Omega_t$ and $t$ are both arbitrary, we have for all 
-$t \in [0,T)$
-and for all ${\bf x}$
+Assuming the integrand in (9) is continuous, and since
+$\widehat \Omega = \Omega_t$ and $t$ are both arbitrary, we have for all
+$t \in [0,T)$ and for all ${\bf x}$
 $$
 \eqalignno{
 p_t(t, {\bf x}) + \nabla \cdot 
@@ -393,8 +392,8 @@ $$
 \big( p(t, {\bf x}) {\bf f}(t, {\bf x})\big) & = 0  \cr
 p(0, {\bf x})  = P_X({\bf x})&  \cr} 
 $$
-Equations (10a-b) constitute a first order partial differential 
-equation describing the evolution of the probability density function 
+Equations (10a-b) constitute a first-order initial-value problem
+for the probability density function
 $P_X({\bf x})$ with respect to the differential equation (5a-b).
 
 \subsection{A Second Order System}
@@ -424,12 +423,14 @@ be the joint probability density function for random variables $X$ and $V$.
 Let $p(t,{\bf x},{\bf v}) =
 P_{{\cal X}(t; X, V), {\cal V}(t; X, V)}({\bf x}, {\bf v})$
 denote the probability density function of the pair $(X, V)$, transformed by
-the solution of (12a-d) at time $t$.
+the solution of (12a-d) at time $t$ (here we evaluate the deterministic flow at the
+random initial conditions, producing random variables ${\cal X}(t; X, V)$ and
+${\cal V}(t; X, V)$ with joint density $p$).
 From the previous section, $p$ satisfies 
 \footnote{\kern -3pt \raise 0.5ex \hbox{\dag}}
-{This follows from the identity  
+{This follows from the identity
 $\nabla \cdot (\varphi{\bf w}) = \nabla \varphi \cdot {\bf w}
-+ \varphi \, {\rm tr}\, \nabla {\bf w}$.}
++ \varphi \, \nabla \cdot {\bf w}$.}
 $$
 p_t(t, {\bf x}, {\bf v}) + \pmatrix{ \nabla_{\bf x}p(t, {\bf x}, {\bf v}) 
 \enspace , & \!\!\!\! \nabla_{\bf v}p(t, {\bf x}, {\bf v})}
@@ -473,17 +474,17 @@ $$
 We now consider the evolution of a probability density function 
 driven primarily by the differential system (5a-b), but which incorporates
 the dynamics of diffusion as well. 
-Such a governing equation is called a Fokker-Planck 
-equation. If $X$ is a random variable and ${\cal X}(t, {\bf x})$ 
-is the solution of (5a-b), then let 
-$p(t, {\bf x}) = P_{{\cal X}(t, X)}({\bf x})$
-be the probability density function for the random variable $X$ transformed 
-by ${\cal X}(t, \cdot)$. As before, 
+Such a governing equation is called a Fokker-Planck
+equation. If $X$ is a random variable and ${\cal X}(t; {\bf x}_0)$
+is the solution of (5a-b), then let
+$p(t, {\bf x}) = P_{{\cal X}(t; X)}({\bf x})$
+be the probability density function for the random variable $X$ transformed
+by ${\cal X}(t; \cdot)$. As before, 
 let $\widehat \Omega$ be an arbitrary region in $R^n$ and let 
 $\Omega_\tau$ parameterize a family 
 of regions such that $\Omega_0 = \Omega$ and $\Omega_t = \widehat \Omega$.
 
-Instead of equation (6) we assume that 
+Instead of equation (6), we assume that
 $$
 \eqalignno{
 \fracd{d}{d\tau} \int_{\Omega_\tau} p(\tau, {\bf x}) \; d{\bf x} & = 
@@ -520,7 +521,7 @@ the Fokker-Planck equation governing the evolution of
 $P_X({\bf x})$\footnote{\raise 0.5ex \hbox{\dag}}
 {We make the same assumptions about $A({\bf x})$ 
 (in this section and the next) that were made when 
-deriving the heat equation in n dimensions:
+deriving the heat equation in $n$ dimensions:
 \beginEnum
 \enum{$A({\bf x})$ should be a positive definite symmetric matrix;}
 \enum{The smallest eigenvalue of $A({\bf x})$ is greater than $a_0$ for some
@@ -553,20 +554,20 @@ We now consider the evolution of a probability density function
 driven primarily by the second order differential system (12a-d), 
 but which incorporates the dynamics of diffusion as well. 
 If $X$ and $V$ are random variables and 
-$\{{\cal X}(t, {\bf x}, {\bf v})~,~{\cal V}(t, {\bf x}, {\bf v})\}$ 
-is the pair of functions representing the solution of (11a-b), then 
-let $p(t, {\bf x}, {\bf v}) = 
-P_{{\cal X}(t, X), {\cal V}(t, V)}({\bf x}, {\bf v})$
+$\{{\cal X}(t; {\bf x}_0, {\bf v}_0)~,~{\cal V}(t; {\bf x}_0, {\bf v}_0)\}$
+is the pair of functions representing the solution of (12a-d), then
+let $p(t, {\bf x}, {\bf v}) =
+P_{{\cal X}(t; X, V), {\cal V}(t; X, V)}({\bf x}, {\bf v})$
 be the joint probability density function for the 
 random variables $\{X, V\}$ transformed 
-by $\{{\cal X}(t, \cdot)~,~{\cal V}(t, \cdot)\}$. 
+by $\{{\cal X}(t; \cdot)~,~{\cal V}(t; \cdot)\}$. 
 As before, let $\widehat \Omega$ be an arbitrary region in $R^n \times R^n$, 
 and let 
 $\Omega_\tau$ parameterize a family 
 of regions in $R^n \times R^n$ such that 
 $\Omega_0 = \Omega$ and $\Omega_t = \widehat \Omega$.
 
-We assume, as in the previous section that the primary dynamics of the 
+We assume, as in the previous section, that the primary dynamics of the
 evolution of $p(t, {\bf x}, {\bf v})$ is the differential system (12a-d).
 Additionally, we assume that probability diffuses through the ${\bf v}$ 
 component of the regions 
@@ -595,7 +596,7 @@ $$
 p(\tau, {\bf x}, {\bf v})\big) \; d({\bf x} \times {\bf v})
  & = 0 & (22) \cr}
 $$
-Again, $\widehat \Omega = \Omega_t$ and $t$ arbitrary imply that the 
+Again, since $\widehat \Omega = \Omega_t$ and $t$ are arbitrary, the
 Fokker-Planck equation governing the evolution of 
 $P_{X,V}({\bf x}, {\bf v})$ is
 $$
@@ -608,9 +609,8 @@ p_t(t,{\bf x}, {\bf v}) +
 p(t, {\bf x}, {\bf v})\big)  & (23a) \cr
 p(0, {\bf x}, {\bf v}) = P_{X,V}({\bf x}, {\bf v}) & & (23b) \cr}
 $$
-Recalling that the coordinates for the right hand side have been written 
-in the last section we may write the coordinate version of this 
-Fokker-Planck equation as 
+The coordinates for the right-hand side were written in the last section,
+so we may write the coordinate version of this Fokker-Planck equation as
 $$
 \eqalignno{
 \fracd{\partial p(t, {\bf x}, {\bf v})}{\partial t} +
@@ -641,8 +641,7 @@ v_i  + \sum_{i=1}^n
   & (25a) \cr
 p(0, {\bf x}, {\bf v}) = P_{X,V}({\bf x}, {\bf v}) & & (25b) \cr }
 $$
-If $A({\bf x}, {\bf v})$ is specialized further so that ${\cal A}$ 
-is the identity matrix, then (25a-b) becomes
+If we further specialize ${\cal A}$ to the identity matrix, then (25a-b) becomes
 $$
 \eqalignno{
 \fracd{\partial p(t, {\bf x}, {\bf v})}{\partial t} +
