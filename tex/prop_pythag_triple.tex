@@ -13,7 +13,7 @@
 
 \title{An Alternative Proof of an Elementary Property of Pythagorean Triples}
 \author{R. Scott McIntire}
-\date{Apr 4, 2026} 
+\date{Apr 26, 2026} 
 
 
 \begin{document}
@@ -29,22 +29,13 @@ by examining a dissected square composed of
 an inscribed square and triangles. 
 
 I tried to do something similar with a more complicated geometric figure and 
-I came up with figure $(\ref{fig:geo})$.
+I came up with figure \ref{fig:geo}.
 
 By inscribing a circle%
-\footnote{This can be achieved in the following way.
-Take any point on the bisector of one of the angles formed
-with the hypotenuse and one of the legs. By symmetry there is a unique circle
-that touches the hypotenuse and the leg. It is clear that the radius 
-of the circles grow and that the center of the circles gets closer to the
-opposite leg as one moves out along the bisector.
-Consequently, there is
-a {\em unique\/} point on the bisector where the circle touches the opposite leg.
-The coordinate of this point (see the figure) is (a-r, r). Using the fact 
-(see the figure) that $(a-r) + (b-r) = c$ we see that regardless of 
-which leg we choice for this procedure, the value of $r$ is the same as is
-the center of the corresponding circle. Thus an inscribed circle exists
-and is unique.}
+\footnote{Existence and uniqueness of the inscribed circle in a right triangle is
+a standard fact: the angle bisectors are concurrent at the incenter, which lies
+at distance $r = (a+b-c)/2$ from each side. With the right-angle vertex at $(a,0)$
+and the legs along $y=0$ and $x=a$, the incenter has coordinates $(a-r, r)$.}
 in a {\em right\/} triangle, one can decompose the triangle 
 into two pairs of right triangles and a square. The fact that the sub-triangles
 are right triangles follows using the fact that 
@@ -53,15 +44,15 @@ associated tangent line.
 
 From the figure, the lower right four sided sub-figure has equal sides, $r$.
 I claim that this sub-figure is a square and not a rhombus.
-This can be seen as three of its interior angles are 
-$90^\circ$; and, as the number of interior angles in a 4 sided {\em convex\/} 
+This can be seen as three of its interior angles are
+$90^\circ$; and, as the interior angles of a four-sided {\em convex\/}
 polygon must sum to $360^\circ$, the last interior angle must also be $90^\circ$.
-Consequently, the four sided figure is a square.
+Consequently, the four-sided figure is a square.
 
 Below we find a well known relation between the sides, $a$, $b$, and $c$ of the
 original triangle when the sides are integers in {\em reduced form\/}.%
 \footnote{A triple of integers, $(a, b, c)$ is in reduced form if 
-they have no common integer divisor(factor).}
+they have no common integer divisor.}
 This is done by investigating the fact that the sum of the areas
 of these component triangles 
 and square must be the same as the area of the original triangle. 
@@ -81,45 +72,44 @@ Simplifying, this is:
 r^2 + r(a - r) + r(b-r) = \frac{a\, b}{2} \label{area} 
 \end{eqnarray}
 
-One can solve the quadratic for $r$ or read off from the figure 
+One can solve the quadratic for $r$ (the quadratic formula gives
+$r = (a + b \pm c)/2$; only the minus sign is geometrically valid, since
+$r < a$ and $r < b$) or read off from the figure
 that $(a-r) + (b-r) = c$. Solving this last equation for $r$ gives:
 \begin{eqnarray}
   r & = & \frac{a + b - c}{2} \label{radius}
 \end{eqnarray}
 
-We now consider primitive Pythagorean triangles -- right 
-triangles with positive integer sides in reduced form.
-In particular, we are interested in so-called primitive Pythagorean triples,
-$(a,b,c)$ -- the lengths of the sides of primitive Pythagorean triangles.
-Here $c$ is the length of the hypotenuse, while $a$ and $b$ are 
-the lengths of the ``legs'' of the associated Pythagorean triangle.
-\eject
+A {\em primitive Pythagorean triple\/} $(a,b,c)$ is a triple of positive
+integers in reduced form satisfying $a^2 + b^2 = c^2$; it gives the side
+lengths of a {\em primitive Pythagorean triangle\/}, where $c$ is the
+hypotenuse and $a$, $b$ are the legs.
 What can we say about the evenness or oddness of the sides when they have no 
 common factor? The possibilities are: 
 \begin{itemize}
-    \item{$c$ is even AND {\em exactly\/} one of the following is true:}
+    \item $c$ is even AND {\em exactly\/} one of the following is true:
         \begin{itemize}
-            \item{Both $a$ and $b$ are even;}
-            \item{Both $a$ and $b$ are odd;}
-            \item{One of either $a$ or $b$ is even and the other is odd.}
+            \item Both $a$ and $b$ are even;
+            \item Both $a$ and $b$ are odd;
+            \item Exactly one of $a$ and $b$ is even (the other being odd).
         \end{itemize}
-    \item{$c$ is odd AND {\em exactly\/} one of the following is true:}
+    \item $c$ is odd AND {\em exactly\/} one of the following is true:
         \begin{itemize}
-            \item{Both $a$ and $b$ are even;}
-            \item{Both $a$ and $b$ are odd;}
-            \item{One of either $a$ or $b$ is even and the other is odd.}
+            \item Both $a$ and $b$ are even;
+            \item Both $a$ and $b$ are odd;
+            \item Exactly one of $a$ and $b$ is even (the other being odd).
         \end{itemize}
 \end{itemize}
-Since the triple, $(a,b,c)$ is in reduced form we can eliminate the case 
+Since the triple $(a,b,c)$ is in reduced form, we can eliminate the case
 of all three being even.
-By the Pythagorean formula we know that $a^2 + b^2 = c^2$. Using this we can 
+By the Pythagorean theorem we know that $a^2 + b^2 = c^2$. Using this we can 
 reduce the combinations further to the following:%
 \footnote{We list the results of all combinations of even and odd numbers with 
 respect to: addition, subtraction, and multiplication:
 \begin{enumerate}
-    \item{$E \pm E = E$; $ E \times E = E$;}
-    \item{$E \pm O = O$; $ E \times O = E$;}
-    \item{$O \pm O = E$; $ O \times O = O$.}
+    \item $E \pm E = E$; $E \times E = E$;
+    \item $E \pm O = O$; $E \times O = E$;
+    \item $O \pm O = E$; $O \times O = O$.
 \end{enumerate}
 These equations are to be read: An even integer plus (or minus) an even integer
 is an even integer.
@@ -127,38 +117,34 @@ Likewise, an even integer plus (or minus) an odd integer is an odd integer, etc.
 These results are used throughout the rest of the document.
 }
 \begin{itemize}
-  \item{$c$ is even AND both $a$ and $b$ are odd;}
-  \item{$c$ is odd AND one of either $a$ or $b$ is even and the other is odd.}
+  \item $c$ is even AND both $a$ and $b$ are odd;
+  \item $c$ is odd AND exactly one of $a$ and $b$ is even (the other being odd).
 \end{itemize}
 
-Regardless of which choice occurs, equation $(\ref{radius})$ implies that 
+Regardless of which choice occurs, equation \eqref{radius} implies that 
 the radius of the circle, $r$, is an integer.
-\eject
-Using this fact and equation $(\ref{area})$ we see that the quantity, 
-$\frac{a \, b}{2}$, must be an integer; meaning, that the product 
-of $a$, and $b$, $a \, b$ is even.
-This knowledge eliminates the first choice; namely, that both $a$ and $b$ 
-are odd. Consequently, we know:
-\begin{itemize}
-    \item{$c$ is odd AND one of either $a$ or $b$ is even and the other is odd.}
-\end{itemize}
+Using this fact and equation \eqref{area} we see that $\frac{ab}{2}$ must be
+an integer, which means the product $ab$ is even.
+This knowledge eliminates the first choice; namely, that $c$ is even with
+both $a$ and $b$ odd. Consequently, $c$ is odd, with exactly one of $a$ and $b$ even
+(the other being odd).
 Without loss of generality we assume that $b$ is even; in which case, $a$ is odd.
 
-Now, regardless of whether $r$ is even or odd, the left hand side of 
-$(\ref{area})$ is even. This implies that $\frac{a \, b}{2}$
+Now, the left hand side of \eqref{area} simplifies to
+$r(a + b - r) = r(r + c)$ by \eqref{radius}; with $c$ odd, this is even
+regardless of $r$'s parity. This implies that $\frac{ab}{2}$
 is even. Since $b$ is even, we can write this fraction as: $a \frac{b}{2}$.
 So we know that $a \frac{b}{2}$ (the product of two integers) is even.
 And we know that $a$ is odd; therefore, $\frac{b}{2}$ is even.
 This means that $b$ is divisible by $4$.
 
-In summary, we have deduced the following properties for primitive Pythagorean triangles
-whose side lengths are in reduced form.
+In summary, we have deduced the following properties for primitive Pythagorean triangles.
 \begin{itemize}
-  \item{One of the legs is odd; the other leg is even; and the hypotenuse 
-      is odd.}
-  \item{The even leg is divisible by $4$.}
-  \item{The radius of the inscribed circle in the Pythagorean triangle
-      is a positive integer.}
+  \item One of the legs is odd; the other leg is even; and the hypotenuse
+      is odd.
+  \item The even leg is divisible by $4$.
+  \item The radius of the inscribed circle in the Pythagorean triangle
+      is an integer (necessarily positive).
 \end{itemize}
 
 \begin{figure}[!ht]
