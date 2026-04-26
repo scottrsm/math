@@ -45,7 +45,7 @@ In any event the corresponding PDF's are in the directory **pdf/**.
     - Often partial differential equations can be derived from simple *balance laws*.
 - A derivation of the Exponential Moving Average and its associated moving Standard Deviation: **tex**/exponential_moving_average.tex.
     - *Un-biased* estimates of the *moments* of *weighted averages* is also given.
-- A derivation of *diversification constraints*, useful in certain optimization problems.
+- A derivation of *diversification constraints*, useful in certain optimization problems: **tex**/diversification_constraints.tex.
 
 ### New Mathematical Results
 - A formula to Compute Probability Distributions for Singular Transformations: **tex**/prob_singular_trans.tex.
@@ -54,7 +54,7 @@ In any event the corresponding PDF's are in the directory **pdf/**.
       with ${m < n}$ there are only *ad hoc* procedures. In this paper we provide a systematic way to compute
       the probability distributions for such singular transformations taking into account the *foldings* of such mappings 
       from higher to lower dimensional spaces.
-- Re-Examination of a Linear Unbiased Estimation Problem with a collection of related *norms*: **tex**/prob_linear_unbias_est.tex.
+- Re-Examination of a Linear Unbiased Estimation Problem with a collection of related *norms*: **tex**/prop_linear_unbias_est.tex.
     - Regardless of the norms in this collection we get the same unbiased estimate.
     - This collective invariant implies that the estimator occurs when using the *limiting norm*.
       This provides insights with respect to the original unbiased problem.
