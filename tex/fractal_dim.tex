@@ -47,7 +47,7 @@
 
 
 
-\mantitle{Defining Fractal Dimension}{R. Scott McIntire}{Apr 4, 2026}
+\mantitle{Defining Fractal Dimension}{R. Scott McIntire}{Apr 26, 2026}
 
 \parindent=0pt
 \parskip=.5\baselineskip
@@ -59,8 +59,8 @@ In this paper we examine a notion of the size of a set called
 {\it fractal dimension} that enables one to more
 finely distinguish the density of a given set than the usual
 dimensional classification of $0, 1, 2, 3, \ldots$.%  
-\ftn{The zero dimension of a set is the number of points in
-that set.}
+\ftn{The $0$-dimensional volume of a finite set is its cardinality;
+for an infinite set it is $+\infty$.}
 Such a notion is motivated by sets that, while constructed in one of the given
 dimensions $0, 1, 2, 3, \dots$; and which are robust with respect to structure, 
 nevertheless have zero ``volume'' in the ambient space containing the set.
@@ -72,7 +72,7 @@ they are magnified. We call this class of sets
 {\it fractal sets}, or
 {\it fractals}. 
 
-A common place example that resembles a fractal is the coastline of
+A commonplace example that resembles a fractal is the coastline of
 a beach. If one were to take a map of the coastline and blow it up
 again and again, one would find that it retains structure in the
 sense that the expanded maps would not ``straighten out''.
@@ -108,7 +108,7 @@ be 2, etc.
 
 When studying any new phenomenon, it is natural to first examine the
 simplest examples. The simplest such fractals are ones which have a
-{\it self similarity} property; namely, they have the property that if
+{\it self-similarity} property; namely, they have the property that if
 one magnifies a piece of the fractal by a certain amount, the original
 fractal is recovered. This regular structure makes them easier to
 study mathematically than a general fractal. However, before we start
@@ -159,10 +159,11 @@ $$
 e^{-t} t^{\frac{n}{2}-1} \,dt \, dS
 $$
 which may be written:%
-\ftn{The function $\Gamma(n)$ is called the Gamma function and 
-	has the property: $\forall n\in {\cal R}^+, \Gamma(n+1) = n \Gamma(n)$. It 
-can be thought of as an extension of the integer factorial function 
-extended to reals as: $\forall n \in {\cal Z}^+: \Gamma(n+1) = n!$.}
+\ftn{The function $\Gamma(z)$ is called the Gamma function. It is defined for
+all real (and complex) arguments and satisfies $\Gamma(z+1) = z \Gamma(z)$
+for all $z \in R^+$. On the positive integers it agrees with the factorial:
+$\Gamma(n+1) = n!$ for $n \in Z^+$. In this sense $\Gamma$ extends the
+factorial from the integers to the reals.}
 $$
 2 \pi^{n/2} = {S}_n(1) \Gamma(n/2)
 $$
@@ -192,11 +193,13 @@ and the formula may take non-integral values.
 Armed with this formula, we make
 the following definition.
 
-\proclaim Definition. For any $\alpha \in R^+$, the $\alpha$-dimensional 
-volume, $V_\alpha$, of an n-dimensional sphere 
-of radius r is defined to be:%
-\ftn{The set $R^+$ is defined 
-by: $R^+ = \{x \, | \, x\in R \; \wedge \; x\ge 0\}$.}
+\proclaim Definition. For any $\alpha \in R^+$, the $\alpha$-dimensional
+volume, $V_\alpha$, of an n-dimensional sphere
+of radius $r$ is defined to be:%
+\ftn{The set $R^+$ is defined
+by: $R^+ = \{x \, | \, x\in R \; \wedge \; x > 0\}$. The formula has poles
+at $\alpha = 0$ (from $1/\alpha$ and $\Gamma(\alpha/2)$), so we exclude
+$\alpha = 0$ from $R^+$ throughout.}
 $$
 {V}_\alpha(r) = \frac{2\pi^{\alpha/2}}{\alpha \, \Gamma(\alpha/2)} r^\alpha
 $$
@@ -209,53 +212,56 @@ Given that we have defined the fractional dimensional volume of a sphere
 in ``dimension'' $\alpha$ we wish to extend this to a definition of the 
 fractional dimensional volume of {\it any\/} set.
 
-\proclaim Definition. The $\alpha$-dimensional ($\alpha \in R^{+}$) {\it covering\/} 
-volume of a set $S \in R^n$, ${\cal V}_{\alpha, \epsilon}(S)$,
-with parameter, $\epsilon \in R^+$, is defined as\ftn{The diameter of a 
-set is defined by: 
+\proclaim Definition. The $\alpha$-dimensional ($\alpha \in R^{+}$) {\it covering\/}
+volume of a set $S \subseteq R^n$, ${\cal V}_{\alpha, \epsilon}(S)$,
+with parameter $\epsilon \in R^+$, is defined as\ftn{The diameter of a
+set is defined by:
 {\rm Diam}(S) = $\sup\{|x - y| : x,y \in S\}$.}
 $$
 \eqalign{
-	{\cal V}_{\alpha, \epsilon}(S) & = \inf_{\{O_i\}_{i=1}^N} 
+	{\cal V}_{\alpha, \epsilon}(S) & = \inf_{\{O_i\}_{i=1}^N}
     \left\{ \sum_{i=1}^N {V}_\alpha\left({\rm Diam}(O_i) / 2\right) \
-    : S \subseteq \bigcup_{i=1}^N\limits O_i \; \wedge \; \left(\mathop{\rm Min}\limits_{i \in [1,N]} 
-    {\rm  Diam}(O_i)\right) \ge \epsilon \right\} 
+    : S \subseteq \bigcup_{i=1}^N\limits O_i \; \wedge \; \left(\sup_{i \in [1,N]}
+    {\rm  Diam}(O_i)\right) \le \epsilon \right\}
 }
 $$
 
-Roughly speaking, for any given finite covering, 
-$\left\{ O_i \right\}_{i=1}^N$, and value $\epsilon$, 
-we estimate the $\alpha$-dimensional volume of the set, $S$, by summing 
-up the $\alpha$-dimensional volumes of the collection of spheres, 
-$\left\{ P_i \right\}_{i=1}^N$, where each $P_i$ is the 
-smallest sphere containing $O_i$. In this case the radius of a given 
+Roughly speaking, for any given finite covering,
+$\left\{ O_i \right\}_{i=1}^N$, and value $\epsilon$,
+we estimate the $\alpha$-dimensional volume of the set, $S$, by summing
+up the $\alpha$-dimensional volumes of the collection of spheres,
+$\left\{ P_i \right\}_{i=1}^N$, where each $P_i$ is the
+smallest sphere containing $O_i$. In this case the radius of a given
 $P_i$ is ${\rm Diam}(O_i) / 2$.
-The $\alpha$ covering volume of a set, $S$, is the infimum over all 
-such covers. The only restriction of the covering sets is that they are 
-finite and the corresponding spheres have radius no smaller than $\epsilon$.
+The $\alpha$ covering volume of a set, $S$, is the infimum over all
+such covers. The only restriction of the covering sets is that they are
+finite and each has diameter no larger than $\epsilon$.\ftn{This is the
+standard Hausdorff‑measure formulation: as $\epsilon$ shrinks, the
+allowed covers must be finer, so fewer covers are admitted and the
+infimum can only grow. The construction is a covering analogue of an
+outer measure.}
 
-The intent of this definition is to give a practicable upper estimate of 
-the eventual $\alpha$ volume of a set. We would also like that the above 
-would give finer and finer estimates of the $\alpha$ volume with 
-smaller $\epsilon$ yielding smaller estimates.
+The intent of this definition is to give a practicable estimate of
+the eventual $\alpha$ volume of a set, refined by forcing the covers to
+become finer as $\epsilon$ decreases.
 
-This is indeed the case:
+The covering volume is monotonically non-increasing in $\epsilon$:
 $$
 \eqalign{
-	{\cal V}_{\alpha, \epsilon_1}(S) & \le {\cal V}_{\alpha, \epsilon_2}(S) \quad \quad \hbox{whenever  } \epsilon_1 \le \epsilon_2
+	{\cal V}_{\alpha, \epsilon_1}(S) & \ge {\cal V}_{\alpha, \epsilon_2}(S) \quad \quad \hbox{whenever  } \epsilon_1 \le \epsilon_2
 }
 $$
-This follows as the set of coverings used to compute 
-${\cal V}_{\alpha, \epsilon_1}(S)$ includes the set of all coverings used 
-to compute ${\cal V}_{\alpha, \epsilon_2}(S)$. Therefore, the 
-infimum over all coverings associated with $\epsilon_1$ cannot be larger
-than the infimum associated with $\epsilon_2$.
+This follows as the set of coverings used to compute
+${\cal V}_{\alpha, \epsilon_1}(S)$ is a {\tt subset\/} of those used to
+compute ${\cal V}_{\alpha, \epsilon_2}(S)$ (a tighter $\epsilon$ admits
+fewer covers). Therefore, the infimum over the smaller family cannot be
+smaller than the infimum over the larger family.
 
 Using the covering volume, we may define the fractional dimensional volume by
 taking a limit of increasingly refined covers.
 
 \proclaim Definition. The $\alpha$-dimensional ($\alpha \in R^{+}$)
-volume of a set $S \in R^n$, ${\cal V}_\alpha(S)$,
+volume of a set $S \subseteq R^n$, ${\cal V}_\alpha(S)$,
 is defined as\ftn{%
 This definition is well defined, as the limit of a monotonic sequence exists,
 provided we acknowledge that it may be infinite.}
@@ -269,14 +275,15 @@ While these statements define the $\alpha$ volume for any given set, $S$,
 they do not tell us the ``natural'' fractal volume of $S$.
 The following definition does precisely that.
 
-\proclaim Definition. The {\bf fractal dimension} of a 
-set $S \in R^m$ is defined as
-$\alpha^* = \inf\{\alpha : {\cal V}_\alpha(S) = 0 \}$; the associated 
+\proclaim Definition. The {\bf fractal dimension} of a
+set $S \subseteq R^m$ is defined as
+$\alpha^* = \inf\{\alpha : {\cal V}_\alpha(S) = 0 \}$; the associated
 {\bf fractal volume} of $S$ is defined to be ${\cal V}_{\alpha^*}(S)$.
 
 Roughly speaking, this says that the fractal dimension of a set $S$ is the
-``smallest'' $\alpha$ such that the $\alpha$-dimensional volume of $S$ 
-is non-zero.
+threshold value of $\alpha$: above it the $\alpha$-dimensional volume is
+zero, below it the volume is infinite (and at $\alpha = \alpha^*$ itself
+the volume is typically a finite positive number, the fractal volume).
 
 Note that the fractal dimension of a set, $S$, does not depend on 
 the ambient space $S$ sits in.
@@ -298,35 +305,36 @@ to find its ``natural'' dimension and associated volume.
 
 For a given $n$, consider the sets $\{O_{n,i}\}_{i=0}^{n-1}$, with $O_{n,i}~=~
 [\frac{i}{n}{\bf x} + (1-\frac{i}{n}){\bf y}, \; \frac{i+1}{n}{\bf x} + (1 -
-\frac{i+1}{n}){\bf y}]$. The collection of line segments, $O_{n,i}$, act
+\frac{i+1}{n}){\bf y}]$ denoting the line segment in $R^2$ between the two
+endpoints in brackets. The collection of line segments, $O_{n,i}$, act
 as a cover for $L$; that is, $L =
 \bigcup_{i=0}^{n-1}\limits O_{n,i}$. For a given $\alpha$ the
 covering volume of $L$ with $\epsilon = \frac{1}{n} \|{\bf x} - {\bf y}\|$ 
 is bounded above by
 $$
 \sum_{i=0}^{n-1} {\rm V}_\alpha({\rm Diam}(O_{n,i})/2) = \sum_{i=0}^{n-1}
-{\rm V}_\alpha(\|{\bf x} - {\bf y}\|/2n) =  \sum_{i=0}^{n-1} \frac{2
+{\rm V}_\alpha(\|{\bf x} - {\bf y}\|/(2n)) =  \sum_{i=0}^{n-1} \frac{2
 \pi^{\alpha / 2}}{\alpha \Gamma(\alpha / 2)} \frac{\|{\bf x} - {\bf
 y}\|^\alpha}{(2n)^\alpha} = \frac{2 \pi^{\alpha / 2} \|{\bf x} - {\bf
 y}\|^\alpha}{2^\alpha \alpha \Gamma(\alpha / 2)} \frac{n}{n^\alpha}
 $$
 
-As $n$ increases, the covering becomes more refined and 
+As $n$ increases, the covering becomes more refined and
 the $\alpha$-dimensional volume is dominated by the term
-$\frac{n}{n^\alpha}$. Clearly, this term tends to zero as n tends to
-infinity for $\alpha > 1$. This implies ${\cal V}_\alpha(L) = 0$ 
-for $\alpha > 1$. The smallest $\alpha$ that yields a non-zero 
-value is $\alpha = 1$. In this case 
-${\cal V}_1(L) = \left. \frac{2\pi^{\alpha / 2} \|{\bf x} - {\bf
+$\frac{n}{n^\alpha} = n^{1-\alpha}$. For $\alpha > 1$ this tends to zero
+as $n \to \infty$, so ${\cal V}_\alpha(L) = 0$. For $\alpha < 1$ the
+expression diverges as $n \to \infty$, so ${\cal V}_\alpha(L) = +\infty$.
+The threshold value is $\alpha = 1$, where the term is identically $1$ and
+$${\cal V}_1(L) = \left. \frac{2\pi^{\alpha / 2} \|{\bf x} - {\bf
 y}\|^\alpha}{2^\alpha \alpha \Gamma(\alpha / 2)} \right|_{\alpha=1} = \| {\bf
-x} - {\bf y}\|$. 
+x} - {\bf y}\|.$$
 Therefore, the fractal dimension of the line segment is
 1 and its fractal volume is the length of the line segment, $\|{\bf x} - {\bf
 y}\|$. This, of course, coincides with what we would previously regard
 as the dimension and ``volume'' of a line segment.
 
 Note that the answer would stay the same if the line segment was 
-embedded in $R^n$ (for any $n \in {\cal Z}^+$) rather than $R^2$.
+embedded in $R^n$ (for any $n \in Z^+$) rather than $R^2$.
 
 
 This result is true for any ``ordinary'' set: its fractal dimension is its
@@ -351,8 +359,8 @@ If we repeat this process indefinitely with the remaining
 intervals, the resulting set is called the Cantor set, C. See 
 the appendix for a graphical depiction of the construction process . 
 The Cantor
-set has the property that $3 * \left([0,1/3] \cap C\right) = C$; that is, 
-it is a self-similar fractal. 
+set has the property that $3 \cdot \left([0,1/3] \cap C\right) = C$; that is,
+it is a self-similar fractal (where $\lambda \cdot S \equiv \{\lambda x : x \in S\}$).
 
 The one dimensional length of the Cantor set is
 easy to compute, it must be one (the length of the interval $[0,1]$) 
@@ -376,7 +384,8 @@ consider a refinement of coverings of the Cantor set, $C_n$, where
 $C_n$ is the union of the set of $2^n$ intervals that remain after 
 the $n^{th}$ stage of the Cantor construction process. Each of these 
 intervals has length $(1/3)^n$. 
-Clearly, $C \subseteq C_n$, and $C = \bigcap_{n=1}^\infty\limits C_n$. 
+Clearly, $C \subseteq C_n$, and $C = \bigcap_{n=0}^\infty\limits C_n$
+(with $C_0 = [0,1]$).
 
 We label $I_{n,i}$ as the $i^{th}$ interval in the set
 $C_n$. Each of these intervals has a diameter, $\epsilon_n = \left(\frac{1}{3}\right)^n$.
@@ -394,10 +403,10 @@ As ${\rm Diam}(I_{n,i}) = \left(\frac{1}{3}\right)^n$, this becomes
 
 $$
 {\cal V}_{\alpha, \epsilon_n}(C) \le \sum_{i=1}^{2^n} \frac{2
-  \pi^{\alpha/2}}{ \alpha \Gamma(\alpha/2) 2^\alpha 3^{n\alpha}} 
-  \approx  \frac{
+  \pi^{\alpha/2}}{ \alpha \Gamma(\alpha/2) 2^\alpha 3^{n\alpha}}
+  =  \frac{
   2^{1 - \alpha} \pi^{\alpha/2}}{\alpha \Gamma(\alpha/2)} \;
-  \sum_{i=1}^{2^n}  
+  \sum_{i=1}^{2^n}
 \frac{1}{3^{n\alpha}}
 $$
 
@@ -408,25 +417,28 @@ $$
 $$
 
 
-If $\frac{2}{3^\alpha} < 1$ then, in the limit as 
-$n \rightarrow \infty$ 
-this limit will be zero. Certainly,
-this is the case for $\alpha \ge 1$; in which case 
+If $\frac{2}{3^\alpha} < 1$ then, in the limit as
+$n \rightarrow \infty$,
+this upper bound will be zero. This is the case
+exactly when $\alpha > \ln 2 / \ln 3$; in which case
 $$
-{\cal V}_\alpha(C) =  \lim_{n \rightarrow \infty} {\cal V}_{\alpha, \epsilon_n}(C) \le \lim_{n \rightarrow \infty}  \frac{ 2^{1-\alpha} 
+{\cal V}_\alpha(C) =  \lim_{n \rightarrow \infty} {\cal V}_{\alpha, \epsilon_n}(C) \le \lim_{n \rightarrow \infty}  \frac{ 2^{1-\alpha}
 \pi^{\alpha/2}}{\alpha
-  \Gamma(\alpha/2)} \left(\frac{2}{3^\alpha}\right)^n = 0 
+  \Gamma(\alpha/2)} \left(\frac{2}{3^\alpha}\right)^n = 0
 $$
+For $\alpha < \ln 2 / \ln 3$ the same expression diverges
+($\frac{2}{3^\alpha} > 1$), and a more careful argument (using the
+self-similarity of $C$) shows that no cover can do better, so
+${\cal V}_\alpha(C) = +\infty$ in that range.
 
-The smallest value of $\alpha$ that gives a non-zero ${\cal V}_\alpha(C)$ 
-is $\alpha$ such that $\frac{2}{3^\alpha} = 1$. 
-This occurs when
-$\alpha^* = \ln 2 / \ln 3$. Therefore, the fractal dimension of the
-Cantor set is $\alpha^* = \ln 2 / \ln 3 \approx 0.63093$. 
+The threshold value of $\alpha$ — at which $\frac{2}{3^\alpha} = 1$ —
+occurs when $\alpha^* = \ln 2 / \ln 3$. Therefore, the fractal dimension of the
+Cantor set is $\alpha^* = \ln 2 / \ln 3 \approx 0.63093$.
 Its fractal volume in this
-dimension is ${\cal V}_{\alpha^*}(C) =  \frac{2^{1-\alpha^*} 
-\pi^{\alpha^*/2}}{\alpha^*
-\Gamma(\alpha^* / 2)} \approx 1.03505 $.
+dimension is bounded above by ${\cal V}_{\alpha^*}(C) \le \frac{2^{1-\alpha^*}
+\pi^{\alpha^*/2}}{\alpha^* \Gamma(\alpha^* / 2)} \approx 1.03505$, and by
+self-similarity this bound is in fact attained, so
+${\cal V}_{\alpha^*}(C) \approx 1.03505$.
 
 \subsection{Conclusion}
 We have shown that there are sets with sufficient complexity that the
@@ -495,11 +507,15 @@ $C_5$:$\!\!\!\!\!\!\!\!\!\!$\cantor{5}{1.48148}
 \vskip .1in
 }
 
-The second self-similar set lives in 2 dimensions while its 
-fractal dimension is between $1$ and $2$. The set is ``best'' described in a recursive way 
-as a scaled version of the lower triangular portion of itself.
+The second self-similar set lives in 2 dimensions while its
+fractal dimension is between $1$ and $2$. It is the
+{\tt Sierpi\'{n}ski triangle\/} (a different object from the 3-dimensional
+Menger sponge mentioned in the introduction, although both are sometimes
+loosely called ``sponges''); it is ``best'' described in a recursive way
+as a scaled version of the lower triangular portion of itself, and its
+fractal dimension is $\ln 3 / \ln 2 \approx 1.585$.
 
-Similar to the graphical display of the Cantor set construction, below we show 
+Similar to the graphical display of the Cantor set construction, below we show
 a graph of 8 ``levels'' of its construction without going into construction details.
 
 \vskip .2in
