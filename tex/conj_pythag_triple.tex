@@ -1,6 +1,84 @@
 \documentclass{article}
 
 \usepackage{amsthm, amsmath, amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% VS Code "Default Light+" inspired colors for Lean 4.
+\definecolor{vscBg}{RGB}{255,255,255}        % white background
+\definecolor{vscText}{RGB}{0,16,128}         % default identifier (dark blue)
+\definecolor{vscKeyword}{RGB}{0,0,255}       % blue: def, theorem, axiom, ...
+\definecolor{vscControl}{RGB}{175,0,219}     % purple: by, intro, exact, ...
+\definecolor{vscComment}{RGB}{0,128,0}       % green: comments
+\definecolor{vscString}{RGB}{163,21,21}      % dark red: strings
+\definecolor{vscType}{RGB}{38,127,153}       % teal: Nat, Set, Prop, Finset, ...
+\definecolor{vscFunction}{RGB}{121,94,38}    % brown: function names
+\definecolor{vscNumber}{RGB}{9,134,88}       % green-blue: numerals
+\definecolor{vscOperator}{RGB}{0,0,0}        % black: operators
+
+\lstdefinelanguage{Lean4}{
+  % Group 1: declaration keywords (blue)
+  morekeywords=[1]{def,theorem,lemma,axiom,abbrev,instance,class,structure,
+    inductive,namespace,end,open,import,attribute,deriving,where,variable,
+    section},
+  % Group 2: tactic and control keywords (purple)
+  morekeywords=[2]{by,intro,intros,exact,apply,refine,rcases,obtain,simp,ext,
+    sorry,rfl,decide,omega,ring,norm_num,dsimp,rw,set,constructor,rintro,
+    interval_cases,simp_all,have,show,from,fun,let,in,if,then,else,match,
+    with,this,calc,assumption,push_neg,by_cases,classical,split,refl,
+    induction,cases},
+  % Group 3: type names and important identifiers (teal)
+  morekeywords=[3]{Nat,Int,Set,Prop,Type,Sort,Finset,Iff,And,Or,Not,Exists,
+    Membership,Mem,Function,Subtype,Option,List,Array,Bool,True,False,
+    Pythagorean,Prime,Infinite,IsHyp,Hd,Hp,Hu,H,PrimPythHyp,Finsupp},
+  morecomment=[s][\color{vscComment}\itshape]{/-}{-/},
+  morecomment=[l][\color{vscComment}\itshape]{--},
+  morestring=[b][\color{vscString}]",
+  basicstyle=\ttfamily\footnotesize\color{vscText},
+  keywordstyle=[1]\color{vscKeyword},
+  keywordstyle=[2]\color{vscControl},
+  keywordstyle=[3]\color{vscType},
+  identifierstyle=\color{vscText},
+  showstringspaces=false,
+  columns=fullflexible,
+  keepspaces=true,
+  literate=
+    {ℕ}{{{\color{vscType}$\mathbb{N}$}}}1
+    {ℤ}{{{\color{vscType}$\mathbb{Z}$}}}1
+    {𝓗}{{$\mathcal{H}$}}1
+    {∀}{{$\forall$}}1
+    {∃}{{$\exists$}}1
+    {∈}{{$\in$}}1
+    {∉}{{$\notin$}}1
+    {∧}{{$\wedge$}}1
+    {∨}{{$\vee$}}1
+    {¬}{{$\neg$}}1
+    {→}{{$\to$}}1
+    {←}{{$\leftarrow$}}1
+    {↔}{{$\leftrightarrow$}}1
+    {∏}{{$\prod$}}1
+    {⇒}{{$\Rightarrow$}}1
+    {≠}{{$\neq$}}1
+    {≤}{{$\leq$}}1
+    {≥}{{$\geq$}}1
+    {₀}{{$_0$}}1
+    {₁}{{$_1$}}1
+    {₂}{{$_2$}}1
+    {²}{{$^2$}}1
+    {⟨}{{$\langle$}}1
+    {⟩}{{$\rangle$}}1
+    {↦}{{$\mapsto$}}1
+    {·}{{$\cdot$}}1
+    {×}{{$\times$}}1
+    {ˢ}{{$^{\textrm{s}}$}}1
+    {≡}{{$\equiv$}}1
+    {∪}{{$\cup$}}1
+    {∩}{{$\cap$}}1
+    {⊆}{{$\subseteq$}}1
+    {∅}{{$\emptyset$}}1
+    {∣}{{$\mid$}}1
+}
+\lstnewenvironment{leancode}{\lstset{language=Lean4}}{}
 
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{8.0in}
@@ -12,7 +90,7 @@
 
 \title{Conjectures for Primitive Pythagorean Triples}
 \author{R. Scott McIntire}
-\date{Apr 26, 2026}
+\date{May 1, 2026}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
@@ -236,6 +314,223 @@ ${\cal H}_p$ sum nonetheless overtakes the $\mathbb{P}$ sum, asserting that
 deviations of any size $n$ do occur ($\Delta_p(n) < \infty$) and that they
 grow at the polynomial rate $n^{\ln(2\pi)}$. This ``mixing'' is what we mean
 by saying ${\cal H}_p$ is non-trivial in a way similar to $\mathbb{P}$.
+
+\newpage
+\appendix
+\section{A formally verified Lean 4 proof of Theorem 3}
+
+The proof below has been mechanically checked by Lean 4
+(toolchain \verb|leanprover/lean4:v4.29.1|) against Mathlib.
+The full project lives at \verb|lean/PythHyp/| in this repository; the proof
+file is\\\verb|lean/PythHyp/PythHyp/Basic.lean|.
+
+The decomposition is honest: three classical results — explicitly named
+(F), (G-easy), and (G-uniq) — are stated as \verb|axiom|s rather than
+proved in this file, because their formalization, while certainly
+possible in Mathlib, is a substantial project of its own. They are
+classical theorems, not conjectures:
+\begin{itemize}
+  \item[(F)] {\em Fermat's characterization.\/} A positive integer $z > 1$
+    is a primitive Pythagorean hypotenuse iff every prime factor of $z$ is
+    $\equiv 1 \pmod 4$. The prime case is in Mathlib as
+    \verb|Nat.Prime.sq_add_sq|; the general case follows from
+    multiplicativity of the norm in $\mathbb Z[i]$.
+  \item[(G-easy)] {\em Multiple factors yield duplicates.\/} If $z \in
+    \mathcal H$ has at least two distinct prime factors, then $z$ admits
+    at least two distinct unordered primitive representations
+    $a^2 + b^2 = z^2$. This is the easy half of the classical
+    $2^{k-1}$ count and follows from a single non-trivial
+    factorization of $z$ in $\mathbb Z[i]$.
+  \item[(G-uniq)] {\em Prime powers are unique.\/} If $z = p^n$ for a
+    Pythagorean prime $p$ and $n \ge 1$, then $z$ admits only one
+    unordered primitive representation. This is the harder half of the
+    Gauss count.
+\end{itemize}
+Dirichlet's theorem on primes $\equiv 1 \pmod 4$ is {\em not\/} an axiom
+in this proof: it is invoked directly as the Mathlib lemma
+\verb|Nat.infinite_setOf_prime_modEq_one|.
+
+Modulo the three classical inputs (F), (G-easy), (G-uniq), every step
+of Theorem 3 — parts (a), (b), and (c) — is fully formalized, with no
+\verb|sorry|. Lean reports a clean build.
+
+\begin{leancode}
+import Mathlib.NumberTheory.PythagoreanTriples
+import Mathlib.NumberTheory.SumTwoSquares
+import Mathlib.NumberTheory.Zsqrtd.GaussianInt
+import Mathlib.NumberTheory.PrimesCongruentOne
+import Mathlib.Data.Nat.PrimeFin
+
+open Set
+
+namespace PrimPythHyp
+
+/-- z is a primitive Pythagorean hypotenuse. -/
+def IsHyp (z : ℕ) : Prop :=
+  ∃ a b : ℕ, 0 < a ∧ 0 < b ∧ Nat.gcd a b = 1 ∧ a^2 + b^2 = z^2
+
+def H : Set ℕ := { z | IsHyp z }
+def Hp : Set ℕ := { z | z ∈ H ∧ z.Prime }
+
+/-- Hypotenuses with at least two distinct unordered primitive
+    representations. -/
+def Hd : Set ℕ :=
+  { z | ∃ a₁ b₁ a₂ b₂ : ℕ,
+      0 < a₁ ∧ 0 < b₁ ∧ Nat.gcd a₁ b₁ = 1 ∧ a₁^2 + b₁^2 = z^2 ∧
+      0 < a₂ ∧ 0 < b₂ ∧ Nat.gcd a₂ b₂ = 1 ∧ a₂^2 + b₂^2 = z^2 ∧
+      ({a₁, b₁} : Finset ℕ) ≠ {a₂, b₂} }
+
+/-- Powers of Pythagorean primes. -/
+def Hu : Set ℕ := { z | ∃ p ∈ Hp, ∃ n : ℕ, 0 < n ∧ z = p^n }
+
+----------------------------------------------------------------------
+-- Classical building blocks (axiomatized; these are real theorems)
+----------------------------------------------------------------------
+
+/-- (F) Fermat's two-squares + multiplicativity in ℤ[i]. -/
+axiom mem_H_iff_factors {z : ℕ} (hz : 1 < z) :
+    z ∈ H ↔ ∀ p ∈ z.primeFactors, p % 4 = 1
+
+/-- (G-easy) ≥ 2 distinct prime factors ⇒ ≥ 2 distinct primitive reps. -/
+axiom multiple_factors_yields_Hd {z : ℕ} (hz : z ∈ H)
+    (hk : 2 ≤ z.primeFactors.card) : z ∈ Hd
+
+/-- (G-uniq) prime power ⇒ only one primitive rep. -/
+axiom prime_power_not_in_Hd {p : ℕ} (hp : p ∈ Hp) {n : ℕ} (hn : 0 < n) :
+    p^n ∉ Hd
+
+----------------------------------------------------------------------
+-- Helper
+----------------------------------------------------------------------
+
+lemma one_lt_of_in_H {z : ℕ} (hz : z ∈ H) : 1 < z := by
+  obtain ⟨a, b, ha, hb, _, hab⟩ := hz
+  have h1a : 1 ≤ a^2 := Nat.one_le_iff_ne_zero.mpr (pow_ne_zero 2 ha.ne')
+  have h1b : 1 ≤ b^2 := Nat.one_le_iff_ne_zero.mpr (pow_ne_zero 2 hb.ne')
+  have h2 : 2 ≤ z^2 := by rw [← hab]; omega
+  rcases Nat.lt_or_ge z 2 with hlt | hge
+  · interval_cases z <;> simp_all
+  · omega
+
+----------------------------------------------------------------------
+-- Theorem 3
+----------------------------------------------------------------------
+
+/-- (a) H = Hd ∪ Hu. -/
+theorem H_eq_Hd_union_Hu : H = Hd ∪ Hu := by
+  ext z
+  refine ⟨fun hz => ?_, ?_⟩
+  · have hz1 : 1 < z := one_lt_of_in_H hz
+    have hz_ne : z ≠ 0 := by omega
+    have hcard_pos : 1 ≤ z.primeFactors.card := by
+      have : z.primeFactors.Nonempty := by
+        rw [Nat.nonempty_primeFactors]; exact hz1
+      exact Finset.card_pos.mpr this
+    by_cases hk : z.primeFactors.card = 1
+    · -- One prime factor: z = p^n.
+      right
+      obtain ⟨p, hp_eq⟩ := Finset.card_eq_one.mp hk
+      have hp_in : p ∈ z.primeFactors := by
+        rw [hp_eq]; exact Finset.mem_singleton_self p
+      have hp_prime : p.Prime := Nat.prime_of_mem_primeFactors hp_in
+      have hp_dvd : p ∣ z := Nat.dvd_of_mem_primeFactors hp_in
+      set n := z.factorization p
+      have hn_pos : 0 < n :=
+        hp_prime.factorization_pos_of_dvd hz_ne hp_dvd
+      have hz_eq : z = p ^ n := by
+        have hprod : z.factorization.prod (· ^ ·) = z :=
+          Nat.prod_factorization_pow_eq_self hz_ne
+        have hsupp : z.factorization.support = {p} := by
+          rw [Nat.support_factorization, hp_eq]
+        rw [← hprod, Finsupp.prod, hsupp, Finset.prod_singleton]
+      refine ⟨p, ⟨?_, hp_prime⟩, n, hn_pos, hz_eq⟩
+      rw [mem_H_iff_factors hp_prime.one_lt]
+      intro q hq
+      rw [hp_prime.primeFactors, Finset.mem_singleton] at hq
+      rw [hq]
+      exact (mem_H_iff_factors hz1).mp hz p hp_in
+    · -- ≥ 2 prime factors.
+      left
+      have hk2 : 2 ≤ z.primeFactors.card := by omega
+      exact multiple_factors_yields_Hd hz hk2
+  · rintro (hd | hu)
+    · obtain ⟨a, b, _, _, ha, hb, hgcd, heq, _⟩ := hd
+      exact ⟨a, b, ha, hb, hgcd, heq⟩
+    · obtain ⟨p, hpH, n, hn, rfl⟩ := hu
+      have hp_prime : p.Prime := hpH.2
+      have hpn_gt1 : 1 < p^n := one_lt_pow₀ hp_prime.one_lt hn.ne'
+      rw [mem_H_iff_factors hpn_gt1]
+      intro q hq
+      have hpf : (p^n).primeFactors = {p} :=
+        Nat.primeFactors_prime_pow hn.ne' hp_prime
+      rw [hpf, Finset.mem_singleton] at hq
+      rw [hq]
+      exact (mem_H_iff_factors hp_prime.one_lt).mp hpH.1 p
+        hp_prime.mem_primeFactors_self
+
+/-- (b) Hd ∩ Hu = ∅. -/
+theorem Hd_inter_Hu : Hd ∩ Hu = ∅ := by
+  ext z
+  simp only [mem_inter_iff, mem_empty_iff_false, iff_false, not_and]
+  rintro hd ⟨p, hpH, n, hn, rfl⟩
+  exact prime_power_not_in_Hd hpH hn hd
+
+/-- (c) Hd is infinite. -/
+theorem Hd_infinite : Hd.Infinite := by
+  set S : Set ℕ := {p | p.Prime ∧ p ≡ 1 [MOD 4]} \ {5}
+  have h_pyth : Set.Infinite {p : ℕ | p.Prime ∧ p ≡ 1 [MOD 4]} :=
+    Nat.infinite_setOf_prime_modEq_one (by norm_num)
+  have hS_inf : S.Infinite := h_pyth.diff (Set.finite_singleton _)
+  apply Set.infinite_of_injOn_mapsTo
+    (s := S) (t := Hd) (f := fun p => 5 * p)
+  · intro p₁ _ p₂ _ h; dsimp only at h; omega
+  · intro p hpS
+    obtain ⟨⟨hp_prime, hp_mod⟩, hp_ne⟩ := hpS
+    have hp_ne_5 : p ≠ 5 := fun h => hp_ne (by simp [h])
+    have h5_prime : Nat.Prime 5 := by decide
+    have hp_pos : 0 < p := hp_prime.pos
+    have hp_ne0 : p ≠ 0 := hp_pos.ne'
+    have h5p_gt1 : 1 < 5 * p := by
+      have : 1 < p := hp_prime.one_lt; omega
+    have h5p_in_H : 5 * p ∈ H := by
+      rw [mem_H_iff_factors h5p_gt1,
+          Nat.primeFactors_mul (by norm_num) hp_ne0,
+          h5_prime.primeFactors, hp_prime.primeFactors]
+      intro q hq
+      rw [Finset.mem_union, Finset.mem_singleton,
+          Finset.mem_singleton] at hq
+      rcases hq with rfl | rfl
+      · decide
+      · exact hp_mod
+    have hcard : 2 ≤ (5*p).primeFactors.card := by
+      have h5_in : (5 : ℕ) ∈ (5*p).primeFactors :=
+        Nat.mem_primeFactors.mpr ⟨h5_prime, ⟨p, rfl⟩, by omega⟩
+      have hp_in : p ∈ (5*p).primeFactors :=
+        Nat.mem_primeFactors.mpr ⟨hp_prime, ⟨5, by ring⟩, by omega⟩
+      have hsub : ({5, p} : Finset ℕ) ⊆ (5*p).primeFactors := by
+        intro x hx
+        rw [Finset.mem_insert, Finset.mem_singleton] at hx
+        rcases hx with rfl | rfl <;> assumption
+      have h2 : ({5, p} : Finset ℕ).card = 2 := by
+        rw [Finset.card_insert_of_notMem
+          (by simp [Ne.symm hp_ne_5]), Finset.card_singleton]
+      calc 2 = _ := h2.symm
+        _ ≤ _ := Finset.card_le_card hsub
+    exact multiple_factors_yields_Hd h5p_in_H hcard
+  · exact hS_inf
+
+/-- Theorem 3: the partition theorem. -/
+theorem H_partition :
+    H = Hd ∪ Hu ∧ Hd ∩ Hu = ∅ ∧ Hd.Infinite :=
+  ⟨H_eq_Hd_union_Hu, Hd_inter_Hu, Hd_infinite⟩
+
+end PrimPythHyp
+\end{leancode}
+
+Once (F), (G-easy), (G-uniq) are themselves formalized, replacing the
+\verb|axiom| declarations with \verb|theorem| proofs, this file would
+become a self-contained, machine-checked proof of Theorem 3 with no
+classical inputs assumed beyond what is already in Mathlib.
 
 \end{document}
 
