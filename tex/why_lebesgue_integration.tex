@@ -3,7 +3,7 @@
 
 \title{Why Lebesgue Integration}
 \author{R. Scott McIntire}
-\date{Apr 25, 2026}
+\date{May 2, 2026}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -49,10 +49,10 @@ functions which allow \eqref{theorem} to hold.
 There are better theorems and they come from a different kind of integration called 
 the Lebesgue ({\em measure\/}) Theory of Integration.
 
-Let's stick with Riemann integrals and see if we can find better convergence 
-criterion.
+Let's stick with Riemann integrals and see if we can find better convergence
+criteria.
 
-\section{Looking for better Convergence Criterion}
+\section{Looking for Better Convergence Criteria}
 Examining how Riemann integration works, we see that we need to bound the upper 
 and lower Darboux sums for a given partition of the domain of a function. 
 Let's look for an example where things fail; that is, where 
@@ -97,8 +97,11 @@ We will do something a little different. We instead
 construct a sequence of functions $g_n$ which {\em represent\/} $f$ 
 in increasing refined ways whose integrals are more amenable to estimation from above.
 
-First, let $\{r_i\}$ be a 1-1 mapping of the positive integers to the rationals.
-We know we can do this as the rationals are countable. 
+First, let $\{r_i\}$ be a 1-1 mapping of the positive integers to the
+rationals. We know we can do this as the rationals are countable. (Only the
+rationals in $[0,1]$ matter for the bound below; using a broader enumeration
+is harmless because covers in $E_{i,n}$ outside $[0,1]$ contribute zero to
+integration over $[0,1]$.)
 
 Consider the sets, $\{E_{i,n}\}$, defined by:
 
@@ -257,17 +260,18 @@ We call this ``length'' the {\em Lebesgue outer measure\/}. It is defined more p
 This notion of measure (length) would not be of much use if the Lebesgue outer measure of
 an interval was not its length.
 It is not hard to show that it does indeed coincide with length on
-intervals -- and also on a finite collection of intervals.
+intervals -- and also on a finite collection of {\em disjoint\/} intervals
+(where it equals the sum of lengths).
 
 Well, what is the outer measure of the set $Q_{[0,1]}$? We claim that the ``length'' 
 (outer-measure) of the set of rationals on the interval $[0,1]$ is $0$.
 
-Consider the coverings: $I_{(r_i - \frac{\epsilon}{2^i}, r_i + \frac{\epsilon}{2^i})}$.
+Consider the coverings $\left(r_i - \frac{\epsilon}{2^i}, r_i + \frac{\epsilon}{2^i}\right)$.
 Then for any
-$\epsilon > 0$, $Q_{[0,1]} \subset \mathop{\cup}_{i=1}^\infty\limits I_{(r_i - \frac{\epsilon}{2^i}, r_i + \frac{\epsilon}{2^i})}$.
+$\epsilon > 0$, $Q_{[0,1]} \subset \mathop{\cup}_{i=1}^\infty\limits \left(r_i - \frac{\epsilon}{2^i}, r_i + \frac{\epsilon}{2^i}\right)$.
 Then $\forall \epsilon > 0$:
 \begin{align}
-\mu^*(Q_{[0,1]}) &\le \sum_{i=1}^\infty  |I_{(r_i - \frac{\epsilon}{2^i}, r_i + \frac{\epsilon}{2^i})}| \\
+\mu^*(Q_{[0,1]}) &\le \sum_{i=1}^\infty  \left|\left(r_i - \frac{\epsilon}{2^i}, r_i + \frac{\epsilon}{2^i}\right)\right| \\
 		 &= 2 \epsilon \sum_{i=1}^\infty \frac{1}{2^i} \\
 		 &= 2 \epsilon
 \end{align}
@@ -285,8 +289,8 @@ then we would {\em define\/} the Lebesgue integral for such functions as:
 \end{align}
 
 Going further, we would try to define the Lebesgue integral of an ``arbitrary''
-function, $f$, as the limit of integrals of approximating ``simple'' 
-functions  -- ones that are a finite linear combinations of characteristic 
+function, $f$, as the limit of integrals of approximating ``simple''
+functions -- ones that are finite linear combinations of characteristic
 functions with the property that they converge pointwise to $f$.
 
 This is the initial plan. However, there is a problem with this approach. 
@@ -553,7 +557,7 @@ system ``completes'' the Rational number system, the Lebesgue integration
 theory ``completes'' the Riemann theory. In fact, with the Lebesgue theory 
 one can create function spaces with a metric that makes them ``complete'' 
 in the same sense as Real numbers; namely, Cauchy sequences always converge 
-in that space. The function space $L_2$ consists of all functions $f$ 
+in that space. The function space $L^2$ consists of all functions $f$ 
 (say over the interval $[0,1]$) that satisfy:
 
 \begin{align}
@@ -572,7 +576,7 @@ A Hilbert space is a vector space with an inner product that is complete with
 respect to the norm induced from its inner product. 
 That is, Cauchy sequences converge to an element in this
 space, just like they do for the finite dimensional Hilbert spaces: $R, R^2, R^3, \ldots$.
-And, much of the behavior of the function space, $L_2$ is replicated from 
+And, much of the behavior of the function space, $L^2$ is replicated from 
 the finite dimensional $R^n$ spaces. This wouldn't be the case if we used
 the Riemann integral for the inner product/norm. It would be like
 working with the vector spaces $Q, Q^2, Q^3, \ldots$, where $Q$ is the set
@@ -580,7 +584,7 @@ of rational numbers. The vector properties would be there, but not
 the important analytic properties -- and the notion of perpendicularity would
 be missing.
 
-We should mention that, technically, the function space $L_2$ does not 
+We should mention that, technically, the function space $L^2$ does not 
 consist of functions, it consists of 
 equivalence classes of functions having the property
 that they are identical except possibly on a set of measure $0$.
