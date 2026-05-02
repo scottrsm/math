@@ -14,7 +14,7 @@
 
 \title{Constructing Diversification Constraints}
 \author{R. Scott McIntire}
-\date{Apr 25, 2026}
+\date{May 2, 2026}
 
 \begin{document}
 
@@ -63,9 +63,9 @@ the following constrained {\it discrete\/} optimization problem:%
 	\max_{{\bf y} \in {\bf Z}_2^n} \quad & {\bf y}^T {\bf x} \label{discrete_objective} \\
 	\text{s.t.} \quad & {\bf y}^T {\bf 1} = k \label{discrete_card}
 \end{align}
-This is $f({\bf x})$ written as an LP.
-Although this optimization is succinct, there are still $\binom{n}{k}$ candidates
-to examine to find the optimal solution in this discrete setting.
+This is $f({\bf x})$ written as a 0-1 integer program (IP).
+Although succinct, this optimization still requires examining $\binom{n}{k}$
+candidate solutions.
 
 \textbf{Claim.} The discrete optimization problem is equivalent to the following continuous problem:%
 \footnote{%
@@ -76,7 +76,7 @@ write ``max'' instead of ``sup''.
 \begin{align}
 	\max_{{\bf y} \in {\bf R}^n} \quad & {\bf y}^T {\bf x} \notag \\
 	\text{s.t.} \quad & {\bf 0} \preceq {\bf y} \preceq {\bf 1} \label{bound} \\
-	& {\bf y}^T {\bf 1} = k \label{integral}
+	& {\bf y}^T {\bf 1} = k \label{cont_card}
 \end{align}
 \textbf{Proof.}
 Since its feasible set contains the discrete problem's feasible set
@@ -93,7 +93,7 @@ $0$ or $1$; in this case take ${\bf y}^\prime = {\bf y}^*$.
 
 Otherwise, consider the components of ${\bf y}^*$
 that are non-integer; that is, have values strictly between $0$ and $1$.
-By (\ref{integral}), $\sum_i y^*_i = k$ is an integer; the integer-valued
+By (\ref{cont_card}), $\sum_i y^*_i = k$ is an integer; the integer-valued
 components contribute an integer to this sum, so the non-integer components
 must sum to an integer too. Consequently, there must be more than one such
 component. It must also be the case that amongst these non-integer components
@@ -101,7 +101,7 @@ the corresponding ``x'' values are the same. Otherwise, if two of these componen
 had differing ``x'' values, then the ``y'' component with the
 smaller ``x'' value could shift some of its value to the ``y'' component with
 the larger ``x'' value in such a way as to preserve the constraints,
-(\ref{bound}) and (\ref{integral}).
+(\ref{bound}) and (\ref{cont_card}).
 But then we would have a larger objective value than the supposed maximum
 -- contradiction. Therefore, all of the
 ``x'' components associated with non-integer ``y'' values must have the same
@@ -159,7 +159,9 @@ the optimization variables by a semi-colon.}
 	-{\bf y}^T {\bf x} - {\boldsymbol \lambda}_1^T {\bf y}
 	+ {\boldsymbol \lambda}_2^T ({\bf y} - {\bf 1}) + \nu ({\bf y}^T {\bf 1} - k).
 \end{align*}
-Here ${\boldsymbol \lambda}_1$, ${\boldsymbol \lambda}_2 \in {\bf R}^n$ and $\nu \in {\bf R}$
+Here ${\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2 \in {\bf R}^n$ with
+${\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2 \succeq {\bf 0}$ (sign constraints
+from the two inequality systems) and $\nu \in {\bf R}$ free (from the equality)
 are the {\it dual\/} variables.
 
 Define $g$ by:
@@ -232,7 +234,8 @@ $\nu \, k + {\bf 1}^T {\boldsymbol \lambda}$ over ${\boldsymbol \lambda}, \nu$
 (subject to (\ref{opp2}) and (\ref{opp3})) equals $f({\bf x})$.
 So there always exist ${\boldsymbol \lambda}, \nu$ feasible for (\ref{opp2}) and (\ref{opp3})
 with $\nu \, k + {\bf 1}^T {\boldsymbol \lambda} = f({\bf x})$, and (\ref{opp1}) is satisfiable
-for ${\bf x}$ exactly when $f({\bf x}) \le M$ -- no extra restriction on ${\bf x}$ is introduced.
+for ${\bf x}$ exactly when $f({\bf x}) \le M$ -- the new constraints introduce no
+restrictions on ${\bf x}$ beyond $f({\bf x}) \le M$ itself.
 
 One might ask why we couldn't do exactly the same procedure with the ``simpler''
 characterization we had with equations
