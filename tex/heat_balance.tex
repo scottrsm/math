@@ -7,7 +7,7 @@
 \footline{\hss\tenrm\folio\hss}
 
 \mantitle{A Balance Law Interpretation of the Fokker-Planck Equation}
-{R. Scott McIntire}{Apr 26, 2026}
+{R. Scott McIntire}{May 2, 2026}
 
 \section{Overview}
 
@@ -39,8 +39,8 @@ Let $h(t,x)$ be the
 heat per unit length at time $t$ and position $x$. Let 
 $f(t,x)$ be the heat flux at time $t$ and position $x$, where heat
 flux is defined as the rate at which heat flows
-\footnote{\kern -2pt \raise 0.5ex \hbox{\dag}}{Positive means
-increasing $x$.}. The increase (or decrease) in 
+\footnote{\kern -2pt \raise 0.5ex \hbox{\dag}}{Positive heat flux $f$ means
+heat flowing in the direction of increasing $x$.}. The increase (or decrease) in 
 the heat of 
 the interval $[x_1, x_2]$ over $[t_1, t_2]$ is equal to the integral of
 the rate at 
@@ -90,14 +90,17 @@ $$
 To get an equation for the temperature, $u$, we must relate it to 
 the heat and the heat flux. To do so, we must make 
 {\it assumptions\/} about properties of the material.
-The simplest assumption about the heat is that it is 
+The simplest assumption about the heat is that it is
 proportional to temperature:\footnote{\raise 0.5ex \hbox{\dag}}{%
-The temperature of a substance is the average kinetic energy of the material's molecules.
-When we refer to heat we mean the heat density, the amount of heat energy per unit volume.
-The specific heat capacity is a constant that converts the material's temperature to
-its heat density.} 
-$h(t,x) = c \, u(t,x)$. 
-This proportionality constant, $c > 0$, is called the specific heat. 
+The temperature of a substance is the average kinetic energy of the
+material's molecules. When we refer to heat we mean the heat density, the
+amount of heat energy per unit volume. The constant $c$ used here is the
+{\it volumetric\/} heat capacity (energy per unit volume per kelvin),
+equal to $\rho \, c_p$ where $\rho$ is the mass density and $c_p$ is the
+specific heat per unit mass. We will follow common practice and refer to
+$c$ as the specific heat, with this caveat understood.}
+$h(t,x) = c \, u(t,x)$.
+This proportionality constant, $c > 0$, is called the specific heat.
 The simplest assumption about the heat flux is that it is proportional 
 to the temperature gradient:
 $f(t,x) = - k u_x(t,x)$ with $k > 0$. 
@@ -108,24 +111,24 @@ $$
 Letting $\kappa = k / c$ we obtain the one dimensional heat equation 
 with diffusion constant $\kappa$:
 $$
-\fracd{\partial u}{\partial t} = \kappa \fracd{\partial^2 u}{\partial x^2}
+\fracd{\partial u}{\partial t} = \kappa \fracd{\partial^2 u}{\partial x^2}.
 $$
 The larger the value of $\kappa$, the more rapid the diffusion. Since 
 $\kappa$ is made from two constants, we give an interpretation to understand
-their role. Consider a bar made of different materials and different 
-thicknesses. With differing materials 
-we have two independent mechanisms controlling heat flow: 
+their role. Consider a bar made of differing materials.
+With differing materials we have two independent mechanisms controlling heat flow:
 the heat capacity of any portion of the bar controls the value of the
 specific heat, $c$; and, the insulating property of the material controls the heat flux rate, $k$.
 
-Under these conditions, we can get a better physical 
-understanding of the influence 
-of $c$ and $k$ on $\kappa$. If the bar behaves more like water at a certain spot, 
-it can absorb more heat and 
-therefore, is less diffusive there. 
+Under these conditions, we can get a better physical
+understanding of the influence
+of $c$ and $k$ on $\kappa$. If the bar behaves more like water at a certain
+spot, it can absorb more heat and therefore is less diffusive there.
 If the bar is made of a material that is more
-insulating at a certain spot, like styrofoam, the heat flux rate constant goes down and
-therefore, the material is less diffusive there.
+insulating at a certain spot, like styrofoam, the heat flux rate constant
+goes down and therefore the material is less diffusive there. (Varying
+cross-sectional thickness manifests in the 1-D model only through its
+effect on $c$ and $k$.)
 
 We note that $c$ and $k$ may depend on $x$.
 In this case we obtain a generalized heat equation:
@@ -154,7 +157,7 @@ heat per unit volume at time $t$ and position ${\bf x}$. Let
 ${\bf f}(t,{\bf x})$ be the heat flux at time $t$ and position ${\bf x}$,
 where heat flux is defined as a vector describing the rate at which heat flows
 per area\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}
-{By area we mean the $(n-1)$-dimensional area.}.
+{By ``area'' we mean the $(n-1)$-dimensional measure of the boundary $\partial \Omega$.}.
 The increase (or decrease) in 
 the heat of 
 the region $\Omega$ over $[t_1, t_2]$ is equal to the integral of the 
@@ -232,9 +235,9 @@ $$
 c \, u_t(t, {\bf x}) - K \nabla \cdot \nabla u(t, {\bf x}) = 0
 $$
 Letting $\kappa = K / c$ and noting that $\Delta = \nabla \cdot \nabla$, 
-we obtain the $n$-dimensional heat equation with diffusion constant $\kappa$.
+we obtain the $n$-dimensional heat equation with diffusion constant $\kappa$:
 $$
-\fracd{\partial u}{\partial t} =  \kappa \, \Delta u 
+\fracd{\partial u}{\partial t} =  \kappa \, \Delta u.
 $$
 We note that $c$ and $K$ may depend on ${\bf x}$ and we note $K$ could be 
 a matrix. In this case we obtain a generalized heat equation:
@@ -387,9 +390,9 @@ $$
 In coordinates this is written as
 $$
 \eqalign{
-\fracd{\partial p(t, {\bf x})}{\partial t} + 
-\sum_{i=1}^n \fracd{\partial}{\partial x_i} 
-\big( p(t, {\bf x}) {\bf f}(t, {\bf x})\big) & = 0  \cr
+\fracd{\partial p(t, {\bf x})}{\partial t} +
+\sum_{i=1}^n \fracd{\partial}{\partial x_i}
+\big( p(t, {\bf x}) f_i(t, {\bf x})\big) & = 0  \cr
 p(0, {\bf x})  = P_X({\bf x})&  \cr} 
 $$
 Equations (10a-b) constitute a first-order initial-value problem
@@ -426,36 +429,34 @@ denote the probability density function of the pair $(X, V)$, transformed by
 the solution of (12a-d) at time $t$ (here we evaluate the deterministic flow at the
 random initial conditions, producing random variables ${\cal X}(t; X, V)$ and
 ${\cal V}(t; X, V)$ with joint density $p$).
-From the previous section, $p$ satisfies 
-\footnote{\kern -3pt \raise 0.5ex \hbox{\dag}}
-{This follows from the identity
-$\nabla \cdot (\varphi{\bf w}) = \nabla \varphi \cdot {\bf w}
-+ \varphi \, \nabla \cdot {\bf w}$.}
+From the previous section, $p$ satisfies
 $$
-p_t(t, {\bf x}, {\bf v}) + \pmatrix{ \nabla_{\bf x}p(t, {\bf x}, {\bf v}) 
+p_t(t, {\bf x}, {\bf v}) + \pmatrix{ \nabla_{\bf x}p(t, {\bf x}, {\bf v})
 \enspace , & \!\!\!\! \nabla_{\bf v}p(t, {\bf x}, {\bf v})}
-\cdot  \pmatrix{{\bf v} \cr {\bf f}(t, {\bf x}, {\bf v})} 
-+ p(t, {\bf x}, {\bf v}) 
-\; {\rm tr}\pmatrix{0 & I \cr \nabla_{\bf x}{\bf f}(t, {\bf x}, {\bf v}) 
+\cdot  \pmatrix{{\bf v} \cr {\bf f}(t, {\bf x}, {\bf v})}
++ p(t, {\bf x}, {\bf v})
+\; {\rm tr}\pmatrix{0 & I \cr \nabla_{\bf x}{\bf f}(t, {\bf x}, {\bf v})
 & \nabla_{\bf v} {\bf f}(t, {\bf x}, {\bf v}) \cr} = 0
 $$
 Simplifying and adding the initial condition this becomes
 $$
 \eqalignno{
-p_t(t, {\bf x}, {\bf v}) + \nabla_{\bf x}p(t, {\bf x}, {\bf v}) 
-\cdot {\bf v} + 
-\nabla_{\bf v}p(t, {\bf x}, {\bf v}) \cdot 
+p_t(t, {\bf x}, {\bf v}) + \nabla_{\bf x}p(t, {\bf x}, {\bf v})
+\cdot {\bf v} +
+\nabla_{\bf v}p(t, {\bf x}, {\bf v}) \cdot
 {\bf f}(t, {\bf x}, {\bf v}) + p(t, {\bf x}, {\bf v}) \nabla_{\bf v} \cdot
 {\bf f}(t, {\bf x}, {\bf v}) & = 0 & (13a) \cr
 p(0, {\bf x}, {\bf v}) = P_{X,V}({\bf x}, {\bf v}) & & (13b) \cr }
 $$
-Or,
+Or, using the product rule
+$\nabla \cdot (\varphi{\bf w}) = \nabla \varphi \cdot {\bf w}
++ \varphi \, \nabla \cdot {\bf w}$ to combine the last two terms,
 $$
 \eqalignno{
-p_t(t, {\bf x}, {\bf v}) + \nabla_{\bf x}p(t, {\bf x}, {\bf v}) 
-\cdot {\bf v} + 
-\nabla_{\bf v} \cdot \big( p(t, {\bf x}, {\bf v}) 
-{\bf f}(t, {\bf x}, {\bf v}) \big) 
+p_t(t, {\bf x}, {\bf v}) + \nabla_{\bf x}p(t, {\bf x}, {\bf v})
+\cdot {\bf v} +
+\nabla_{\bf v} \cdot \big( p(t, {\bf x}, {\bf v})
+{\bf f}(t, {\bf x}, {\bf v}) \big)
  & = 0 & (14a) \cr
 p(0, {\bf x}, {\bf v}) = P_{X,V}({\bf x}, {\bf v}) & & (14b) \cr }
 $$
@@ -543,7 +544,7 @@ $$
 f_i(t, {\bf x}) \bigg) & = 
 \sum_{i=1}^n \fracd{\partial}{\partial x_i} 
 \bigg(
-\sum_{j=1}^n A({\bf x})_{ij} \fracd{\partial p(t, {\bf x})}{\partial x_j} 
+\sum_{j=1}^n A_{ij}({\bf x}) \fracd{\partial p(t, {\bf x})}{\partial x_j}
 \bigg)
 & (20a) \cr
 p(0, {\bf x}) = P_X({\bf x}) & & (20b) \cr }
@@ -576,12 +577,12 @@ with respect to ${\bf v}$.
 That is, the instantaneous balance law (6) becomes 
 $$
 \eqalignno{
-\fracd{d}{d\tau} \int_{\Omega_\tau} p(\tau,{\bf x}, {\bf v}) \; 
-d({\bf x} \times {\bf v}) & 
+\fracd{d}{d\tau} \int_{\Omega_\tau} p(\tau,{\bf x}, {\bf v}) \;
+d{\bf x} \, d{\bf v} &
 = \oint_{\partial \Omega_\tau} \pmatrix{ 0 \! \! &, \;
-A({\bf x}, {\bf v}) \nabla_{\bf v} 
+A({\bf x}, {\bf v}) \nabla_{\bf v}
 p(\tau, {\bf x}, {\bf v})} \cdot \pmatrix{{\bf n}_x \cr
-{\bf n}_v} \; d({\bf S}_x \times {\bf S}_v) & (21) \cr}
+{\bf n}_v} \; d{\bf S}_x \, d{\bf S}_v & (21) \cr}
 $$
 The left hand side has been previously calculated; so, using the
 {\it Divergence Theorem\/} on the right hand side, we may
@@ -592,8 +593,8 @@ $$
 \nabla_{\bf x} p(\tau, {\bf x}, {\bf v}) \cdot {\bf v} + 
 \nabla_{\bf v} \cdot \big( p(\tau, {\bf x}, {\bf v}) 
 {\bf f}(\tau, {\bf x}, {\bf v}) \big) & & \cr
- - \nabla_{\bf v} \cdot \big(A({\bf x}, {\bf v}) \nabla_{\bf v} 
-p(\tau, {\bf x}, {\bf v})\big) \; d({\bf x} \times {\bf v})
+ - \nabla_{\bf v} \cdot \big(A({\bf x}, {\bf v}) \nabla_{\bf v}
+p(\tau, {\bf x}, {\bf v})\big) \; d{\bf x} \, d{\bf v}
  & = 0 & (22) \cr}
 $$
 Again, since $\widehat \Omega = \Omega_t$ and $t$ are arbitrary, the
@@ -620,7 +621,7 @@ v_i  + \sum_{i=1}^n
 \big(p(t, {\bf x}, {\bf v}) f_i(t, {\bf x}, {\bf v}) \big)
 & = 
 \sum_{i=1}^n \fracd{\partial}{\partial v_i} 
-\bigg(\sum_{j=1}^n A({\bf x}, {\bf v})_{ij} 
+\bigg(\sum_{j=1}^n A_{ij}({\bf x}, {\bf v})
 \fracd{\partial p(t, {\bf x}, {\bf v})}{\partial v_j} \bigg)
   & (24a) \cr
 p(0, {\bf x}, {\bf v}) = P_{X,V}({\bf x}, {\bf v}) & & (24b) \cr }
@@ -636,7 +637,7 @@ v_i  + \sum_{i=1}^n
 \big(p(t, {\bf x}, {\bf v}) f_i(t, {\bf x}, {\bf v}) \big)
  & = \kappa 
 \sum_{i=1}^n 
-\sum_{j=1}^n {\cal A}_{ij} 
+\sum_{j=1}^n {\cal A}_{ij}
 \fracd{\partial^2 p(t, {\bf x}, {\bf v})}{\partial v_i \; \partial v_j}
   & (25a) \cr
 p(0, {\bf x}, {\bf v}) = P_{X,V}({\bf x}, {\bf v}) & & (25b) \cr }
