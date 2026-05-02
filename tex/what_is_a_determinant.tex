@@ -3,7 +3,7 @@
 
 \title{What is a Determinant}
 \author{R. Scott McIntire}
-\date{Apr 25, 2026}
+\date{May 2, 2026}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -15,7 +15,7 @@
 \begin{document}
 \maketitle
 
-\section{What is the Determinant of a Matrix?}
+\section{What is the Determinant of a Matrix}
 The determinant of an $n\times n$ matrix $A$ is the factor by which the volume of
 the unit cube is changed upon the action of $A$. Essentially, the cube is
 transformed into a parallelepiped. The primary edges of the unit cube are the
@@ -266,7 +266,7 @@ can be written as:
   |A| &= \sum_{\sigma \in S_n} (-1)^{{\rm sgn}(\sigma^{-1})} a_{\sigma(1),1}^\prime
             a_{\sigma(2),2}^\prime \, \ldots \, a_{\sigma(n),n}^\prime \label{at_proto}
 \end{align}
-Here, we define $a_{i,j}^\prime$ as the $i^{\rm th}$, $j^{\rm th}$ element of the $A^T$.
+Here, we define $a_{i,j}^\prime$ as the $i^{\rm th}$, $j^{\rm th}$ element of $A^T$.
 
 Finally, for any transpositions: $\tau_1, \tau_2, \, \ldots\, , \tau_k$
 that ``unravel'' the
@@ -300,7 +300,7 @@ From this we conclude that $|A| = |A^T|$.
 
 \section{Derivative of the Determinant}
 The determinant is a function from the space of matrices to $R$; that is,
-$|{\boldsymbol \cdot}| : R^{n^2} \rightarrow R$.
+$|{\boldsymbol \cdot}| : R^{n \times n} \rightarrow R$.
 Therefore, its derivative at a particular ``point'' $A$, $L_A$, should satisfy:%
 \footnote{Recall that for a function $f: R \rightarrow R$, the derivative at a point
   $x$ is a linear function, $Df_x: R \rightarrow R$, such that
@@ -308,8 +308,8 @@ Therefore, its derivative at a particular ``point'' $A$, $L_A$, should satisfy:%
 \begin{align}
   |A + H| &= |A| + L_A(H) + o(H)
 \end{align}
-Here $\lim_{H\rightarrow 0} \frac{\|o(H)\|}{\|H\|}  = 0$, where $\|H\|$ is any matrix norm
-and $L_A$ is a linear mapping from $R^{n^2}$ to $R$.
+Here $\lim_{H\rightarrow 0} \frac{|o(H)|}{\|H\|}  = 0$, where $\|H\|$ is any matrix norm
+and $L_A$ is a linear mapping from $R^{n \times n}$ to $R$.
 
 To start, let's try to find the derivative for an especially simple ``point'',
 the identity matrix, $I$.
@@ -340,14 +340,14 @@ an $n\times n$ matrix, $A$, with the stipulation that $A$ is invertible.
 \begin{align}
   |A + H| &= |A\left(I + A^{-1}H\right)| \nonumber \\
           &= |A|\, |I + A^{-1}H|
-                \quad \text{(Multiplicative Property of Determinants:
-                $|AB| = |A|\,|B|$, which follows from the volume interpretation)} \nonumber \\
+                \quad \text{(Multiplicative Property:
+                $|AB| = |A|\,|B|$)} \nonumber \\
           &= |A| \left(|I| + {\rm tr}(A^{-1}H) + o(H)\right)
                 \quad \text{(From \eqref{deriv_Ia})} \nonumber \\
   &= |A| + |A|{\rm tr}(A^{-1}H) + o(H)
 \end{align}
 Therefore, the derivative of the determinant at a non-singular ``point'', $A$,
-is the linear function $L_A: R^{n^2} \rightarrow R$ defined by:
+is the linear function $L_A: R^{n \times n} \rightarrow R$ defined by:
 \begin{align}
   L_A(B) &= |A| {\rm tr}(A^{-1}B) \label{det_deriv}
 \end{align}
@@ -396,7 +396,12 @@ This is much easier to solve, the solution is $|X(t)| = |X_0| \, e^{{\rm tr}(A)\
 
 {\bf Question:\/} What kind of systems (defined by $A$) leave the volumes unchanged?
 
-When $A$ is {\em anti-symmetric\/} ($A^T = -A$), it follows that  $\left< A {\bf x}, {\bf x} \right> = 0$.
+From the differential equation
+$\frac{d|X(t)|}{dt} = {\rm tr}(A)\,|X(t)|$ and its solution
+$|X(t)| = |X_0|\,e^{{\rm tr}(A)\,t}$,
+the volume is preserved exactly when ${\rm tr}(A) = 0$. An important
+sub-class is anti-symmetric matrices: when $A$ is {\em anti-symmetric\/}
+($A^T = -A$), it follows that $\left< A {\bf x}, {\bf x} \right> = 0$.
 
 In this case:
 \begin{align}
