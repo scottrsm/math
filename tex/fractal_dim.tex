@@ -47,7 +47,7 @@
 
 
 
-\mantitle{Defining Fractal Dimension}{R. Scott McIntire}{Apr 26, 2026}
+\mantitle{Defining Fractal Dimension}{R. Scott McIntire}{May 2, 2026}
 
 \parindent=0pt
 \parskip=.5\baselineskip
@@ -103,8 +103,8 @@ each case, the fractal dimension is not an actual dimension,
 it is a way to quantify the density of such complex sets.
 Yet, it should also ``agree'' with the usual dimensional size of an object 
 if it is not a fractal. That is, the fractal dimension of a line segment should 
-be 1; the fractal dimension of a triangle sitting in three dimensions should 
-be 2, etc.
+be 1; the fractal dimension of a filled triangle (its interior together with
+its boundary) sitting in three dimensions should be 2, etc.
 
 When studying any new phenomenon, it is natural to first examine the
 simplest examples. The simplest such fractals are ones which have a
@@ -234,8 +234,8 @@ $\left\{ P_i \right\}_{i=1}^N$, where each $P_i$ is the
 smallest sphere containing $O_i$. In this case the radius of a given
 $P_i$ is ${\rm Diam}(O_i) / 2$.
 The $\alpha$ covering volume of a set, $S$, is the infimum over all
-such covers. The only restriction of the covering sets is that they are
-finite and each has diameter no larger than $\epsilon$.\ftn{This is the
+such covers. The only restrictions on the covering sets are that they
+be finite and that each have diameter no larger than $\epsilon$.\ftn{This is the
 standard Hausdorff‑measure formulation: as $\epsilon$ shrinks, the
 allowed covers must be finer, so fewer covers are admitted and the
 infimum can only grow. The construction is a covering analogue of an
@@ -252,7 +252,7 @@ $$
 }
 $$
 This follows as the set of coverings used to compute
-${\cal V}_{\alpha, \epsilon_1}(S)$ is a {\tt subset\/} of those used to
+${\cal V}_{\alpha, \epsilon_1}(S)$ is a {\it subset\/} of those used to
 compute ${\cal V}_{\alpha, \epsilon_2}(S)$ (a tighter $\epsilon$ admits
 fewer covers). Therefore, the infimum over the smaller family cannot be
 smaller than the infimum over the larger family.
@@ -295,11 +295,11 @@ answer when $S$ is a non-fractal set. We show this for the case of a
 straight line.
 
 \example{Example}{A line segment in two dimensions.}
-We wish to find the fractal dimension and fractal volume of the line
-segment 
+Let ${\bf x}, {\bf y} \in R^2$ and consider the line segment
 $$
-L = \{t{\bf x} + (1-t){\bf y} : t \in [0,1] , {\bf x, y}~\in~R^2\}
+L = \{t{\bf x} + (1-t){\bf y} : t \in [0,1]\}.
 $$
+We wish to find the fractal dimension and fractal volume of $L$.
 While this line segment sits in the two dimensional plane, we wish 
 to find its ``natural'' dimension and associated volume.
 
@@ -346,11 +346,8 @@ and fractal volume of a simple fractal.
 
 \subsection{The Cantor Set: A Simple Fractal Set}
 
-As mentioned at the beginning of this paper, the simplest fractals to
-study are the ones with regular behavior; in particular, fractals with a
-self similarity property are more mathematically tractable. Perhaps
-the simplest fractal of this type is 
-the Cantor set. It is a self-similar set formed by doing the following:
+Perhaps the simplest self-similar fractal is the Cantor set, which is
+formed by doing the following:
 Take the unit interval, [0,1], and remove the middle third, (1/3,
 2/3). This leaves the intervals, [0,1/3] and [2/3,1]. Now remove the
 middle third of each of these two intervals, this gives four
@@ -460,7 +457,7 @@ allow us to view and compute what they model in a simpler way.
 We briefly describe two {\it self-similar\/} fractal sets. 
 The first set lives in 1 dimension, but its fractal dimension is between $0$ and $1$\dots
 The set is called the Cantor set, named after the mathematician Georg Cantor.
-This set may be created by creating intermediary sets $C_0, C_1, \ldots$ 
+This set is constructed by defining intermediate sets $C_0, C_1, \ldots$
 and setting the Cantor set, $C$, to be the intersection of these sets:
 $$
 \eqalign{
@@ -509,7 +506,7 @@ $C_5$:$\!\!\!\!\!\!\!\!\!\!$\cantor{5}{1.48148}
 
 The second self-similar set lives in 2 dimensions while its
 fractal dimension is between $1$ and $2$. It is the
-{\tt Sierpi\'{n}ski triangle\/} (a different object from the 3-dimensional
+{\it Sierpi\'{n}ski triangle\/} (a different object from the 3-dimensional
 Menger sponge mentioned in the introduction, although both are sometimes
 loosely called ``sponges''); it is ``best'' described in a recursive way
 as a scaled version of the lower triangular portion of itself, and its
