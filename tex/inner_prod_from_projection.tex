@@ -14,7 +14,7 @@
 
 \title{Where does the Dot Product Come From?}
 \author{R. Scott McIntire}
-\date{Apr 26, 2026}
+\date{May 2, 2026}
 
 \begin{document}
 
@@ -42,17 +42,13 @@ $$ p_0 + t^* v = p_1$$
 So $t^*$ satisfies:
 $$ t^* \, v = p_1 - p_0$$
 
-Since $v$ is a (non-zero) number we can divide and solve for
-$t^*$:\footnote{Note: $t^*$ can be negative.}
+Since $v$ is a (non-zero) number we can divide and solve for $t^*$:
 \be
 	t^* & = & \frac{p_1 - p_0}{v} \label{closest_1}
 \ee
 
-This is the solution {\em provided\/} 
-$t^*$ is not negative.
-
-In other words, there is no solution if the car is
-moving away from $p_1$.
+Physically, we need $t^* \ge 0$: if $t^* < 0$, the car is moving
+away from $p_1$ and cannot reach it for any non-negative time.
 
 We note, however, in this simple example that there is an answer to the question:
 ``What is the closest point to $p_1$ that the car can get to?''
@@ -88,13 +84,16 @@ We generalize this from 2 or 3 dimensions so that vectors may represent $n$ dime
 All this means is that a vector is an ordered set of numbers of a specific length.
 Here is the formal definition of how to add/subtract them and multiply them by scalars.
 
-{\bf Definition.} Let ${\bf x}, {\bf y}$ be vectors and let $a$ be a number.
-We define vector addition and scalar multiplication as:
+{\bf Definition.} Let ${\bf x}, {\bf y}$ be vectors in $n$ dimensions
+(${\bf x} = [x_1, \ldots, x_n]$, ${\bf y} = [y_1, \ldots, y_n]$) and let
+$a$ be a scalar. We define vector addition and scalar multiplication
+component-wise:
 \be
-	{\bf x} + {\bf y} & \equiv & [x_1 + y_1,\, x_2 + y_2 ] \\
-	a * {\bf x} & \equiv & [a x_1, \, a x_2]
+	{\bf x} + {\bf y} & \equiv & [x_1 + y_1,\, x_2 + y_2,\, \ldots,\, x_n + y_n] \\
+	a * {\bf x}        & \equiv & [a x_1,\, a x_2,\, \ldots,\, a x_n]
 \ee
-We drop the '*' operator when multiplying a vector by a number -- just as
+We drop the `$*$' operator when multiplying a vector by a scalar -- just as
+we drop the multiplication symbol between two scalars.
 
 
 Keeping with the ``car'' example, a more 
@@ -198,7 +197,8 @@ $$ \|{\bf x}\|^2 = {\bf x} \cdot {\bf x} $$
 
 Getting back to the original problem, the closest point to ${\bf p}_1$ when
 starting at ${\bf p}_0$ and moving along ${\bf v}$ is:
-$$ P_{\bf v}({\bf p}_1 - {\bf p}_0) = \frac{({\bf p}_1 - {\bf p}_0) 
+$$ {\bf p}_0 + P_{\bf v}({\bf p}_1 - {\bf p}_0)
+   = {\bf p}_0 + \frac{({\bf p}_1 - {\bf p}_0)
     \cdot{\bf v}}{{\bf v} \cdot {\bf v}} {\bf v}$$
 
 There is good reason to have ``product'' in the name ``Dot Product''.
@@ -219,9 +219,10 @@ It has most of the properties of a multiplication operator.
     if ${\bf p} \neq {\bf 0}$ (and zero when ${\bf p} = {\bf 0}$).
 \ei
 
-This means that we can redo the minimization problem that gave us a 
-projection because the algebra of the dot product is like multiplication 
-and the derivation proceeds using only the {\em multiplicative properties\/}.
+This means that we can redo the minimization problem that gave us a
+projection because the dot product distributes over vector addition and
+scalar multiplication, just as ordinary multiplication does, and the
+derivation proceeds using only those {\em multiplicative properties\/}.
 
 \be
   \min_t \| {\bf p} - t \, {\bf v} \|^2 & & \nonumber \\
@@ -313,9 +314,10 @@ The component of ${\bf w}$ onto ${\bf v}$ is:
 $$ P_{\bf v}({\bf w}) = P_{\bf v} \left({\bf p} - P_{\bf v}({\bf p})\right) = 
     P_{\bf v}({\bf p}) - P_{\bf v}(P_{\bf v}({\bf p})) = P_{\bf v}({\bf p}) - P_{\bf v}({\bf p}) = 0 $$ 
 
-Now, one can repeat this and show that there is no component of 
-${\bf v}$ onto ${\bf w}$. That is, ${\bf v}$ and ${\bf w}$ are 
-as ``independent'' as possible.
+By symmetry of the dot product, ${\bf v} \cdot {\bf w}
+= {\bf w} \cdot {\bf v} = 0$, so $P_{\bf w}({\bf v}) = 0$ as well: there
+is no component of ${\bf v}$ along ${\bf w}$ either. The vectors
+${\bf v}$ and ${\bf w}$ are as ``independent'' as possible.
 
 We know that the length of a vector can be described in terms of the dot
 product, and we now know that ${\bf p} = {\bf p}_v + {\bf w}$, where
@@ -332,13 +334,13 @@ of two vectors that share no components between them?
 
 
 In two and three dimensions, the vectors ${\bf p}$, ${\bf p}_v$, and ${\bf w}$
-form a triangle. By the converse of the Pythagorean theorem, when
-$\|{\bf p}\|^2 = \|{\bf p}_v\|^2 + \|{\bf w}\|^2$, ${\bf p}_v$ is perpendicular
-to ${\bf w}$. That is, ${\bf p}_v \cdot {\bf w} = 0$ characterizes
-${\bf p}_v$ and ${\bf w}$ being perpendicular.
-
-We generalize this, introducing the term ``orthogonal''. 
-We define two vectors to be {\em orthogonal\/} if their dot product is zero. 
+form a right triangle (with ${\bf p}_v$ perpendicular to ${\bf w}$), and
+the Pythagorean theorem and its converse make
+$\|{\bf p}\|^2 = \|{\bf p}_v\|^2 + \|{\bf w}\|^2$ equivalent to
+${\bf p}_v \cdot {\bf w} = 0$. In higher dimensions we have no a priori
+geometric notion of perpendicularity, so we adopt the dot-product
+condition as the {\em definition\/}: two vectors are {\em orthogonal\/}
+if their dot product is zero. 
 Given that two vectors ${\bf w}_1$ and ${\bf w}_2$ are orthogonal and
 sum to ${\bf p}$, we have
 a generalization of the Pythagorean formula, with 
@@ -354,9 +356,9 @@ pairwise orthogonal and sum to ${\bf p}$, then
 
 \section{Standard Unit Vectors and their Generalization}
 The standard unit vectors are the so-called coordinate vectors. 
-In ${\bf R}^2$ these are: ${\bf e}_1$ =  [1, 0] and ${\bf e}_2$ = [0, 1].
+In ${\bf R}^2$ these are: ${\bf e}_1 = [1, 0]$ and ${\bf e}_2 = [0, 1]$.
 In ${\bf R}^n$ they are: $\{{\bf e}_i\}_{i=1}^n$ where
-${\bf e}_i = (0, \ldots, 0, 1, 0, \ldots, 0)$ with the $1$ in position $i$.
+${\bf e}_i = [0, \ldots, 0, 1, 0, \ldots, 0]$ with the $1$ in position $i$.
 Notice that the vectors in this collection have unit length and are pair-wise
 orthogonal. And it is easy to write down the combination of ${\bf e}_i$ that 
 produce a given ${\bf x} \in {\bf R}^n$.
@@ -466,26 +468,26 @@ then this simplifies greatly to:
   u_2 & = & {\bf p} \cdot {\bf v}_2
 \ee
 
-If we use the notation $[{\bf v}_1, {\bf v}_2]$ to indicate the set of
-points {\em spanned\/} (swept out) by ${\bf v}_1$ and ${\bf v}_2$,
+If we use the notation $\mathrm{span}\{{\bf v}_1, {\bf v}_2\}$ to indicate
+the set of points {\em spanned\/} (swept out) by ${\bf v}_1$ and ${\bf v}_2$,
 then when ${\bf v}_1$ and ${\bf v}_2$ are orthonormal we have:
 \be
-  P_{[{\bf v}_1, {\bf v}_2]}({\bf x}) & = & ( {\bf x} \cdot {\bf v}_1 ) {\bf v}_1 +  ( {\bf x} \cdot {\bf v}_2 ) {\bf v}_2  \label{proj2}
+  P_{\mathrm{span}\{{\bf v}_1, {\bf v}_2\}}({\bf x}) & = & ( {\bf x} \cdot {\bf v}_1 ) {\bf v}_1 +  ( {\bf x} \cdot {\bf v}_2 ) {\bf v}_2  \label{proj2}
 \ee
 
-{\bf Def.} We define $P_{[{\bf v}_1, \ldots, {\bf v}_m]}$ to be the projection
-onto the set of points {\em spanned\/} (swept out) by the vectors
-${\bf v}_1, \ldots, {\bf v}_m$.
+{\bf Def.} We define $P_{\mathrm{span}\{{\bf v}_1, \ldots, {\bf v}_m\}}$ to be
+the projection onto the set of points {\em spanned\/} (swept out) by the
+vectors ${\bf v}_1, \ldots, {\bf v}_m$.
 
-Formula \eqref{proj2} can generalize this so that if 
-$\{{\bf v}_i\}_{i=1}^m$ is an orthonormal collection of vectors then the 
+Formula \eqref{proj2} can generalize this so that if
+$\{{\bf v}_i\}_{i=1}^m$ is an orthonormal collection of vectors then the
 projection of a given vector ${\bf x} \in {\bf R}^n$ onto the
 space spanned by the collection is given by:
 \be
-  P_{[{\bf v}_1, \ldots, {\bf v}_m]}({\bf x}) & = & \sum_{i=1}^m ( {\bf x} \cdot {\bf v}_i) {\bf v}_i \label{projection}
+  P_{\mathrm{span}\{{\bf v}_1, \ldots, {\bf v}_m\}}({\bf x}) & = & \sum_{i=1}^m ( {\bf x} \cdot {\bf v}_i) {\bf v}_i \label{projection}
 \ee
-Note that when $n = m$, we reproduce formula \eqref{orthonorm_expansion}, 
-as $P_{[{\bf v}_1, \ldots, {\bf v}_n]}({\bf x}) = {\bf x}$.
+Note that when $n = m$, we reproduce formula \eqref{orthonorm_expansion},
+as $P_{\mathrm{span}\{{\bf v}_1, \ldots, {\bf v}_n\}}({\bf x}) = {\bf x}$.
 
 \section{Generalization of Projection based on the essence of the ``Dot Product''}
 
@@ -503,7 +505,11 @@ giving a notion of length of vectors. The induced ``length'' has the properties 
 \bi
   \item $\|{\bf x}\| = 0 \quad \text{iff} \quad {\bf x} = {\bf 0}$. -- Non-degeneracy.
   \item $\|\lambda {\bf x}\| = |\lambda| \|{\bf x}\|\quad \forall \lambda \in {\bf R} \quad \forall {\bf x} \in V$. -- Homogeneity.
-  \item $\|{\bf x} + {\bf y} \| \le \|{\bf x}\| + \|{\bf y}\| \quad {\bf x}, {\bf y} \in V.$ -- Triangle inequality.
+  \item $\|{\bf x} + {\bf y} \| \le \|{\bf x}\| + \|{\bf y}\| \quad {\bf x}, {\bf y} \in V.$ -- Triangle inequality.%
+\footnote{The first two properties follow directly from the inner-product
+axioms, but the triangle inequality requires the {\em Cauchy--Schwarz
+inequality\/}, $|\langle{\bf x}, {\bf y}\rangle| \le \|{\bf x}\|\,\|{\bf y}\|$,
+which we omit.}
 \ei
 
 If we repeat the exercise to determine the projection of one vector onto 
@@ -524,15 +530,16 @@ a notion of length automatically and all of the calculations proceed as before.
 The only change is that wherever we see a dot product we can replace it with 
 the inner product.
 
-Example: We can define the following inner product on ${\bf R}^n$. 
-Let ${\bf w}$ be a given vector with the following properties:
-\begin{enumerate}
-	\item $\sum_{i=1}^n w_i = 1 $
-	\item $ w_i > 0 \quad \forall i \in [1,n] $
-\end{enumerate}
+Example: We can define the following inner product on ${\bf R}^n$.
+Let ${\bf w}$ be a given vector with strictly positive entries:
+$w_i > 0 \quad \forall i \in [1, n]$.
 Then we can define an inner product, $\langle \cdot, \cdot \rangle$ as:
 $$ \langle {\bf x}, {\bf y} \rangle \equiv \sum_{i=1}^n w_i x_i y_i$$
-This modified ``dot product'' allows us to favour or discount some components 
+(positive weights are all that is needed for symmetry, bilinearity, and
+positive definiteness; the additional normalization $\sum_i w_i = 1$ is
+standard when the $w_i$ are interpreted as probability weights but is
+not required for the inner-product property.)
+This modified ``dot product'' allows us to favor or discount some components
 over others. This is often used in data science.
 
 The generalization is powerful and we can apply the geometric intuition of 
