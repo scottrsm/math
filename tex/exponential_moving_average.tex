@@ -17,7 +17,7 @@
 
 \title{Derivation of the Exponential Moving Average}
 \author{R. Scott McIntire}
-\date{Apr 26, 2026}
+\date{May 2, 2026}
 
 \begin{document}
 
@@ -31,7 +31,7 @@ this by using a weighted average of the values in a ``window'' around each point
 of the series in a way that each summand in
 the average is multiplied by powers of a factor, $\lambda$,
 in the interval $(0,1)$.
-In what follows below we will assume a 1-based index, and that 
+In what follows we will assume a 1-based index, and that
 the data series ${\bf x}$ has length $N$.
 
 Specifically, the exponential moving average (over a window of length $m$) 
@@ -66,7 +66,7 @@ indices less than 1 as:
     z_{k} &\equiv& z_{\max(k,\, 1)} \label{o:var_extend}
 \end{eqnarray}
 
-While we can use $(\ref{ema_def})$ to compute the EMA it is {\em inefficient\/}. 
+While we can use \eqref{ema_def} to compute the EMA it is {\em inefficient\/}.
 The purpose of this
 paper is to derive a recursive formula that is fast to compute.
 The formula takes advantage of the fact that when the weights are exponentials
@@ -82,9 +82,8 @@ $\E{\sum_{k=0}^{m-1} x_{n-k} w_{k+1}} = \sum_{k=0}^{m-1} \E{x_{n-k}}w_{k+1}$.
 Which is $\mu \sum_{k=0}^{m-1} w_{k+1} = \mu \sum_{k=1}^{m} w_k = \mu$.}
 But we also want the weights to be exponential; that is, $w_{k+1} = \lambda w_{k}$.
 
-Ideally, all we want to do is give the decay factor, $\lambda$. If so, 
-how do we determine the weights?
-The weights can be constructed as follows once a $\lambda$ is given.
+Ideally, all we want to do is give the decay factor, $\lambda$. Given
+$\lambda$, the weights are constructed as follows.
 
 For $i \in [1, m]$ define
 \begin{eqnarray}
@@ -137,8 +136,8 @@ associated normalized weights:
 	\alpha = \frac{1 - \lambda}{1 - \lambda^m} \label{o:weights_alpha}
 \end{eqnarray}
 
-{\bf Note.} We will use $(\ref{o:var_extend})$, $(\ref{o:weights_normalized})$,
-$(\ref{o:weights_power})$, and $(\ref{o:weights_alpha})$ in our derivations below.
+{\bf Note.} We will use \eqref{o:var_extend}, \eqref{o:weights_normalized},
+\eqref{o:weights_power}, and \eqref{o:weights_alpha} in our derivations below.
 
 \section{Recursive Formula for EMA}
 We state again the definition of the exponential moving average of $x$ as:
@@ -161,8 +160,8 @@ and try to relate it to the present element at index $n$.
 \end{eqnarray*}
 
 Finally, we may write%
-\footnote{From the definition of $e_n$ and using 
-	$(\ref{o:var_extend})$ $(\ref{o:weights_normalized})$, and $(\ref{o:weights_alpha})$
+\footnote{From the definition of $e_n$ and using
+	\eqref{o:var_extend}, \eqref{o:weights_normalized}, and \eqref{o:weights_alpha},
 $e_1 = \sum_{k=0}^{m-1} x_{1-k} w_{k+1} = x_1 \sum_{k=0}^{m-1} w_{k+1} = x_1 \sum_{k=1}^m w_k = x_1$.}
 \begin{eqnarray}
     e_{n+1} &=&  \lambda \left(e_n - x_{(n+1) - m} w_m \right) + \alpha x_{n+1} \quad \forall n \in [1, N-1] \\
@@ -183,7 +182,7 @@ In applications, one can provide ``Bollinger'' bands around the EMA estimate.
 These bands are (typically) some multiple of the standard deviation of the process.
 
 We derive the standard deviation of the exponential moving average starting
-with the definition of the exponential moving average and its moving variation.%
+with the definition of the exponential moving average and its moving variance.%
 \footnote{This variance formula needs to be corrected by a factor which we 
 leave to the end. The correction is a factor that is used to make the 
 estimated standard deviation of the moving average {\em unbiased\/}.
@@ -208,12 +207,12 @@ they both have the form:
 \begin{eqnarray}
 	g_n &=& \sum_{k=0}^{m-1} f(x_{n-k} - c_{n-k}) w_{k+1} 
 \end{eqnarray}
-In the equation, $(\ref{ema_cmp})$, $c_{n-k} \equiv 0$; while in equation 
-$(\ref{var})$, $c_{n-k} = e_{n-k}$.
+In equation \eqref{ema_cmp}, $c_{n-k} \equiv 0$; while in equation
+\eqref{var}, $c_{n-k} = e_{n-k}$.
 
 One can find a recursive formula $g_n$ in {\em exactly\/} the same way as
-was done for $(\ref{ema_cmp})$. This is done by reworking the derivation of 
-the recursive formula for $(\ref{ema_cmp})$, replacing $x_{n-k}$ with $f(x_{n-k} - c_{n-k})$.
+was done for \eqref{ema_cmp}. This is done by reworking the derivation of
+the recursive formula for \eqref{ema_cmp}, replacing $x_{n-k}$ with $f(x_{n-k} - c_{n-k})$.
 
 The recursive formula for $g_n$ is
 \begin{eqnarray}
@@ -227,7 +226,7 @@ The 0-based index formula is:
     g_0   &=&  f(x_0 - c_0) 
 \end{eqnarray}
 
-The corresponding $f$ for $(\ref{var})$ is $f(x) = x^2$; 
+The corresponding $f$ for \eqref{var} is $f(x) = x^2$;
 consequently, its recursive formula is 
 
 \begin{eqnarray}
@@ -370,7 +369,7 @@ We separately compute the expectation of each of the three summands.
     &=  \sigma^2 w_i
 \end{align}
 
-Substituting these three results into $(\ref{standard_emp_var})$:
+Substituting these three results into \eqref{standard_emp_var}:
 \begin{align*}
     \E{\sum_{i=1}^N (x_i - {\bar x})^2 w_i}
     &= \sum_{i=1}^N \left( \sigma^2 + \sigma^2 \sum_{j=1}^N w_j^2 - 2\sigma^2 w_i \right) w_i \\
@@ -515,12 +514,10 @@ the weights are concentrated at a single index. Consequently, we must have $N > 
 \end{equation}
 
 
-In the more general case, $r > 3$, there may be more work to determine a corrective procedure
-to render the na\"{i}ve $r^{\it th}$ moment unbiased.
- 
-As a last example we try the case $r=4$. Substituting directly into the general
-formula above gets unwieldy; we instead organize the computation by the value
-of $k$, the power of $\sum_{l \neq i} (x_l - \mu) w_l$ that appears.
+For $r > 3$ the bookkeeping is more involved. We illustrate the case $r = 4$
+below. Substituting directly into the general formula above gets unwieldy;
+we instead organize the computation by the value of $k$, the power of
+$\sum_{l \neq i} (x_l - \mu) w_l$ that appears.
 
 Let $y_i = x_i - \mu$ and $z = {\bar x} - \mu = \sum_{l=1}^N y_l w_l$. Split
 $z = y_i w_i + s_i$, where
