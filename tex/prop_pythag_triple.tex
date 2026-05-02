@@ -32,10 +32,9 @@ I tried to do something similar with a more complicated geometric figure and
 I came up with figure \ref{fig:geo}.
 
 By inscribing a circle%
-\footnote{Existence and uniqueness of the inscribed circle in a right triangle is
-a standard fact: the angle bisectors are concurrent at the incenter, which lies
-at distance $r = (a+b-c)/2$ from each side. With the right-angle vertex at $(a,0)$
-and the legs along $y=0$ and $x=a$, the incenter has coordinates $(a-r, r)$.}
+\footnote{Existence and uniqueness of the inscribed circle in a triangle is
+a standard fact: the angle bisectors of the triangle are concurrent at the
+incenter, which is then equidistant from the three sides.}
 in a {\em right\/} triangle, one can decompose the triangle 
 into two pairs of right triangles and a square. The fact that the sub-triangles
 are right triangles follows using the fact that 
@@ -84,24 +83,12 @@ A {\em primitive Pythagorean triple\/} $(a,b,c)$ is a triple of positive
 integers in reduced form satisfying $a^2 + b^2 = c^2$; it gives the side
 lengths of a {\em primitive Pythagorean triangle\/}, where $c$ is the
 hypotenuse and $a$, $b$ are the legs.
-What can we say about the evenness or oddness of the sides when they have no 
-common factor? The possibilities are: 
-\begin{itemize}
-    \item $c$ is even AND {\em exactly\/} one of the following is true:
-        \begin{itemize}
-            \item Both $a$ and $b$ are even;
-            \item Both $a$ and $b$ are odd;
-        \end{itemize}
-    \item $c$ is odd AND {\em exactly\/} one of the following is true:
-        \begin{itemize}
-            \item Exactly one of $a$ and $b$ is even (the other being odd).
-        \end{itemize}
-\end{itemize}
-Since the triple $(a,b,c)$ is in reduced form, we can eliminate the case
-of all three being even.
-By the Pythagorean theorem we know that $a^2 + b^2 = c^2$. Using this we can 
-reduce the combinations further to the following:%
-\footnote{We list the results of all combinations of even and odd numbers with 
+What can we say about the evenness or oddness of the sides when they have no
+common factor? Since $a^2 + b^2 = c^2$, taking parities mod $2$ gives
+$a^2 + b^2 \equiv c^2 \pmod 2$, so the combined parity of $a, b$ must match
+the parity of $c$. This rules out three of the six naive combinations and
+leaves:%
+\footnote{We list the results of all combinations of even and odd numbers with
 respect to: addition, subtraction, and multiplication:
 \begin{enumerate}
     \item $E \pm E = E$; $E \times E = E$;
@@ -114,12 +101,25 @@ Likewise, an even integer plus (or minus) an odd integer is an odd integer, etc.
 These results are used throughout the rest of the document.
 }
 \begin{itemize}
+    \item $c$ is even AND {\em exactly\/} one of the following is true:
+        \begin{itemize}
+            \item Both $a$ and $b$ are even;
+            \item Both $a$ and $b$ are odd;
+        \end{itemize}
+    \item $c$ is odd AND exactly one of $a$ and $b$ is even (the other being odd).
+\end{itemize}
+Since the triple $(a,b,c)$ is in reduced form, we can eliminate the case of
+$a$, $b$, and $c$ all being even. Eliminating that case leaves the following
+two possibilities:
+\begin{itemize}
   \item $c$ is even AND both $a$ and $b$ are odd;
   \item $c$ is odd AND exactly one of $a$ and $b$ is even (the other being odd).
 \end{itemize}
 
-Regardless of which choice occurs, equation \eqref{radius} implies that 
-the radius of the circle, $r$, is an integer.
+In both cases $a + b - c$ is even (odd $+$ odd $-$ even,
+or odd $+$ even $-$ odd),
+so equation \eqref{radius} implies that the radius of the circle, $r$,
+is an integer.
 Using this fact and equation \eqref{area} we see that $\frac{ab}{2}$ must be
 an integer, which means the product $ab$ is even.
 This knowledge eliminates the first choice; namely, that $c$ is even with
