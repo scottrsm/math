@@ -4,7 +4,7 @@
 
 \title{What is a derivative \\ (with applications to Data Science and Physics)}
 \author{R. Scott McIntire}
-\date{Apr 25, 2026}
+\date{May 2, 2026}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -163,9 +163,9 @@ In this case, it simply means take a derivative in the third slot of the functio
 Note, different choices of
 coordinate systems will yield different
 values for the components of $f$. It turns out that in two dimensions if one uses
-polar coordinates and the function ${\tilde f}$ is written using these coordinates
-that the components of the gradient of $f$ are:
-$[\frac{1}{r} \frac{\partial {\tilde f}}{\partial \theta}, \frac{\partial {\tilde f}}{\partial r}]$.
+polar coordinates and the function ${\tilde f}$ is written using these coordinates,
+the components of the gradient of $f$ in the $(\hat r, \hat\theta)$ basis are
+$\left[\frac{\partial {\tilde f}}{\partial r}, \frac{1}{r} \frac{\partial {\tilde f}}{\partial \theta}\right]$.
 
 {\bf Note.} The ``local'' direction of maximum increase at a point of the
 $f({\bf x})$ is given by the gradient of $f$. To see this notice that we can
@@ -180,14 +180,14 @@ maximum increase (locally) is $\nabla f({\bf x})$ (normalized).
 \begin{align}
   f({\bf x} + h {\bf w})  - f({\bf x}) &= \nabla f({\bf x}) \cdot h {\bf w} + o(h {\bf w})
 \end{align}
-But the Cauchy-Schwartz inequality says:
+But the Cauchy-Schwarz inequality says:
 $|\nabla f({\bf x}) \cdot h{\bf w}| \le \|\nabla f({\bf x})\| |h|$.
 The maximum is only achieved if $\nabla f({\bf x})$ and ${\bf w}$ are in the
 same direction. That is ${\bf w} = \frac{\nabla f({\bf x})}{\|\nabla f({\bf x})\|}$.
 
 Therefore, to increase $f$ in the fastest possible way (locally) move in the direction
 of $\nabla f({\bf x})$; conversely, to decrease $f$ in the
-fastest possible way (locally) move in the direction of $-\nabla f({\bf x})$
+fastest possible way (locally) move in the direction of $-\nabla f({\bf x})$.
 
 \subsection{Application to Optimization and Data Science}
 By the same reasoning of the last section in order to find a maximum or minimum
@@ -207,12 +207,14 @@ This suggests a scheme for finding the minimum.
 \begin{algorithmic}
   \STATE ${\bf x}_0 \leftarrow {\bf x}^{(0)}$
   \STATE $n \leftarrow 0$
-  \WHILE{$\|{\bf x}_n - {\bf x}_{n-1}\| > \epsilon \;\text{and}\; n \le N$}
+  \STATE $\textit{converged} \leftarrow \textbf{False}$
+  \WHILE{not \textit{converged} and $n < N$}
     \STATE $n \leftarrow n + 1$
     \STATE ${\bf x}_n \leftarrow {\bf x}_{n-1} - \eta \nabla f({\bf x}_{n-1})$
+    \STATE $\textit{converged} \leftarrow (\|{\bf x}_n - {\bf x}_{n-1}\| \le \epsilon)$
   \ENDWHILE
     \vspace{1em}
-  \IF{$n > N$}
+  \IF{not \textit{converged}}
     \STATE \textbf{ERROR:} Did not converge within $N$ steps.
   \ELSE
     \STATE ${\bf x}^* \leftarrow {\bf x}_n$
@@ -248,11 +250,15 @@ Using \eqref{mderdef} one can derive a representation of the derivative
 using functions 
 commensurate with a choice of basis vectors, ${\bf e}_i \quad i \in [1, n]$. Given
 this choice of basis, let ${\tilde f}_j$ be the coordinate functions for ${\bf f}$.
-We claim without proof that the matrix representing the derivative is given by
-$[{\bf Df}({\bf x})]$, whose $i^{\rm th}, j^{\rm th}$ entries are:
+We claim without proof that the matrix representing the derivative is the
+{\em Jacobian\/} $[{\bf Df}({\bf x})]$, an $m \times n$ matrix whose
+$(i, j)$ entry (row $i$, column $j$) is:
 \begin{align}
-  [{\bf Df}(x)]_{i,j} &= \frac{\partial {\tilde {\bf f}}_j}{\partial x_i}
+  [{\bf Df}({\bf x})]_{i,j} &= \frac{\partial {\tilde {\bf f}}_i}{\partial x_j}
 \end{align}
+That is, row $i$ corresponds to the $i^{\rm th}$ output component
+$\tilde f_i$, and column $j$ corresponds to the $j^{\rm th}$ input variable
+$x_j$.
 
 Why do we study matrices? One answer is that they represent the linear mappings
 from $R^n \rightarrow R^m$ and so if we want to use calculus%
@@ -488,7 +494,10 @@ means:
 The dynamics of a mass is determined by finding a trajectory
 where the Lagrangian is locally flat -- a place
 where the derivative of the Lagrangian is zero.
-The Lagrangian of a mass hanging from a spring is%
+For a mass attached to a spring (with $y$ measuring displacement from the
+equilibrium position, so any constant gravitational potential drops out
+and the Lagrangian reduces to kinetic minus elastic potential energy)
+the Lagrangian is%
 \footnote{We replace the ``dummy''{} variable $x$ in our equations with $t$.}
 \begin{align}
   J(y) &= \int_0^T \overbrace{\frac{1}{2} m {y^\prime(t)}^2}^{\text{Kinetic Energy}} 
