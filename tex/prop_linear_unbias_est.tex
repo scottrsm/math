@@ -7,21 +7,21 @@
 \footline{\hss\tenrm\folio\hss}
 
 \mantitle{Properties of a Linear Unbiased Minimum Variance Estimator}
-{R. Scott McIntire}{Apr 25, 2026}
+{R. Scott McIntire}{May 2, 2026}
 
 \section{Overview}
 A standard problem is to find the linear unbiased ``minimum'' variance estimator
 for the overdetermined problem\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}
-{This means that $n > m$.}: $A {\bf x} = {\bf b}$, where 
-$A$ is $n \times m$ and ${\bf x}$ and
-${\bf b}$ are $m \times 1$ and $n \times 1$ random variables respectively. The
-covariance of ${\bf b}$ is given as $V$ and is assumed invertible. 
-We look for a linear unbiased estimator for ${\bf x}$ of the form 
+{This means that $n > m$.}: $A {\bf x} = {\bf b}$, where
+$A \in {\bf R}^{n \times m}$, ${\bf b} \in {\bf R}^n$ is a random observation
+with $E[{\bf b}] = A {\bf x}$ and covariance $V$ (assumed invertible), and
+${\bf x} \in {\bf R}^m$ is the deterministic parameter we wish to estimate.
+We look for a linear unbiased estimator for ${\bf x}$ of the form
 ${\bf x}^* = L {\bf b}$, where $L\in {\bf R}^{m \times n}$. Since ${\bf x}^*$
-is unbiased we must have 
-$E[{\bf x} - {\bf x}^*] = E[{\bf x} - L
-  {\bf b}] = E[{\bf x} - LA{\bf x}]$. We satisfy this constraint by
-requiring that $LA = I$. This implies that $A$ and $L$ have rank $m$.
+is unbiased we must have
+$E[{\bf x} - {\bf x}^*] = {\bf x} - L A {\bf x} = (I - LA){\bf x}$. For this
+to vanish for every ${\bf x}$, we require $LA = I$. This implies that $A$
+and $L$ have rank $m$.
 The covariance of $L{\bf b}$ is $LVL^T$. The problem now is to find
 the best $L$ such that $LA = I$ and the covariance matrix, $LVL^T$, is
 minimized in some sense.
@@ -38,8 +38,8 @@ positive definite matrix $M_{m \times m}$ (these are the {\it Schatten\/} $k$-no
 
 \section{Do the Norms Matter?}
 The question is, do different choices of norms lead to a different
-solution, $L$? To answer this, we solve the constrained minimization 
-problem that results from each of these trace norms\footnote{\kern 0.5pt *}
+solution, $L$? To answer this, we solve the constrained minimization
+problem that results from each of these trace norms\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}
 {Equivalently, we minimize the $k^{\rm th}$ power
 of the $k^{\rm th}$ trace norm.}:
 $$
@@ -98,9 +98,10 @@ $$
 2L^{*T} & = V^{-1} A \Lambda_1^T & (2) \cr }
 $$
 Multiplying both sides by $A^T$ and using the fact that
-$A^TL^{*T} = I$ yields $2I = A^TV^{-1}A\Lambda_1$. Since $A$ has rank
-$m$, it follows that $\Lambda_1 = 2(A^TV^{-1}A)^{-1}$. Combining this
-with equation (2) gives
+$A^TL^{*T} = I$ yields $2I = A^TV^{-1}A\Lambda_1^T$. Since $A$ has rank
+$m$, $A^TV^{-1}A$ is invertible, so $\Lambda_1^T = 2(A^TV^{-1}A)^{-1}$
+(the right-hand side is symmetric, so $\Lambda_1 = \Lambda_1^T$). Combining
+this with equation (2) gives
 $$
 L^* = (A^TV^{-1}A)^{-1}A^TV^{-1}
 $$
@@ -204,9 +205,7 @@ $\min_{\{x \in \Omega: g(x) = 0\}}\;\varphi_k(x)$
 for {\it every\/} $k \in [1,\infty)$; further,
 if  $\varphi_k$ are functions which converge point-wise to the
 continuous function $\varphi$ on $\Omega$ with the coercive property
-that
-$\lim_{\|x\| \rightarrow \infty}\limits
-\varphi(x) \rightarrow \infty$, then
+$\varphi(x) \to \infty$ as $\|x\| \to \infty$, then
 $x^* \in \mathop{\rm argmin}_{\{x \in \Omega: g(x) = 0\}} \varphi(x).$
 
 {\bf Proof.} 
@@ -268,12 +267,13 @@ $LVL^T$, subject to the constraint $L_{m \times n}A_{n \times m} = I_{m \times m
 $\Omega = \{L \in {\bf R}^{m \times n} : LA = I\}$ (closed),
 $\varphi_n(L) = \root n \of {{\rm tr}((LVL^T)^n)}$ (the $n^{\rm th}$ Schatten norm of $LVL^T$),
 and $\varphi(L) = \lambda_{\max}(LVL^T)$ (the spectral norm of $LVL^T$, which is
-positive semi-definite). The constraint $g(L) = 0$ is vacuous since $\Omega$ already
-encodes $LA = I$. Theorem 1 follows after collecting the facts:
+positive definite since $L$ has full row rank and $V$ is positive definite).
+The constraint $g(L) = 0$ is vacuous since $\Omega$ already encodes $LA = I$.
+Theorem 1 follows after collecting the facts:
 
-\item{For a positive semi-definite matrix with eigenvalues $\lambda_i \ge 0$,
+\item{For a positive definite matrix with eigenvalues $\lambda_i > 0$,
 $\root k \of {\sum_i \lambda_i^k} \to \max_i \lambda_i$ as $k \to \infty$.}
-\item{The $L_2$ matrix norm of a positive semi-definite matrix is its
+\item{The $L_2$ matrix norm of a positive definite matrix is its
 maximum eigenvalue.}
 \item{The $L_2$ norm is coercive.}
 
