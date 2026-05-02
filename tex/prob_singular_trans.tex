@@ -8,7 +8,7 @@
 \footline{\hss\tenrm\folio\hss}
 
 \mantitle{Singular Transformations of Probability Density Functions}
-{R. Scott McIntire} {Apr 25 2026}
+{R. Scott McIntire}{May 2, 2026}
 
 \section{Overview}
 For non-singular transformations of variables with distributions, there 
@@ -80,7 +80,7 @@ $$
 The solution of this can be found using Lagrange multipliers. The resulting
 minimization problem is :
 $$
-\min_{\bf x} F({\bf x}) = \min_{\bf x} \|{\bf x}\|^2 + \langle{\bf \lambda}, {\bf y} - A{\bf x}\rangle
+\min_{\bf x} F({\bf x}) = \min_{\bf x} \|{\bf x}\|^2 + \langle\lambda, {\bf y} - A{\bf x}\rangle
 $$
 At a minimum, ${\bf x}^*$, $DF({\bf x}^*) ({\bf h}) = {\bf 0}$. 
 $DF({\bf x}^*)$ 
@@ -88,16 +88,16 @@ can be computed from
 $F({\bf x} + {\bf h}) = F({\bf x}) + DF({\bf x})({\bf h}) + o({\bf h})$. The order 
 ${\bf h}$ terms are:
 $$
-2\langle{\bf x}, {\bf h}\rangle - \langle{\bf \lambda}, A{\bf h}\rangle
+2\langle{\bf x}, {\bf h}\rangle - \langle\lambda, A{\bf h}\rangle
 $$
 Therefore, $DF({\bf x}^*)({\bf h}) =
-\langle 2 {\bf x}^* - A^T {\bf \lambda}, {\bf h}\rangle$. Since $DF({\bf x}^*) \equiv 0$, we
-have that $2 {\bf x}^* - A^T {\bf \lambda} = {\bf 0}$. Applying $A$ to this 
+\langle 2 {\bf x}^* - A^T \lambda, {\bf h}\rangle$. Since $DF({\bf x}^*) \equiv 0$, we
+have that $2 {\bf x}^* - A^T \lambda = {\bf 0}$. Applying $A$ to this 
 last equation and using the fact that $A$ has rank $m$ and  
 $A{\bf x}^* = {\bf y}$ yields:%
 \ft 1 
 {Since $A$ has rank $m$ (${\rm dim}(R(A)) = m$) and $R(AA^T) = R(A)$, $AA^T$ is invertible.}
-${\bf \lambda} = 2 (A A^T)^{-1} {\bf y}$.
+$\lambda = 2 (A A^T)^{-1} {\bf y}$.
 This implies that ${\bf x}^* = A^T \left(A A^T\right)^{-1} {\bf y}$.
 
 \bigskip
@@ -112,16 +112,19 @@ $n$-dimensional volume
 $\sqrt{ |A^T A|}$.
 
 {\bf Proof.} Since $R(A)$ has dimension $n$, there is a linear map
-$P: R(A) \to {\bf R}^n$ which is a linear isomorphism that preserves the 
-inner product. That is, $\langle P {\bf x}, P{\bf y}\rangle \; = \; \langle{\bf x}, {\bf y}\rangle$. Or,
-$\langle(P^TP  - I){\bf x}, {\bf y}\rangle \; = \; 0 \enspace \forall {\bf x}, {\bf y} \in {\bf R}^n$. 
-This implies that $P^TP \equiv I$. The change in volume of the 
-unit cube under $PA$ is the same as $A$ as P preserves volumes. However,
-$PA$ is a map from ${\bf R}^n$ to ${\bf R}^n$, so it changes the volume of the unit cube
-by $|PA|$. Since for given transformations, $B, C: {\bf R}^n \to {\bf R}^n$ we have 
-$|B^T| = |B|$ and $|BC| = |B| |C|$, it follows that
-$|PA|^2 = |PA| |PA| = |A^TP^T| |PA| = |A^TP^T P A| = |A^TA|$. The last
-equality comes from the fact that $P^TP = I$.
+$P: R(A) \to {\bf R}^n$ which is a linear isomorphism that preserves the
+inner product. That is, $\langle P {\bf x}, P{\bf y}\rangle \; = \; \langle{\bf x}, {\bf y}\rangle$
+for all ${\bf x}, {\bf y} \in R(A)$, equivalently
+$\langle(P^TP - I){\bf x}, {\bf y}\rangle = 0 \enspace \forall {\bf x}, {\bf y} \in R(A)$.
+This says $P^TP$ acts as the identity on $R(A)$; in particular,
+$P^TP A = A$ since each column of $A$ lies in $R(A)$. The change in volume
+of the unit cube under $PA$ is the same as under $A$ since $P$ preserves
+volumes. However, $PA$ is a map from ${\bf R}^n$ to ${\bf R}^n$, so it changes
+the volume of the unit cube by $|PA|$. Since for given transformations
+$B, C: {\bf R}^n \to {\bf R}^n$ we have $|B^T| = |B|$ and $|BC| = |B|\,|C|$,
+it follows that
+$|PA|^2 = |PA|\,|PA| = |A^TP^T|\,|PA| = |A^TP^TPA| = |A^TA|$,
+where the last equality uses $P^TPA = A$.
 Therefore, the change in volume is $\sqrt{|A^TA|}$.
 
 \bigskip
@@ -231,7 +234,7 @@ onto the target variable. In this case we add the contributions of each
 to the probability distribution of the target variable, $Y$.
 
 
-\section{Applications of Theorem 1.}
+\section{Applications of Theorem 1}
 We apply Theorem 1 with various types of singular mappings.
 \medskip
 
@@ -414,33 +417,33 @@ We use the unparameterized form of the transformation formula, equation~(3),
 applied with $\Omega_{X_2} = f^{-1}(y)$.}
 $$
 \eqalignno{
-	P_Y(y) & = \int_{\partial B(\sqrt{y})} \frac{P_{\bf X}({\bf x}) \, d{\bf x}}{\sqrt{|Df({\bf x}) \, Df^T({\bf x})|}} & \cr
+	P_Y(y) & = \int_{\partial B(\sqrt{y})} \frac{P_{\bf X}({\bf x}) \, dS}{\sqrt{|Df({\bf x}) \, Df^T({\bf x})|}} & \cr
 }
 $$
 Here, $Df({\bf x}) = 2\, {\bf x}^T$. Consequently, on the sphere of radius, $\sqrt{y}$, we have 
 $\sqrt{|Df({\bf x}) Df^T({\bf x})|} = 2 \sqrt{y}$. Therefore, we may write the above as
 $$
 \eqalignno{
-P_Y(y) & = \int_{\partial B(\sqrt{y})} \frac{P_{\bf X}({\bf x}) \, d{\bf x}}{2\sqrt{y}} & \cr
+P_Y(y) & = \int_{\partial B(\sqrt{y})} \frac{P_{\bf X}({\bf x}) \, dS}{2\sqrt{y}} & \cr
 }
 $$
 This is
 $$
 \eqalignno{
-	P_Y(y) & = \int_{\partial B(\sqrt{y})} \frac{e^{-\sum_{i=1}^n x_i^2/(2\sigma^2)} \, d{\bf x}}{(2\pi)^{n/2} \sigma^n 2\sqrt{y}} & \cr
+	P_Y(y) & = \int_{\partial B(\sqrt{y})} \frac{e^{-\sum_{i=1}^n x_i^2/(2\sigma^2)} \, dS}{(2\pi)^{n/2} \sigma^n 2\sqrt{y}} & \cr
 }
 $$
 Which is
 $$
 \eqalignno{
-	P_Y(y) & = \int_{\partial B(\sqrt{y})} \frac{e^{-y/(2\sigma^2)} \, d{\bf x}}{(2\pi)^{n/2} \sigma^n 2\sqrt{y}} & \cr
+	P_Y(y) & = \int_{\partial B(\sqrt{y})} \frac{e^{-y/(2\sigma^2)} \, dS}{(2\pi)^{n/2} \sigma^n 2\sqrt{y}} & \cr
 }
 $$
 
 Or,
 $$
 \eqalignno{
-	P_Y(y) & = \frac{e^{-y/(2\sigma^2)}}{(2\pi)^{n/2} \sigma^n 2\sqrt{y}} \int_{\partial B(\sqrt{y})} d\, {\bf x}& \cr
+	P_Y(y) & = \frac{e^{-y/(2\sigma^2)}}{(2\pi)^{n/2} \sigma^n 2\sqrt{y}} \int_{\partial B(\sqrt{y})} dS & \cr
 }
 $$
 The surface area of a sphere of radius $\sqrt{y}$ in $n$ dimensions is $2y^{(n-1)/2}\frac{\pi^{n/2}}{\Gamma(n/2)}$.
