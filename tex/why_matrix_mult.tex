@@ -7,7 +7,7 @@
 
 \title{Origins of Matrix/Vector and Matrix/Matrix Multiplication}
 \author{R. Scott McIntire}
-\date{Apr 25, 2026}
+\date{May 2, 2026}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -63,13 +63,13 @@ The multi-dimensional case can be rewritten in vector terms as:
 	  a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n  \\
 	  a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n \\
   \specialcell{\hfil\vdots\hfil}  \\
-  a_{n1} x_1 + a_{n2} x_2 + \cdots + a_{nn} x_n 
+  a_{n1} x_1 + a_{n2} x_2 + \cdots + a_{nn} x_n
   \end{array}
   \right] &= \left[
                  \begin{array}{c}
                    b_1 \\
                    b_2 \\
-                   \vdots \\
+                   \specialcell{\hfil\vdots\hfil} \\
                    b_n
                  \end{array}
    \right] \label{vector-form}
@@ -79,30 +79,30 @@ with standard mathematical summing notation:
 \begin{align}
   \left[
   \begin{array}{c}
-	\sum_{j=1}^n a_{1j} x_j        \\ 
-	\sum_{j=1}^n a_{2j} x_j        \\ 
+	\sum_{j=1}^n a_{1j} x_j        \\
+	\sum_{j=1}^n a_{2j} x_j        \\
   \specialcell{\hfill\vdots\hfill} \\
-	\sum_{j=1}^n a_{nj} x_j        \\ 
+	\sum_{j=1}^n a_{nj} x_j        \\
   \end{array}
   \right] &= \left[
                  \begin{array}{c}
                    b_1     \\
                    b_2     \\
-                   \vdots  \\
+                   \specialcell{\hfill\vdots\hfill} \\
                    b_n
                  \end{array}
    \right] \label{vector-form1}
 \end{align}
 Two things need to be done: treat the $x$'s as a unit -- as we did with the
-$b$'s -- and separate the $a$ coefficients from the $x$'s. This must be done formally
-and yet have the same meaning as the original problem formulation.
+$b$'s -- and separate the $a$ coefficients from the $x$'s. This must be done
+formally while preserving the meaning of the original problem.
 This is done in the most natural of ways:
 \begin{align}
   \left[
   \begin{array}{cccc}
     a_{11} & a_{12} & \cdots & a_{1n}     \\
 	a_{21} & a_{22} & \cdots & a_{2n}     \\
-	&& \specialcell{\hfill\vdots\hfill} & \\
+    \specialcell{\hfill\vdots\hfill} & \specialcell{\hfill\vdots\hfill} & \specialcell{\hfill\ddots\hfill} & \specialcell{\hfill\vdots\hfill} \\
     a_{n1} & a_{n2} & \cdots & a_{nn}     \\
     \end{array}
   \right]
@@ -110,7 +110,7 @@ This is done in the most natural of ways:
   \begin{array}{c}
     x_1    \\
     x_2    \\
-    \vdots \\
+    \specialcell{\hfill\vdots\hfill} \\
     x_n
   \end{array}
   \right] &=
@@ -118,7 +118,7 @@ This is done in the most natural of ways:
                 \begin{array}{c}
                   b_1    \\
                   b_2    \\
-                  \vdots \\
+                  \specialcell{\hfill\vdots\hfill} \\
                   b_n
                 \end{array}
   \right] \label{matrix-form2}
@@ -188,24 +188,24 @@ are added and multiplied by scalars.}
 	  x_1 \left[ \begin{array}{c}
 			  a_{11} \\
 			  a_{21} \\
-		  	  \vdots \\
+		  	  \specialcell{\hfill\vdots\hfill} \\
 			  a_{n1}
 		     \end{array}
 	      \right]
-		  +  
+		  +
 	  x_2 \left[ \begin{array}{c}
 			  a_{12} \\
 			  a_{22} \\
-		  	  \vdots \\
+		  	  \specialcell{\hfill\vdots\hfill} \\
 			  a_{n2}
 		     \end{array}
 	      \right]
 		  + \; \cdots \;
-		  + 
+		  +
 	  x_n \left[ \begin{array}{c}
 			  a_{1n} \\
 			  a_{2n} \\
-		  	  \vdots \\
+		  	  \specialcell{\hfill\vdots\hfill} \\
 			  a_{nn}
 		     \end{array}
 	      \right]
@@ -214,7 +214,7 @@ are added and multiplied by scalars.}
                 \begin{array}{c}
                   b_1    \\
                   b_2    \\
-                  \vdots \\
+                  \specialcell{\hfill\vdots\hfill} \\
                   b_n
                 \end{array}
   \right]
@@ -259,9 +259,10 @@ leave to the reader. What this means in practice is that for a given vector, ${\
 we can compute $A {\bf z}$ by computing $A$ on the ``components'' of ${\bf z}$ and then multiplying by scalars and adding
 the resulting vectors.
 This can be an easier way to compute the {\em action\/} of a matrix on a vector in some cases.
-The linearity result above can be extended to arbitrary sums as:
+The linearity result above can be extended to any finite linear
+combination:
 \begin{align}
-	A\left( \sum_{j=1}^n c_j {\bf x}_j \right) &= \sum_{j=1}^n c_j A {\bf x}_j
+	A\left( \sum_{j=1}^m c_j {\bf x}_j \right) &= \sum_{j=1}^m c_j A {\bf x}_j
 \end{align}
 
 Continuing with our solution outline, matrix/matrix multiplication is needed
@@ -327,7 +328,7 @@ of the vectors $\{{\bf e}_j\}_{j=1}^n$: ${\bf x} = a_1 {\bf e}_1 + a_2 {\bf e}_2
 Matrix multiply the left and right hand sides by the matrix, $B\,A$. This gives
 \begin{align}
 	(B\, A){\bf x} &= (B \, A)\left(\sum_{j=1}^n a_j {\bf e}_j\right) \quad\quad \text{Replace ${\bf x}$ with its components, ${\bf e}_j$.}\nonumber \\
-				   &=\sum_{j=1}^n a_j (B \, A){\bf e}_j \quad\quad \text{{\em Linearity\/} of matrix/vector multiplication by $(B \, A)$.}\nonumber \\
+				   &=\sum_{j=1}^n a_j (B \, A){\bf e}_j \quad\quad \text{{\em Linearity\/} of matrix/vector multiplication by $(B \, A)$ (itself a matrix).}\nonumber \\
 				   &=\sum_{j=1}^n a_j B (A{\bf e}_j) \quad\quad \text{{\em Associativity\/} of matrix/matrix multiplication on components, ${\bf e}_j$.}\nonumber \\
 				   &=B\left(\sum_{j=1}^n a_j A{\bf e}_j\right) \quad\quad \text{{\em Linearity\/} of matrix/vector multiplication by $B$.}\nonumber \\
 				   &=B\left( A\left(\sum_{j=1}^n a_j {\bf e}_j\right)\right) \quad\quad \text{{\em Linearity\/} of matrix/vector multiplication by  $A$.}\nonumber \\
@@ -371,30 +372,33 @@ By the {\em linearity\/} of matrix/vector multiplication, we have
 							 &= {\bf x} \quad\quad \text{Replace components with ${\bf x}$.}
 \end{align}
 One can show that this identity matrix, $I$, is also the identity operator for
-matrix/matrix multiplication.
+matrix/matrix multiplication: applying $(IA){\bf e}_j = I(A {\bf e}_j) = A {\bf e}_j$
+to each $j$ shows $(IA)^j = A^j$ for all $j$, hence $IA = A$; the same argument
+on the columns of $A$ gives $AI = A$.
 
-The only thing left is to know when a matrix inverse exists and how to compute it.
-We do not attempt to do this in this paper. In the next section we continue with
+The only remaining piece is to determine when a matrix inverse exists and how
+to compute it. We do not attempt to do this in this paper. In the next section we continue with
 a qualitative comparison of the solution to the scalar problem, $a\, x = b$, 
 and its vectorized cousin.
 
 
 \section{Qualitative Features of Solutions}
 We can view the multiplication of two numbers, $a$ and $x$, as just that.
-Or, we can think of $a$ being fixed and letting $x$ ``run-through'' all 
+Or, we can think of $a$ being fixed and letting $x$ ``run through'' all
 numbers. Here we see two cases: if $a \neq 0$, then letting $x$ run
 through all of the numbers in ${\bf R}$ will produce all of the numbers in ${\bf R}$.
-We could think of $a$ as an ``operator'' and call the set of all possible 
+We could think of $a$ as an ``operator'' and call the set of all possible
 outputs, the range of $a$ and denote it: ${\cal R}(a)$.
-There is another case, $a$ could be zero. In this case it's range is the
+There is another case: $a$ could be zero. In this case its range is the
 set $\{0\}$. In the first case, with non-zero $a$ it is clear that we can
 find an $x$ to ``hit'' a given value $b$. That is, we can solve $a\, x = b$.
 
-One can define the same concept for a matrix, $A$. In this case, we produce a 
-``space'' of all possible outputs of $A$ ``acting'' using all possible input vectors; 
-that is, all $x \in {\bf R}^n$. This amounts to, using \eqref{mult-as-vec-combo}, the set of all 
-{\em linear combinations\/} of the columns of $A$. Using this language
-of ranges, here is what we can say about the scalar problem: $a \, x = b$.
+One can define the same concept for a matrix, $A$. In this case, we produce a
+``space'' of all possible outputs of $A$ as it acts on every input vector
+${\bf x} \in {\bf R}^n$. This amounts to, using \eqref{mult-as-vec-combo},
+the set of all {\em linear combinations\/} of the columns of $A$. Using this
+language of ranges, here is what we can say about the scalar problem:
+$a \, x = b$.
 \begin{description}
 	\item[Unique Solution:] If $a^{-1}$ exists ($a \neq 0$),
 		then there is a {\bf unique\/} solution.
