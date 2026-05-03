@@ -3,7 +3,7 @@
 
 \title{What is a Determinant}
 \author{R. Scott McIntire}
-\date{May 2, 2026}
+\date{May 3, 2026}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -15,11 +15,22 @@
 \begin{document}
 \maketitle
 
-\section{What is the Determinant of a Matrix}
-The determinant of an $n\times n$ matrix $A$ is the factor by which the volume of
-the unit cube is changed upon the action of $A$. Essentially, the cube is
-transformed into a parallelepiped. The primary edges of the unit cube are the
-vectors: $\{ [1, 0, \ldots, 0], [0, 1, 0, \ldots, 0], \ldots, [0, \ldots, 0, 1]\}$.
+\begin{abstract}
+We derive the determinant of an $n \times n$ matrix from three axioms
+motivated by oriented volume, prove $|A| = |A^T|$ by reindexing the
+permutation sum, then compute the derivative of the determinant
+({\em Jacobi's formula\/}) and apply it to deduce {\em Liouville's
+theorem\/} on the volume evolution of linear flows
+$\dot{\mathbf{x}} = A \mathbf{x}$.
+\end{abstract}
+
+\section{From oriented volume to the determinant formula}
+The determinant of an $n\times n$ matrix $A$ is the {\em signed\/} factor by which
+the volume of the unit cube is changed upon the action of $A$. (We will see
+that the sign is forced by the algebra; for now treat it as a feature, not a bug.)
+The cube is transformed into a parallelepiped. The $n$ edges of the unit cube
+meeting at the origin are the standard basis vectors:
+$\{ [1, 0, \ldots, 0], [0, 1, 0, \ldots, 0], \ldots, [0, \ldots, 0, 1]\}$.
 When $A$ acts on these vectors through matrix multiplication it
 produces the column vectors of $A$ -- by the definition of matrix multiplication.
 
@@ -41,12 +52,15 @@ Here's some properties we should agree on:
 \item[Volume of Canonical Unit Cube:] The volume of the unit cube using
     standard ordering of unit edges, ${\bf e}_1, {\bf e}_2, \ldots , {\bf e}_n$, is 1.
 \end{description}
-Let's go through each property.
-The first property is true with respect to scaling. If we scale any slot
-(edge) by a factor
-$k$ then the volume of the resulting parallelepiped should scale by $k$.
-That addition should distribute in each slot takes more thought which we leave
-to the reader.
+Let's go through each property. We are not deriving these from a prior
+definition of geometric volume; rather, we are {\em postulating\/} a function $V$
+with these properties, motivated by what oriented volume should look like.
+Scaling is intuitive: if we scale any slot (edge) by a factor $k$ then the
+volume of the resulting parallelepiped should scale by $k$. Additivity in each
+slot is more subtle and is genuinely a postulate rather than a visible fact about
+parallelepipeds --- but it is the assumption that lets the rest of the theory go
+through, and the resulting function turns out to coincide with geometric volume in
+the cases ($n = 2, 3$) where we can check.
 
 The degeneracy property is clear, if we have duplicate edges then a parallelogram
 in $R^2$ collapses to a line segment and consequently the area is zero. Similarly
@@ -178,13 +192,12 @@ ordering $V({\bf e}_1, {\bf e}_2, \ldots, {\bf e}_n)$. So the value of
 $V({\bf e}_{\sigma(1)}, {\bf e}_{\sigma(2)}, \ldots, {\bf e}_{\sigma(n)})$ should be
 the value of $V({\bf e}_1, {\bf e}_2, \ldots, {\bf e}_n)$ times $(-1)^k$, where
 $k$ is the number of minimal transpositions needed to get to the canonical ordering of
-indices. We denote the parity of $\sigma$ by ${\rm sgn}(\sigma)$:%
-\footnote{The mapping ${\rm sgn}: S_n \rightarrow {\bf Z}_2$ is a group homomorphism.
-Throughout this paper ${\rm sgn}(\sigma) \in \{0, 1\}$ is the {\it parity\/} of $\sigma$;
-the actual sign $\pm 1$ is then $(-1)^{{\rm sgn}(\sigma)}$. (Some texts define
-${\rm sgn}(\sigma) \in \{-1, +1\}$ directly.)}
-${\rm sgn}(\sigma) = 1$ if $k$ is odd and ${\rm sgn}(\sigma) = 0$
-if $k$ is even. And since we know the volume of the canonical cube is $1$,
+indices. We denote the sign of $\sigma$ by ${\rm sgn}(\sigma) \in \{-1, +1\}$:%
+\footnote{The mapping ${\rm sgn}: S_n \rightarrow \{\pm 1\}$ is a group homomorphism;
+${\rm sgn}(\sigma) = -1$ if $k$ is odd and ${\rm sgn}(\sigma) = +1$ if $k$ is even,
+where $k$ is the number of transpositions in any factorization of $\sigma$ (this
+parity is well-defined).}
+And since we know the volume of the canonical cube is $1$,
 the formula for the parallelepiped -- and hence the
 determinant of the matrix $A$ -- becomes:
 \begin{align}
@@ -204,17 +217,17 @@ determinant of the matrix $A$ -- becomes:
   &= \sum_{\sigma \in S_n} a_{\sigma(1), 1} a_{\sigma(2),2} \ldots a_{\sigma(n), n}
         V({\bf e}_{\sigma(1)}, {\bf e}_{\sigma(2)}, \, \ldots \, , {\bf e}_{\sigma(n)})
         \quad \text{(by the Degeneracy Property)} \nonumber \\
-      &= \sum_{\sigma \in S_n} (-1)^{{\rm sgn}(\sigma)}
+      &= \sum_{\sigma \in S_n} {\rm sgn}(\sigma)
             a_{\sigma(1), 1} a_{\sigma(2),2} \ldots a_{\sigma(n), n}
         V({\bf e}_{1}, {\bf e}_{2}, \, \ldots \, , {\bf e}_{n})
         \quad \text{(after placing edges in Canonical Order)}\nonumber \\
-      &= \sum_{\sigma \in S_n} (-1)^{{\rm sgn}(\sigma)}
+      &= \sum_{\sigma \in S_n} {\rm sgn}(\sigma)
             a_{\sigma(1), 1} a_{\sigma(2),2} \, \ldots \, a_{\sigma(n), n} \quad
         \text{(Volume of Canonical Unit Cube is $1$)}
 \end{align}
 
 
-{\bf Note:\/} There is a bug with this process. From our reasoning, it follows that
+\paragraph{Note.} There is a bug with this process. From our reasoning, it follows that
 the volume of $V({\bf e}_2, {\bf e}_1)$ is -1. It seems like this ordering 
 of edges is as valid a way to
 describe the unit square, so why is the area negative? We can fix this ``bug'' by
@@ -231,13 +244,13 @@ volume of the unit cube is stretched under $A$, but a {\em signed\/} stretching
 factor. Again, to find the magnitude of the stretching, take the absolute value
 of the determinant.
 \begin{align}
-  |A| &= \sum_{\sigma \in S_n} (-1)^{{\rm sgn}(\sigma)}
+  |A| &= \sum_{\sigma \in S_n} {\rm sgn}(\sigma)
             a_{\sigma(1), 1} a_{\sigma(2),2} \, \ldots \, a_{\sigma(n), n} \label{det_formula}
 \end{align}
 \subsection{Determinant of $A^T$}
 Notice that the formula \eqref{det_formula} can also be written as:
 \begin{align}
-  |A| &= \sum_{\sigma \in S_n} (-1)^{{\rm sgn}(T(\sigma))}
+  |A| &= \sum_{\sigma \in S_n} {\rm sgn}(T(\sigma))
             a_{T(\sigma)(1), 1} a_{T(\sigma)(2),2} \, \ldots \, a_{T(\sigma)(n), n}
             \label{det_formula_gen}
 \end{align}
@@ -246,52 +259,32 @@ Here, $T$ is any one to one mapping from $S_n$ to itself. Why? Because the sum i
 rearranges that sum. One such choice for $T$ is the mapping that sends $\sigma$
 to its inverse, $\sigma^{-1}$. In this case, \eqref{det_formula_gen} becomes:
 \begin{align}
-  |A| &= \sum_{\sigma \in S_n} (-1)^{{\rm sgn}(\sigma^{-1})}
+  |A| &= \sum_{\sigma \in S_n} {\rm sgn}(\sigma^{-1})
             a_{\sigma^{-1}(1), 1} a_{\sigma^{-1}(2),2} \, \ldots \, a_{\sigma^{-1}(n), n}
             \label{det_formula_sinv}
 \end{align}
-But the multiplication can be rearranged in each term to give:
+Reorder the factors in each product (multiplication is commutative) and
+re-index by $i = \sigma^{-1}(k)$, so that $k = \sigma(i)$:
 \begin{align}
-  |A| &= \sum_{\sigma \in S_n} (-1)^{{\rm sgn}(\sigma^{-1})}
+  |A| &= \sum_{\sigma \in S_n} {\rm sgn}(\sigma^{-1})
             a_{1, \sigma(1)}  a_{2, \sigma(2)} \, \ldots \, a_{n, \sigma(n)}
             \label{det_formula_sinv2}
 \end{align}
-For instance, after rearranging the multiplications in \eqref{det_formula_sinv}
-there is an index $j$, so that
-$\sigma^{-1}(j) = 1$. So we have the first term in such an ordered product, $a_{1,j}$.
-But what must $j$ be? It must be $\sigma(1)$ -- since $\sigma^{-1}(\sigma(1)) = 1$.
-Similarly, the next term is $a_{2, \sigma(2)}$, etc. Then \eqref{det_formula_sinv2}
-can be written as:
+Letting $a_{i,j}^\prime$ denote the $(i,j)$ entry of $A^T$ (so
+$a_{i,j}^\prime = a_{j,i}$), we have $a_{i, \sigma(i)} = a_{\sigma(i), i}^\prime$,
+hence:
 \begin{align}
-  |A| &= \sum_{\sigma \in S_n} (-1)^{{\rm sgn}(\sigma^{-1})} a_{\sigma(1),1}^\prime
+  |A| &= \sum_{\sigma \in S_n} {\rm sgn}(\sigma^{-1}) a_{\sigma(1),1}^\prime
             a_{\sigma(2),2}^\prime \, \ldots \, a_{\sigma(n),n}^\prime \label{at_proto}
 \end{align}
-Here, we define $a_{i,j}^\prime$ as the $i^{\rm th}$, $j^{\rm th}$ element of $A^T$.
 
-Finally, for any transpositions: $\tau_1, \tau_2, \, \ldots\, , \tau_k$
-that ``unravel'' the
-permutation $\sigma$ back to the identity we have:
-$\tau_k \tau_{k-1} \, \ldots \, \tau_1 \sigma = \epsilon$.%
-\footnote{We are using $\epsilon$ to denote the identity in $S_n$.}
-Here, the multiplication is
-the group multiplication of applying one permutation on another. From this we know,
-$\sigma^{-1} = \tau_1^{-1} \tau_2^{-1} \, \ldots \, \tau_k^{-1}$. That is, for any
-collection of transpositions that returns $\sigma$ to the identity, one can
-find a collection of transpositions {\em of the same number\/} that bring
-$\sigma^{-1}$ back to the identity. Consequently,
-${\rm sgn}(\sigma) = {\rm sgn}(\sigma^{-1})$.%
-\footnote{As mentioned in a previous footnote,
-the mapping ${\rm sgn}: S_n \rightarrow {\bf Z}_2$
-is a group homomorphism. Therefore,
-\begin{align*}
-  0 = {\rm sgn}(\epsilon) = {\rm sgn}(\sigma \sigma^{-1})
-  = {\rm sgn}(\sigma) + {\rm sgn}(\sigma^{-1}).
-\end{align*}
-Consequently, ${\rm sgn}(\sigma^{-1}) = {\rm sgn}(\sigma)$, as they must both be $0$
-or both be $1$ for their sum to be $0$ in ${\bf Z}_2$.}
+Since ${\rm sgn}: S_n \to \{\pm 1\}$ is a group homomorphism,
+${\rm sgn}(\sigma) \cdot {\rm sgn}(\sigma^{-1}) = {\rm sgn}(\epsilon) = 1$,%
+\footnote{$\epsilon$ denotes the identity in $S_n$.}
+so ${\rm sgn}(\sigma^{-1}) = {\rm sgn}(\sigma)$ (since $\pm 1$ are self-inverse).
 With this, \eqref{at_proto} may be written:
 \begin{align}
-  |A| &= \sum_{\sigma \in S_n} (-1)^{{\rm sgn}(\sigma)}
+  |A| &= \sum_{\sigma \in S_n} {\rm sgn}(\sigma)
             a_{\sigma(1),1}^\prime  a_{\sigma(2),2}^\prime \, \ldots \, a_{\sigma(n),n}^\prime
             \label{det_at}
 \end{align}
@@ -300,7 +293,7 @@ From this we conclude that $|A| = |A^T|$.
 
 \section{Derivative of the Determinant}
 The determinant is a function from the space of matrices to $R$; that is,
-$|{\boldsymbol \cdot}| : R^{n \times n} \rightarrow R$.
+$\det : R^{n \times n} \rightarrow R$.
 Therefore, its derivative at a particular ``point'' $A$, $L_A$, should satisfy:%
 \footnote{Recall that for a function $f: R \rightarrow R$, the derivative at a point
   $x$ is a linear function, $Df_x: R \rightarrow R$, such that
@@ -317,15 +310,13 @@ the identity matrix, $I$.
 \begin{align}
   |I + H| &= \prod_{i=1}^n \left(1 + H_{i,i}\right) + o(H) \label{deriv_I}
 \end{align}
-In other words, the only $o(H)$ term comes from only one of the $n!$ permutations.
-The reason is that any other permutation will have 2 or more $\{H_{i,j}\}_{i,j=1}^n$ terms.
-To see this, consider any non-identity permutation $\sigma$. Then for some index $i$,
-$\sigma(i) = j \ne i$, so $(I+H)_{\sigma(i), i} = (I+H)_{j, i} = H_{j, i}$ (off-diagonal).
-Now $\sigma(j)$ cannot equal $j$, because $i$ is already sent there
-(permutations are one-to-one mappings).
-Therefore, for this permutation, $\sigma$, the product term contains the product of
-two off-diagonal entries of $H$ times the other $n-2$ entries
-($H_{i,j} \, H_{j,k} \cdot (\text{product of $n-2$ other terms})$), which is $o(H)$.
+Only the identity permutation contributes to the linear-in-$H$ part of $|I+H|$.
+To see this, take any non-identity $\sigma \in S_n$. Its non-fixed points form
+cycles of length $\geq 2$, so there are at least two indices $i$ with
+$\sigma(i) \neq i$. For each such $i$, the entry
+$(I+H)_{\sigma(i), i} = H_{\sigma(i), i}$ is off-diagonal (no $1$ contribution).
+Hence the product for $\sigma$ contains at least two off-diagonal $H$ entries,
+so it is $O(\|H\|^2) = o(\|H\|)$.
 This product can be further decomposed into constant, linear-in-$H$, and
 $o(H)$ terms:
 \begin{align}
@@ -351,8 +342,15 @@ is the linear function $L_A: R^{n \times n} \rightarrow R$ defined by:
 \begin{align}
   L_A(B) &= |A| {\rm tr}(A^{-1}B) \label{det_deriv}
 \end{align}
+This is known as {\em Jacobi's formula\/} for the derivative of the determinant.%
+\footnote{The invertibility assumption on $A$ can be removed. The general form of
+Jacobi's formula is $L_A(B) = {\rm tr}\!\left({\rm adj}(A) \, B\right)$,
+where ${\rm adj}(A)$ is the adjugate (transpose of the cofactor matrix). This
+expression is polynomial in the entries of $A$ and so is defined for all $A$,
+singular or not. When $A$ is invertible, ${\rm adj}(A) = |A| \, A^{-1}$ and the
+two forms agree; when $A$ is singular, the adjugate form is the right one.}
 
-{\bf Exercise.} Check that $L_A$ is a linear function.
+\paragraph{Exercise.} Check that $L_A$ is a linear function.
 
 \section{Applications: Liouville's Theorem}
 Suppose that a dynamical system is deforming $n$ vectors in $R^n$ over time by
@@ -362,7 +360,7 @@ the following linear {\em vector differential equations\/}:
     {\bf x}_i(0) &= {\bf x}_{0,i} \quad i \in [1,n]
 \end{align}
 
-{\bf Question:\/} How is the volume of the parallelepiped formed from the vectors $\{{\bf x}_{0,i}\}_{i=1}^n$
+\paragraph{Question.} How is the volume of the parallelepiped formed from the vectors $\{{\bf x}_{0,i}\}_{i=1}^n$
 evolving in time?
 
 To start, we could collect these vector equations into one linear
@@ -393,29 +391,37 @@ Therefore, $|X(t)|$ satisfies the following linear {\em scalar differential equa
   |X(0)| &= |X_0|
 \end{align}
 This is much easier to solve, the solution is $|X(t)| = |X_0| \, e^{{\rm tr}(A)\, t}$.
+This is {\em Liouville's formula\/}; it is a special case of Liouville's theorem
+on phase-space volume preservation in dynamical systems. The chain-rule step above
+used $X(t)^{-1}$; this is justified post hoc, since $|X(t)| = |X_0|\, e^{{\rm tr}(A)\, t}$
+is non-zero whenever $|X_0| \neq 0$, so $X(t)$ remains invertible along the flow.
 
-{\bf Question:\/} What kind of systems (defined by $A$) leave the volumes unchanged?
+\paragraph{Question.} What kind of systems (defined by $A$) leave the volumes unchanged?
 
 From the differential equation
 $\frac{d|X(t)|}{dt} = {\rm tr}(A)\,|X(t)|$ and its solution
 $|X(t)| = |X_0|\,e^{{\rm tr}(A)\,t}$,
-the volume is preserved exactly when ${\rm tr}(A) = 0$. An important
-sub-class is anti-symmetric matrices: when $A$ is {\em anti-symmetric\/}
-($A^T = -A$), it follows that $\left< A {\bf x}, {\bf x} \right> = 0$.
+the volume is preserved exactly when ${\rm tr}(A) = 0$. An important sub-class
+is anti-symmetric matrices: when $A^T = -A$, then $a_{ii} = -a_{ii}$ forces
+$a_{ii} = 0$ for every $i$, so ${\rm tr}(A) = 0$ and volumes are preserved.
 
-In this case:
+Anti-symmetric $A$ in fact gives a {\em stronger\/} conclusion than mere volume
+preservation. From $A^T = -A$ we have
+$\left< A {\bf x}, {\bf x} \right>
+   = \left< {\bf x}, A^T {\bf x} \right>
+   = -\left< {\bf x}, A {\bf x} \right>
+   = -\left< A {\bf x}, {\bf x} \right>$,
+so $\left< A {\bf x}, {\bf x} \right> = 0$. Applied to the trajectory:
 \begin{align}
   \left< {\bf x}(t), \frac{d \, {\bf x}(t)}{dt} \right>
-  = \left< {\bf x}(t), A {\bf x}(t)\right> = 0
+  = \left< {\bf x}(t), A {\bf x}(t)\right> = 0,
 \end{align}
-This says that an object's
-velocity is perpendicular to its position. In this case, if $\{{\bf e}_i\}_{i=1}^n$ is
-an orthonormal system of vectors then
-${\rm tr(A)} = \sum_{i=1}^n \left< {\bf e}_i, A {\bf e}_i \right> = \sum_{i=1}^n 0 = 0$.
-Therefore, when $A$ is anti-symmetric, the determinant of the evolving
-vectors -- their volume -- under the dynamical system does not change.
+which gives
+$\frac{d}{dt} \|{\bf x}(t)\|^2 = 2 \left< {\bf x}, \dot{\bf x} \right> = 0$:
+the {\em individual length\/} of each evolving vector is preserved, not just
+the volume of the parallelepiped they span.
 
-{\bf Exercise.} In this case, what kind of matrix is $X(t)$?
+\paragraph{Exercise.} In this case, what kind of matrix is $X(t)$?
 
 \end{document}
 
