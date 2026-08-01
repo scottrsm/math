@@ -8,7 +8,7 @@
 \footline{\hss\tenrm\folio\hss}
 
 \mantitle{Singular Transformations of Probability Density Functions}
-{R. Scott McIntire}{May 2, 2026}
+{R. Scott McIntire}{Aug 1, 2026}
 
 \section{Overview}
 For non-singular transformations of variables with distributions, there 
@@ -22,23 +22,36 @@ Below we describe a procedure to determine the
 target distribution with a more systematic process.
 
 \section{Singular Transformation Density Formula}
-We provide and prove a theorem for constructing the probability 
-density function of a random variable $Y$ which is a singular function of a 
+We state and derive a theorem for constructing the probability
+density function of a random variable $Y$ which is a singular function of a
 random variable $X$. By singular, we mean that $Y = f(X)$ with $f$ a function
-such that $f: {\bf R}^n \to {\bf R}^m$ and $m < n$. 
+such that $f: {\bf R}^n \to {\bf R}^m$ and $m < n$.
 
 \proclaim Theorem 1. Let $f : {\cal D} \subset {\bf R}^n \to {\bf R}^m$ be a continuously
-          differentiable function with $n > m$. In addition,
-          $Df({\bf x})$ is of rank $m$ $\forall {\bf x} \in {\cal D}$.
-          If for each
-          ${\bf y}$, $f^{-1}({\bf y})$ is a union of $k({\bf y})$ 
-          disjoint $C^1$ $(n-m)$-dimensional manifolds with
-          parameterizations ${\bf x}_i(\mu ; {\bf y}), \;
-          i\in[1,k({\bf y})], \; \mu \in \Omega_i \subset {\bf R}^{n-m}$,
-          with $P_X({\bf x})$ being the continuous probability
-          density function of the random variable $X$, then the 
-          density function $P_Y({\bf y})$ of the random variable $Y$ 
-          defined by $Y = f(X)$ exists, is continuous, and is given by
+          differentiable function with $n > m$, such that $Df({\bf x})$ has
+          rank $m$ for all ${\bf x} \in {\cal D}$, and let $P_X$ be a
+          continuous probability density function of the random variable $X$
+          which vanishes outside ${\cal D}$. Then each nonempty level set
+          $f^{-1}({\bf y})$ is an $(n-m)$-dimensional $C^1$ manifold, and the
+          random variable $Y = f(X)$ has a density $P_Y$ given for almost
+          every ${\bf y}$ by the surface integral
+
+$$
+\eqalignno{
+P_Y({\bf y}) & = \int_{f^{-1}({\bf y})}
+{P_X({\bf x}) \over \sqrt{\left|Df({\bf x}) \, Df^T({\bf x})\right|}} \; dS
+& (1) \cr
+}
+$$
+where $dS$ denotes $(n-m)$-dimensional surface measure on $f^{-1}({\bf y})$.
+If, in addition, the integral in (1) converges locally uniformly in ${\bf y}$,
+then this version of $P_Y$ is continuous and (1) holds for every ${\bf y}$.
+
+For computation we use a parameterized form of (1). If $f^{-1}({\bf y})$ is
+covered -- up to a set of surface measure zero -- by $k({\bf y})$ disjoint
+injective $C^1$ parameterizations ${\bf x}_i(\mu ; {\bf y}), \;
+i\in[1,k({\bf y})], \; \mu \in \Omega_i \subset {\bf R}^{n-m}$, then (1)
+becomes
 
 $$
 \eqalignno{
@@ -46,9 +59,13 @@ P_Y({\bf y}) & = \sum_{i=1}^{k({\bf y})} \int_{\Omega_i}
 {P_X({\bf x}_i(\mu; {\bf y})) \over \sqrt{\left|Df({\bf x}_i(\mu; {\bf y})) \;
 Df^T({\bf x}_i(\mu; {\bf y}))\right|}}
 \; \sqrt{\left|D_{\mu} {\bf x}_i^T(\mu; {\bf y}) \; D_{\mu}{\bf x}_i(\mu; {\bf y})\right|}
-\; d \mu & (1) \cr
+\; d \mu & (2) \cr
 }
 $$
+
+Formula (1) is a form of the smooth coarea formula of geometric measure
+theory [1, 2]. The aim of this note is a self-contained derivation and a
+collection of worked examples.
 
 \smallskip
 
@@ -67,8 +84,8 @@ ${\bf y} \in {\bf R}^m$, it is easy to show that there is a unique
 ${\bf x}_p \in R(A^T)$ such that 
 $A {\bf x}_p = {\bf y}$. The set of all ${\bf x} \in {\bf R}^n$ such that 
 $A{\bf x} = {\bf y}$ has the form 
-$\{ {\bf x}_p + {\bf x}_n \mid {\bf x}_n \in N(A)\}$. The pseudo inverse of ${\bf y}$
-is defined to be ${\bf x}_p$. Since $R(A^T) \perp N(A)$, ${\bf x}_p$ is the 
+$\{ {\bf x}_p + {\bf x}_n \mid {\bf x}_n \in N(A)\}$. The pseudo inverse of $A$
+is the map that sends ${\bf y}$ to ${\bf x}_p$. Since $R(A^T) \perp N(A)$, ${\bf x}_p$ is the
 solution to the problem:
 $$
 \eqalignno{
@@ -78,7 +95,7 @@ $$
 $$
 
 The solution of this can be found using Lagrange multipliers. The resulting
-minimization problem is :
+minimization problem is:
 $$
 \min_{\bf x} F({\bf x}) = \min_{\bf x} \|{\bf x}\|^2 + \langle\lambda, {\bf y} - A{\bf x}\rangle
 $$
@@ -95,10 +112,11 @@ Therefore, $DF({\bf x}^*)({\bf h}) =
 have that $2 {\bf x}^* - A^T \lambda = {\bf 0}$. Applying $A$ to this 
 last equation and using the fact that $A$ has rank $m$ and  
 $A{\bf x}^* = {\bf y}$ yields:%
-\ft 1 
-{Since $A$ has rank $m$ (${\rm dim}(R(A)) = m$) and $R(AA^T) = R(A)$, $AA^T$ is invertible.}
+\ftn{Since $A$ has rank $m$ (${\rm dim}(R(A)) = m$) and $R(AA^T) = R(A)$, $AA^T$ is invertible.}
 $\lambda = 2 (A A^T)^{-1} {\bf y}$.
 This implies that ${\bf x}^* = A^T \left(A A^T\right)^{-1} {\bf y}$.
+Since $\|{\bf x}\|^2$ is strictly convex and the constraint set is affine,
+this stationary point is indeed the unique minimum.
 
 \bigskip
 
@@ -129,13 +147,16 @@ Therefore, the change in volume is $\sqrt{|A^TA|}$.
 
 \bigskip
 
-\section{Proof of Singular Transformation Formula}
+\section{Derivation of the Singular Transformation Formula}
 
-We now proceed with the proof of Theorem 1.
+We now derive Theorem 1. The argument is geometric and informal at two
+points: the product decomposition near a level set is only local, and the
+linearization step is not carried out in full detail. A fully rigorous proof
+may be based on the coarea formula [1, 2].
 \smallskip
 
-{\bf Proof.} Let $\nu$ be the induced probability measure defined by%
-\ft 2{The measure extends in a natural way to all Lebesgue measurable sets.}
+{\bf Derivation.} Let $\nu$ be the induced probability measure defined by%
+\ftn{The measure extends in a natural way to all Lebesgue measurable sets.}
 $$
 \nu(\Omega_Y) = \int_{f^{-1}(\Omega_Y)} P_X({\bf x}) \, d{\bf x}
 $$
@@ -145,7 +166,7 @@ $\Omega_X = f^{-1}(\Omega_Y)$ we have that
 $$
 \eqalignno{
 \nu(\Omega_Y) & =
-\int_{\Omega_X} P_X({\bf x}) \, d{\bf x} & (2) \cr
+\int_{\Omega_X} P_X({\bf x}) \, d{\bf x} & (3) \cr
 }
 $$
 {\it Assume\/} that for each ${\bf y} \in \Omega_Y$, $f^{-1}({\bf y})$ is a single
@@ -163,17 +184,19 @@ $$
 Since for a given transformation $A$, $R(A^T) \perp N(A)$, it follows
 that the product measure $d{\bf x}_1 \, d{\bf x}_2$ is equal to
 the product of the component measures.
-Thus, we may write (2) as
+Thus, we may write (3) as
 $$
 \nu(\Omega_Y) =
 \int_{\Omega_{X_1}} \int_{\Omega_{X_2}}
 P_X({\bf x}({\bf x}_1, {\bf x}_2)) \, d{\bf x}_1 \, d{\bf x}_2.
 $$
 For a given ${\bf x}_2$, ${\bf y}$ maps to the manifold $\Omega_{X_1}$ in an
-invertible way (locally). The linear approximation to the map $f$ is $Df$; its
-pseudo inverse is by lemma 1:
-locally, ${\bf x}_1 \approx Df^T({\bf x}) (Df({\bf x}) Df^T({\bf x}))^{-1} {\bf y}$.
-Using ${\bf y}$ to express ${\bf x}_1$ combined with lemma 2 we have
+invertible way (locally). The linear approximation to the map $f$ is $Df$; by
+Lemma 1 its pseudo inverse is $Df^T (Df \, Df^T)^{-1}$, so that locally
+$$
+{\bf x}_1 \approx Df^T({\bf x}) \left(Df({\bf x}) \, Df^T({\bf x})\right)^{-1} {\bf y}.
+$$
+Using ${\bf y}$ to express ${\bf x}_1$ combined with Lemma 2 we have
 $$
 \nu(\Omega_Y) =
 \int_{\Omega_Y} \int_{\Omega_{X_2}}
@@ -183,7 +206,9 @@ $$
 $$
 The integral above exhibits a Lebesgue density for $\nu$, so $\nu$ is absolutely
 continuous with respect to Lebesgue measure%
-\ft 1 {Since the Lebesgue measure is regular, any Lebesgue measurable set can be approximated by a Borel measurable set.}
+\ftn{The existence of the density is the Radon--Nikodym theorem. Since
+Lebesgue measure is regular, the identity extends from Borel sets to all
+Lebesgue measurable sets.}
 and there exists a measurable function $P_Y({\bf y})$ such that
 $\nu(\Omega_Y) = \int_{\Omega_Y} P_Y({\bf y}) \, d{\bf y}$.
 So that
@@ -203,18 +228,19 @@ $$
 \, d{\bf x}_2 \right) \, d{\bf y} = 0
 $$
 
-Since this is true for all Borel measurable sets, $\Omega_Y$, we have
+Since this is true for all Borel measurable sets, $\Omega_Y$, the two
+integrands agree for almost every ${\bf y}$:
 $$
 \eqalignno{
 P_Y({\bf y}) & =
-\int_{\Omega_{X_2}} 
-{P_X({\bf x}({\bf y}, {\bf x}_2)) \over 
+\int_{\Omega_{X_2}}
+{P_X({\bf x}({\bf y}, {\bf x}_2)) \over
 \sqrt{ |Df({\bf x}({\bf y}, {\bf x}_2)) Df^T({\bf x}({\bf y}, {\bf x}_2))| } }
-\,  d{\bf x}_2 & (3) \cr
+\,  d{\bf x}_2 & (4) \cr
 }
 $$
 But in this case the component manifold, $\Omega_{X_2}$, is just $f^{-1}({\bf y})$.
-If we parameterize this as ${\bf x}(\mu; {\bf y})$, then by lemma 2 we
+If we parameterize this as ${\bf x}(\mu; {\bf y})$, then by Lemma 2 we
 have
 $$
 \eqalignno{
@@ -226,12 +252,16 @@ P_Y({\bf y}) =
 D_{\mu}{\bf x}(\mu; {\bf y}) | } \, d\mu
 }
 $$
+which is (2) with $k({\bf y}) = 1$.
 
-In the general case, we may have a situation like $y = x^2$. 
-Here, there are two manifolds that contribute to the probability distribution of $y$.
-More generally, there may be some number of manifolds which map 
-onto the target variable. In this case we add the contributions of each 
-to the probability distribution of the target variable, $Y$.
+In the general case, the level set may have several components, or may
+require several charts to cover it, as with $y = x_1^2 + x_2^2$ (Example 3
+below), where two parameterizations together cover the circle $f^{-1}(y)$.
+The contributions of the charts add, giving the sum in (2).
+
+Finally, when the integrals in (1) and (2) converge locally uniformly in
+${\bf y}$, they define a continuous function of ${\bf y}$, and we may take
+this version as $P_Y$; this gives the continuity assertion of Theorem 1.
 
 
 \section{Applications of Theorem 1}
@@ -240,9 +270,9 @@ We apply Theorem 1 with various types of singular mappings.
 
 \example{Example 1}{$y = f({\bf x}) = x_1 + x_2 \quad (f:{\bf R}^2 \to {\bf R})$}
 
-The set, $f^{-1}(y)$ can be
+The set $f^{-1}(y)$ can be
 parameterized as ${\bf x}_1(\mu; y) = (\mu, y - \mu)^T$ with $\mu \in
-(-\infty, \infty)$. 
+(-\infty, \infty)$.
 
 $ \sqrt{|D_{\mu}{\bf x}_1^T(\mu; y)
 \; D_{\mu}{\bf x}_1(\mu; y)|}
@@ -259,9 +289,10 @@ P_Y(y) = \int_{-\infty}^{\infty} P_{X_1 X_2}(\mu, y - \mu) \, d\mu
 $$
 
 \example{Example 2}{$y = f({\bf x}) = x_1 / x_2 \quad (f:{\bf R}^2 \to {\bf R})$}
+Here the natural domain is ${\cal D} = \{ {\bf x} \in {\bf R}^2 \mid x_2 \neq 0 \}$.
 The set $f^{-1}(y)$ can be
 parameterized as ${\bf x}_1(\mu; y) = (y\mu, \mu)^T$ with $\mu \in
-(-\infty, 0) \cup (0, \infty)$. 
+(-\infty, 0) \cup (0, \infty)$.
 We label the first and second components of 
 ${\bf x}_1$ as $x_{1,1}$ and $x_{1,2}$ respectively.
 
@@ -290,8 +321,10 @@ parameterizations: ${\bf x}_1(\mu; y) = (\mu, \sqrt{y - \mu^2})^T$
 
 and 
 ${\bf x}_2(\mu; y) = (\mu, - \sqrt{y - \mu^2})^T$ with $\mu \in
-[-\sqrt{y}, \sqrt{y}]$. 
- 
+[-\sqrt{y}, \sqrt{y}]$.
+(The two charts overlap only at the endpoints $\mu = \pm\sqrt{y}$, a set of
+surface measure zero, as permitted by Theorem 1.)
+
 $ \sqrt{|D_{\mu}{\bf x}_1^T(\mu; y)
 \; D_{\mu}{\bf x}_1(\mu; y)|} = \|(1, -\mu/\sqrt{y - \mu^2})\| =
  \sqrt{y/(y - \mu^2)}$.
@@ -313,7 +346,7 @@ $$
   P_Y(y) = \cases{ \int_{-\sqrt{y}}^{\sqrt{y}}  \frac{P_{X_1 X_2}(\mu,
   \sqrt{y - \mu^2}) \; 
 + P_{X_1 X_2}(\mu, -\sqrt{y - \mu^2})}{2 \sqrt{y - \mu^2}} \, d\mu &
-  $y\ge0$ ; \cr
+  $y \ge 0$; \cr
 0 & otherwise.}
 $$
 
@@ -399,11 +432,16 @@ Df^T({\bf x}_1(\mu; {\bf y}))|} = \sqrt{\left|\pmatrix{1 & 1 &
 
 Therefore, Theorem 1 gives:
 $$
-  P_{Y_1 Y_2}(y_1, y_2) = 2\int_{-\infty}^{\infty} 
+  P_{Y_1 Y_2}(y_1, y_2) = 2\int_{-\infty}^{\infty}
   \int_{-\infty}^{\infty} P_{X_1 X_2 X_3 X_4}
   (2\mu_1, \mu_2, y_1 - 2\mu_1 -\mu_2, y_2 - 2\mu_1 + \mu_2)
   \, d\mu_1 \, d\mu_2
 $$
+Substituting $s = 2\mu_1$ shows that this equals the result of Example 5a.
+The two parameterizations cover the same manifold, and the surface-measure
+factor $\sqrt{|D_{\mu}{\bf x}^T D_{\mu}{\bf x}|}$ exactly compensates for the
+change of parameterization: formula (2) is independent of the choice of
+charts.
 
 \example{Example 6}{$y = \sum_{i=1}^n x_i^2 \quad
   (f:{\bf R}^n \to {\bf R})$}
@@ -412,15 +450,15 @@ When $\sigma = 1$, $y$ has a Chi-squared distribution of order $n$.
 We derive a generalization of this fact using our formula.
 The set $f^{-1}(y)$ is a sphere in ${\bf R}^n$ of radius $\sqrt{y}$.
 The density function of $y$ is:%
-\footnote{\kern -2pt \raise 0.5ex \hbox{\dag}}{%
-We use the unparameterized form of the transformation formula, equation~(3),
-applied with $\Omega_{X_2} = f^{-1}(y)$.}
+\ftn{We use the surface-measure form of the transformation formula,
+equation (1), with $f^{-1}(y)$ the sphere of radius $\sqrt{y}$; no global
+parameterization of the sphere is needed.}
 $$
 \eqalignno{
 	P_Y(y) & = \int_{\partial B(\sqrt{y})} \frac{P_{\bf X}({\bf x}) \, dS}{\sqrt{|Df({\bf x}) \, Df^T({\bf x})|}} & \cr
 }
 $$
-Here, $Df({\bf x}) = 2\, {\bf x}^T$. Consequently, on the sphere of radius, $\sqrt{y}$, we have 
+Here, $Df({\bf x}) = 2\, {\bf x}^T$. Consequently, on the sphere of radius $\sqrt{y}$ we have
 $\sqrt{|Df({\bf x}) Df^T({\bf x})|} = 2 \sqrt{y}$. Therefore, we may write the above as
 $$
 \eqalignno{
@@ -450,9 +488,11 @@ The surface area of a sphere of radius $\sqrt{y}$ in $n$ dimensions is $2y^{(n-1
 Therefore, $P_Y(y)$, may be written:
 $$
 \eqalignno{
-	P_Y(y) & = \frac{y^{n/2 - 1}e^{-y/(2\sigma^2)}}{2^{n/2}\sigma^n \Gamma(n/2)} \quad \hbox{$y > 0$.} & \cr
+	P_Y(y) & = \frac{y^{n/2 - 1}e^{-y/(2\sigma^2)}}{2^{n/2}\sigma^n \Gamma(n/2)} \quad \hbox{$y > 0$,} & \cr
 }
 $$
+with $P_Y(y) = 0$ for $y \le 0$. When $\sigma = 1$ this is the Chi-squared
+density with $n$ degrees of freedom, as claimed.
 
 
 \section{Application to the Distribution of the Ratio of Normals}
@@ -461,18 +501,26 @@ of the ratio of two correlated normals.
 
 If $x_1, x_2$ are Gaussian random variables with joint density function,  
 $P_{X_1 X_2}$, means: $\mu_1, \mu_2$, and positive definite covariance 
-matrix:\ft 1 {If 
+matrix:\ftn{If
 $\Sigma$ is positive definite we have: $a>0, \; c>0, \; ac
 - b^2 > 0$.} $\Sigma~=~\pmatrix{a & b \cr b & c \cr}$, then
 the density function of the ratio $y = x_1 / x_2$ is given by
-the formula in example 2:
+the formula in Example 2 (this density was studied classically by
+Geary [3] and Hinkley [4]):
 $$
 P_Y(y) = \int_{-\infty}^{\infty} |s|P_{X_1 X_2}(sy,s) \, ds = 
 \frac{1}{2 \pi \sqrt{ac - b^2}} \int_{-\infty}^{\infty} 
 |s|e^{-\left([sy - \mu_1, s - \mu_2]
 \Sigma^{-1} [sy - \mu_1, s - \mu_2]^T \right)/2} \, ds
 $$
-This may be reduced to:
+Writing the exponent as $-(\alpha s^2 - 2 \beta s + 2\gamma)/2$, completing
+the square in $s$, and using the identity
+$$
+\int_{-\infty}^{\infty} |s| \, e^{-\alpha s^2/2 + \beta s} \, ds =
+{2 \over \alpha}\left[ 1 + \sqrt{\pi} \, \tau \, e^{\tau^2}
+{\rm erf}(\tau) \right], \qquad \tau = {|\beta| \over \sqrt{2 \alpha}},
+$$
+this may be reduced to:
 $$
 \eqalign{
 P_Y(y) & =\frac{\sqrt{ac - b^2}e^{-\gamma}}{\pi (cy^2 - 2by + a)} \left[ 1 +
@@ -488,17 +536,19 @@ $$
 {\sqrt{cy^2 - 2by + a} \sqrt{2(ac - b^2)}}}
 $$
 
-The function $\tau(y)$ is bounded on the interval 
-$(-\infty, \infty)$. This follows since by the positive definiteness of 
-$\Sigma$, the denominator is bound away from $0$; while, 
-for large values of $y$, $\tau(y)$ is $O(1)$.
+The function $\tau(y)$ is bounded on the interval
+$(-\infty, \infty)$: by the positive definiteness of $\Sigma$ the
+denominator is bounded away from $0$, and as $|y| \to \infty$,
+$\tau(y) \to |c\mu_1 - b\mu_2| / \sqrt{2c(ac - b^2)}$. A continuous
+function with finite limits at $\pm\infty$ is bounded.
 
 {\bf Note:} As a consequence, this distribution has no finite moments of order
 $\ge 1$. This follows since $P_Y(y)$ is $O(1/y^2)$ for large $|y|$, so $\int |y|^k P_Y(y)\, dy$
 diverges for every $k \ge 1$. {\it Therefore, one cannot talk about the
 mean or standard deviation of this distribution.}
 
-This distribution is also not unimodal in general. 
+This distribution is also not unimodal in general; Marsaglia [5] gives
+explicit bimodal examples.
 
 \section{Special Cases}
 
@@ -520,6 +570,25 @@ Gaussians each with mean 0 and variance 1, then $P_Y(y)$ becomes:
 $$
 P_Y(y) = \frac{1}{\pi (y^2 + 1)}
 $$
+
+\section{References}
+
+{\parskip=4pt
+[1] H. Federer, {\it Geometric Measure Theory}, Springer, 1969.
+
+[2] L. C. Evans and R. F. Gariepy, {\it Measure Theory and Fine Properties
+of Functions}, revised edition, CRC Press, 2015.
+
+[3] R. C. Geary, The frequency distribution of the quotient of two normal
+variates, {\it Journal of the Royal Statistical Society} {\bf 93} (1930),
+442--446.
+
+[4] D. V. Hinkley, On the ratio of two correlated normal random variables,
+{\it Biometrika} {\bf 56} (1969), 635--639.
+
+[5] G. Marsaglia, Ratios of normal variables, {\it Journal of Statistical
+Software} {\bf 16}(4) (2006), 1--10.
+}
 
 \bye
 
