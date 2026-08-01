@@ -3,7 +3,7 @@
 
 \title{What is a Determinant}
 \author{R. Scott McIntire}
-\date{May 3, 2026}
+\date{Aug 1, 2026}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -101,11 +101,11 @@ Let's now use these two properties to derive a formula for the volume
 function.
 
 Each of the vectors: ${\bf x}_1$, ${\bf x}_2$, ${\bf x}_3$ can be written in
-terms of an orthonormal basis: ${\bf e}_1$, ${\bf e}_2$, ${\bf e}_3$ as
+terms of the standard basis: ${\bf e}_1$, ${\bf e}_2$, ${\bf e}_3$ as
 \begin{align*}
   {\bf x}_1 &= a_{1,1} {\bf e}_1 + a_{2,1} {\bf e}_2 + a_{3,1} {\bf e}_3 \\
   {\bf x}_2 &= a_{1,2} {\bf e}_1 + a_{2,2} {\bf e}_2 + a_{3,2} {\bf e}_3 \\
-  {\bf x}_3 &= a_{1,3} {\bf e}_1 + a_{2,3} {\bf e}_2 + a_{3,3} {\bf e}_3 \\
+  {\bf x}_3 &= a_{1,3} {\bf e}_1 + a_{2,3} {\bf e}_2 + a_{3,3} {\bf e}_3
 \end{align*}
 If ${\bf x}_1$, ${\bf x}_2$, ${\bf x}_3$ are the mapping of
 ${\bf e}_1$, ${\bf e}_2$, ${\bf e}_3$ by matrix $A$, then $A$ is related to the
@@ -118,7 +118,7 @@ $\{a_{i,j}\}_{i,j=1}^n$ by:
                  \end{array} \right]
 \end{align}
 So, coming up with a formula for the volume function in terms of the
-$\{a_{i,j}\}_{i,j=1}^n$ will
+coefficients $a_{i,j}$ will
 translate directly to a formula for the determinant of $A$.
 
 To illustrate the process of finding the volume we will do it for the case
@@ -134,7 +134,7 @@ In this case we have:
   &= a_{1,1} a_{1,2} V({\bf e}_1, {\bf e}_1) + a_{1,1}a_{2,2} V({\bf e}_1, {\bf e}_2) \\
   &+ a_{2,1} a_{1,2} V({\bf e}_2, {\bf e}_1) + a_{2,1} a_{2,2} V({\bf e}_2, {\bf e}_2)
 \end{align*} 
-Notice that we could pull out $\{a_{i,j}\}_{i,j=1}^n$
+Notice that we could pull out the coefficients $a_{i,j}$
 because of multi-linearity -- linearity
 refers not just to addition, but also scalar multiplication. 
 Also, we have shown that the degeneracy condition implies anti-symmetry:
@@ -171,8 +171,9 @@ What terms do survive? The terms
 where the indices, $i$, $j$, $k$, differ. That is, $i$, $j$, $k$ are
 {\em permutations\/}
 of $1, 2, 3$.%
-\footnote{More generally, permutations on $n$ objects are one to one
-  mappings from the set of integers $\{1, 2, \ldots, n\}$ to itself.}
+\footnote{More generally, permutations on $n$ objects are bijections
+  (one-to-one {\em and\/} onto mappings) from the set of integers
+  $\{1, 2, \ldots, n\}$ to itself.}
 In the general case this reduces
 the number of terms in the sum from $n^n$ to $n!$. In the general case, the
 sum becomes:\footnote{$S_n$ is the symmetric group of $n$ objects. It consists of 
@@ -186,13 +187,13 @@ Now, how do we compute each of the terms:
 $V({\bf e}_{\sigma(1)}, {\bf e}_{\sigma(2)}, \ldots, {\bf e}_{\sigma(n)})$?
 We know that we can switch the values of any two of the $n$ slots and the
 value of $V$ will change signs. It turns out that for any permutation, one can
-apply some minimal number of these switches (called {\em transpositions\/})
+apply some number of these switches (called {\em transpositions\/})
 to get back to the canonical
 ordering $V({\bf e}_1, {\bf e}_2, \ldots, {\bf e}_n)$. So the value of
 $V({\bf e}_{\sigma(1)}, {\bf e}_{\sigma(2)}, \ldots, {\bf e}_{\sigma(n)})$ should be
 the value of $V({\bf e}_1, {\bf e}_2, \ldots, {\bf e}_n)$ times $(-1)^k$, where
-$k$ is the number of minimal transpositions needed to get to the canonical ordering of
-indices. We denote the sign of $\sigma$ by ${\rm sgn}(\sigma) \in \{-1, +1\}$:%
+$k$ is the number of transpositions used to get to the canonical ordering of
+indices. We denote the sign of $\sigma$ by ${\rm sgn}(\sigma) \in \{-1, +1\}$.%
 \footnote{The mapping ${\rm sgn}: S_n \rightarrow \{\pm 1\}$ is a group homomorphism;
 ${\rm sgn}(\sigma) = -1$ if $k$ is odd and ${\rm sgn}(\sigma) = +1$ if $k$ is even,
 where $k$ is the number of transpositions in any factorization of $\sigma$ (this
@@ -231,12 +232,11 @@ determinant of the matrix $A$ -- becomes:
 the volume of $V({\bf e}_2, {\bf e}_1)$ is -1. It seems like this ordering 
 of edges is as valid a way to
 describe the unit square, so why is the area negative? We can fix this ``bug'' by
-claiming that it is, in fact, a feature. We can claim that we haven't just
+claiming that it is, in fact, a feature: we haven't just
 computed the area/volume,
-we have computed the {\em oriented volume\/}.
+we have computed the {\em oriented volume\/} -- the determinant gives you
+more than the volume alone.
 If you want the volume you need only take the absolute value of the oriented volume.
-Mathematicians call this a {\it feature\/} rather than a bug; claiming that the determinant gives
-you more than just the volume, you get the {\it oriented volume\/}.
 
 We write the final formula down for reference but now with the caveat that
 the determinant of a matrix is not a positive stretching factor -- the amount that the
@@ -247,6 +247,20 @@ of the determinant.
   |A| &= \sum_{\sigma \in S_n} {\rm sgn}(\sigma)
             a_{\sigma(1), 1} a_{\sigma(2),2} \, \ldots \, a_{\sigma(n), n} \label{det_formula}
 \end{align}
+
+\paragraph{Existence.} Our derivation shows that {\em if\/} a function with
+the three properties exists, it must be given by \eqref{det_formula} -- a
+{\em uniqueness\/} argument. To know the three properties are not secretly
+contradictory, one must also check that the formula \eqref{det_formula}
+actually satisfies them. Multi-linearity is immediate: each product contains
+exactly one factor from each column. The value on the canonical cube is $1$:
+only the identity permutation survives when $A = I$. Degeneracy takes one
+idea: if two columns are equal, pair each permutation $\sigma$ with
+$\sigma \circ \tau$, where $\tau$ is the transposition swapping the two equal
+column indices; the paired products are equal (the swapped factors come from
+identical columns) while their signs are opposite, so the sum cancels in
+pairs to $0$.
+
 \subsection{Determinant of $A^T$}
 Notice that the formula \eqref{det_formula} can also be written as:
 \begin{align}
@@ -254,21 +268,19 @@ Notice that the formula \eqref{det_formula} can also be written as:
             a_{T(\sigma)(1), 1} a_{T(\sigma)(2),2} \, \ldots \, a_{T(\sigma)(n), n}
             \label{det_formula_gen}
 \end{align}
-Here, $T$ is any one to one mapping from $S_n$ to itself. Why? Because the sum in
+Here, $T$ is any bijection from $S_n$ to itself. Why? Because the sum in
 \eqref{det_formula} is the sum over all elements of $S_n$. The mapping $T$ just
 rearranges that sum. One such choice for $T$ is the mapping that sends $\sigma$
 to its inverse, $\sigma^{-1}$. In this case, \eqref{det_formula_gen} becomes:
 \begin{align}
   |A| &= \sum_{\sigma \in S_n} {\rm sgn}(\sigma^{-1})
             a_{\sigma^{-1}(1), 1} a_{\sigma^{-1}(2),2} \, \ldots \, a_{\sigma^{-1}(n), n}
-            \label{det_formula_sinv}
 \end{align}
 Reorder the factors in each product (multiplication is commutative) and
 re-index by $i = \sigma^{-1}(k)$, so that $k = \sigma(i)$:
 \begin{align}
   |A| &= \sum_{\sigma \in S_n} {\rm sgn}(\sigma^{-1})
             a_{1, \sigma(1)}  a_{2, \sigma(2)} \, \ldots \, a_{n, \sigma(n)}
-            \label{det_formula_sinv2}
 \end{align}
 Letting $a_{i,j}^\prime$ denote the $(i,j)$ entry of $A^T$ (so
 $a_{i,j}^\prime = a_{j,i}$), we have $a_{i, \sigma(i)} = a_{\sigma(i), i}^\prime$,
@@ -291,6 +303,43 @@ With this, \eqref{at_proto} may be written:
 But this is, by definition, nothing more than the determinant of $A^T$.
 From this we conclude that $|A| = |A^T|$.
 
+\subsection{Determinant of a Product}
+The derivation of \eqref{det_formula} proved more than a formula; it proved a
+{\em uniqueness\/} statement. Any function $W$ of $n$ vector arguments that is
+multi-linear and has the Degenerate Property -- it vanishes whenever two
+arguments are equal; the standard name for such a function is
+{\em alternating\/} -- satisfies
+\begin{align}
+  W({\bf x}_1, {\bf x}_2, \ldots, {\bf x}_n)
+  &= \left( \sum_{\sigma \in S_n} {\rm sgn}(\sigma)
+        a_{\sigma(1),1} \, a_{\sigma(2),2} \ldots \, a_{\sigma(n),n} \right)
+     W({\bf e}_1, {\bf e}_2, \ldots, {\bf e}_n) \label{uniqueness}
+\end{align}
+where, as before, the $a_{i,j}$ are the components of the ${\bf x}_j$ in the
+standard basis -- the computation is the same as the one leading to
+\eqref{det_formula}, only without using the third property to set
+$W({\bf e}_1, \ldots, {\bf e}_n) = 1$. In words: such a $W$ equals its value
+on the canonical cube times the determinant of the matrix whose columns are
+its arguments.
+
+This buys us the product rule for determinants almost for free. Fix a matrix
+$A$ and define
+\begin{align*}
+  W({\bf x}_1, {\bf x}_2, \ldots, {\bf x}_n)
+     &= V(A {\bf x}_1, A {\bf x}_2, \ldots, A {\bf x}_n).
+\end{align*}
+Then $W$ is multi-linear (because $A$ is linear and $V$ is multi-linear) and
+alternating (equal slots have equal images under $A$, on which $V$
+vanishes). Apply
+\eqref{uniqueness} to the columns ${\bf b}_1, \ldots, {\bf b}_n$ of a matrix
+$B$, noting that $A {\bf b}_j$ is the $j^{\rm th}$ column of $AB$ and that
+$W({\bf e}_1, \ldots, {\bf e}_n) = V(A {\bf e}_1, \ldots, A {\bf e}_n) = |A|$:
+\begin{align}
+  |AB| &= W({\bf b}_1, {\bf b}_2, \ldots, {\bf b}_n) = |A| \, |B| \label{mult_prop}
+\end{align}
+This is the {\em Multiplicative Property\/} of the determinant; we will use
+it in the next section.
+
 \section{Derivative of the Determinant}
 The determinant is a function from the space of matrices to $R$; that is,
 $\det : R^{n \times n} \rightarrow R$.
@@ -308,7 +357,7 @@ To start, let's try to find the derivative for an especially simple ``point'',
 the identity matrix, $I$.
 
 \begin{align}
-  |I + H| &= \prod_{i=1}^n \left(1 + H_{i,i}\right) + o(H) \label{deriv_I}
+  |I + H| &= \prod_{i=1}^n \left(1 + H_{i,i}\right) + o(H)
 \end{align}
 Only the identity permutation contributes to the linear-in-$H$ part of $|I+H|$.
 To see this, take any non-identity $\sigma \in S_n$. Its non-fixed points form
@@ -331,8 +380,7 @@ an $n\times n$ matrix, $A$, with the stipulation that $A$ is invertible.
 \begin{align}
   |A + H| &= |A\left(I + A^{-1}H\right)| \nonumber \\
           &= |A|\, |I + A^{-1}H|
-                \quad \text{(Multiplicative Property:
-                $|AB| = |A|\,|B|$)} \nonumber \\
+                \quad \text{(Multiplicative Property \eqref{mult_prop})} \nonumber \\
           &= |A| \left(|I| + {\rm tr}(A^{-1}H) + o(H)\right)
                 \quad \text{(From \eqref{deriv_Ia})} \nonumber \\
   &= |A| + |A|{\rm tr}(A^{-1}H) + o(H)
@@ -374,8 +422,18 @@ $X(t)$ represent the evolution of the vectors, $\{{\bf x}_i\}_{i=1}^n$, in time.
 The determinant of $X(t)$, $|X(t)|$, represents the evolution of the volume 
 of the parallelepiped represented by these vectors.
 
-To answer the question posed, 
-we need to track $|X(t)|$. To do this, we find a differential equation
+To answer the question posed,
+we need to track $|X(t)|$. First note that the solution of \eqref{deq_m} is
+$X(t) = e^{tA} X_0$, where $e^{tA}$ is the {\em matrix exponential\/}.%
+\footnote{$e^{tA} \equiv \sum_{k=0}^\infty \frac{t^k A^k}{k!}$; one checks
+term by term that $\frac{d}{dt} e^{tA} = A \, e^{tA}$ and that
+$e^{tA} e^{-tA} = I$.}
+Since $e^{tA}$ is invertible for {\em every\/} $t$ -- its inverse is
+$e^{-tA}$ -- the matrix $X(t)$ is invertible for all time whenever $X_0$ is.
+(And if $|X_0| = 0$, then by the Multiplicative Property
+$|X(t)| = |e^{tA}| \, |X_0| = 0$ for all $t$, so the formula we derive below
+holds trivially.) Assume then that $|X_0| \neq 0$.
+We find a differential equation
 that $|X(t)|$ satisfies and then solve.
 \begin{align*}
   \frac{d |X(t)|}{dt} &= |X(t)| \, {\rm tr}\left(X(t)^{-1} \frac{d X(t)}{dt}\right)
@@ -390,11 +448,11 @@ Therefore, $|X(t)|$ satisfies the following linear {\em scalar differential equa
   \frac{d |X(t)|}{dt} &= {\rm tr}(A) \, |X(t)| \\
   |X(0)| &= |X_0|
 \end{align}
-This is much easier to solve, the solution is $|X(t)| = |X_0| \, e^{{\rm tr}(A)\, t}$.
+This is much easier to solve; the solution is $|X(t)| = |X_0| \, e^{{\rm tr}(A)\, t}$.
 This is {\em Liouville's formula\/}; it is a special case of Liouville's theorem
-on phase-space volume preservation in dynamical systems. The chain-rule step above
-used $X(t)^{-1}$; this is justified post hoc, since $|X(t)| = |X_0|\, e^{{\rm tr}(A)\, t}$
-is non-zero whenever $|X_0| \neq 0$, so $X(t)$ remains invertible along the flow.
+on phase-space volume preservation in dynamical systems. (The chain-rule step
+above used $X(t)^{-1}$, which is legitimate because we established up front
+that $X(t)$ remains invertible for all time.)
 
 \paragraph{Question.} What kind of systems (defined by $A$) leave the volumes unchanged?
 
@@ -412,16 +470,33 @@ $\left< A {\bf x}, {\bf x} \right>
    = -\left< {\bf x}, A {\bf x} \right>
    = -\left< A {\bf x}, {\bf x} \right>$,
 so $\left< A {\bf x}, {\bf x} \right> = 0$. Applied to the trajectory:
-\begin{align}
+\begin{align*}
   \left< {\bf x}(t), \frac{d \, {\bf x}(t)}{dt} \right>
   = \left< {\bf x}(t), A {\bf x}(t)\right> = 0,
-\end{align}
+\end{align*}
 which gives
 $\frac{d}{dt} \|{\bf x}(t)\|^2 = 2 \left< {\bf x}, \dot{\bf x} \right> = 0$:
 the {\em individual length\/} of each evolving vector is preserved, not just
-the volume of the parallelepiped they span.
+the volume of the parallelepiped they span. In fact, the same computation
+applied to two trajectories gives
+\begin{align*}
+  \frac{d}{dt} \left< {\bf x}_i(t), {\bf x}_j(t) \right>
+  = \left< A {\bf x}_i, {\bf x}_j \right>
+    + \left< {\bf x}_i, A {\bf x}_j \right>
+  = \left< A {\bf x}_i, {\bf x}_j \right>
+    - \left< A {\bf x}_i, {\bf x}_j \right> = 0,
+\end{align*}
+so {\em all\/} pairwise inner products -- lengths {\em and\/} angles -- are
+preserved by the flow.
 
-\paragraph{Exercise.} In this case, what kind of matrix is $X(t)$?
+\paragraph{Exercise.} Suppose $X_0 = I$. In this case, what kind of matrix
+is $X(t)$?
+
+\paragraph{Further reading.} The axiomatic treatment of the determinant
+given here follows the classical route; see K. Hoffman and R. Kunze,
+{\it Linear Algebra\/} (Chapter 5), or M. Artin, {\it Algebra\/}. For a
+spirited contrarian view of the whole subject, see S. Axler's essay
+``Down with Determinants!'' ({\it American Mathematical Monthly}, 1995).
 
 \end{document}
 
