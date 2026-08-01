@@ -17,7 +17,7 @@
 
 \title{Derivation of the Exponential Moving Average}
 \author{R. Scott McIntire}
-\date{May 2, 2026}
+\date{Aug 1, 2026}
 
 \begin{document}
 
@@ -36,9 +36,9 @@ the data series ${\bf x}$ has length $N$.
 
 Specifically, the exponential moving average (over a window of length $m$) 
 is defined as:
-\begin{eqnarray}
-    e_n &=& \sum_{k=0}^{m-1} x_{n-k} w_{k+1}  \label{ema_def}
-\end{eqnarray}
+\begin{align}
+    e_n &= \sum_{k=0}^{m-1} x_{n-k} w_{k+1}  \label{ema_def}
+\end{align}
 To get the {\em exponential decay\/} in weights we assume that $w_{k+1} = \lambda w_k$.%
 \footnote{The reason this is called exponential is that it is the discrete
 analog of continuous exponential decay. To see this let $f(t) = e^{-\beta t}$
@@ -52,19 +52,21 @@ This is done so that the largest weights are associated with the most recent dat
 in the averaging window.
 
 Before we go further, there is a problem with the formula as stated.
-If $n = 1$; or, in fact any value that is less than or equal to $m$,
-the expression $x_{n-k}$ does not make sense for $k \ge n$. That is, at the 
+If $n = 1$; or, in fact, any value less than $m$,
+the expression $x_{n-k}$ does not make sense for $k \ge n$.
+(At $n = m$ the window is exactly full: its oldest term is $x_1$.)
+That is, at the
 start of the computation and for a little while, there is not a full window
 of values over a window of length $m$. As there is no information before $x_1$,
-we interpret these values to be $x_1$. 
+we interpret these values to be $x_1$.
 We will apply this principle more generally below. 
 That is, if ${\bf z}$ is a data series,
 we extend the definition of ${\bf z}$ so that it is defined for
 indices less than 1 as:
 
-\begin{eqnarray}
-    z_{k} &\equiv& z_{\max(k,\, 1)} \label{o:var_extend}
-\end{eqnarray}
+\begin{align}
+    z_{k} &\equiv  z_{\max(k,\, 1)} \label{o:var_extend}
+\end{align}
 
 While we can use \eqref{ema_def} to compute the EMA it is {\em inefficient\/}.
 The purpose of this
@@ -77,111 +79,115 @@ Regardless of the averaging scheme, we want our weights to sum to one.%
 \footnote{If we consider the underlying data to be generated from a series of identically distributed random
 variables; then, treating the series elements as random variables we can view 
 the moving average as an estimate of their mean, $\mu$. 
-To be a good estimate we would like this estimate to be {\em unbiased\/}:
-$\E{\sum_{k=0}^{m-1} x_{n-k} w_{k+1}} = \sum_{k=0}^{m-1} \E{x_{n-k}}w_{k+1}$.
-Which is $\mu \sum_{k=0}^{m-1} w_{k+1} = \mu \sum_{k=1}^{m} w_k = \mu$.}
+To be a good estimate we would like it to be {\em unbiased\/}:
+$\E{\sum_{k=0}^{m-1} x_{n-k} w_{k+1}} = \mu$. By linearity of the expectation,
+$\E{\sum_{k=0}^{m-1} x_{n-k} w_{k+1}} = \sum_{k=0}^{m-1} \E{x_{n-k}}w_{k+1}
+= \mu \sum_{k=1}^{m} w_k$; so the estimate is unbiased exactly when the
+weights sum to $1$.}
 But we also want the weights to be exponential; that is, $w_{k+1} = \lambda w_{k}$.
 
 Ideally, all we want to do is give the decay factor, $\lambda$. Given
 $\lambda$, the weights are constructed as follows.
 
 For $i \in [1, m]$ define
-\begin{eqnarray}
-    {\hat w}_i &=& \lambda^i 
-\end{eqnarray}
+\begin{align}
+    {\hat w}_i &= \lambda^i 
+\end{align}
 The ${\hat {\bf w}}$ have the property that they decay with $\lambda$;
 that is, $\lambda {\hat w}_{k} = {\hat w}_{k+1}$. However, how do we ensure that
 these values sum to 1 over the window? 
 
 To do this, we simply normalize the weights:
-\begin{eqnarray}
-    w_i &=&  \frac{{\hat w}_i}{\sum_{k=1}^m {\hat w}_k} \quad \forall i \in [1, m] 
-\end{eqnarray}
+\begin{align}
+    w_i &=  \frac{{\hat w}_i}{\sum_{k=1}^m {\hat w}_k} \quad \forall i \in [1, m] 
+\end{align}
 Consequently,
-\begin{eqnarray}
-    \sum_{i=1}^m w_i &=& 1 \label{o:weights_normalized}
-\end{eqnarray}
+\begin{align}
+    \sum_{i=1}^m w_i &= 1 \label{o:weights_normalized}
+\end{align}
 
 In doing this, did the proposed weights, ${\bf w}$, lose the decay factor
 property? The answer is no, the property remains: 
-\begin{eqnarray}
-    \lambda w_{i} &=& w_{i+1} \quad \forall i \in [1, m-1].  \label{o:weights_power}
-\end{eqnarray}
+\begin{align}
+    \lambda w_{i} &= w_{i+1} \quad \forall i \in [1, m-1].  \label{o:weights_power}
+\end{align}
 
 More generally, we can find {\em all\/} weights that have a decay factor of $\lambda$ as they
 are solutions of the following difference equation:
-\begin{eqnarray}
-	w_{n+1} & = & \lambda \, w_n \\
-	w_1 & = & \alpha
-\end{eqnarray}
+\begin{align}
+	w_{n+1} & =  \lambda \, w_n \\
+	w_1 & =  \alpha
+\end{align}
 
 The solution to this difference equation is:
-\begin{eqnarray}
+\begin{equation}
 	w_n = \alpha \, \lambda^{n-1} \quad n \ge 1
-\end{eqnarray}
+\end{equation}
 
 However, we need the weights to be {\em normalized\/} over a window of length, $m$:
-\begin{eqnarray}
+\begin{equation}
 \sum_{i=1}^m w_i = 1
-\end{eqnarray}
+\end{equation}
 Plugging in our general formula for an exponential sequence we have:
-\begin{eqnarray}
-	\sum_{i=1}^m \alpha \lambda^{i-1} & = & 1 \\
-	\alpha \frac{1 - \lambda^m}{1 - \lambda} & = & 1	
-\end{eqnarray}
+\begin{align}
+	\sum_{i=1}^m \alpha \lambda^{i-1} & =  1 \\
+	\alpha \frac{1 - \lambda^m}{1 - \lambda} & =  1	
+\end{align}
 Therefore, a decay factor, $\lambda$, and averaging window length, $m$, 
 determine {\em the\/} initial weight, $\alpha$, and thus determine {\em the\/}
 associated normalized weights:
-\begin{eqnarray}
+\begin{equation}
 	\alpha = \frac{1 - \lambda}{1 - \lambda^m} \label{o:weights_alpha}
-\end{eqnarray}
+\end{equation}
 
 {\bf Note.} We will use \eqref{o:var_extend}, \eqref{o:weights_normalized},
 \eqref{o:weights_power}, and \eqref{o:weights_alpha} in our derivations below.
 
 \section{Recursive Formula for EMA}
 We state again the definition of the exponential moving average of $x$ as:
-\begin{eqnarray}
-    e_n &=& \sum_{k=0}^{m-1} x_{n-k} w_{k+1} 
-\end{eqnarray}
+\begin{align}
+    e_n &= \sum_{k=0}^{m-1} x_{n-k} w_{k+1} 
+\end{align}
 In order to find a recursive formula, we examine the next element in the smoothing sequence 
 and try to relate it to the present element at index $n$.
 
-\begin{eqnarray*}
-    e_{n+1} &=&  \sum_{k=0}^{m-1} x_{n+1-k} w_{k+1} \\
-        &=&  \sum_{k=0}^{m-1} x_{n-(k-1)} w_{k+1} \\
-        &=&  \sum_{k=-1}^{m-2} x_{n-k} w_{k+2}  \\
-        &=&  \sum_{k=0}^{m-2} x_{n-k} w_{k+2}  + x_{n+1} w_1 \\
-        &=&  \lambda \sum_{k=0}^{m-2} x_{n-k} w_{k+1}  + x_{n+1} w_1  \quad \text{(Since $\lambda w_{k+1} = w_{k+2}$)} \\
-        &=&  \lambda \sum_{k=0}^{m-1} x_{n-k} w_{k+1}  + x_{n+1} w_1  
+\begin{align*}
+    e_{n+1} &=  \sum_{k=0}^{m-1} x_{n+1-k} w_{k+1} \\
+        &=  \sum_{k=0}^{m-1} x_{n-(k-1)} w_{k+1} \\
+        &=  \sum_{k=-1}^{m-2} x_{n-k} w_{k+2}  \\
+        &=  \sum_{k=0}^{m-2} x_{n-k} w_{k+2}  + x_{n+1} w_1 \\
+        &=  \lambda \sum_{k=0}^{m-2} x_{n-k} w_{k+1}  + x_{n+1} w_1  \quad \text{(Since $\lambda w_{k+1} = w_{k+2}$)} \\
+        &=  \lambda \sum_{k=0}^{m-1} x_{n-k} w_{k+1}  + x_{n+1} w_1  
                 - \lambda x_{n-(m-1)} w_m  \\
-        &=&  \lambda \sum_{k=0}^{m-1} x_{n-k} w_{k+1}  + x_{n+1} w_1  
+        &=  \lambda \sum_{k=0}^{m-1} x_{n-k} w_{k+1}  + x_{n+1} w_1  
                 - \lambda x_{(n+1)-m} w_m  
-\end{eqnarray*}
+\end{align*}
 
 Finally, we may write%
 \footnote{From the definition of $e_n$ and using
 	\eqref{o:var_extend}, \eqref{o:weights_normalized}, and \eqref{o:weights_alpha},
 $e_1 = \sum_{k=0}^{m-1} x_{1-k} w_{k+1} = x_1 \sum_{k=0}^{m-1} w_{k+1} = x_1 \sum_{k=1}^m w_k = x_1$.}
-\begin{eqnarray}
-    e_{n+1} &=&  \lambda \left(e_n - x_{(n+1) - m} w_m \right) + \alpha x_{n+1} \quad \forall n \in [1, N-1] \\
-    e_1     &=&  x_1 
-\end{eqnarray}
+\begin{align}
+    e_{n+1} &=  \lambda \left(e_n - x_{(n+1) - m} w_m \right) + \alpha x_{n+1} \quad \forall n \in [1, N-1] \\
+    e_1     &=  x_1 
+\end{align}
 
 The corresponding 0-based index formula is:%
 \footnote{We write the formulas down for both 1- and 0-based vector indices because
-computer languages typically use one or the other.}
-\begin{eqnarray}
-    e_{n} &=&  \lambda \left( e_{n-1} - x_{(n-m)} w_{m-1} \right) + \alpha x_{n}  \quad \forall n \in [1, N-1] \\
-    e_0   &=&  x_0 
-\end{eqnarray}
+computer languages typically use one or the other. In the 0-based formulas the
+weights are re-indexed as well: they are $w_0, \ldots, w_{m-1}$, so the first
+(largest) weight is $\alpha = w_0$ and the oldest weight is $w_{m-1}$.}
+\begin{align}
+    e_{n} &=  \lambda \left( e_{n-1} - x_{n-m} w_{m-1} \right) + \alpha x_{n}  \quad \forall n \in [1, N-1] \\
+    e_0   &=  x_0
+\end{align}
 
-\section{Recursive Formula for the Std of EMA}
+\section{Recursive Formula for a Local Standard Deviation}
 In practice, one also wants to know a localized standard deviation of the process.
 In applications, one can provide ``Bollinger'' bands around the EMA estimate.
 These bands are (typically) some multiple of the standard deviation of the process.
 
-We derive the standard deviation of the exponential moving average starting
+We derive a localized standard deviation of the process starting
 with the definition of the exponential moving average and its moving variance.%
 \footnote{This variance formula needs to be corrected by a factor which we 
 leave to the end. The correction is a factor that is used to make the 
@@ -189,10 +195,10 @@ estimated standard deviation of the moving average {\em unbiased\/}.
 The formula for this factor is independent of the structure of the weights.
 This means that it can be pre-computed independently of the data series.}
 
-\begin{eqnarray}
-    e_n &=&  \sum_{k=0}^{m-1} x_{n-k} w_{k+1} \label{ema_cmp} \\
-    v_n &=&  \sum_{k=0}^{m-1} (x_{n-k} - e_{n-k})^2 w_{k+1}  \label{var}
-\end{eqnarray}
+\begin{align}
+    e_n &=  \sum_{k=0}^{m-1} x_{n-k} w_{k+1} \label{ema_cmp} \\
+    v_n &=  \sum_{k=0}^{m-1} (x_{n-k} - e_{n-k})^2 w_{k+1}  \label{var}
+\end{align}
 Note that the variance \eqref{var} measures squared deviation of each $x_{n-k}$ from
 its own time's EMA $e_{n-k}$, rather than from the current $e_n$. This choice lets the
 recursive update for $v_n$ be derived using the same machinery as $e_n$.%
@@ -204,9 +210,9 @@ require a separate derivation.}
 
 Note, that the form of the two equations is identical; that is, 
 they both have the form:
-\begin{eqnarray}
-	g_n &=& \sum_{k=0}^{m-1} f(x_{n-k} - c_{n-k}) w_{k+1} 
-\end{eqnarray}
+\begin{align}
+	g_n &= \sum_{k=0}^{m-1} f(x_{n-k} - c_{n-k}) w_{k+1} 
+\end{align}
 In equation \eqref{ema_cmp}, $c_{n-k} \equiv 0$; while in equation
 \eqref{var}, $c_{n-k} = e_{n-k}$.
 
@@ -215,55 +221,69 @@ was done for \eqref{ema_cmp}. This is done by reworking the derivation of
 the recursive formula for \eqref{ema_cmp}, replacing $x_{n-k}$ with $f(x_{n-k} - c_{n-k})$.
 
 The recursive formula for $g_n$ is
-\begin{eqnarray}
-    g_{n+1} &=&  \lambda \left( g_{n} - f(x_{(n+1)-m} - c_{(n+1)-m}) w_m \right) + \alpha f(x_{n+1} - c_{n+1})   \quad \forall n \in [1, N-1] \\
-    g_1     &=&  f(x_1 - c_1) 
-\end{eqnarray}
+\begin{align}
+    g_{n+1} &=  \lambda \left( g_{n} - f(x_{(n+1)-m} - c_{(n+1)-m}) w_m \right) + \alpha f(x_{n+1} - c_{n+1})   \quad \forall n \in [1, N-1] \\
+    g_1     &=  f(x_1 - c_1) 
+\end{align}
 The 0-based index formula is:
 
-\begin{eqnarray}
-    g_{n} &=&  \lambda \left( g_{n-1} - f(x_{n-m} - c_{n-m}) w_{m-1} \right) + \alpha f(x_{n} - c_n) \quad \forall n \in [1, N-1] \\
-    g_0   &=&  f(x_0 - c_0) 
-\end{eqnarray}
+\begin{align}
+    g_{n} &=  \lambda \left( g_{n-1} - f(x_{n-m} - c_{n-m}) w_{m-1} \right) + \alpha f(x_{n} - c_n) \quad \forall n \in [1, N-1] \\
+    g_0   &=  f(x_0 - c_0) 
+\end{align}
 
 The corresponding $f$ for \eqref{var} is $f(x) = x^2$;
 consequently, its recursive formula is 
 
-\begin{eqnarray}
-    v_{n+1} &=& \lambda \left( v_n -  ( x_{(n+1)-m} - e_{(n+1)-m} )^2 w_m \right) + \alpha( x_{n+1} - e_{n+1} )^2 \quad \forall n \in [1, N-1] \\
-    v_1     &=&  (x_1 - e_1)^2 = 0 
-\end{eqnarray}
+\begin{align}
+    v_{n+1} &= \lambda \left( v_n -  ( x_{(n+1)-m} - e_{(n+1)-m} )^2 w_m \right) + \alpha( x_{n+1} - e_{n+1} )^2 \quad \forall n \in [1, N-1] \\
+    v_1     &=  (x_1 - e_1)^2 = 0 
+\end{align}
 The corresponding 0-based index formula is:
 
-\begin{eqnarray}
-    v_{n} &=& \lambda \left( v_{n-1} - ( x_{n-m} - e_{n-m} )^2 w_{m-1}\right) + \alpha ( x_{n} - e_{n} )^2 \quad \forall n \in [1, N-1] \\
-    v_0   &=& (x_0 - e_0)^2 = 0 
-\end{eqnarray}
+\begin{align}
+    v_{n} &= \lambda \left( v_{n-1} - ( x_{n-m} - e_{n-m} )^2 w_{m-1}\right) + \alpha ( x_{n} - e_{n} )^2 \quad \forall n \in [1, N-1] \\
+    v_0   &= (x_0 - e_0)^2 = 0 
+\end{align}
 
-Finally, the standard deviation of the exponential moving average is:%
-\footnote{The window length, $m$, must be greater than $1$.}
+Finally, the localized estimate of the standard deviation of the
+{\em process\/} is:%
+\footnote{The window length, $m$, must be greater than $1$. Note that this is
+an estimate of the local standard deviation of the underlying process -- which
+is what Bollinger bands require -- not the standard deviation of the estimator
+$e_n$ itself; the latter is the smaller quantity
+$\sigma \sqrt{\sum_{i=1}^m w_i^2}$.}
 
-\begin{eqnarray}
-    s_{n} &=& \sqrt{\frac{v_n}{1 - \sum_{i=1}^m w_i^2}}  
-\end{eqnarray}
+\begin{align}
+    s_{n} &= \sqrt{\frac{v_n}{1 - \sum_{i=1}^m w_i^2}}  
+\end{align}
 The variance corrective factor\footnote{This factor is derived in the appendix.}, $1 - \sum_{i=1}^m w_i^2$,
 is a one-time calculation independent of $n$. This factor is the standard 
 correction when determining empirical variance of a weighted average.
 
 {\bf Note.} In practice, one may wish to use some prior estimate of the standard deviation of the process
 and smoothly move from that to the estimate above over the averaging windows when $n \in [1, m]$.
+For the same reason -- $v_1 = 0$ and a partially filled window -- the early
+values $s_n$, for $n$ up to about $m$, should not be relied upon on their own.
 
 
 \section{How to Specify the $\lambda$ Factor}
 When using the EMA, practitioners do not specify the factor $\lambda$ directly;
 instead they provide the ``half-life'', $H$, of the decay.
-The {\em half-life\/} is the number of steps $H$ such that $w_H / w_1 = 1/2$.
+The {\em half-life\/} is the index $H$ such that $w_H / w_1 = 1/2$; that is,
+the weight halves in going from index $1$ to index $H$.%
+\footnote{This convention measures the halving over $H - 1$ steps. Some
+libraries (e.g., the {\tt ewm} functions of pandas) instead define the
+half-life by $\lambda^H = 1/2$ -- halving over $H$ steps -- which yields
+$\lambda = 2^{-1/H}$. The two conventions differ by one step: for $H = 5$,
+ours gives $\lambda \approx 0.8409$ while the other gives
+$\lambda = 2^{-1/5} \approx 0.8706$.}
 Substituting $w_n = \alpha \lambda^{n-1}$ gives:
-\begin{eqnarray}
-	\frac{w_H}{w_1} &=& \frac{\alpha \lambda^{H-1}}{\alpha} = \lambda^{H-1} = \frac{1}{2}
-\end{eqnarray}
-For a given $\lambda$, the integer $H$ satisfying this exactly may not exist;
-in practice we use the closest integer.\footnote{Note that $H$ must be greater than $1$
+\begin{align}
+	\frac{w_H}{w_1} &= \frac{\alpha \lambda^{H-1}}{\alpha} = \lambda^{H-1} = \frac{1}{2}
+\end{align}
+For a given $\lambda$, an integer $H$ satisfying this exactly may not exist;
+in that direction one takes the closest integer.\footnote{Note that $H$ must be greater than $1$
 and no more than the window length, $m$.}
 
 In our case we are interested in the reverse; namely, given a half-life, $H$, 
@@ -272,16 +292,16 @@ for $\lambda$.
 Taking the $\log$ of this equation we have:%
 \footnote{The log function used below is the logarithm base $e$.}
 
-\begin{eqnarray*}
-	\log(\lambda^{H-1}) &=&  \log\left(\frac{1}{2}\right) \\
-	(H-1) \log(\lambda) &=& \log(1) - \log(2)  \\
-    \log(\lambda)   &=& -\frac{\log(2)}{H-1} 
-\end{eqnarray*}
+\begin{align*}
+	\log(\lambda^{H-1}) &=  \log\left(\frac{1}{2}\right) \\
+	(H-1) \log(\lambda) &= \log(1) - \log(2)  \\
+    \log(\lambda)   &= -\frac{\log(2)}{H-1} 
+\end{align*}
 The formula to determine $\lambda$ given the half-life $H$ is:
 
-\begin{eqnarray}
-    \lambda &=& e^{-\frac{\log(2)}{H-1}}
-\end{eqnarray}
+\begin{align}
+    \lambda &= e^{-\frac{\log(2)}{H-1}}
+\end{align}
 
 For example, if the window of the moving average is $10$, you might decide that the
 half-life occurs around the middle of the window. Setting $H$ to be 5, the decay factor, $\lambda$ 
@@ -297,10 +317,10 @@ In this section we derive the corrective formula for computing the empirical var
 In what follows we assume that we are given a sequence of independent identically distributed random variables (IID):
 $\{x_i\}_{i=1}^N$ and corresponding weights: $\{w_i\}_{i=1}^N$.
 We assume that the random variables have a mean and a variance:
-\begin{eqnarray}
-    \E{x_i} &=& \mu  \quad \forall i \in [1, N] \\
-    \E{(x_i - \mu)^2} &=& \sigma^2 \quad \forall i \in [1, N]
-\end{eqnarray}
+\begin{align}
+    \E{x_i} &= \mu  \quad \forall i \in [1, N] \\
+    \E{(x_i - \mu)^2} &= \sigma^2 \quad \forall i \in [1, N]
+\end{align}
 
 We assume that the weights are non-negative and are normalized:%
 \footnote{We also assume that the weight is not concentrated at a
@@ -314,9 +334,9 @@ If we take the expectation of the weighted sum, $\sum_{i=1}^N x_i w_i$ we find t
 \footnote{This is due to the linearity of the expectation operator:
 $\E{a x + b y + c} = a \E{x} + b \E{y} + c$, provided $a,b,c$ are constants.}
 
-\begin{eqnarray}
-    \E{\sum_{i=1}^N x_i w_i} &=& \sum_{i=1}^N \E{x_i w_i} = \sum_{i=1}^N \E{x_i} w_i = \mu \sum_{i=1}^N w_i = \mu 
-\end{eqnarray}
+\begin{align}
+    \E{\sum_{i=1}^N x_i w_i} &= \sum_{i=1}^N \E{x_i w_i} = \sum_{i=1}^N \E{x_i} w_i = \mu \sum_{i=1}^N w_i = \mu 
+\end{align}
 The weighted sum represents an estimate of the true mean of the IID random variables, which is $\mu$.
 And in this case we see that it is a good estimate in that the expected value of the weighted combination
 of the random variables is $\mu$. 
@@ -344,9 +364,9 @@ using to estimate the variance of the random variables.
               - 2\E{(x_i - \mu) ({\bar x} - \mu) } \right) w_i \label{standard_emp_var}
 \end{align}
 We separately compute the expectation of each of the three summands.
-\begin{eqnarray}
-    \E{(x_i - \mu)^2} &=& \sigma^2
-\end{eqnarray}
+\begin{align}
+    \E{(x_i - \mu)^2} &= \sigma^2
+\end{align}
 
 \begin{align}
     \E{({\bar x} - \mu)^2} &= \E{\left( \left(\sum_{j=1}^N x_j w_j\right) - \mu \right)^2} \\\nonumber 
@@ -402,6 +422,8 @@ We see that we end up with the usual ``sample'' standard deviation.
 \subsection{Bias of Arbitrary Sample Moments.}
 
 We now proceed in the same way as above to compute the bias of more general moments.
+Throughout this subsection we assume the central moments
+$M_k \equiv \E{(x_i - \mu)^k}$ exist (are finite) for all $k \le r$.
 The strategy mirrors the second-moment derivation: rewrite $x_i - {\bar x} = (x_i - \mu) + (\mu - {\bar x})$
 and expand the $r^{\it th}$ power via the binomial theorem.
 The resulting power of $\sum_l (x_l - \mu) w_l$ is then expanded by the multinomial theorem,
@@ -446,65 +468,69 @@ multinomial sum to indices with $k_n \neq 1$ and obtain
 Here, we use the notation $M_r \equiv \E{(x_i - \mu)^r}$ for the $r^{\it th}$ central moment of the distribution of the $\{x_i\}_{i=1}^N$ (so that $M_2 = \sigma^2$).
 
 We now drop the $k_i = 0$ constraint by allowing $k_i$ to take any value in
-$\{0\} \cup \{2, 3, \ldots, k\}$ — yielding an inner sum that no longer depends on $i$ —
-and subtract back the $k_i \in \{2, \ldots, k\}$ contributions as a separate $z$-indexed
-sum, with $z = k_i$. The multinomial coefficient with one slot equal to $z$ factors as
+$\{0\} \cup \{2, 3, \ldots, k\}$ -- this makes the {\em first\/} inner sum below
+independent of $i$ -- and subtract back the $k_i \in \{2, \ldots, k\}$
+contributions as a separate $z$-indexed sum, with $z = k_i$. In the subtracted
+term, the remaining $N-1$ slots $k_1, \ldots, k_{N-1}$ correspond to the
+indices $l \neq i$, relabeled as $1, \ldots, N-1$; that term therefore still
+depends on $i$, both through this exclusion and through the factor
+$w_i^{j+z+1-k}$. The multinomial coefficient with one slot equal to $z$ factors as
 $\binom{k}{z}\binom{k-z}{k_1, \ldots, k_{N-1}}$, which produces the $\binom{k}{z}$
 prefactor in the subtraction below.%
 \footnote{We use the standard interpretation of any sum of the form, $\sum_{i=n}^m f(i)$, to be $0$ if $m < n$.}
 \begin{align}
-    \E{ (x_i - {\bar x})^r w_i} &= M_r + M_r \sum_{j=1}^r  (-1)^j \binom{r}{j} \sum_{i=1}^N w_i^{j+1}
+    \E{\sum_{i=1}^N (x_i - {\bar x})^r w_i} &= M_r + M_r \sum_{j=1}^r  (-1)^j \binom{r}{j} \sum_{i=1}^N w_i^{j+1}
     + \sum_{j=2}^r \sum_{k=2}^j (-1)^j \binom{r}{j} \binom{j}{k} M_{r-k} \\\nonumber
      & \times \left[ \sum_{i=1}^N w_i^{j+1-k} \left( \sum_{\substack{k_1 + k_2 + \, \cdots\,  + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \, k_n \neq 1 }} \binom{k}{k_1, k_2, \, \ldots\, , k_N}
      \prod_{l=1}^N M_{k_l} w_l^{k_l}\right) \right. \\\nonumber
      &\left. - \sum_{z = 2}^k \binom{k}{z} M_z \left( \sum_{i=1}^N w_i^{j+z+1-k} \sum_{\substack{k_1 + k_2 + \, \cdots\, + k_{N-1} = k-z \\ \forall n, k_n \ge 0\, \wedge\, k_n \neq 1}}
-     \binom{k-z}{k_1, k_2, \,\ldots\, , k_{N-1}} \prod_{\substack{l \in [1,N-1]\\ l \neq i}} M_{k_l} w_l^{k_l} \right) \right]
+     \binom{k-z}{k_1, k_2, \,\ldots\, , k_{N-1}} \prod_{l=1}^{N-1} M_{k_l} w_l^{k_l} \right) \right]
 \end{align}
 We check the case $r=2$ to see if it coincides with the previous section:
 
 \begin{align}
-    \E{(x_i - {\bar x})^2 w_i} &= \sigma^2 + \sigma^2 \sum_{j=1}^2  (-1)^j \binom{2}{j} \sum_{i=1}^N w_i^{j+1} 
+    \E{\sum_{i=1}^N (x_i - {\bar x})^2 w_i} &= \sigma^2 + \sigma^2 \sum_{j=1}^2  (-1)^j \binom{2}{j} \sum_{i=1}^N w_i^{j+1} 
     +  \sum_{j=2}^2 \sum_{k=2}^j (-1)^j \binom{2}{j} \binom{j}{k} M_{2-k} \\\nonumber 
      & \times \sum_{i=1}^N \left[ \sum_{\substack{k_1 + k_2 + \, \cdots\, + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \, k_n \neq 1 }} \binom{k}{k_1, k_2, \, \ldots\, , k_N} 
      \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) w_i^{j+1-k}  \right. \\\nonumber
      &\left. - \sum_{z = 2}^k \binom{k}{z} M_z \sum_{\substack{k_1 + k_2 +\, \cdots\, + k_{N-1} = k-z \\ \forall n, k_n \ge 0\, \wedge\, k_n \neq 1}}
-     \binom{k-z}{k_1, k_2, \, \ldots\, , k_{N-1}} \left(\prod_{\substack{l \in [1,N-1]\\ l \neq i}} M_{k_l} w_l^{k_l} \right)  w_i^{j+z+1-k} \right]
+     \binom{k-z}{k_1, k_2, \, \ldots\, , k_{N-1}} \left(\prod_{l=1}^{N-1} M_{k_l} w_l^{k_l} \right)  w_i^{j+z+1-k} \right]
 \end{align}
 
 This becomes
 \begin{align}
-    \E{(x_i - {\bar x})^2 w_i} &= \sigma^2 + \sigma^2 \sum_{j=1}^2  (-1)^j \binom{2}{j} \sum_{i=1}^N w_i^{j+1} \\\nonumber 
+    \E{\sum_{i=1}^N (x_i - {\bar x})^2 w_i} &= \sigma^2 + \sigma^2 \sum_{j=1}^2  (-1)^j \binom{2}{j} \sum_{i=1}^N w_i^{j+1} \\\nonumber 
      & + \sum_{\substack{k_1 + k_2 + \, \cdots \, + k_N = 2 \\ \forall n, k_n \ge 0 \, \wedge \, k_n \neq 1 }} \binom{2}{k_1, k_2,\, \ldots\, , k_N} 
      \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) \left(\sum_{i=1}^N w_i \right)  - \sigma^2  \left(\sum_{i=1}^N w_i^{3} \right) 
 \end{align}
 Which is
 \begin{align}
-    \E{(x_i - {\bar x})^2 w_i} &= \sigma^2 + \sigma^2 \left( -2\sum_{i=1}^N w_i^2 + \sum_{i=1}^N w_i^3\right) 
+    \E{\sum_{i=1}^N (x_i - {\bar x})^2 w_i} &= \sigma^2 + \sigma^2 \left( -2\sum_{i=1}^N w_i^2 + \sum_{i=1}^N w_i^3\right) 
      +  \sigma^2 \sum_{l=1}^N w_l^2\left(\sum_{i=1}^N w_i\right) - \sigma^2  \left(\sum_{i=1}^N w_i^{3} \right)
 \end{align}
 This becomes
 \begin{align}
-    \E{(x_i - {\bar x})^2 w_i} &= \sigma^2\left(1 - \sum_{i=1}^N w_i^2\right) 
+    \E{\sum_{i=1}^N (x_i - {\bar x})^2 w_i} &= \sigma^2\left(1 - \sum_{i=1}^N w_i^2\right) 
 \end{align}
 
 As a more complicated example we try $r=3$. In this case the formula is:
 \begin{align}
-    \E{(x_i - {\bar x})^3 w_i} &= M_3 + M_3 \sum_{j=1}^3  (-1)^j \binom{3}{j} \sum_{i=1}^N w_i^{j+1} 
+    \E{\sum_{i=1}^N (x_i - {\bar x})^3 w_i} &= M_3 + M_3 \sum_{j=1}^3  (-1)^j \binom{3}{j} \sum_{i=1}^N w_i^{j+1} 
     + \sum_{j=2}^3 \sum_{k=2}^j (-1)^j \binom{3}{j} \binom{j}{k} M_{3-k} \\\nonumber 
      & \times \sum_{i=1}^N \left[ \sum_{\substack{k_1 + k_2 + \, \cdots\, + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \, k_n \neq 1 }} \binom{k}{k_1, k_2, \, \ldots\,, k_N} 
      \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) w_i^{j+1-k} \right. \\\nonumber
      &\left. - \sum_{z = 2}^k \binom{k}{z} M_z \sum_{\substack{k_1 + k_2 + \, \cdots\, + k_{N-1} = k-z \\ \forall n, k_n \ge 0\, \wedge\, k_n \neq 1}}
-     \binom{k-z}{k_1, k_2, \, \ldots\, , k_{N-1}} \left(\prod_{\substack{l \in [1,N-1]\\ l \neq i}} M_{k_l} w_l^{k_l} \right) w_i^{j+z+1-k} \right]
+     \binom{k-z}{k_1, k_2, \, \ldots\, , k_{N-1}} \left(\prod_{l=1}^{N-1} M_{k_l} w_l^{k_l} \right) w_i^{j+z+1-k} \right]
 \end{align}
 Which is
 \begin{align}
-    \E{(x_i - {\bar x})^3 w_i} &= M_3 + M_3 \left(-3 \sum_{i=1}^N w_i^2 + 3 \sum_{i=1}^N w_i^3 - \sum_{i=1}^N w_i^4\right) 
+    \E{\sum_{i=1}^N (x_i - {\bar x})^3 w_i} &= M_3 + M_3 \left(-3 \sum_{i=1}^N w_i^2 + 3 \sum_{i=1}^N w_i^3 - \sum_{i=1}^N w_i^4\right) 
      - M_3 \left(\sum_{l=1}^N w_l^3 \left(\sum_{i=1}^N w_i\right) - \sum_{i=1}^N w_i^4 \right)
 \end{align}
 
 Or,
 \begin{align}
-    \E{(x_i - {\bar x})^3 w_i} &= M_3\left(1 - 3\sum_{i=1}^N w_i^2 + 2\sum_{i=1}^N w_i^3\right)
+    \E{\sum_{i=1}^N (x_i - {\bar x})^3 w_i} &= M_3\left(1 - 3\sum_{i=1}^N w_i^2 + 2\sum_{i=1}^N w_i^3\right)
 \end{align}
 Therefore, the corresponding unbiased estimator for the $3^{\it rd}$ central moment is:%
 \footnote{As mentioned in the case of the second moment, this formula does not apply when
@@ -557,7 +583,7 @@ $1 - 2 + \tfrac{3}{2} - \tfrac{3}{8} = \tfrac{1}{8}$, and the $M_2^2$ coefficien
 $3(1 - \tfrac{1}{2} - \tfrac{3}{4} + \tfrac{3}{8}) = \tfrac{3}{8}$, matching the direct
 evaluation $\tfrac{M_4}{8} + \tfrac{3 M_2^2}{8}$.
 
-The corresponding relation for the relative $4^{\it th}$ moment is:
+The corresponding relation for the kurtosis, $M_4 / M_2^2$, is:
 \begin{align}
     \frac{M_4}{M_2^2} &= \frac{\E{\sum_{i=1}^N (x_i - {\bar x})^4 w_i} / M_2^2 - 3 (2 W_2 - 2 W_3 - 3 W_2^2 + 3 W_4)}{1 - 4 W_2 + 6 W_3 - 3 W_4}.
 \end{align}
@@ -565,7 +591,7 @@ The corresponding relation for the relative $4^{\it th}$ moment is:
 Since we don't know $M_2 = \sigma^2$, we use our unbiased estimate
 ${\widehat M}_2 = \frac{\sum_{j=1}^N (x_j - {\bar x})^2 w_j}{1 - W_2}$.
 We also replace $\E{\sum_{i=1}^N (x_i - {\bar x})^4 w_i}$ with the sample estimate
-$\sum_{i=1}^N (x_i - {\bar x})^4 w_i$. Our estimate of the relative kurtosis is then:
+$\sum_{i=1}^N (x_i - {\bar x})^4 w_i$. Our estimate of the kurtosis is then:
 \begin{align}
     \frac{M_4}{M_2^2} &\approx \frac{
         \displaystyle \frac{(1 - W_2)^2 \sum_{i=1}^N (x_i - {\bar x})^4 w_i}{\left(\sum_{j=1}^N (x_j - {\bar x})^2 w_j\right)^2}
