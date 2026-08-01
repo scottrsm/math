@@ -14,24 +14,28 @@
 
 \title{Constructing Diversification Constraints}
 \author{R. Scott McIntire}
-\date{May 2, 2026}
+\date{Aug 1, 2026}
 
 \begin{document}
 
 \maketitle
 
 \section{Overview}
+Throughout this paper, $k \in {\bf Z}^+$ with $k \le n$.
 Consider the function, $f: {\bf R}^n \to {\bf R}$, defined by%
 \footnote{
 For a given vector, ${\bf x} \in {\bf R}^n$, create a vector ${\bf x}^\prime$
 by sorting ${\bf x}$ from highest to lowest (ties broken arbitrarily, as the
 sums below are independent of the tie-breaking rule).
-Define the notation, $x_{[i]}$ by: $x_{[i]} \equiv x_{i}^\prime$.
-Note: For the rest of this paper we assume that $k \in {\bf Z}^+$ with $k \le n$.}
+Define the notation, $x_{[i]}$ by: $x_{[i]} \equiv x_{i}^\prime$.}
 \begin{align*}
 	f({\bf x}) &= \sum_{i=1}^k x_{[i]}.
 \end{align*}
 That is, $f({\bf x})$ is the sum of the $k$ largest entries of ${\bf x}$.
+Note that $f$ is {\it convex\/}: it is the maximum, over all $\binom{n}{k}$
+index subsets $S$ of size $k$, of the linear functions
+${\bf x} \mapsto \sum_{i \in S} x_i$.  This convexity is the reason the
+constraint $f({\bf x}) \le M$ can admit a linear representation at all.
 We are interested in optimization problems involving a vector ${\bf x}$
 where the sum of the top $k$ entries is bounded; that is, $f({\bf x}) \le M$
 for a given $M$.
@@ -46,21 +50,32 @@ vector of $0$s as ${\bf 0}$, and likewise we refer to a vector of $1$s
 as ${\bf 1}$. The mathematical expression, ${\bf a} \preceq {\bf b}$, is to be 
 interpreted as the statement that every element of the vector ${\bf a}$ is 
 less than or equal to the corresponding element in the vector ${\bf b}$. 
-Similarly, the expression, ${\bf a} \succeq {\bf b}$, is the statement that 
-each element of ${\bf a}$ is greater than or equal to each 
+Similarly, the expression, ${\bf a} \succeq {\bf b}$, is the statement that
+each element of ${\bf a}$ is greater than or equal to each
 corresponding element of ${\bf b}$.
 }
+This reformulation is classical --- it appears in Ogryczak and
+Tamir~\cite{ogryczak-tamir}; see also Boyd and
+Vandenberghe~\cite{boyd} --- but the derivation below is self-contained.
 
-In finance, this constraint arises when one wants to create (or modify) a portfolio
-so that the new portfolio has the property that its top $k$ securities (notionally)
-do not exceed some fixed percentage of its total notional.
+In finance, this constraint arises when one wants to create (or modify) a
+long-only portfolio (${\bf x} \succeq {\bf 0}$) so that its top $k$
+securities (notionally) do not exceed a fixed percentage $p$ of its total
+notional.  In that case the bound is $M = p \, {\bf 1}^T {\bf x}$, which
+depends on the variable ${\bf x}$ --- but only {\it linearly\/}, so the
+constraint (\ref{opp1}) below remains linear with $M$ replaced by
+$p \, {\bf 1}^T {\bf x}$.  The function $f$ is also $k$ times the
+{\it conditional value-at-risk\/} (CVaR) of the empirical distribution of
+the entries of ${\bf x}$ at level $k/n$; the reformulation below is
+precisely the linearization of Rockafellar and
+Uryasev~\cite{rockafellar-uryasev} in that setting.
 
 \section{The Function $f$ as an Optimization Problem}
 We wish to characterize $f({\bf x})$ as the value of an optimization.
 We claim that for a given ${\bf x}$, $f({\bf x})$ equals the optimal value of
 the following constrained {\it discrete\/} optimization problem:%
 \begin{align}
-	\max_{{\bf y} \in {\bf Z}_2^n} \quad & {\bf y}^T {\bf x} \label{discrete_objective} \\
+	\max_{{\bf y} \in \{0,1\}^n} \quad & {\bf y}^T {\bf x} \label{discrete_objective} \\
 	\text{s.t.} \quad & {\bf y}^T {\bf 1} = k \label{discrete_card}
 \end{align}
 This is $f({\bf x})$ written as a 0-1 integer program (IP).
@@ -80,13 +95,13 @@ write ``max'' instead of ``sup''.
 \end{align}
 \textbf{Proof.}
 Since its feasible set contains the discrete problem's feasible set
-(every ${\bf y} \in {\bf Z}_2^n$ with ${\bf y}^T {\bf 1} = k$ also satisfies
+(every ${\bf y} \in \{0,1\}^n$ with ${\bf y}^T {\bf 1} = k$ also satisfies
 ${\bf 0} \preceq {\bf y} \preceq {\bf 1}$), the optimal value of the continuous problem is
 at least as large as the optimal value of the original discrete problem.
 We now show the reverse. For any optimal solution ${\bf y}^*$ of the continuous
-problem, we construct a ${\bf y}^\prime \in {\bf Z}_2^n$ satisfying
-(\ref{discrete_card}) and yielding the same objective value (\ref{discrete_objective})
-as ${\bf y}^*$.
+problem, we construct a ${\bf y}^\prime \in \{0,1\}^n$ satisfying
+(\ref{discrete_card}) and yielding the same value of the objective
+(\ref{discrete_objective}) as ${\bf y}^*$.
 
 If all components of ${\bf y}^*$ are integers, by (\ref{bound}) they are each
 $0$ or $1$; in this case take ${\bf y}^\prime = {\bf y}^*$.
@@ -97,14 +112,14 @@ By (\ref{cont_card}), $\sum_i y^*_i = k$ is an integer; the integer-valued
 components contribute an integer to this sum, so the non-integer components
 must sum to an integer too. Consequently, there must be more than one such
 component. It must also be the case that amongst these non-integer components
-the corresponding ``x'' values are the same. Otherwise, if two of these components
-had differing ``x'' values, then the ``y'' component with the
-smaller ``x'' value could shift some of its value to the ``y'' component with
-the larger ``x'' value in such a way as to preserve the constraints,
-(\ref{bound}) and (\ref{cont_card}).
-But then we would have a larger objective value than the supposed maximum
--- contradiction. Therefore, all of the
-``x'' components associated with non-integer ``y'' values must have the same
+the corresponding entries of ${\bf x}$ are the same. Otherwise, there would
+be indices $i, j$ with $y^*_i, y^*_j \in (0,1)$ and $x_i > x_j$; shifting a
+small amount $\epsilon > 0$ from $y^*_j$ to $y^*_i$ preserves the
+constraints (\ref{bound}) and (\ref{cont_card}) (both components are
+strictly between $0$ and $1$, so a small shift stays within the bounds) and
+increases the objective by $\epsilon (x_i - x_j) > 0$ --- contradicting the
+optimality of ${\bf y}^*$. Therefore, all of the entries of ${\bf x}$
+associated with non-integer components of ${\bf y}^*$ have the same
 value. As previously stated, the sum of these non-integer values is an integer,
 which is necessarily less than the number of non-integer components in ${\bf y}^*$.
 Let $j$ denote this integer sum.
@@ -114,23 +129,29 @@ Let ${\tilde J}$ be the set of indices corresponding to the remaining non-intege
 of ${\bf y}^*$.
 
 Now, create a new 
-vector ${\bf y}^\prime \in {\bf Z}_2^n$ and set its values in the following way: 
+vector ${\bf y}^\prime \in \{0,1\}^n$ and set its values in the following way: 
 Set the values of ${\bf y}^\prime$ corresponding to the indices in $J$
 to be $1$. Set the values of ${\bf y}^\prime$ corresponding to the indices in ${\tilde J}$
 to $0$. Set the rest of the components of ${\bf y}^\prime$ to the
 corresponding values from ${\bf y}^*$. By our construction,
 ${{\bf y}^\prime}^T {\bf 1} = k$. The components of ${\bf y}^\prime$ inherited from ${\bf y}^*$
 were already integers, and by (\ref{bound}) every integer component of ${\bf y}^*$
-is $0$ or $1$. It follows that ${\bf y}^\prime \in {\bf Z}_2^n$ and
+is $0$ or $1$. It follows that ${\bf y}^\prime \in \{0,1\}^n$ and
 satisfies the constraint of the discrete problem, (\ref{discrete_card}).
-The objective value is also preserved: let $x_c$ denote the common value of the ``x''
-components on $J \cup {\tilde J}$. The contribution to the objective from those indices
+The objective value is also preserved: let $x_c$ denote the common value of
+the entries of ${\bf x}$ on $J \cup {\tilde J}$. The contribution to the objective from those indices
 equals $x_c \sum_{i \in J \cup {\tilde J}} y^*_i = x_c \, j$, which is exactly the
 contribution from ${\bf y}^\prime$ on the same indices.
 Therefore, ${\bf y}^\prime$ is in the feasible set of the discrete problem and
 attains the optimal value of the continuous problem; that is, the
 optimal value of the discrete problem is at least the optimal value of the
 continuous problem. Consequently, the two optimization problems are equivalent.
+
+\textbf{Remark.} The equivalence is no accident: the vertices of the polytope
+$\{ {\bf y} : {\bf 0} \preceq {\bf y} \preceq {\bf 1},\; {\bf y}^T {\bf 1} = k \}$
+are exactly the $0$--$1$ vectors with $k$ ones, and a linear objective always
+attains its maximum at a vertex.  The proof above has the advantage of being
+self-contained.
 
 The continuous problem above is equivalent to the following minimization:
 \begin{align}
@@ -208,6 +229,21 @@ Negating the objective converts the max to a min:
 	& {\boldsymbol \lambda} \succeq {\bf 0}
 \end{align*}
 
+\textbf{Remark.} The dual has a useful closed form.  For fixed $\nu$, the
+best choice of ${\boldsymbol \lambda}$ is clearly
+$\lambda_i = (x_i - \nu)_+ \equiv \max(x_i - \nu,\, 0)$, so the dual value is
+\begin{align*}
+	f({\bf x}) &= \min_{\nu \in {\bf R}} \;
+	\Bigl[\, k \nu + \sum_{i=1}^n (x_i - \nu)_+ \Bigr],
+\end{align*}
+and the minimum is attained at $\nu^* = x_{[k]}$, the $k^{\rm th}$ largest
+entry of ${\bf x}$.  Indeed, at $\nu = x_{[k]}$ the bracket evaluates to
+$k \, x_{[k]} + \sum_{i=1}^{k} \bigl(x_{[i]} - x_{[k]}\bigr)
+= \sum_{i=1}^k x_{[i]} = f({\bf x})$, which exhibits the optimal dual point
+directly, without appeal to LP theory.  The multiplier $\nu$ acts as a
+threshold, and ${\boldsymbol \lambda}$ pays for the excess of each entry
+above it.
+
 \section{Characterization of $f$ as $O(n)$ Linear Constraints}
 We now apply the results of the previous sections to the following problem:
 Add constraints to an optimization problem that includes a {\it variable} ${\bf x} \in {\bf R}^n$
@@ -254,9 +290,24 @@ and the new {\it variable\/} ${\bf y}$. These terms are decidedly {\it non-linea
 in fact, they are not even {\it convex\/}.
 
 In contrast to this ``simpler'' characterization and the original na\"\i ve
-combinatorial approach, we have shown that 
+combinatorial approach, we have shown that
 by examining an associated dual problem, $f({\bf x})$ can be bounded by
 adding $(n+1)$ new variables and $(2n + 1)$ {\it linear\/} constraints.
+
+\begin{thebibliography}{9}
+
+\bibitem{ogryczak-tamir} W. Ogryczak and A. Tamir, Minimizing the sum of
+the $k$ largest functions in linear time, {\it Information Processing
+Letters} {\bf 85} (2003), 117--122.
+
+\bibitem{boyd} S. Boyd and L. Vandenberghe, {\it Convex Optimization},
+Cambridge University Press, 2004.
+
+\bibitem{rockafellar-uryasev} R. T. Rockafellar and S. Uryasev,
+Optimization of conditional value-at-risk, {\it Journal of Risk}
+{\bf 2} (2000), 21--41.
+
+\end{thebibliography}
 
 \end{document}
 
