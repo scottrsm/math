@@ -2,9 +2,9 @@
 \usepackage{amsmath}
 \usepackage{algorithmic}
 
-\title{What is a derivative \\ (with applications to Data Science and Physics)}
+\title{What is a Derivative \\ (with Applications to Data Science and Physics)}
 \author{R. Scott McIntire}
-\date{May 2, 2026}
+\date{Aug 1, 2026}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
 \setlength{\hoffset}{-0.75in}
@@ -50,7 +50,11 @@ by its slope, $a_L$.
 
 For the linear function $Df(x)$ the associated scalar value we label $f^\prime(x)$
 and call it --as an abuse of language -- the derivative of $f$ at $x$.
-To compute this scalar value we use the definition, \eqref{simderdef}, at a point $x$:
+To compute this scalar value we use the definition, \eqref{simderdef}, at a point $x$:%
+\footnote{A convention used here and throughout: $o(h)$ denotes a
+{\em generic\/} higher-order term, possibly a different function from line
+to line; in particular $-o(h)$ is again such a term, so moving it across an
+equals sign is harmless.}
 \begin{align}
   f^\prime(x) h &= Df(x)(h) = f(x+h) - f(x) + o(h)
 \end{align}
@@ -58,7 +62,7 @@ So that%
 \footnote{Geometrically, we are approximating the tangent line with lines passing
 through approximating cords to the function, $f$.}
 \begin{align}
-  f^\prime(x) &= \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h} + \frac{o(h)}{h} \nonumber \\
+  f^\prime(x) &= \lim_{h \rightarrow 0} \left( \frac{f(x+h) - f(x)}{h} + \frac{o(h)}{h} \right) \nonumber \\
   &= \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h} + 0 \nonumber \\
   &= \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h}
 \end{align}
@@ -81,22 +85,24 @@ polynomials from power functions. Consequently, we can easily get formulas
 for the derivatives of polynomials.
 
 \subsection{Application to Optimization}
-At a local maximum or minimum of a function, $x$, the tangent line to
+At a local maximum or minimum, $x$, in the interior of the domain of a
+function, the tangent line to
 the graph of the function at $x$ would be flat. That is the linear function, $Df(x)$,
 should be the zero function; and therefore, $f^\prime(x)$, the corresponding
 slope of the graph of this linear function should be $0$.
 So, potentially, we have a practical way of finding maxima or minima.
 This makes sense, to find the maxima or minima of a function over an interval, $[a,b]$,
 examine all of the local maxima or minima {\em plus\/} the values of the function
-at $a$ and $b$. This should be a relatively small list. We find the local maxima
-and minima by solving for all points $x$ such that $f^\prime(x) = 0$.
+at $a$ and $b$. This should be a relatively small list. We find the interior
+candidates -- the {\em critical points\/} -- by solving for all points $x$
+such that $f^\prime(x) = 0$.
 
 {\bf Example.} Find the point $x^*$ which maximizes the function $f(x) = x(12 - 2x)^2$
 over the interval $[0,6]$. We find all points $x$ such that $f^\prime(x) = 0$.
 It turns out that $f^\prime(x) = 144 - 96x + 12x^2$. Solving for $x$,
 $144 - 96x + 12x^2 = 0$ (same as $12 - 8x + x^2 = 0$) we have two solutions: $\{2, 6\}$.
 The ``x''{} values that are candidates which produce the maximum value of the function $f$
-are then: $\{0, 2, 6\}$ -- the union of the local maxima and the boundary points.
+are then: $\{0, 2, 6\}$ -- the union of the critical points and the boundary points.
 Now it is a simple matter to walk this list and find an x which produces the maximum
 value of $f$. In this case, the ``x''{} which produces the maximum value is $x^* = 2$.
 
@@ -119,7 +125,7 @@ Here, $Df({\bf x})$ is a linear function from $R^n$ to $R$ and
 $o({\bf h})$ is the higher order error term, higher order in the sense that
 $\lim_{{\bf h} \rightarrow {\bf 0}}\frac{o({\bf h})}{\|{\bf h}\|} = 0$.
 
-Again, the function $Df({\bf x})$ is a rather abstract and difficult to work with.
+Again, the function $Df({\bf x})$ is rather abstract and difficult to work with.
 There is as in the scalar case a {\em representation\/} result:
 Any linear function, $L$, from $R^n$ to $R$ can be represented by a vector, ${\bf a}_L$:
 \begin{align}
@@ -128,15 +134,16 @@ Any linear function, $L$, from $R^n$ to $R$ can be represented by a vector, ${\b
 We denote the vector that represents the linear function $Df({\bf x})$ by
 $\nabla f({\bf x})$. Equation \eqref{vderdef} becomes:
 \begin{align}
-  f({\bf x} + {\bf h}) &= f({\bf x}) + \nabla f({\bf x}) \cdot {\bf h} + o({\bf h}) \label{vderdef2}
+  f({\bf x} + {\bf h}) &= f({\bf x}) + \nabla f({\bf x}) \cdot {\bf h} + o({\bf h})
 \end{align}
 As in the scalar case, we use equation \eqref{vderdef}
-to compute the components of the vector $\nabla f({\bf x})$ once we chose
-a coordinate system. To this end let ${\bf e}_i$ be a basis for $R^n$. The $i^{\rm th}$
-component in this coordinate system of this vector is
+to compute the components of the vector $\nabla f({\bf x})$ once we choose
+a coordinate system. To this end let $\{{\bf e}_i\}$ be an {\em orthonormal\/}
+basis for $R^n$ -- orthonormality is what lets us extract the $i^{\rm th}$
+component of a vector by dotting with ${\bf e}_i$. That component is
 \begin{align}
   \nabla f({\bf x})_i &=  \nabla f({\bf x})\cdot {\bf e}_i =
-  \lim_{h \rightarrow 0} \left( \frac{f({\bf x} + h {\bf e}_i) - f({\bf x})}{h} + \frac{o(h {\bf e}_i)}{\|h {\bf e}_i\|}\right) \label{vdercomp}
+  \lim_{h \rightarrow 0} \left( \frac{f({\bf x} + h {\bf e}_i) - f({\bf x})}{h} + \frac{o(h {\bf e}_i)}{h}\right) \label{vdercomp}
 \end{align}
 If ${\tilde f}$
 is the function that takes an $n$ tuple of the components of a vector, ${\bf x}$,
@@ -147,22 +154,22 @@ then equation, \eqref{vdercomp} yields:
 \begin{align}
   \nabla f({\bf x})_i &=
     \lim_{h \rightarrow 0} \left(\frac{{\tilde f}(x_1, \ldots, x_i + h, \ldots, x_n) - {\tilde f}(x_1, \ldots, x_i, \ldots, x_n)}{h}\right)
-    + \lim_{h \rightarrow 0} \frac{o(h {\bf e}_i)}{\|h {\bf e}_i\|}
+    + \lim_{h \rightarrow 0} \frac{o(h {\bf e}_i)}{h}
     \nonumber \\
 &= \frac{\partial {\tilde f}}{\partial x_i}(x_1, x_2, \ldots, x_n) + 0 \nonumber \\
 &= \frac{\partial {\tilde f}}{\partial x_i}(x_1, x_2, \ldots, x_n)
 \end{align}
- Here, we are using the notional $\frac{\partial {\tilde f}}{\partial x_i}$ to
+ Here, we are using the notation $\frac{\partial {\tilde f}}{\partial x_i}$ to
 ``take a derivative''{} in one direction. That is, we leave all of the other ``slots''{}
 of ${\tilde f}$ constant and just compute the change in one slot, $x_i$.%
-\footnote{What does $x$ have to do with the $i^{\rm th}$ slot of ${\tilde f}$. Actually
+\footnote{What does $x$ have to do with the $i^{\rm th}$ slot of ${\tilde f}$? Actually
 nothing, as we can put anything in that slot, $x$, $y$, $z$, 5, etc. Keep this in mind,
 as two sections from now we will see the notation: $\frac{\partial F}{\partial y^\prime}$.
 In this case, it simply means take a derivative in the third slot of the function $F$.}
 
 Note, different choices of
 coordinate systems will yield different
-values for the components of $f$. It turns out that in two dimensions if one uses
+values for the components of $\nabla f$. It turns out that in two dimensions if one uses
 polar coordinates and the function ${\tilde f}$ is written using these coordinates,
 the components of the gradient of $f$ in the $(\hat r, \hat\theta)$ basis are
 $\left[\frac{\partial {\tilde f}}{\partial r}, \frac{1}{r} \frac{\partial {\tilde f}}{\partial \theta}\right]$.
@@ -172,10 +179,11 @@ $f({\bf x})$ is given by the gradient of $f$. To see this notice that we can
 discuss direction of a vector in a unique sense by normalizing it to be of unit length.
 That is, we can speak of a vector's direction as its unit vector.
 
-{\bf Question.} What is the direction to change a given value $x$ so as
-to increase $f$ as much as possible? So, find a direction, ${\bf w}$ (unit vector),
-so that for a vector of small enough length $h$, $f({\bf x} + h{\bf w})$ is larger than
-all other vectors of the same length. We claim that the direction of
+{\bf Question.} In which direction should we perturb a given point ${\bf x}$ so as
+to increase $f$ as much as possible? That is, find a direction, ${\bf w}$ (unit vector),
+so that for all small enough steps $h > 0$, $f({\bf x} + h{\bf w})$ is at least
+as large as $f({\bf x} + h{\bf u})$ for every other unit vector ${\bf u}$.
+We claim that -- provided $\nabla f({\bf x}) \neq {\bf 0}$ -- the direction of
 maximum increase (locally) is $\nabla f({\bf x})$ (normalized).
 \begin{align}
   f({\bf x} + h {\bf w})  - f({\bf x}) &= \nabla f({\bf x}) \cdot h {\bf w} + o(h {\bf w})
@@ -203,7 +211,8 @@ How might one go about finding the minimum value of a function, $f({\bf x})$
 when solving for $\nabla f({\bf x}) = {\bf 0}$ is too hard?
 We know that at any point $x$, the ``local''{} direction to move to decrease $f$
 as much as possible is to move along the direction of the negative gradient.
-This suggests a scheme for finding the minimum.
+This suggests an iterative scheme -- known as {\em gradient descent\/} --
+for finding the minimum.
 \begin{algorithmic}
   \STATE ${\bf x}_0 \leftarrow {\bf x}^{(0)}$
   \STATE $n \leftarrow 0$
@@ -226,12 +235,14 @@ This algorithm depends on the parameters:
     \item[${\bf x}^{(0)}$:] An initial guess;
     \item[$N$:] The maximum number of iterations allowed;
     \item[$\epsilon$:] The error tolerance for convergence;
-    \item[$\eta$:] The ``learning'' parameter.
+    \item[$\eta$:] The {\em learning rate\/} (step size).
 \end{description}
-As it is analytically difficult to compute the gradient for real world problems, 
-schemes like the one above are used 
-to find solutions to sophisticated constrained optimization problems.
-They are also used to train Artificial Deep Neural Networks.
+As it is analytically difficult to {\em solve\/} $\nabla f({\bf x}) = {\bf 0}$
+for real world problems -- the gradient itself is simply evaluated
+numerically at each step -- iterative schemes like the one above are used
+to find solutions to sophisticated optimization problems.
+Gradient descent and its variants are also the workhorses used to train
+deep neural networks.
 
 
 \section{Extension to $f:R^n \rightarrow R^m$}
@@ -288,21 +299,21 @@ function names, even though from equation to equation, the $o(h)$ functions may 
 Here $DJ(y): H \rightarrow R$; that is, it is a linear function from
 function space to $R$ and $o(h)$ is a
 higher order error term that takes a function, $h$ to a number such that
-$\lim_{h \rightarrow 0}\frac{o(h)}{\|h\|} = 0$. However, its not clear what the
+$\lim_{h \rightarrow 0}\frac{o(h)}{\|h\|} = 0$. However, it is not clear what the
 norm of the function $h$ is. One can define an
 inner product (generalization of a dot product) on the space of
 functions which is a generalization of the dot product for vectors in
 a finite dimensional space. In turn, this inner product defines a norm on the space
 of functions, $H$.
 We define the following inner product function,
-$<\!\cdot, \cdot\!>$ by:
+$\langle \cdot, \cdot \rangle$ by:
 \begin{align}
-  <\!f, g\!> &\equiv \int_a^b f(x) g(x)\, dx \label{inner_prod}
+  \langle f, g \rangle &\equiv \int_a^b f(x) g(x)\, dx \label{inner_prod}
 \end{align}
 From this, just as with dot products, we can define the norm, or length of a function,
 using this inner product:
 \begin{align}
-  \|f\| &= \sqrt{<\!f,f\!>}
+  \|f\| &= \sqrt{\langle f,f \rangle}
 \end{align}
 As a brief aside we discuss the inner product.
 
@@ -327,15 +338,15 @@ One way to do this is to normalize these dot products so that they would remain
 finite. The simplest thing to do is to divide by the number of points
 in the discretization.
 That is, we define
-an inner product $<\!\!<\cdot ,\cdot>\!\!>$
+an inner product $\langle\!\langle \cdot ,\cdot\rangle\!\rangle$
 for these vectors as:
 \begin{align}
-  <\!\!<{\widetilde f}, \, {\widetilde g}>\!\!> &\equiv \frac{1}{n} \sum_{i=1}^n f(x_i) g(x_i)
+  \langle\!\langle {\widetilde f}, \, {{\vphantom {\widetilde f}}\widetilde g}\rangle\!\rangle &\equiv \frac{1}{n} \sum_{i=1}^n f(x_i) g(x_i)
 \end{align}
 Taking the limit of the above we can define an inner product for the original functions
-$f$ and $g$. That is, for our function space, define an inner product, $<\!\!<\cdot ,\cdot>\!\!>$ by:
+$f$ and $g$. That is, for our function space, define an inner product, $\langle\!\langle \cdot ,\cdot\rangle\!\rangle$ by:
 \begin{align*}
-  <\!\!<f, g>\!\!> &\equiv \lim_{n\rightarrow \infty} \frac{1}{n} \sum_{i=1}^n f(x_i) g(x_i) \\
+  \langle\!\langle f, g\rangle\!\rangle &\equiv \lim_{n\rightarrow \infty} \frac{1}{n} \sum_{i=1}^n f(x_i) g(x_i) \\
 &= \frac{1}{b-a} \lim_{n\rightarrow \infty}  \sum_{i=1}^n f(x_i) g(x_i) \frac{b-a}{n} \\
 &= \frac{1}{b-a} \int_{a}^b f(x) g(x) \, dx
 \end{align*}
@@ -353,12 +364,12 @@ can be represented by a function in the function space
 represented by a {\em vector\/}. Analogously, for every linear functional, $L$,
 in our function space there is a {\em function\/}, $a_L$, such that:
 \begin{align}
-L(f) &= <\!a_L, f\!>
+L(f) &= \langle a_L, f \rangle
 \end{align}
 We denote by $\nabla J(y)$ the
 function that represents the derivative, $DJ(y)$. That is
 \begin{align}
-  DJ(y)(h) &= <\!\nabla J(y), h\!>
+  DJ(y)(h) &= \langle \nabla J(y), h \rangle
 \end{align}
 Remember, the
 representation, $\nabla J(y)$, gives us a concrete thing with which we can compute.
@@ -373,27 +384,27 @@ To recap, we know
 \begin{align}
   DJ(y)(h) &= J(y+h) - J(y) + o(h)
 \end{align}
-Since $DJ(y)(h) \; = \; <\!\nabla J(y), h\!>$, we have:
+Since $DJ(y)(h) \; = \; \langle \nabla J(y), h \rangle$, we have:
 \begin{align}
-  <\!\nabla J(y), h\!> &= J(y+h) - J(y) + o(h) \label{grad_eq}
+  \langle \nabla J(y), h \rangle &= J(y+h) - J(y) + o(h) \label{grad_eq}
 \end{align}
 To find the function $\nabla J(y)$ we need to re-write the RHS of the last equation
 so that it becomes:
 \begin{align}
-  <\!\nabla J(y), h\!> &= <\!w, h> + \; o(h) \label{uniq}
+  \langle \nabla J(y), h \rangle &= \langle w, h \rangle + \; o(h) \label{uniq}
 \end{align}
-Then we will have identified our function $\nabla J(y)$, it will be $w$. Why?
+Then we will have identified our function $\nabla J(y)$: it will be $w$. Why?
 To show this, fix a function $h$ and let $t$ be a scalar scaling parameter.
 By the linearity of the inner product, equation \eqref{uniq} implies that
 \begin{align}
-  t \, <\!\nabla J(y), h\!> &= t \, <\!w, h\!> + o(t)
+  t \, \langle \nabla J(y), h \rangle &= t \, \langle w, h \rangle + o(t)
 \end{align}
 Dividing by $t$ and taking $t \rightarrow 0$:
 \begin{align}
-	<\!\nabla J(y) - w, h\!> &= 0 \label{uniq-t}
+	\langle \nabla J(y) - w, h \rangle &= 0
 \end{align}
 But this calculation is valid for any function $h$; consequently,
-$<\!\nabla J(y) - w, h\!> = 0 \quad \forall h$.
+$\langle \nabla J(y) - w, h \rangle = 0 \quad \forall h$.
 Letting $h = \nabla J(y) - w$, we see that $\nabla J(y) - w = 0$.
 That is, $\nabla J(y) \equiv w$.
 
@@ -404,7 +415,7 @@ Taylor's expansion on $F$. Continuing, substituting the definition of $J$ in equ
 $F(x + a, y+h, y^\prime + h^\prime) - F(x,y,y^\prime) = \nabla F(x,y,y^\prime) \cdot [a,h,h^\prime] + o([a,h,h^\prime])$. In our case, $a = 0$.
 }
 \begin{align}
-  <\!\nabla J(y), h\!>  &= \int_a^b F(x, (y+h)(x), (y^\prime + h^\prime)(x)) \, dx
+  \langle \nabla J(y), h \rangle  &= \int_a^b F(x, (y+h)(x), (y^\prime + h^\prime)(x)) \, dx
   - \int_a^b F(x, y(x), y^\prime(x)) \, dx  + o(h) \nonumber \\
 &= \int_a^b \frac{\partial F}{\partial y}(x, y(x), y^\prime(x))h(x)\, dx
 + \int_a^b \frac{\partial F}{\partial y^\prime}(x, y(x), y^\prime(x))h^\prime(x) \, dx
@@ -417,7 +428,7 @@ Here, we used Taylor's expansion on $F$:
 \end{align}
 If equation \eqref{rinfder} looked instead like
 \begin{align}
-  <\!\nabla J(y), h\!>  &=
+  \langle \nabla J(y), h \rangle  &=
  \int_a^b \frac{\partial F}{\partial y}(x, y(x), y^\prime(x))h(x)\, dx
 + o(h) \label{rbadder}
 \end{align}
@@ -449,11 +460,20 @@ the previous equation becomes:
   \right]
   h(x) \, dx
 \end{align}
-we claim that with this restriction on $h$, $DJ(y)$ is still uniquely determined.
+With this restriction on $h$, the representative $\nabla J(y)$ is still
+uniquely determined. This is the {\em Fundamental Lemma of the Calculus of
+Variations\/}: if a continuous function $g$ satisfies
+$\int_a^b g(x) h(x)\, dx = 0$ for every smooth $h$ with $h(a) = h(b) = 0$,
+then $g \equiv 0$. (Sketch: if $g(x_0) \neq 0$, take $h$ to be a small
+non-negative ``bump'' concentrated near $x_0$, where $g$ keeps one sign by
+continuity; then $\int_a^b g\, h \, dx \neq 0$ -- a contradiction. Note that
+the earlier uniqueness argument -- setting $h = \nabla J(y) - w$ -- is no
+longer available here, since that particular $h$ need not vanish at the
+endpoints.)
 With this choice of $h$,
 equation \eqref{rinfder} becomes:
 \begin{align}
-  <\!\nabla J(y), h\!>  &= \int_a^b F(x, (y+h)(x), (y^\prime + h^\prime)(x) )\, dx
+  \langle \nabla J(y), h \rangle  &= \int_a^b F(x, (y+h)(x), (y^\prime + h^\prime)(x) )\, dx
   - \int_a^b F(x, y(x), y^\prime(x)) \, dx  + o(h) \nonumber \\
   &= \int_a^b \frac{\partial F}{\partial y}(x, y(x), y^\prime(x))h(x)\, dx
 + \int_a^b \frac{\partial F}{\partial y^\prime}(x, y(x), y^\prime(x))h^\prime(x) \, dx
@@ -475,35 +495,42 @@ acting on a small change to the input, $h$, and show that what remains are
 ``higher order''{} terms.
 
 \subsection{Application to Physics}
-Certain systems in physics have the property that the dynamics of the system are
-governed by minimizing (or rendering stationary -- hitting a flat spot)
-a certain functional. In this case,
-the derivative should be ``zero''{}; meaning, in this case, the zero function.%
+Certain systems in physics have the property that the dynamics of the system
+are governed by minimizing (or rendering stationary -- hitting a flat spot)
+a certain functional, called the {\em action\/}. This is {\em Hamilton's
+principle of stationary action\/}. At a stationary trajectory the derivative
+of the action should be ``zero''{}; meaning, in this case, the zero function.%
 \footnote{The zero function is the function which sends all inputs to the value $0$.}
 From this condition we can determine the dynamics of
-the system. That is for certain physical systems, the path trajectory of a particle,
-$y(x)$, is determined by find the function $y$ where the gradient,
+the system. That is, for certain physical systems, the path trajectory of a particle,
+$y(x)$, is determined by finding the function $y$ where the gradient,
 $\nabla J(y)$, is the zero function. Using \eqref{risz_rep2}, $\nabla J(y) \equiv 0$
 means:
 \begin{align}
   \frac{\partial F}{\partial y}(x, y(x), y^\prime(x))
   - \frac{d}{dx} \left[ \frac{\partial F}{\partial y^\prime}(x, y(x), y^\prime(x))\right] &= 0 \label{eulerlagrange}
 \end{align}
+Equation \eqref{eulerlagrange} is the celebrated {\em Euler--Lagrange
+equation\/} of the calculus of variations.
+
 {\bf Example.}
 
-The dynamics of a mass is determined by finding a trajectory
-where the Lagrangian is locally flat -- a place
-where the derivative of the Lagrangian is zero.
+The dynamics of a mass is determined by finding a trajectory at which the
+{\em action\/} $J$ is stationary -- a place where the derivative of the
+action is the zero function. The integrand $F$ of the action is called the
+{\em Lagrangian\/}; for a mechanical system it is the kinetic energy minus
+the potential energy.
 For a mass attached to a spring (with $y$ measuring displacement from the
 equilibrium position, so any constant gravitational potential drops out
 and the Lagrangian reduces to kinetic minus elastic potential energy)
-the Lagrangian is%
+the action is%
 \footnote{We replace the ``dummy''{} variable $x$ in our equations with $t$.}
 \begin{align}
   J(y) &= \int_0^T \overbrace{\frac{1}{2} m {y^\prime(t)}^2}^{\text{Kinetic Energy}} 
                     - \overbrace{\frac{1}{2}  k y(t)^2}^{\text{Potential Energy}}\, dt
 \end{align}
-In this case, $F(t, y, y^\prime) = \frac{1}{2} m {y^\prime}^2 - \frac{1}{2} k y^2 $.
+In this case, the Lagrangian is
+$F(t, y, y^\prime) = \frac{1}{2} m {y^\prime}^2 - \frac{1}{2} k y^2 $.
 Therefore, we need to find a function, $y$, such that $(\nabla J(y))(t) = 0 \quad \forall t \in[0,T]$. This
 equation becomes (using the dummy variable $t$):
 \begin{align}
@@ -531,4 +558,10 @@ The general form of a solution to this differential equation is:
   y(t) &= a_1 \cos(\sqrt{k/m}\, t) + a_2 \sin(\sqrt{k/m}\, t)
 \end{align}
 Given the initial position and velocity we can determine $a_1$ and $a_2$.
+
+\paragraph{Further reading.} For the derivative as a linear map, see
+M. Spivak, {\it Calculus on Manifolds\/}. For the calculus of variations
+and the Fundamental Lemma, see I. M. Gelfand and S. V. Fomin,
+{\it Calculus of Variations\/}. For the action principle in mechanics, see
+H. Goldstein, {\it Classical Mechanics\/}.
 \end{document}

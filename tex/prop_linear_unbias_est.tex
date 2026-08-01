@@ -11,8 +11,8 @@
 
 \section{Overview}
 A standard problem is to find the linear unbiased ``minimum'' variance estimator
-for the overdetermined problem\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}
-{This means that $n > m$.}: $A {\bf x} = {\bf b}$, where
+for the overdetermined problem%
+\ftn{This means that $n > m$.}: $A {\bf x} = {\bf b}$, where
 $A \in {\bf R}^{n \times m}$, ${\bf b} \in {\bf R}^n$ is a random observation
 with $E[{\bf b}] = A {\bf x}$ and covariance $V$ (assumed invertible), and
 ${\bf x} \in {\bf R}^m$ is the deterministic parameter we wish to estimate.
@@ -24,7 +24,8 @@ to vanish for every ${\bf x}$, we require $L\, A = I$. This implies that $A$
 and $L$ have rank $m$.
 The covariance of $L{\bf b}$ is $LVL^T$. The problem now is to find
 the best $L$ such that $L\, A = I$ and the covariance matrix, $LVL^T$, is
-minimized in some sense.
+minimized in some sense. This is the classical {\it best linear unbiased
+estimator\/} (BLUE) problem; see, e.g., Rao [2].
 
 The problem may be restated as choosing $L$ to ``minimize'' the norm of $LVL^T$
 subject to the constraint $L\, A = I$. The question is what norm does one
@@ -39,14 +40,19 @@ positive definite matrix $M_{m \times m}$ (these are the {\it Schatten\/} $k$-no
 \section{Do the Norms Matter?}
 The question is, do different choices of norms lead to a different
 solution, $L$? To answer this, we solve the constrained minimization
-problem that results from each of these trace norms\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}
-{Equivalently, we minimize the $k^{\rm th}$ power
+problem that results from each of these trace norms%
+\ftn{Equivalently, we minimize the $k^{\rm th}$ power
 of the $k^{\rm th}$ trace norm.}:
 $$
-F(L; k) = {\rm tr}\left((LVL^T)^k - (L\, A - I)\Lambda_{k}^T\right) 
+F(L; k) = {\rm tr}\left((LVL^T)^k - (L\, A - I)\Lambda_{k}^T\right)
 \quad k \in [1,\infty)
 $$
-where $\Lambda_k \in {\bf R}^{m \times m}$ is a Lagrange multiplier.
+where $\Lambda_k \in {\bf R}^{m \times m}$ is a Lagrange multiplier.%
+\ftn{For non-integer $k$, powers of the positive definite matrix $LVL^T$
+are defined by the spectral calculus (apply $t \mapsto t^k$ to its
+eigenvalues); the differentiation rule used below,
+$d \, {\rm tr}(M^k) = k \, {\rm tr}(M^{k-1} \, dM)$ for symmetric
+perturbations of a positive definite $M$, is valid in this setting.}
 
 The derivative of $F$ with respect to $L$ is given by:
 $$
@@ -65,16 +71,19 @@ $$
 Before going further we list some facts regarding the trace inner product that 
 will be used in the rest of the paper.
 
-\item{$\forall H \in {\bf R}^{n \times n},\; H \; \hbox{ anti-symmetric} \; \Rightarrow \; {\rm tr}(H) = 0$.}
-\item{Given a matrix $A \in {\bf R}^{m \times n}$: $\forall H \in {\bf R}^{m \times n},\; {\rm tr}(A^T H) = 0 \; \Rightarrow \; A \equiv 0.$}
-\item{$\forall A,H \in {\bf R}^{n \times n}, \;A \; {\rm symmetric} \; \wedge \; H \; \hbox{anti-symmetric}\;  \Rightarrow \; {\rm tr}(A^T H) = 0$.}
-\item{Given a matrix $A \in {\bf R}^{n \times n}$: $\forall H \in {\bf R}^{n \times n}, \; H \; \hbox{anti-symmetric} \; \wedge \; {\rm tr}(A^T H) = 0 \; \Rightarrow A \; \hbox{is symmetric}$.}
-\item{Given a matrix $A \in {\bf R}^{n \times n}$: $\forall H \in {\bf R}^{n \times n}, \; A \; \hbox{symmetric} \; \wedge \; H \; \hbox{symmetric} \; \wedge \; {\rm tr}(A^T H) = 0 \; \Rightarrow A \equiv 0$.}
+\item{{\bf Fact 1.} $\forall H \in {\bf R}^{n \times n},\; H \; \hbox{ anti-symmetric} \; \Rightarrow \; {\rm tr}(H) = 0$.}
+\item{{\bf Fact 2.} Given a matrix $A \in {\bf R}^{m \times n}$:
+$\bigl(\forall H \in {\bf R}^{m \times n},\; {\rm tr}(A^T H) = 0\bigr) \; \Rightarrow \; A \equiv 0.$}
+\item{{\bf Fact 3.} $\forall A,H \in {\bf R}^{n \times n}, \;A \; {\rm symmetric} \; \wedge \; H \; \hbox{anti-symmetric}\;  \Rightarrow \; {\rm tr}(A^T H) = 0$.}
+\item{{\bf Fact 4.} Given a matrix $A \in {\bf R}^{n \times n}$:
+$\bigl(\forall \; \hbox{anti-symmetric} \; H \in {\bf R}^{n \times n}, \; {\rm tr}(A^T H) = 0\bigr) \; \Rightarrow \; A \; \hbox{is symmetric}$.}
+\item{{\bf Fact 5.} Given a {\it symmetric\/} matrix $A \in {\bf R}^{n \times n}$:
+$\bigl(\forall \; \hbox{symmetric} \; H \in {\bf R}^{n \times n}, \; {\rm tr}(A^T H) = 0\bigr) \; \Rightarrow \; A \equiv 0$.}
 
 The first fact follows from a property of square matrices; namely,
 ${\rm tr}(A) = {\rm tr}(A^T)$; and the definition of an anti-symmetric $A$, $A^T = -A$.
-The second fact follows since any inner product on a vector space, $V$, satisfies: 
-$\forall y \in V, \langle x, y \rangle = 0 \; \Rightarrow \; x \equiv 0$. 
+The second fact follows since any inner product on a vector space, $V$, satisfies:
+$\bigl(\forall y \in V, \; \langle x, y \rangle = 0\bigr) \; \Rightarrow \; x \equiv 0$.
 The third fact follows -- using Fact 1 (or rather its underlying identity ${\rm tr}(M) = {\rm tr}(M^T)$) -- as follows.
 If $S$ and $W$ are symmetric and anti-symmetric matrices in ${\bf R}^{n \times n}$, then
 ${\rm tr}(S \, W) = {\rm tr}((S \, W)^T) = {\rm tr}(W^T \, S^T) = -{\rm tr}(W \, S) = - {\rm tr}(S\, W)$.
@@ -86,8 +95,10 @@ ${\rm tr}(A^T H) = {\rm tr}(A^s H) - {\rm tr}(A^w H) = -{\rm tr}(A^w H)$ by Fact
 So if ${\rm tr}(A^T H) = 0$ for all anti-symmetric $H$, then ${\rm tr}(A^w H) = 0$ for all
 such $H$. Setting $H = A^w$ gives ${\rm tr}((A^w)^2) = -{\rm tr}((A^w)^T A^w) = -\|A^w\|_F^2 = 0$,
 so $A^{w} \equiv 0$ and $A$ is symmetric.
-The fifth fact follows by setting $H$ to $A$. Again, the fact that the trace inner product induces a norm implies 
+The fifth fact follows by setting $H$ to $A$. Again, the fact that the trace inner product induces a norm implies
 that $A = 0$.
+(Only Facts 1--3 are used in the derivations below; Facts 4 and 5 are
+recorded because they round out this family of trace arguments.)
 
 
 Continuing with the derivation, in the special case $k = 1$, equation (1) 
@@ -184,14 +195,54 @@ $$
 This implies that $\left( VL^{*T} - A(A^TV^{-1}A)^{-1}\right)
 (L^*VL^{*T})^{k-1} = 0 $.
 Since $L^*$ has rank $m$, $(L^*VL^{*T})^{-(k-1)}$ exists, so that
-$ VL^{*T} - A(A^TV^{-1}A)^{-1} = 0 $. Hence, 
+$ VL^{*T} - A(A^TV^{-1}A)^{-1} = 0 $. Hence,
 $$
 L^* = (A^TV^{-1}A)^{-1}A^TV^{-1}
 $$
 
+Two remarks complete the logic, for every $k \in [1, \infty)$. First, a
+minimizer {\it exists\/}: the feasible set $\{L : L\,A = I\}$ is closed and
+non-empty (it contains $L^*$), and the objective is coercive on it --
+since $LVL^T \succeq \lambda_{\min}(V)\, L L^T$ entails, eigenvalue by
+eigenvalue,
+${\rm tr}\left((LVL^T)^k\right) \ge \lambda_{\min}(V)^k \,
+{\rm tr}\left((LL^T)^k\right)$, which grows without bound as
+$\|L\| \rightarrow \infty$. Second, because the constraint is affine, any
+minimizer must satisfy the stationarity condition (1). The computations
+above show that (1) has the {\it unique\/} solution $L^*$; therefore the
+critical point $L^*$ is in fact the minimizer.
 
 Therefore, it does not matter which of the matrix norms we
 use: the ``best'' linear unbiased estimator is the same.
+
+\subsection{Remark: Connection with the Gauss--Markov Theorem}
+There is a classical explanation for why the norms cannot matter. The
+Gauss--Markov theorem, in the generalized form due to Aitken [1], states
+that $L^*$ minimizes the covariance in the strongest possible sense -- in
+the {\it partial order\/} of symmetric matrices: for {\it every\/} unbiased
+$L$,
+$$
+L V L^T \; \succeq \; L^* V L^{*T},
+$$
+meaning the difference $LVL^T - L^*VL^{*T}$ is positive semi-definite.
+The proof is short with the machinery at hand. Write $L = L^* + D$; the
+constraint $L\,A = L^*A = I$ forces $D\,A = 0$. Then the cross term
+vanishes:
+$$
+L^* V D^T = (A^TV^{-1}A)^{-1}A^TV^{-1} V D^T
+          = (A^TV^{-1}A)^{-1}(D\,A)^T = 0,
+$$
+so that
+$$
+L V L^T = L^* V L^{*T} + D V D^T \; \succeq \; L^* V L^{*T}.
+$$
+Every norm considered in this paper -- each trace norm, and the maximum
+eigenvalue used in the next section -- is {\it monotone\/} in this partial
+order (by Weyl's eigenvalue monotonicity, $X \succeq Y \succ 0$ implies the
+eigenvalues of $X$ dominate those of $Y$ one for one); consequently each is
+minimized at $L^*$. The variational computations above thus confirm, norm
+by norm, what the Gauss--Markov inequality delivers all at once; their
+value is that they {\it find\/} $L^*$ rather than merely verify it.
 
 \vskip .25in
 \section{Best Estimator under the Spectral Norm}
@@ -199,19 +250,21 @@ We now use the results of the trace norms above to show that
 the estimator obtained has the smallest maximum eigenvalue 
 over all linear estimators.
 
-\proclaim Lemma 1. If $\Omega$ is a closed set in ${\bf R}^m$ and if
+\proclaim Lemma 1. Let $\Omega$ be a closed set in a finite-dimensional
+space ${\bf R}^d$, and suppose the feasible set
+$\{x \in \Omega : g(x) = 0\}$ is non-empty. If
 $x^* \in \Omega$ is a {\it common\/} solution to
 $\min_{\{x \in \Omega: g(x) = 0\}}\;\varphi_k(x)$
-for {\it every\/} $k \in [1,\infty)$; further,
-if  $\varphi_k$ are functions which converge point-wise to the
+for {\it every\/} $k \in [1,\infty)$, and if the $\varphi_k$ converge
+point-wise, as $k \rightarrow \infty$, to the
 continuous function $\varphi$ on $\Omega$ with the coercive property
 $\varphi(x) \to \infty$ as $\|x\| \to \infty$, then
 $x^* \in \mathop{\rm argmin}_{\{x \in \Omega: g(x) = 0\}} \varphi(x).$
 
-{\bf Proof.} 
+{\bf Proof.}
 
 {\it Existence:\/}
-The set $\{x \in \Omega: g(x) = 0\}$ is non-empty.
+The set $\{x \in \Omega: g(x) = 0\}$ is non-empty by hypothesis.
 Let $\{x_n\}$ be a minimizing sequence in this set; that is, $\varphi(x_n)$
 converges to the infimum.
 By the coercive property of $\varphi$, $\{x_n\}$ is bounded.
@@ -220,29 +273,29 @@ $x^\prime \in \Omega$. By the continuity of $\varphi$ on $\Omega$,
 $\varphi(x^\prime)$ equals the infimum, which is therefore finite and attained.
 
 We proceed to show that $x^*$ is a solution.
-Let ${\tilde x}$ be a solution of the problem 
+Let ${\tilde x}$ be a solution of the problem
 $\min_{\{x \in \Omega : g(x) = 0\}}\; \varphi(x)$;
-then for any $\epsilon > 0$, we have, for sufficiently large $n$, 
-(since $\varphi_n$ converges point-wise to $\varphi$)
+then for any $\epsilon > 0$, we have, for sufficiently large $k$,
+(since $\varphi_k$ converges point-wise to $\varphi$)
 $$
- \varphi_n({\tilde x}) < \varphi({\tilde x}) + \epsilon
+ \varphi_k({\tilde x}) < \varphi({\tilde x}) + \epsilon
 $$
-Since $x^*$ is a solution for $\varphi_n$, we also have
+Since $x^*$ is a solution for $\varphi_k$, we also have
 $$
-\varphi_n(x^*) \le \varphi_n({\tilde x})
+\varphi_k(x^*) \le \varphi_k({\tilde x})
 $$
 Combining the two gives
 
 $$
-\varphi_n(x^*) \le \varphi_n({\tilde x}) < \varphi({\tilde x}) + \epsilon
+\varphi_k(x^*) \le \varphi_k({\tilde x}) < \varphi({\tilde x}) + \epsilon
 $$
 
 Or,
 $$
-\varphi_n(x^*) \le \varphi({\tilde x}) + \epsilon
+\varphi_k(x^*) \le \varphi({\tilde x}) + \epsilon
 $$
 
-Taking the limit as $n \rightarrow \infty$ we have:
+Taking the limit as $k \rightarrow \infty$ we have:
 
 $$
 \varphi(x^*) \le \varphi({\tilde x}) + \epsilon
@@ -258,24 +311,45 @@ $x^*$ is also a solution.
 
 
 \proclaim Theorem 1. The linear unbiased estimator previously obtained for the
-least squares problem, $L^*{\bf b} =
-(A^TV^{-1}A)^{-1}A^TV^{-1}{\bf b}$, is also the solution that
-minimizes the maximum eigenvalue of the estimator's covariance matrix, 
+generalized least squares (best linear unbiased estimator) problem,
+$L^*{\bf b} =
+(A^TV^{-1}A)^{-1}A^TV^{-1}{\bf b}$, is also a solution that
+minimizes the maximum eigenvalue of the estimator's covariance matrix,
 $LVL^T$, subject to the constraint $L_{m \times n}A_{n \times m} = I_{m \times m}$.
+(We claim it is {\it a\/} minimizer; the spectral objective need not have a
+unique one.)
 
-{\bf Proof.} We apply Lemma 1 with the variable $L \in {\bf R}^{m \times n}$,
-$\Omega = \{L \in {\bf R}^{m \times n} : L\, A = I\}$ (closed),
-$\varphi_n(L) = \root n \of {{\rm tr}((LVL^T)^n)}$ (the $n^{\rm th}$ Schatten norm of $LVL^T$),
+{\bf Proof.} We apply Lemma 1 with the variable $L \in {\bf R}^{m \times n}$
+(identified with ${\bf R}^{mn}$),
+$\Omega = \{L \in {\bf R}^{m \times n} : L\, A = I\}$ (closed, and non-empty
+since $L^* \in \Omega$),
+$\varphi_k(L) = \root k \of {{\rm tr}((LVL^T)^k)}$ (the $k^{\rm th}$ Schatten norm of $LVL^T$),
 and $\varphi(L) = \lambda_{\max}(LVL^T)$ (the spectral norm of $LVL^T$, which is
 positive definite since $L$ has full row rank and $V$ is positive definite).
 The constraint $g(L) = 0$ is vacuous since $\Omega$ already encodes $L\, A = I$.
 Theorem 1 follows after collecting the facts:
 
 \item{For a positive definite matrix with eigenvalues $\lambda_i > 0$,
-$\root k \of {\sum_i \lambda_i^k} \to \max_i \lambda_i$ as $k \to \infty$.}
-\item{The $L_2$ matrix norm of a positive definite matrix is its
-maximum eigenvalue.}
-\item{The $L_2$ norm is coercive.}
+$\root k \of {\sum_i \lambda_i^k} \to \max_i \lambda_i$ as $k \to \infty$;
+so $\varphi_k \to \varphi$ point-wise.}
+\item{The $L_2$ matrix norm of a positive definite symmetric matrix is its
+maximum eigenvalue; $\varphi$ is a continuous function of $L$.}
+\item{$\varphi$ is coercive on $\Omega$: since $V$ is positive
+definite, $\lambda_{\max}(LVL^T) \ge \lambda_{\min}(V) \|L\|_2^2$,
+which grows without bound as $\|L\|$ grows.}
+\item{$L^*$ is a {\it common\/} minimizer of $\varphi_k$ for every
+$k \in [1, \infty)$: by Section 2, minimizing $\varphi_k$ is the same as
+minimizing its $k^{\rm th}$ power ${\rm tr}((LVL^T)^k)$, whose unique
+minimizer on $\Omega$ is $L^*$.}
 
+\section{References}
+{\parskip=4pt
+[1] A. C. Aitken, On least squares and linear combination of observations,
+{\it Proceedings of the Royal Society of Edinburgh\/} {\bf 55} (1935),
+42--48.
+
+[2] C. R. Rao, {\it Linear Statistical Inference and Its Applications\/},
+2nd ed., Wiley, 1973.
+}
 
 \bye
