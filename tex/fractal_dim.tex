@@ -9,7 +9,11 @@
 
 \footline{\hss\tenrm\folio\hss}
 
-\def\fracaux{
+% NOTE: the line ends inside these macro bodies are guarded with `%' --
+% an unguarded newline becomes an interword space, and since these macros
+% run in horizontal mode, each recursion level would otherwise inject
+% stray glue before the figure (misaligning the Cantor rows).
+\def\fracaux{%
 \ifnum\fcount>0
 \advance\fcount by-1
 \dup
@@ -17,7 +21,7 @@
 }
 
 \def\cantor#1#2{%
-\setbox0=\hbox{\vrule height1pt width #2pt}
+\setbox0=\hbox{\vrule height1pt width #2pt}%
 \offinterlineskip
 \fcount=#1
 \fracaux
@@ -26,10 +30,10 @@
 
 % - Define the macros needed to compute the 2-d example fractal.
 \def\tri{%
-\setbox0=\vbox{\hbox{\kern.5\wd0\copy0}\hbox{\copy0\copy0}}
+\setbox0=\vbox{\hbox{\kern.5\wd0\copy0}\hbox{\copy0\copy0}}%
 }
 
-\def\fracrepstep{
+\def\fracrepstep{%
 \ifnum\fcountsponge>0
 \advance\fcountsponge by-1
 \tri
@@ -38,8 +42,12 @@
 \fi
 }
 
+% Cell size 0.9pt: 8 doublings give a base of 0.9pt*2*2^8 = 460.8pt,
+% which fits the 469.75pt text width (a 1pt cell gives 512pt and silently
+% overflows into the right margin -- the vbox is added in vertical mode,
+% where TeX does not check widths against \hsize).
 \def\fsponge#1{%
-\setbox0=\hbox{\vrule height1pt width1pt \kern1pt}
+\setbox0=\hbox{\vrule height0.9pt width0.9pt \kern0.9pt}%
 \offinterlineskip
 \fcountsponge=#1
 \fracrepstep
@@ -47,7 +55,7 @@
 
 
 
-\mantitle{Defining Fractal Dimension}{R. Scott McIntire}{May 2, 2026}
+\mantitle{Defining Fractal Dimension}{R. Scott McIntire}{Aug 1, 2026}
 
 \parindent=0pt
 \parskip=.5\baselineskip
@@ -61,9 +69,9 @@ finely distinguish the density of a given set than the usual
 dimensional classification of $0, 1, 2, 3, \ldots$.%  
 \ftn{The $0$-dimensional volume of a finite set is its cardinality;
 for an infinite set it is $+\infty$.}
-Such a notion is motivated by sets that, while constructed in one of the given
-dimensions $0, 1, 2, 3, \dots$; and which are robust with respect to structure, 
-nevertheless have zero ``volume'' in the ambient space containing the set.
+Such a notion is motivated by sets that, while constructed in one of the
+standard dimensions $0, 1, 2, 3, \dots$ and robust in their structure,
+nevertheless have zero ``volume'' in the ambient space containing them.
 Such sets beg for a more nuanced ``size'' metric.
 
 The sets that we are interested in are non-physical sets that
@@ -87,7 +95,7 @@ it retains complicated structure no matter how many times it is magnified.
 In addition, such a constructed sponge could have an infinite surface area and 
 also have 0 volume. 
 
-It would be convenient if there was a way to
+It would be convenient if there were a way to
 measure the density of an idealized coastline to
 indicate that it is, in some sense, larger than a one dimensional
 object; or a way to show that the idealized surface of a sponge is larger than
@@ -96,8 +104,8 @@ in a more precise way.
 
 This is what the fractal dimension of a set tries to address. 
 In the case of the coastline, it will give us a dimension between one and two
--- where the coastline ``naturally'' lives. The same with the surface of
-the aforementioned sponge,
+-- where the coastline ``naturally'' lives. The same holds for the surface of
+the aforementioned sponge:
 there will be a dimension between two and three where it naturally lives. In
 each case, the fractal dimension is not an actual dimension, 
 it is a way to quantify the density of such complex sets.
@@ -160,8 +168,9 @@ e^{-t} t^{\frac{n}{2}-1} \,dt \, dS
 $$
 which may be written:%
 \ftn{The function $\Gamma(z)$ is called the Gamma function. It is defined for
-all real (and complex) arguments and satisfies $\Gamma(z+1) = z \Gamma(z)$
-for all $z \in R^+$. On the positive integers it agrees with the factorial:
+all real (and complex) arguments {\it except\/} the non-positive integers
+$0, -1, -2, \ldots$, and satisfies $\Gamma(z+1) = z \Gamma(z)$ wherever
+defined. On the positive integers it agrees with the factorial:
 $\Gamma(n+1) = n!$ for $n \in Z^+$. In this sense $\Gamma$ extends the
 factorial from the integers to the reals.}
 $$
@@ -197,12 +206,19 @@ the following definition.
 volume, $V_\alpha$, of an n-dimensional sphere
 of radius $r$ is defined to be:%
 \ftn{The set $R^+$ is defined
-by: $R^+ = \{x \, | \, x\in R \; \wedge \; x > 0\}$. The formula has poles
-at $\alpha = 0$ (from $1/\alpha$ and $\Gamma(\alpha/2)$), so we exclude
-$\alpha = 0$ from $R^+$ throughout.}
+by: $R^+ = \{x \, | \, x\in R \; \wedge \; x > 0\}$.}
 $$
 {V}_\alpha(r) = \frac{2\pi^{\alpha/2}}{\alpha \, \Gamma(\alpha/2)} r^\alpha
+= \frac{\pi^{\alpha/2}}{\Gamma(\alpha/2 + 1)} r^\alpha
 $$
+The second form uses the identity $\alpha \, \Gamma(\alpha/2) =
+2 \, \Gamma(\alpha/2 + 1)$, and shows that -- despite appearances -- the
+formula has no singularity as $\alpha \rightarrow 0^+$: the apparent poles
+of $1/\alpha$ and $\Gamma(\alpha/2)$ cancel, and the limiting value is
+$V_0(r) = 1$. This is consistent with the counting-measure convention that
+the $0$-dimensional volume of a single point is $1$. We nevertheless
+restrict to $\alpha > 0$ in what follows.
+
 This is a mathematical construct, not a physical one; there is no claim
 here of a physical fractional dimension. Also, note that the value is 
 independent of the ambient space in which the ball might live, say $R^n$. 
@@ -228,18 +244,36 @@ $$
 
 Roughly speaking, for any given finite covering,
 $\left\{ O_i \right\}_{i=1}^N$, and value $\epsilon$,
-we estimate the $\alpha$-dimensional volume of the set, $S$, by summing
-up the $\alpha$-dimensional volumes of the collection of spheres,
-$\left\{ P_i \right\}_{i=1}^N$, where each $P_i$ is the
-smallest sphere containing $O_i$. In this case the radius of a given
-$P_i$ is ${\rm Diam}(O_i) / 2$.
+we estimate the $\alpha$-dimensional volume of the set, $S$, by charging
+each covering set $O_i$ the $\alpha$-dimensional volume of a sphere of
+radius ${\rm Diam}(O_i)/2$. That is, each summand may be written
+$$
+V_\alpha({\rm Diam}(O_i)/2) = c_\alpha \, {\rm Diam}(O_i)^\alpha,
+\qquad c_\alpha = \frac{2^{1 - \alpha} \, \pi^{\alpha/2}}{\alpha \,
+\Gamma(\alpha/2)}.
+$$
+The factor $c_\alpha$ is a normalization, chosen so that for integer
+$\alpha$ the covering volume of ordinary solids agrees with their usual
+volume. It is {\it not\/} literally the volume of the smallest sphere
+containing $O_i$: a set of diameter $d$ need not fit inside a sphere of
+radius $d/2$ (by Jung's theorem the smallest enclosing sphere in $R^n$ can
+have radius as large as $d \sqrt{n/(2n + 2)}$).
 The $\alpha$ covering volume of a set, $S$, is the infimum over all
 such covers. The only restrictions on the covering sets are that they
-be finite and that each have diameter no larger than $\epsilon$.\ftn{This is the
-standard Hausdorff‑measure formulation: as $\epsilon$ shrinks, the
-allowed covers must be finer, so fewer covers are admitted and the
-infimum can only grow. The construction is a covering analogue of an
-outer measure.}
+be finite and that each have diameter no larger than $\epsilon$.
+
+{\bf Remark.} The standard Hausdorff-measure definition differs from the
+one above in one respect: it allows {\it countably infinite\/} covers, and
+in general that is the definition one should use. For the compact sets
+treated in this note the two definitions give the same answers, but they
+can differ on non-closed or unbounded sets. For example, any finite cover
+of the set of rationals in $[0,1]$ by sets of diameter at most $\epsilon$
+has closures that cover all of $[0,1]$, so under finite covers the
+rationals in $[0,1]$ receive dimension $1$; under countable covers -- each
+rational covered by its own arbitrarily small interval -- they receive
+dimension $0$. Likewise, an unbounded set admits no finite cover at all.
+We keep finite covers here for concreteness, since our examples are
+compact.
 
 The intent of this definition is to give a practicable estimate of
 the eventual $\alpha$ volume of a set, refined by forcing the covers to
@@ -280,12 +314,41 @@ set $S \subseteq R^m$ is defined as
 $\alpha^* = \inf\{\alpha : {\cal V}_\alpha(S) = 0 \}$; the associated
 {\bf fractal volume} of $S$ is defined to be ${\cal V}_{\alpha^*}(S)$.
 
-Roughly speaking, this says that the fractal dimension of a set $S$ is the
-threshold value of $\alpha$: above it the $\alpha$-dimensional volume is
-zero, below it the volume is infinite (and at $\alpha = \alpha^*$ itself
-the volume is typically a finite positive number, the fractal volume).
+That $\alpha^*$ is a genuine threshold -- with the $\alpha$ volume zero
+above it and infinite below it -- is the content of the following
+proposition.
 
-Note that the fractal dimension of a set, $S$, does not depend on 
+\proclaim Proposition. Let $S \subseteq R^n$ and $0 < \alpha < \beta$. If
+${\cal V}_\alpha(S) < \infty$, then ${\cal V}_\beta(S) = 0$. Equivalently,
+if ${\cal V}_\beta(S) > 0$, then ${\cal V}_\alpha(S) = +\infty$.
+
+{\bf Proof.} For any admissible cover, each set $O_i$ has
+${\rm Diam}(O_i) \le \epsilon$, so
+$$
+\sum_{i=1}^N c_\beta \, {\rm Diam}(O_i)^\beta \le
+\frac{c_\beta}{c_\alpha} \, \epsilon^{\beta - \alpha}
+\sum_{i=1}^N c_\alpha \, {\rm Diam}(O_i)^\alpha
+$$
+Taking the infimum over covers gives
+${\cal V}_{\beta, \epsilon}(S) \le (c_\beta / c_\alpha) \,
+\epsilon^{\beta - \alpha} \, {\cal V}_{\alpha, \epsilon}(S) \le
+(c_\beta / c_\alpha) \, \epsilon^{\beta - \alpha} \, {\cal V}_\alpha(S)$,
+where the last step uses the monotonicity of ${\cal V}_{\alpha, \epsilon}$
+in $\epsilon$. Letting $\epsilon \rightarrow 0^+$ yields
+${\cal V}_\beta(S) = 0$.
+
+Consequently, for $\alpha > \alpha^*$ the $\alpha$ volume of $S$ is zero,
+and for $\alpha < \alpha^*$ it is infinite. At $\alpha = \alpha^*$ itself
+the volume may be zero, a positive finite number, or infinite; when it is
+positive and finite -- as in the examples below -- it serves as a natural
+``size'' of $S$ in its natural dimension.
+
+The quantity $\alpha^*$ is precisely the {\it Hausdorff dimension\/} of
+$S$ (subject to the finite-cover caveat of the previous remark); see
+Falconer [1] for the standard treatment. The term {\it fractal\/} was
+coined by Mandelbrot [2].
+
+Note that the fractal dimension of a set, $S$, does not depend on
 the ambient space $S$ sits in.
 
 \subsection{Computing the Fractal Dimension of a Simple Set}
@@ -320,14 +383,35 @@ y}\|^\alpha}{2^\alpha \alpha \Gamma(\alpha / 2)} \frac{n}{n^\alpha}
 $$
 
 As $n$ increases, the covering becomes more refined and
-the $\alpha$-dimensional volume is dominated by the term
+the upper bound is dominated by the term
 $\frac{n}{n^\alpha} = n^{1-\alpha}$. For $\alpha > 1$ this tends to zero
-as $n \to \infty$, so ${\cal V}_\alpha(L) = 0$. For $\alpha < 1$ the
-expression diverges as $n \to \infty$, so ${\cal V}_\alpha(L) = +\infty$.
-The threshold value is $\alpha = 1$, where the term is identically $1$ and
-$${\cal V}_1(L) = \left. \frac{2\pi^{\alpha / 2} \|{\bf x} - {\bf
-y}\|^\alpha}{2^\alpha \alpha \Gamma(\alpha / 2)} \right|_{\alpha=1} = \| {\bf
-x} - {\bf y}\|.$$
+as $n \to \infty$, so ${\cal V}_\alpha(L) = 0$. For $\alpha = 1$ the bound
+equals $c_1 \|{\bf x} - {\bf y}\|$ with $c_1 = \pi^{1/2}/\Gamma(1/2) = 1$,
+so ${\cal V}_1(L) \le \|{\bf x} - {\bf y}\|$.
+
+These covers give only {\it upper\/} bounds; to pin down the dimension we
+need a matching lower bound valid for {\it every\/} cover. Let
+$\{O_i\}_{i=1}^N$ be any cover of $L$ with $d_i = {\rm Diam}(O_i) \le
+\epsilon$. Orthogonal projection onto the line through ${\bf x}$ and
+${\bf y}$ does not increase diameters, and the projections of the $O_i$
+cover the segment $L$, so
+$$
+\sum_{i=1}^N d_i \ge \|{\bf x} - {\bf y}\|.
+$$
+For $\alpha \le 1$ we have $d_i^\alpha = d_i^{\alpha - 1} d_i \ge
+\epsilon^{\alpha - 1} d_i$ (as $d_i \le \epsilon$ and $\alpha - 1 \le 0$),
+whence
+$$
+\sum_{i=1}^N V_\alpha(d_i / 2) = c_\alpha \sum_{i=1}^N d_i^\alpha
+\ge c_\alpha \, \epsilon^{\alpha - 1} \, \|{\bf x} - {\bf y}\|.
+$$
+For $\alpha < 1$ the right side tends to $+\infty$ as
+$\epsilon \rightarrow 0^+$, so ${\cal V}_\alpha(L) = +\infty$. For
+$\alpha = 1$ it gives ${\cal V}_{1, \epsilon}(L) \ge \|{\bf x} - {\bf y}\|$,
+which combined with the upper bound above yields
+$$
+{\cal V}_1(L) = \| {\bf x} - {\bf y}\|.
+$$
 Therefore, the fractal dimension of the line segment is
 1 and its fractal volume is the length of the line segment, $\|{\bf x} - {\bf
 y}\|$. This, of course, coincides with what we would previously regard
@@ -354,7 +438,7 @@ middle third of each of these two intervals, this gives four
 intervals.
 If we repeat this process indefinitely with the remaining
 intervals, the resulting set is called the Cantor set, C. See 
-the appendix for a graphical depiction of the construction process . 
+the appendix for a graphical depiction of the construction process.
 The Cantor
 set has the property that $3 \cdot \left([0,1/3] \cap C\right) = C$; that is,
 it is a self-similar fractal (where $\lambda \cdot S \equiv \{\lambda x : x \in S\}$).
@@ -424,18 +508,28 @@ $$
   \Gamma(\alpha/2)} \left(\frac{2}{3^\alpha}\right)^n = 0
 $$
 For $\alpha < \ln 2 / \ln 3$ the same expression diverges
-($\frac{2}{3^\alpha} > 1$), and a more careful argument (using the
-self-similarity of $C$) shows that no cover can do better, so
-${\cal V}_\alpha(C) = +\infty$ in that range.
+($\frac{2}{3^\alpha} > 1$), so these covers no longer force the volume to
+zero. In fact ${\cal V}_\alpha(C) = +\infty$ in that range: by the
+Proposition, this follows from the positivity of the volume at the
+threshold itself, ${\cal V}_{\alpha^*}(C) > 0$, discussed below.
 
-The threshold value of $\alpha$ — at which $\frac{2}{3^\alpha} = 1$ —
+The threshold value of $\alpha$ -- at which $\frac{2}{3^\alpha} = 1$ --
 occurs when $\alpha^* = \ln 2 / \ln 3$. Therefore, the fractal dimension of the
 Cantor set is $\alpha^* = \ln 2 / \ln 3 \approx 0.63093$.
 Its fractal volume in this
 dimension is bounded above by ${\cal V}_{\alpha^*}(C) \le \frac{2^{1-\alpha^*}
-\pi^{\alpha^*/2}}{\alpha^* \Gamma(\alpha^* / 2)} \approx 1.03505$, and by
-self-similarity this bound is in fact attained, so
-${\cal V}_{\alpha^*}(C) \approx 1.03505$.
+\pi^{\alpha^*/2}}{\alpha^* \Gamma(\alpha^* / 2)} = c_{\alpha^*} \approx 1.03505$.
+A matching lower bound is genuinely harder: one must show that {\it no\/}
+sequence of covers can do better than the natural covers used above. This
+is a classical fact: in the standard normalization -- where a cover set of
+diameter $d$ is charged the amount $d^\alpha$ rather than
+$c_\alpha d^\alpha$ -- the $\alpha^*$-dimensional measure of the Cantor
+set is exactly $1$; see Falconer [1], where the lower bound is obtained
+by a mass distribution argument that exploits the self-similarity of $C$.
+In our normalization this gives
+$$
+{\cal V}_{\alpha^*}(C) = c_{\alpha^*} \approx 1.03505.
+$$
 
 \subsection{Conclusion}
 We have shown that there are sets with sufficient complexity that the
@@ -450,12 +544,21 @@ not really have
 complexity on an infinite scale, we idealize them as such with
 fractals. Just as ``dimensionless'' points are an idealization useful
 to describe space, fractals are also a useful idealization. 
-As with all such mathematical abstractions, they 
+As with all such mathematical abstractions, they
 allow us to view and compute what they model in a simpler way.
+
+\subsection{References}
+{\parskip=4pt
+[1] K. J. Falconer, {\it The Geometry of Fractal Sets}, Cambridge
+University Press, 1985.
+
+[2] B. B. Mandelbrot, {\it The Fractal Geometry of Nature}, W. H.
+Freeman, 1982.
+}
 
 \subsection{Appendix A: Examples of Self-Similar Fractals \hfill}
 We briefly describe two {\it self-similar\/} fractal sets. 
-The first set lives in 1 dimension, but its fractal dimension is between $0$ and $1$\dots
+The first set lives in 1 dimension, but its fractal dimension is between $0$ and $1$.
 The set is called the Cantor set, named after the mathematician Georg Cantor.
 This set is constructed by defining intermediate sets $C_0, C_1, \ldots$
 and setting the Cantor set, $C$, to be the intersection of these sets:
@@ -478,28 +581,28 @@ The first 6 intermediate sets are graphed below:
 
 \vfil\break
 {
-$C_0$:\cantor{0}{360}
+$C_0$:\ \cantor{0}{360}
 }
 {
 \vskip .1in
 {
-$C_1$:$\!\!$\cantor{1}{120}
+$C_1$:\ \cantor{1}{120}
 }
 \vskip .1in
 {
-$C_2$:$\!\!\!\!$\cantor{2}{40}
+$C_2$:\ \cantor{2}{40}
 }
 \vskip .1in
 {
-$C_3$:$\!\!\!\!\!\!$\cantor{3}{13.33333}
+$C_3$:\ \cantor{3}{13.33333}
 }
 \vskip .1in
 {
-$C_4$:$\!\!\!\!\!\!\!\!$\cantor{4}{4.4444}
+$C_4$:\ \cantor{4}{4.4444}
 }
 \vskip .1in
 {
-$C_5$:$\!\!\!\!\!\!\!\!\!\!$\cantor{5}{1.48148}
+$C_5$:\ \cantor{5}{1.48148}
 }
 \vskip .1in
 }
