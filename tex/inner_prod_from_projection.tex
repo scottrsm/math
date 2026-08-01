@@ -1,6 +1,8 @@
 \documentclass[12pt]{article}
 
 \usepackage{amsmath}
+\usepackage{tikz}
+\usepackage[font=small, labelfont=bf, margin=2em]{caption}
 
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{7.5in}
@@ -14,7 +16,7 @@
 
 \title{Where does the Dot Product Come From?}
 \author{R. Scott McIntire}
-\date{May 2, 2026}
+\date{Aug 1, 2026}
 
 \begin{document}
 
@@ -44,7 +46,7 @@ $$ t^* \, v = p_1 - p_0$$
 
 Since $v$ is a (non-zero) number we can divide and solve for $t^*$:
 \be
-	t^* & = & \frac{p_1 - p_0}{v} \label{closest_1}
+	t^* & = & \frac{p_1 - p_0}{v}
 \ee
 
 Physically, we need $t^* \ge 0$: if $t^* < 0$, the car is moving
@@ -71,7 +73,7 @@ notation: $[x, y]$. Whether using tuple or vector notation, both
 represent an ordered set of numbers. We will use the vector notation
 because that is what mathematicians use. 
 
-We also want to simplify the number of names we use, this is especially useful
+We also want to simplify the number of names we use; this is especially useful
 when looking at dimensions beyond 3. We will use bold font, ${\bf x}$, to mean 
 a vector (for now in 2 dimensions) whose components are: $x_1, x_2$.
 But to mimic the 1-dimensional argument
@@ -126,8 +128,9 @@ But now, we can't just divide by ${\bf v}$ to get the answer, $t^*$,
 as ${\bf v}$ is not a number.
 
 We can think of \eqref{car_2_shift} as a shifted version of the
-original problem. Instead of starting at a point, $p_0$, we are starting at 
-the origin $0$ and trying to ``hit'' ${\bf p}_1$ using the directional speed, ${\bf v}$.
+original problem. Instead of starting at a point, ${\bf p}_0$, we are starting at
+the origin ${\bf 0}$ and trying to ``hit'' ${\bf p}_1 - {\bf p}_0$ using the
+directional speed, ${\bf v}$.
 
 In any event, if ${\bf v}$ is not pointing {\em exactly\/} to the destination, 
 ${\bf p}_1 - {\bf p}_0$, there is no chance of finding a solution.
@@ -150,9 +153,11 @@ This is the same as finding the time to get to the closest point to the
 vector ${\bf p}_1 - {\bf p}_0$ using the velocity vector, ${\bf v}$, 
 when starting at ${\bf 0}$.
 
-So, we look instead at the simpler problem: Starting at ${\bf 0}$ and 
-driving with a velocity of ${\bf v}$, find $t^*$ so as to minimize the 
+So, we look instead at the simpler problem: Starting at ${\bf 0}$ and
+driving with a velocity of ${\bf v}$, find $t^*$ so as to minimize the
 distance to a given vector, ${\bf p}$.
+As in the one-dimensional problem we assume ${\bf v} \neq {\bf 0}$; we make
+this assumption, without further comment, whenever we project onto a vector.
 We will also generalize this to $n$ dimensions and {\em define\/} the 
 length of a vector, ${\bf x}$, as a generalization of the distance formula 
 for vectors in 2 and 3  dimensions; namely, 
@@ -164,9 +169,12 @@ Using calculus, the minimum distance is achieved when the derivative
 at $t^*$ is $0$:
 $$ -2 \sum_{i=1}^n (p_i - t^* v_i)v_i = 0$$
 $$t^* = \frac{\sum_{i=1}^n p_i v_i}{\sum_{i=1}^n v_i^2}$$
-The point that is closest along the line {\em spanned\/} by ${\bf v}$ is 
+(This critical point is indeed a minimum: as a function of $t$ the objective
+is a parabola opening upward, since the coefficient of $t^2$ is
+$\sum_i v_i^2 > 0$.)
+The point that is closest along the line {\em spanned\/} by ${\bf v}$ is
 called the projection of ${\bf p}$ onto ${\bf v}$.
-Denoted as $P_{\bf v}({\bf p}) = t^* {\bf v}$, which is:
+It is denoted by $P_{\bf v}({\bf p}) = t^* {\bf v}$, which is:
 $$ P_{\bf v}({\bf p}) = \frac{\sum_{i=1}^n p_i v_i}{\sum_{i=1}^n v_i^2} \, {\bf v} $$
 We introduce a function that is a refactoring\footnote{This is a common 
 practice in the software engineering world. If we start repeating code we 
@@ -230,11 +238,13 @@ derivation proceeds using only those {\em multiplicative properties\/}.
   \min_t {\bf p} \cdot  {\bf p} - 2 t \, {\bf p} \cdot {\bf v} + t^2 {\bf v} \cdot {\bf v} & & 
 \ee
 
-Notice that the optimization problem minimizes distance and we can write 
-distance as a dot product of a vector with itself, the optimization
-is defined entirely with respect to scalar multiplication and dot product of {\em constants\/}.
-These constants do {\em NOT\/} affect the optimization; and so, the optimization 
-becomes an optimization in one variable -- that is, we only need single variable calculus.
+Notice what has happened: the vector structure has been absorbed into the
+three {\em scalar\/} constants ${\bf p} \cdot {\bf p}$,
+${\bf p} \cdot {\bf v}$, and ${\bf v} \cdot {\bf v}$, so the objective is a
+quadratic in the single variable $t$ -- we only need single variable
+calculus. (The additive constant ${\bf p} \cdot {\bf p}$ has no effect on
+{\em where\/} the minimum occurs; the other two constants are what
+determine it.)
 
 Taking the derivative in $t$ and 
 solving for $t$ when the derivative is 0 gives 
@@ -243,6 +253,8 @@ the minimal $t$ which we will call $t^*$. The derivative is:
     -2 {\bf p} \cdot {\bf v} + 2 t {\bf v} \cdot {\bf v}  & = & 0 \nonumber  \\
       t^* & = & \frac{{\bf p} \cdot {\bf v}}{{\bf v} \cdot {\bf v}}
 \ee
+As before, this critical point is a minimum, since the coefficient of
+$t^2$, namely ${\bf v} \cdot {\bf v}$, is positive.
 
 We will revisit the dot product later in this section. But for now, we will 
 get back to the projection.
@@ -254,8 +266,9 @@ the projection of ${\bf p}$ onto ${\bf v}$ as that is the best we can do
 using ${\bf v}$ alone to get to ${\bf p}$.
 Notice that the projection of ${\bf p}$ onto ${\bf v}$ is independent of 
 the ``length'' of ${\bf v}$.
-If we replace ${\bf v}$ with any multiple of ${\bf v}$ say $\lambda {\bf v}$ 
-and look at the projection of 
+If we replace ${\bf v}$ with any {\em nonzero\/} multiple of ${\bf v}$, say
+$\lambda {\bf v}$ with $\lambda \neq 0$,
+and look at the projection of
 ${\bf p}$ onto $\lambda {\bf v}$ we have:
 $$ P_{\lambda {\bf v}}({\bf p}) = \frac{{\bf p} \cdot \lambda {\bf v}}{\|\lambda {\bf v}\|^2} \lambda {\bf v} =
 \frac{\lambda \, {\bf p} \cdot {\bf v}}{\lambda^2 \|{\bf v}\|^2} \lambda {\bf v}
@@ -288,10 +301,12 @@ We can combine these three into just two properties:
 We can think of a vector as having a direction and a length.
 How do we say this precisely? Well, we can think of the direction
 of ${\bf v}$ as the property shared by all vectors {\em like\/} ${\bf v}$.
-All vectors like ${\bf v}$ are really just multiples of ${\bf v}$:
-$$ \{ t \, {\bf v} | \; \forall t \in {\bf R}\} $$
-That is, they are all scalar multiples of ${\bf v}$. 
-In other words, vectors are like ${\bf v}$ if they have the same direction 
+All vectors like ${\bf v}$ are really just positive multiples of ${\bf v}$:
+$$ \{ t \, {\bf v} \mid t > 0 \} $$
+(The full set of scalar multiples, $\{ t \, {\bf v} \mid t \in {\bf R} \}$,
+is the {\em line\/} through ${\bf v}$; it carries {\em two\/} directions,
+one for each sign of $t$.)
+In other words, vectors are like ${\bf v}$ if they have the same direction
 but the ``speeds'' may vary.
 (On the highway we are all going in the same direction, but with 
 potentially differing speeds.)
@@ -309,13 +324,49 @@ to get ${\bf p}$?
 $$ {\bf p} = P_{{\bf v}}({\bf p}) + {\bf w} $$
 By subtraction the other component is:
 $$ {\bf w} = {\bf p} - P_{\bf v}({\bf p}) $$
+Figure~\ref{fig:decomp} shows the picture to keep in mind.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.4]
+\begin{scope}[rotate=14]
+  % the line spanned by v
+  \draw[gray!60] (-0.5,0) -- (4.1,0);
+  % right-angle marker at the foot of the projection
+  \draw (2.9,0) ++(-0.18,0) -- ++(0,0.18) -- ++(0.18,0);
+  % the vectors
+  \draw[->, very thick] (0,0) -- (1.7,0) node[midway, above=2pt] {${\bf v}$};
+  \draw[->, thick] (0,0) -- (2.9,1.9) node[midway, above left=1pt] {${\bf p}$};
+  \draw[->, thick, dashed] (2.9,0) -- (2.9,1.9)
+      node[midway, right=3pt] {${\bf w} = {\bf p} - P_{\bf v}({\bf p})$};
+  % the projection, drawn slightly below the line for clarity
+  \draw[->, thick] (0,-0.25) -- (2.9,-0.25)
+      node[midway, below=3pt] {$P_{\bf v}({\bf p})$};
+  \fill (0,0) circle (1.2pt);
+  \fill (2.9,0) circle (1.2pt);
+  \node[above left=0pt] at (0,0) {${\bf 0}$};
+\end{scope}
+\end{tikzpicture}
+\caption{The decomposition ${\bf p} = P_{\bf v}({\bf p}) + {\bf w}$.  The
+projection $P_{\bf v}({\bf p})$ is the point on the line spanned by
+${\bf v}$ that is closest to ${\bf p}$ (drawn slightly below the line for
+clarity); the leftover piece ${\bf w} = {\bf p} - P_{\bf v}({\bf p})$
+meets that line at a right angle -- it has no component along ${\bf v}$.}
+\label{fig:decomp}
+\end{figure}
+
 Does ${\bf w}$ have a component in the ${\bf v}$ direction or vice versa?
 The component of ${\bf w}$ onto ${\bf v}$ is:
-$$ P_{\bf v}({\bf w}) = P_{\bf v} \left({\bf p} - P_{\bf v}({\bf p})\right) = 
-    P_{\bf v}({\bf p}) - P_{\bf v}(P_{\bf v}({\bf p})) = P_{\bf v}({\bf p}) - P_{\bf v}({\bf p}) = 0 $$ 
+$$ P_{\bf v}({\bf w}) = P_{\bf v} \left({\bf p} - P_{\bf v}({\bf p})\right) =
+    P_{\bf v}({\bf p}) - P_{\bf v}(P_{\bf v}({\bf p})) = P_{\bf v}({\bf p}) - P_{\bf v}({\bf p}) = 0 $$
+This computation is the algebraic form of the right angle in
+Figure~\ref{fig:decomp}: the leftover ${\bf w}$ has no component along
+${\bf v}$.
 
 By symmetry of the dot product, ${\bf v} \cdot {\bf w}
-= {\bf w} \cdot {\bf v} = 0$, so $P_{\bf w}({\bf v}) = 0$ as well: there
+= {\bf w} \cdot {\bf v} = 0$; so, provided ${\bf w} \neq {\bf 0}$ (that is,
+provided ${\bf p}$ is not itself a multiple of ${\bf v}$),
+$P_{\bf w}({\bf v}) = 0$ as well: there
 is no component of ${\bf v}$ along ${\bf w}$ either. The vectors
 ${\bf v}$ and ${\bf w}$ are as ``independent'' as possible.
 
@@ -374,7 +425,7 @@ such that ${\bf x} = u_1 {\bf v}_1 + u_2 {\bf v}_2$ are easy to compute.
 
 So, given that ${\bf x}$ can be written as a combination of two we have:
 \be
-   {\bf x} & = u_1 {\bf v}_1 + u_2 {\bf v}_2
+   {\bf x} & = & u_1 {\bf v}_1 + u_2 {\bf v}_2
 \ee
 From this we can form two equations, each the dot product with 
 ${\bf v}_1$ and ${\bf v}_2$ respectively:
@@ -401,9 +452,10 @@ $$ {\bf x} = ({\bf x} \cdot {\bf v}_1 ) {\bf v}_1 + ({\bf x} \cdot {\bf v}_2 ) {
 If it is the case that in ${\bf R}^n$ we have $n$ vectors of unit length and which 
 are all orthogonal to each other, then by the same reasoning 
 (assuming that these $n$ vectors can span the full space) we have:%
-\footnote{It turns out, as you might imagine, that $n$ orthogonal 
-vectors (each pointing in a ``different direction'') are always able 
-to span ${\bf R}^n$.}
+\footnote{It turns out, as you might imagine, that $n$ pairwise-orthogonal
+{\em nonzero\/} vectors (each pointing in a ``different direction'') are
+always able to span ${\bf R}^n$ -- and unit-length vectors are in
+particular nonzero.}
 
 {\bf Theorem.} If ${\bf x}$ is a vector in ${\bf R}^n$, and
 $\{{\bf v}_i\}_{i=1}^n$ are vectors of unit length pairwise orthogonal
@@ -414,7 +466,7 @@ to each other, then ${\bf x}$ may be written as:
 
 We give a name to collections of such orthogonal vectors.
 
-{\bf Def.} An {\em orthonormal\/} set is a collection of $m$ vectors
+{\bf Definition.} An {\em orthonormal\/} set is a collection of $m$ vectors
 $\{ {\bf v}_i \}_{i=1}^m$, each of unit length, that are pairwise orthogonal.
 
 \section{Projection onto a Linear Space}
@@ -467,6 +519,10 @@ then this simplifies greatly to:
   u_1 & = & {\bf p} \cdot {\bf v}_1 \\
   u_2 & = & {\bf p} \cdot {\bf v}_2
 \ee
+(This critical point is again the minimum: with orthonormal
+${\bf v}_1, {\bf v}_2$ the objective expands to
+$(u_1 - {\bf p} \cdot {\bf v}_1)^2 + (u_2 - {\bf p} \cdot {\bf v}_2)^2$
+plus a constant.)
 
 If we use the notation $\mathrm{span}\{{\bf v}_1, {\bf v}_2\}$ to indicate
 the set of points {\em spanned\/} (swept out) by ${\bf v}_1$ and ${\bf v}_2$,
@@ -474,26 +530,69 @@ then when ${\bf v}_1$ and ${\bf v}_2$ are orthonormal we have:
 \be
   P_{\mathrm{span}\{{\bf v}_1, {\bf v}_2\}}({\bf x}) & = & ( {\bf x} \cdot {\bf v}_1 ) {\bf v}_1 +  ( {\bf x} \cdot {\bf v}_2 ) {\bf v}_2  \label{proj2}
 \ee
+Figure~\ref{fig:plane} shows the geometry.  It is the two-direction
+analogue of Figure~\ref{fig:decomp}: the projection lies in the plane
+spanned by ${\bf v}_1$ and ${\bf v}_2$, and the leftover
+${\bf w} = {\bf p} - P_{\mathrm{span}\{{\bf v}_1, {\bf v}_2\}}({\bf p})$
+meets the {\em entire\/} plane at a right angle -- it is orthogonal to
+${\bf v}_1$, to ${\bf v}_2$, and hence to every combination of them.
 
-{\bf Def.} We define $P_{\mathrm{span}\{{\bf v}_1, \ldots, {\bf v}_m\}}$ to be
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.35]
+  % the plane spanned by v1 and v2
+  \fill[gray!12] (0,0) -- (4.4,0.4) -- (5.6,2.0) -- (1.2,1.6) -- cycle;
+  \draw[gray!60] (0,0) -- (4.4,0.4) -- (5.6,2.0) -- (1.2,1.6) -- cycle;
+  % right-angle marker at the foot of the projection
+  \draw (3.192,1.278) -- (3.192,1.498) -- (3.4,1.57);
+  % the spanning vectors
+  \draw[->, very thick] (1.1,0.55) -- (2.7,0.7)
+      node[midway, below=2pt] {${\bf v}_1$};
+  \draw[->, very thick] (1.1,0.55) -- (1.65,1.5)
+      node[midway, above left=0pt] {${\bf v}_2$};
+  % the projection (a vector in the plane)
+  \draw[->, thick] (1.1,0.55) -- (3.4,1.35)
+      node[pos=0.78, below right=1pt]
+      {$P_{\mathrm{span}\{{\bf v}_1,\, {\bf v}_2\}}({\bf p})$};
+  % p and the leftover w
+  \draw[->, thick] (1.1,0.55) -- (3.4,3.15)
+      node[midway, above left=1pt] {${\bf p}$};
+  \draw[->, thick, dashed] (3.4,1.35) -- (3.4,3.15)
+      node[midway, right=3pt] {${\bf w}$};
+  \fill (1.1,0.55) circle (1.2pt);
+  \fill (3.4,1.35) circle (1.2pt);
+  \node[below left=0pt] at (1.1,0.55) {${\bf 0}$};
+\end{tikzpicture}
+\caption{Projection onto the plane spanned by ${\bf v}_1$ and
+${\bf v}_2$.  The projection
+$P_{\mathrm{span}\{{\bf v}_1, {\bf v}_2\}}({\bf p})$ is the point of the
+plane closest to ${\bf p}$, and the leftover
+${\bf w} = {\bf p} - P_{\mathrm{span}\{{\bf v}_1, {\bf v}_2\}}({\bf p})$
+is orthogonal to the {\em entire\/} plane -- to ${\bf v}_1$, to
+${\bf v}_2$, and to every combination of them.}
+\label{fig:plane}
+\end{figure}
+
+{\bf Definition.} We define $P_{\mathrm{span}\{{\bf v}_1, \ldots, {\bf v}_m\}}$ to be
 the projection onto the set of points {\em spanned\/} (swept out) by the
 vectors ${\bf v}_1, \ldots, {\bf v}_m$.
 
-Formula \eqref{proj2} can generalize this so that if
-$\{{\bf v}_i\}_{i=1}^m$ is an orthonormal collection of vectors then the
+Formula \eqref{proj2} generalizes: if
+$\{{\bf v}_i\}_{i=1}^m$ is an orthonormal collection of vectors, then the
 projection of a given vector ${\bf x} \in {\bf R}^n$ onto the
 space spanned by the collection is given by:
 \be
-  P_{\mathrm{span}\{{\bf v}_1, \ldots, {\bf v}_m\}}({\bf x}) & = & \sum_{i=1}^m ( {\bf x} \cdot {\bf v}_i) {\bf v}_i \label{projection}
+  P_{\mathrm{span}\{{\bf v}_1, \ldots, {\bf v}_m\}}({\bf x}) & = & \sum_{i=1}^m ( {\bf x} \cdot {\bf v}_i) {\bf v}_i
 \ee
 Note that when $n = m$, we reproduce formula \eqref{orthonorm_expansion},
 as $P_{\mathrm{span}\{{\bf v}_1, \ldots, {\bf v}_n\}}({\bf x}) = {\bf x}$.
 
-\section{Generalization of Projection based on the essence of the ``Dot Product''}
+\section{Generalizing the ``Dot Product'': Inner Products}
 
 One can repeat the above notion of projection using a distance measure created from a generalization of the dot product.
 The generalization is called an {\em inner product}. We will use an ``infix'' form of such a function and use the notation
-$\langle{\bf x}, {\bf y}\rangle$. An inner product is any function of two vectors; i.e., $F: V \times V \rightarrow {\bf R}$, with the following properties:
+$\langle{\bf x}, {\bf y}\rangle$. An inner product is any function
+$\langle \cdot, \cdot \rangle : V \times V \rightarrow {\bf R}$ with the following properties:
 \bi
   \item  $ \langle {\bf x}, {\bf y}\rangle \, = \, \langle{\bf y}, {\bf x}\rangle$ -- Symmetry.
   \item  $ \langle \lambda_1 {\bf x}_1 + \lambda_2 {\bf x}_2, {\bf y}\rangle \, = \, 
@@ -546,9 +645,12 @@ The generalization is powerful and we can apply the geometric intuition of
 projections to sets of objects like functions and 
 produce remarkable results.
 For instance, we can define a function space
-\footnote{The exact notion of ``integrable'' requires further
-explanation which we won't provide.}
-$$L^2 = \{ {\bf f} \mid \text{$f$ is integrable with} \int_\Omega f(x)^2 \, dx < \infty\}.$$
+\footnote{The exact notion of ``measurable'' requires further
+explanation which we won't provide.  (One might expect the word
+``integrable'' here, but square-integrability does not require
+integrability: on $\Omega = [1, \infty)$ the function $1/x$ has
+$\int f^2 < \infty$ while $\int |f| = \infty$.)}
+$$L^2 = \{ {\bf f} \mid \text{$f$ is measurable with} \int_\Omega f(x)^2 \, dx < \infty\}.$$
 
 $L^2$ is a set of functions where addition and scalar multiplication 
 exist just like numeric vectors.
@@ -575,7 +677,14 @@ With these definitions this space of functions behaves like
 vectors of numbers.
 
 Define $\langle{\bf f}, {\bf g}\rangle \equiv \int_\Omega f(x) g(x) \, dx$.
-This induces the length $\| {\bf f} \| = \, \sqrt{\langle {\bf f}, {\bf f} \rangle} = \sqrt{\int_\Omega f(x)^2 \, dx}$
+This induces the length $\| {\bf f} \| = \, \sqrt{\langle {\bf f}, {\bf f} \rangle} = \sqrt{\int_\Omega f(x)^2 \, dx}$.%
+\footnote{One caveat: a function that is $0$ except at a few isolated
+points has $\langle {\bf f}, {\bf f} \rangle = 0$ without being the zero
+function, so positive definiteness fails as literally stated.  The
+standard remedy is to declare two functions to be the {\em same\/} vector
+whenever they agree except on a set the integral cannot see (``almost
+everywhere'').  With that identification, $\langle \cdot, \cdot \rangle$
+is an honest inner product.}
 
 So, this generalization can apply to things that are very different 
 looking from typical vectors.
@@ -584,11 +693,34 @@ Given two functions ${\bf v}$ and ${\bf p}$, the projection formula becomes:
 \be
   P_{\bf v}({\bf p}) & = & \frac{\int_\Omega p(x) \, v(x) \, dx}{\int_\Omega v(x)^2 \, dx} {\bf v}
 \ee
-Notice the projection is a new vector (function) that is a multiple of 
-the function ${\bf v}$. You can evaluate it on a number just like 
+Notice the projection is a new vector (function) that is a multiple of
+the function ${\bf v}$. You can evaluate it on a number just like
 any other function:
 $$\left(P_{\bf v}({\bf p})\right)(x) = \frac{\int_\Omega p(s) \, v(s) \, ds}{\int_\Omega v(s)^2 \, ds} \, v(x)$$
 
+\section{Coda: the Angle}
+There is one more classical piece of the story.  The Cauchy--Schwarz
+inequality mentioned earlier says that for nonzero vectors,
+$$ -1 \; \le \; \frac{{\bf p} \cdot {\bf v}}{\|{\bf p}\| \, \|{\bf v}\|}
+\; \le \; 1. $$
+In two and three dimensions this ratio is exactly the cosine of the angle
+between ${\bf p}$ and ${\bf v}$ (compare the projection formula with the
+usual trigonometry of a right triangle).  In higher dimensions -- where we
+have no protractors -- we turn this around and use it as the
+{\em definition\/} of the angle $\theta$ between two nonzero vectors:
+$$ \cos \theta \; \equiv \;
+\frac{{\bf p} \cdot {\bf v}}{\|{\bf p}\| \, \|{\bf v}\|}. $$
+This is the same move we made with orthogonality: a theorem in low
+dimensions is adopted as a definition in general.  With it, the dot
+product acquires its familiar geometric reading,
+${\bf p} \cdot {\bf v} = \|{\bf p}\| \, \|{\bf v}\| \cos \theta$: it
+measures {\em how aligned\/} two vectors are, scaled by their lengths --
+which is exactly the role it played in the projection formula where it
+was born.
+
+{\bf Further reading.} Any linear algebra text develops these ideas in
+full; see, for example, G. Strang, {\it Introduction to Linear
+Algebra\/}, or S. Axler, {\it Linear Algebra Done Right\/}.
 
 \end{document}
 
