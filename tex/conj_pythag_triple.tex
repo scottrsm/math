@@ -78,26 +78,25 @@
     {∅}{{$\emptyset$}}1
     {∣}{{$\mid$}}1
 }
-\lstnewenvironment{leancode}{\lstset{language=Lean4}}{}
-
-\setlength{\textwidth}{6.5in}
-\setlength{\textheight}{8.0in}
-\setlength{\hoffset}{-0.75in}
-\setlength{\voffset}{-0.75in}
+\usepackage[letterpaper, textwidth=6.5in, textheight=8.0in]{geometry}
 
 \setlength{\parindent}{0.0in}
 \setlength{\parskip}{1.5\baselineskip}
 
-\title{Conjectures for Primitive Pythagorean Triples}
+\title{A Conjecture on Primitive Pythagorean Triples}
 \author{R. Scott McIntire}
-\date{May 1, 2026}
+\date{Aug 1, 2026}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
 \newtheorem{conjecture}{Conjecture}
 
 \theoremstyle{definition}
 \newtheorem{defn}{Definition}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
 
 
 \begin{document}
@@ -105,25 +104,26 @@
 
 
 \section{Overview}
-We discuss the set ${\cal H}$ of primitive Pythagorean hypotenuses --
+We discuss the set $\mathcal{H}$ of primitive Pythagorean hypotenuses --
 the ``hypotenuse'' values that arise from primitive Pythagorean triples
 (right triangles with integer sides sharing no common factor) --
 recall the classical theorems describing its structure, and state
 an open conjecture about the cumulative parity of its prime elements.
 
-A related set, ${\cal H}_p$, is the subset of ${\cal H}$ that are primes. 
-That is, primitive Pythagorean hypotenuses that are prime.
+A related set, $\mathcal{H}_p \subset \mathcal{H}$, consists of those elements of
+$\mathcal{H}$ that are prime -- the primitive Pythagorean hypotenuses that are
+themselves prime numbers.
 
-Two of the three observations below turn out to be classical theorems —
-we recall them for orientation — while the third remains an open conjecture
+Two of the three observations below turn out to be classical theorems --
+we recall them for orientation -- while the third remains an open conjecture
 of mine, which is the focus of this note.
 \begin{enumerate}
-    \item \textbf{Partition of ${\cal H}$} (theorem): ${\cal H}$ is {\em partitioned\/}
+    \item \textbf{Partition of $\mathcal{H}$} (theorem): $\mathcal{H}$ is {\em partitioned\/}
       into two disjoint infinite sets: the set of all powers of Pythagorean primes,
       and the set of all hypotenuses arising from more than one primitive Pythagorean triple.
-    \item \textbf{Infinitude of ${\cal H}_p$} (Dirichlet): The set of Pythagorean
+    \item \textbf{Infinitude of $\mathcal{H}_p$} (Dirichlet): The set of Pythagorean
       primes is infinite.
-    \item \textbf{${\cal H}_p \sim \mathbb{P}$} (conjecture): ${\cal H}_p$ is {\em similar\/}
+    \item \textbf{$\mathcal{H}_p \sim \mathbb{P}$} (conjecture): $\mathcal{H}_p$ is {\em similar\/}
       to and as {\em complex\/} as the primes when measured by certain
       cumulative-parity metrics.
 \end{enumerate}
@@ -138,103 +138,112 @@ and we use the symbol $\mathbb{P}$ to denote the set of prime numbers.
 
 
 \begin{defn}
-{\em Pythagorean Triples\/}, denoted ${\cal T}$, are triples of
+{\em Pythagorean Triples\/}, denoted $\mathcal{T}$, are triples of
 numbers representing the lengths of the sides of right triangles where all the sides are integers.%
 \footnote{Triples are taken as ordered, so $(3,4,5)$ and $(4,3,5)$ are
-distinct elements of ${\cal T}$.}
+distinct elements of $\mathcal{T}$.}
 Specifically,
-\begin{eqnarray}
-  {\cal T} & = & \{ (x,y,z) \; | \; (x,y,z) \in \mathbb{N}^3 \; \wedge \; x^2 + y^2 = z^2 \}.
-\end{eqnarray}
+\begin{equation}
+  \mathcal{T} = \{ (x,y,z) \; | \; (x,y,z) \in \mathbb{N}^3 \; \wedge \; x^2 + y^2 = z^2 \}.
+\end{equation}
 \end{defn}
 
 \begin{defn}
-{\em Primitive Pythagorean Triples\/}, denoted ${\cal T}_p$, are
+{\em Primitive Pythagorean Triples\/}, denoted $\mathcal{T}_p$, are
 Pythagorean triples whose legs share no common factor:%
 \footnote{Since any common divisor of $x$ and $y$ also divides $z$,
 $\gcd(x,y) = 1$ is equivalent to $\gcd(x,y,z) = 1$, the usual primality condition.}
-\begin{eqnarray}
-  {\cal T}_p & = & \{ (x,y,z) \; | \; (x,y,z) \in \mathbb{N}^3 \; \wedge \; \gcd(x,y) = 1 \; \wedge \; x^2 + y^2 = z^2 \}.
-\end{eqnarray}
+\begin{equation}
+  \mathcal{T}_p = \{ (x,y,z) \; | \; (x,y,z) \in \mathbb{N}^3 \; \wedge \; \gcd(x,y) = 1 \; \wedge \; x^2 + y^2 = z^2 \}.
+\end{equation}
 \end{defn}
 
 \begin{defn}
-{\em Primitive Pythagorean Hypotenuses\/}, denoted ${\cal H}$, are defined by:
-\begin{eqnarray}
-  {\cal H} & = & \{ z \; | \; \exists (x,y) \in \mathbb{N}^2, \;  (x,y,z) \in {\cal T}_p \}.
-\end{eqnarray}
+{\em Primitive Pythagorean Hypotenuses\/}, denoted $\mathcal{H}$, are defined by:
+\begin{equation}
+  \mathcal{H} = \{ z \; | \; \exists (x,y) \in \mathbb{N}^2, \;  (x,y,z) \in \mathcal{T}_p \}.
+\end{equation}
 This is the set of all possible hypotenuses of primitive Pythagorean triples.
 \end{defn}
 
 \begin{defn}
-{\em Pythagorean Primes\/}, denoted ${\cal H}_p$, are defined by:
-\begin{eqnarray}
-  {\cal H}_p & = & \{ z \; | \; \exists (x,y) \in \mathbb{N}^2, \, (x,y,z) \in {\cal T}_p \; \wedge \; z \in \mathbb{P} \}.
-\end{eqnarray}
+{\em Pythagorean Primes\/}, denoted $\mathcal{H}_p$, are defined by:
+\begin{equation}
+  \mathcal{H}_p = \{ z \; | \; \exists (x,y) \in \mathbb{N}^2, \, (x,y,z) \in \mathcal{T}_p \; \wedge \; z \in \mathbb{P} \}.
+\end{equation}
 This is the set of primes that occur as hypotenuses of primitive Pythagorean triples.
 \end{defn}
 
 \begin{defn}
-{\em Duplicate Primitive Hypotenuses\/}, denoted ${\cal H}_d$, are defined by:
-\begin{eqnarray}
-  {\cal H}_{d} & = & \{ z \; | \; \exists\, (x_1, x_2, y_1, y_2) \in \mathbb{N}^4, \;
-      (x_1,y_1,z) \in {\cal T}_p \; \wedge \; (x_2, y_2, z) \in {\cal T}_p \; \wedge \; \{x_1, y_1\} \neq \{x_2, y_2\} \}.
-\end{eqnarray}
+{\em Duplicate Primitive Hypotenuses\/}, denoted $\mathcal{H}_d$, are defined by:
+\begin{equation}
+  \mathcal{H}_{d} = \{ z \; | \; \exists\, (x_1, x_2, y_1, y_2) \in \mathbb{N}^4, \;
+      (x_1,y_1,z) \in \mathcal{T}_p \; \wedge \; (x_2, y_2, z) \in \mathcal{T}_p \; \wedge \; \{x_1, y_1\} \neq \{x_2, y_2\} \}.
+\end{equation}
 This is the set of primitive hypotenuses that arise from more than one
 {\em distinct\/} primitive Pythagorean triple (i.e.\ not merely a swap of legs).
 \end{defn}
 
 \begin{defn}
-{\em Primitive Hypotenuses Powers\/}, denoted ${\cal H}_u$, are defined by:
-\begin{eqnarray}
-  {\cal H}_u & = & \{ z \; | \; \exists\,(p,n) \in {\cal H}_p \times \mathbb{N}, \; z = p^n \}.
-\end{eqnarray}
+{\em Primitive Hypotenuses Powers\/}, denoted $\mathcal{H}_u$, are defined by:
+\begin{equation}
+  \mathcal{H}_u = \{ z \; | \; \exists\,(p,n) \in \mathcal{H}_p \times \mathbb{N}, \; z = p^n \}.
+\end{equation}
 This is the set of all powers of Pythagorean primes.
 \end{defn}
 
 
 \begin{defn}
 The {\em Prime Parity\/} function, $\Pi$, is defined on any prime $p$ with $p \ge 5$ by:
-\begin{eqnarray}
+\begin{equation}
   \Pi(p) = \begin{cases}
-  \hphantom{-}1\hfil & \exists n \in \mathbb{N}, p = 6n + 1 \\
-            -1 \hfil & \exists n \in \mathbb{N}, p = 6n - 1 \\
+  \hphantom{-}1 & \exists n \in \mathbb{N}, \; p = 6n + 1 \\
+            -1  & \exists n \in \mathbb{N}, \; p = 6n - 1
              \end{cases}
-\end{eqnarray}
+\end{equation}
 \end{defn}
 
 \begin{defn}
 The {\em First Deviation\/} function, $\Delta_p$, is defined by:%
-\footnote{If for a given $n$,
-$\left\{ m \; \left| \; n \le \left( \sum_{i=1}^m \Pi({\cal H}_p[i]) - \sum_{i=3}^{m+2} \Pi(\mathbb{P}[i]) \right. \right) \right\} = \emptyset$, we set $\Delta_p(n) = \infty$.}
-\begin{eqnarray}
-\Delta_p(n) = \min_{m} \left\{ m \; \left| \; n \le \left( \sum_{i=1}^m \Pi({\cal H}_p[i]) - \sum_{i=3}^{m+2} \Pi(\mathbb{P}[i])\right. \right) \right\}
-\end{eqnarray}
+\footnote{If the set on the right-hand side is empty, we set $\Delta_p(n) = \infty$.}
+\begin{equation}
+\Delta_p(n) = \min \left\{ m \;\middle|\; n \le \sum_{i=1}^m \Pi(\mathcal{H}_p[i]) - \sum_{i=3}^{m+2} \Pi(\mathbb{P}[i]) \right\}
+\end{equation}
+The second sum starts at index $3$ so as to skip the primes $2$ and $3$, on which
+$\Pi$ is undefined; both sums thus range over primes $\ge 5$.
 \end{defn}
 
 \newpage
 \textbf{Notes:}
 \begin{itemize}
-  \item The subscript $u$ in the name ${\cal H}_u$ is not yet justified.
-  \item ${\cal H}_p$ is a {\em proper\/} subset of the primes: ${\cal H}_p \subset \mathbb{P}$.
+  \item The subscript $u$ in the name $\mathcal{H}_u$ stands for {\em unique\/}:
+    by Theorem~\ref{thm:partition} below, the elements of $\mathcal{H}_u$ are
+    exactly the hypotenuses arising from a unique primitive Pythagorean triple.
+  \item $\mathcal{H}_p$ is a {\em proper\/} subset of the primes: $\mathcal{H}_p \subset \mathbb{P}$.
   \item If the sets above are treated as lists, they are indexed in sorted order.
   \item Clearly, $\Delta_p$ is a non-decreasing function.
 \end{itemize}
 
 First we list a few facts and state a couple of known theorems before proceeding:
 \begin{enumerate}
-  \item The Pythagorean primes are of the form $4n + 1$.
-      This is a special case of a more general theorem proven by
-        Pierre de Fermat, known as Fermat's theorem on sums of two squares.
+  \item The Pythagorean primes are exactly the primes of the form $4n + 1$.
+      The key input is a theorem of Pierre de Fermat, known as
+        Fermat's theorem on sums of two squares~\cite{hardy-wright}.
       According to this theorem, an odd prime number $p$ can be expressed as
         the sum of two squares if and only if
       $p$ is congruent to $1$ modulo $4$, i.e., $p = 4n + 1$ for some
         positive integer $n$.
+      To pass from sums of two squares to hypotenuses, note that if
+        $p = a^2 + b^2$ with $a > b$, then $p^2 = (a^2 - b^2)^2 + (2ab)^2$
+        is a primitive representation, so $p \in \mathcal{H}_p$;
+      conversely, a classical argument in the Gaussian integers
+        $\mathbb{Z}[i]$ shows that every prime factor of a primitive
+        hypotenuse is congruent to $1$ modulo $4$.
   \item Moreover, the distribution of primes of the form $4n + 1$ has
       been studied extensively.
       The German mathematician Peter Gustav Lejeune Dirichlet proved that
         there are infinitely many primes of the form $4n + 1$, a result known as
-      Dirichlet's theorem on arithmetic progressions.
+      Dirichlet's theorem on arithmetic progressions~\cite{davenport}.
       This theorem, which generalizes the case of Pythagorean primes, states
         that for any two positive coprime numbers $a$ and $d$,
       there are infinitely many primes of the form $a + nd$, where $n$ is a
@@ -243,59 +252,88 @@ First we list a few facts and state a couple of known theorems before proceeding
       get the form $4n + 1$.
         Dirichlet's theorem thus guarantees that there are infinitely
         many Pythagorean primes.
-      This is a profound result, as it extends the prime number theorem,
-      which states that there are infinitely many prime numbers, to
-      arithmetic progressions.
+      This is a profound result, as it extends Euclid's theorem on the
+      infinitude of the primes to arithmetic progressions.
 \end{enumerate}
 From these results we get the following characterization of Pythagorean primes:
-\begin{theorem}
-${\cal H}_p = \{ p \; | \; p \in \mathbb{P} \; \wedge \; p \equiv 1 \pmod{4}\}$.
+\begin{theorem}\label{thm:hp-char}
+$\mathcal{H}_p = \{ p \; | \; p \in \mathbb{P} \; \wedge \; p \equiv 1 \pmod{4}\}$.
 \end{theorem}
 And the following structure theorem for Pythagorean hypotenuses:
-\begin{theorem}
-The set ${\cal H}$ has a unique factorization (up to ordering) in ${\cal H}_p$:
-each element of ${\cal H}$ can be uniquely written as a product of powers from ${\cal H}_p$,
-\begin{eqnarray}
-  \forall h \in {\cal H},\, \exists ! N \in \mathbb{N}, \, \exists ! ({\bf p},{\bf k}) \in \left({\cal H}_p^{N} \times \mathbb{N}^{N}\right): h = \prod_{i=1}^N p_{i}^{k_i},
-\end{eqnarray}
-where uniqueness is up to permutation of the index $i$.
+\begin{theorem}\label{thm:structure}
+A natural number $z > 1$ belongs to $\mathcal{H}$ if and only if every prime
+factor of $z$ lies in $\mathcal{H}_p$. Consequently, every $h \in \mathcal{H}$
+factors uniquely over $\mathcal{H}_p$: there are a unique $N \in \mathbb{N}$,
+unique $p_1 < p_2 < \cdots < p_N$ in $\mathcal{H}_p$, and unique
+$(k_1, \ldots, k_N) \in \mathbb{N}^N$ such that
+\begin{equation}
+  h = \prod_{i=1}^N p_{i}^{k_i}.
+\end{equation}
 \end{theorem}
 
 A classical consequence is the following partition theorem, which I had originally
 stated as a conjecture but which follows from the count of primitive
 representations of $n$ as a sum of two squares:
 \begin{theorem}\label{thm:partition}
-The set ${\cal H}$ is partitioned by ${\cal H}_d$ and ${\cal H}_u$:
+The set $\mathcal{H}$ is partitioned by $\mathcal{H}_d$ and $\mathcal{H}_u$:
 \begin{enumerate}
-  \item $\hphantom{|{\cal H}_d|}{\cal H} = {\cal H}_{d} \cup {\cal H}_u$;
-  \item $\hphantom{|{\cal H}_d|}\emptyset = {\cal H}_{d} \cap {\cal H}_u$;
-  \item $\hphantom{\emptyset}|{\cal H}_d| = \infty$.
+  \item[(a)] $\hphantom{|\mathcal{H}_d|}\mathcal{H} = \mathcal{H}_{d} \cup \mathcal{H}_u$;
+  \item[(b)] $\hphantom{|\mathcal{H}_d|}\emptyset = \mathcal{H}_{d} \cap \mathcal{H}_u$;
+  \item[(c)] $\hphantom{\emptyset}|\mathcal{H}_d| = \infty$.
 \end{enumerate}
 \end{theorem}
 
-\textbf{Proof sketch.} For $n \in {\cal H}$, the number of primitive Pythagorean
+\textbf{Proof sketch.} For $n \in \mathcal{H}$, the number of primitive Pythagorean
 triples with hypotenuse $n$ equals $2^{k-1}$, where $k$ is the number of
-distinct prime factors of $n$ (all of which lie in ${\cal H}_p$ by Theorem~2).
+distinct prime factors of $n$ (all of which lie in $\mathcal{H}_p$ by
+Theorem~\ref{thm:structure}).
 This count is a classical consequence of the unique factorization of $n$ in
-the Gaussian integers. Hence $n$ has exactly one primitive representation iff
-$k = 1$, i.e.\ iff $n$ is a power of a single Pythagorean prime ($n \in {\cal H}_u$);
-otherwise $n \in {\cal H}_d$. This gives the partition. The infinitude of
-${\cal H}_d$ follows from the infinitely many distinct products $p \cdot q$
-with $p, q \in {\cal H}_p$ and $p \neq q$ (Dirichlet).\hfill$\square$
+the Gaussian integers~\cite{sierpinski}. Hence $n$ has exactly one primitive representation iff
+$k = 1$, i.e.\ iff $n$ is a power of a single Pythagorean prime ($n \in \mathcal{H}_u$);
+otherwise $n \in \mathcal{H}_d$. This gives the partition. The infinitude of
+$\mathcal{H}_d$ follows from the infinitely many distinct products $p \cdot q$
+with $p, q \in \mathcal{H}_p$ and $p \neq q$ (Dirichlet).\hfill$\square$
+
+\begin{remark}
+The set $\mathcal{H}_u$ is also infinite -- it contains $\mathcal{H}_p$, which
+is infinite by Dirichlet's theorem -- so $\mathcal{H}$ is indeed partitioned
+into two disjoint {\em infinite\/} sets, as described in the overview.
+\end{remark}
 
 \newpage
-\section{McIntire's Pythagorean Triple Conjectures}
+\section{McIntire's Pythagorean Triple Conjecture}
 
-The remaining open conjecture concerns the {\em cumulative parity\/} of
-${\cal H}_p$ — the running sum $\sum_{i=1}^n \Pi({\cal H}_p[i])$ — and how
+This section concerns the {\em cumulative parity\/} of
+$\mathcal{H}_p$ -- the running sum $\sum_{i=1}^n \Pi(\mathcal{H}_p[i])$ -- and how
 it compares to the corresponding sum over all primes $\geq 5$.
 
+We first record a fact that we had originally stated as a conjecture, but
+which follows from the prime number theorem for arithmetic progressions:
+
+\begin{proposition}\label{prop:mean-zero}
+$\lim\limits_{n \rightarrow \infty} \dfrac{\sum\limits_{i=1}^n \Pi(\mathcal{H}_p[i])}{n} = 0$.
+\end{proposition}
+
+\textbf{Proof.} Every $p \in \mathcal{H}_p$ satisfies $p \equiv 1 \pmod 4$, and
+$\Pi(p) = +1$ or $-1$ according as $p \equiv 1$ or $5 \pmod{12}$. By the prime
+number theorem for arithmetic progressions~\cite{davenport}, the primes are
+equidistributed among the $\varphi(12) = 4$ reduced residue classes
+$1, 5, 7, 11 \pmod{12}$; in particular, of the first $n$ Pythagorean primes,
+$n/2 + o(n)$ lie in each of the classes $1$ and $5 \pmod{12}$. The running sum
+is the difference of these two counts, hence is $o(n)$.\hfill$\square$
+
+Thus the $\pm 1$ values $\Pi(\mathcal{H}_p[i])$ average to zero, so
+$\mathcal{H}_p$ is spread evenly between residues $1$ and $-1 \pmod 6$ in the
+long run, mirroring $\mathbb{P}$ itself. Numerically, however, the cumulative
+parity of $\mathcal{H}_p$ tends to run {\em lower\/} than that of $\mathbb{P}$.
+The remaining open conjecture quantifies how often and how far the
+$\mathcal{H}_p$ sum nonetheless overtakes the $\mathbb{P}$ sum:
+
 \begin{conjecture}\label{conj:parity}
-The cumulative parity of ${\cal H}_p$ exhibits the following non-trivial behavior:
+The cumulative parity of $\mathcal{H}_p$ exhibits the following non-trivial behavior:
 \begin{enumerate}
-  \item $\lim\limits_{n \rightarrow \infty} \dfrac{\sum\limits_{i=1}^n \Pi({\cal H}_p[i])}{n} = 0$;
-  \item $\forall n\in \mathbb{N}, \Delta_p(n) < \infty$;
-  \item $\lim\limits_{n \rightarrow \infty} \dfrac{\Delta_p(n)}{n^{\ln(2 \pi)}} = 41$.%
+  \item[(a)] $\forall n\in \mathbb{N}, \Delta_p(n) < \infty$;
+  \item[(b)] $\lim\limits_{n \rightarrow \infty} \dfrac{\Delta_p(n)}{n^{\ln(2 \pi)}} = 41$.%
 \footnote{The exponent $\ln(2\pi) \approx 1.838$ and the constant $41$ are
 based on numerical fitting; we do not have a heuristic derivation. Readers
 should treat the precise values as empirical, subject to revision as more
@@ -303,29 +341,35 @@ data becomes available.}
 \end{enumerate}
 \end{conjecture}
 
-The three sub-conjectures together suggest that the Pythagorean primes
-are ``as complex as'' the full set of primes when measured by their
-parity behavior. Sub-conjecture~1 says the $\pm 1$ values $\Pi({\cal H}_p[i])$
-average to zero, so ${\cal H}_p$ is spread evenly between residues $1$ and
-$-1 \pmod 6$ in the long run, mirroring $\mathbb{P}$. Numerically, however,
-the cumulative parity of ${\cal H}_p$ tends to run lower than that of
-$\mathbb{P}$; sub-conjectures~2 and~3 quantify how often and how far the
-${\cal H}_p$ sum nonetheless overtakes the $\mathbb{P}$ sum, asserting that
-deviations of any size $n$ do occur ($\Delta_p(n) < \infty$) and that they
-grow at the polynomial rate $n^{\ln(2\pi)}$. This ``mixing'' is what we mean
-by saying ${\cal H}_p$ is non-trivial in a way similar to $\mathbb{P}$.
+\begin{remark}
+Part (b) implies part (a): $\Delta_p$ is non-decreasing, so if
+$\Delta_p(n_0) = \infty$ for some $n_0$, then $\Delta_p(n) = \infty$ for all
+$n \ge n_0$, contradicting the finiteness of the limit in (b). We state the
+parts separately because (a) may well be provable without any understanding
+of the growth rate in (b).
+\end{remark}
+
+Together with Proposition~\ref{prop:mean-zero}, the conjecture suggests that
+the Pythagorean primes are ``as complex as'' the full set of primes when
+measured by their parity behavior: deviations of any size $n$ do occur
+($\Delta_p(n) < \infty$), and they grow at the polynomial rate
+$n^{\ln(2\pi)}$. This ``mixing'' is what we mean by saying $\mathcal{H}_p$ is
+non-trivial in a way similar to $\mathbb{P}$.
 
 \newpage
 \appendix
-\section{A formally verified Lean 4 proof of Theorem 3}
+\section{A machine-checked Lean 4 proof of Theorem~\ref{thm:partition},
+modulo three classical inputs}
 
 The proof below has been mechanically checked by Lean 4
 (toolchain \verb|leanprover/lean4:v4.29.1|) against Mathlib.
 The full project lives at \verb|lean/PythHyp/| in this repository; the proof
 file is\\\verb|lean/PythHyp/PythHyp/Basic.lean|.
+The listing below is included directly from that source file, so it cannot
+drift from what Lean actually checked.
 
-The decomposition is honest: three classical results — explicitly named
-(F), (G-easy), and (G-uniq) — are stated as \verb|axiom|s rather than
+The decomposition is honest: three classical results -- explicitly named
+(F), (G-easy), and (G-uniq) -- are stated as \verb|axiom|s rather than
 proved in this file, because their formalization, while certainly
 possible in Mathlib, is a substantial project of its own. They are
 classical theorems, not conjectures:
@@ -351,186 +395,37 @@ in this proof: it is invoked directly as the Mathlib lemma
 \verb|Nat.infinite_setOf_prime_modEq_one|.
 
 Modulo the three classical inputs (F), (G-easy), (G-uniq), every step
-of Theorem 3 — parts (a), (b), and (c) — is fully formalized, with no
-\verb|sorry|. Lean reports a clean build.
+of Theorem~\ref{thm:partition} -- parts (a), (b), and (c) -- is fully
+formalized, with no \verb|sorry|. Lean reports a clean build, and
+\verb|#print axioms PrimPythHyp.H_partition| confirms the accounting: the
+final theorem depends on exactly the three axioms above, together with
+Lean's standard \verb|propext|, \verb|Classical.choice|, and
+\verb|Quot.sound|.
 
-\begin{leancode}
-import Mathlib.NumberTheory.PythagoreanTriples
-import Mathlib.NumberTheory.SumTwoSquares
-import Mathlib.NumberTheory.Zsqrtd.GaussianInt
-import Mathlib.NumberTheory.PrimesCongruentOne
-import Mathlib.Data.Nat.PrimeFin
-
-open Set
-
-namespace PrimPythHyp
-
-/-- z is a primitive Pythagorean hypotenuse. -/
-def IsHyp (z : ℕ) : Prop :=
-  ∃ a b : ℕ, 0 < a ∧ 0 < b ∧ Nat.gcd a b = 1 ∧ a^2 + b^2 = z^2
-
-def H : Set ℕ := { z | IsHyp z }
-def Hp : Set ℕ := { z | z ∈ H ∧ z.Prime }
-
-/-- Hypotenuses with at least two distinct unordered primitive
-    representations. -/
-def Hd : Set ℕ :=
-  { z | ∃ a₁ b₁ a₂ b₂ : ℕ,
-      0 < a₁ ∧ 0 < b₁ ∧ Nat.gcd a₁ b₁ = 1 ∧ a₁^2 + b₁^2 = z^2 ∧
-      0 < a₂ ∧ 0 < b₂ ∧ Nat.gcd a₂ b₂ = 1 ∧ a₂^2 + b₂^2 = z^2 ∧
-      ({a₁, b₁} : Finset ℕ) ≠ {a₂, b₂} }
-
-/-- Powers of Pythagorean primes. -/
-def Hu : Set ℕ := { z | ∃ p ∈ Hp, ∃ n : ℕ, 0 < n ∧ z = p^n }
-
-----------------------------------------------------------------------
--- Classical building blocks (axiomatized; these are real theorems)
-----------------------------------------------------------------------
-
-/-- (F) Fermat's two-squares + multiplicativity in ℤ[i]. -/
-axiom mem_H_iff_factors {z : ℕ} (hz : 1 < z) :
-    z ∈ H ↔ ∀ p ∈ z.primeFactors, p % 4 = 1
-
-/-- (G-easy) ≥ 2 distinct prime factors ⇒ ≥ 2 distinct primitive reps. -/
-axiom multiple_factors_yields_Hd {z : ℕ} (hz : z ∈ H)
-    (hk : 2 ≤ z.primeFactors.card) : z ∈ Hd
-
-/-- (G-uniq) prime power ⇒ only one primitive rep. -/
-axiom prime_power_not_in_Hd {p : ℕ} (hp : p ∈ Hp) {n : ℕ} (hn : 0 < n) :
-    p^n ∉ Hd
-
-----------------------------------------------------------------------
--- Helper
-----------------------------------------------------------------------
-
-lemma one_lt_of_in_H {z : ℕ} (hz : z ∈ H) : 1 < z := by
-  obtain ⟨a, b, ha, hb, _, hab⟩ := hz
-  have h1a : 1 ≤ a^2 := Nat.one_le_iff_ne_zero.mpr (pow_ne_zero 2 ha.ne')
-  have h1b : 1 ≤ b^2 := Nat.one_le_iff_ne_zero.mpr (pow_ne_zero 2 hb.ne')
-  have h2 : 2 ≤ z^2 := by rw [← hab]; omega
-  rcases Nat.lt_or_ge z 2 with hlt | hge
-  · interval_cases z <;> simp_all
-  · omega
-
-----------------------------------------------------------------------
--- Theorem 3
-----------------------------------------------------------------------
-
-/-- (a) H = Hd ∪ Hu. -/
-theorem H_eq_Hd_union_Hu : H = Hd ∪ Hu := by
-  ext z
-  refine ⟨fun hz => ?_, ?_⟩
-  · have hz1 : 1 < z := one_lt_of_in_H hz
-    have hz_ne : z ≠ 0 := by omega
-    have hcard_pos : 1 ≤ z.primeFactors.card := by
-      have : z.primeFactors.Nonempty := by
-        rw [Nat.nonempty_primeFactors]; exact hz1
-      exact Finset.card_pos.mpr this
-    by_cases hk : z.primeFactors.card = 1
-    · -- One prime factor: z = p^n.
-      right
-      obtain ⟨p, hp_eq⟩ := Finset.card_eq_one.mp hk
-      have hp_in : p ∈ z.primeFactors := by
-        rw [hp_eq]; exact Finset.mem_singleton_self p
-      have hp_prime : p.Prime := Nat.prime_of_mem_primeFactors hp_in
-      have hp_dvd : p ∣ z := Nat.dvd_of_mem_primeFactors hp_in
-      set n := z.factorization p
-      have hn_pos : 0 < n :=
-        hp_prime.factorization_pos_of_dvd hz_ne hp_dvd
-      have hz_eq : z = p ^ n := by
-        have hprod : z.factorization.prod (· ^ ·) = z :=
-          Nat.prod_factorization_pow_eq_self hz_ne
-        have hsupp : z.factorization.support = {p} := by
-          rw [Nat.support_factorization, hp_eq]
-        rw [← hprod, Finsupp.prod, hsupp, Finset.prod_singleton]
-      refine ⟨p, ⟨?_, hp_prime⟩, n, hn_pos, hz_eq⟩
-      rw [mem_H_iff_factors hp_prime.one_lt]
-      intro q hq
-      rw [hp_prime.primeFactors, Finset.mem_singleton] at hq
-      rw [hq]
-      exact (mem_H_iff_factors hz1).mp hz p hp_in
-    · -- ≥ 2 prime factors.
-      left
-      have hk2 : 2 ≤ z.primeFactors.card := by omega
-      exact multiple_factors_yields_Hd hz hk2
-  · rintro (hd | hu)
-    · obtain ⟨a, b, _, _, ha, hb, hgcd, heq, _⟩ := hd
-      exact ⟨a, b, ha, hb, hgcd, heq⟩
-    · obtain ⟨p, hpH, n, hn, rfl⟩ := hu
-      have hp_prime : p.Prime := hpH.2
-      have hpn_gt1 : 1 < p^n := one_lt_pow₀ hp_prime.one_lt hn.ne'
-      rw [mem_H_iff_factors hpn_gt1]
-      intro q hq
-      have hpf : (p^n).primeFactors = {p} :=
-        Nat.primeFactors_prime_pow hn.ne' hp_prime
-      rw [hpf, Finset.mem_singleton] at hq
-      rw [hq]
-      exact (mem_H_iff_factors hp_prime.one_lt).mp hpH.1 p
-        hp_prime.mem_primeFactors_self
-
-/-- (b) Hd ∩ Hu = ∅. -/
-theorem Hd_inter_Hu : Hd ∩ Hu = ∅ := by
-  ext z
-  simp only [mem_inter_iff, mem_empty_iff_false, iff_false, not_and]
-  rintro hd ⟨p, hpH, n, hn, rfl⟩
-  exact prime_power_not_in_Hd hpH hn hd
-
-/-- (c) Hd is infinite. -/
-theorem Hd_infinite : Hd.Infinite := by
-  set S : Set ℕ := {p | p.Prime ∧ p ≡ 1 [MOD 4]} \ {5}
-  have h_pyth : Set.Infinite {p : ℕ | p.Prime ∧ p ≡ 1 [MOD 4]} :=
-    Nat.infinite_setOf_prime_modEq_one (by norm_num)
-  have hS_inf : S.Infinite := h_pyth.diff (Set.finite_singleton _)
-  apply Set.infinite_of_injOn_mapsTo
-    (s := S) (t := Hd) (f := fun p => 5 * p)
-  · intro p₁ _ p₂ _ h; dsimp only at h; omega
-  · intro p hpS
-    obtain ⟨⟨hp_prime, hp_mod⟩, hp_ne⟩ := hpS
-    have hp_ne_5 : p ≠ 5 := fun h => hp_ne (by simp [h])
-    have h5_prime : Nat.Prime 5 := by decide
-    have hp_pos : 0 < p := hp_prime.pos
-    have hp_ne0 : p ≠ 0 := hp_pos.ne'
-    have h5p_gt1 : 1 < 5 * p := by
-      have : 1 < p := hp_prime.one_lt; omega
-    have h5p_in_H : 5 * p ∈ H := by
-      rw [mem_H_iff_factors h5p_gt1,
-          Nat.primeFactors_mul (by norm_num) hp_ne0,
-          h5_prime.primeFactors, hp_prime.primeFactors]
-      intro q hq
-      rw [Finset.mem_union, Finset.mem_singleton,
-          Finset.mem_singleton] at hq
-      rcases hq with rfl | rfl
-      · decide
-      · exact hp_mod
-    have hcard : 2 ≤ (5*p).primeFactors.card := by
-      have h5_in : (5 : ℕ) ∈ (5*p).primeFactors :=
-        Nat.mem_primeFactors.mpr ⟨h5_prime, ⟨p, rfl⟩, by omega⟩
-      have hp_in : p ∈ (5*p).primeFactors :=
-        Nat.mem_primeFactors.mpr ⟨hp_prime, ⟨5, by ring⟩, by omega⟩
-      have hsub : ({5, p} : Finset ℕ) ⊆ (5*p).primeFactors := by
-        intro x hx
-        rw [Finset.mem_insert, Finset.mem_singleton] at hx
-        rcases hx with rfl | rfl <;> assumption
-      have h2 : ({5, p} : Finset ℕ).card = 2 := by
-        rw [Finset.card_insert_of_notMem
-          (by simp [Ne.symm hp_ne_5]), Finset.card_singleton]
-      calc 2 = _ := h2.symm
-        _ ≤ _ := Finset.card_le_card hsub
-    exact multiple_factors_yields_Hd h5p_in_H hcard
-  · exact hS_inf
-
-/-- Theorem 3: the partition theorem. -/
-theorem H_partition :
-    H = Hd ∪ Hu ∧ Hd ∩ Hu = ∅ ∧ Hd.Infinite :=
-  ⟨H_eq_Hd_union_Hu, Hd_inter_Hu, Hd_infinite⟩
-
-end PrimPythHyp
-\end{leancode}
+\lstinputlisting[language=Lean4, breaklines=true]{../lean/PythHyp/PythHyp/Basic.lean}
 
 Once (F), (G-easy), (G-uniq) are themselves formalized, replacing the
 \verb|axiom| declarations with \verb|theorem| proofs, this file would
-become a self-contained, machine-checked proof of Theorem 3 with no
-classical inputs assumed beyond what is already in Mathlib.
+become a self-contained, machine-checked proof of Theorem~\ref{thm:partition}
+with no classical inputs assumed beyond what is already in Mathlib.
+
+\begin{thebibliography}{9}
+
+\bibitem{hardy-wright} G.~H. Hardy and E.~M. Wright,
+  {\em An Introduction to the Theory of Numbers}, 6th ed.,
+  Oxford University Press, 2008.
+  (Fermat's two-square theorem, \S\S 20.1--20.3; Pythagorean triples, \S 13.2.)
+
+\bibitem{davenport} H. Davenport,
+  {\em Multiplicative Number Theory}, 3rd ed.,
+  Graduate Texts in Mathematics 74, Springer, 2000.
+  (Dirichlet's theorem and the prime number theorem for arithmetic progressions.)
+
+\bibitem{sierpinski} W. Sierpi\'nski,
+  {\em Pythagorean Triangles}, Dover Publications, 2003.
+  (The $2^{k-1}$ count of primitive triples with a given hypotenuse.)
+
+\end{thebibliography}
 
 \end{document}
 
