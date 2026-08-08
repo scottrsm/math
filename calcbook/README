@@ -40,7 +40,7 @@ calculus/
    taylor.tex         # Appendix on Taylor's theorem and the generalized mean value theorem
    title.tex          # Title with cover used in main.tex (uses eps/cover.eps)
    
-   ## Utility scripts
+## Utility scripts/auxillary files
    make            # Used to preview a draft
       
    py/
@@ -60,5 +60,11 @@ util/
 
 ## Mathematica notebook which has the figures used in the book.
 calculus.nb   
+
+
+## Finished Papers
+pdf/
+
+
 
 
