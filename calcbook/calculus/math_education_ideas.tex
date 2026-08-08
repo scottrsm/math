@@ -1,0 +1,142 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\title{Math Education Ideas}
+\date{Aug 8, 2026}
+\author{R. Scott McIntire}
+
+\begin{document}
+\maketitle
+
+\noindent\textbf{Context:} Discussion arising from Claude Code's review of the calcbook preface and \texttt{.tex} files.
+
+\section{Calcbook Educational Philosophy (Summary)}
+
+The calcbook (R. Scott McIntire, Aug 2009) is organized around:
+
+\begin{itemize}
+  \item \textbf{Conceptual hierarchy over encyclopedic coverage} --- essential ideas persist; details can be re-derived.
+  \item \textbf{Problem Driven Development (PDD)} --- every chapter opens with a motivating problem; machinery is introduced only as needed.
+  \item \textbf{Active understanding} --- education should not be done \emph{to} the student; they should be participants.
+  \item \textbf{Discrete-before-continuous} --- difference calculus and summation developed first, then continuous analogs as natural extensions.
+  \item \textbf{Essentials over completeness} --- technical details (limits, induction, Taylor) placed in appendices.
+\end{itemize}
+
+\section{Common Core: Critique and Counter-Argument}
+
+\subsection{The Critique}
+
+Common Core's goal of developing ``reasonableness checking'' (for example, a bullet at 9.3 mph should raise a red flag) is laudable. But the implementation turns rough intuitive reasoning into elaborate procedural templates. For instance, for adding $18 + 23$, ballparking as ``roughly $20 + 20 \approx 40$'' becomes a multi-step algorithm.
+
+\textbf{The core irony:} Teaching spontaneity through rigid templates. ``Let me show you how to be spontaneous: here are 10 precise steps.'' This fails because:
+
+\begin{itemize}
+  \item The teachers (especially in math education) often lack fluency with the material and may have math phobia.
+  \item The combination of mandated conceptual instruction and insufficiently prepared teachers makes Common Core problematic in practice.
+\end{itemize}
+
+The mathematician's alternative --- ``more rigor will cure everything'' --- is equally wrong.
+
+\subsection{Best Counter-Argument}
+
+\begin{itemize}
+  \item The confusion is partly a \textbf{transition cost} --- carrying was also an elaborate algorithm once; parents forgot that.
+  \item The ``elaborate methods'' \textbf{make visible what fluent people already do silently}.
+  \item The ballparking instinct is arguably the \textbf{single most valuable mathematical skill for citizens} (mortgages, statistics, estimates).
+  \item The teacher-fluency problem is real but existed \textbf{before} Common Core --- the old system also produced mechanical instruction.
+  \item \textbf{High-performing countries} (Singapore, Japan) use approaches closer to Common Core than to traditional U.S. instruction, but invest heavily in teacher training.
+\end{itemize}
+
+\textbf{Surviving critique:} You cannot successfully mandate conceptual teaching top-down when the teaching workforce lacks conceptual fluency. The policy assumes a teacher corps that does not exist.
+
+\section{The Slide Rule as Accidental Pedagogy}
+
+Slide rules (1950s--1970s, chemistry and physics) structurally forced separation of:
+
+\begin{itemize}
+  \item \textbf{Magnitude} (order of magnitude) --- user tracked this themselves.
+  \item \textbf{Significand} (the digits) --- the slide rule provided this.
+\end{itemize}
+
+The tool \textbf{required} number sense as a prerequisite rather than trying to teach it through procedure. Understanding developed through daily use with real purpose, not through a curriculum unit on ``estimation strategies.''
+
+\textbf{Key insight:} Sometimes the best pedagogical intervention is a well-designed \textbf{constraint}, not a well-designed \textbf{lesson}. The slide rule did not teach estimation; it made estimation \textbf{mandatory}. No template needed.
+
+\textbf{Contrast with Common Core:} Common Core adds friction where it creates confusion; the slide rule added friction where it created understanding.
+
+\section{The ``Player'' Principle}
+
+A key part of learning any subject is that the student believes, to some extent, that they \textbf{could have thought of the ideas being presented}. The feeling is: ``Yeah, I think I could have done that, looking at things this way, given enough time.''
+
+Without this feeling, humans learn to mechanically manipulate symbols for grades. Similar to animal play: if the weaker animal does not win at least $1/3$ of the time, it loses interest.
+
+\textbf{Criterion:} New material should appear as a \textbf{recognizable variant} of a strategy the student already possesses. Not identical (boring), not unrecognizable (disengagement). A \emph{variant}.
+
+\subsection{The Unifying Thread: Isolate and Invert}
+
+\begin{itemize}
+  \item \textbf{Linear equations:} undo addition, undo multiplication $\rightarrow$ isolate $x$.
+  \item \textbf{Quadratic equations:} complete the square $\rightarrow$ take square root $\rightarrow$ back to linear.
+  \item \textbf{Difference equations:} get $x$'s under $\Delta$ $\rightarrow$ apply summation (inverse) $\rightarrow$ back to algebraic.
+  \item \textbf{Differential equations:} get $x$'s under $d/dt$ $\rightarrow$ apply integration (inverse) $\rightarrow$ back to algebraic.
+\end{itemize}
+
+The strategic move is \textbf{always the same}: isolate the unknown under one operation, apply the inverse. What changes is \emph{which} operation.
+
+\section{Same Game, Bigger Board}
+
+The reason the Player Principle works --- the reason a small number of strategies can carry a student from arithmetic through calculus and beyond --- is that mathematics reuses the same ideas at increasing levels of abstraction. What changes is the setting: numbers become vectors, vectors become functions, functions become elements of abstract spaces. But the game is the same.
+
+This is the \textbf{bridge} between the Player Principle (psychology) and the Four Moves (content). The moves are the \emph{what}. Same Game, Bigger Board is the \emph{why} --- why the same moves keep working, and why a student who learns them in arithmetic can still be a player in function spaces.
+
+\textbf{The three-layer framework:}
+
+\begin{enumerate}
+  \item \textbf{Player Principle} (psychology): New material must feel like a recognizable variant.
+  \item \textbf{Same Game, Bigger Board} (structural claim): This is possible because the same strategic moves recur at every level of abstraction.
+  \item \textbf{Four Moves} (concrete content): The specific moves that recur.
+\end{enumerate}
+
+\section{Four Strategic Moves}
+
+Nearly all of K--12 through undergraduate calculus and linear algebra can be organized around four recurring moves.
+
+\subsection{Move 1: Isolate and Invert}
+
+Get the unknown under a single operation, then apply the inverse. Connects arithmetic $\rightarrow$ algebra $\rightarrow$ completing the square $\rightarrow$ difference equations via summation $\rightarrow$ differential equations via integration.
+
+\subsection{Move 2: Approximate, Then Take a Limit}
+
+Replace the hard continuous thing with a simple discrete one, then refine. Secant lines $\rightarrow$ tangent lines. Piecewise constant $\rightarrow$ integrals. Partial sums $\rightarrow$ series. Finite differences $\rightarrow$ derivatives. The calcbook's discrete-before-continuous structure makes this move especially visible.
+
+\subsection{Move 3: Change the Representation}
+
+Rewrite the problem as something you already know how to handle. Completing the square, diagonalizing a matrix, Fourier analysis, substitution in integration --- all the same strategic intent.
+
+\subsection{Move 4: Exploit Linearity}
+
+``Linear'' means you can break the problem into pieces, solve each piece, and add the answers. Distributivity in arithmetic is the same structural idea as the linearity of differentiation, integration, and summation. One principle from third grade through graduate PDE.
+
+\textbf{Scope:} These four moves cover roughly 15 years of math education. A student holding these threads can always ask: ``Which game is this? Which move applies here? What is the new tool?'' They remain a player.
+
+\textbf{For abstract math (proofs, topology, etc.):} The thread thins but does not vanish. Those students have self-selected and will work harder to maintain it.
+
+\section{Implementation Discipline}
+
+The framework (Player Principle $\rightarrow$ Same Game, Bigger Board $\rightarrow$ Four Moves) is the philosophy. The \textbf{implementation discipline} is how to apply it when writing about any mathematical topic --- a checklist derived from reviewing the three papers:
+
+\begin{enumerate}
+  \item \textbf{Open with a problem the reader can feel.} (PDD --- every section of new material needs this, not just the first.)
+  \item \textbf{Name which game is being played.} (``This is the same as \ldots but now the unknown is a function, not a number.'')
+  \item \textbf{Introduce machinery only when the reader needs it.} (A tool should answer a question the student already has. If they do not have the question yet, give them the question first.)
+  \item \textbf{After each new level, show the table.} (Make the ``same game, bigger board'' structure explicit --- do not leave it for the student to infer.)
+\end{enumerate}
+
+\section{Acknowledgement}
+This paper was written in coloboraton with github copilot.
+
+\end{document}
