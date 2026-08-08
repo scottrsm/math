@@ -1,0 +1,214 @@
+%\input ../util/bookmacros
+%\input ../util/docparams
+
+\appendix{Appendix E}{Taylor's Theorem}
+
+In the chapter ``The Derivative As Approximation'' we approximated a function near a point by its
+tangent line -- $f(x+h) \approx f(x) + f'(x) h$ -- and we were rather vague about the size of the
+error we were making. That chapter left two questions hanging: exactly how big is the error, and
+can we shrink it by adding a quadratic correction, or a cubic one, and so on? The answer to both
+questions is {\it Taylor's Theorem\/}, which we prove carefully in this appendix. Its simplest
+cases return exactly the tangent line approximation -- but now with a formula, not a hand wave,
+for the error.
+
+\section{Generalization of the Mean Value Theorem}
+We start by stating and proving a generalization of the Mean Value Theorem:
+\proclaim Theorem(\index{Generalized Mean Value Theorem}). Let $f$ and $w$ be continuous functions 
+on the interval $[a,b]$. If $f$ has minimum and maximum values $m$ and $M$ while 
+$w(s)  \ge 0$ for $s \in [a,b]$ and $\int_a^b w(s) \, ds > 0$,  then 
+there exists a value $\mu \in [a,b]$ such that
+$$
+\eqalign{
+\int_a^b f(s) w(s)\, ds & = f(\mu) \int_a^b w(s) \, ds \cr
+}
+$$
+
+{\bf proof:\/} Since $f$ is greater or equal to $m$ and less than or equal $M$ we must have
+$$
+\int_a^b m\, w(s) \, ds \le \int_a^b f(s) w(s) \, ds \le \int_a^b M w(s) \, ds
+$$
+Since $m$ and $M$ are constants they may be taken out of the integrals (linearity property of integrals), 
+so that
+$$
+m\int_a^b w(s) \, ds \le \int_a^b f(s) w(s) \, ds \le M \int_a^b w(s) \, ds
+$$
+Dividing by the integral in $w$ gives
+$$
+m \le {\int_a^b f(s) w(s) \, ds \over \int_a^b w(s) \, ds} \le M 
+$$
+Note that the middle term is an intermediate value of the function $f$.
+Since $f$ is a continuous function on $[a,b]$, the \index{intermediate value theorem} tells us that 
+there is a $\mu\in[a,b]$
+such that $f(\mu) = {\int_a^b f(s) w(s) \, ds \over \int_a^b w(s) \, ds}$. This can be rewritten as
+$$
+\int_a^b f(s) w(s) \, ds = f(\mu) \int_a^b w(s) \, ds
+$$
+
+\proclaim Corollary(Mean Value Theorem). If $f$ is a function such that $f^{\prime}$ exists and is a continuous function
+on the interval $[a,b]$, then there exists a $\mu \in [a,b]$\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{\rm The
+Mean Value Theorem is usually stated with weaker hypotheses -- $f$ need only be differentiable on the {\it open\/}
+interval $(a,b)$ -- and with a sharper conclusion -- $\mu$ lies strictly between $a$ and $b$. Proving that version
+requires other tools; this integral version is all we need here.} such that
+$$ 
+\eqalign{
+f(b) & = f(a) + f'(\mu)(b - a) \cr
+}
+$$
+
+This follows from the generalized Mean Value result substituting $f'$ for $f$ and setting $w(x) \equiv 1$ for all $x \in [a,b]$.
+That is, we have for some $\mu \in [a,b]$:
+$$
+\eqalign{
+\int_a^b f^\prime(s) 1 \, ds & = f^\prime(\mu) \int_a^b 1 \, ds \cr
+}
+$$
+Or,
+$$
+  f(b) - f(a) = f^\prime(\mu) (b - a)
+$$
+\section{Proof of Taylor's Theorem}
+In the chapter ``The Derivative As Approximation'' we derived Taylor's Theorem by pretending that
+the various ``$\mu$'' values handed to us by the Mean Value Theorem were all the same -- and we
+confessed there that this was a cheat. Here we take an honest route. The only tools we need are
+the \index{FTC} and \index{Integration by Parts} -- both from the chapter on integral calculus --
+together with a {\it single\/} application of the Generalized Mean Value Theorem at the very end.
+
+Suppose $f'$ is continuous on the interval $[a,b]$ and let $x \in [a,b]$. The \index{FTC} tells us that
+$$
+\eqalignno{
+f(x) & = f(a) + \int_a^x f'(s) \, ds & (1) \cr
+}
+$$
+Squint at this equation and you can already see the shape of Taylor's Theorem: a polynomial
+approximation to $f$ (here just the constant $f(a)$) plus an integral that records the error
+{\it exactly\/}.
+
+To do better we apply \index{Integration by Parts} to the error integral, using the two functions
+$f'(s)$ and $v(s) = -(x - s)$. Keep in mind that we are integrating with respect to $s$, so the
+value $x$ is a constant as far as the integration is concerned; therefore, $v'(s) = 1$, and we may
+write $\int_a^x f'(s)\, ds = \int_a^x f'(s)\, v'(s)\, ds$.
+Why the minus sign in $v$? An anti-derivative of $1$ is only determined up to a constant, and this
+choice makes $v$ vanish at the endpoint $s = x$ -- watch what that does for us.
+If $f''$ is also continuous on $[a,b]$, then Integration by Parts gives
+$$
+\eqalign{
+\int_a^x f'(s)\, v'(s)\, ds & = \bigl(f'(x)\, v(x) - f'(a)\, v(a)\bigr) - \int_a^x f''(s)\, v(s)\, ds \cr
+& = f'(a) (x - a) + \int_a^x f''(s) (x - s)\, ds \cr
+}
+$$
+The endpoint terms collapsed to $f'(a)(x-a)$ because $v(x) = -(x - x) = 0$ while $-v(a) = (x - a)$;
+and the minus sign in front of the last integral canceled the minus sign inside $v$.
+Plugging this back into (1) gives
+$$
+\eqalignno{
+f(x) & = f(a) + f'(a) (x - a) + \int_a^x f''(s) (x - s)\, ds & (2) \cr
+}
+$$
+This is the tangent line approximation from the chapter ``The Derivative As Approximation'' --
+but now with an exact formula for the error.
+
+Let's do it once more, applying Integration by Parts to the error integral in (2), this time with
+the two functions $f''(s)$ and $v(s) = -{(x - s)^2 \over 2}$. By the chain rule $v'(s) = (x - s)$ --
+differentiating $(x - s)$ with respect to $s$ produces a factor of $-1$ that cancels the minus sign
+out front -- and once again $v(x) = 0$. If $f'''$ is also continuous on $[a,b]$, then
+$$
+\eqalign{
+\int_a^x f''(s) (x - s)\, ds & = \bigl(f''(x)\, v(x) - f''(a)\, v(a)\bigr) - \int_a^x f'''(s)\, v(s)\, ds \cr
+& = f''(a) {(x - a)^2 \over 2} + \int_a^x f'''(s) {(x - s)^2 \over 2}\, ds \cr
+}
+$$
+so that (2) becomes
+$$
+\eqalignno{
+f(x) & = f(a) + f'(a) (x - a) + f''(a) {(x - a)^2 \over 2!} + \int_a^x f'''(s) {(x - s)^2 \over 2!}\, ds & (3) \cr
+}
+$$
+Each round of Integration by Parts peels one more polynomial term off of the error integral and
+leaves behind an error integral of the same shape. The pattern that emerges is this: if
+$f^{(k+1)}$ exists and is continuous on $[a,b]$, then
+$$
+\eqalignno{
+f(x) & = f(a) + \sum_{i=1}^{k} f^{(i)}(a) {(x - a)^i \over i!} + \int_a^x f^{(k+1)}(s) {(x - s)^k \over k!}\, ds & (4) \cr
+}
+$$
+Call this statement $P_k$. Notice that the hypothesis is honest bookkeeping: each round of
+Integration by Parts differentiates $f$ once more under the integral, so reaching $P_k$ costs us
+$k+1$ continuous derivatives -- no hidden assumptions about mysterious ``$\mu$'' functions.
+
+How do we prove $P_k$ for every $k$? We use \index{induction} (see the appendix on induction):
+we must show that $P_0$ is true and that $P_k$ implies $P_{k+1}$ for any $k \ge 0$.
+
+$P_0$ is true since it is just equation (1) -- when $k = 0$ the sum is empty while
+${(x - s)^0 \over 0!} = 1$.
+
+For the inductive step, assume that $P_k$ is true and that $f^{(k+2)}$ exists and is continuous
+on $[a,b]$. We apply Integration by Parts to the error integral in (4) exactly as before, this
+time with the two functions $f^{(k+1)}(s)$ and $v(s) = -{(x - s)^{k+1} \over (k+1)!}$. The power
+rule and chain rule give
+$$
+v'(s) = {(k+1) (x - s)^k \over (k+1)!} = {(x - s)^k \over k!}
+$$
+-- as usual the two minus signs cancel -- and, as usual, $v(x) = 0$. Therefore
+$$
+\eqalign{
+\int_a^x f^{(k+1)}(s) {(x - s)^k \over k!}\, ds & = \bigl(f^{(k+1)}(x)\, v(x) - f^{(k+1)}(a)\, v(a)\bigr) - \int_a^x f^{(k+2)}(s)\, v(s)\, ds \cr
+& = f^{(k+1)}(a) {(x - a)^{k+1} \over (k+1)!} + \int_a^x f^{(k+2)}(s) {(x - s)^{k+1} \over (k+1)!}\, ds \cr
+}
+$$
+Substituting this into (4) extends the sum to $i = k+1$ and produces exactly the statement
+$P_{k+1}$. The two requirements for \index{induction} have been fulfilled; therefore (4) is true
+for every $k \ge 0$.
+
+One task remains. The error integral in (4) is exact, but it is not easy to look at. We convert it
+into a friendlier form by applying the \index{Generalized Mean Value Theorem} -- just once -- on the
+interval $[a,x]$, with $f^{(k+1)}$ playing the role of $f$ and with the weight function
+$w(s) = {(x - s)^k \over k!}$. (For $x = a$ both sides of (4) are $f(a)$, so there is nothing to
+prove; since $x \in [a,b]$, we may assume $x > a$.) Let us check the hypotheses: $f^{(k+1)}$
+and $w$ are continuous, and $w(s) \ge 0$ for $s \in [a,x]$ since $s \le x$ there. Also, an
+\index{anti-derivative} of ${(x - s)^k \over k!}$ with respect to $s$ is
+$-{(x - s)^{k+1} \over (k+1)!}$ -- our friend $v$ again -- so by the \index{FTC}
+$$
+\int_a^x {(x - s)^k \over k!}\, ds = -{(x - x)^{k+1} \over (k+1)!} + {(x - a)^{k+1} \over (k+1)!} = {(x - a)^{k+1} \over (k+1)!}
+$$
+which is positive since $x > a$. The Generalized Mean Value Theorem then hands us a value
+$\mu \in [a,x]$ -- a value that depends on $x$, so it is really a function $\mu(x)$ -- such that
+$$
+\eqalign{
+\int_a^x f^{(k+1)}(s) {(x - s)^k \over k!}\, ds & = f^{(k+1)}(\mu(x)) \int_a^x {(x - s)^k \over k!}\, ds = f^{(k+1)}(\mu(x)) {(x - a)^{k+1} \over (k+1)!} \cr
+}
+$$
+Substituting this into (4), and then writing $n$ for $k + 1$, turns (4) into the celebrated result:
+\proclaim Theorem(Taylor's Theorem). If $f$ is a function such that $f^{(n)}$ exists and is a continuous function 
+on the interval $[a,b]$, then for any $x \in [a,b]$\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{\rm Note, when $n=1$,
+  $\sum_{i=1}^{n-1} g_i = \sum_{i=1}^0 g_i = 0$, regardless of the values of $g_i$. }
+$$
+\eqalign{
+f(x) &= f(a) + \sum_{i=1}^{n-1} f^{(i)}(a) {(x - a)^i \over i!} + f^{(n)}(\mu(x)) {(x-a)^n \over n!} \cr
+}
+$$
+where $\mu$ is a function such that $\mu(x) \in [a,x]$.
+
+Notice that when $n = 1$ the theorem says $f(x) = f(a) + f'(\mu(x)) (x - a)$ -- the Mean Value
+Theorem with which we began, now seen as the first rung of a ladder.
+
+Let us make the error term earn its keep.
+
+\example{How good is the approximation $\sin(x) \approx x$ when $x$ is small?}
+With $f(x) = \sin(x)$ and $a = 0$ we have $f(0) = 0$, $f'(0) = \cos(0) = 1$, and
+$f''(0) = -\sin(0) = 0$ -- so the tangent line at $0$ is the line $y = x$, and the quadratic
+correction vanishes for free. Taylor's Theorem with $n = 3$ then says
+$$
+\eqalign{
+\sin(x) & = x + f'''(\mu(x)) {x^3 \over 3!} \cr
+}
+$$
+for some $\mu(x)$ between $0$ and $x$. Now $f''' = -\cos$, which is never bigger than $1$ in
+size -- no matter what $\mu(x)$ turns out to be. So for $|x| \le 0.1$,
+$$
+| \sin(x) - x | \le {|x|^3 \over 3!} \le {(0.1)^3 \over 6} \approx 1.7 \times 10^{-4}
+$$
+Not bad for a straight line -- and we never had to compute $\mu(x)$.
+
+\vfil
+\eject
+

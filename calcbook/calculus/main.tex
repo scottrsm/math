@@ -1,0 +1,114 @@
+%% Book macros.
+% Used for sections, references, exercises, etc.
+\immediate\write-1{
+^^J Loading the book macros...}
+\input ../util/bookmacros
+
+% The font used in the book
+\pal
+
+% Set the TeX parameters used to shape this document.
+\immediate\write-1{
+^^JLoading the document macros...}
+\input ../util/docparams
+
+% Title Page. (We get this from the eps directory NOT from the jpg directory).
+\immediate\write-1{
+^^JLoading the title...}
+\input title 
+
+%********** The Book Begins Here *********************
+
+% The Preface.
+\immediate\write-1{
+^^JLoading the preface...}
+\input preface
+
+% Begin making the table of contents.
+\immediate\write-1{
+^^JMaking the table of contents...}
+\maketoc
+
+% Chapter: Difference Calculus.
+\immediate\write-1{
+^^JWorking on chapter: differencecalc.tex...}
+\input differencecalc
+
+% Chapter: Summation Calculus.
+\immediate\write-1{
+^^JWorking on chapter: sumcalc.tex...}
+\input sumcalc
+
+% Chapter: Differential Calculus.
+\immediate\write-1{
+^^JWorking on chapter: diffcalc.tex...}
+\input diffcalc
+
+% Chapter: Integral Calculus.
+\immediate\write-1{
+^^JWorking on chapter: intcalc.tex...}
+\input intcalc
+
+% Chapter: The derivative as approximation
+\immediate\write-1{
+^^JWorking on chapter: diffApprox.tex...}
+\input diffApprox
+
+% Chapter: Difference Equations.
+\immediate\write-1{
+^^JWorking on chapter: differenceeq.tex...}
+\input differenceeq
+
+% Chapter: Differential Equations.
+\immediate\write-1{
+^^JWorking on chapter: diffcalceq.tex...}
+\input diffcalceq
+
+% Appendix A: Functions, Formulas, Graphs, and Notation.
+\immediate\write-1{
+^^JWorking on appendix functions.tex...}
+\input functions
+
+% Appendix B: Straight Line Functions.
+\immediate\write-1{
+^^JWorking on appendix: linfunc.tex...}
+\input linfunc
+
+% Appendix C: Sequences and Limits.
+\immediate\write-1{
+^^JWorking on appendix: limitdef.tex...}
+\input limitdef
+
+% Appendix D: Mathematical Induction.
+\immediate\write-1{
+^^JWorking on appendix: induction.tex...}
+\input induction
+
+% Appendix E: Taylor's Theorem
+\immediate\write-1{
+^^JWorking on appendix: taylor.tex...}
+\input taylor
+
+% Create index
+\eject
+\section{Index}
+\immediate\write-1{
+^^JWorking on index...}
+\newread\mainindexin
+\openin\mainindexin=mainindex.tex
+\ifeof\mainindexin
+\closein\mainindexin
+\immediate\write-1{
+^^Jmainindex.tex not found; continuing without index on this pass...}
+\else
+\closein\mainindexin
+\input mainindex.tex
+\fi
+
+% End TeX for book.
+\endbook
+
+% End
+\bye
+
+

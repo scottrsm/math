@@ -1,0 +1,17 @@
+#!/bin/bash
+
+N=0
+if [ $# -ne 0 ]; then
+	N=$1
+fi
+
+# Use etex to work with pdf/ps/jpeg and friends.
+# TeX twice to resolve references.
+etex main
+py/process_index.py > mainindex.tex
+etex main
+
+# Display the book -- optionally go to the desired page.
+xdvi +$N -s 3 -density 300 -geometry 2200x1280+100+0 main.dvi
+
+

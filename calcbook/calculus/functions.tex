@@ -1,0 +1,221 @@
+%\input ../util/bookmacros
+%\input ../util/docparams
+
+\appendix{Appendix A}{Functions, Formulas, Graphs, and Notation}
+
+In the main text we freely wrote formulas like $f(x) = x^2$ and drew
+graphs of functions -- so you may well ask: are the formula, the graph,
+and the function all the same thing? For the patchwork functions and
+sequences of this book the distinction matters, and this appendix pins
+it down. As
+mentioned earlier in this book functions are rather abstract things. Functions
+are not numbers or a collection of numbers; they are rules which assign one 
+number to another. As such, we are tempted to identify anything tangibly 
+associated with a function {\it as the function\/}. The two things that 
+people often confuse with a function are formulas 
+-- usually used to define a function -- and the graph of a function. 
+There is a third problem which comes from the way mathematicians and others 
+notate functions. 
+
+Before we clarify these concepts let us emphasize that 
+although functions are not formulas, the kinds of functions which make 
+calculus computationally tractable are the ones 
+which are defined by formulas or are made from a patch work of formulas.
+
+\section{Functions are NOT Formulas}
+You will often hear the terms {\it function\/} and {\it formula\/} used 
+interchangeably. One may hear 
+``This is a function that describes such and such.'' Or, 
+``Here is a formula for computing such and such.'' Many people think 
+they are the same thing. In fact, mathematicians a few centuries back 
+{\it did\/} use 
+the two terms interchangeably. They were driven to separate these notions 
+through the problems they faced over the last few centuries --
+just as we are being driven to introduce the concepts of Calculus by a 
+particular set of problems. A few definitions will help draw this distinction.
+
+\proclaim Definition(Function). A function, $f$, takes as input a number
+from a set called the {\it domain\/} of $f$, and produces
+{\it one\/} number as output. The set of outputs of $f$ (using input values from the domain) is called the 
+{\it range\/} of $f$.
+
+A simple example is the function which squares its input. If we call this
+function $f$, then $f$ is defined by $f(x) = x^2$. We can take the domain of 
+this function to be any set where the squaring operation makes sense. One usually
+takes the domain to be the largest possible set one can. In this case, the 
+domain is usually taken to be all real numbers.
+As a second example, consider 
+the function which takes the square root of its input. If we call this function
+$g$, then $g$ is defined by $g(x) = \sqrt x$. We can take the domain of 
+this function to be any set where the square-root operation makes sense. Since 
+taking square roots of a number is only valid for non-negative numbers, we 
+can take the domain of this function to be any subset of the non-negative numbers.
+One usually takes the domain to be the non-negative numbers.
+Lastly, consider the family of functions, $f(x) = x^{n}$ with integer $n$, $n < 0$.
+The domain of these functions is taken to be the set of all numbers except $0$; that is,
+all places where the function makes sense. 
+
+A formula doesn't have much of a formal definition, but we can define it 
+roughly as:
+
+\proclaim Definition(Formula). A formula is an ``algebraic'' 
+implementation of a 
+function. That is, a formula is an ``algebraic rule'' which takes a numeric 
+input and produces a numeric output.
+
+Examples of formulas are:
+
+\beginEnum
+\enum{$1 + 2x$}
+\enum{$x^2 + 3x + 2$}
+\enum{$\sin^2(x) + x + \tan(x)$}
+\enum{${1 + x^2 \over 2x - 7} e^x + 2 \tan(x)$}
+\endEnum
+
+These formulas can be used to define functions. Listed below are the associated 
+functions from the formulas above.
+
+\beginEnum
+\enum{$f_1(x) = 1 + 2x$}
+\enum{$f_2(x) = x^2 + 3x + 2$}
+\enum{$f_3(x) = \sin^2(x) + x + \tan(x)$}
+\enum{$f_4(x) = {1 + x^2 \over 2x - 7} e^x + 2 \tan(x)$}
+\endEnum
+
+It may seem like we're quibbling over trivial matters. To drive home the point 
+that they are different we present below functions whose definitions go
+beyond a single formula in various ways -- patchworks of formulas,
+restricted domains, or no formula at all. In some examples,
+a graph picturing the function is given.
+
+{\bf Example 1.\/} $f$ is the absolute value function defined on the real 
+line. There is a simple formula for this function. $f(x) = |x|$. But it 
+may be defined as a compilation of even simpler formulas as:
+$$
+f(x) = \cases{ x & if $ x \ge 0$; \cr
+-x & otherwise. \cr}
+$$
+\epsfigure{eps/absolute.eps}{The absolute value function $f(x) = |x|$.}
+
+{\bf Example 2.\/} $g$ is referred to 
+as a piecewise linear function. It is defined on the real line as:
+$$
+g(x) = \cases{ 1 & if $x < 0$; \cr
+1+x & if $0 \le x < 3$; \cr
+4 + (3 - x) & if $3 \le x < 5$; \cr
+2 & if $x \ge 5$. \cr}
+$$
+\epsfigure{eps/piecewise.eps}{A sample piecewise linear function.}
+
+{\bf Example 3.\/} $h$ is defined only on the interval $[0,10]$. That is, its domain is the set $[0,10]$.
+This is an example of a discontinuous function; it makes a sudden jump when $x = 5$.
+$$
+h(x) = \cases{ x & if $ 0 \le x < 5$; \cr
+7 & $5 \le x \le 10$. \cr}
+$$
+\epsfigure{eps/discount.eps}{A discontinuous function.}
+
+{\bf Example 4.\/} $d$ is defined only on the input set $\{1,2,3\}$ (its domain) 
+producing values in the output set $\{4,10,21\}$ (its range). 
+$$
+d(x) = \cases{ 10 & if $ x = 1$; \cr
+21 & if $x = 2$; \cr
+4 & if $x = 3$.}
+$$
+
+{\bf Example 5.\/} $f$ is defined only on the set of positive integers 
+producing the even numbers.
+$$
+f(n) = 2\, n 
+$$
+
+{\bf Example 6.\/} $f$ is defined only on the set of positive integers 
+producing the prime numbers.
+$$
+f(n) = p_n \quad {\rm where}\; p_n\; {\rm is} \;{\rm the} \;n^{\rm th}\; {\rm prime} 
+$$
+Several of the functions above, while not given by a single formula, are
+patchworks of formulas (Examples 3 and 4). Example 5 is given by a simple
+formula, $f(n) = 2n$, but on a restricted domain. Example 6 is a function for which one can't write down
+a formula; nor a (finite) patchwork of formulas as there is no known formula for
+expressing the sequence of prime numbers.%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{Actually, a relatively concise formula was produced in the 1960s but it is not a practical means of computing primes.}
+
+Let us also try to remove the confusion about functions and their 
+descriptions. The function $f$ defined by $f(x) = x^2$ can also be 
+defined by $f(z) = z^2$. Why? Because both descriptions tell us to do the 
+same thing to their inputs. 
+That is, the input variable is a dummy variable, not unlike a dummy variable 
+used in a ``for loop'' of a programming language. For instance, consider 
+the two ``for loops'' below: 
+
+{\tt sum = 0; for(i = 0; i < 10; i++) $\{$ sum += i; $\}$}
+
+{\tt sum = 0; for(j = 0; j < 10; j++) $\{$ sum += j; $\}$}
+
+The results don't depend on $i$ or $j$. In the same way, be careful not to 
+get too attached to the dummy variables used in function definitions.
+We state this one more time with emphasis:
+
+{\bf NOTE:\/} The following all define a function named $f$ that squares its 
+input:
+$$
+f(x) = x^2 \;,\quad f(z) = z^2 \;,\quad f(a) = a^2 \;,\quad f(c) = c^2 
+$$
+
+\section{Functions are NOT Graphs}
+Functions are abstract: a function is not a number but a rule that takes in one number and produces another;
+it is difficult to get a picture of this. Graphs of functions give us a picture. However, 
+it is worth mentioning again that graphs are NOT functions. A function 
+has a graph, but a graph may not correspond to a function. To make 
+the distinction clearer we need to define what we mean by a graph.
+
+\proclaim Definition(Graph). A graph is a set of pairs of real numbers.
+That is, a graph is a {\it subset\/} of $\{\,(x,y)\mid x,y\in~R\,\}$.\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}%
+{The symbol $R$ stands for the set of all real numbers.}
+
+\proclaim Definition(Graph of a Function). The graph of a function, $f$, 
+is the set $\{\,(x,f(x)) \mid x \in~{\rm Domain}(f)\,\}$.
+
+This leads to a question: Given a graph, $G$, is there a corresponding 
+function, $f$, for which the graph of $f$ is $G$?
+
+The answer, in general, is no. Consider, for example, a graph that 
+is a circle. 
+The graph of a function has the property that for any 
+given input, $x$, (provided it's in the function's domain) only one output is produced. 
+What does this mean for the graph
+of a function? It means that if we take a vertical line through $x$, it 
+should only hit the graph of the function at one point. Because otherwise, 
+if it hit the graph at more than one point, there would be more than
+one value produced by $f$ -- and this can't be. This criterion is called
+the {\it \index{vertical line test}\/}: a graph is the graph of a function
+exactly when every vertical line hits it at most once. So, in the case of the circle
+graph, we know that this is not the graph of a function because a vertical 
+line hits more than one point for at least one value of $x$. In fact, a 
+vertical line hits two points of the circle at all but the bounding $x$ values.
+
+\section{Function Notation}
+In many respects mathematics is a triumph of notation. We use symbols to name 
+and manipulate abstract ideas. It is often not as precise as mathematicians 
+would like, however. There are cases where the short 
+hand of notation is confusing 
+or misleading. One case in particular is the way people refer to 
+functions.
+In this book you will see functions notated as variables are notated; for example, we might call a function $f$.
+ In some texts there is a concern that this simple name may confuse a function name with the name 
+of a variable that has a numeric value. In order to add information 
+(in this case to indicate that $f$ is a function)  some 
+people use the notation $f(x)$ to try to make things clear. The sense which is 
+to be conveyed by this notation is that $f$ is a function because
+it takes inputs. The symbol $x$ is often used because it conveys the 
+idea of ``variable input''; that is, $f$ can be fed any number as input.
+This leads to confusion because the usual interpretation of $f(x)$ is $f$ evaluated at $x$.%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{The only place where $f(x)$ has the sense of $f$ being fed an arbitrary input is when
+we {\it define\/} the function $f$ as in $f(x) = $ value, or expression involving $x$. }
+Other people will use the notation $f(\cdot)$ to more clearly indicate that $f$ is a function.
+The ``dot'' serves as a place holder indicating that $f$ feeds on something; that is, it is a function.
+
+Reiterating, we will use the notation $f(x)$ to 
+mean: evaluate the function $f$ at $x$.
+

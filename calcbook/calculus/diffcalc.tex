@@ -1,0 +1,1224 @@
+%\input ../util/bookmacros.tex
+%\input ../util/docparams.tex
+
+\chapter{Differential Calculus}
+
+\section{A Motivating Problem for Differential Calculus}
+Let me be clear that there is not only one motivating problem for this 
+subject. But I think the problem we introduce illuminates 
+the parade of definitions you see in standard calculus books dealing with 
+differential calculus. You would in the 
+course of study of a standard book come across such a problem only 
+after you had built up 
+a certain amount of mathematical machinery. As mentioned in the preface,  
+I prefer to see the problem 
+first and see what motivated the machinery. 
+It helps me, and I hope it helps you,
+get a better perspective of the subject.
+\proclaim Problem.
+Suppose one is to make a storage box from a flat 
+square sheet of metal 12 inches by 12 inches. The box is made
+by doing the following:
+\beginEnum
+\enum{Cut along the dotted lines; that is, cut out the corner pieces.}
+\enum{Fold the remaining four ``flaps'' up. }
+\endEnum
+Now, the resulting ``box'' is a container without a lid.
+See the figure below. \epsfigure{eps/metalbox.eps}{Metal Sheet}
+
+Question: What should the ``flap distance'' $x$ be in order to make a
+box with maximum volume?
+
+First, it seems clear that the volume is a function of the parameter $x$. 
+What is this function? The volume of a box is the area of the base times 
+the height. The area of the base is $(12 - 2x)^2$ while the height of the box 
+is $x$. So, the volume function (in cubic inches) can be expressed 
+as\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}%
+{See the appendix ``Functions, Formulas, Graphs, and Notation''.}
+$V(x) = x (12 - 2x)^2$. It is not clear from looking 
+at this formula what the best choice of $x$ should be. We could try many 
+values of $x$ and see which gives the largest value of $V$; 
+it's clear from the diagram
+that $x$ must be in the range $[0,6]$ (in inches). 
+This is a valid approach, and 
+though we may not get an exact best answer it could give us a value close 
+to the best. For instance,
+we could plug in the input values $0,1,2, \ldots, 6$, in the function $V$ 
+seeing which gave the biggest answer. But how would we know if we missed any
+input value to try? We could increase the \index{sampling} by 
+plugging in the input values $0, 1/2, 1, 1 \, 1/2, \, \ldots, \, 6$ into $V$. 
+Again, comparing the values of $V$ after plugging in each of these inputs 
+would perhaps give a better answer. But to find 
+the best solution we would have to plug in all the numbers in the interval 
+$[0,6]$ into the function $V$ to find the best solution. The problem here is 
+that there are an infinite number of numbers in the interval, $[0,6]$!
+
+One of the difficulties with this problem is one of visualization. We 
+can visualize a box and its construction but the function $V$, or for that 
+matter any function, is a fairly abstract notion. It is not a number, it 
+is a thing 
+that takes a number as an input and produces a number as an output. One way to 
+make a function more tangible is to draw its {\it graph\/}. When we do 
+this we get 
+back to things that we can see and touch. By drawing the graph of $V$, 
+we make $V$ more concrete, and we can see another way to find an input, $x$,
+which maximizes $V$. See the figure below. 
+\epsfigure{eps/boxvolume.eps}
+{Box volume as a function of flap distance.}
+
+If you place a level\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}%
+{That is, something with a straight edge like a level or a ruler.} against the graph at any point, the level is 
+said to be {\it tangent\/} to the graph at that point. The line that passes 
+through the level is called a {\it \index{tangent line}\/}.
+If the level is placed at the high point of the 
+graph, the level lies flat. That is, the \index{tangent line} at that point is flat.
+See the figure below. 
+\vskip -.2in
+\epsfigure{eps/tangents.eps}{Graph of a function and sample tangent lines.}
+
+So, here is a strategy for finding the \index{maximum}: If someone gives us a 
+graph of this function, place a level at some point on the graph 
+and move it along the graph. Notice that at a bump in the graph -- where 
+potentially there is a maximum or minimum  value -- the level is flat. If we 
+mark the point or points where this occurs 
+you have a set of input candidates for the maximum. You need 
+only compare the value of 
+the function to maximize at these points and at the end points
+of the interval over which you are searching for a maximum. This, in general,
+should be a small number of points. See the figures below.
+\epsfigure{eps/humpfunc.eps}{Find the maximum of 
+$f(x)$ on the interval [0,4]}
+\epsfigure{eps/humpfunc2.eps}{Find the maximum of 
+$f(x)$ on the interval [0, 4.2]. Although this is the same function 
+as the last figure, the change in the interval leads to a different solution.}
+
+The great thing about this method is that if 
+we can identify these points we have reduced the comparison to a handful
+(hopefully) of points. 
+
+The problem with this method is that it is not much different from the last 
+method. To draw a good approximation to the graph of this function over the interval of interest, 
+$[0,6]$, you need to \index{sample} the function
+at a large number of points on the interval $[0,6]$. The more you sample, the 
+better the approximation to the graph. So, the work is not really much different. To make matters 
+worse, for some applications the interval could be huge. To draw the graph 
+would be a great deal of work.
+
+Suppose we had a way to numerically measure the ``steepness'' 
+of the level applied at any point of the graph 
+{\it WITHOUT HAVING TO GRAPH IT.\/}
+In addition, this ``steepness measure'' had a numeric value 
+of $0$ when the level was flat. In effect, we would have a new function, 
+which I will call $V'$ such that $V'(x)$ is the ``steepness'' of $V$ at $x$. 
+If someone were 
+to hand us this function given $V$, we could find an $x$ which \index{maximizes}
+$V$ by examining {\it only\/} points in the set, 
+$\{\,x \mid  V'(x) = 0 \,\}$ (the places where $V$ is flat), and 
+the end points.
+To find a best $x$, we would plug in 
+each of these inputs into $V$ -- hopefully a small number of inputs -- and 
+find a maximizing $x$. Notice again that instead of having to sift through an 
+infinite 
+number of input values we would only have to check a small handful. 
+
+But all this is predicated on easily finding the magical function $V'$ given 
+$V$. It turns out that the ``measure of steepness'' that we will introduce can 
+be computed as $V'(x) = 12 (12 - 8x + x^2)$. Now we need only find where the 
+steepness is $0$. But this is a quadratic and can easily be solved. 
+In this case, $\{ \, x \mid V'(x) = 0\, \} = \{2,6\}$. If we add the end 
+points of the 
+interval $[0,6]$, then the set of points to check becomes, $\{0,2,6\}$.
+Plugging either $0$, or $6$ into $V$ gives $0$. If we plug 
+in $2$ into $V$ we get $128$. Therefore, $x = 2$ gives us the 
+biggest value for $V$ 
+and is therefore the solution to our problem.
+
+Again the magic is that rather than compare an infinite number of input values 
+we end up looking at only a handful of \index{candidate input}s 
+that have the potential to produce the maximum value of $V$ provided:
+
+\beginEnum
+\enum{We are able to easily find the steepness of the graph of the function 
+to maximize as a function of the input, $x$. That is, we are able to find a 
+steepness function that has a nice formula.}
+\enum{We are able to find the places where the steepness function is zero. That 
+boils down to setting the steepness function to zero and solving for
+inputs. We then need only compare the values of the function to maximize
+on these inputs (and the end points of the interval).}
+\endEnum
+
+\section{Measure of Steepness}
+How do we measure steepness of these tangent lines, or lines in general? 
+Road builders have a similar problem when describing the steepness of their 
+roads. The standard way to describe road steepness
+is to refer to the road's grade. This is the amount 
+of ``rise'' of the road divided by its (horizontal) ``run''%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{*}}{This ratio is actually multiplied 
+by 100, but this distracts from the main idea.}. 
+The measure is 
+{\it independent of the particular ``run'' length\/}. 
+This can be seen from the
+graph below using simple geometry. This ``rise'' over ``run'' 
+number is called the 
+slope of a straight line. It has the property that it is zero when 
+the line is flat.\epsfigure{eps/simtriangs.eps}{The grade gives the same value
+regardless of the amount of run.}
+
+So, our definition of steepness of a line is the slope of the line -- see the appendix ``Straight Line Functions''. 
+Therefore,
+the steepness at a point on the graph of a function $f$ at $x$ is the 
+slope of the line tangent to the graph of $f$ at $x$. Let's formalize this.
+
+\proclaim Definition Steepness. The steepness of a function $f$ at $x$ is
+the slope of the line tangent to the graph of $f$ at $x$ 
+(provided the tangent exists).
+
+Remember, we need to move from the geometric view of \index{steepness}  (a tangent line)
+to an algebraic/mechanical one so we can compute efficiently. That is, we need to avoid having
+to graph our function in order to solve the maximization problem.
+What we have now done, in effect, is represent our {\it geometric\/}
+notion of a \index{tangent} line in an {\it algebraic\/} way as
+a single number. This is important enough to state formally.
+
+\proclaim Theorem(Slope Representation). A non-vertical \index{straight line} passing
+through the origin can be represented by a {\it single\/} number - its \index{slope}.
+
+{\bf proof:\/} From the appendix on straight line functions we see that 
+a line with slope $m$ passing through the origin is the graph 
+of the {\it linear function\/} $f(x) = m\,x$. Thus $m$ completely characterizes
+such a line.
+
+The big question now is: How do we compute this measure of 
+steepness for a given function?
+
+\section{Computing the Slope: Approximating Tangents}
+So, we know how to measure the steepness of a straight line - it is its 
+\index{slope}. Although it's clear what we mean by 
+\index{tangent} when we physically put a \index{level} 
+against a graph, it is not so clear how to compute it algebraically
+in terms of the original function. 
+
+One way to get a handle on this idea of \index{tangent} is to work with approximate 
+tangents to a function at a point, $(x, f(x))$ on the graph. 
+In the figure below you see that the line which passes through the points 
+$(x, f(x))$ and $(x+h, f(x+h))$ is approximately the same as the 
+tangent line. The approximation gets better the closer $h$ is to $0$.
+\epsfigure{eps/tangentapprox.eps}{Tangent and approximating tangent.}
+Therefore, 
+if we can find the slope of the \index{approximating tangent}s then we will get an 
+approximation of the slope of the tangent line. Computing the slope 
+of the \index{approximating tangent line} is easy, we just need a ``rise'' and a ``run''. 
+But the two points on the approximate line provide us with this.
+The vertical ``rise'' between the two points is $f(x+h) - f(x)$ while the 
+horizontal ``run'' is 
+$h$ (we use the variable $h$ to indicate that it is a 
+{\it horizontal\/} increment). 
+Therefore, the slope of the approximating tangent line is%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{Some books will use $\Delta x$ 
+rather than $h$ to indicate a small ``run''. The \index{approximating slope}
+is then written as
+$\frac{f(x + \Delta x) - f(x)}{\Delta x}$.}
+$$
+\eqalignno{
+{f(x+h) - f(x) \over h} && (1) \cr
+}
+$$
+So, if the approximation to the slope gets better and better the closer
+$h$ is to $0$, then it must be best when $h$ is $0$. 
+However, if we plug $0$ in for $h$
+in the equation above we get $0/0$ -- oops! -- $0/0$ is not defined.
+What we need to do is track the values of (1) as $h$
+gets smaller and smaller
+and see where these values ``tend''.
+This is the {\it approximate, then take a limit\/} move of the preface --
+the same move we used implicitly in chapter 1 when we replaced a slowly
+varying factor by a constant; this time we follow the approximation all
+the way to its limit.
+
+For instance, given the sequence of numbers 
+$1, 1/2, 1/3, \ldots $ , the $10^{\rm th}$ element in the sequence is $1/10$, 
+the $103^{\rm rd}$ element in the \index{sequence} is $1/103$. In general, the $n^{\rm th}$ 
+element of the sequence is 
+$1/n$. 
+
+Question: Where is the \index{sequence} tending? Put another way, what is the 
+{\it limit\/} of the sequence?
+
+Answer: It seems clear that although this \index{sequence} never reaches 0 it is heading
+there. 
+
+Before continuing, let us introduce a notational convenience.
+To make it easier to talk about sequences we will use the 
+notation $\{1/n\}_{n=1}^{\infty}$ 
+to refer to the sequence $1, 1/2, 1/3, \ldots$; and more generally, 
+we use the notation from chapter 1 to refer to a sequence of values: 
+$\{x_n\}_{n=1}^{\infty} = \{x_1, x_2, \ldots\}$.
+
+Now, referring to the \index{sequence}, $1, 1/2, 1/3, \ldots$ 
+($\{1/n\}_{n=1}^{\infty}$ in our notation) we 
+say that its limit is $0$.
+This leads to a general operational definition of a \index{limit}.
+
+\proclaim Definition (Intuitive Limit). We say a \index{sequence} 
+$\{x_n\}_{n=1}^{\infty}$ has the \index{limit} $a$ if the 
+sequence ``tends to'' $a$ as $n$ ``tends to'' $\infty$. We write 
+this with the following notation: $\lim\limits_{n \rightarrow \infty} x_n = a$.
+We also say that $x_n$ {\it \index{converge}s\/} to $a$.
+
+We leave for the time being what exactly ``tends to'' means. When Calculus 
+was originally developed this notion was not rigorously understood. It 
+was defined much the same way beauty is defined in many people's minds:
+``I can't define it, but I know it when I see it.'' For a precise definition 
+of limit see the appendix ``Infinite Sequences and Limits''.
+
+{\bf NOTE:\/} In our definition of a limit, the limit point $a$ is a number. It can't be infinity or negative infinity.
+So given the sequence of numbers $1, 2, 3, \ldots$, this sequence does not have a limit as it doesn't tend to any number.
+
+Now, going back to the \index{approximating slope}s we have our first major 
+definition.
+
+\proclaim Definition (Slope of Tangent Line). The \index{slope} of the 
+\index{tangent line} at a point $(x,f(x))$ 
+of the function $f$ exists if the \index{limit}
+$$
+\lim_{n \rightarrow \infty} {f(x+h_n) - f(x) \over h_n}
+$$
+exists for {\it every\/} \index{sequence} $\{h_n\}_{n=1}^\infty$ such that $h_n$ goes to 0 with $h_n \ne 0$ for any $n$;
+{\it and\/}, every one of these limits is identical.
+In this case, the slope of the \index{tangent line} is this {\it unique\/} limiting value. 
+
+That is, if {\it every\/} sequence of 
+approximating slopes tends to the same value, then the slope of the tangent line exists and is this value.
+
+{\bf Discrete Connection:\/} We may relate this ``infinitesimal differencing'' to the discrete
+differencing in chapter 1. Fix a step size $h \ne 0$ and sample $f$ at the points
+$x, x+h, x+2h, \ldots$; that is, define a sequence, named $y$, by $y_k = f(x + k\,h)$ and
+a sequence $t$, by $t_k = x + k\,h$.
+The approximate tangent slope $(f(x + h) - f(x))/h$ may
+be written: $\frac{\Delta y_0}{\Delta t_0}$.
+When the step size is $h = 1$, this is {\it exactly\/} the difference operator $\Delta$
+of chapter 1 applied to the samples of $f$ (the ``run'', $\Delta t_0$, is just $1$).
+The derivative is $\Delta$ run on a shrinking step: difference, divide by the step,
+and let the step tend to $0$.
+
+{\bf Note:\/} This \index{limit} may not exist. There are many examples of functions 
+where the limit does not exist at a particular point or a collection of points.
+Graphically this means the tangent line doesn't exist or is not unique -- how can this be?
+We list a few examples of functions with points on their graphs 
+where the tangent line does not exist. 
+\epsfigure{eps/discount.eps}%
+{This function does not have a \index{tangent line} at $(5,f(5))$.
+All of the possible approximating slopes tend to $\infty$ -- not a number.}
+\epsfigure{eps/oscillating.eps}%
+{The function ${\rm Osc}(x) = \cases{x \sin(1/x) & if $x \neq 0$ \cr
+0 & if $x = 0$\cr}$
+has no tangent at $(0,{\rm Osc}(0))$.
+That is, there are many tangents depending on the sequence of approximating tangents we choose -- but no {\it UNIQUE\/} tangent.}
+\epsfigure{eps/nonuniquetang.eps}
+{No {\it UNIQUE\/} tangent line at $(0, f(0)) = (0,0)$. 
+The two possible tangents according to our definition are the lines with slopes 1 and -1 that go through the origin.
+We note in the graphic that one may consider other lines as ``tangents'' -- any line that can ``teeter'' on the graph at $x=0$.
+This leads to the notion of a sub-differential -- a set of ``valid'' tangents rather than just one. We will not consider this notion
+here, but it is interesting to note that the notion of a derivative is not necessarily set in stone.}
+
+\proclaim Definition (Derivative). The \index{slope} of the \index{tangent}
+line (when it exists) at a point $(x,f(x))$ 
+is called the {\it derivative\/} of $f$ at $x$ and is denoted $f'(x)$. We take $f'$ to mean the function whose 
+value at any $x$ is the derivative of $f$ at $x$. The domain of this new function will be, in general, a subset of the domain
+of $f$.\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}{See the appendix ``Functions, Formulas, Graphs and Notation''.}  
+We call $f'$ the \index{derivative} of $f$.
+We say that we {\it \index{differentiate}\/} $f$ to get $f'$.
+
+We will also write $(f(x))^\prime$ to denote $f'(x)$ when $f$ is represented by an expression, or if it is more readable.
+For instance, $(g(x) h(x))^\prime$ means the derivative of the function represented by the expression of $g$ times $h$
+evaluated at $x$.
+
+\section{Recap}
+
+Recall that in our example problems we needed a function $f'$ which would
+give the steepness of the \index{tangent line} at each point
+$(x,f(x))$ (now called the \index{derivative}).
+The idea was that $f'$ would be easy to compute from $f$. From the last 
+section, it seems things are getting more complicated. In the process of 
+trying to find the slopes of the tangent lines, we introduced a fairly 
+complicated notion of limit. Further, it seems we are back to having the 
+same problem we had with sampling and graphing the function to find a 
+tangent slope. In those methods one needed to sample the function at many 
+points. In fact, for a completely accurate result all these methods require
+one sample $f$ at an infinite number of points to find the slope of $f$ at 
+just one point $x$! Worse, since we want 
+the slope of the tangent line not just at a given point $x$, but at all points, 
+things look grim. 
+
+The good news is that while the limiting process of finding tangent 
+slopes (the \index{derivative}) 
+is an infinite process, it turns out that for a large number of nice 
+functions, $f$, one can write down a formula for $f'$ at {\it any\/} point without doing 
+an infinite amount of \index{sampling}. 
+
+\section{Derivatives of Straight Line Functions}
+We start with straight line functions first because the tangent line at any point of a straight line function
+is the straight line function itself.
+Therefore, we don't have to go through any complicated limiting process.
+
+The simplest such straight line functions are the constant functions.
+A \index{constant function} is one which has 
+only one output for all inputs. Such a function has the following formula:
+$$
+f(x) = c
+$$
+What is the \index{slope} of the \index{tangent line} at a given point $x$? The graph
+of this function is a flat line whose height is $c$. Its tangent line 
+is the line itself. We know a flat line has $0$ as its slope. 
+So, what is the value of the derivative function, $f'$ for each $x$? It is 
+another constant function which is identically zero. That is,
+$f'(x) = 0$. Again, this says that the slope of the tangent line (derivative)
+at $(x,f(x))$ is just the slope of the graph of $f$ at $x$, which has slope $0$.
+
+What about finding the derivative function for a general 
+straight line function?
+See the appendix ``Straight Line Functions'' for more information 
+about the formulas for straight line 
+functions. In this case, the function has the formula: $f(x) = m\,x + b$.
+As in the constant function case the tangent line
+to each point $(x,f(x))$ is just the graph of 
+$f$. Therefore, the slope of the tangent line (\index{derivative}) is just the \index{slope} 
+of the graph of $f$ which is $m$. So, $f'(x) = m$.
+
+In each case we avoided the \index{limiting process} because the graph of the 
+functions {\it were already\/} the \index{tangent}s to the function. 
+This is not so for more complicated functions.
+
+\section{Computing a Non-Trivial Derivative}
+From algebra class, the next functions studied after 
+straight line functions are the quadratic functions. 
+Let us choose the simplest 
+quadratic, $f(x) = x^2$. Unlike straight line functions, the graph of this function is not 
+the same as the tangent line at any point.
+To compute the \index{derivative} at a point $x$, 
+we will have to use 
+the \index{approximating tangent line}s to compute the answer. Let 
+$\{h_n\}_{n=1}^{\infty}$ be a sequence of numbers which tend to $0$ and have the property that 
+$h_n \ne 0$ for all $n$.
+Let us compute, for a given $n$, the slope of the $n{\rm th}$ \index{approximating tangent}. 
+This is given by $f(x+h_n) - f(x) \over h_n$ which is
+$$
+(x + h_n)^2 - x^2 \over h_n
+$$
+Expanding the expression $(x + h_n)^2$ and simplifying yields:
+$$
+2x h_n + h_n^2 \over h_n
+$$
+Since $h_n$ is not $0$, we may cancel an $h_n$ from the top and the bottom 
+of the last expression.
+This yields
+$$
+2x + h_n
+$$
+What does this tend to as $n$ tends to infinity?
+The limit is $2x$ since $h_n$ goes to zero. Notice, that this is true for {\it every\/} such sequence 
+$\{h_n\}_{n=1}^\infty$ that goes to zero and $h_n \ne 0$.
+In other words, we've found the \index{derivative} (slope of the tangent line)
+at {\it each point\/} $x$. The formula is $f'(x) = 2x$.
+Notice, too, that the expression $2x + h_n$ {\it is\/} the discrete answer:
+in chapter 1 we found $\Delta n^2 = 2n + 1$, which is the same expression
+with a step size of $1$. The limit simply kills the step-size correction
+term, leaving $2x$.
+{\it Notice that in one calculation not only have we found a formula for the 
+derivative at one particular point, but for all points!}
+
+\section{A Function without a Derivative}
+As an example of a function that is not \index{differentiable} at a point,  consider the absolute value 
+function, $f(x) = |x|$, from the previous figure. The figure demonstrates that there is not a {\it UNIQUE\/} tangent at $x=0$. We now 
+show that the derivative does not exist when $x=0$ according to our definition.
+Let $h_n = 1/n$ and try to take  the limit of $\frac{f(0 + h_n) - f(0)}{h_n}$.
+This is $\lim_{n\rightarrow \infty} (1/n - 0)/(1/n)$, since $h_n > 0$;  which is $\lim_{n\rightarrow \infty} 1 = 1$.
+Now let's try a different sequence converging to zero. Let $h_n = -1/n$, then
+$\lim_{n\rightarrow \infty} \frac{f(0+ h_n) - f(0)}{h_n} = (1/n - 0)/(-1/n)$, since $h_n < 0$; this is
+$\lim_{n\rightarrow\infty} -1 = -1$. Since different \index{sequence}s converging to $0$ provide different
+limiting slopes, the derivative does not exist for this $f$ at $0$.
+
+In fact, one can show that if $w$ is any sequence with $w_n > 0$ such that $w_n$ goes to $0$ as $n$ goes to infinity then
+$\lim_{n\rightarrow \infty} {f(0+w_n) - f(0) \over w_n} = 1$. And, if $z$ is any sequence with $z_n < 0$ such that $z_n$ goes
+to $0$ as $n$ goes to infinity then
+$\lim_{n\rightarrow \infty} {f(0+z_n) - f(0) \over z_n} = -1$.
+For the derivative to exist at a given point we need the approximating slopes formed from {\it any\/} sequence $h$
+ (with $h_n \ne 0$ such that $h_n$ goes to $0$ as $n$  goes to infinity) to have the same limiting value. 
+It is not enough to have it true for one sequence or a family of sequences,
+but for  {\it all\/} sequences with the requisite properties.
+
+However, we did find the \index{derivative} of $f(x) = x^2$; so,
+one function down, how many more to go? Well, there are an infinite 
+number of functions and this was one of the easy ones. This may mean that 
+given a function which has nice algebraic properties, we can do manipulations 
+like we did above and get a formula for the \index{derivative} at all points of 
+the function. This is indeed the case for many functions; the algebra just gets messier for more 
+complicated functions. Can we do better than to do this limiting process 
+again and again?
+
+If we look at our function $f(x) = x^2$ with derivative function $f'(x) = 2x$
+and then look at the related function $g(x) = x^2 + c$, where $c$ is some 
+constant, 
+can we determine the \index{derivative} function, $g'$, from our knowledge of 
+$f$ and its derivative $f'$ without going through the \index{limiting process}? 
+Yes, the graph of the function $g$ is just 
+the graph of the function $f$ shifted up by the amount $c$. That is, $g$ has 
+the same shape as $f$ and so the slope of its tangent lines must be the same 
+as $f$. We've just argued that $g'(x) = f'(x) = 2x$ without having to go 
+through the limiting process. 
+What about other functions which are simple modifications of $f$, can we 
+find their derivatives so easily? For instance, consider the function 
+$h(x) = 2x^2$. Can we relate the derivative $h'$ to $f'$ without 
+going through a \index{limiting process}? The answer again is yes.
+
+\section{Differential Calculus: Computational Strategy}
+So, we see \index{differential calculus} comes down to finding the \index{derivative}
+function, $f'$, from a function $f$. 
+Our plan to find the derivative of a function is: 
+Compute the \index{derivative} of 
+a base set of functions; we only have to do 
+this once. Next, find formulas for computing the derivatives of 
+functions composed in various ways from these \index{base function}s. The base 
+functions and their compositions will be the only functions for which 
+nice formulas will be found for their derivatives.
+That is to say, we 
+are giving up on finding a formula for the derivative of an arbitrary 
+function. This is 
+not so bad since, hopefully, the pool of functions which we can \index{differentiate}
+will be big enough for the applications we consider. If not, then we will 
+have to compute the derivative of a function the hard way; that is, use 
+the limit process directly.
+
+\section{A Base -- a Family of Functions and their Derivatives}
+We already saw how to find the derivative of the function $f(x) = x^2$ using 
+the limit of \index{tangent line approximation}s.
+We present formulas for derivatives of the family of {\it power\/} functions, 
+$f(x) = x^n$ but omit the details.
+
+\proclaim Theorem(Derivative of Power Functions). If $f$ is the 
+power function $f(x) = x^n$ with $n$ 
+an integer, 
+then the derivative, $f'$, is given by
+$$
+f'(x) = n x ^{n-1}
+$$
+provided $x \neq 0$ when $n < 0$.
+
+Notice that when $n$ is zero the function is $f(x) = x^0 = 1$ and its
+derivative is $f'(x) = 0$. For a proof of this theorem see the applications section
+of the appendix on ``Mathematical Induction''.
+
+Compare this rule with the differences we computed in chapter 1:
+$\Delta n^2 = 2n + 1$ and $\Delta n^3 = 3n^2 + 3n + 1$.
+In each case the leading term follows the same pattern -- $k\,n^{k-1}$ for
+the $k^{\rm th}$ power -- while the straggler terms are step-size corrections,
+the very terms the limit kills off. The power function $x^k$ plays the same role
+on the continuous board that $n^k$ played on the discrete one, and its rule
+of differentiation is the discrete rule with the stragglers gone.
+(Recall from the aside on falling powers in the chapter on Summation
+Calculus that the discrete board has its own exact version of this rule:
+$\Delta n^{\underline{k}} = k\, n^{\underline{k-1}}$.)
+
+\exercise{Show this result in the case when $n=3$. That is, derive the 
+derivative of the function $f(x) = x^3$ using the 
+definition of the derivative.}
+
+\section{Linearity of Differentiation}
+A common way of constructing new functions from others is through what is 
+called a {\it linear combination\/}. 
+Given functions $f_1, f_2, \ldots, f_n$ a new 
+function $f$ is a \index{linear combination} of the functions $\{f_i\}_{i=1}^n$ 
+with constants $\{c_i\}_{i=1}^n$ if 
+$$
+f(x) = c_1 f_1(x) + c_2 f_2(x) + \cdots + c_n f_n(x)
+$$
+As an example consider $f_i(x) = x^{i-1}$, for $i \in \{1,2,3\}$.
+Then the function
+$$
+p(x) = 2 + 3x + 5x^2
+$$
+is a \index{linear combination} of the functions $f_1(x) = 1$, $f_2(x) = x$, and
+$f_3(x) = x^2$. The coefficients of the combination (the $c$'s)
+are $2$, $3$, and $5$.
+
+We are able to form a much larger collection of functions from 
+a set of \index{base function}s in 
+this way. And, it turns out one can easily compute 
+the derivative of the new function 
+in terms of the derivatives of its component functions.
+
+\proclaim Theorem(Linearity of Differentiation). If the functions $f'_1$ and $f'_2$ exist and 
+$f(x) = c_1 f_1(x) + c_2 f_2(x) $, then the derivative, 
+$f'$, of $f$ exists and may be computed  as
+$$
+f'(x) = c_1 f_1'(x) + c_2 f_2'(x) 
+$$
+
+Note that this means that $(c f)' = c f'$. This follows by letting $f_2(x) = 0$ in the above theorem.
+This result may be extended to an arbitrary linear combination of functions.
+\proclaim Corollary(Linearity of Differentiation). If the functions: $f'_1$, $f'_2$, $\ldots$, $f'_n$ exist and 
+$f(x) = c_1 f_1(x) + c_2 f_2(x) + \cdots + c_n f_n(x)$, then the derivative, 
+$f'$, of $f$ exists and may be computed  as
+$$
+f'(x) = c_1 f_1'(x) + c_2 f_2'(x) + \cdots + c_n f_n'(x)
+$$
+
+This follows from the previous theorem and mathematical induction.\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{See the appendix ``Mathematical Induction''.}
+The theorem and corollary say that the operation of differentiation is linear. This is directly analogous to the linearity
+result for the \index{difference operation}, $\Delta$, of chapter 1. In effect, differentiation (like differencing)
+passes through constants and sums.
+
+We show this for the case when $f$ is the sum of two functions; that is $f(x) = c_1 \, f_1(x) + c_2\,  f_2(x)$.
+Let $h$ be a sequence with the property that $h_n \ne 0$ and $h_n$ tends to $0$ as $n$ tends to infinity. 
+This sequence allows us to form approximating tangent lines whose slopes at $(x, f(x))$ are
+$f(x + h_n) - f(x) \over h_n$. This is related to approximating tangent slopes of $f_1$ and $f_2$ as follows:
+$$
+\eqalign{
+{f(x + h_n) - f(x) \over h_n} & = {\bigl(c_1 \, f_1(x + h_n) + c_2\, f_2(x + h_n) \bigr)  - \bigl( c_1\, f_1(x) + c_2 \,f_2(x)\bigr) \over h_n} \cr
+& =  c_1 \biggl( {f_1(x + h_n)  - f_1(x)   \over h_n } \biggr) + c_2 \biggl( {f_2(x + h_n) -  f_2(x)\over h_n} \biggr) \cr
+}
+$$
+Taking the limit of both sides of this equation as $h_n$ goes to $0$ gives\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}%
+{Passing the limits through constant multipliers is discussed in the section 
+``Computational Strategy for Limits'' in the appendix ``Infinite Sequences and Limits''.}\hfil\break
+$\lim_{n\rightarrow \infty} \biggl( { f(x + h_n) - f(x) \over h_n} \biggr)  = c_1 \, f_1'(x) + c_2 \, f_2'(x)$. Since this
+limit exists and is the same for {\it all\/} such sequences $h$ the derivative of $f$ at $x$ exists and is this value. That is,
+$f'(x) = c_1 \, f_1'(x) + c_2 \, f_2'(x)$.
+
+\example{Let's use this theorem to find the derivative of 
+the polynomial $p(x) = 2 + 3x + 5 x^2$.}
+
+The theorem says that if we 
+can {\it recognize\/} $p$ as a \index{linear combination} of functions for which we
+know how to compute the derivative, then we can easily compute $p'$.
+We see that 
+$p(x) = 2 f_1(x) + 3 f_2(x) + 5 f_3(x)$, with $f_1(x) = 1$, 
+$f_2(x) = x$, and $f_3(x) = x^2$. Therefore, 
+$p'(x) = 2 f'_1(x) + 3 f'_2(x) + 5 f'_3(x) = 2 * 0 + 3 * 1 + 5 * 2x = 3 + 10x$.
+
+The linearity theorem combined with the rule for \index{differentiating powers}
+allows us to compute the derivative of any polynomial!
+
+\proclaim Theorem(Polynomial Differentiation). Let 
+$p(x) = c_0 + c_1 x + c_2 x^2 + \cdots + c_n x^n$, ($n$ a non-negative integer) then 
+$$
+p'(x) = c_1 + 2 c_2 x + 3 c_3 x^2 + \cdots + n c_n x^{n-1}
+$$
+
+This result follows easily because of the \index{linearity of differentiation}; we need only know how 
+to find the derivative of each term. But each term is just a power function whose derivative we know.
+
+Armed with our ability to compute derivatives for our \index{base family} -- the \index{polynomial}s, let's 
+go back and solve the original problem we posed about the metal box container. 
+
+
+\section{Application Revisited}
+Consider again the original problem of the metal box container. The 
+problem was to maximize the volume of a box made from a piece of sheet 
+metal. The volume of the box was a function of 
+the ``flap distance'' $x$. A formula for the volume was 
+$V(x) = x (12 - 2x)^2$.
+
+We will solve this again using our knowledge of how to compute derivatives. 
+We proceed by finding all solutions to $V'(x) = 0$ combined with the end 
+points of our search 
+and then determine a value which maximizes $V$. 
+
+Now, $V$ is a \index{polynomial} since,
+after expanding the formula for $V$ we have: 
+$V(x) = x(144 - 48x + 4x^2) = 144x - 48x^2 + 4x^3$.
+But we know now how to compute $V'$ when $V$ is a polynomial. According 
+to the last theorem it is
+$V'(x) = 144 - 2 * 48 x + 3 * 4 x^2$; or,
+$V'(x) = 144 - 96 x + 12 x^2$.
+Recall the point of having $V'$: {\it By finding those inputs, $x$, such that 
+$V'(x) = 0$ we have a list of places where $V$ is flat and therefore a 
+potential maximum.\/}
+Solving the equation, $V'(x) = 0$, for $x$ implies that $x$ satisfies
+$144 - 96 x + 12 x^2 = 0$. Or, $12 - 8 x + x^2 = 0$. Again, the two solutions
+are $2$ and $6$. To these values we merge the set of end points, $\{0,6\}$, 
+to give the candidate input set, $\{0,2,6\}$. Plugging in $0$ and $6$ 
+yields $0$. 
+Plugging in $2$ produces $128$. Therefore, $x=2$ is the input that gives 
+the maximum value of $V$, the same result as before.
+
+One may argue that with the advent of computers it might be easier 
+to find this solution by brute force. This is a reasonable argument.
+However, what if someone asked to maximize the volume that could be produced 
+from square sheets of metal other than 12 inches? One could resolve 
+this problem using Calculus with a parameter representing the 
+size of the square. The resulting formula would allow you to solve
+an entire {\it family\/} of problems. This is something the brute
+force method cannot do.
+
+\exercise{A farmer has $100$ feet of fencing and wants to enclose a rectangular
+pen against a straight river bank; the side along the river needs no fence.
+Express the enclosed area as a function of the side length perpendicular to the
+river, and use the candidate-input strategy of this chapter to find the
+dimensions giving the largest area.}
+
+\section{Enlarging the Class of Differentiable Formulas}
+For our derivative technique to be useful for more complicated maximization 
+problems we need to enlarge the class of functions, $f$, for which we can 
+find a formula for $f'$.
+As we know from our strategy we need to do two things: Enlarge the set 
+of \index{base function}s for which we know how to compute the derivative;
+and, find ways to combine these functions in a way that we can determine the 
+derivative from the component functions. 
+How else can we form more complex functions, 
+$f$, from simpler functions, $g$, and $h$? Here are three ways:
+
+\beginEnum
+\enum{$f(x) = g(x) h(x)$}
+\enum{$f(x) = g(x) / h(x)$}
+\enum{$f(x) = g(h(x))$}
+\endEnum
+
+It turns out one can find the derivative of functions formed in the ways
+enumerated above in terms of the derivatives of the functions used to compose
+them. This is just what we need: a function built up from simple pieces --
+like $(1 + x^2)^7$, which we will meet shortly -- would be hopeless to
+differentiate from the definition alone; the rules below let us differentiate
+combinations in terms of their parts.
+Here are the three corresponding theorems for computing their derivatives.
+We also restate the theorem on \index{linear combination}s for completeness.
+
+\proclaim Theorem(\index{Linearity Rule}). If $g_1'(x), g_2'(x), \ldots, g_n'(x)$ exist and
+$f(x) = c_1 g_1(x) + c_2 g_2(x) + \cdots + c_n g_n(x)$, then $f'(x)$ exists and
+$$
+f'(x) = c_1 g_1'(x) + c_2 g_2'(x) + \cdots + c_n g_n'(x)
+$$
+
+\proclaim Theorem(\index{Product Rule}). If $g'(x)$ and $h'(x)$ exist and
+$f(x) = g(x) h(x)$, then $f'(x)$ exists and
+$$
+f'(x) = g'(x) h(x) + g(x) h'(x)
+$$
+
+\proclaim Theorem(\index{Quotient Rule}). If $g'(x)$ and $h'(x)$ exist,
+$h(x) \neq 0$, and $f(x) = g(x) / h(x)$, then $f'(x)$ exists and
+$$
+f'(x) = {g'(x) h(x) - g(x) h'(x) \over h^2(x) }
+$$
+
+\proclaim Theorem(\index{Chain Rule}). If $h'(x)$ and $g'(h(x))$ exist and
+$f(x) = g(h(x))$, then $f'(x)$ exists and
+$$
+f'(x) = g'(h(x)) h'(x)
+$$
+
+To make the chain rule plausible, write $u = h(x)$ and $y = g(u) = f(x)$ and
+think of an approximating slope as a ratio of small changes; then
+$\frac{\Delta y}{\Delta x} = \frac{\Delta y}{\Delta u} \frac{\Delta u}{\Delta x}$,
+and letting the step shrink, the two factors on the right tend to $g'(h(x))$
+and $h'(x)$. A careful proof, however, needs the limit machinery of the
+appendix ``Infinite Sequences and Limits''.
+
+We derive the product rule as it is similar to the product rule in the Discrete Calculus.
+Let $h$ be a sequence with $h_n \ne 0$ such that $h_n$ goes to $0$ as $n$ goes to infinity. 
+Given that $f(x) = g(x) h(x)$, consider the slope of an approximating tangent to $f$ at $x$ based on the sequence $h$: ${f(x+h_n) - f(x) \over h_n}$.
+There is a naming problem here. We have been using a sequence named $h$ in our approximating slopes but the function $f$ 
+is composed of a function with the name $h$. What do we do? Well, we could press on and not let it bother us 
+because a subscripted $h$ is an element of the {\it sequence\/} $h$
+while $h(x)$ means the {\it function\/} $h$ evaluated at $x$. Or, to be more clear we could change the name of either the sequence or
+the function $h$.
+We will change the name of the sequence.
+There is nothing special
+in the name of this sequence. All that is important is that its elements are not $0$ and that the sequence tends to $0$. 
+So, let's rename the sequence $h$ to $z$.
+An approximating tangent slope of $f$ at $x$ is $f(x+z_n) - f(x) \over z_n$. We now try to relate
+this to the approximating tangent slopes of $g$ and $h$.\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}%
+{The term $g(x)h(x+z_n)$ is subtracted and added in an
+analogous way to the derivation of the product rule in the Discrete Calculus.}
+$$
+\eqalign{
+  {f(x+z_n) - f(x) \over z_n} & = {g(x+z_n) h(x+z_n) - g(x) h(x) \over z_n} \cr
+& = { g(x+z_n) h(x+z_n) - g(x) h(x+z_n) + g(x)h(x+z_n) - g(x) h(x) \over z_n} \cr
+& = \biggl( { g(x+z_n) - g(x) \over z_n } \biggr)  h(x+z_n) + g(x) \biggl( { h(x+z_n) - h(x)  \over z_n} \biggr) \cr
+ }
+$$
+Taking the limit as $n$ tends to infinity of the equation above gives:\hfil\break
+$\lim_{n\rightarrow \infty} \biggl( { f(x+z_n) - f(x) \over z_n} \biggr)  = g'(x) \lim_{n\rightarrow \infty} h(x+z_n) + g(x) h'(x)$.
+We are assuming that the limit of $h(x+z_n)$ exists and are using the properties of the limiting operation as described in
+the section ``Computational Strategy for Limits'' in the  appendix, ``Infinite Sequences and Limits''. It turns out that a
+differentiable function is a continuous function and this means\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}%
+{Also discussed in the section ``Computational Strategy for Limits'' in the appendix ``Infinite Sequences and  Limits''.}
+that $\lim_{n \rightarrow \infty} h(x+z_n) = h(\lim_{n\rightarrow \infty} (x + z_n)) = h(x)$. Finally, since this limit exists
+for {\it all\/} such sequences $z$, the derivative of $f$ exists and is equal to this value. That is,
+$f'(x) = g'(x) h(x) + g(x) h'(x)$.
+
+So, given a function $f$, we can find its derivative if we can
+recognize it as being either:
+
+\beginEnum
+\enum{One of the base functions for which we know the derivative.
+For us, this is the set of all \index{polynomial}s and power functions.}
+\enum{Composed (in one of the ways above) of functions for which
+one knows the derivatives.}
+\endEnum
+Keep in mind, there may be many ways to go about computing derivatives. 
+It's really a kind of \index{pattern recognition}.
+
+\example{Suppose $f(x) = (1 + x + 5x^2) (1 - x^2)$. Find $f'(x)$.}
+
+We first check to see if this function is one of our base functions.
+Currently, we only recognize the set of \index{polynomial}s as our base set.
+So, this is not
+a base function. Next, we check to see if $f$ can be decomposed into one of
+the above patterns. Yes, $f$ can be written as the product of
+two functions, $g$ and $h$, where
+$g(x) = (1 + x + 5x^2)$ and $h(x) = 1 - x^2$. Do we know how to compute the 
+derivative of $g$ or $h$? Yes, each of these are polynomials and we have 
+a formula for computing their derivatives. So, using the \index{product rule} we have
+$$
+\eqalign{
+f'(x) & =      g'(x)         h(x) +        g(x)         h'(x) \cr
+      & = (1 + x + 5x^2)' (1 - x^2) + (1 + x + 5x^2) (1 - x^2)' \cr
+      & = (0 + 1 + 2 * 5x) (1 - x^2) + (1 + x + 5x^2) (0 - 2x) \cr
+      & = (1 + 10x) (1 - x^2) - 2x (1 + x + 5x^2) \cr
+}
+$$
+Of course, another way to compute the derivative would be to multiply out 
+the product of $g$ and $h$. This would give us a polynomial and we could 
+use the formula for differentiating polynomials.
+
+\example{Let $f(x) = 1 + x + x^2 - 2x$. Find $f'(x)$.}
+
+We can find 
+the derivative in one of two ways. First, $f$ is a \index{polynomial} isn't it? 
+Well, no, not in the form our theorem on polynomial differentiation requires. Our theorems refer 
+to polynomials as being a \index{linear combination} of {\it DISTINCT\/} power functions.
+In the case of $f$, the ``x'' 
+term appears twice; first as $x$ and then later as $-2x$. It is easy enough 
+to turn this into a ``canonical'' \index{polynomial}, just add like powers. 
+$f$ becomes: $f(x) = 1 - x + x^2$. Now we can apply the theorem for 
+computing derivatives of polynomials giving us: $f'(x) = -1 + 2x$.
+Another way to compute this is to use the linearity theorem which just 
+distributes the derivative through sums and products with constants. It says
+$f'(x) = 1^\prime + x^\prime + (x^2)^\prime - 2x^\prime$. 
+Applying the rule for differentiating powers and constants 
+gives us $f'(x) = 0 + 1 + 2x - 2 = -1 + 2x$. This agrees with our 
+previous computation.
+
+These rules are usually easy to apply. The only one which is harder to recognize
+is the chain rule. Here is an example of how it is used. Let 
+$f(x) = (1 + x^2)^7$. What is the derivative of $f$? Again, in this case we 
+could raise $(1 + x^2)$ to the $7^{\rm th}$ power to give us a 
+polynomial and then
+write down its derivative. We can also recognize $f$ 
+as a composition of the function $g(x) = x^7$ with the function 
+$h(x) = 1 + x^2$. That is, $f(x) = g(h(x))$. Applying the chain rule for the 
+composition of two functions gives
+$$
+\eqalign{
+f'(x) & = g'(h(x))    h'(x) \cr
+      & = 7(1+x^2)^6 (1+x^2)' \cr
+      & = 7(1+x^2)^6(0 + 2x) \cr
+      & = 7 (1 + x^2)^6 2x  \cr
+      & = 14x (1 + x^2)^6 \cr
+}
+$$
+Notice that $g'(x) = 7x^6$ and therefore, $g'(h(x)) = 7h(x)^6$. Since
+$h(x) = (1 + x^2)$ it follows that $g'(h(x)) = 7 (1 + x^2)^6$.
+
+\exercise{Find $f'(x)$ for each of the following: (1) $f(x) = (1 + x^3)^{10}$;
+(2) $f(x) = x^2 \, (1 + x)^5$; (3) $f(x) = {x \over 1 + x^2}$. In each case,
+first decide {\it which\/} rule applies.}
+
+\section{Enlarging the Base}
+So far, our collection of functions for which we know the derivative is the collection of power functions, $f(x) = x^n$, for integer
+$n$, and all polynomials.
+Why enlarge it? Because nature keeps handing us functions that are not
+polynomials. Growth processes -- money compounding in a bank account,
+a population of bacteria doubling again and again -- force exponential
+functions on us, and the chapter ahead on differential equations will
+need their derivatives.
+We now enlarge this base collection to include formulas for computing the
+derivatives of \index{logarithmic function}s (and their inverses) as well as 
+\index{trigonometric function}s. The next subsections help to explain the number $e$ that 
+you may have heard of as well as the angle measure called \index{radian}s.
+This section is not really needed to understand the essential aspects
+of Calculus; you may safely skip the next two subsections if these functions don't interest you.
+You will, however, need to know about the log and exponential functions for the chapter on differential equations.
+
+\subsection{Derivatives of Log and Exponential Functions}
+Let's try to compute the derivative at a given point $x$ of the log 
+function base $b$, $\log_b$. The logarithm only makes sense for 
+positive inputs, so 
+throughout our computations, $x$ is assumed positive.
+The derivative of this function at $x$ is the limit --
+if it exists -- of $\lim_{n \rightarrow \infty} \bigl(\log_b(x+h_n) - \log_b(x)\bigr) / h_n$.
+Here $\{h_n\}_{n=1}^\infty$
+is a \index{sequence} which converges to $0$ with the property that $h_n \ne 0$ for all $n$.
+This may be written as $\bigl(\log_b\bigl(x (1 + h_n/x)\bigr) - \log_b(x)\bigr) 
+/ h_n$. Using 
+the property of logs, this may be written: 
+$\bigl( \log_b(x) + \log_b(1 + h_n/x) - \log_b(x) \bigr) / h_n$; or,
+$\log_b(1 + h_n/x) / h_n$. Using the property of logs one more time we may write 
+this as $\log_b(1 + h_n/x)^{1/h_n}$; or, 
+$\log_b\left[(1 + h_n/x)^{x/h_n}\right]^{1/x}$. We need to find the limit of this  as
+$n$ goes to $\infty$.
+Since
+the logarithm and the power function $z(s) = s^{1/x}$ are continuous for $x > 0$, we may pass the 
+limit through these functions\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}%
+{A continuous function, $f$,
+has the following property: If $\lim\limits_{n\rightarrow \infty} x_n = x$ then
+$\lim\limits_{n\rightarrow \infty} f(x_n) = f(\lim\limits_{n\rightarrow \infty} x_n)
+= f(x)$. We say in this case that the limit passes through $f$. See again, appendix C 
+for a discussion of continuous functions.} yielding 
+$\log_b\left[\lim_{n\rightarrow \infty}(1 + h_n/x)^{x/h_n}\right]^{1/x}$. It turns out that
+the limit
+inside the \index{log} (regardless of $x>0$)  is the same as the limit:
+$\lim_{n \rightarrow \infty}(1 + 1/n)^n$ -- a step we take on faith here;
+its justification belongs to the theory of limits (see the appendix
+``Infinite Sequences and Limits''). This limit exists and its limiting
+value
+is called $e$ which is approximately $2.718281828459045$. So the limit becomes
+$\log_b\bigl(e^{1/x} \bigr)= (1/x)\log_b(e)$. Therefore, we have the formula:
+$$
+\bigl(\log_b(x) \bigr)^{\prime}= (1/x)\log_b(e)
+$$
+Notice the messy constant $\log_b(e)$ tagging along; it depends on our choice
+of base $b$. The number $e$ is precisely the base for which this constant
+equals $1$, so that the derivative comes out clean -- we will make the same
+kind of choice later when we pick radians as our angle measure.
+If we choose the base of the \index{logarithm} to be $e$, then
+$$
+\bigl(\log_e(x)\bigr)^{\prime} = (1/x)\log_e(e) = 1/x
+$$
+The function, $\ln$, is the name used to denote $\log_e$. 
+
+We can use this knowledge to compute the derivative of $\ln$'s inverse, 
+the function $e^x$.
+By definition, $\ln(e^x) = x$, taking the derivative of this equation yields 
+$\bigl(\ln(e^x)\bigr)' = x' = 1$.
+Or,
+$$
+1 = \bigl(\ln(e^x)\bigr)^\prime = \obrace{\frac{1}{e^x}}{$h'(g(x))$}\obrace{ \vphantom{\frac{1}{e^x}} (e^x)^\prime}{$g'(x)$} 
+$$
+The last equality follows from the chain rule with $h(x) = \ln(x)$ and $g(x) = e^x$.
+Rewriting, this becomes:
+$$
+(e^x)^\prime = e^x
+$$
+We repeat this procedure for $b^x$, where $b$ is any positive number. Taking the 
+derivative of the identity $\log_b(b^x) = x$, gives
+$\bigl(\log_b(b^x)\bigr)' = x' = 1$.
+Or,
+$$
+1 = \bigl(\log_b(b^x)\bigr)^\prime = \obrace{\frac{1}{b^x}\log_b(e)}{$h'(g(x))$} \obrace{ \vphantom{\frac{1}{b^x} }(b^x)^\prime}{$g'(x)$}
+$$
+The last equality follows from the chain rule with $h(x) = \log_b(x)$ and $g(x) = b^x$.
+Rewriting, this becomes: $(b^x)^\prime = \frac{1}{\log_b(e)}b^x$.
+Since, $1/\log_b(e) = \log_e(b) = \ln(b)$, we may write this last expression as
+$$
+(b^x)^\prime = \ln(b) b^x
+$$
+We finish this section with a formula for computing the derivative of the function $e^{a\, x}$.
+This is really the composition of functions $h(x) = e^x$ and $g(x) = a\, x$; that is, 
+$e^{a\, x} = h(g(x))$. By the chain rule the derivative is $h'(g(x))\,g'(x)$. Since 
+$h'(x) = (e^x)' = e^x$ and $g'(x) = a$ it follows that $(e^{a\, x})^{\prime} = e^{a\, x} a = a \, e^{a \, x}$.
+This formula will be of use when we get to the chapter on differential equations.
+We list our main results:\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{The domain of $\ln'$ is the same as $\ln$ which is $\{ x \,|\, x > 0\}$.}
+\beginEnum
+\enum{$\ln'(x)  = {1 \over x}$}
+\enum{$\bigl(e^x\bigr)^\prime = e^x$}
+\enum{$\bigl(e^{a\, x}\bigr)^\prime = a\, e^{a\, x}$}
+\endEnum
+\vskip .2in
+
+\subsection{Derivatives of Trig Functions}
+Let us attempt to compute the derivative of the sine function, $\sin$, 
+at a point $x$. Again, let $\{h_n\}_{n=1}^\infty$ be a sequence which converges to $0$ with the
+property that $h_n \ne 0$ for any $n$. For any $n$, the approximating slope to the tangent line is
+$$
+\eqalign{
+{\sin(x+h_n) - \sin(x) \over h_n} & = {\obrace{\sin(x)\cos(h_n) + \cos(x)\sin(h_n)}{$\sin(a+b) = \sin(a)\cos(b) +
+    \cos(a)\sin(b)$}  \mskip -30mu - \sin(x) \over   h_n}  \cr
+& = \sin(x) {\cos(h_n) - 1 \over h_n} + \cos(x){\sin(h_n) \over h_n}
+}
+$$
+We need to be able to find the limits (if they exist) of $\frac{\sin(h_n)}{h_n}$ and 
+$\frac{\cos(h_n) - 1}{h_n}$. We will have to do some real work to compute the limit 
+of $\frac{\sin(h_n)}{h_n}$; but once we do, the other limit, $\frac{\cos(h_n) - 1}{h_n}$ 
+will follow and, therefore, we will be able to compute the derivative of the 
+sine function. Before we make a precise argument for the limit of 
+$\frac{\sin(h_n)}{h_n}$, note in the figure below that when $\theta$ is small,
+the length of the segment BC and the length of the arc DC seem to be very close to the 
+same value. In fact, one might conclude that in the limit their ratio 
+$\frac{\sin(\theta)}{\theta}$ is $1$. This is what we show now.
+
+Examining the figure and comparing the areas of the triangular region ABC to 
+the sector ADC to the triangle ADE we find that 
+$$
+\obrace{\frac{\cos(\theta)\sin(\theta)}{2}}{Area of triangle ABC} \le 
+\obrace{\frac{\theta}{2}}{Area of sector ADC} \le 
+\obrace{\frac{1 * \tan(\theta)}{2}}{Area of triangle ADE}
+$$
+\epsfigure{eps/sinderiv.eps}{Comparison of triangle ABC, sector ADC, 
+and triangle ADE.}
+Here, we are assuming $\theta$ is positive, measured in radians, and 
+is less than $\pi/2$. The area of each triangle is found using the formula, 
+base * height / 2, while the area of the sector is determined by the formula 
+$\theta r^2/2$. In our case, $r = 1$, giving $\theta/2$; again, 
+provided $\theta$ is measured in \index{radian}s. We briefly describe 
+radian measure for those who have not seen it before.
+
+The radian measure of an angle is the arc 
+length of the angular sector 
+formed by this angle on the unit circle. That is, if a sector has angle $\theta$ in 
+radians, then the corresponding arc (on the unit circle) has length $\theta$ (see 
+the figure above).
+The arc length of a complete circle 
+(360 degrees) is $2\pi$; therefore, there are $2\pi$ radians in 360 degrees. This means
+that there are ${360 \over 2 \pi }= {180 \over \pi}$ (which  is approximately 57) degrees per radian. 
+Also, the area of the unit circle is $\pi$; so, 
+the area of a sector of $\theta$ radians (on the unit circle) is a fraction of the area of the 
+full circle $\pi$. What fraction? Well, the sector of $\theta$ radians has an arc length of $\theta$ while
+the arc length of a complete circle is $2 \pi$. Since the area of a complete circle is $\pi$, the area
+of the sector must be ${\theta \over 2 \pi}$ of $\pi$. So, the area of the sector is $\theta / 2$.
+One can use other angular measures (such as degrees or grads) 
+but the formulas for the area of a sector have messy constants; and, in turn, 
+the derivatives of the trig functions using these angular measures also 
+have messy constants. Note that this is not unlike the derivative 
+of the logarithmic functions; any choice of base other than $e$ leads to a messier 
+formula.
+
+Continuing with our calculations, the first inequality gives 
+the relation:
+$$
+\frac{\sin(\theta)}{\theta} \le \frac{1}{\cos(\theta)}
+$$
+while the second inequality yields the relation:
+$$
+\cos(\theta) \le \frac{\sin(\theta)}{\theta}
+$$
+Combining these gives:
+$$
+\cos(\theta) \le \frac{\sin(\theta)}{\theta} \le \frac{1}{\cos(\theta)}
+$$
+A similar argument shows that the relation holds when $\theta$ is negative and larger 
+than $-\pi/2$. We may replace $\theta$ with the $n^{\rm th}$ element of our sequence $h$ giving:
+$$
+\cos(h_n) \le \frac{\sin(h_n)}{h_n} \le \frac{1}{\cos(h_n)}
+$$
+Now, since the limit of the first and third terms exists and is $1$, it is the case that the middle term has 
+the same limit.\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{This follows from the Squeeze Limit Theorem from the appendix
+  ``Infinite Sequences and Limits''.} Therefore,
+$$
+\lim_{n\rightarrow \infty} \frac{\sin(h_n)}{h_n} = 1
+$$
+We can use this result to compute the other limit of interest, 
+$(\cos(h_n) - 1)/h_n$. First note that 
+$$
+\frac{\cos(h_n) - 1}{h_n} = \frac{(\cos(h_n) - 1) (\cos(h_n) + 1)}{h_n (\cos(h_n) + 1)}
+= \frac{\cos^2(h_n) - 1}{h_n(\cos(h_n) + 1)}
+$$
+This may be written 
+$$
+\frac{-\sin^2(h_n)}{h_n(\cos(h_n) + 1)} = -\frac{\sin^2(h_n)}{h_n^2} \frac{h_n}{\cos(h_n) + 1}
+$$
+Since the last expression is a product of expressions which have limits, we may 
+write:\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}{This follows from the Product of Limits Theorem in the appendix ``Infinite Sequences and Limits''.}
+$$
+\lim_{n\rightarrow \infty}\frac{\cos(h_n) - 1}{h_n} = -\lim_{n\rightarrow \infty}
+\frac{\sin^2(h_n)}{h_n^2} \lim_{n\rightarrow \infty}\frac{h_n}{\cos(h_n) + 1}
+= -(1^2)
+ * (0 / 2) = -1 * 0 = 0
+$$
+Applying these limits to calculate the derivative of sine we have:
+$$
+\eqalign{
+\lim_{n \rightarrow \infty} \bigl(\sin(x+h_n) - \sin(x)\bigr) / h_n & = 
+\sin(x) \lim_{n\rightarrow \infty}\frac{(\cos(h_n) - 1)}{h_n} + 
+\cos(x) \lim_{n \rightarrow \infty} \frac{\sin(h_n)}{h_n} \cr
+& = \sin(x) * 0 + \cos(x) * 1 \cr
+& = \cos(x)
+}
+$$
+Therefore, we have shown that $\sin'(x) = \cos(x)$. 
+
+The derivative of the cosine function can be done now without much effort.
+$$
+\eqalign{
+{\cos(x+h_n) - \cos(x) \over h_n} &=
+{\obrace{\cos(x)\cos(h_n) - \sin(x)\sin(h_n)}{$\cos(a+b) = \cos(a)\cos(b) - \sin(a)\sin(b)$} \mskip -30mu - \cos(x) \over
+  h_n }\cr
+&= \cos(x){\cos(h_n) - 1 \over h_n} - \sin(x){\sin(h_n)  \over h_n} \cr
+}
+$$
+Taking the limit we 
+have $\cos'(x) = \cos(x) * 0 - \sin(x) * 1 = -\sin(x)$.
+
+The other trig functions can be described in terms of $\sin$ and $\cos$ so 
+we may find their derivatives through the derivatives of $\sin$ and $\cos$.
+We list the derivatives of these trig functions and restate the results for $\sin$ and $\cos$:
+\beginEnum
+\enum{$\sin'(x) = \cos(x)$}
+\enum{$\cos'(x) = -\sin(x)$}
+\enum{$\tan'(x) = \sec^2(x)$}
+\enum{$\sec'(x) = \sec(x) \tan(x)$}
+\enum{$\csc'(x) = -\csc(x) \cot(x)$}
+\enum{$\cot'(x) = -\csc^2(x)$}
+\endEnum
+To see how these formulas are derived, we compute the derivative of the 
+tangent function, $\tan$. Since $\tan$ is the ratio of $\sin$ to $\cos$ we can 
+use the quotient rule to compute its derivative. The \index{quotient rule} says
+$(f/g)' = (f'g - f\,g')/g^2$. In our case, $f = \sin$ and $g = \cos$. Plugging 
+these into the \index{quotient rule} gives
+$$
+\eqalign{
+\tan'(x) &= \bigl(\sin(x)/\cos(x)\bigr)' \cr
+&= \bigl(\sin'(x) \cos(x) - \sin(x)\cos'(x)\bigr)/ \cos^2(x) \cr
+&= \bigl(\cos^2(x) + \sin^2(x)\bigr) / \cos^2(x) \cr
+&= 1 / \cos^2(x) \cr
+&= \sec^2(x)
+}
+$$
+This is not valid for $x= \frac{\pi}{2}$; in fact, it is not valid for any $x$ of the form $x = k\,\frac{\pi}{2}$ ($k$ an odd integer). This is because
+$\tan$ is not defined at these values.
+  
+Just as was the case with the logarithmic functions, there are inverses of each of the 
+trig functions. Some care must be taken to describe the domains of such 
+inverses, but the approach to compute the derivatives of these inverses is the 
+same as with the logarithms. We ask the reader to consult a calculus tome 
+for a discussion and listing of these functions and their derivatives.
+
+
+\section{An Interpretation of the Derivative}
+Let $d$ and $v$ be the functions which give the distance and 
+velocity, respectively, of a car as a function of time. Let's start by 
+assuming that the car is traveling at a constant $30$ mph. We know from simple 
+physics that when the velocity is constant the 
+distance function is 
+given as $d(t) = v_0 t$, where $v_0$ is the velocity. This is simply the 
+statement distance = rate $\times$ time. In our case this becomes:
+$d(t) = 30 t$.
+What do the graphs of $d$ and $v$ look like?
+\epsfigure{eps/constdist.eps}
+{Distance graph when car is traveling $30$ mph.}
+\epsfigure{eps/constvelc.eps}
+{Velocity graph when car is traveling $30$ mph.}
+Another way to say this is that the velocity = distance $\div$ time.
+This last statement translates geometrically as follows: The slope of the 
+distance graph is $30$. More generally, for a car traveling at a constant 
+velocity $v_0$, the slope of the distance graph is $v_0$. That is, at any 
+point on the distance graph, $(t, d(t))$, its slope is the velocity at 
+time $t$, $v(t)$.
+
+What about more general velocity and distance functions. Can we relate the
+distance function, $d(t)$, to the velocity function, $v(t)$ as we did above?
+The answer is yes. Take a look at the distance and velocity graphs below. 
+\epsfigure{eps/distancepoint.eps}{Distance function.}
+\epsfigure{eps/velocitypoint.eps}{Velocity function.}
+The \index{tangent line approximation}s to the slope at a point in the distance 
+graph are changes in the distance function divided by the time interval. 
+This gives the average velocity over that time interval. As the approximations
+get better, the intervals of time shrink. In the limit we get the 
+velocity at that instant of time; that is
+$$
+d'(t) = v(t)
+$$
+
+Using the same arguments one can show the relation between velocity, $v$,
+and \index{acceleration}, $a$:
+$$
+v'(t) = a(t)
+$$
+
+\section{An Application To Physics}
+If you throw a ball up in the air with an initial velocity $v_0$ (we take positive values to mean up), how high up
+will the ball travel? This is a maximization problem again; we're maximizing the height a ball travels.
+From physics, discounting air resistance, the
+distance as a function of time is: $d(t) = v_0 t - \frac{1}{2} g t^2$,
+where $d(t)$ is the distance in feet at time $t$ in seconds and $g$ is the constant $32$ ft/${\rm sec}^2$.
+To solve this problem we need to 
+produce \index{candidate input}s for the maximum. This is done by finding the solution 
+set, 
+$\{ \, t \mid d'(t) = 0 \, \}$, and adding to this set the end points. 
+There is only one end point, $0$; we are not constrained by any end time 
+condition. The solutions set $\{ \, t \mid d'(t) = 0 \, \}$ is the set of 
+solutions to
+$d'(t) = (v_0 t)' - (\frac{1}{2} g t^2)' = v_0 - g t = 0$.
+There is only one solution which is, $t = v_0/g$. So, the set of input 
+candidates is 
+$\{\, 0, v_0/g \,\}$. Plugging $0$ in for $t$ gives $d(0) = 0$ as it should.
+Plugging in $v_0/g$ in for $t$ gives $d(v_0/g) = v_0^2/g - g v_0^2/(2g^2) =
+v_0^2/g - v_0^2/(2g) = v_0^2/(2g)$. If $v_0$ is positive, then this time
+corresponds to the maximum height. Positive means throwing the ball up with 
+a nonzero speed. So, if we throw the ball up with speed $80$ft/sec, 
+(about $55$ mph) then 
+the time which maximizes the height is 
+$80/g$; this is $80/32 = 2.5$ seconds. Plugging in this time into the 
+distance function 
+gives a maximum height of $80^2/(2 * 32) = 6400/64 = 100$ feet. 
+
+Where did this distance function come from? Can we derive this formula 
+ourselves with what we know? The answer is yes. The earth's gravitation pull 
+is constant. This is what Galileo observed: acceleration is constant for 
+any object. For our ball this means
+$$
+a(t) = -g 
+$$
+To find the corresponding velocity we need to find a function, $v$, such 
+that $v' = a$. Notice this is the opposite of differentiation. We need 
+to find an {\it anti-derivative\/} of $a$.%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}
+{This is analogous to finding an {\it \index{anti-difference}\/} of a sequence.}
+This is the {\it isolate and invert\/} move of the preface once more:
+differentiation is the operation, and anti-differentiation is its inverse.
+A function which when differentiated is a constant, $c$, is $c\, t$. 
+Therefore, $v(t) = -g\, t$ works. We're using the power rule in reverse. 
+One can easily check its derivative 
+is $-g$. But is this the only function which when differentiated gives $-g$?
+No, \index{anti-derivative}s are not unique. If you remember in an earlier section 
+we argued that if $h$ is a function with derivative, $h'$, then 
+$h_1$, defined by $h_1(x) = h(x) + c$ also has derivative $h'$. The idea was 
+that the constant just shifted the graph of $h$ up or down and didn't change 
+$h$'s shape and therefore the slopes of the tangent lines were unchanged.
+So, we claim that $v(t) = v_0 - g t$ is also a solution to $v' = a$. In this case, $v(t)$ 
+not only has the correct acceleration but also the correct initial velocity.
+Now, we also know that $d' = v$. So by the same arguments we need to find 
+a function whose derivative is $v_0 - g t$. Using the power rule in reverse 
+again, we see that $d$ could be any one of the functions in the family $c + v_0 t - \frac{1}{2} g t^2$. 
+The constant $c$ is chosen so that the initial distance is right. Since our distance function is measured
+from the ground, initially our distance must be $0$. That is, $d(0) = c + v_0 * 0 - \frac{1}{2} g * 0^2 = c = 0$.
+So, $d(t) = v_0 t - \frac{1}{2} g t^2$. We've just derived the distance function used in physics to describe
+an object under the influence of gravity -- not a small feat. 
+
+
+\section{Summary}
+We motivated the definition of the derivative through a maximization problem over an interval.
+\beginEnum
+\enum{Finding the maximum potentially means sifting through infinitely many points -- {\bf this is hard/impossible\/}.}
+\enum{Found a {\it geometric\/} way to reduce this search to just a handful of points for smooth functions.
+The \index{candidate solution}s come from the end points of the interval and the points where the 
+graph of the function is flat.}
+\enum{Defined the derivative as a measure of steepness of the graph - this measure is 0 at the
+flat points.}
+\enum{Found an {\it algebraic\/} way to compute the \index{derivative} (at {\it all\/} points) for a certain class of functions.}
+\enum{{\it Extended\/} this class to a much larger one by finding formulas for the derivative of 
+linear combinations, products, division, or composition of functions we already know how to differentiate.}
+\enum{Now finding the maximum of a {\it nice\/} function can be found from a handful of candidate values:
+the end points and the points where $f'(x) = 0$ -- {\bf this is often easy\/}.}
+\endEnum
+
+Finally, notice that this whole chapter has been the {\it same game, bigger
+board\/} theme of the preface at work -- each tool of the Discrete Calculus
+has a continuous counterpart:
+
+\bigskip
+\centerline{\vbox{\halign{\quad\hfil#\hfil\quad&\quad\hfil#\hfil\quad\cr
+{\bf Discrete}&{\bf Continuous}\cr
+\noalign{\smallskip\hrule\smallskip}
+$\Delta x_n = x_{n+1} - x_n$&$f'(x) = \lim\limits_{n \rightarrow \infty} \bigl(f(x+h_n) - f(x)\bigr)/h_n$\cr
+$\Delta n^k$: leading term $k\,n^{k-1}$&$(x^k)^\prime = k\,x^{k-1}$\cr
+linearity of $\Delta$&linearity of differentiation\cr
+Discrete Product Rule&Product Rule\cr
+anti-difference (summation)&anti-derivative (integration -- next chapter)\cr
+}}}
+\bigskip
+
+
+%\section{Other Notions of Derivative}
+

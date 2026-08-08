@@ -1,0 +1,392 @@
+%\input ../util/bookmacros
+%\input ../util/docparams
+
+\appendix{Appendix C}{Infinite Sequences and Limits}
+Every derivative in this book was computed by the {\it approximate,
+then take a limit\/} move, and each time the ``limit'' step was taken
+on faith. In this appendix we pay that debt by pinning down what it
+means for a sequence of approximations to head toward a value.
+That is, we will invent a definition for what we've been calling
+the \index{limit} of a \index{sequence}. The definition will come from looking at examples.
+I hope these examples will convince you that the definition given 
+below is reasonable. 
+
+First to make life easier when discussing sequences let us define the 
+{\it tail\/}, $T_N$, of a sequence $\{x_n\}_{n=1}^{\infty}$ at $N$ 
+to be the set $\{\, x_n \mid n > N\, \}$.
+You can think about forming the tail by visualizing the sequence as a list of
+numbers written out sequentially from left to right and then
+chopping the sequence at a location $N$; this leaves the 
+list $[x_1 \ldots x_N]$ and the rest which we are calling the tail at $N$, 
+$T_N$. 
+
+\example{Let $x_n = 1/n$. The tail of this sequence at $10$, $T_{10}$, is 
+         $\{\, x_n \mid n > 10\,\} = \{1/11,\; 1/12,\; 1/13, \; \ldots\}$.}
+
+You should draw a picture of the tail.
+
+Notice that the sequence in the example seems to be ``headed toward'' $0$. 
+Question: Do you believe this, if so, how do we say this precisely?
+
+We need to gain some experience with sequences in order to 
+extract the essence of the notion of ``heading towards''.
+To this end, 
+let's look at some examples to help us sharpen our idea of what 
+this ``heading toward'' or ``goes to''
+might mean. We will use the term {\it convergence\/} to 
+mean that a sequence 
+``goes to'' a particular value. In this case we say the {\it limit\/} 
+of the sequence exists.
+Our goal will be to give a precise definition
+of convergence. 
+
+\example{This example gets 
+close and then ``bounces away'', 
+but eventually it ``goes to'' zero. We would say that this sequence 
+converges to $0$.}
+$$
+1/1, \; 100, \;1/2, \; 100/2, \; 1/3, \; 100/3, \; 1/4, \; 100/4, 
+\; \ldots
+$$
+
+\example{This example oscillates about $0$, but 
+gets smaller and smaller in absolute
+value, moving closer and closer to zero. In this case we would say 
+the sequence converges to $0$.}
+$$
+-1, \; 1/2, \; -1/3, \; 1/4, \; -1/5, \; 1/6, \; -1/7, \; 1/8,
+\; \ldots
+$$
+
+\example{This sequence has elements that get close
+but then ``bounce away''.
+Therefore, this sequence does not \index{converge} to $0$ as there is always an element
+in the tail of the sequence which is ``far'' away from $0$. Nor can it
+converge to $1$ (or to anything else) -- every tail also contains
+elements $1/n$ which are far from $1$.}
+$$
+1, \; 1, \; 1/2, \; 1, \; 1/3, \; 1, \; 1/4, \; 1, \; 1/5, 
+\; 1, \; 1/6, \; 1, \; \ldots
+$$
+
+\example{This sequence has elements that get close 
+but then ``bounce away''.
+Therefore, this sequence does not converge to zero as there is always 
+an element in the tail of the sequence which is ``far'' away from 0.}
+$$
+1, \; 0.0001, \; 1/2, \; 0.0001, \; 1/3, \; 0.0001, \; 1/4, 
+\; 0.0001, \; 1/5, \; 0.0001, \; \ldots
+$$
+
+\example{This sequence has elements that tend to $1$.
+The farther out one goes in the sequence, the tail gets close and closer to
+$1$. In this case we would say this sequence converges to $1$.}
+$$
+1 + 1, \; 1+ 1/2, 1 + 1/3, \; 1 + 1/4, 1 + 1/5, \; 1 + 1/6 \; \ldots
+$$
+
+In the examples where the sequence ``goes to''
+a point we see that the tails 
+get closer and closer to this point.
+In the examples where there wasn't \index{convergence}
+we saw that getting close is a relative statement. In example 5,
+individual elements get arbitrarily close to $0$, but every tail still
+contains elements a full $0.0001$ away -- the tail {\it as a whole\/}
+never gets closer than $0.0001$ to $0$. So, it is not enough for {\it elements\/} of a sequence to
+occasionally get closer to a limit point.
+For convergence we need the {\it tails\/} to get closer to the limit point; and, not just closer, I think you will 
+agree that we need the tails to
+get {\it arbitrarily close\/} to the limit point. 
+How do we precisely define the phrase {\it arbitrarily close\/}?
+
+One way to say this is that a sequence converges to a number $a$ if 
+the sequence eventually gets within {\it every\/} 
+prescribed ``closeness'' tolerance of $a$.
+
+This leads to a definition of \index{convergence} for infinite sequences.
+
+\proclaim Definition. We say the sequence 
+$\{x_n\}_{n=1}^{\infty}$ has the limit $a$, written
+$\lim_{n \rightarrow \infty} x_n = a$, if for {\it every}
+$\varepsilon > 0$ (closeness tolerance), there is a point
+in the sequence, $N$, (which may depend on $\varepsilon$) at which all the
+elements of its tail, $T_N$, are within $\varepsilon$ of $a$.
+
+We now have a precise definition of what it means for a sequence to have a
+limit, but how do we actually show a given sequence converges to a given limit
+point? Notice work has to be done for {\it every} $\varepsilon > 0$.  The problem
+is that there are an infinite number of such $\varepsilon$'s!
+
+The only way to be able to handle an infinite collection of such $\varepsilon$'s is
+to automate the process of finding an $N$ for a given $\varepsilon$. That is, 
+we need to be able to find a function for $N$ in terms of $\varepsilon$. Then, 
+given an $\varepsilon$, we use this function to produce an $N$ and then argue 
+that any element in the corresponding tail is within this $\varepsilon$ of 
+the limit value. In effect, we come up with one (or maybe a handful) of generic proofs
+which cover all possible tolerances.
+
+{\bf Note:\/} This is, in general, a quantum leap in difficulty from what 
+you are probably used to 
+seeing. Although I hope you have a good idea of the what and why of a limit, 
+don't be discouraged if you find the next example and 
+the theorem after that hard. It took mankind a long time to figure out this 
+definition and use it. You should also realize this definition 
+is based on the examples we considered. The definition is a formalization 
+of an agreement that was felt to embody \index{convergence}; that is, it is 
+a human activity. Definitions are man made constructions based on 
+concrete problems.
+
+\proclaim Worked Example. Prove that $\lim_{n \rightarrow \infty} x_n = 0$
+when $x_n = 1/n$.
+
+{\bf proof:\/} We need to write a program to handle {\it any\/} $\varepsilon$ 
+as input. That is, if
+someone were to hand us a \index{closeness tolerance}, 
+$\varepsilon$, we would need to produce an $N$ such that all elements in the 
+tail are within this $\varepsilon$ of $0$. This means all elements of the 
+tail satisfy $|x_n - 0| < \varepsilon$, which is
+$|x_n| < \varepsilon$; or, $x_n < \varepsilon$, since all
+of the $x_n$ are positive.
+What do we do? 
+
+Let's first start with a particular $\varepsilon$ and see if we can handle that.
+Then maybe we can see how to {\it automate\/} our procedure to handle 
+{\it any\/} $\varepsilon$. If $\varepsilon$ is $1/10$, for instance, what would 
+our choice be for $N$? Well, there are many choices for $N$. We are asking for a 
+place to cut the sequence so that all elements of its tail are within $1/10$ 
+of the limit point $0$.
+We claim $N = 10$ works. Why? Because the tail in this case is:
+$T_{10} = \{1/11, 1/12, 1/13, 
+\ldots\,\}\!\!$~. It's clear that choosing $N$ to be $100$ or $137$ or 
+$1000$ works as well.
+This is because each of their tails: $T_{100} = \{1/101, 1/102, 1/103, \ldots\,\}$ or
+$T_{137} = \{1/138, 1/139, 1/140, \ldots\,\}$ or
+$T_{1000} = \{1/1001, 1/1002, 1/1003, \ldots\,\}$ all have the property that 
+their elements are within $1/10$ of the limit point $0$. 
+We only need to find {\it an\/} $N$ that works, 
+let's pick $N$ to be $10$. So, we have found an $N$ for a {\it particular\/} 
+$\varepsilon$. Can we automate this process so that we can
+find an $N$ for {\it any\/} $\varepsilon$? Notice that we found our $N$ by
+finding the first $N$ such that $1/(N+1)$ was less than $1/10$. If we do
+something like this for an arbitrary $\varepsilon$ we will have handled the automation step.
+A convenient choice for $N$ is\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}
+{The floor function takes a number, $x$, and returns the greatest integer
+which is less than or equal to $x$. In effect, it ``rounds down''
+to the nearest integer.}
+$N = {\rm floor}(1 / \varepsilon) + 1$. This is not always the {\it first\/}
+$N$ that works -- for $\varepsilon = 1/10$ it gives $N = 11$ rather than
+$10$ -- but it is a slightly generous choice which is always safe, and we
+only need {\it an\/} $N$ that works. Try a few choices of $\varepsilon$ and see
+if this makes sense. For this choice of $N$ every element in the tail $T_N$
+is within $1/N$ of $0$ which is within $\varepsilon$ of $0$.
+
+We have done what 
+was asked: \goodbreak ``Given any 
+closeness tolerance $\varepsilon>0$ find an $N$ (which usually depends on $\varepsilon$) 
+such that all elements in the tail of 
+the sequence are within $\varepsilon$ of the limit value.''
+
+Proofs of this kind are probably different from what you are used to.
+You are asked to automate a proof of a generic example; i.e., that of a given
+$\varepsilon$. Further, the choice of $N$ is not unique. In the example above 
+letting $N =100 * ({\rm floor} (1 / \varepsilon) + 1)$
+is also a 
+valid choice for $N$.
+In addition, the way you
+find this $N$ (based on a given $\varepsilon$) will change from proof to proof. 
+
+One thing I think we all assume from our definition is that if a sequence
+converges to a number $a$, then $a$ is unique. That is, a sequence can't
+converge to two different numbers. This turns out to be true under our 
+definition, but it requires a proof.
+
+\proclaim Theorem(Limits are Unique). If the limit of a sequence exists, 
+it is unique.
+
+{\bf proof:\/} We will show that if the sequence $x_n$ converges to $a$, 
+$\lim_{n \rightarrow \infty} x_n = a$, and $x_n$ converges to $b$, 
+$\lim_{n \rightarrow \infty} x_n = b$, then $a$ and $b$ are equal.
+
+We first sketch the outline of our argument. The key idea is that as we go 
+farther and farther out in the sequence, the tail should be
+very close to both $a$ {\it and\/} $b$; in fact {\it arbitrarily close\/}. 
+This suggests that, in turn, 
+$a$ and $b$ must be
+very close; in fact {\it arbitrarily close\/}. But to be arbitrarily close 
+means that 
+they are the same number. Therefore, our strategy is to show that
+$|a - b|$ is less than any prescribed tolerance. This will then mean
+that $|a - b| = 0$; that is, they are the same number.
+We now show that when $|a - b| < \varepsilon$ for {\it every\/}
+$\varepsilon > 0$, then $a = b$. This is really the same as showing that when
+a number $c$ satisfies $|c| < \varepsilon$ for {\it every\/}
+$\varepsilon > 0$, then $c = 0$. 
+
+{\bf claim:\/}
+Suppose we have a non-negative number, $c$, which has the property that $c <
+\varepsilon$ for all $\varepsilon > 0$, then $c = 0$. One might say that $c$ is 
+arbitrarily close to $0$. If 
+$c$ isn't 0, then let $\varepsilon = c/2$. In this case $c$ must be less than this $\varepsilon$, so
+$c < c/2$. Since $c$ is positive the inequality is preserved after dividing by $c$ yielding
+$1 < 1/2$. This is a contradiction; therefore $c$ must be zero. 
+
+We now continue with our proof and show that $|a-b| < \varepsilon$ for all
+$\varepsilon > 0$. Thus showing $a$ and $b$ are equal.
+
+Let $\varepsilon>0$ be a given number, then since we know $x_n$ converges 
+to $a$, given an $\varepsilon_1$ we know that there exists an $N_1$ such that 
+$|x_n - a| < \varepsilon_1$ for all $x_n$ in
+the tail $T_{N_1}$. Similarly, since $x_n$ converges to $b$, given
+an $\varepsilon_2$
+we know there exists an $N_2$
+such that  $|x_n - b| < \varepsilon_2$ for all $x_n$ in
+the tail $T_{N_2}$. If we let $N = \max(N_1,N_2)$, then the element
+$x_{N+1}$ lies in both tails $T_{N_1}$ and $T_{N_2}$, so
+$$
+|a - b| \,= \,|a - x_{N+1} + x_{N+1} - b| \, \le \, |a - x_{N+1}| +
+|x_{N+1} - b|  \, < \,
+\varepsilon_1 + \varepsilon_2
+$$
+
+Now we need to choose $\varepsilon_1$ and $\varepsilon_2$ so that their sum is 
+less than or equal $\varepsilon$. This will certainly be the case if both are 
+chosen to be equal to $\varepsilon / 2$. 
+So, for an arbitrary $\varepsilon>0$ the relation,
+$|a-b| < \varepsilon$ holds. Therefore, $a$ is equal to $b$ 
+and we have shown that 
+the limit of a sequence is unique.
+
+\section{Computational Strategy for Limits}
+One of the things we would like to be able to do, just as was done when computing
+derivatives, is to come up with ways to find the limits of sequences formed 
+from simpler sequences. When computing derivatives we had a basic set of
+functions and computed their derivatives from the definition. We then had 
+rules for how to find 
+the derivatives of functions that were composed of these basic functions. 
+We would like to invoke a similar strategy when computing limits. To this 
+end, we 
+would like to compute the limit of a sequence by recognizing it as a ``base'' sequence or by
+recognizing it as a composition of base sequences and use some set of rules to 
+determine the limit in terms of limits of its base component sequences.
+Hopefully, we could avoid using the definition directly to work 
+out a given limit just as we were able to avoid using the direct definition of 
+the derivative to compute derivatives of certain classes of functions.
+
+In what follows we assume that $\{x_n\}_{n=1}^{\infty}$ and
+$\{y_n\}_{n=1}^{\infty}$ are sequences with limits $a$ and $b$ 
+respectively. 
+
+Here are some rules for combining sequences stated without proof:
+
+\proclaim Theorem(\index{Linearity of Limits}). If $z_n = c_1 x_n + c_2 y_n$ then 
+$$
+\lim_{n \rightarrow \infty} z_n = c_1 a + c_2 b
+$$
+
+\proclaim Theorem(\index{Product of Limits}). If $z_n = x_n * y_n$ then 
+$$
+\lim_{n \rightarrow \infty} z_n = a * b
+$$
+
+\proclaim Theorem(\index{Quotient of Limits}). If $z_n = x_n / y_n$ and 
+$b \neq 0$ and $y_n \neq 0$ (for all $n$) then
+$$
+\lim_{n \rightarrow \infty} z_n = a / b 
+$$
+
+\proclaim Theorem(\index{Squeeze Limit}). If $x_n \le z_n \le y_n$ and $a = b$ then
+$$
+\lim_{n \rightarrow \infty} z_n = a = b
+$$
+
+
+To this we add a specific set of sequences for which we can
+compute the limit. We will need the notion of a {\it bounded\/} sequence:
+a sequence is bounded if there is a number $M$ such that
+the absolute value of every element in the sequence is less than
+or equal to $M$.
+
+
+\proclaim Theorem(\index{Constant Limit}). If $x_n = k$ for some number $k$, then 
+$$
+\lim_{n \rightarrow \infty} x_n = k
+$$
+
+\proclaim Theorem(\index{Generalized Decreasing Sequence}). If $x_n = b_n / n$, where $\{b_n\}_{n=1}^{\infty}$ is a bounded sequence, then
+$$
+\lim_{n \rightarrow \infty} x_n = 0
+$$
+
+\proclaim Theorem(\index{Power Limit}). If $x_n = k^n$ with $|k| < 1$, then
+$$
+\lim_{n \rightarrow \infty} x_n = 0
+$$
+
+
+As an example of the limit of the generalized decreasing \index{sequence} pattern consider
+the sequence 
+$\{x_n\}_{n=1}^{\infty}$,
+where $x_n = \sin(n) / n$. In this case $b_n = \sin(n)$. The only thing we 
+need to do is check that $|b_n|$ is bounded. This is easy as the 
+absolute value of the $\sin$ of anything is less than or equal to  $1$, 
+for instance. Therefore,
+$$
+\lim_{n \rightarrow \infty} \sin(n)/ n = 0
+$$
+
+As another example, consider the sequence $z_n = 1/n + \sin(n)/n$.
+We can view $z_n$ as a sum of two sequences $1/n$ and 
+$\sin(n)/n$. Since each of these sequences have limits 
+their sum does also and the value of the limit is the sum of 
+the limits of $1/n$ and $\sin(n)/n$. Therefore, 
+$$
+\lim_{n \rightarrow \infty} z_n = \lim_{n \rightarrow \infty} 1/n + 
+\lim_{n \rightarrow \infty} \sin(n)/n = 0 + 0 = 0
+$$
+Finally, if a given sequence, $\{x_n\}_{n=1}^\infty$, converges to $a$, is it
+the case that $\{f(x_n)\}_{n=1}^\infty$ converges to $f(a)$? This is a nice computational property to
+have as its says: $\lim_{n\rightarrow \infty} f(x_n) = f(\lim_{n \rightarrow \infty} x_n) = f(a)$. In other words, 
+if a function has this property, limits ``pass through'' it.
+This property holds for 
+``nice'' functions. In fact, we will call a function {\it continuous\/} at $a$ 
+if this property holds. Functions that are continuous at every input value in their domain are called continuous functions.
+
+So, what do \index{continuous function}s look like and how 
+can one spot them. 
+They have the property that while drawing their graph, one would not have to 
+lift the pen off the page.
+All polynomials are continuous for all inputs; the logarithm functions 
+are continuous for positive inputs; the \index{exponential function}s, $a^x$, for $a>0$ 
+are all continuous for all inputs. Sums, products, and differences of continuous 
+functions are continuous. Ratios of continuous functions are continuous provided the denominator 
+stays away from 0. For an example of a discontinuous function see 
+example 3 in appendix A.
+
+\section{Convergence Based on Properties of a Sequence}
+We have seen how to show a sequence converges to a given value. What if 
+we don't have a candidate for the limit? Can we tell if a sequence will 
+converge just by examining properties of the sequence itself? The answer is 
+yes, in certain situations we know that a limit of the sequence exists.
+
+\proclaim Theorem (\index{Monotone Sequence}). Suppose $\{x_n\}_{n=0}^\infty$ is a 
+sequence which is bounded above by $M$; meaning, $x_n \le M$ for all $n$.
+If the sequence is also non-decreasing ($x_{n+1} \ge x_n$ for all $n$) then
+the limit of the sequence exists. Similarly, if a sequence is bounded 
+below and is non-increasing it also has a limit.
+
+There are other criteria, but they are outside the scope of this book.
+
+\section{Sequences without Limits}
+Not all sequences have limits, in fact most do not. 
+In this section we give examples of sequences which don't have limits.
+
+\example{Let $x_n = (-1)^n$. This sequence bounces between $1$
+and $-1$ and so doesn't converge to anything.}
+
+\example{Let $x_n = n$. This sequence gets larger and larger and 
+so it cannot converge to anything.}
+
+\example{Let $x_n = \sin(n)$. This sequence bounces around the interval $[-1,1]$ 
+but doesn't converge to anything.}
+
+

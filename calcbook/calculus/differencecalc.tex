@@ -1,0 +1,328 @@
+%\input ../util/bookmacros.tex
+%\input ../util/docparams.tex
+
+\chapter{Difference Calculus}
+
+\section{Motivational Problem for Differencing}
+Suppose there are several cars suspected in the use of an armed 
+robbery, all of a particular make and model. Soon after the robbery,
+a high-speed chase ensued between the police and the getaway car. The
+car used had no license plates at the time of the crime; however, it's now believed that 
+the getaway car has legitimate plates. There are not enough visual clues 
+to distinguish the getaway car from the group of suspected cars. The police 
+would like to be able to give enough evidence to a judge in order to 
+get a search warrant for the owner of one of the cars. The one thing the 
+police have going for them is that each car has a sensor which records the 
+odometer reading every $1/10$ of a second. The odometer data is stored on an 
+internal disk in feet. They want to examine 
+the data in order to find out if there were high speeds occurring in any 
+of these cars during the time of the getaway. 
+
+Each car would have a 
+very long list of numbers
+representing odometer readings -- meaning distance. How should 
+we analyze the data to find velocity? Well, from physics we know the 
+average velocity over a time interval is the distance traveled divided by 
+the time. So, the average velocity over each time interval of $1/10$th of 
+a second is found by taking the difference in odometer readings over that 
+interval and then dividing by $1/10$. Before discussing any more details, 
+it would be convenient to have a notation to describe long lists of numbers 
+in order to talk about operating on them. 
+
+\section{Sequences}
+We'll define a {\it sequence\/} of numbers to be a list of numbers. 
+It is more than a collection of numbers; it is an ordered 
+collection. The distinction is the same as when one considers an ordered list of tasks to perform, a ``to do'' list,
+as opposed to an unordered collection of tasks.
+For instance, the list $\{1,20,3,5,1,7\}$ is a sequence of numbers as is the list of
+positive integers in increasing order; or the list of odd numbers listed in increasing order.
+Since the sequence values 
+are ordered we can talk about the $5^{\rm th}$ or the $10^{\rm th}$ element of a sequence (provided there are
+that many elements). The $5^{\rm th}$ positive integer
+is of course $5$; the $10^{\rm th}$ odd number is $19$.
+In order to talk about sequences in more generality we use the notation 
+$\{x_n\}_{n=1}^{N}$ to represent the sequence: 
+$x_1, x_2, x_3, \ldots, x_N$; where the $x$ values are numbers and the three dots, $\ldots$, 
+mean the intermediate values, in this case the sequence values between $x_3$ and $x_N$. 
+Similarly, the notation $\{x_n\}_{n=0}^{N}$ is used 
+to represent the sequence: $x_0, x_{1}, x_{2}, \ldots, x_N$. All that changed here 
+is the choice of how to start off the indexing. More generally,
+$\{x_n\}_{n=a}^{N}$ ($a$ is an integer) is used to represent the sequence:
+$x_a, x_{a+1}, x_{a+2}, \ldots, x_N$. If there is no value listed after the dots then we mean that 
+there is no end to the sequence -- like the sequence of odd numbers. 
+In this case one would write: $\{x_n\}_{n=1}^{\infty}$.\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}%
+{The symbol $\infty$ is meant to represent infinity.} The $5^{\rm th}$ and $10^{\rm th}$ values of 
+such a sequence are $x_5$ and $x_{10}$ respectively.
+
+\subsection{Sequences as Functions}
+Sequences can be thought of as functions on the integers; they take an integer as input and return a number.
+The functions that you are more familiar with, ``continuous'' functions like $f(x) = x^2$, take a number and return a number.
+For both sequences and continuous functions there is a distinction to be made between the function and the formula -- if any --
+that defines it. See the appendix ``Functions, Formulas, Graphs, and Notation'' for a discussion of this. 
+An example of a sequence that can be described by a simple formula is the even numbers. This sequence is
+$\{ 2,4,6,8,\ldots\}$. If we call this sequence $x$, then we can write the sequence values succinctly as $x_n = 2 n$.
+In this case there is a formula that allows us to describe any element of the sequence simply. In cases where there is such 
+a formula we will write the sequence using the formula. In the case of the even numbers we would write 
+$\{2 n\}_{n=1}^{\infty}$. Consider now the sequence of primes: $\{ 2,3,5,7,11,13,17,\ldots\}$.
+Calling this sequence $p$, we would like to write $p_n = $ some-nice-formula-in $n$. However, there is no such nice
+formula. The sequence exists, but there is no known easily computable formula for it.
+
+
+\section{Differencing of Sequences}
+We know from the introduction that we need to ``difference'' the distance data 
+to find the velocity. We define the difference symbol $\Delta$ 
+(Greek letter Delta which corresponds to D -- for difference), 
+to operate on sequences by differencing successive elements of a sequence.
+Given a sequence, $\{x_n\}_{n=1}^{\infty}$, we define $\Delta x_n$ by:
+$$
+\Delta x_n = x_{n+1} - x_n \quad {\rm for} \; n \ge 1
+$$
+When using $\Delta$ on a sequence, $x$,  we may replace $x_n$ by its formula -- if it exists.
+For instance, if $x_n = 5n+1$, then we might write $\Delta x_n$ as $\Delta (5n+1)$.
+For this sequence, $\Delta x_n = x_{n+1} - x_n = (5(n+1) + 1) - (5n+1) = 5$.
+If $p$ is the sequence of primes then what is $\Delta p_n$? Well, there is no formula for $p_n$ so we 
+can't say -- meaning we can't write down a formula for this. However, given a particular $n$, say $7$, $\Delta p_7 = p_8 -
+p_7$. Since the $8^{\rm th}$ prime is $19$ and the $7^{\rm th}$ prime is 17, we have 
+$\Delta p_7 = 19 - 17 = 2$.
+
+We can think of $\Delta$ as taking a \index{sequence} as input and returning a new sequence as the output.
+If we are given a finite sequence, then one must be careful at 
+the end point. For a finite sequence, $\{x_1, x_2, \ldots, x_N\}$, 
+$\{x_n\}_{n=1}^{N}$, in our notation, $\Delta$ is defined to act 
+on this sequence by
+$$
+\Delta x_n = x_{n+1} - x_n \quad {\rm for} \; n \in [1, N-1]
+$$
+In other words, the differencing is only defined up to $N-1$. That is,
+up to where the differencing makes sense.
+
+\example{If our sequence is $\{1,3,7,15,22\}$, then applying 
+the differencing operation $\Delta$ to this sequence yields a new sequence: 
+$\{2,4,8,7\}$.}
+
+Notice that this sequence has one fewer element than the original.
+
+\example{If $\{x_n\}_{n=1}^\infty$ is the list of odd numbers 
+listed in increasing order, then after applying $\Delta$ to the sequence 
+we obtain a new sequence: $\{2, 2, 2, 2, 2, \ldots\}$.}
+
+\section{Sample Difference Formulas}
+We will soon want a stock of difference formulas on hand; in the next chapter
+we will be running $\Delta$ in reverse, and the more differences we recognize
+on sight, the easier that game becomes.
+Here are a few difference formulas for sequences of successive powers, along with
+the difference of a constant sequence.
+Let $w_n = c$ (a constant sequence), $x_n = n$, $y_n = n^2$, and $z_n  = n^3$, then
+$$
+\eqalign{
+\Delta w_n = \Delta c & = c - c = 0 \cr
+\Delta x_n = \Delta n & = (n+1) - n  = 1 \cr
+\Delta y_n = \Delta n^2 & = (n+1)^2 - n^2 = n^2 + 2 n + 1 - n^2 = 2 n + 1 \cr
+\Delta z_n = \Delta n^3 & = (n+1)^3 - n^3 = n^3 + 3 n^2 + 3 n + 1 - n^3 = 3 n^2 + 3 n + 1
+}
+$$
+Notice that the right hand side of the above formulas is a polynomial of one less power than the
+left hand side.
+
+\exercise{Show that $\Delta 2^n = 2^n$; that is, the sequence $\{2^n\}_{n=0}^\infty$
+is its own difference. (Much later, in the chapter on Differential Calculus, we
+will meet a famous function with the analogous property.)}
+
+\exercise{Compute the difference sequence of $\{0,\,1,\,4,\,9,\,16,\,25\}$. Then
+compute the difference sequence of {\it that\/} sequence -- the ``second
+difference''. What do you notice?}
+
+\section{Back to finding the maximum velocity}
+We can express the average velocity (in feet per second) of the car over the $n^{\rm th}$ interval
+$[n/10, (n+1)/10]$ as: $v_n = \Delta x_n / (1/10) = 10 \, \Delta x_n$. So, we have a new
+sequence, $\{v_n\}$ which represents an approximation to the velocity.
+More generally, if $h$ is the length of the time interval, then the sequence 
+of approximate velocities may be computed as:
+$$
+v_n = \Delta x_n / h
+$$
+To find the maximum velocity we could write a program which walks the sequence,
+$\{v_n\}$, looking for the maximum. At each point one compares the maximum 
+value found so far with the current data point. If the data point has a larger value, 
+we change the maximum value to this value. Such a program might take an array 
+(representing the sequence of velocities) and return the maximum value. 
+We offer some code written in the programming language equivalent of 
+	\index{Esperanto}%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}{We use the characters // to denote 
+the beginning of a comment line.}.
+\vskip 12pt
+{\tt \obeylines \obeywhitespace \parskip=0pt
+find-max(v) $\lbrace$
+   // The current maximum - so far.
+   vmax := v[0]
+
+   // The number of values to examine.
+   N := length(v)
+
+   // Loop over the rest of the values and compare...
+  {\bf for\/} i {\bf in\/} [1,N-1] {\bf do\/}
+
+      // Update current maximum if bigger value found.
+      {\bf if\/} (vmax $<$ v[i]) {\bf then\/}
+         vmax := v[i] 
+      {\bf end if\/}
+   {\bf end for\/}
+  
+   // Return the maximum.
+  {\bf return\/} vmax 
+$\rbrace$
+}
+
+Notice the work involved in finding the maximum \index{velocity}: the loop examines
+all $N$ values, making $N-1$ comparisons along the way.
+
+After running this program on the data from the cars the police crime lab is
+able to identify
+a car which hit speeds of $80$ mph. (Since the odometer data is in feet and
+the time steps are in seconds, the program reports velocities in feet per
+second; the lab converts to miles per hour by multiplying by ${3600 \over 5280}$
+-- so $80$ mph is about $117$ ft/sec.) Unfortunately, the manufacturer informs them
+that while the dash-board odometer reading the owner sees is correct, 
+the {\it historical\/} odometer data stored on disk is somewhat inaccurate.
+This ``historical'' odometer data was designed as a tracking system,
+originally intended to defeat attempts by used car dealers to illegally
+modify odometer readings, and it promised to help the service departments
+maintain the cars as well. But the manufacturer worried about privacy:
+no one wants their every move recorded, and lawsuits -- or simply bad
+press -- could follow. The engineering department found an ingenious
+compromise. They would alter the stored data so that it was a bit fuzzy --
+still useful to the service departments, who needed only general driving
+patterns along with velocity and acceleration over short intervals. There
+was a secondary benefit: a small signal could be embedded in the modified
+data to act as a fingerprint, making it easier to spot if someone had
+tampered with the recorded data.
+
+This left the police with a problem. They asked the auto manufacturer for
+some information about its process of ``fuzzying up'' the data; after all,
+all the police wanted to know was whether one of the cars went over $80$
+mph on the day of the robbery. The auto maker said the details were a
+Trade Secret, but agreed to say roughly what the process was. At time step $n$ the 
+odometer value, $x_n$, is modified by multiplying it by a factor which depends 
+on $n$. Let us call this factor $f_n$, then the value stored on 
+the disk is $d_n = x_n f_n$. Although the auto maker would not 
+tell what $f_n$ 
+was, they would say that it varied in a range from  
+$0.5$ to $2.0$ back to $0.5$. It varied in this way over a period greater 
+than $10,000,000$ time steps. This meant the period was over 10 days 
+of continuous driving. 
+
+What the police have recorded on disk was not the odometer reading, $x_n$, 
+but $d_n = x_n f_n$. They needed a way to relate the differencing of 
+$x_n f_n$ to the differencing of $x_n$ (Then it is a simple matter to 
+get the velocity -- divide by $h$). 
+
+The difference of the disk data is $\Delta d_n = \Delta (x_n f_n) = x_{n+1} f_{n+1} - x_n f_n$.
+We would like to relate this difference to the difference of the actual distance values: $\Delta x_n$.
+This is accomplished by adding and subtracting the term $x_n f_{n+1}$.
+$$
+\eqalign{
+\Delta (x_n f_n) & = x_{n+1} f_{n+1} - x_n f_n \cr
+& = x_{n+1} f_{n+1} - x_n f_{n+1} 
++ x_n f_{n+1} - x_n f_n \cr
+& = (x_{n+1} - x_n) f_{n+1} + x_n (f_{n+1} - f_n) \cr
+& = \Delta x_n \, f_{n+1} + x_n \Delta f_n \cr
+}
+$$
+Or,
+$$
+\eqalign{
+\Delta (x_n f_n) & = \Delta x_n f_{n+1} + x_n \Delta f_n \cr
+}
+$$
+This gives us the relationship we were after. 
+Since $x_n f_n  = f_n x_n$ we also have
+$$
+\eqalign{
+\Delta (x_n f_n)  &= \Delta (f_n x_n)  = \Delta f_n x_{n+1} + f_n \Delta x_n \cr
+}
+$$
+Let us formalize what we have so far as a theorem. We state the result with different
+names for the sequences.
+\proclaim Theorem(Discrete Product Rule). If $\{x_n\}_{n=0}^{\infty}$ and 
+$\{y_n\}_{n=0}^{\infty}$ are sequences then the difference of 
+their product is related to the individual differences by:
+$$
+\eqalign{
+\Delta (x_n y_n) & = \Delta x_n y_{n+1} + x_n \Delta y_n \cr
+}$$
+Or,
+$$
+\eqalign{
+\Delta (x_n y_n) & = x_{n+1} \Delta y_{n} + \Delta x_n y_n 
+}
+$$
+
+Getting back to our problem, we wish to find $\Delta x_n$ from $\Delta (x_n f_n)$ (the difference of
+the recorded odometer values),
+and we have the relation: $\Delta (f_n x_n)  = \Delta (x_n f_n) = \Delta x_n f_{n+1} + x_n \Delta f_n$.
+Ideally, we would like to solve this equation for
+$\Delta x_n$.
+This is the same game as solving $3x + 2 = 8$ in algebra: get the unknown by itself
+under one operation, then undo that operation -- a move we'll call {\it isolate and invert\/}.
+Something like:
+$$
+\Delta x_n f_{n+1} = \Delta (x_n f_n) - x_n \Delta f_n
+$$
+So that
+$$
+\Delta x_n  = \bigl( \Delta (x_n f_n) - x_n \Delta f_n \bigr) / f_{n+1}
+$$
+Unfortunately, the formula for $\Delta x_n$ involves $x_n$, $f_n$, and $\Delta f_n$ which are all unknown.
+But we are not necessarily looking for an exact solution; we would be 
+happy with a statement which said $v_n = \Delta x_n / h \ge 80$ for some value of $n$. This 
+is actually more incriminating than saying $v_n = 80$. 
+
+Since $f$ changes over a very long scale in comparison with 
+$x$, it is essentially constant for the purposes of our calculations. That is, 
+for all intents and purposes over the short time span of the robbery $f_n$ can be treated as a constant
+equal to some value, say $F$. Replacing a slowly varying quantity by a constant is an
+approximation -- the first half of the {\it approximate, then take a limit\/} move
+we will use throughout this book. If a sequence, $f_n$, is constant
+then $\Delta f_n = 0$. Therefore, the last equation becomes%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{The symbol $\approx$
+  means approximately equal.}
+$$
+\Delta x_n  \approx \Delta (x_n f_n) / F
+$$
+We still don't know $F$. Here it is a simple matter for the police to 
+run the car for a short distance and compare the odometer tracking data with
+the actual distance traveled. Because $f_n$ has been virtually constant since the robbery (a few hours before)
+they are able to run an experiment to find $F$. They find that it 
+was approximately $0.8$ for the suspect car during the robbery. 
+This means their maximum velocity calculation must be corrected by dividing by 0.8 for 
+the suspect car. 
+In this case $v_n = \Delta x_n /h \approx \Delta(x_n f_n) / (F h) \approx  80 / 0.8$ mph = $100$ mph. 
+The police now have enough 
+evidence to get a search warrant for the premises of the owner of this car.
+
+\exercise{Find a similar formula expressing the difference of the
+product $x_n y_n z_n$ in terms of the differences:
+$\Delta x_n$, $\Delta y_n$, and $\Delta z_n$.}
+
+\section{Summary}
+We started with a list of odometer readings and a question about velocity, and
+ended up inventing the difference operation. Along the way we made the idea of a
+list precise with sequences and the notation $\{x_n\}_{n=1}^{N}$, and we saw that
+differencing a sequence produces a new sequence -- one that measures how fast the
+original changes.
+
+Here is what is now in our toolkit:
+\beginEnum
+\enum{The definition of the difference operation: $\Delta x_n = x_{n+1} - x_n$.}
+\enum{Sample difference formulas: $\Delta c = 0$, $\Delta n = 1$, $\Delta n^2 = 2n + 1$,
+and $\Delta n^3 = 3n^2 + 3n + 1$.}
+\enum{The Discrete Product Rule: $\Delta (x_n y_n) = \Delta x_n \, y_{n+1} + x_n \Delta y_n$.}
+\enum{The {\it isolate and invert\/} strategy: to recover an unknown from an equation,
+get it by itself under one operation and then undo that operation.}
+\endEnum
+In the next chapter we turn the difference operation around and ask the reverse
+question: given the differences, how do we recover the original sequence?
+
+
+
+

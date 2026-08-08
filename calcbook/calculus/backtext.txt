@@ -1,0 +1,4 @@
+The essential aspects of Calculus are explored through motivating examples.
+In addition, an analogous "Discrete Calculus" is developed as well. 
+Difference and Differential equations are briefly studied and 
+applied to problems in finance, biology, and physics.

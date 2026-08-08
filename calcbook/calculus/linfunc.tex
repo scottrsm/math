@@ -1,0 +1,82 @@
+%\input ../util/bookmacros
+%\input ../util/docparams
+
+\appendix{Appendix B}{Straight Line Functions}
+Given a function, we know how to find the graph. What about the reverse?
+Namely, for a given graph can we find the function which has that graph?
+In appendix A it is shown that a graph doesn't necessarily correspond to 
+a function. Since a function is just a mapping from one value to another
+and the graph of a function is just a visual representation of this fact,
+in some sense we are already done: the graph itself specifies the function.
+What I really mean is: can you find a {\it formula\/} for the function
+represented by a given graph? This is not possible in general even when 
+the graph comes from a function, but it is 
+for certain graphs. Perhaps the simplest graphs are straight lines, and in 
+this case there are corresponding functions {\it and\/} we can find 
+simple formulas for them. We make one restriction on the straight lines 
+we consider: we assume that they are not vertical.
+
+First, non-vertical \index{straight line}s are the graphs of functions. Why? Because they pass
+the vertical line test of Appendix A: a vertical line
+intersects a non-vertical straight line in at most one point.
+
+Next, to find a formula for the corresponding function, let's start with 
+the graph below. Pick an arbitrary point on the graph, 
+$(x,y)$. \epsfigure{eps/linorigin.eps}{Straight line through the origin.}
+The strategy will be to examine the constraint of being on the line 
+and see if this translates into a formula for $y$ in terms of the $x$.
+Notice, in 
+this case, $y$ is a ``rise'' of the line and $x$ is the 
+corresponding ``run''. Because the line is straight the ratio 
+of the ``rise'' to the ``run'' is a constant we'll call $m$. 
+Therefore, $y/x = m$, or
+$$
+y = m\,x
+$$
+(When $x = 0$ the point in question is the origin, $(0,0)$, itself,
+and the formula $y = m\,x$ holds there too.)
+Thus the function whose graph is the straight line passing
+through the origin is $f(x) = m\, x$.
+Such a function is called a {\it \index{linear function}\/}.
+\epsfigure{eps/linfunc.eps}{A linear function.}
+
+What about the graph in the figure below? 
+\epsfigure{eps/rectlin.eps}{A straight line.}Can we find an equation for this 
+more general line? Let's assume the slope of this line is $m$ and  
+it hits the $y$-axis at the point $(0,b)$. You should convince yourself 
+this defines the line uniquely. To find the formula whose graph is
+the line, 
+we take an arbitrary point on the line $(x,y)$ as before and translate
+the geometric relationship of being on the line into an algebraic one.
+This is the {\it change the representation\/} move of the preface -- we
+trade the geometric statement ``lies on the line'' for an algebraic one.
+Again, we will end up with $y$ expressed as a
+formula in terms of $x$.
+
+Notice the ``rise'' from the point $(0,b)$ to $(x,y)$ is $y - b$ while the
+``run'' is $x$. Since the slope of the line is $m$ and is the ratio of any 
+such ``rise'' to ``run'' we have $(y - b) / (x - 0) = m$. Or,
+$$
+y = m\, x + b
+$$
+(When $x = 0$ the point in question is $(0,b)$ itself, and the formula
+$y = m\,x + b$ holds there too.)
+So the function whose graph is a straight line is given by the function
+$f(x) = m\, x + b$. Such
+a function is called a {\it \index{rectilinear function}\/} (most books
+call these simply {\it linear\/}; we reserve that word for lines through
+the origin).
+In this formula, $b$ is referred to as the $y$-intercept and $m$ is called the slope.
+What we derived is a representation for non-vertical straight lines.
+
+% Keep the theorem in one piece: break here (filling out the page with
+% white space) unless the whole theorem fits below on this page.
+\filbreak
+
+\proclaim Theorem(\index{Straight Line Representation}). A non-vertical straight line is the graph of a function
+of the form 
+$$
+f(x) = m\, x + b
+$$
+for some choice of $m$ and $b$. The values $m$ and $b$ are unique. 
+\par

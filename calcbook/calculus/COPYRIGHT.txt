@@ -1,0 +1,20 @@
+This is the copyright service request for essential.pdf document:
+
+1-135028441:
+
+Submitted 20081118 to www.copyright.gov
+using the electronic submission software (Had to use firefox).
+
+User id scottrsm
+
+DOC DETAILS:
+
+NAME          : SIZE    : cksum      : md5
+essential.pdf : 528459  : 3980420000 : ec0c3fcb807e7d38fa09bd4d64b1f345
+This file is produced from main.tex and does not include cover art.
+
+
+GIT TAG: v2.0
+
+
+

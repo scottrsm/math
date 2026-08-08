@@ -1,0 +1,330 @@
+\input epsf
+\input eplain
+\input miniltx %
+\input graphicx.sty %
+
+
+% Example of setting red text in plain TeX using pdfTeX
+%\pdfoutput=1 % Ensure PDF output
+%\def\red{\pdfcolorstack0 push {1 0 0 rg 1 0 0 RG}}
+%\def\black{\pdfcolorstack0 pop}
+%\def\green{\pdfcolorstack0 push {0 1 0 rg 0 1 0 RG}}
+
+% Bold and italic bold scaled fonts for sections and examples.
+\font\small         = cmr7
+\font\sxmplbx       = cmbx10 
+\font\sxmplbxti     = cmbxti10 
+\font\xmplbx        = cmbx12 % scaled \magstephalf
+\font\mxmplbx       = cmbx12 at 16pt
+\font\bxmplbx       = cmti12 at 18pt %logo1%0cmbx12 scaled \magstep2
+\font\bxmplbxt      = cmti12 at 20pt %logo1%0cmbx12 scaled \magstep2
+\font\chap          = cmti14
+\font\chapcont      = cmti12
+\font\sectioncont   = cmti10
+\font\header        = cmti10
+
+%\font\tenrm         = pplr at 12pt
+%\font\tentt         = ppls at 12pt
+%\font\tenbf         = pplb at 12pt
+%\font\tenit         = pplri at 12pt
+%\font\header        = ptmrc at 12pt
+
+%\font\tenrm         = pxr at 12pt
+%\font\tentt         = cmtt10 at 12pt
+%\font\teni          = pxmi at 12pt
+%\font\tenx          = pxex at 12pt
+%\font\tenbf         = pxb at 12pt
+%\font\tenit         = pxi at 12pt
+%\font\tensl         = pxsl at 12pt
+%\font\header        = ptmrc at 12pt
+
+%\font\smallmath = pplri at 12pt
+%\font\xmplbxti  = cmbxti10 scaled \magstephalf
+\font\xmplbxti  = cmbxti10 at 14pt
+\font\bookfont  = cmr11
+
+%\font\smallmath = cmu10
+%\font\xmplbxti  = cmbxti10 scaled \magstephalf
+
+\newdimen\leftfigureskip \leftfigureskip=10pc
+\newdimen\rightfigureskip \rightfigureskip=5pc
+
+% Set the font to Palentino
+% NOTE: the font switches must keep their \fam assignments (as in plain
+% TeX's own definitions).  A bare \let\rm=\tenrm changes only the current
+% text font; in math mode letters render from the math family, so
+% \sin, \cos, \log, ... (which expand to \mathop{\rm ...}) would silently
+% come out in math italic.
+\def\pal{\def\rm{\fam0 \tenrm}%
+   \def\it{\fam\itfam \tenit}%
+   \def\bf{\fam\bffam \tenbf}%
+   \def\tt{\fam\ttfam \tentt}%
+   \let\mit=\teni
+   \let\mex=\tenx
+   \rm
+   }%
+
+% Table of Contents file.
+\newwrite\tocfile 
+
+% New Index file
+\newwrite\indexfile 
+
+% New line character.
+\newlinechar = `\^^J
+
+% Open the index file.
+\immediate\openout\indexfile = \jobname index.idx
+
+\def\index#1{%
+   #1%
+   \immediate\write\indexfile
+   {#1,\folio}%
+   }%
+
+% Begin table of contents processing. Write contents to file \tocfile.
+\def\maketoc{%
+
+   % Open the table of contents file.
+   \immediate\openin\tocfile = \jobname toc.tex
+
+   \immediate\ifeof\tocfile {\message {No table of contents file 
+   \jobname toc.tex . Run TeX again to produce the table of contents.}} 
+   \else \closein \tocfile \input \jobname toc.tex \fi
+
+   % Open the table of contents file.
+   \immediate\openout\tocfile = \jobname toc.tex
+
+   \immediate \write \tocfile 
+   {
+      {\noexpand\bxmplbxt {\noexpand\centerline {Contents}}}
+      ^^J
+      \noexpand\vskip .2in
+      ^^J
+      \noexpand\hrule height 1pt
+      ^^J
+      \noexpand\vskip .2in
+      ^^J
+      \noexpand\begingroup
+      ^^J
+      ^^J
+      ^^J
+      }
+   }
+
+% End table of contents processing. Write contents to file \tocfile.
+\def\endbook{%
+   \immediate \write \tocfile 
+   {\noexpand\endgroup
+      ^^J
+      \noexpand\vfil
+      ^^J
+      \noexpand\supereject
+      ^^J
+   }%
+   \closeout \tocfile
+   \closeout \indexfile
+   }%
+
+% Set the footline for the document
+% The title page sets pageno to 0 so that no page number appears.
+% The preface sets pageno to -1 to get roman numeral page numbers.
+% Chapter I sets page number to 1.
+\footline={\ifnum \pageno = 0 \hfil\else \tenit \hfil\folio\hfil\fi}
+\headline={\ifnum \count6 = 0 \hfil\else \hfil {\header \firstmark}\fi}
+
+% A section header. 
+\def\section#1{\vskip .25 in 
+  \goodbreak 
+  \leftline{\xmplbx #1}\mark{#1}
+  \count6=\count3 % Enable running header once a section has appeared.
+  \immediate\write \tocfile 
+  {\vskip .025in 
+  \noexpand\line{{\noexpand \hskip .2in {\sectioncont #1}\/}
+  \noexpand\dotting \number\pageno}
+  \vskip .025in}
+  \smallskip
+  }%
+
+% A subsection header. 
+\def\subsection#1{\vskip .15 in 
+  \goodbreak 
+  \leftline{\sxmplbx #1}\mark{#1} 
+  \smallskip
+  }%
+
+% Chapter macro. If at first chapter set \pageno to 1.
+\count3=0 % Chapter Number.
+\count6=0 % Chapter Number (after first chapter page; otherwise 0)
+\def\chapter#1{%
+   \count1=0   % Figures
+   \count4=0   % Exercises
+   \count5=0   % Examples
+   \vfil       % Fill out last page.
+   \supereject % End the page.
+   \mark{}
+   \count6=0   % Chapter number (after first page)
+   \global\advance\count3 by 1
+   {\bxmplbx {\centerline {Chapter \number\count3: #1}}}
+   \vskip .2in
+   \hrule height 1pt
+   \vskip .2in
+   \ifnum \count3 = 1 \pageno=1 \fi
+   \immediate\write \tocfile 
+   {\vskip .1in
+   \noexpand\line{{\noexpand{\chap Chapter \number\count3:} {\chapcont #1}\/}
+   \noexpand\dotting \number\pageno}
+   \vskip .1in}
+   }%
+
+\newdimen\exerindent \exerindent=6pc
+\def\exercise#1{%
+   \global\advance\count4 by 1
+   \goodbreak
+   {\noindent \leftskip = \exerindent
+      \ifnum \number\count3 > 0
+      \llap{\hbox to \exerindent{\bf Exercise \number\count3.\number\count4:\hfil}}%
+      \else
+      \llap{\hbox to \exerindent{\bf Exercise \number\count4:\hfil}}%
+      \fi
+      #1\par
+      }%
+   }%
+
+\newdimen\examindent \examindent=6pc
+\def\example#1{%
+\global\advance\count5 by 1
+\goodbreak
+{\noindent \leftskip = \examindent
+\ifnum \number\count3 > 0
+\llap{\hbox to \examindent{\bf Example \number\count3.\number\count5:\hfil}}%
+\else
+\llap{\hbox to \examindent{\bf Example \number\count5:\hfil}}%
+\fi
+#1\par
+}%
+}%
+
+\def\createindex{%
+\vfil     % Fill the last page.
+\supereject % End last page.
+{\centerline {\bxmplbx Index}}
+\vskip .2in
+\hrule height 1pt
+\vskip .2in
+}
+
+% Appendix macro.
+\def\appendix#1#2{%
+\count1=0 % Figure Number
+\count3=0 % Chapter Number
+\count4=0 % Exercises
+\count5=0 % Examples
+\vfil     % Fill the last page.
+\supereject % End last page.
+{\leftline {\bxmplbx  {#1:\ #2}}}
+\vskip .2in
+\hrule height 1pt
+\vskip .2in
+\immediate\write \tocfile 
+{\vskip .1in
+\noexpand\line{{\noexpand {\chap #1:\/}}\ {\chapcont #2}%
+\noexpand\dotting \number\pageno}
+\vskip .1in}
+}%
+
+% A title macro. First parameter is the title of the article.
+% My name and the current time appear in the title section.
+\def\titledate#1#2{%
+{\bxmplbx {\centerline {#1}}}
+\vskip .2in
+  {\leftskip = 3in%
+  \par\noindent\llap{\hbox to 3in{\hfil {\bf Author:} }}{\it R. Scott
+  McIntire}\par\noindent {\it Financial Engineering}\par\noindent 
+  {\it ITG, Inc.}\par%
+  }%
+\vskip .1in
+ {\leftskip = 3in%
+  \par\noindent\llap{\hbox to 3in{\hfil {\bf Date:} }}#2 \par%
+  }%
+\vskip .25in
+\hrule height 1pt
+\vskip .1in
+}
+
+% A title macro. First parameter is the title of the article.
+% Second parameter is who; third parameter is date.
+\def\mantitle#1#2#3{%
+{\bxmplbx {\centerline {#1}}}
+\vskip .2in
+  {\leftskip = 2.5in%
+  \par\noindent\llap{\hbox to 2.5in{\hfil {\bf Author:} }}{\it #2}
+  \par%
+  }%
+\vskip .1in
+ {\leftskip = 2.5in%
+  \par\noindent\llap{\hbox to 2.5in{\hfil {\bf Date:} }}#3\par%
+  }%
+\vskip .25in
+\hrule height 1pt
+\vskip .1in
+}
+
+% Produce a fraction #1/#2.
+\def\frac#1#2{{{\scriptstyle #1} \over {\scriptstyle #2}}}
+
+% Produce a fraction #1/#2 in display style.
+\def\fracd#1#2{{{\displaystyle #1} \over {\displaystyle #2}}}
+
+% Create an overbrace over expression #1 with text #2 above.
+\def\obrace#1#2{%
+\mathop{\overbrace{#1}}\limits^{\hbox{\small #2}}
+}%
+
+% Figure macro for eps files. #1 - eps file, #2 - caption text.
+\count1=0 % Figure Number
+\def\epsfigure#1#2{%
+\global\advance\count1 by 1
+  \bigskip
+  \goodbreak
+  \vbox{\hfil \epsfbox{#1} \hfil
+      \vskip 0pt
+      \ifnum \number\count3 > 0
+{ \noindent \leftskip=\leftfigureskip \rightskip=\rightfigureskip 
+       \llap{Figure \number\count3.\number\count1:\quad}#2\par}
+      \else
+{ \noindent \leftskip=\leftfigureskip \rightskip=\rightfigureskip
+       \llap{Figure \number\count1:\quad}#2\par}
+      \fi
+  \bigskip}}
+
+% Item macro.
+\def\item#1{%
+{\leftskip = 4pc \parskip=0pt%
+\par\noindent\llap{\hbox to 4pc{\hfil $\bf \bullet$ \hfil}}#1\par%
+}%
+}
+
+% Begin enumeration marker.
+\def\beginEnum{%
+\vskip 0.3\parskip
+\count2=0
+}
+
+% Enumerate text.
+\def\enum#1{%
+  \global\advance\count2 by 1
+  {\leftskip=2.5pc \parskip=0pt%
+  \par\noindent\llap{\hbox to 2pc{\hfil $\bf \number\count2$. \hfil}}#1\par%
+  }%
+}
+
+% End enumeration marker.
+\def\endEnum{%
+   \count2=0
+   \vskip -.75\parskip
+}
+
+% Dotting used in the table of contents.
+\def\dotting{\leaders\hbox to 1em{\hfil.\hfil}\hfil}
+

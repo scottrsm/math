@@ -1,0 +1,316 @@
+%\input ../util/bookmacros
+%\input ../util/docparams
+
+\chapter{Introduction to Differential Equations}
+
+\section{Motivational Problem}
+The population of a species of bacteria, represented by $p(t)$, is 
+the number of bacteria on a given surface. The evolution of the population is modeled by the 
+assumption that its ``instantaneous'' growth rate
+is proportional to the amount of bacteria currently present. The growth 
+is impeded by a chemical on the surface that kills bacteria at a rate of $b$ bacteria per second.
+These facts may be collected into an equation:
+$$
+\eqalign{
+p'(t) & = r \, p(t) - b \cr
+p(0) & = P \cr
+}
+$$
+Here, $r$ is the proportionality coefficient and has units $1/{\rm second}$.
+With this choice the units of the two sides of the equation match: the left
+hand side is the limit,
+$\lim_{n  \rightarrow \infty} {p(t+h_n) - p(t) \over h_n}$ (where $h_n \rightarrow 0$),
+which has units of bacteria per second; on the right hand side, $r \, p(t)$ has
+units $1/{\rm second} \times {\rm bacteria}$ -- bacteria per second again --
+matching $b$, which is given in bacteria per second.
+
+
+This equation is called a differential equation which you can think of as an
+infinitesimal difference equation. To see why, chop time into small steps of
+length $h$ and let $x_n = p(n\,h)$. Over one step the population changes by
+approximately $h$ times its rate of change:
+$$
+\eqalign{
+p(t + h) & \approx p(t) + h\,\big(r\, p(t) - b\big) \cr
+x_{n+1} & = x_n + h\,(r\, x_n - b) \cr
+}
+$$
+The second line is a difference equation of exactly the kind we solved in the
+last chapter; the differential equation is what remains as $h \rightarrow 0$.
+This is the {\it approximate, then take a limit\/} move run in reverse.
+How do we solve this and what does a solution mean? The solution is 
+a {\it function\/} $p$ which satisfies the above equations. We will find an explicit formula for the solution.
+
+\section{Basic Solution Strategy}
+Let's start with a simpler differential equation. In fact, let's start with 
+the simplest differential equation that we can think of.
+$$
+\eqalignno{
+x'(t) & = 0 & (1) \cr
+x(0) & = P \cr
+}
+$$
+To solve this equation we must find a {\it function\/} such that 
+its derivative is $0$. That is, the tangent at each point is flat.
+We know $x$ must be a constant function. Since the initial 
+value is $P$, the function must be $x(t) = P$.
+Another way to solve this equation is to use the \index{Fundamental Theorem 
+of Calculus}. We do this by integrating out the derivative. 
+Integrating (1) from $0$ to $t$ gives
+$$
+\eqalign{
+\int_{0}^t x'(s) \, ds &= \int_{0}^t 0 \, ds  \cr
+x(t) - x(0) & = 0 
+}
+$$
+Therefore, $x(t) = x(0)$, and since $x(0) = P$, we have 
+$x(t) = P$.
+
+As with \index{difference equation}s, there is no technique for writing 
+a formula for the solution of a general \index{differential equation}.
+Again, as with difference equations, there are limited classes 
+of equations for which we can write down a solution. However, unlike difference 
+equations there is a question of existence and uniqueness of 
+a solution. It turns out there are \index{differential equation}s 
+which don't have solutions, and others for which the solution 
+is not unique. When we say that a solution doesn't exist, we don't 
+just mean that we can't find a formula to express the solution; 
+we mean that there are some equations for which there is no 
+function which satisfies the differential equation. And, there are differential equations which have more than 
+one solution.%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{A discussion of these issues is beyond the scope of this book.}
+
+The way to find formulas for the solutions to these problems is 
+to use the \index{Fundamental Theorem of Calculus} to integrate away the 
+derivative. This is analogous to the way we solved difference equations:
+we used a summation operator to get rid of the \index{telescoping difference}s. 
+That is, we used the \index{Fundamental Theorem of Difference Calculus} to find solutions.
+
+\subsection{Solution of the Motivational Problem}
+Let's look at an equation that is closer to our motivational problem.
+Consider the simpler problem:
+$$
+\eqalignno{
+p'(t) & =  r\, p(t) & (2) \cr
+p(0) & = P & \cr
+}
+$$
+If we integrate both sides we can use the \index{Fundamental Theorem of Calculus} 
+to integrate away the derivative on the left hand side of the equation.
+However, we don't know what the integral of the right hand side is since it
+involves the unknown function, $p$.
+We need a way to combine all the $p$'s together and view them as the 
+derivative of some function of $p$. Then, the Fundamental Theorem 
+of Calculus can be used to eliminate the derivative. We then will have an 
+equation which does not have derivatives, and therefore, we can use algebra 
+to find $p$. To do this
+divide both sides by $p$ -- assuming $p(t) > 0$, which is reasonable for a
+population; we now have all the $p$'s (the unknowns) on one side
+of the equation. (The {\it integrating factor\/} method we use below for the
+full problem avoids this division entirely.)
+$$
+\eqalign{
+{p'(t) \over p(t)} & =  r  \cr
+p(0) & = P \cr
+}
+$$
+The left hand side is the derivative of $\ln(p)$.\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}
+{This follows from the chain rule.} Integrating 
+both sides from $0$ to $t$ we find:
+$$
+\eqalign{
+\ln(p(t)) - \ln(p(0)) & =  r(t - 0) \cr
+}
+$$
+Or,
+$$
+\eqalign{
+\ln(p(t)) & = \ln(p(0)) + r\,t \cr
+}
+$$
+The inverse function of $\ln(x)$ is $e^x$; therefore, exponentiating 
+both sides of the equation gives us
+$$
+p(t) = e^{\ln(p(0)) + r\,t}  = e^{\ln(p(0))} e^{r\, t} = p(0) \,e^{r \,t} = P \, e^{r \,t}
+$$
+To solve our motivational problem, we try to do the same thing; that is,
+arrange the $p$'s on one side in such a way that they are the derivative 
+of some expression involving $p$. Then, use the Fundamental Theorem of Calculus to 
+integrate away the derivative. We then have an ordinary equation for which 
+we solve for $p$. 
+
+To do this we employ a technique analogous to what was 
+done for the motivational problem in the chapter on difference equations.
+First move the $p$ on the right hand side to the left hand side -- grouping 
+all the $p$'s together. Next, 
+multiply both sides by some (as yet unknown) function $y(t)$. Our motivational problem becomes:
+$$
+\eqalignno{
+ y(t)  p'(t) - r y(t) \,p(t) & = -b\,y(t) & (3)
+}
+$$
+The goal is to choose $y$ so that the left hand side is the derivative of the product, $(y(t) p(t))$.
+The derivative of this product is
+$$
+(y(t) p(t))' = (p(t) y(t))' = p'(t) y(t) + p(t) y'(t) = y(t) p'(t) + y'(t) p(t)
+$$
+To match the left hand side of (3) we need $y$ to satisfy $y'(t) = -r \, y(t)$.
+But this is an equation we know how to solve, the solution is $y(t) = C\, e^{-r\, t}$, for some constant $C$.
+Since there are no further restrictions on $y$, we take $C$ to be 1.
+Such a multiplier function $y$ is called an {\it \index{integrating factor}\/} --
+the continuous twin of the {\it summing factor\/} we met in the chapter on
+difference equations.
+So, equation (3) becomes
+$$
+\big(e^{-r \, t}p(t)\big)' = -b\, e^{-r \, t}
+$$
+Integrating both sides of this equation from $0$ to $t$ gives:%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}%
+{We're using integration to collapse the infinitesimal telescoping differences; that is, 
+we use the Fundamental Theorem of Calculus to get a simple difference. 
+Notice we used a different integration variable, $s$, to avoid confusion with $t$.}
+$$
+\int_0^t \big(e^{-r \, s}p(s)\big)' \, ds = \int_0^t -b\, e^{-r \, s} \, ds
+$$
+It is not clear what the anti-derivative of $e^{-r \, s}$ is however. We do know that the derivative 
+of $e^{a\, x}$ is $a\, e^{a \, x}$ from the subsection ``Derivatives of Log
+and Exponential Functions'' in the chapter on Differential Calculus. From this we can guess that the anti-derivative of $e^{a\, x}$ is ${e^{a \, x} \over a}$;
+which can be verified by taking its derivative.
+
+Now, the integral above can be evaluated to give
+$$
+e^{-r\, t}p(t) - e^{ -r \, 0} p(0) = {b \over r} e^{-r \, t} - {b \over r}
+$$
+Solving for $p$ we obtain (since $e^0 = 1$ and $p(0) = P$)
+$$
+p(t) = P\, e^{r \, t} +  {b \over r}(1 - e^{r \, t})
+$$
+This may be written:
+$$
+p(t) = {b \over r} + (P - {b \over r}) e^{r \, t}
+$$
+This solution has the same structure as the loan solution of the last chapter.
+The constant piece, ${b \over r}$, is an {\it equilibrium\/} solution of the
+full equation (if $P = {b \over r}$, then $p'(t) = 0$ and the population never
+moves); the exponential piece, $(P - {b \over r})\, e^{r \, t}$, solves the
+no-harvest equation $p'(t) = r \, p(t)$. Because the equation is
+{\it linear\/}, the two pieces simply add -- the {\it exploit linearity\/}
+move ({\it \index{superposition}\/}) again.
+
+Notice that if $P - {b \over r} < 0$ then $p(t)$ will eventually become zero. Let us assume that this 
+is the case and find the time to extinction. That is, find $t^{*}$ such that $p(t^{*}) = 0$. The
+equation to solve for $t^*$ (put $t^*$ on one side and everything else on the other) is
+$$
+p(t^*) = 0 = {b \over r} + (P - {b \over r}) e^{r \, t^*}
+$$
+After some algebra this becomes
+$$
+e^{r\, t^*} = - {{ b \over r} \over {P - {b \over r}}} = {{ b \over r} \over {{b \over r} - P}}
+$$
+Taking the $\log_e$ (that is, $\ln$) of both sides and solving for $t^*$ gives
+$$
+t^* = {1 \over r} \ln\bigg( {{ b \over r} \over {{b \over r} - P}}\bigg) =  {1 \over r} \ln\bigg( {b  \over {b - r \, P}}\bigg) 
+$$
+So, in the case that $P < {b \over r}$ (which is the same as $r \, P < b$) the population of bacteria dies out at this
+$t^*$. That makes sense since initially the rate of change of the population is $p'(0) = r \, p(0) - b = r \, P - b < 0$;
+so the population starts out decreasing. A smaller population makes
+$p'(t) = r \, p(t) - b$ even more negative, and the decline feeds on itself.
+So, once the population starts to shrink it becomes a death spiral for the bacteria.
+
+It is interesting to note that the formula for $p(t)$ becomes negative for $t > t^*$. Obviously, this
+doesn't make physical sense -- the model no longer holds after the critical time $t^*$.
+Notice also that our model predicts that there are a non integral number of bacteria at almost any given time.
+The model could be corrected by removing the fractional part of the predicted population size by either truncating or
+rounding the result. One could think of this extra step as part of an improved model. 
+
+Keep in mind that models are always
+an approximation to the truth. For instance, although the model that we have may work over short intervals of time, there is
+no population that satisfies this equation for too long because as the population rises other factors in the environment
+inhibit growth.
+
+\subsection{Radioactive Decay}
+We apply this technique to a problem in physics.
+
+A radioactive substance decays at a rate proportional to the amount present. If one starts with $Q$
+pounds of the substance, in 1,000 years there will be $Q/4$ pounds. When will there be $\frac{1}{2}Q$ pounds?
+
+The equation is similar to the previous problem:
+$$
+\eqalign{
+a'(t) & = -r\, a(t) \cr
+a(0) & = Q \cr
+}
+$$
+Here, $a(t)$ is the amount in pounds at time $t$ in years; and, $r$ is taken to be a positive constant, whose 
+units must be 1 / years for the equation to make sense. We don't know what $r$ is but we know that 
+in 1,000 years there will be a quarter of $Q$ left. Solving the equation gives $a(t) = Q\, e^{-r t}$. 
+When $t$ is 1,000 the equation reads
+$a(1000) = Q\, e^{-1000 r} = \frac{1}{4}\,Q$. We may solve this equation for $r$ by taking the $\log_e$ (that is, $\ln$)
+of the last equation. 
+This gives us $\ln(Q) - 1000\, r = \ln(\frac{1}{4}Q) = \ln(1) - \ln(4)  + \ln(Q) = \ln(Q)
+-\ln(4)$ (since $\ln(1) = 0$). 
+Or, $-1000 \, r = -\ln(4)$.
+So, $r = \frac{\ln(4)}{1000}$.
+To find the time $t$ when $a(t) = \frac{1}{2}\, Q$, we need to solve:
+$a(t) =Q\, e^{-r t} = \frac{1}{2}\, Q$ for $t$ (the only unknown in the equation is $t$ as we now know $r$).
+Taking the $\ln$  of both sides gives us
+$\ln(Q) -r\, t = \ln(\frac{1}{2}Q) = \ln(1) - \ln(2) + \ln(Q) = \ln(Q) - \ln(2) $. 
+So $t = \ln(2) / r = 1000  \ln(2) / \ln(4) = 500$. 
+
+That is, the time it takes
+the initial amount to decay to $\frac{1}{2}Q$ pounds is 500 years.
+Notice that the answer is independent of the initial amount $Q$. In other words, the ``half-life'' of
+this \index{radioactive material} is an intrinsic attribute of this substance.
+
+\exercise{(Newton's Law of Cooling) A cup of coffee at temperature $T(t)$ sits
+in a room at constant temperature $A$. It cools at a rate proportional to the
+difference between its temperature and the room's:
+$T'(t) = -k\,\bigl(T(t) - A\bigr)$, with $T(0) = T_0$ and $k$ a positive
+constant. Solve for $T(t)$ using an integrating factor. What does your
+solution predict as $t$ grows large?}
+
+\exercise{A radioactive substance has a half-life of $100$ years. How long
+until only $10$\% of the original amount remains? (First use the half-life to
+find $r$, as in the subsection above.)}
+
+\section{Summary}
+The strategy of this chapter is the one we have been playing since first-year
+algebra: {\it isolate and invert\/}. We isolate the unknown function under the
+derivative operator $d/dt$ -- multiplying by an {\it integrating factor\/}
+when needed to make the left hand side a single derivative -- and then invert
+$d/dt$ by applying its inverse, integration, in the form of the
+\index{Fundamental Theorem of Calculus}. This is precisely what we did in the
+last chapter with $\Delta$, summation, and the Fundamental Theorem of
+Difference Calculus. The whole book culminates in the following dictionary:
+
+\bigskip
+\centerline{\vbox{\halign{\quad\hfil#\hfil\quad&\quad\hfil#\hfil\quad\cr
+{\bf Discrete}&{\bf Continuous}\cr
+\noalign{\smallskip\hrule\smallskip}
+$x_{n+1} = a\, x_n$&$p'(t) = r\, p(t)$\cr
+geometric growth, $a^n$&exponential growth, $e^{r\,t}$\cr
+$\Delta$&$d/dt$\cr
+summation&integration\cr
+FTDC&FTC\cr
+summing factor&integrating factor\cr
+}}}
+\bigskip
+
+The two columns are tied together by the correspondence $a = 1 + r$: for small
+$r$ we have $(1+r)^n \approx e^{r\,n}$, which is why the solution of the loan
+problem and the solution of the population problem look so alike.
+
+\exercise{Make the correspondence concrete: for the loan of the last chapter
+the monthly rate was $r = 0.005$ and the term was $N = 60$ months. Compare
+$(1.005)^{60}$ with $e^{0.005 \times 60} = e^{0.3}$. How close are they?}
+
+And just as the Fibonacci sequence hinted at a second order discrete story,
+there is a continuous second order story -- $x'' + x = 0$, the equation of the
+swinging pendulum -- awaiting the reader in a course on differential equations.
+
+\section{What's Left}
+A \index{differential equation} is effectively any equation which involves a \index{derivative}. Obviously, they can
+be much more complicated than the ones we looked at. A careful study of the subject classifies 
+differential equations into various categories and then provides recipes for solutions in some cases. 
+The main solution technique is to
+``integrate away'' the derivatives; that is, use the \index{Fundamental Theorem of Calculus}.

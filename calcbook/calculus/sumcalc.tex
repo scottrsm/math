@@ -1,0 +1,367 @@
+%\input ../util/bookmacros.tex
+%\input ../util/docparams.tex
+
+\chapter{Summation Calculus}
+
+\section{Telescoping Sums}
+In the last chapter we had a sequence of distance data, $\{x_n\}_{n=0}^{N}$
+(this time starting the count at $0$, the morning reading).
+If $x_0$ is the odometer reading at the beginning of the day and 
+$x_N$ is the reading at the end of the day, then the distance traveled 
+that day is $x_N - x_0$. Notice also that the distance traveled over 
+the $i^{\rm th}$ interval (our time intervals were every $1/10^{\rm th}$ of a second) is
+$x_{i+1} - x_i$. The distance traveled for the whole day should be just 
+the sum of all the distances traveled over each small interval. In 
+mathematical terms, this would be written:
+$$
+\obrace{(x_1 - x_0)}{first interval}  + 
+\obrace{(x_2 - x_1)}{second interval} + 
+\obrace{(x_3 - x_2)}{third interval} + \cdots + 
+\obrace{(x_N - x_{N-1})}{Nth interval} = \obrace{(x_N - x_0)}{total distance}
+$$
+It seems like we have taken something obvious and produced a deep formula.
+If you look at the left hand side of the formula you will see that after 
+adding the first and second distances the $x_1$'s cancel. If we 
+then add the third distance the $x_2$'s cancel. And so on, all the intermediate 
+$x$'s cancel except the first and the last. It isn't that mysterious after all. 
+We say that such a sum is a 
+\index{telescoping sum}; the sum acts like a collapsible telescope.
+
+\section{Fundamental Theorem of Difference Calculus}
+Previously, we introduced a notation to describe sequences and their differences; now, since we are talking 
+about sums, it is convenient to use a notation for \index{summation}. The symbols
+$\sum_{n=1}^{N} x_n$, will mean the sum: $x_1 + x_2 + \cdots + x_N$. 
+In our new notation the above \index{telescoping sum} becomes:
+$$
+\obrace{\sum_{n=0}^{N-1}}{Discrete Sum} \obrace{\Delta x_n}{Telescoping Difference} = 
+\obrace{x_{N} - x_0}{Difference at Ends}
+$$
+{\bf Note:\/} The Greek letter $\sum$ (sigma) corresponds to the letter S -- for sum.
+
+There is nothing special about starting at $0$; the sum telescopes from any
+starting index. For any integers $a \le b$ we have
+$\sum_{n=a}^{b} \Delta x_n = x_{b+1} - x_a$, and we will use this general
+form freely in what follows.
+
+Although the
+above formula seemed rather obvious from the way we derived it, we will refer 
+to this formula as {\it The Fundamental Theorem of Difference Calculus\/}, or FTDC.
+The reason why it is important is that it relates something that is 
+computationally hard to do, sum $N$ things, with something that is 
+computationally easy, subtract {\it two\/} things. 
+This is very useful 
+if we have a sum of a large number of things and then recognize that we 
+are \index{summing} the \index{difference}s of a sequence. If we make this 
+connection, the computation becomes easy. Suppose for instance, that someone 
+asks you to sum a sequence of the form: 
+$\sum_{n=0}^{N-1} v_n$. If you can find another sequence, $\{x_n\}_{n=0}^{N}$
+such that $\Delta x_n = v_n$, then you can sum this series easily by the 
+\index{Fundamental Theorem of Difference Calculus} since 
+$\sum_{n=0}^{N-1} v_n = \sum_{n=0}^{N-1} \Delta x_n  = x_{N} - x_0$. The 
+tricky part, of course, is finding the sequence $\{x_n\}_{n=0}^N$ 
+whose difference is $\{v_n\}_{n=0}^{N-1}$. 
+
+In later chapters we will introduce a notion of ``infinitesimal'' differences 
+and ``continuous'' sums which will have a similar relationship. 
+The corresponding theorem is the ``Fundamental Theorem of Calculus''. 
+It is the cornerstone of calculus and it is a generalization of the
+simple observation above.
+
+\section{Linearity of Summation and Differencing}
+We write down a basic property of both the summing and differencing operations, $\sum$, and $\Delta$.
+One of the most {\it important properties\/} of the two operations is that they both 
+are {\it \index{Linear Operations}\/} in that they distribute through 
+both constant multipliers and sums.
+\beginEnum
+\enum{$\sum_{n=1}^N (a\, x_n + b\, y_n) = a \sum_{n=1}^N x_n + b \sum_{n=1}^N y_n $.}
+\enum{$\Delta (a \,x_n + b \,y_n) = a \,\Delta x_n + b\, \Delta y_n $.}
+\endEnum
+From this it follows that $\sum_{n=1}^N a x_n = a \sum_{n=1}^N x_n$ and $\Delta (a x_n) = a \Delta x_n$. 
+This can be seen by taking $y_n = 0$.
+
+This allows us to more easily compute sums and differences of
+sequences in terms of their component parts. We will need this property almost
+immediately, to split differences like $\Delta (n^2 - n)$ into pieces we
+already know.%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}
+{The theme of linearity will continue in the next chapters when we talk about the continuous analogs
+of differencing and summing.}
+
+\section{Applications of the Fundamental Theorem}
+As an example of how this might be useful consider the problem of summing 
+the integers from $1$ to $N$: $\sum_{n=1}^{N} n$. It would be nice if we could find a simple formula
+for this sum in terms of $N$. If we could recognize this sum 
+as a sum of a \index{telescoping difference} then we could easily find the answer. That is,
+if we could find a sequence $\{x_n\}$ such that $\Delta x_n = n$, then 
+$\sum_{n=1}^N n = \sum_{n=1}^N \Delta x_n = x_{N+1} - x_1$. We call $x_n$ an {\it anti-difference\/} of the 
+sequence $\{n\}_{n=1}^N$. But, can we find such a sequence $\{x_n\}$?
+Well, from the last chapter we know that $\Delta n^2 = 2n+1$. We also know that $\Delta n = 1$.
+Therefore,  $\Delta (n^2 - n) = \Delta n^2 - \Delta n = (2n + 1) - 1 = 2 n$.%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}{Using the linearity of $\Delta$.}
+
+Finally, if we divide by 2 we have $\Delta \bigl( (n^2 - n)/2 \bigr) = n$.%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{*}}{Linearity of $\Delta$ again.} 
+Therefore, if $x_n = (n^2 - n)/2$ then
+$\sum_{n=1}^N n = \sum_{n=1}^N \Delta x_n = x_{N+1} - x_1 = ((N+1)^2 - (N+1))/2 - (1^2 - 1)/2 = N (N+1)/2$.
+Summarizing:
+$$
+\sum_{n=1}^N n = N (N + 1)/2
+$$
+So the sum of the first 1000 numbers is $(1000 * (1000 + 1))/2 = 500,500$.%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\S}}{For clarity we will occasionally
+write ``$a * b$'' instead of the conventional ``$a\, b$'' to
+indicate the multiplication of $a$ and $b$.}
+One can extend this technique to finding the sum of squares of the first $N$ integers.
+The difference of the sequence
+$n^3$ is a polynomial of degree 2. So $n^3$ is an imperfect anti-difference in that its difference
+produces a multiple of $n^2$ plus lower-order terms -- a term in $n$ and a constant
+term. But, as above, if we add combinations of $n^2$ and $n$ to $n^3$ we may
+rid ourselves of these extraneous terms.  
+That is, we would try to find an {\it \index{anti-difference}\/} of $n^2$ as a linear combination of $n^3$, $n^2$, and $n$.
+Once we have this anti-difference we can easily find the formula
+for the sum of $n^2$. Let us flesh this out. First, find a linear combination of $n$, $n^2$, and $n^3$ whose 
+difference is $n^2$. That is, find $c_1$, $c_2$, and $c_3$ such that 
+$$
+\Delta (c_1 n + c_2 n^2 + c_3 n^3) = n^2
+$$
+Since $\Delta$ is linear it distributes over the sum and through multiplication by the $c$'s. That is,
+$$
+\Delta ( c_1 n + c_2 n^2 + c_3 n^3) = c_1 \Delta n + c_2 \Delta n^2 + c_3 \Delta n^3  = 
+c_1 + c_2 (2\, n + 1) + c_3 (3\, n^2 + 3\, n + 1) 
+$$
+As a polynomial in $n$ this is
+$$
+(c_1 + c_2 + c_3) + (2 \, c_2 + 3\, c_3) n + 3\, c_3 n^2 
+$$
+We need to find $c_1$, $c_2$, and $c_3$ so that this is $n^2$. For this to happen the first two terms
+should be 0 and the last coefficient should be 1. This gives us three equations:
+$$
+\eqalign{
+c_1 + c_2 + c_3 &= 0 \cr
+2\, c_2 + 3 \, c_3 &= 0 \cr
+3\, c_3 & = 1
+}
+$$
+Starting at the last equation and working backwards we have $c_3 = 1/3$, $c_2 = -3\, c_3 / 2 = -1/2$, and
+$c_1 = -(c_2 + c_3) = 1/6$. So, an anti-difference is $1/6\, n - 1/2\, n^2 + 1/3\, n^3$. Now we can compute
+the sum using the FTDC:
+$$
+\eqalign{
+\sum_{n=1}^N n^2 &= \sum_{n=1}^N \Delta (\fracd{1}{6} n - \fracd{1}{2} n^2 + \fracd{1}{3}n^3) \cr
+&= (\fracd{1}{6} (N+1) - \fracd{1}{2}(N+1)^2 + \fracd{1}{3} (N+1)^3) - (\fracd{1}{6} * 1 - 
+\fracd{1}{2} * 1^2 + \fracd{1}{3} * 1^3) \cr
+&= (2\,(N+1)^3 - 3\,(N+1)^2 + (N+1))/6 - 0 \cr
+&= (N+1)\bigl[2\,(N+1)^2 - 3\,(N+1) + 1\bigr] / 6\cr
+&= (N+1)\bigl[\,((N+1)-1) (2\, (N+1) - 1)\,\bigr]/6 \cr
+&= (N+1)(N)(2\, N+1)/6
+}
+$$
+Therefore, the formula is $\sum_{n=1}^N n^2 = N(N+1)(2\, N + 1)/6$.
+
+\section{An Aside: Falling Powers}
+The bookkeeping above -- adding combinations of lower powers to kill off the
+straggler terms -- suggests that the ordinary powers, $n^k$, are not quite the
+natural sequences for differencing. There is a family of sequences that plays
+the differencing game perfectly. Define the {\it \index{falling power}\/}
+$n^{\underline{k}}$ (read ``$n$ to the $k$ falling'') to be the product of $k$
+factors which start at $n$ and step down by one:
+$$
+n^{\underline{k}} = \obrace{n \, (n-1) \, (n-2) \cdots (n - k + 1)}{$k$ factors}
+$$
+For example, $n^{\underline{1}} = n$, $n^{\underline{2}} = n(n-1)$, and
+$n^{\underline{3}} = n(n-1)(n-2)$. Now compute a difference:
+$$
+\Delta n^{\underline{2}} = (n+1)\,n - n\,(n-1) = n \bigl( (n+1) - (n-1) \bigr) = 2\, n = 2\, n^{\underline{1}}
+$$
+The same cancellation works for every $k$. The products $(n+1)^{\underline{k}}$
+and $n^{\underline{k}}$ share the $k-1$ factors $n\,(n-1) \cdots (n-k+2)$;
+factoring these out leaves $(n+1) - (n-k+1) = k$. That is,
+$$
+\Delta n^{\underline{k}} = k \, n^{\underline{k-1}}
+$$
+with {\it no\/} straggler terms -- compare $\Delta n^2 = 2n + 1$ and
+$\Delta n^3 = 3n^2 + 3n + 1$. As a one-line application, an anti-difference of
+$n = n^{\underline{1}}$ is $n^{\underline{2}}/2$, so by the FTDC
+$$
+\sum_{n=1}^N n = {(N+1)^{\underline{2}} \over 2} - {1^{\underline{2}} \over 2}
+= {(N+1)\,N \over 2} - {1 * 0 \over 2} = {N(N+1) \over 2}
+$$
+in agreement with the formula found above. When we meet the rule of
+differentiation for power functions, $(x^k)^\prime = k\,x^{k-1}$, in the
+chapter on Differential Calculus, it is the falling powers that it mirrors
+{\it exactly\/}; on the discrete board, the ordinary powers were the wrong
+pieces all along.
+
+\exercise{Using the falling power rule, find an anti-difference of
+$n^{\underline{2}} = n(n-1)$ and use it, with the FTDC, to compute
+$\sum_{n=1}^N n(n-1)$.}
+
+\section{Summation By Parts}
+Powerful applications of the \index{FTDC} result from equations that have 
+a difference on one side. By summing both sides of the equation, the FTDC
+implies that the difference side is easy to compute. This means that there 
+is a simple formula for the summation of the other side of the equation.
+We do have such a formula; it is the
+Discrete Product Rule from the last chapter. It states that:
+$$
+\Delta (x_n y_n) = \Delta x_n y_{n+1} + x_n \Delta y_n
+$$
+Summing both sides of this equation from $0$ to $N$ gives us:
+$$
+\sum_{n=0}^{N} \Delta (x_n y_n) = 
+\sum_{n=0}^{N} \Delta x_n y_{n+1} + \sum_{n=0}^{N} x_n \Delta y_n
+$$
+By the FTDC the left hand side is just $x_{N+1} y_{N+1} - x_0 y_0$. On the right hand 
+side we have two complicated sums; moving one of them to the other side of the equation
+gives us a way to compare two seemingly unrelated sums.
+$$
+\sum_{n=0}^{N} x_n \Delta y_n = \bigl(x_{N+1} y_{N+1} - x_0 y_0\bigr) - 
+\sum_{n=0}^{N} \Delta x_n y_{n+1}
+$$
+This formula is referred to as ``Summation by Parts''. It relates one sum
+to another. If one sum is known, we can find the other from this formula.
+To be honest, the applications below re-derive results we already know -- that
+is how we test a new tool; its real power shows on sums that the
+linear-combination method above cannot easily crack, such as $\sum n \, 2^n$
+-- taken up as an exercise in the next section.
+
+\section{Applications of Summation By Parts}
+Let's try to apply \index{summation by parts} to the previous example of 
+summing the first $N$ integers. To use ``Summation by Parts'' we 
+have to map our problem onto this formula. We can do this if we let 
+$x_n = n$ and $\Delta y_n = 1$. We need to find a $y_n$ such that 
+$\Delta y_n = 1$; but, we already know that the sequence $y_n = n$ works.  Using the
+Summation by Parts formula gives:
+$$
+\sum_{n=1}^{N} \obrace{n * 1}{$x_n \Delta y_n$} =
+\obrace{(N+1) * (N+1)}{$x_{N+1} y_{N+1}$} - \obrace{1 * 1}{$x_1 y_1$}
+- \sum_{n=1}^{N} \obrace{1 * (n+1)}{$\Delta x_n y_{n+1}$}
+$$
+We're trying to use this formula to relate our complicated sum to
+a simpler sum. Instead, we end up with a term that is very similar to what we 
+started with -- the last term of the above equation. 
+This last term can be broken into a piece that is {\it exactly\/} like 
+the left hand side of the equation. Unfortunately, it seems like we are 
+going backwards. We have
+$$
+\sum_{n=1}^{N} \obrace{n * 1}{$x_n \Delta y_n$} =
+\obrace{(N+1) * (N+1)}{$x_{N+1} y_{N+1}$} - \obrace{1 * 1}{$x_1 y_1$}
+- \sum_{n=1}^{N} \obrace{n * 1}{$x_n \Delta y_n$} -
+\sum_{n=1}^N 1
+$$
+But, just as you would when solving an equation in high school algebra 
+for ``x'', you collect all expressions of the unknown to one 
+side and isolate it; 
+everything on the other side is the solution. Our unknown is 
+$\sum_{n=1}^{N} n * 1$; that is, $\sum_{n=1}^{N} n$. So, collecting our unknown on 
+one side and placing the rest of the expressions on the other yields:
+$$
+2 \sum_{n=1}^{N} n * 1 = (N+1) * (N+1) - 1 * 1 - \sum_{n=1}^N 1 = 
+N^2 + 2N + 1 - 1 - N = N^2 + N
+$$
+Solving for the sum we have:
+$$
+\sum_{n=1}^{N} n = N(N+1)/2
+$$
+
+\example{Find a formula for the sum: $\sum_{n=1}^{N} n^2$.
+We can use the \index{summation by parts} formula again by letting $x_n = n^2$
+and finding a $y_n$ such that $\Delta y_n = 1$. $y_n = n$ works as before. 
+Therefore,
+$$
+\sum_{n=1}^{N} n^2 * 1 = (N+1)^2 (N+1) - 1^2 * 1 - 
+\sum_{n=1}^{N} \Delta n^2 (n+1)
+$$
+This simplifies to:
+$$
+\sum_{n=1}^{N} n^2 * 1 = (N+1)^3 - 1 - 
+\sum_{n=1}^{N} (2n+1) (n+1)
+$$
+Or,
+$$
+\sum_{n=1}^{N} n^2 * 1 = (N+1)^3 - 1 - 
+\biggl( \sum_{n=1}^{N} 2n^2 + \sum_{n=1}^N 3n + \sum_{n=1}^N 1 \biggr)
+$$
+We have now, as before, an equation for the unknown value $\sum_{n=1}^N n^2$.
+Solving for this value gives:
+$$
+3 \sum_{n=1}^{N} n^2 = (N+1)^3 - 1 - 3 \sum_{n=1}^N n - \sum_{n=1}^N 1
+$$
+We already know how to sum $\sum_{n=1}^N n$, so we replace it with 
+the formula we just worked out.
+$$
+3 \sum_{n=1}^{N} n^2 = (N+1)^3 - 1 - 3N(N+1)/2 - N
+$$
+Collecting terms on the right yields
+$$
+3 \sum_{n=1}^{N} n^2 = N^3 + 3N^2 + 3N + 1 - 1 -\fracd{3}{2}N^2 - 
+\fracd{3}{2}N - N
+$$
+This becomes
+$$
+3 \sum_{n=1}^{N} n^2 = N\biggl( N^2 + \fracd{3}{2}N + \fracd{1}{2} \biggr) = 
+N (N+1)(N+\fracd{1}{2}) = N(N+1)(2N + 1)/2
+$$
+Finally, we have
+$$
+\sum_{n=1}^{N} n^2 = N (N+1)(2N+1)/6
+$$}
+
+\exercise{Find a formula for the sum: $\sum_{n=1}^{N} n^3$.}
+
+\exercise{Find a formula for the sum: $\sum_{n=1}^{N} n \, 2^n$. Hint: note
+that $\Delta 2^n = 2^{n+1} - 2^n = 2^n$; so, in the Summation by Parts
+formula let $x_n = n$ and $y_n = 2^n$. You will also need the sum
+$\sum_{n=1}^{N} 2^{n+1}$, which telescopes for the same reason:
+$2^{n+1} = \Delta 2^{n+1}$.}
+
+
+\section{Summary}
+The {\it \index{Fundamental Theorem of Difference Calculus}\/} can be stated succinctly:  
+The {\it \index{Summation Operation}\/} is the 
+inverse of the {\it \index{Difference Operation}\/}. 
+
+This can be seen from the \index{FTDC}:
+$\sum_{n=0}^{N-1} \Delta\, x_n = x_N - x_0$, and writing it more crudely as $\sum \Delta\, x = x$. What makes 
+this result useful is if for a given sum, $\sum_{n=0}^{N-1} v_n$, one can recognize $v_n$ as the difference of 
+another sequence $x_n$, then this sum is $\sum_{n=0}^{N-1} \Delta\, x_n$ and by the FTDC this is just $x_N - x_0$.
+
+The process of recognition is helped greatly if there is a well developed stock of difference formulas. Then
+when confronted with summing a sequence, we may be able to recognize, or more easily deduce, a sequence which
+is an {\it \index{anti-difference}\/} and then easily compute the sum. Actually, finding differencing and 
+anti-differencing formulas for sequences is much like multiplying and dividing numbers. 
+Differencing is easier -- like multiplying, while finding anti-differences is harder -- like division. To 
+do long division it helps to be fluent with multiplication, because trial and error multiplications are
+necessary. The same is true for anti-differencing, it helps first to be fluent with difference formulas for
+a number of sequences. To this end, one would
+\beginEnum
+\enum{Develop difference formulas for a base collection of sequences.}
+\enum{Develop difference formulas of sequences formed in various ways from the base; e.g.,
+products and {\it \index{Linear Combinations}\/} of sequences.}
+\endEnum
+
+This program has been partially carried out in the last chapter. There, we had difference 
+formulas for a few sample sequences:
+$x_n = c$, $x_n = n$, $x_n = n^2$, $x_n = n^3$. We also had a way of finding 
+formulas for sequences formed by linear combinations and 
+products of other sequences. 
+This helped us above as we tried to find summation formulas for $x_n = n$ and $x_n = n^2$.
+We will see in the next two chapters this strategy carried out in more detail. It turns out that
+this process often yields simpler formulas when dealing with the continuous analogs of
+\index{sequences} (discrete functions) -- \index{continuous function}s.
+
+In fact, the next chapters replay this chapter's game on a bigger board: each
+of our discrete tools has a continuous counterpart.
+\bigskip
+\centerline{\vbox{\halign{\quad\hfil#\hfil\quad&\quad\hfil#\hfil\quad\cr
+{\bf Discrete}&{\bf Continuous (coming soon)}\cr
+\noalign{\smallskip\hrule\smallskip}
+$\Delta$ (difference)&$d/dx$ (derivative)\cr
+$\sum$ (summation)&$\int$ (integral)\cr
+FTDC&Fundamental Theorem of Calculus\cr
+Discrete Product Rule&Product Rule\cr
+Summation by Parts&Integration by Parts\cr
+}}}
+\bigskip
+
+

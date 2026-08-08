@@ -1,0 +1,64 @@
+OVERVIEW:
+
+This document describes the project files used to produce two versions of the file essential.pdf
+The project is version controled using git. The backup git repository is at /Volumes/Store/calcbook.
+
+PROJECT MANIFEST:
+
+README -- This file.
+
+## Contains the TeX files for the project; cover art; postscript figure; and utility scripts.
+calculus/
+   
+   This calculus book is written in TeX (not LaTeX).
+   The file calculus/HOW_TO_BUILD_THIS_PROJECT.txt describes how to work with and build the document.
+   
+   The book cover is jpg/frontcover.jpg.
+   
+   
+## Copyright file. Describes what has been done for copyright protection.
+   COPYRIGHT.txt
+   
+
+## TeX FILES:
+   blank.tex          # Used to create a blank page.
+   diffApprox.tex     # The derivative as approximation (mean value and Taylor's theorem).
+   diffasapprox.tex   # UNUSED SECTION -- another look at the derivative
+   diffcalc.tex       # Differential Calculus
+   diffcalceq.tex     # Differential Equations
+   differencecalc.tex # Difference Calculus
+   differenceeq.tex   # Difference Equations
+   functions.tex      # Function Appendix
+   induction.tex      # Induction Appendix
+   intcalc.tex        # Integral Calculus
+   limitdef.tex       # Limit Appendix
+   linfunc.tex        # Linear Function Appendix
+   main.tex           # MAIN TEX FILE
+   main_prod.tex      # MAIN PRODUCTION TEX FILE
+   preface.tex        # Preface text.
+   sumcalc.tex        # Summation Calculus
+   taylor.tex         # Appendix on Taylor's theorem and the generalized mean value theorem
+   title.tex          # Title with cover used in main.tex (uses eps/cover.eps)
+   
+   ## Utility scripts
+   make            # Used to preview a draft
+      
+   py/
+   process_index.py
+
+   ## This directory houses the postscript files from Mathematica which constitute the figures in the book. 
+   ## It also contains the file cover.eps which is part of the title page used by the draft generator main.tex.
+   eps/
+   
+   ## Contains the JPG for the front cover art.
+   jpg/
+   
+   
+## Contains TeX macros and TeX parameter files
+util/
+
+
+## Mathematica notebook which has the figures used in the book.
+calculus.nb   
+
+

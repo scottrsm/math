@@ -1,0 +1,199 @@
+%\input ../util/bookmacros
+%\input ../util/docparams
+
+\appendix{Appendix D}{Mathematical Induction}
+
+\vskip -.075in
+\section{Domino Theory}
+\vskip -.1in
+ Several times in the main text we claimed a formula for {\it every\/} $n$
+-- for example $(x^n)^\prime = n\, x^{n-1}$, or $\sum_{i=1}^n i = n(n+1)/2$ --
+after checking only the first few cases. How can a finite amount of work
+prove infinitely many statements? That is exactly what Mathematical
+Induction buys us.
+Mathematical Induction is a technique used to determine the truth of a sequence of statements.
+The sequence is usually
+large or infinite. Normally, determining the truth of such a collection would be
+time consuming -- if not impossible. However,
+if there is a strong connection between successive elements of the sequence, then it can be much easier.
+By connection I mean that when a given statement in the sequence 
+is true it is relatively easy to show that the next statement is true.
+
+In this sense, Induction is a generalization of what might be called ``The Domino Theory''. 
+If you have 
+ever played with dominoes then, in a sense, you already understand Mathematical 
+Induction. To see why, consider placing a number of (upright) dominoes in a room. Knocking 
+them down may be easy or hard depending on how they are laid out. If they 
+are put next to each other in the ``standard domino way'', then knocking 
+one domino down will knock all the rest down. How would you describe this to 
+a person who has never seen dominoes fall in this way? You might start by 
+labeling the dominoes; that is, after setting up the dominoes they have a natural ordering -- they form a sequence. 
+Let's label them $D_1, D_2, \ldots, D_n$. You then 
+tell the domino newcomer the dominoes are arranged so that whenever any one 
+domino falls the domino after it falls. By this we mean domino $D_2$ is 
+placed after domino $D_1$ so that when $D_1$ falls $D_2$ falls. In general, 
+if domino $D_k$ falls then $D_{k+1}$ falls as well, if $1\le k< n$. 
+Now you ask the newcomer: 
+``Without looking into the room with the dominoes, if I told you that the 
+first domino, $D_1$, has fallen, what can you say about the rest of dominoes?''
+So, you've given the newcomer two facts:
+\beginEnum
+\enum{Domino $D_1$ has fallen.}
+\enum{Whenever domino $D_k$ falls, domino $D_{k+1}$ falls 
+provided $1 \le k< n$. That is, when one domino falls the next in line falls.}
+\endEnum
+This is all he needs to conclude that all of the dominoes in the room have fallen.
+
+This is the essence of mathematical Induction. Mathematical Induction concerns the 
+{\it truth\/} of propositions labeled $P_1, P_2, \ldots, P_n$. 
+Like Dominoes, the propositions are either easy or hard to prove depending 
+on how they are ``arranged''.
+If the propositions 
+are arranged like dominoes; that is, if
+\beginEnum
+\enum{Proposition $P_1$ is true;}
+\enum{Whenever proposition $P_k$ is true, proposition $P_{k+1}$ is true
+provided $1 \le k< n$;}
+\endEnum
+then the conclusion is that all of the propositions are true. 
+
+In moving 
+from dominoes to propositions 
+all we've done is to replace statements like 
+``domino $D_k$ falls'' with ``proposition $P_k$ is true''.
+
+This result extends to the case where there are an infinite number of 
+propositions (dominoes).
+In this case the induction conditions (domino conditions) are:
+\beginEnum
+\enum{Proposition $P_1$ is true.}
+\enum{Whenever proposition $P_k$ is true, proposition $P_{k+1}$ is true
+provided $1 \le k$.}
+\endEnum
+The conclusion under these conditions is that {\it all\/} of the $P$ 
+statements are true.
+
+One may ask how easy is it to show that any given proposition implies the next? Just as one may ask 
+how one verifies that a given domino falling knocks the next one down?
+For many collections of statements, $P_n$, it is the case that the proof of one proposition implying the next 
+is generic, and essentially one only has to do one proof!
+
+\section{Applications}
+We apply Mathematical Induction to a few problems below. It is worth keeping 
+in mind what must be shown in the second step of induction. 
+For each $k \ge 1$ you must show: {\it if\/} $P_k$ is true,
+{\it then\/} $P_{k+1}$ is true. You are not assuming that $P_k$ actually is
+true -- this step alone does not tell us that $P_k$ is
+true or that $P_{k+1}$ is true. If you get confused think of dominoes.
+To show domino 
+$D_{k+1}$ falls when $D_{k}$ falls you would need to {\it assume\/}  
+domino $D_k$ has fallen and show that $D_{k+1}$ falls as a consequence.
+
+\subsection{A Formula for Adding the First $n$ Integers}
+By adding up the numbers from 1 to 2, then 1 to 3, and so forth, someone guesses 
+that the formula for the sum of the first $n$ integers is:
+$$
+\sum_{i=1}^n i = n(n+1)/2
+$$
+How can one prove this? We do it by Mathematical Induction. Let $P_n$ be the statement%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{*}}{We surround statements in double quotes to indicate that they are 
+statements with no assigned truth value. You can think of our usual mathematical statements such as, $3 = 2 - 1$, as consisting
+of two things: The first is the statement ``3 is equal to 2 minus 1''. The second thing that is conveyed is that the 
+statement is true. In this section we wish to make the separation of a statement from its truth value. So we will refer to 
+statements, $P_n$, in quotes to indicate that they are statements without (yet) an assigned truth value.}
+``$\sum_{i=1}^n i = n(n+1)/2$''. We want to show that every statement, $P_1, P_2, \ldots, $ is true. 
+Mathematical Induction tells us that if $P_1$ is true 
+and it is the case that whenever $P_k$ is true it follows that $P_{k+1}$ is 
+true as well, then all of the statements in the sequence $\{P_n\}_{n=1}^\infty$ 
+are true.
+
+First we show $P_1$ is true. But $P_1$ is the statement 
+``$\sum_{i=1}^1 i = 1(1+1)/2$''. The left hand side is 1 and the right hand side 
+is 1; therefore, $P_1$ is true, since ``1 = 1'' is a true statement.
+
+The next thing to do is to {\it assume\/} for any given $k$ ($k \ge 1$) $P_k$ is true. This 
+means we assume ``$\sum_{i=1}^k i = k(k+1)/2$'' is a true statement; that is we assume: $\sum_{i=1}^k i = k(k+1)/2$.
+We then use this to show 
+``$\sum_{i=1}^{k+1} i = (k+1)(k+2)/2$'' is a true statement; that is, $\sum_{i=1}^{k+1} i = (k+1)(k+2)/2$. 
+We proceed as follows: Take the sum
+on the left and relate it to $P_k$.
+$$
+\sum_{i=1}^{k+1} i = (k+1) + \sum_{i=1}^{k} i 
+$$
+We use the assumed truth of $P_k$ to rewrite the sum on the right hand side so 
+that 
+$$
+\sum_{i=1}^{k+1} i = (k+1) + \sum_{i=1}^{k} i = (k+1) + k(k+1)/2 = 
+\bigl(2(k+1) + k(k+1) \bigr)/2 = (k+1)(k+2)/2
+$$
+That is,
+$$
+\sum_{i=1}^{k+1} i = (k+1)(k+2)/2
+$$
+We have just shown the truth of the statement  $P_{k+1}$,  ``$\sum_{i=1}^{k+1} i = (k+1)(k+2)/2$'', 
+from the assumed truth of $P_k$. We see that
+we have done so for every $k \ge 1$; the same argument works for {\it every\/} $k$.%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{Notice that this is the same {\it magic\/} we have when finding formulas for the derivative of
+certain functions; namely, we find a way to compute the formula for the derivative at a given ``x'' and that same formula works 
+for all other ``x''s. If this wasn't the case for a lot of elementary functions, calculus wouldn't be useful. This is the same for induction:
+If the way to show the truth of statement $P_k$ implies that $P_{k+1}$ is true {\it changes} for each $k$, then induction 
+isn't useful. This is analogous to writing a function in a programming language that is parameterized. Sometimes rather than writing
+many such functions, one can write {\it one function\/} that takes one or more parameters while the body of
+the function is {\it generic\/}. This generic logic doesn't
+always happen in programming nor does it always happen in mathematics, but when it does and we can identify the generic argument,
+Induction gives us tremendous power.}
+Mathematical Induction tells us that $P_n$ is true for all $n$. That is, 
+we have shown that 
+$$
+\sum_{i=1}^n i = n(n+1)/2 \quad {\rm for} \; 1 \le n
+$$
+Notice, by the way, that the inductive step amounts to checking that
+$\Delta$ of both sides agree -- induction is the engine that makes our
+telescoping (discrete Fundamental Theorem) arguments rigorous.
+
+Notice what helped here was that we had a natural ordering of the propositions
+(like our room of dominoes) and
+showing the truth of a given $P_k$ implying $P_{k+1}$ was the same for all $k$. Most successful 
+applications of induction behave similarly.
+If the proofs were different for each $k$, then
+induction wouldn't be as useful; we would have a lot of work to do.
+
+\subsection{The Derivative of the Power Functions}
+We know the derivative of the function $x$; it is $1$. 
+What is the derivative of $x^n$ when $n$ is an integer? We stated earlier in the book 
+that the answer is $(x^n)^\prime = n\, x^{n-1}$. We can use Mathematical 
+Induction to show this for $n\ge1$. Let $P_n$ be the statement: 
+``$(x^n)^\prime = n \, x^{n-1}$'' First, 
+$(x^1)^\prime = x^\prime = 1$; while $1 x^{1-1} = 1 * x^0 = 1 * 1 = 1$. 
+So, $P_1$ is true.
+We {\it assume\/} now for any $k$ ($k\ge1$), $P_k$ is true and try to show $P_{k+1}$ is true.
+Statement $P_k$ true means $(x^k)^\prime = k \, x^{k-1}$. Now, 
+the derivative of $x^{k+1}$ can be related to $x^k$ since
+$x^{k+1} = x \, x^k$. Using the product rule and the assumed truth of the formula for the derivative 
+of $x^k$ gives:
+$(x x^k)^\prime = x^\prime x^k + x (x^k)^\prime = 1 x^k + x (k\, x^{k-1}) 
+= x^k + k\,x^k = (k+1)x^k$. Or, $(x^{k+1})^\prime = (k+1)x^{(k+1)-1}$. 
+That is, the statement $P_{k+1}$ 
+is true when $P_k$ is true (for {\it any\/} $k\ge 1$). By Mathematical Induction, $P_n$ is true 
+for all $n\ge 1$. That is,
+$$
+(x^n)^\prime = n\, x^{n-1} \quad {\rm for} \; n\ge 1
+$$
+What about when $n$ is $0$ or negative? We haven't proved the formula in those cases. One can easily check the formula for
+$n=0$. For negative $n$ we can use induction again. In this case let $P_n$ be the statement ``$(x^{-n})^\prime = -n x^{-n-1}$'' for
+$n \ge 1$ and $x\ne0$. Induction requires statements labeled from 1, so we index the statements by $n \ge 1$, where $P_n$ concerns the power $-n$.
+To check $P_1$ -- the claim $(x^{-1})^\prime = -x^{-2}$ -- one can use the definition of the derivative directly.
+This requires work, but once done, one can mimic the induction proof above. Given that $P_1$ has been proved true we next show
+that $P_k$ implies $P_{k+1}$. Consider an $x \ne 0$, then 
+$$
+(x^{-(k+1)})^\prime = (x^{-1} x^{-k})^\prime = (x^{-1})^\prime x^{-k}
++ x^{-1} (x^{-k})^\prime
+$$ 
+The last statement is true by the product rule. Using the assumed truth of $P_1$ and $P_k$ we may write
+$$
+(x^{-(k+1)})^\prime = -1x^{-1-1} x^{-k}
++ x^{-1} (-kx^{-k-1}) = -x^{-k-2} - kx^{-k-2} = -(k+1) x^{-(k+1) - 1}
+$$
+We have just shown that $P_{k+1}$ is true given that $P_k$ is true. By mathematical induction $P_n$ must be true for $n\ge 1$.
+The only thing we left out was the proof that $P_1$ is true. We leave this as an exercise for the reader.
+

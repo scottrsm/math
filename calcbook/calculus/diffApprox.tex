@@ -1,0 +1,344 @@
+%\input ../util/bookmacros
+%\input ../util/docparams
+
+\chapter{The Derivative As Approximation}
+
+Here is the kind of question this chapter answers: suppose you are pouring a
+concrete wall and your measurement of its height is off by an inch -- how far off
+is the volume of concrete you computed? The tool that answers this turns out to be
+the derivative, viewed in a new way. But before we get to the wall, let us warm up
+by approximating integrals.
+
+Sometimes, in fact many times, it may not be clear or even possible to evaluate an integral. It is
+often the case that one can at least approximate the integral by bounding the value from above and below.
+For instance, if $f$ is a continuous function%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}%
+{Continuous functions are discussed in the section ``Computational Strategy for Limits'' in the appendix ``Infinite Sequences and Limits''.
+They have the property that when drawing their graph, one never need take the pen off the page.} 
+and non-negative
+on an interval $[a,b]$, then $f$ attains a maximum, say $M$, and a minimum, say $m$ on this interval. Therefore,
+the area under the graph of $f$ (the integral $\int_a^b f(x) \, dx$) 
+is bounded above by the area of the rectangle with height $M$ and
+width $b-a$ and bounded below by the area of the rectangle with height $m$ and width $b-a$.
+That is, 
+$$
+m \, (b-a) \le \int_a^b f(x) \, dx \le M\, (b-a) 
+$$
+This result is true even if $f$ takes on negative values. This is true since the integral is 
+a limit of sums of samples of $f$ along the interval, $[a,b]$,  times small differences -- which sum to $b-a$.
+But each of these 
+sample values of $f$ is bounded above and below by $M$ and $m$ respectively. 
+Therefore, the sum is bounded above and below by $M \,(b-a)$ and $m \, (b-a)$.
+We can show something just a little 
+more interesting with almost no extra work.
+\section{Mean Value Theorem}
+Again, consider the area under the graph of 
+$f$ from $a$ to $b$ ($a<b$)\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}%
+{The following argument works for non-negative $f$, but can be extended to all {\it continuous\/} $f$ (dropping the non-negativity assumption).}
+: $\int_a^b f(s) \, ds$.
+You can think of the graph as the outline of 
+fine dust in a very narrow rectangular glass container. If we shift the dust around so that the dust
+is level with height, say $h$, we must have (since the area of the dust is conserved)
+$$
+\eqalign {
+\int_{a}^b f(s) \, ds & = h\,  (b - a) \cr
+}
+$$
+If $m$ and $M$ are the minimum and maximum values that $f$ takes on 
+in the interval $[a,b]$, then $m \le h \le M$. It turns out that continuous functions have 
+the property that they attain all intermediate values. That is, if $f$ is a continuous 
+function which hits the values $m$
+and $M$ over the interval $[a,b]$, then for any $ m \le h \le M$ there exists a value 
+$\mu \in [a,b]$ such that $f(\mu) = h$. Collecting these ideas we have:
+
+\proclaim Theorem(\index{Intermediate Value Theorem}). If $f$ is a \index{continuous function} on the interval $[a, b]$ attaining values
+$m$ and $M$ with $m \le M$, then for any \index{intermediate value} $h$ with $m \le h \le M$ 
+there exists a value $\mu \in [a,b]$ such that $h = f(\mu)$.
+
+\proclaim Theorem(\index{Mean Value Theorem}). If $f$ is a continuous function on the interval $[a,b]$,
+then there exists a value, $\mu \in [a,b]$, such that
+$$
+\eqalign{
+\int_{a}^b f(s) \, ds & = f(\mu) (b - a) \cr
+}
+$$
+
+{\bf Note:\/} Many texts call this result the Mean Value Theorem {\it for
+integrals\/}, reserving the name ``Mean Value Theorem'' for the tangent-line
+statement, $f(b) - f(a) = f'(\mu)(b - a)$, derived from it below.
+
+If $f'$ is also continuous then the theorem applies to $f'$:
+$$
+\int_a^b f'(s) \, ds = f'(\mu) (b - a)
+$$
+By the \index{Fundamental Theorem of Calculus} this can be written
+$$
+f(b) - f(a) = f'(\mu)(b - a)
+$$
+which is
+$$
+\eqalignno{
+f(b) & = f(a) + f'(\mu)(b - a) & (1) \cr
+}
+$$
+This can be written in a way that has an immediate \index{geometric interpretation}:
+$$
+\eqalign{
+f'(\mu) & = {f(b) - f(a) \over (b - a)}  \cr
+}
+$$
+This says that when $f'$ is \index{continuous} there is a point $\mu \in [a,b]$ where the \index{slope} of the 
+\index{tangent line} is the same as the slope 
+of the line passing through the points $(a, f(a))$ and $(b, f(b))$.
+
+Here is another way to view this. Consider the interval $[x-h, x+h]$ for some $h>0$.  Substituting $x+h$ for $b$ and $x$ for $a$ in (1) gives
+$f(x+h) = f(x) + f'(\mu_1)h$ -- for some $\mu_1 \in [x, x+h]$. Next substituting $x$ for $b$ and $x-h$ for $a$ in (1) gives
+$f(x) = f(x-h) + f'(\mu_2) h$, or $f(x-h) = f(x) - f'(\mu_2)h$ -- for some $\mu_2 \in [x-h,x]$. That is, we may write $f(x+h)$ as
+$f(x+h) = f(x) + f'(\mu)h$ regardless of the sign of $h$, for some $\mu \in [x-|h|, x+|h|]$.
+If $h$ is small, then $f'(\mu)$ is close to $f'(x)$; therefore, an approximation to $f(x+h)$ is
+$$
+\eqalignno{
+f(x+h) & \approx f(x) + f'(x) h & (1a) \cr
+}
+$$
+
+\section{Derivative as Best Linear Approximation}
+Equation (1a) amounts to a restatement of the definition of a derivative of $f$ at $x$.
+This equation says that we may approximate $f(x+h)$ with a straight line; that is
+a {\it \index{rectilinear}\/} function -- also called an {\it \index{affine}\/} function
+(most books say simply {\it linear\/}).
+This can be thought of as starting with $f(x)$ and adding a {\it \index{Linear Approximation}}
+that is a linear function of the change in $x$, $h$.
+
+In what sense is the tangent line the {\it best\/} line? Among all lines passing
+through the point $(x, f(x))$, it is the one whose error goes to zero faster than
+$h$ itself. Recall from the Mean Value Theorem that
+$f(x+h) - \bigl(f(x) + f'(x)h\bigr) = \bigl(f'(\mu) - f'(x)\bigr)h$, and the factor
+$f'(\mu) - f'(x)$ itself shrinks to zero as $h$ does. Any other line through
+$(x, f(x))$, say with slope $s \ne f'(x)$, has error approximately
+$\bigl(f'(x) - s\bigr)h$ -- proportional to $h$ itself.
+
+This turns out to be a way to describe the derivative in a way that is extensible
+to ``higher order'' functions; e.g., so-called {\it \index{multi-variable}} and
+{\it \index{vector-valued}} functions.
+By this we mean functions of the form:
+$f: R^n \rightarrow R$ and $g: R^n \rightarrow R^m$.
+It is the same game on a bigger board. For $f: R \rightarrow R$ the derivative is a
+single number -- a slope. For $f: R^n \rightarrow R$ it is a vector, called the
+{\it gradient\/}; and for $g: R^n \rightarrow R^m$ it is a matrix, called the
+{\it Jacobian\/}. In every setting the answer to the question ``what is the
+derivative?''\ is the same: it is the linear map that best approximates the
+change in the function.
+
+Such functions come under the general heading of ``Advanced Calculus'',
+and are beyond the scope of this book.
+
+\section{Approximation Application}
+Suppose that you needed to build a concrete wall 100 ft long and 5 ft high. Builders tell you to set the depth of the wall
+based on the height of the wall by the  following formula: depth (in inches) = height (in inches) / 10. So, for a given height $x$ in inches the volume of concrete
+needed is $V(x) = 100\,{\rm ft} \times x\,{\rm in} \times (x/10)\,{\rm in}$. Using the units of inches, the formula for $V$ (in cubic inches) in
+terms of height, $x$, in
+inches is $V(x) = 12 \times 100 x^2/10 = 120 x^2$. To pour a 5 ft wall we need (x = 60 inches) $V(60) = 432{,}000$ cubic inches of
+concrete, which is approximately 9 1/4 cubic yards.
+But there is always error in measurement. What if, due to the ground conditions, we are off by 1 inch when measuring the
+height? We need to order extra concrete to be sure we have enough. How much more should we order to take care of this 1 inch
+error? We don't want to order too much extra because we want to control our costs. We could simply compute $V(60 + 1)$ easily
+enough -- this gives an upper bound on the amount of concrete to use.
+However, we would like to estimate the error  for {\it any\/} small error in height.% 
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}{In our case, $V(60+h) - V(60)$ is the extra amount of concrete to use. 
+However, in many similar problems the approximation formula (1a) 
+is often simpler and provides more insight into how sensitive the original function is to {\it all\/} small errors at a given input.}
+
+Equation (1a) tells us that if there is a small error in the height then  the 
+approximate change in the volume is given by $V(x+h) \approx V(x) + V'(x) h$. Let's say that we are concerned with an error of
+1 in when the height is 5 ft (60 inches). The magnitude of the change is $|V'(x)h|$. It is easy to see that $V'(x) = 240
+x$.  When $x = 60$ we have
+ $V'(60) = 14400$; if, in addition, $h=1$,  $|V'(x)h|$ becomes $14400$ cubic inches. This is 0.309 cubic yards.
+Therefore, we should order an extra 1/3 of a yard of concrete.
+
+\exercise{Use the tangent line approximation (1a) with $f(x) = x^5$ to estimate
+$(2.01)^5$ without a calculator. The true value is $32.80804\ldots$ -- how far
+off is the estimate?}
+
+\exercise{In the concrete wall problem, suppose the height measurement could be
+off by as much as $2$ inches instead of $1$. Estimate the extra concrete needed.
+Is your answer exactly twice the $1$ inch answer? Compare with the exact extra
+amount, $V(62) - V(60)$.}
+
+\section{Taylor's Theorem}
+We now describe a result that is more difficult but which is quite impressive%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{This section stands by itself and may be skipped if you wish.}.
+Let us first 
+describe a notation for differentiation.
+We have used $f'$ to denote the derivative of $f$. We will use the notation $f''$ to denote the 
+derivative of the function $f'$. Similarly, we use the notation $f'''$ to denote the derivative 
+of $f''$. In general, we use the notation $f^{(n)}(x)$ to denote 
+the $n^{\rm th}$ derivative of $f$ evaluated at $x$. 
+
+Now, if $f'$ is a continuous function we know 
+by the mean value theorem that
+$$
+\eqalign{
+f(b) & = f(a) + f'(\mu)(b - a) \cr
+}
+$$
+But we could invoke the theorem for any $x \in [a,b]$ because $[a,x]$ is an interval where the 
+theorem applies. In this case the conclusion of the theorem is
+$$
+\eqalignno{
+f(x) & = f(a) + f'(\mu_1)(x - a) & (2) \cr
+}
+$$
+Note that we changed $\mu$ to $\mu_1$ because the interval $[a,x]$ is different than the interval $[a,b]$.
+All that the \index{Mean Value Theorem} says is that there is {\it some\/} value in $[a,x]$; it may not 
+be the same one that applied on the interval $[a,b]$. However, for the time being, let us assume 
+that it is the same; that is, we assume that $\mu_1 = \mu$.
+
+If $f''$ is also continuous on $[a,b]$, 
+then we may apply this formula to $f'$ (it's a function which satisfies the requirements of the theorem) giving
+$$
+\eqalign{
+f'(x) & = f'(a) + f''(\mu_2)(x - a) \cr
+}
+$$
+for some value $\mu_2$ which depends on the interval $[a,x]$. Why is this different from $\mu_1$?
+Because $f'$ is a different function from $f$ so we should not expect $\mu_2$ to be the same as $\mu_1$.
+Let us assume, however, that 
+$\mu_2 = \mu_1$, which we are assuming is $\mu$.
+
+Integrating this function over the interval $[a,x]$ we have
+$$
+\eqalign{
+\int_a^x f'(s) \, ds & = \int_a^x f'(a)\, ds  + \int_a^x f''(\mu)(s - a) \, ds \cr
+}
+$$
+Since the \index{integration} is \index{linear}, we may place the constants outside of the \index{integral}%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}%
+{Anything that does not depend on the \index{integration} variable, $s$, is a constant
+with respect to the integration. Therefore, it may be pulled outside of the integral. }.
+$$
+\eqalign{
+\int_a^x f'(s) \, ds & = f'(a) \int_a^x 1 \, ds  + f''(\mu) \int_a^x (s - a) \, ds \cr
+}
+$$
+Using the \index{FTC} on the left hand and first term of the right hand side gives
+$$
+\eqalign{
+f(x) - f(a) & = f'(a) (x-a)  + f''(\mu) \int_a^x (s - a) \, ds \cr
+}
+$$
+As an \index{anti-derivative} of $(s-a)$ is ${(s-a)^2 \over 2}$, we have
+$$
+\eqalign{
+f(x) & = f(a) + f'(a) (x-a)  + f''(\mu) \int_a^x \biggl({(s - a)^2 \over 2}\biggr)' \, ds 
+}
+$$
+Using the \index{FTC} on the last term, we may write
+$$
+\eqalignno{
+f(x) & = f(a) + f'(a) (x - a) + f''(\mu) {(x-a)^2 \over 2} & (3)\cr
+}
+$$
+Now, just as we plugged $f'$ into equation (2), we can do the same with equation (3).
+If the function $f^{(3)}$ is continuous, then plugging $f'$ into (3) gives
+$$
+\eqalign{
+f'(x) &= f'(a) + f''(a) (x - a) + f^{(3)}(\mu_3) {(x-a)^2 \over 2}  \cr
+}
+$$
+Again, we need a new ``$\mu$'' because we are using a new function, $f'$.
+As before, we integrate this equation over the interval $[a,x]$ giving
+$$
+\eqalign{
+f(x) - f(a) &= f'(a) (x - a) + f''(a) {(x - a)^2 \over 2} + \int_a^x f^{(3)}(\mu_3) {(s-a)^2 \over 2}\, ds \cr
+}
+$$
+As an \index{anti-derivative} of $(s-a)^2/2$ is ${(s-a)^3 \over 3 * 2}$, the above becomes
+$$
+\eqalign{
+f(x) - f(a) &= f'(a) (x - a) + f''(a) {(x - a)^2 \over 2} + f^{(3)}(\mu_3) \int_a^x {(s-a)^2 \over 2}\, ds \cr
+}
+$$
+Which is
+$$
+\eqalignno{
+f(x) &= f(a) + f'(a) (x - a) + f''(a) {(x - a)^2 \over 2} + f^{(3)}(\mu_3) {(x-a)^3 \over 3 * 2} & (4) \cr
+}
+$$
+We can keep plugging $f'$ into these successively more complicated equations (equations (2), (3), and (4)) 
+provided $f$ 
+has enough derivatives and they are continuous. The pattern that emerges
+is called Taylor's Theorem:
+\proclaim Theorem(Taylor's Theorem). If $f$ is a function such that $f^{(n)}$ exists 
+and is a continuous function 
+on the interval $[a,b]$, then for any $x \in [a,b]$\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{%
+The notation $n!$ means the product of all the integers from $1$ to $n$.}
+$$
+\eqalign{
+f(x) &= f(a) + f'(a) (x-a) + f^{(2)}(a) {(x-a)^2 \over 2!} + f^{(3)}(a) {(x-a)^3 \over 3!} \cr
+& + \ldots + f^{(n-1)}(a) {(x-a)^{n-1} \over (n-1)!} + f^{(n)}(\mu(x)) {(x-a)^n \over n!} \cr
+}
+$$
+where $\mu$ is a function such that $\mu(x) \in [a,x]$.
+
+Notice what this theorem says: from the values of $f$ and its derivatives at
+the {\it single\/} point $a$, we can rebuild $f$ across the whole interval.
+This is the same game we have been playing since the discrete chapters:
+reconstruct the whole from its rates of change at a single point.
+
+Our derivations for Taylor's Theorem in the cases $n=2$ and $n=3$ are not correct 
+since we assumed at each stage that the various ``$\mu$'' were the 
+same. A mathematically correct derivation can be found in the appendix on Taylor's Theorem. The 
+derivation has the same structure as our derivation above but uses a generalization 
+of the \index{Mean Value Theorem} to prove the result. One can also show without much work that 
+the formula is true when $x$ is less than $a$:
+
+\proclaim Corollary. If $f$ is a function such that $f^{(n)}$ exists 
+and is a continuous function 
+on the interval $[a,b]$, with $c\in [a,b]$, 
+then for any $x \in [a,b]$
+$$
+\eqalign{
+f(x) &= f(c) + f'(c) (x-c) + f^{(2)}(c) {(x-c)^2 \over 2!} + f^{(3)}(c) {(x-c)^3 \over 3!} \cr
+& + \ldots + f^{(n-1)}(c) {(x-c)^{n-1} \over (n-1)!} + f^{(n)}(\mu(x)) {(x-c)^n \over n!} \cr
+}
+$$
+where $\mu$ is a function such that $\mu(x)$ is a value between $x$ and $c$.
+
+Taylor's Theorem says that we may approximate a function $f$ with $n$ continuous
+derivatives, near the point $c$, with a
+{\it polynomial\/} of degree $n-1$. The error in the approximation is the term
+$f^{(n)}(\mu(x)) {(x-c)^n \over n!}$.
+
+\exercise{Use Taylor's Theorem with $c = 0$ and $n = 3$ to show that
+$\cos(x) \approx 1 - x^2/2$ with an error of size at most $|x|^3 / 6$. How good
+is the approximation when $|x| \le 0.1$?}
+
+\section{Power Series Representation}
+In summation notation Taylor's formula may be written:
+$$
+f(x) = f(a) + \sum_{k=1}^{n-1} f^{(k)}(a) {(x-a)^k \over k!} + f^{(n)}(\mu(x)) {(x-a)^n \over n!}
+$$
+If a function has an infinite number of derivatives and the last term in the above formula
+goes to zero in a sufficiently ``well behaved''  
+manner (which is beyond the scope of this book to describe) as $n$ goes to $\infty$, then we may write
+$$
+f(x) = f(a) + \sum_{n=1}^\infty f^{(n)}(a) {(x-a)^n \over n!}
+$$
+One function that has an infinite number of derivatives is the exponential function, $f(x) = e^x$.
+We know that $f'(x) = e^x$, and consequently $f^{(n)}(x) = e^x$. It is also a function that 
+is sufficiently ``well behaved''. Letting $a=0$ we may write\footnote{{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}}%
+{The notation $0!$ is defined to be $1$. In this context we also adopt the convention that $x^0 = 1$ for {\it all\/} $x$ -- including $x = 0$ -- so that the $n=0$ term of the series makes sense at $x = 0$.}
+$$
+e^x = e^0 + \sum_{n=1}^\infty e^0 {x^n \over n!} = \sum_{n=0}^\infty {x^n \over n!}
+$$
+This says that $e^x$ can be thought of as an ``infinite polynomial''. Many other such functions can
+be represented in this way, for instance the trig functions, $\sin$ and $\cos$.
+Such representations can be used to find (among other things) an approximation to a function, its derivative, or its integral.
+
+Finally, notice that the value $e$ itself can be approximated for a given $N$ by 
+$$
+e = e^1 = \sum_{n=0}^\infty {1^n \over n!}  = \sum_{n=0}^\infty {1 \over n!} \approx 1 + 1 + {1 \over 2!} + {1 \over 3!} + \ldots + {1 \over N!}
+$$
+% \bye
+

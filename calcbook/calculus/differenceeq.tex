@@ -1,0 +1,374 @@
+%\input ../util/bookmacros
+%\input ../util/docparams
+
+\chapter{Introduction to Difference Equations}
+
+\section{Motivational Problem}
+If a person buys a house they will almost surely need a loan from a bank 
+to pay for it. Once you borrow the money, the bank will have you spread 
+the payments out over $15$ to $30$ years. You're not simply paying
+back the money to the bank; it charges interest on the use of its
+money. So, each payment can be thought of 
+as consisting of two pieces: a payment for the principal borrowed and a 
+second piece which is interest on the outstanding debt. We now describe what 
+happens at any given month. 
+
+At month $n$ let $x_n$ be
+the outstanding debt we owe to the bank. The bank has decided that 
+at the end of each month we pay $p$ dollars for the loan. Also, 
+during the month, we are charged interest (for that month) on the 
+outstanding debt as 
+of the beginning of that month. The rate of interest is given as an annual interest rate (AIR) 
+and so must be divided by $12$ to get the monthly interest rate, 
+$r = {\rm AIR}/12$. At the beginning (month zero) the outstanding 
+debt is known, it is just the loan amount; we'll call it $L$.
+
+We would like to know what the outstanding debt is at any given month. 
+Our strategy is similar to what one would do in an algebra class: rather than 
+writing down $x = $ {\it answer\/}, one first found a 
+relation that $x$ satisfied and 
+then solved for $x$. We will do the same thing here. Rather than write 
+down a formula for the outstanding debt at month $n$, $x_n$, we first 
+find a relation that $x_n$ satisfies and then solve for $x_n$. Such a relation 
+can often be stated as a change or a {\it \index{difference}\/} from one time 
+step to the next. This change is often easy to describe. For the problem at hand, the change in debt from one 
+month to the next is the amount of new debt accumulated by interest less the 
+\index{monthly payment}.
+Mathematically, this can be written as:
+$$
+\eqalign{
+\obrace{x_{n+1}}{Debt at month $n{+}1$} & = \obrace{x_n}{Debt at month $n$}
++ \obrace{r x_n}{Interest on debt over the month} -
+\obrace{p}{Monthly payment} \cr
+x_0 & = L \cr
+}
+$$
+This can be rewritten as:
+$$
+\eqalign{
+{x_{n+1}} & = (1 + r) x_n - p \cr
+x_0 & = L \cr
+}
+$$
+\section{Comparison with the Solution Strategy of Algebra}
+Recall that in high school algebra one solved ``word'' problems in a two step procedure:
+\beginEnum
+	\enum{Label the unknown {\it number\/}, $x$, and involve it in an algebraic equation.}
+	\enum{Treat the equation as a ``balance scale'' and apply the operations of 
+			addition/subtraction and/or multiplication/division equally on 
+			both sides in an attempt to isolate $x$ on one side 
+			-- its value is then on the other side of the equation.}
+\endEnum
+Here, the unknown labeled, $x$, is not a number, it is 
+a {\it \index{sequence}\/} of numbers; so, what does it mean to solve for $x$?
+Ideally, we would like a {\it formula\/} for the $n^{\rm th}$ element of 
+the sequence $x$ in terms of this $n$. Then, when 
+someone asked for the debt at month $17$, we could just plug $17$ 
+into this formula and out would pop the debt for that month.
+
+\section{Basic Solution Strategy}
+The equation we wrote down for the debt as a function of the month 
+was an example of a {\it \index{difference}} equation: each term in the sequence is a function of previous 
+terms. The difference and summation calculus of the 
+first two chapters
+will play an important role in solving such equations. 
+In the equation above, a given element of the sequence is a function of the previous element.
+Such an equation is called a first order {\it \index{difference equation}}.
+The form of this relation between previous elements 
+determines how easy it is to solve, depending 
+on what the meaning of 
+``solve'' is. Before we start, let us be clear: The solution to any difference 
+equation is not a number; that is, the unknown we are looking to 
+find is an entire {\it \index{sequence}\/} -- which we have said is a {\it function\/} on the integers.%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{Described in the sub-section ``Sequences as Functions'' in the first chapter.}
+Again, we are doing something very different from high school algebra -- we are solving for a {\it function\/}.
+
+Let's start with a simpler difference equation. In fact, let's start with 
+the simplest first order difference equation relating a given value of 
+a sequence with its previous value:
+$$
+\eqalign{
+x_{n+1} & = x_n \cr
+x_0 & = L \cr
+}
+$$
+We can solve this difference equation by using the equation to write 
+down the solution term by term. That is, we know $x_0 = L$. 
+The first equation tells us that $x_1 = x_0$; and since we know $x_0$, we 
+know $x_1$. Continuing, we have $x_2 = x_1$; and since we know $x_1$, 
+we know $x_2$, it is just $x_1 = x_0 = L$. We can continue and produce 
+each value of the sequence. It is tedious, but effective. Every \index{difference 
+equation} can be solved by doing this sort of computation. In theory, any 
+element of the sequence could be produced this way. In practice, one 
+would compute as many elements of the sequence as one needed.
+
+A better solution though, would be to write down a {\it formula\/} for 
+any given element of the sequence. In our present example, we find 
+that the formula 
+for the $n^{\rm th}$ element of the \index{sequence} is $x_n = L$. Having a formula 
+means one can, on request, produce any element of the sequence without 
+having to compute {\it any\/} of the previous elements. 
+The question is 
+\goodbreak
+``When presented with a difference equation, can we write down a formula 
+for the $n^{\rm th}$ term of the sequence satisfying such an equation?''
+The answer is no in general. We will, however, be able to find a solution (in this sense) to our motivational problem.
+
+The problem with 
+finding a formula, in general, is that the $n^{\rm th}$ value of the sequence 
+which satisfies such an equation is tangled up with the previous values. 
+Because of this, it is not a simple matter to write down a formula 
+for the $n^{\rm th}$ value. We introduce a technique 
+which will allow us to solve a larger array of equations.
+Consider the previous simple \index{difference equation}; 
+we know by the \index{Fundamental Theorem of Difference Calculus} that 
+it is easy to compute the sum of \index{telescoping difference}s. Therefore, 
+we may rewrite the last equation as:
+$$
+\eqalign{
+x_{n+1} - x_n & = 0 \cr
+x_0 & = L \cr
+}
+$$
+This is
+$$
+\eqalign{
+\Delta x_n & = 0 \cr
+x_0 & = L \cr
+}
+$$
+Summing both sides of the first equation from $0$ to $N-1$ we have:
+$$
+\sum_{n=0}^{N-1} \Delta x_n = \sum_{n=0}^{N-1} 0 
+$$
+After summing (using the FTDC on the left hand side):
+$$
+x_N - x_0 = 0
+$$
+Or, $x_N = L$.
+We were able to untangle the connections of the sequence by summing them out.
+This left an element of our choosing, $N$, and the $0^{\rm th}$ term plus
+whatever the sum was on the right hand side of the equation.
+Notice that this is the same game we have been playing since algebra: we
+isolated the unknown under the operator $\Delta$, then inverted $\Delta$ by
+applying its inverse, summation -- the {\it isolate and invert\/} move of the preface.
+
+If we modify the difference equation so that it becomes:
+$$
+\eqalign{
+x_{n+1} & = x_n + b_n \cr
+x_0 & = L \cr
+}
+$$
+This is
+$$
+\eqalign{
+\Delta x_n & = b_n \cr
+x_0 & = L \cr
+}
+$$
+Summing both sides of the first equation from $0$ to $N-1$ gives:
+$$
+\sum_{n=0}^{N-1} \Delta x_n = \sum_{n=0}^{N-1} b_n 
+$$
+After summing (using the FTDC):
+$$
+x_N - x_0 = \sum_{n=0}^{N-1} b_n
+$$
+Or, $x_N = L + \sum_{n=0}^{N-1} b_n$. If $b_n = b$, that is, 
+$b_n$ is constant, then $x_N = L + b N$.
+
+\subsection{Solution of the Motivational Problem}
+We are moving toward the solution of our motivational problem. To get a step 
+closer, consider the following difference equation:
+$$
+\eqalign{
+x_{n+1} & = a\, x_n \cr
+x_0 & = L \cr
+}
+$$
+A solution to this \index{difference equation} is a sequence which has $L$ for 
+its initial value and then multiplies the current value by $a$ to get the next.
+It is not too hard to guess that the solution%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}%
+{The pattern emerges quickly. $x_1 = a \,x_0 = a \,L$; $x_2 = a \,x_1 = a \, a \, L = a^2 \, L$; $x_3 = a \, x_2 = a \, a^2 L =
+a^3\, L$.} is $x_n = a^n L$.
+Let us check this is indeed a solution%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}{In fact, it is {\it the\/} solution.}. 
+
+We need to check two things. First, that 
+$x_0 = L$. This is so, since $x_0 = a^0 L = 1 * L = L$. We also need 
+to check $x_{n+1} = a\, x_n$. But $x_{n+1} = a^{n+1}L = a (a^n L) 
+= a\, x_n$. So this is a solution. Remember, a solution to a difference 
+equation is a {\it sequence\/}, not a number.
+
+Now let's look at an equation that has the same form as our original problem:
+$$
+\eqalign{
+x_{n+1} & = a\, x_n + b_n \cr
+x_0 & = L \cr
+}
+$$
+It is not as easy to guess a solution to this.
+Can we also use the differencing technique we used earlier? Well, if we rewrite 
+the equation so that the left hand side is a difference as before, then:
+$$
+\eqalign{
+x_{n+1} - x_n & = (a-1)x_n + b_n \cr
+x_0 & = L \cr
+}
+$$
+This does not help us untangle the sequence of unknowns, $x_n$. If we try to sum 
+this equation, the left hand side reduces to $x_N$ and $x_0$. However, the right hand 
+side contains the unknowns for which we are trying 
+to solve. For this technique to work we need to get all of the $x_n$'s 
+on the left as part of {\it some\/} telescoping difference (not necessarily a difference 
+in $x_n$ alone), leaving the right hand side containing 
+the rest of the {\it known\/} quantities. Summing the left hand side will reduce 
+to two terms; from there we can solve for $x_N$. To start, let's 
+rewrite the equation as a difference of the unknowns (not yet a \index{telescoping difference}):
+$$
+\eqalign{
+x_{n+1} - a\, x_n & = b_n \cr
+x_0 & = L \cr
+}
+$$
+The key idea is to multiply both sides of the first equation by a known \index{sequence} 
+so that the left hand side is a quantity which can be represented as 
+a {\it telescoping\/} difference. Given a sequence 
+$\{y_n\}_{n=0}^\infty$, multiply the first equation by $y_{n+1}$. This gives:
+$$
+\eqalign{
+y_{n+1} x_{n+1} - (a\, y_{n+1}) x_n & = b_n y_{n+1} \cr
+x_0 & = L \cr
+}
+$$
+If we chose the sequence $y$ so that $a\, y_{n+1} = y_n$, then we would have 
+a \index{telescoping difference} on the left hand side 
+$$
+\eqalign{
+y_{n+1} x_{n+1} - y_n x_n & = b_n y_{n+1} \cr
+x_0 & = L \cr
+}
+$$
+Such a multiplier sequence $y$ is called a {\it \index{summing factor}\/} -- and
+when we solve differential equations in the next chapter, we will meet its
+continuous twin, the {\it integrating factor\/}.
+
+Summing from $0$ to $N-1$ gives us $y_N x_N - y_0 x_0 = \sum_{n=0}^{N-1} b_n y_{n+1} $. Solving for $x_N$ 
+gives
+$$
+x_N = \biggl( {y_0 L + \sum_{n=0}^{N-1} b_n y_{n+1} \over y_N}\biggr)
+$$
+So, we're done provided we know 
+how to find the sequence $y$. But the sequence $y$ 
+satisfies its own \index{difference equation}: $y_{n+1} = a^{-1} y_n$. From what we discovered above, the solution 
+is $y_n = a^{-n} y_0$. There are no further restrictions so we may choose 
+$y_0$ to be anything; let's set it to $1$. Therefore, we may write down 
+a solution for the $N^{\rm th}$ element of the sequence $x$ to be
+$$
+x_N = a^N L + a^N \sum_{n=0}^{N-1} a^{-(n+1)} b_n
+$$
+When $b_n$ has the same value, say $b$, for all $n$ this formula simplifies to
+$$
+x_N = a^N L + b\, a^{N-1} \sum_{n=0}^{N-1} a^{-n}
+$$
+Which simplifies to 
+$$
+x_N = a^N L + b\, a^{N-1} \biggl( {a^{-N} - 1 \over a^{-1} - 1} \biggr)
+$$ 
+provided $a \ne 1$ (we used the following fact about \index{geometric series}: $\sum_{n=0}^{N-1} z^n = {z^{N} - 1 \over z - 1}$, for $z \ne 1$;
+used above with $z = a^{-1}$).
+This can also be written as:
+$$
+x_N = a^N L + b\, \biggl( {1 - a^{N} \over 1 - a} \biggr)
+$$
+The two terms of this solution each tell a story. The first term, $a^N L$,
+solves the equation with no payments ($b = 0$) and carries the initial
+condition; the second term solves the full equation starting from zero.
+Because the equation is {\it linear\/}, the two pieces simply add -- this is
+the {\it exploit linearity\/} move ({\it \index{superposition}\/}).
+
+Applying this formula to the motivational problem with $a = (1 + r)$, and
+$b = -p$ yields a formula for the debt owed at month $N$:\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}{Note $a \neq 1$ so we may use the just derived formula.}
+$$
+x_N = (1+r)^N L - p \biggl( {1 - (1+r)^{N}  \over -r} \biggr) 
+$$
+which is
+$$
+x_N = (1+r)^N L - p \biggl( {(1+r)^{N} - 1  \over r} \biggr) 
+$$
+
+\example{If a $30$ year loan is taken out on \$$100,000$ at an 
+annual interest rate of $6$\% with monthly payment 
+\$$600$, what is the outstanding debt after $5$ years?}
+
+The monthly rate is $r = 0.06 / 12 = 0.005$, $L = 100,000$, $p = 600$, and 
+$N = 5 * 12 = 60$. Plugging these values into the solution to our difference 
+equation gives
+$$
+x_{60} = (1.005)^{60} * 100000 - 600 * 
+\biggl({1.005^{60} - 1 \over 0.005} \biggr)
+$$
+After evaluating the expression on the right hand side we obtain
+$x_{60} = 93,023$. 
+This is the outstanding debt after $5$ years of monthly payments.
+During this time you will have paid $5 * 12 * 600 = 36,000$
+dollars to the bank.
+
+\exercise{Solve the difference equation $x_{n+1} = 2\, x_n + 1$, $x_0 = 0$,
+using the formula of this section. (The answer, $x_N = 2^N - 1$, counts the
+moves needed to solve the Tower of Hanoi puzzle with $N$ disks.)}
+
+\exercise{You deposit $L$ dollars in a savings account earning monthly interest
+rate $r$, and add $p$ dollars at the end of each month. Write down the
+difference equation satisfied by the balance and solve it. How does the
+solution compare, term by term, with the loan formula above?}
+
+
+\section{Summary}
+We are able to solve a simple \index{difference equation} by first 
+rewriting the tangling of $x$'s as a \index{telescoping difference} and then use 
+the \index{Fundamental Theorem of Difference Calculus} to ``sum away'' the 
+tangles. This leaves one element of the sequence, $x_N$, on one 
+side of the equation and the sum of 
+the known values on the other side of the equation.
+
+\section{What's Left}
+A difference equation is effectively any equation which relates a given element of a sequence with previous values of the 
+sequence. Obviously, they can
+be much more complicated than the ones we've examined. A careful study of the subject classifies difference 
+equations into 
+various categories and then provides recipes for solutions in some cases. The main solution technique is to
+``sum away'' the differences; that is, use the \index{Fundamental Theorem of Difference Calculus}.
+ 
+\subsection{Fibonacci Sequence}
+As an example we consider a more complicated difference equation.
+The Fibonacci sequence occurs in many contexts, one of which is the modeling of rabbit populations. The
+sequence is defined through a recurrence relation (a difference equation) given by:%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{Some texts index the sequence
+differently, starting with $F_0 = 0$ and $F_1 = 1$; this produces the same
+list of numbers shifted by one place.}
+$$
+\eqalign{
+F_{n+2} & = F_{n+1} + F_{n}, \quad n \ge 0 \cr
+F_0 & = 1 \cr
+F_1 & = 1 \cr
+}
+$$
+This is categorized as a second order difference equation because a given element in the sequence is a
+function of the previous two values.
+
+How might one solve it? A change of representation does the trick: try a
+solution of the form $x_n = \lambda^n$. Substituting into the recurrence and
+dividing by $\lambda^n$ forces $\lambda^2 = \lambda + 1$, a quadratic
+whose roots, $(1 \pm \sqrt{5})/2$, involve the famous {\it \index{golden ratio}\/}.
+Because the recurrence is {\it linear\/}, any combination
+$A\,\lambda_1^n + B\,\lambda_2^n$ of the two solutions is again a solution,
+and the two initial values pin down $A$ and $B$.
+
+\exercise{Carry this out: find $A$ and $B$ so that
+$F_n = A\,\lambda_1^n + B\,\lambda_2^n$ satisfies $F_0 = F_1 = 1$, and thereby
+obtain a formula for the $n^{\rm th}$ Fibonacci number. Check your formula by
+computing $F_2$ and $F_3$.}
+

@@ -1,0 +1,595 @@
+%\input ../util/bookmacros.tex
+%\input ../util/docparams.tex
+
+\chapter{Integral Calculus}
+
+\section{Fundamental Theorem of Calculus}
+Keeping with the car theme, let $x(t)$ and $v(t)$ represent the distance and velocity
+of a car at time $t$. 
+We found a connection between these two 
+functions in the last chapter: the ``instantaneous'' difference of $x(t)$ over the ``instantaneous'' difference in time is 
+$x'(t) = v(t)$.
+We now explore the relationship between these two functions over an {\it interval\/} of time.
+Recall that a similar discrete relationship led to the \index{Fundamental Theorem of Difference Calculus}.
+If $\Delta x_n = v_n$, then the sum over the ``time'' values, $0,1,\ldots,N-1$, of the difference,
+$\Delta x_n$, is  $\sum_{n=0}^{N-1} \Delta x_n = \sum_{n=0}^{N-1} v_n = x_N - x_0$.
+We seek an analog of this discrete result. 
+
+The sense of the result we would expect is:
+The ``continuous'' sum of $x'$ over the time interval $[t_{\rm b}, t_{\rm e}]$ is equal to
+$x(t_{\rm e}) - x(t_{\rm b})$. For a start, set the discrete times 
+$t_{\rm b} = t_0 < t_1 < \ldots < t_N = t_{\rm e}$ and create a {\it sequence\/}, $x$, whose $n^{\rm th}$ value, $x_n$, is defined in
+terms of the {\it function\/}, $x$, by  $x_n = x(t_n)$. 
+Consider the following discrete sum:\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}%
+{The symbol $\approx$ means approximately equal.}
+$$
+\eqalign{
+  \sum_{n=0}^{N-1} x'(t_n) \Delta t_n & \approx
+  \sum_{n=0}^{N-1} {\Delta x_n \over \Delta t_n} \Delta t_n \cr
+& = \sum_{n=0}^{N-1} \Delta x_n = x_{N} - x_0 = x(t_{\rm e}) - x(t_{\rm b})
+}
+$$ 
+Note the approximation $x'(t_n) \approx {\Delta x_n \over \Delta t_n}$ just says that the derivative of $x$ at $t_n$ is
+approximately the  ``rise'' between $x_n$ and $x_{n+1}$, $x_{n+1} - x_n$, divided by the ``run'', $t_{n+1} - t_n$.
+
+We now associate a physical meaning with the above sum and extend this \index{discrete sum} to a ``continuous'' one.
+We start with the simplest case: Let $v$ be the constant function having 
+value $v_0$ over the time interval $[t_0, t_1]$. Then 
+the change in distance 
+from time $t_0$ to $t_1$ is (from high school physics) 
+$x(t_1) - x(t_0) =  v_0 (t_1 - t_0)$. Another way to interpret this is that the average
+velocity of the time interval $[t_0, t_1]$ is 
+$v_0 = \frac{x(t_1) - x(t_0)}{t_1 - t_0}$.
+Suppose instead the car velocity is a piecewise constant function with 
+two values over the interval. The velocity has the constant value $v_0$ over 
+the interval $[t_0, t_1)$%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}{The half open interval $[a,b)$ is the same set as 
+$[a,b]$ excluding the point  $b$.}, 
+and has the constant value 
+$v_1$ over the interval $[t_1, t_2]$. Forgetting for the moment how 
+the car manages to jump instantly from one 
+velocity to the next, 
+what is the relationship 
+between the distance function and the velocity function? We know how to compute 
+the change in the distance function over each sub-interval, so the total 
+change is the sum of the changes. 
+$$
+\eqalign{
+x(t_2) - x(t_0) & = 
+x(t_1) - x(t_0)  +  x(t_2) - x(t_1) \cr
+& = \Delta x_0 + \Delta x_1 \cr
+& = {\Delta x_0 \over \Delta t_0} \Delta t_0 + {\Delta x_1 \over \Delta t_1} \Delta t_1 \cr
+& = v_0 \Delta t_0 + v_1 \Delta t_1 \cr
+}
+$$
+%% KLUDGE: Had to add a break statement to avoid sill over
+Suppose instead the car velocity is
+a \index{piecewise constant function}, with velocities \break $v_0, v_1, \ldots, v_{N-1}$ over
+intervals $[t_0, t_1), [t_1, t_2), \ldots, [t_{N-1}, t_N]$.
+Again, let $x_n$ be the sequence defined by $x_n = x(t_n)$. 
+What is the change in the distance over the 
+interval now?
+The answer is just the sum of all the changes produced by each interval 
+of constant velocity. 
+$$
+\eqalign{
+x(t_N) - x(t_0) & =
+\Delta x_0 + \Delta x_1 + \ldots + \Delta x_{N-1} \cr
+& = {\Delta x_0 \over \Delta t_0} \Delta t_0 + 
+{\Delta x_1 \over \Delta t_1} \Delta t_1 + 
+{\Delta x_2 \over \Delta t_2} \Delta t_2  
++ \cdots + {\Delta x_{N-1} \over \Delta t_{N-1}} \Delta t_{N-1} \cr
+& = v_0 \Delta t_0 + v_1 \Delta t_1 + v_2 \Delta t_2 + \cdots + 
+v_{N-1} \Delta t_{N-1} \cr
+}
+$$
+This can be written in summation notation as:
+$$
+\eqalign{
+x(t_N) - x(t_0) & = \sum_{n=0}^{N-1} v_n \Delta t_n
+}
+$$
+Since the velocity has value $v_n$ over the interval $[t_n, t_{n+1})$, the area under that 
+portion of the velocity graph is $v_n \Delta t_n$ (height $\times$ width). The area under the velocity 
+graph from $t_0$ to $t_N$ is just the sum of these, which is the right hand side of the above formula.
+
+{\it That is, the area under the velocity graph (over an interval) is the change in distance (over the same interval).\/}
+
+In the figure below, the dotted lines are not part of the graph of the 
+velocity function but have been added so that the distance traveled can be 
+seen geometrically as the {\it area under the velocity graph\/}. The distance 
+over the interval $[0,8]$ is the sum of the areas of each of the boxes in 
+the figure below. That is, 
+$x(t_8) - x(t_0) = 30 * 2 + 60 * 2 + 40 * 2 + 80 * 2 = 420$.
+\epsfigure{eps/pwint.eps}{Piecewise constant velocity.}
+The corresponding graph of the distance function, $x$, appears below.
+\epsfigure{eps/pwintd.eps}{Piecewise linear distance function.}
+We repeat what we have discovered:
+No matter how complicated a piecewise constant velocity 
+function is, the area under a portion of its graph represents  
+the change in distance over that segment.
+
+But what about velocity functions which aren't piecewise constant? 
+How do we find the distance traveled? Well, we could approximate the velocity
+function by a piecewise constant function, $v_{\rm approx}$. We will call 
+the corresponding distance function $x_{\rm approx}$.
+The smaller the intervals of 
+constancy, the better the approximation would be to the actual velocity 
+function. Specifically, we divide the interval $[t_{\rm b}, t_{\rm e}]$ 
+into $N$ intervals, each with width $h_N = (t_{\rm e} - t_{\rm b}) / N$. 
+Letting $t_n = t_{\rm b} + n \, h_N$, for $n = 0, 1, \ldots, N$, we define
+the piecewise constant approximation function to take the value
+$v(t_n)$ on the interval $[t_n, t_{n+1})$. That is, the approximation takes 
+the value of the function $v$ at the left end point of a given interval and stays at this 
+value for the duration of the interval. In other words, the approximation is a piecewise constant function.
+For an example, see the figure below where $N$ is $10$.
+\epsfigure{eps/pwcapprox.eps}{Piecewise constant approximation to velocity 
+function, $v$.}
+From the figure, the distance traversed by an object with the piecewise constant 
+function, $v_{\rm approx}$ is as before, the sum of the velocities $\times$ the 
+corresponding width of the time interval, which is $10$. That is, 
+$x_{\rm approx}(100) - x_{\rm approx}(0) = v(0) * 10 + v(10) * 10 + 
+v(20) * 10 + \cdots +
+v(80) * 10 + v(90) * 10$.
+Note that each term in the sum is the area of one of the columns in the figure. 
+So, the distance traversed when the velocity profile is $v_{\rm approx}$ is the sum of all the 
+boxes under the curve. 
+In summation notation, we may rewrite the expression for $x_{\rm approx}$ as
+$$
+x_{\rm approx}(100) - x_{\rm approx}(0) = \sum_{n=0}^{9} v(10\,n) 10
+$$
+Here is a piecewise constant function which does a better job of 
+approximating $v$.
+\epsfigure{eps/pwcapprox2.eps}{A better approximation to $v$.}
+The total distance traversed by an object with velocity $v_{\rm approx2}$ is again the area of its 
+graph, which is the sum of all the rectangular dashed boxes. That is,
+$$
+x_{\rm approx2}(100) - x_{\rm approx2}(0) = \sum_{n=0}^{19} v(5\,n) 5
+$$
+You can see that if we make more refined 
+approximations to $v$, the value of the corresponding distance function 
+gets closer and closer to the area 
+under the graph of $v$ and I hope you would agree that this distance function 
+will get closer and closer to $x$.
+Therefore, the area under the curve of $v$ is the limit of these refined
+sums. This is the same {\it approximate, then take a limit\/} move we
+used to define the derivative.
+If we divide the interval $[0,100]$ into $N$ intervals then  the approximation would be
+$\sum_{n=0}^{N-1} v(h_N \,n) h_N$ where $h_N = (100-0)/N$.
+Just as when we defined derivatives, it would be useful for us
+to have a notation for the limit of this process.
+\goodbreak
+\proclaim Definition(\index{Integral}). Given a function $f$ on an interval
+$[a,b]$. For any integer $N$ we chop up the interval $[a,b]$ into $N$ uniform pieces of length $h_N = (b-a)/N$.
+By the notation $\int_{a}^{b} f(t) \, dt$ we 
+mean\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{{\rm This definition only 
+works for well behaved functions. For example, it works for 
+continuous functions or a patch 
+work of continuous functions. See the ``Computational Strategy for Limits'' section of the appendix 
+``Infinite Sequences and Limits''  for a definition of a continuous function.}}:
+$$
+\int_{a}^{b} f(t) \, dt \;\; {\buildrel {\rm def} \over \equiv} \;\; 
+\lim_{N \rightarrow \infty} \sum_{n=0}^{N-1} f(t_n) \Delta t_n
+$$
+where $t_n = a + n\, h_N$ is the left end point of the $n^{\rm th}$ interval.
+
+The sum on the right represents an increasingly refined approximation to the area under the curve using
+stepwise approximations.\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}%
+{The right hand side is really 
+$\lim_{N \rightarrow \infty} S_N$, where $S_N \; {\buildrel {\rm def} \over \equiv} \; \sum_{n=0}^{N-1} f(t_n) \Delta t_n$.
+That is, this is really the \index{limit} of a \index{sequence}, something we have already discussed.}
+
+
+We say that $\int_{a}^{b} f(t) \, dt$ is the {\it integral\/} of $f$ over 
+the interval $[a,b]$. We call the process of computing the 
+integral {\it \index{integration}\/}.
+
+{\bf Note:\/} The symbol, $\int$, is a stretched out `S', the first letter
+of ``Sum'', while $dt$ is interpreted as a single symbol -- not multiplication of $d$ times $t$ -- 
+and is an echo of the symbols $\Delta t_n$ used in the approximating \index{discrete sum}s.
+
+{\bf Note:\/} The variable $t$ (and its cousin $dt$) in the expression $\int_{a}^{b} f(t) \, dt$
+are ``dummy'' variables. Their notational purpose is to represent
+the ``continuous'' looping variable used in this ``sum''. Just as in programming
+languages, the name is not important. It is important, however, that it
+not be a name which causes confusion. For instance, if the interval
+over which we are integrating is $[a,t]$ then the integral,
+$\int_{a}^{t} f(t) \, dt$, doesn't make sense. This is directly analogous 
+to writing a ``for loop'' that confuses the looping variable with 
+a variable used to determine the end of the loop. The confused code 
+might look like this in the language `C':
+\break{\tt for(i = 0; i < ${\bf i\/}$; i++) $\{ \ldots \}$}.
+This loop can be written correctly by using a different looping variable:
+\break{\tt for(j = 0; j < i; j++) $\{ \ldots \}$}.
+The incorrectly written integral, $\int_a^t f(t) \, dt$,  can be fixed in the same way:
+$\int_a^t f(s) \, ds$.
+To make the point clear, let us note that all of the integrals below mean 
+the same thing:
+$$
+\int_{a}^{b} f(t) \, dt = \int_{a}^{b} f(s) \, ds = \int_{a}^{b} f(u) \, du
+ = \int_{a}^{b} f(x) \, dx
+$$
+
+Our new shiny notation says that 
+$\int_{t_{\rm b}}^{t_{\rm e}} v(t) \, dt = $ 
+{\it the area under the graph of v}\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}%
+{For this statement to be true we are implicitly assuming that the velocity function is non-negative.}. This is also the limit of 
+$x_{\rm approx}(t_{\rm e}) - x_{\rm approx}(t_{\rm b}) $ as the approximations
+get closer to $x$. Therefore, if we believe that the $x_{\rm approx}$ values 
+at $t_{\rm b}$ and $t_{\rm e}$ approach the values of $x$ at 
+$t_{\rm b}$ and $t_{\rm e}$, then we must have 
+$$
+\int_{t_{\rm b}}^{t_{\rm e}} v(t) \, dt = x(t_{\rm e}) - x(t_{\rm b})
+$$
+So, just as with the piecewise constant functions it is the case 
+that the 
+area under $v$ is just the difference in the value of the corresponding 
+distance function, $x$, at the endpoints.
+
+We can also relate the point-wise relationship of $v$ to $x$ with the 
+above interval relationship. Since $x'(t) = v(t)$, we may write the above as 
+$$
+\int_{t_{\rm b}}^{t_{\rm e}} x'(t) \, dt = x(t_{\rm e}) - x(t_{\rm b})
+$$
+It turns out that this formula is true even if $x$ is not a distance function.
+That is, given 
+any function $F$, with corresponding derivative, $F'$, we may write 
+what is called 
+{\it the Fundamental Theorem of Calculus\/}:%
+\proclaim Theorem(Fundamental Theorem of Calculus). If $F$ is a function such that $F'$ exists and is continuous 
+over the interval $[a,b]$, then
+$$
+\int_{a}^{b} F'(t) \, dt = F(b) - F(a) 
+$$
+
+This is really the continuous analog of the \index{Fundamental Theorem of 
+Difference Calculus}:
+$$
+\obrace{\sum_{n=0}^{N-1}}{Discrete Sum} 
+\obrace{\Delta F_n}{Telescoping Difference} = \obrace{F_N - F_0}{Difference at End Points}
+$$
+We write the \index{Fundamental Theorem of Calculus} (\index{FTC}) again with suggestive markup to show the analogy with 
+the above discrete equation:
+$$
+\obrace{\int_{a}^{b}}{Continuous Sum} 
+\obrace{F'(t) \, dt}{Infinitesimal Telescoping Difference} = 
+\obrace{F(b) - F(a)}{Difference at End Points}
+$$
+We will show how this result follows by
+breaking up the interval $[a,b]$ into $N$ pieces (where $N$ is large) and approximating the integral with
+a sum of \index{telescoping difference}s of a related sequence. Then we can use the Fundamental Theorem of {\it Difference\/} 
+Calculus (\index{FTDC}) to show the \index{FTC}. 
+
+To implement this program, note that each interval 
+will have length $h_N = (b-a)/N$. Let $F$ be a sequence 
+(we use the same name as the function) whose 
+$n^{\rm th}$ element, 
+$F_n$,  is the value of left 
+end point of the $n^{\rm th}$ interval (intervals are labeled starting at zero). 
+That is, $F_n = F(t_n)$ where $t_n$ represents the left end point of the
+$n^{\rm th}$ interval; i.e., $t_n = a + n \, h_N$.
+Notice that
+$F_0 = F(a)$ and $F_N = F(b)$. 
+In addition, note that $t_{n+1} = t_n + h_N$ ($\Delta t_n = h_N$) 
+so that $F_{n+1} = F(t_{n+1}) = F(t_n + h_N)$. 
+We also know that
+$F'(t_n) \approx \frac{\Delta F_n}{\Delta t_n}$.%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}%
+{The approximate derivative is obtained by
+dividing the ``rise'' in $F$, $\Delta F_n$, by the ``run'', $\Delta t_n$. }
+We now perform a crude calculation to show why the Fundamental Theorem is true:
+$$
+\int_{a}^{b} F'(t) \, dt \approx
+\sum_{n=0}^{N-1} F'(t_n) \Delta t_n \approx 
+\sum_{n=0}^{N-1} {\Delta F_n \over \Delta t_n} \Delta t_n = 
+\obrace{\sum_{n=0}^{N-1} \Delta F_n = F_N - F_0}{FTDC} = F(b) - F(a)
+$$
+This approximation can be seen by performing a slightly more careful analysis:
+$$
+\eqalign{
+\int_{a}^{b} F'(t) \, dt & \approx \sum_{n=0}^{N-1} F'(t_n) \Delta t_n \cr
+& = \sum_{n=0}^{N-1} \bigl({\Delta F_n \over \Delta t_n}  + 
+    {\rm error}(t_n)\bigr) \Delta t_n = \sum_{n=0}^{N-1} \Delta F_n  + 
+\obrace{\sum_{n=0}^{N-1} {\rm error}(t_n) \Delta t_n }{very small term} \cr
+& \approx  \sum_{n=0}^{N-1} \Delta F_n = F_N - F_0 = F(b) - F(a) 
+}
+$$
+Here, ${\rm error}(t_n)$ is the correction term to make $\Delta F_n / \Delta t_n$ equal to $F'(t_n)$.
+The only hard part of our crude calculation is showing that 
+$\sum_{n=0}^{N-1} {\rm error}(t_n) \Delta t_n$ goes to zero as $N$ gets large.
+If we call ${\rm error}_{\rm max}$ the largest of the 
+${\rm error}$s 
+in all the intervals, then we may bound the ``very small term'' expression above by 
+${\rm error}_{\rm max} \sum_{n=0}^{N-1} \Delta t_n$.
+This, in turn, is bounded by 
+${\rm error}_{\rm max} (b-a)$\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}%
+{$\sum_{n=0}^{N-1} \Delta t_n = t_N - t_0 = b - a$ by the FTDC.}.
+We need now
+only believe that the maximum error term will go to zero as $N$ goes 
+to infinity. 
+
+How do we use this theorem? For instance, suppose I want to compute 
+the area under the curve of a function $f$ over the interval $[a,b]$, 
+how does this theorem help?
+Well, we need to find an $F$ such that $F' = f$. Then 
+$$
+\int_a^b f(x) \, dx = \int_a^b F'(x) \, dx = F(b) - F(a)
+$$
+We call $F$ an {\it \index{anti-derivative}\/} of $f$. It turns out that $F$ is not 
+unique; but all \index{anti-derivative}s differ by a constant.
+It doesn't matter 
+which one you use, you will get the same answer%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{*}}{If $G$ is another anti-derivative then $G(x) = F(x)+c$ for some constant $c$.
+So $G(b) - G(a) =  (F(b) + c) - (F(a) + c) = F(b) - F(a)$.}. Now we need to be 
+able to find an anti-derivative of a function and we'll be done.
+
+Let's see how to apply these ideas to a problem. Keeping with the car theme, 
+suppose that you didn't have 
+sensors in your car, but you were told that the velocity of the car over the 
+interval $[0,10]$ (in hours) would be $v(t) =  t^2$ mph. 
+How far will the car have
+traveled over this time period? With our new notation we can write down the
+answer $\int_0^{10} t^2 \, dt$. Although this answer is concise, the
+notation hides the real work involved in its computation. That is, to compute
+this value from its definition would be a great deal of work.
+But, the \index{Fundamental Theorem of Calculus} says we may avoid that work 
+by evaluating a certain  function 
+$x$ at $10$ and $0$ and taking the difference. It is a function that has 
+the property that $x'(t) = v(t) = t^2$. Can we guess what functions have 
+this property? We are looking for an {\it \index{anti-derivative}\/} of $v$. 
+We know that from the chapter on differentiation that  
+differentiation of power functions reduces their degree by $1$. To find 
+an \index{anti-derivative} we should do the opposite; that is, look for a function 
+of degree one more than $2$.
+Let's try $x(t) = t^3$. In this case, $x'(t) = 3t^2$. This isn't
+quite right, we're off by a factor of $3$. If we let $x(t) = t^3/3$ then 
+$x'(t) = t^2$ and we can find the distance traveled, it is 
+$x(10) - x(0) = 10^3/3 - 0^3/3 = 1000/3 = 333 \, \frac{1}{3}$ miles.
+That is,%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}%
+{One last bit of notation, we use $f(t)\,\big|_{t=a}$ to mean $f(a)$. This is similar to
+notation you would see in other texts.}
+$$
+\int_0^{10} t^2 \, dt = t^3/3\,\big|_{t=10} - t^3/3\,\big|_{t=0} = 333 \,
+\frac{1}{3}
+$$
+We make a formal statement of the anti-derivative style FTC.
+
+\proclaim Theorem(FTC \index{Anti-derivative} Style). If $f$ is a function and 
+$F$ is an anti-derivative of $f$, then the following is true:
+$$
+\int_a^b f(x) \, dx = F(b) - F(a)
+$$
+
+{\bf proof:\/} This just says $\int_a^b f(x) \, dx = 
+\int_a^b F'(x) \, dx = F(b) - F(a)$ 
+(since $F' = f$). And the last equality is just the statement 
+of the fundamental theorem of calculus.
+
+So, in order to compute an integral of a function we need to find an 
+anti-derivative of that function.
+
+\exercise{Think about why all anti-derivatives of a function $f$ differ 
+by a constant. Hint: Let $F$ and $G$ be two anti-derivatives of $f$. 
+Show that the derivative of $F-G$ is zero. What kind of functions 
+have zero slope at every point?}
+
+\section{Integral Calculus: Computational Strategy}
+We would like to be able to compute an {\it anti-derivative\/} of a function 
+in order to be able to integrate it. We use the notation 
+$\int f(x) \, dx$ to indicate an anti-derivative. That is, when we 
+omit the boundaries of the integral we mean an \index{anti-derivative}; with the 
+boundaries we mean the integral over an interval. 
+
+We proceed in the same manner as 
+with the \index{differential calculus}. First, we find anti-derivatives for a base 
+class of functions. Next, we find formulas for anti-derivatives of functions 
+composed in some way from simpler functions. Just as with the differential 
+calculus, we use the power functions as a base set.
+
+\section{A Base -- a Family of Functions and their Anti-derivatives}
+\proclaim Theorem(Anti-derivative of Power Functions). An anti-derivative 
+of the power 
+function $f(x) = x^n$ is $F(x) = x^{n+1} / (n+1)$; valid for integer $n$, $n \neq -1$; valid for all $x$ when $n \ge 0$ and for
+all $x \neq 0$ when $n < 0$. This may be written:
+$$
+\int x^n \, dx = x^{n+1} / (n+1)
+$$
+Note that when $n = -1$ we already know an anti-derivative (only valid for $x>0$): $\int 1/x \,dx = \ln(x)$.
+
+We will need a slightly larger base than just the power functions.
+There is nothing new here -- each of the formulas below is just a derivative
+formula from the chapter on differentiation read in reverse. Restating the
+formula for $1/x$ along with the others:
+$$
+\eqalign{
+\int \cos(x) \, dx & = \sin(x) \cr
+\int \sin(x) \, dx & = -\cos(x) \cr
+\int e^x \, dx & = e^x \cr
+\int 1/x \, dx & = \ln(x) \quad (x > 0) \cr
+}
+$$
+
+\section{Enlarging the Class of Functions to Integrate}
+Here is a result for the second stage of our program. It is a linearity 
+theorem similar to the one for summation calculus.
+\proclaim Theorem(Linearity of the Anti-derivative). An anti-derivative of the 
+function $f$, where \allowbreak $f(x) = c_1 \, f_1(x) + c_2 \, f_2(x)$ is 
+$c_1$ times an anti-derivative 
+of $f_1$ plus $c_2$ times an anti-derivative of $f_2$. This may be written:
+$$
+\int f(x) \, dx = c_1 \int f_1(x) \, dx + c_2 \int f_2(x) \, dx
+$$
+
+Note that when $f_2(x) = 0$, the above implies $\int c f(x) \, dx = c \int f(x) \, dx$.
+\proclaim Corollary(Linearity of the Anti-derivative). An anti-derivative of the 
+function $f(x) = c_1 \, f_1(x) + c_2 \, f_2(x)  + \ldots + c_n f_n(x)$ is 
+$$
+\int f(x) \, dx = c_1 \int f_1(x) \, dx + c_2 \int f_2(x) \, dx + \ldots + c_n \int f_n(x) \, dx 
+$$
+
+This follows from the theorem on linearity and mathematical induction.
+The corollary and the results for the base family can be combined to find an anti-derivative of {\it any\/} 
+polynomial.
+
+\proclaim Theorem(Anti-derivative of a Polynomial). An anti-derivative of the 
+polynomial $p(x) = c_0 + c_1 x + c_2 x^2 + \cdots + c_n x^n$, ($n$ a non-negative integer) is
+$$
+\int p(x) \, dx = 
+c_0 x + c_1 x^2/2 + c_2 x^3/3 + \cdots + c_n x^{n+1}/(n+1)
+$$
+
+\example{Compute the integral: $\int_1^2 (1 + 2x + x^2) \, dx$.}
+We can use
+the last theorem to find an anti-derivative of $1 + 2x + x^2$; it gives
+$x + 2x^2/2 + x^3/3 = x + x^2 + x^3/3$. Therefore, by the fundamental
+theorem of calculus: $\int_1^2 (1 + 2x + x^2) \, dx =
+(x + x^2 + x^3/3)\,\big|_{x=2} - (x + x^2 + x^3/3)\,\big|_{x=1} = (2 + 4 + 8/3)
+- (1 + 1 + 1/3) = 26/3 - 7/3 = 19/3$.
+
+
+Here is another result from stage 2 of our program.
+\subsection{Integration by Parts}
+This is a technique which is essentially a way of computing an integral by 
+using the \index{product rule} from \index{differential calculus}. The product rule states
+that $(f\,g)' = f'\,g + f\,g'$. We rewrite this as: $f\, g' = (f\,g)' - f'\, g$. Integrating both sides over the interval $[a,b]$ 
+gives
+$$
+\int_a^b f(x)g'(x) \, dx =  \int_a^b (f(x)\,g(x))' \, dx - \int_a^b f'(x)g(x) \, dx 
+$$
+The first integral on the right hand side is easy to compute by 
+the fundamental theorem. Since this integral is easy to evaluate by the FTC, we have a direct relationship 
+between the other two integrals.
+$$
+\int_a^b f(x)g'(x) \, dx =  \bigl(f(b)g(b) - f(a)g(a)\bigr) - \int_a^b f'(x) g(x) \, dx  
+$$
+We call this result {\it \index{Integration by Parts}\/}  which is the continuous analog of 
+{\it \index{Summation by Parts}\/} introduced in chapter 2. 
+It relates one integral to another. This is useful (just as it was for summing sequences) because if
+one of the integrals can be easily evaluated we get the value of the other one for free.
+
+\example{Compute the integral $\int_0^{\pi/2} x\sin(x) \, dx$.}
+We can use the integration by parts formula here.
+Notice it would be convenient 
+to treat $\sin$ as the derivative of a function and then pass the derivative 
+onto $x$. Let $g(x) = -\cos(x)$ and $f(x) = x$. Then $g'(x) = \sin(x)$. 
+Integration by parts gives us:
+$$
+\eqalign{
+\int_0^{\pi/2} \obrace{x\mathstrut}{$f(x)$} \obrace{\sin(x)}{$g'(x)$} \, dx &= 
+\obrace{\bigl((\pi/2) * (-\cos(\pi/2)) \; - \; 0  * (-\cos(0))\bigr)}{$f(\pi/2)  g(\pi/2) \;-\; f(0)  g(0)$} - \int_0^{\pi/2} \obrace{x'}{$f'(x)$} \obrace{-\cos(x)}{$g(x)$} \, dx   \cr
+&= - \int_0^{\pi/2} -\cos(x)\, dx =  \int_0^{\pi/2} \cos(x)\, dx = \sin(\pi/2) \;-\; \sin(0) \cr
+&= 1
+}
+$$
+Note that the values $0$ and $\pi/2$ are in radians. The value $\pi/2$ radians is 90 degrees. This means that
+$\sin(\pi/2) = 1$ and $\cos(\pi/2) = 0$.
+\subsection{Substitution}
+Consider the integral $\int \sin^2(x) \cos(x) \, dx$. None of the rules we have
+developed so far will crack it -- the integrand is not a polynomial, nor is it a
+combination of our base functions that linearity or integration by parts can untangle.
+We need one more technique.
+This technique uses the \index{chain rule} (from \index{differential calculus}) to compute
+an integral.
+The chain rule states that $f(u(x))' = f'(u(x)) u'(x)$. Integrating both 
+sides gives
+$$
+\int_a^b f'(u(x)) u'(x) \, dx = \int_a^b f(u(x))' \, dx = f(u(b)) - f(u(a))
+$$
+Successful use of the above techniques is based on how well one can pattern match.
+It takes practice, but it is not our focus here. We demonstrate the idea through a few examples.
+
+\example{Compute $\int_a^b (x-a)^n\, dx$ when $n$ is a non-negative integer.}
+Letting $u(x) = (x-a)$, we see that the integral can be written as
+$\int_a^b u(x)^n u'(x) \, dx$.
+In this case letting $f'(z) = z^n$ (which has $z^{n+1}/(n+1)$ as an anti-derivative), the 
+substitution formula gives
+$\int_a^b f'(u(x)) u'(x)\, dx = f(u(b)) - f(u(a)) = {1 \over n+1} (b-a)^{n+1} - {1 \over n+1} (a-a)^{n+1} = {1 \over n+1} (b-a)^{n+1}$.
+\example{Compute $\int_a^b (a-x)^n\, dx$ when $n$ is a non-negative integer.}
+Letting $u(x) = (a-x)$, we see that the integral can be written as
+$-\int_a^b u(x)^n u'(x) \, dx$.
+Setting $f'(z) = z^n$ as in the previous example the 
+substitution formula gives
+$-\int_a^b f'(u(x)) u'(x)\, dx = -( f(u(b)) - f(u(a)) ) = -\bigl({1 \over n+1} (a-b)^{n+1} - {1 \over n+1} (a-a)^{n+1}\bigr) = -{1 \over n+1} (a-b)^{n+1}$.
+\example{Compute $\int_0^1 \sin^2(x) \cos(x) \, dx$.}
+Letting $u(x) = \sin(x)$, 
+and therefore $u'(x) = \cos(x)$,
+we see that the integral can be written as $\int_0^1 u(x)^2 u'(x) \, dx$.
+In this case $f'(z) = z^2$. Using the substitution formula gives 
+$\int_0^1 f'(u(x)) u'(x) \, dx = f(u(1)) - f(u(0)) = u(1)^3/3 - u(0)^3/3 =
+\sin(x)^3/3\,\big|_{x=1} - \sin(x)^3/3\,\big|_{x=0} = \sin^3(1)/3 - 0 = \sin^3(1)/3$. Note, as always
+the angle measure is in radians. So, the $1$ in our answer, $\sin^3(1)/3$, means $1$ radian,
+which is approximately 57 degrees.
+
+\exercise{Compute the following integrals: (1) $\int_0^1 (1 + x)^7 \, dx$;
+(2) $\int_0^{\pi/2} x \cos(x) \, dx$; (3) $\int_0^1 x \, e^{x^2} \, dx$.
+Hint: the first and last yield to substitution; the middle one to
+integration by parts.}
+
+\exercise{Compute the area under the graph of $\sin$ over the interval
+$[0, \pi]$. Then compute $\int_0^{2\pi} \sin(x) \, dx$. Why is the second
+answer $0$ even though the graph over $[0, 2\pi]$ certainly encloses area?
+(Recall the footnote earlier in this chapter: the area interpretation
+assumed the function was non-negative.)}
+
+\section{Can't always find Formulas for Anti-derivatives}
+As noted in the last chapter, not every function has a derivative. And even when it does, it may not 
+be easy to find a formula for the derivative. However, if the function has a nice formula it is often the 
+case that we can find
+a formula for the derivative. This is not the case with anti-derivatives. For nice continuous functions we always 
+have an \index{anti-derivative}, but finding a formula is not always possible -- even for relatively simple functions. 
+That is, there are functions with 
+nice formulas for which there is no formula for an anti-derivative. One example is the bell shaped 
+functions associated with the subjects of probability and statistics. 
+The graph of the function $f(x) = e^{-x^2}$ is bell shaped and its formula is simple.
+The area under the graph of this function exists and  we can {\it create\/} a function which is the area 
+under this curve from $0$ to $x$.
+We can write the value down in our notation as: $A(x) = \int_0^x e^{-s^2} \, ds$. 
+However, there is no formula for this function in terms of powers of 
+$x$, logarithmic, exponential, or trig functions because there is no formula for an anti-derivative of $e^{-x^2}$. 
+The integral (the area under the graph)
+exists; that is, the function $A(x)$ is a valid function -- there is just no formula for it. See the 
+appendix ``Functions, Formulas, Graphs, and Notation'' for other examples of functions without formulas.
+ 
+\section{Summary}
+The \index{fundamental theorem of calculus} can be stated succinctly:  
+the integration operation is the 
+inverse of the \index{differentiation operation}. This can be seen from the \index{FTC}:
+$\int_{a}^b f'(t) \, dt = f(b) - f(a)$, and writing it more crudely as $\int f' = f$. What makes 
+this result useful is if for a given integral, $\int_{a}^b v(t)\, dt$, one can recognize $v$ as
+the derivative of another function $f$, then this integral is 
+$\int_{a}^b f'(t)\, dt$ and by the FTC this is just $f(b) - f(a)$.
+
+The process of recognition is helped greatly if there is a well developed stock of differentiation formulas. 
+Then when confronted with integrating a function, we may be able to recognize, or more easily deduce, 
+a function which
+is an {\it anti-derivative\/} and then easily compute the integral. As with differencing and summing, finding
+formulas for derivatives and \index{anti-derivative}s of functions is much like multiplying and dividing numbers. 
+Computing derivatives is relatively easier -- like multiplying, while finding 
+anti-derivatives is harder -- like division. To 
+do long division it helps to be fluent with multiplication, because trial and error multiplications are
+necessary. The same is true when computing anti-derivatives, it helps first to be fluent with the formulas for
+the derivatives of a number of functions. To this end, one would
+\beginEnum
+\enum{Develop formulas for the derivatives of a base collection of functions.}
+\enum{Develop formulas for the derivatives of functions formed in various ways from the base.}
+\endEnum
+
+This is exactly what we did in the last chapter.
+
+Stepping back, this whole chapter was really the discrete game replayed on the
+continuous board -- every move we made had already been rehearsed with sequences,
+differences, and sums. Here is the dictionary:
+\bigskip
+\centerline{\vbox{\halign{\quad\hfil#\hfil\quad&\quad\hfil#\hfil\quad\cr
+{\bf Discrete}&{\bf Continuous}\cr
+\noalign{\smallskip\hrule\smallskip}
+$\Delta$&$d/dx$\cr
+$\sum$&$\int$\cr
+Fundamental Theorem of Difference Calculus (telescoping)&Fundamental Theorem of Calculus\cr
+Summation by Parts&Integration by Parts\cr
+anti-difference&anti-derivative\cr
+}}}
+\bigskip
+
+
