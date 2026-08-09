@@ -8,13 +8,14 @@
 
 
 - TO BUILD A NEW essential_calculus.pdf:
-    - ./make This loads and TeXs main.tex, composed of all the chapters 
+    - ./make 
+       This loads and TeXs main.tex, composed of all the chapters 
        twice as well as builds the index,
        Then it runs xdvi on the main.dvi file.
 
     - Then do:
         - dvips main.dvi  (giving main.ps)
         - ps2pdf main.ps  (giving main.pdf)
-        - copy main.pdf to ~/proj/github/math/pdf/essential_calculus.pdf
+        - cp main.pdf to pdf/essential_calculus.pdf
 
 
