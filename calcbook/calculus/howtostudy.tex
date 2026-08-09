@@ -1,0 +1,239 @@
+%\input ../util/bookmacros
+%\input ../util/docparams
+
+\appendix{Appendix F}{How to Study from This Book}
+This book was written to give you a map of calculus: the four strategic
+moves, the discrete and continuous boards, and the dictionary that ties
+them together. But a map you never unfold fades. This appendix is about
+keeping the map alive after you close the book. It rests on a small
+number of findings about human memory -- findings which are as well
+established as anything in the study of learning\footnote{\kern 0.5pt
+\raise 0.5ex \hbox{\dag}}{They come from a century of experiments,
+starting with Ebbinghaus's measurements of his own forgetting in the
+1880s, through the modern work on ``retrieval practice'' by Roediger and
+Karpicke (2006), the ``spacing'' and ``desirable difficulties'' work of
+the Bjorks, and Skemp's 1976 comparison of relational and instrumental
+understanding. The findings have held up; education fashion comes and
+goes around them.} -- and on a piece of good luck: you have something no
+student in history has had, a tireless examiner. Used correctly, an AI
+will keep this material alive in you for years. Used incorrectly, it
+will do your thinking for you and you will retain nothing. The
+difference between the two is the subject of this appendix.
+
+\section{Four Findings About Memory}
+Just as the calculus in this book was organized around four strategic
+moves, the practice of {\it keeping\/} it is organized around four
+findings about memory.
+
+\beginEnum
+\enum{{\it Retrieval beats rereading.} Rereading a chapter feels like
+learning -- the material seems familiar, and familiarity masquerades as
+knowledge. But the act that strengthens memory is pulling the idea {\it
+out\/} of your head, not putting it in again. Testing yourself is not
+merely a way to measure knowledge; it is the way to create it.}
+\enum{{\it Spaced beats massed.} Ten problems tonight do less for you
+than three tonight, three next week, and three next month. Memory is
+strengthened most when you retrieve something just as you are on the
+verge of losing it. Forgetting a little, then recovering, is not a
+failure of the method -- it {\it is\/} the method.}
+\enum{{\it Mixed beats blocked.} Twenty integration-by-parts problems in
+a row teach you to execute integration by parts. They do not teach you
+to {\it recognize\/} when it applies -- because in a block of twenty,
+recognition is never in question. Real problems arrive unlabeled. Your
+practice should too.}
+\enum{{\it Struggle first, then check.} An answer you fought for -- even
+if you lost -- sticks far better than an answer you were shown. Commit
+to an answer, in writing, {\it before\/} you see the solution. The
+discomfort of not knowing is not an obstacle to learning; it is the
+sensation of learning.}
+\endEnum
+
+Notice what these findings say about the traditional arrangement --
+read a large book slowly, do a block of like problems after each
+section, review everything the week of the exam. It is almost perfectly
+backwards. It produces what it optimizes for: a few weeks of buffered
+material, released on exam day and gone by summer.
+
+\section{The Method}
+Here is the whole method. For each chapter of this book:
+
+\beginEnum
+\enum{{\it Read the chapter}, working the examples with pen and paper as
+you go. This is the only step that resembles ordinary studying.}
+\enum{{\it Close the book and rebuild the summary.} Every chapter ends
+with a summary. Before you reread it, write your own from memory: the
+definitions, the theorems, the moves that were played. Then compare.
+What you missed is not a mark against you -- it is the most valuable
+information the exercise produces, because it tells you exactly what to
+revisit.}
+\enum{{\it Work the exercises cold.} Commit to an answer before
+checking anything. If you are stuck for ten minutes, that is fine;
+finding 4 above says the struggle is doing the work.}
+\enum{{\it Then bring in the examiner} -- the next day, the next week,
+and the next month, as laid out below.}
+\endEnum
+
+The whole apparatus costs perhaps two hours a week. It is not the
+grind; it is the thing the grind was always pretending to be.
+
+\section{Rules for the Examiner}
+An AI can play two roles: oracle or examiner. As an oracle it answers
+your questions, solves your problems, and explains what you ask it to
+explain. This feels wonderful and teaches you almost nothing -- it is
+rereading, with better production values. As an examiner it asks {\it
+you\/} the questions, waits for your committed answer, and only then
+tells you the truth. Everything good in this appendix comes from
+holding the AI in the examiner's chair. Three rules accomplish this:
+
+\beginEnum
+\enum{{\it Never let it solve before you commit.} Tell it so, in the
+prompt, explicitly: ``Do not show me the answer or any hint until I have
+given my answer.'' A good examiner is told the rules of the exam.}
+\enum{{\it Make it grade the setup separately from the algebra.} In
+this book the hard step was never the arithmetic; it was choosing the
+move -- recognizing the telescoping sum, seeing that an integrating
+factor is called for. Instruct the examiner to grade ``did you choose
+the right move'' and ``did you execute it'' as two separate marks. An AI
+will happily absorb the arithmetic burden anyway; what must remain
+yours is the choice of move.}
+\enum{{\it Make it probe for understanding, not recall.} The test of
+understanding is not whether you remember a formula -- it is whether
+you can {\it rebuild\/} it from the move that produced it, and whether
+you know what it is {\it for\/}. Years ago I watched a room of bright
+engineering students fail an exam problem with the formula for
+integration by parts written on the board in front of them. They had
+memorized everything and understood what none of it was for. The
+examiner's best questions are the ones that would have exposed this a
+year earlier: ``What does this formula trade for what?'' ``When would
+you reach for it?'' ``Derive it from the product rule.''}
+\endEnum
+
+\section{Prompts That Work}
+What follows are prompts you can give an AI, nearly verbatim. They are
+grouped by chapter, and each one embodies the rules above. You will
+naturally drift from these scripts as you and your examiner develop a
+working relationship; that is as it should be. What should not drift is
+the structure: examiner not oracle, commit before checking, setup
+graded apart from algebra.
+
+\subsection{After the chapters on Difference and Summation Calculus}
+{\medskip\narrower\noindent\raggedright {\tt You are my examiner on difference
+calculus. Give me sequences, one at a time, and I will compute their
+difference sequences. Then reverse the game: give me difference
+sequences and I will find antidifferences. Mix in sums I should
+evaluate by recognizing a telescoping difference and applying the
+Fundamental Theorem of Difference Calculus. Do not show answers or
+hints until I commit to an answer. Keep track of the kinds of errors I
+make and return to those kinds later without telling me you are doing
+so.}\par\medskip}
+
+The last sentence quietly gives you interleaving and spacing inside a
+single session: the examiner reintroduces your weak spots when you are
+no longer expecting them.
+
+\subsection{After the chapters on Differential and Integral Calculus}
+{\medskip\narrower\noindent\raggedright {\tt Quiz me on differentiation and
+integration, mixed together and unlabeled, one problem at a time. After
+each of my answers, grade two things separately: whether I chose the
+right technique (linearity, product rule, chain rule, substitution,
+integration by parts) and whether I executed it correctly. Do not tell
+me which technique a problem needs -- recognizing it is the point.}%
+\par\medskip}
+
+And a second game, which no textbook can play with you:
+
+{\medskip\narrower\noindent\raggedright {\tt Show me a worked evaluation of an
+integral that contains exactly one subtle error. I will find the error
+and explain why it is wrong. Start easy and get harder as I succeed.}%
+\par\medskip}
+
+Finding a planted error exercises precisely the verification skill you
+will need in the age of AI: the machine will do the computation, and
+{\it you\/} must be the one who can tell whether it is right.
+
+\subsection{After the chapter on the Derivative as Approximation}
+{\medskip\narrower\noindent\raggedright {\tt Give me quantities to estimate with
+the tangent line approximation -- no calculator -- and then have me
+bound the error using the next term of Taylor's Theorem. Then ask me
+conceptual questions: why is the tangent line the best line? What does
+the error term buy us? Make me derive the first two terms of Taylor's
+Theorem from the Mean Value Theorem.}\par\medskip}
+
+\subsection{After the chapters on Difference and Differential Equations}
+{\medskip\narrower\noindent\raggedright {\tt Give me word problems -- loans,
+populations, cooling coffee, radioactive decay -- without telling me
+whether they are discrete or continuous. I will set up the difference
+or differential equation, name the strategic move (summing factor or
+integrating factor), and solve it. Grade the setup, the move, and the
+algebra as three separate marks. Occasionally give me a problem where
+the model breaks down and ask me where and why.}\par\medskip}
+
+\subsection{The Monthly Examination}
+Once a month, hold a real examination -- oral, in the old style:
+
+{\medskip\narrower\noindent\raggedright {\tt You are my oral examiner for twenty
+minutes on the whole of discrete and continuous calculus. Ask me to:
+derive the Fundamental Theorem of Calculus from the telescoping sum
+picture; explain what integration by parts trades for what, and derive
+it from the product rule; state the discrete/continuous dictionary from
+memory; solve one difference equation and one differential equation and
+point out that they are the same game. Push back on vague answers.
+At the end, tell me which parts of my understanding are load-bearing
+and which have gone soft.}\par\medskip}
+
+The one-month spacing is chosen on purpose: by finding 2, you want to
+retrieve this material roughly when you are starting to lose it. If the
+viva goes badly in places, that is the system working -- you have found
+the soft spots while they are still cheap to repair.
+
+\section{The Drill Companion}
+This book deliberately contains few exercises; it is a map, not a
+gymnasium. For raw volume of practice, pair it with any inexpensive
+problem collection -- the Schaum's Outline of Calculus is the
+traditional choice and costs less than lunch.\footnote{\kern 0.5pt
+\raise 0.5ex \hbox{\dag}}{Any edition will do. The problems have not
+changed in fifty years because the calculus has not changed in three
+hundred.} Two rules keep the drill useful:
+
+\item{Do not work the problems in blocks. Open two chapters at once and
+alternate, or have your examiner select page numbers for you at random.
+Finding 3 again: real problems arrive unlabeled.}
+\item{Before each problem, say -- out loud or on paper -- which
+strategic move it will need. {\it Then\/} work it. This one habit
+converts a thousand grind-problems into a thousand recognition drills,
+which is the skill the grind never taught.}
+
+\section{A Schedule}
+Collecting all of the above into one place. After finishing a chapter:
+
+\bigskip
+\centerline{\vbox{\halign{\quad\hfil#\hfil\quad&\quad#\hfil\quad\cr
+{\bf When}&{\bf What}\cr
+\noalign{\smallskip\hrule\smallskip}
+same day&rebuild the chapter summary from memory; exercises, cold\cr
+next day&examiner session on the new chapter\cr
+next week&mixed session: new chapter plus everything before it\cr
+each month&the twenty-minute oral examination, whole book\cr
+}}}
+\bigskip
+
+\noindent Miss a session, pick up where you left off; the schedule is a
+rhythm, not a debt. And notice what is absent from it: there is no
+``review week,'' because there is nothing left to cram -- the material
+never had a chance to leave.
+
+\section{The Test}
+A year from now, sit down with a blank sheet of paper and try to write
+out the dictionary that closed the last chapter -- $\Delta$ and
+$d/dt$, summation and integration, the two Fundamental Theorems, the
+summing factor and the integrating factor, $a = 1 + r$ tying geometric
+to exponential growth. Then pick one row and rebuild it: derive the
+continuous entry from the discrete one by the {\it approximate, then
+take a limit\/} move.
+
+If you can do that, you have what this book was written to give you.
+Not a buffer of formulas -- those were never the point, and the machine
+holds them better than you ever will -- but the map: which game is
+being played, which move applies, and the ability to rebuild any tool
+you have lost. That is what ``knowing calculus'' can still mean, and
+it is the part no examiner, human or artificial, can hold for you.
