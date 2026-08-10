@@ -405,16 +405,19 @@ $$
 \obrace{\Bigl(1 - {1\over n}\Bigr)\Bigl(1 - {2 \over n}\Bigr)
 \cdots\Bigl(1 - {k-1 \over n}\Bigr)}{$k-1$ factors, each less than $1$}
 $$
-Each product of factors is at most $1$, so the $k^{\rm th}$ term is at most
+Each product of factors is at most $1$ (for $k = 0$ and $k = 1$ the product
+is empty and, by convention, equals $1$), so the $k^{\rm th}$ term is at most
 $1/k!$; and since $k! \ge 2^{k-1}$ for $k \ge 1$,
 $$
 x_n \le \sum_{k=0}^{n} {1 \over k!} \le 1 + 1 + {1 \over 2} + {1 \over 4} +
 {1 \over 8} + \cdots \le 3
 $$
 {\bf Non-decreasing.} In the displayed sum, passing from $n$ to $n+1$ does
-two things: every factor $(1 - j/n)$ grows to $(1 - j/(n+1))$, so every
-existing term grows; and one more (positive) term appears, at $k = n+1$.
-Both effects push the sum up, so $x_{n+1} \ge x_n$.
+two things: every factor $(1 - j/n)$ grows to $(1 - j/(n+1))$, so no
+existing term shrinks (the $k = 0$ and $k = 1$ terms stay fixed at $1$;
+every later term grows); and one more (positive) term appears, at $k = n+1$.
+Neither effect can push the sum down, so $x_{n+1} \ge x_n$ -- and
+non-decreasing is all the theorem asks.
 
 Bounded above and non-decreasing: by the Monotone Sequence Theorem the
 limit exists. The value of the limit, $2.718281828\ldots$, is the
