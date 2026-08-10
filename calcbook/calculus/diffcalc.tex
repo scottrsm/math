@@ -183,7 +183,9 @@ to an algebraic/mechanical one so we can compute efficiently. That is, we need t
 to graph our function in order to solve the maximization problem.
 What we have now done, in effect, is represent our {\it geometric\/}
 notion of a \index{tangent} line in an {\it algebraic\/} way as
-a single number. This is important enough to state formally.
+a single number. This is the {\it change the representation\/} move of the
+preface: we trade a picture for a number we can compute with.
+This is important enough to state formally.
 
 \proclaim Theorem(Slope Representation). The steepness of a non-vertical
 \index{straight line} is captured by a {\it single\/} number - its \index{slope}.
@@ -573,7 +575,10 @@ $$
 This follows from the previous theorem and mathematical induction.\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{See the appendix ``Mathematical Induction''.}
 The theorem and corollary say that the operation of differentiation is linear. This is directly analogous to the linearity
 result for the \index{difference operation}, $\Delta$, of chapter 1. In effect, differentiation (like differencing)
-passes through constants and sums.
+passes through constants and sums. In the language of the preface, this is
+the {\it exploit linearity\/} move on the continuous board: to differentiate
+a complicated function, break it into pieces you can differentiate, and add
+the answers.
 
 We show this for the case when $f$ is the sum of two functions; that is $f(x) = c_1 \, f_1(x) + c_2\,  f_2(x)$.
 Let $h$ be a sequence with the property that $h_n \ne 0$ and $h_n$ tends to $0$ as $n$ tends to infinity. 
@@ -937,7 +942,14 @@ We list our main results:\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{The dom
 \vskip .2in
 
 \subsection{Derivatives of Trig Functions}
-Let us attempt to compute the derivative of the sine function, $\sin$, 
+Why should the trigonometric functions join our base collection? Because
+they are the functions that {\it oscillate\/} -- and nature is full of
+oscillation: a weight bobbing on a spring, a pendulum swinging, alternating
+current in a wire. When we reach the chapter on differential equations we
+will see oscillating systems demanding these functions; to be ready for
+them we need their derivatives now.
+
+Let us attempt to compute the derivative of the sine function, $\sin$,
 at a point $x$. Again, let $\{h_n\}_{n=1}^\infty$ be a sequence which converges to $0$ with the
 property that $h_n \ne 0$ for any $n$. For any $n$, the approximating slope to the tangent line is
 $$
@@ -948,92 +960,27 @@ $$
 }
 $$
 We need to be able to find the limits (if they exist) of $\frac{\sin(h_n)}{h_n}$ and 
-$\frac{\cos(h_n) - 1}{h_n}$. We will have to do some real work to compute the limit 
-of $\frac{\sin(h_n)}{h_n}$; but once we do, the other limit, $\frac{\cos(h_n) - 1}{h_n}$ 
-will follow and, therefore, we will be able to compute the derivative of the 
-sine function. Before we make a precise argument for the limit of 
-$\frac{\sin(h_n)}{h_n}$, note in the figure below that when $\theta$ is small,
-the length of the segment BC and the length of the arc DC seem to be very close to the 
-same value. In fact, one might conclude that in the limit their ratio 
-$\frac{\sin(\theta)}{\theta}$ is $1$. This is what we show now.
-
-Examining the figure and comparing the areas of the triangular region ABC to 
-the sector ADC to the triangle ADE we find that 
-$$
-\obrace{\frac{\cos(\theta)\sin(\theta)}{2}}{Area of triangle ABC} \le 
-\obrace{\frac{\theta}{2}}{Area of sector ADC} \le 
-\obrace{\frac{1 * \tan(\theta)}{2}}{Area of triangle ADE}
-$$
-\epsfigure{eps/sinderiv.eps}{Comparison of triangle ABC, sector ADC, 
+$\frac{\cos(h_n) - 1}{h_n}$. The picture below shows what is at stake in the first of these limits. When
+the angle $\theta$ is small, the vertical segment BC (whose length is
+$\sin(\theta)$) and the arc DC (whose length is $\theta$, in radian measure)
+hug each other. In fact, one might conclude that in the limit their ratio
+$\frac{\sin(\theta)}{\theta}$ is $1$.
+\epsfigure{eps/sinderiv.eps}{Comparison of triangle ABC, sector ADC,
 and triangle ADE.}
-Here, we are assuming $\theta$ is positive, measured in radians, and 
-is less than $\pi/2$. The area of each triangle is found using the formula, 
-base * height / 2, while the area of the sector is determined by the formula 
-$\theta r^2/2$. In our case, $r = 1$, giving $\theta/2$; again, 
-provided $\theta$ is measured in \index{radian}s. We briefly describe 
-radian measure for those who have not seen it before.
-
-The radian measure of an angle is the arc 
-length of the angular sector 
-formed by this angle on the unit circle. That is, if a sector has angle $\theta$ in 
-radians, then the corresponding arc (on the unit circle) has length $\theta$ (see 
-the figure above).
-The arc length of a complete circle 
-(360 degrees) is $2\pi$; therefore, there are $2\pi$ radians in 360 degrees. This means
-that there are ${360 \over 2 \pi }= {180 \over \pi}$ (which  is approximately 57) degrees per radian. 
-Also, the area of the unit circle is $\pi$; so, 
-the area of a sector of $\theta$ radians (on the unit circle) is a fraction of the area of the 
-full circle $\pi$. What fraction? Well, the sector of $\theta$ radians has an arc length of $\theta$ while
-the arc length of a complete circle is $2 \pi$. Since the area of a complete circle is $\pi$, the area
-of the sector must be ${\theta \over 2 \pi}$ of $\pi$. So, the area of the sector is $\theta / 2$.
-One can use other angular measures (such as degrees or grads) 
-but the formulas for the area of a sector have messy constants; and, in turn, 
-the derivatives of the trig functions using these angular measures also 
-have messy constants. Note that this is not unlike the derivative 
-of the logarithmic functions; any choice of base other than $e$ leads to a messier 
-formula.
-
-Continuing with our calculations, the first inequality gives 
-the relation:
-$$
-\frac{\sin(\theta)}{\theta} \le \frac{1}{\cos(\theta)}
-$$
-while the second inequality yields the relation:
-$$
-\cos(\theta) \le \frac{\sin(\theta)}{\theta}
-$$
-Combining these gives:
-$$
-\cos(\theta) \le \frac{\sin(\theta)}{\theta} \le \frac{1}{\cos(\theta)}
-$$
-A similar argument shows that the relation holds when $\theta$ is negative and larger 
-than $-\pi/2$. We may replace $\theta$ with the $n^{\rm th}$ element of our sequence $h$ giving:
-$$
-\cos(h_n) \le \frac{\sin(h_n)}{h_n} \le \frac{1}{\cos(h_n)}
-$$
-Now, since the limit of the first and third terms exists and is $1$, it is the case that the middle term has 
-the same limit.\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{This follows from the Squeeze Limit Theorem from the appendix
-  ``Infinite Sequences and Limits''.} Therefore,
+This conclusion is correct. The precise argument -- comparing the areas of
+the triangles ABC and ADE with the area of the sector ADC and squeezing --
+is a fine application of the Squeeze Limit Theorem, and it may be found,
+along with a discussion of \index{radian} measure, in the section ``Two
+Trigonometric Limits'' of the appendix ``Infinite Sequences and Limits''.
+The radian is to angles what the base $e$ was to logarithms: precisely the
+choice of measure that makes these limits -- and with them the derivative
+formulas below -- come out clean, with no messy constants tagging along.
+The second limit follows from the first (also shown in the appendix).
+The results are:
 $$
 \lim_{n\rightarrow \infty} \frac{\sin(h_n)}{h_n} = 1
-$$
-We can use this result to compute the other limit of interest, 
-$(\cos(h_n) - 1)/h_n$. First note that 
-$$
-\frac{\cos(h_n) - 1}{h_n} = \frac{(\cos(h_n) - 1) (\cos(h_n) + 1)}{h_n (\cos(h_n) + 1)}
-= \frac{\cos^2(h_n) - 1}{h_n(\cos(h_n) + 1)}
-$$
-This may be written 
-$$
-\frac{-\sin^2(h_n)}{h_n(\cos(h_n) + 1)} = -\frac{\sin^2(h_n)}{h_n^2} \frac{h_n}{\cos(h_n) + 1}
-$$
-Since the last expression is a product of expressions which have limits, we may 
-write:\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}{This follows from the Product of Limits Theorem in the appendix ``Infinite Sequences and Limits''.}
-$$
-\lim_{n\rightarrow \infty}\frac{\cos(h_n) - 1}{h_n} = -\lim_{n\rightarrow \infty}
-\frac{\sin^2(h_n)}{h_n^2} \lim_{n\rightarrow \infty}\frac{h_n}{\cos(h_n) + 1}
-= -(1^2)
- * (0 / 2) = -1 * 0 = 0
+\qquad {\rm and} \qquad
+\lim_{n\rightarrow \infty} \frac{\cos(h_n) - 1}{h_n} = 0
 $$
 Applying these limits to calculate the derivative of sine we have:
 $$

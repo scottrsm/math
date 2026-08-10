@@ -233,18 +233,39 @@ x_{n+1} - a\, x_n & = b_n \cr
 x_0 & = L \cr
 }
 $$
-The key idea is to multiply both sides of the first equation by a known \index{sequence} 
-so that the left hand side is a quantity which can be represented as 
-a {\it telescoping\/} difference. Given a sequence 
-$\{y_n\}_{n=0}^\infty$, multiply the first equation by $y_{n+1}$. This gives:
+For this to work, the left hand side itself need not be a telescoping
+difference -- it is enough that some known {\it multiple\/} of it is.
+So we play the {\it change the representation\/} move: find a known
+sequence $\{y_n\}_{n=0}^\infty$ so that, after multiplying our equation
+through by a suitable term of $y$, the left hand side becomes the
+difference of a product,
+$$
+\Delta (y_n x_n) = y_{n+1} x_{n+1} - y_n x_n
+$$
+-- the very quantity whose expansion is the Discrete Product Rule of
+chapter 1. Now compare the shape we want with the shape we have:
+$$
+\obrace{y_{n+1} x_{n+1} - y_n x_n}{what we want}
+\qquad {\rm versus} \qquad
+\obrace{x_{n+1} - a\, x_n}{what we have}
+$$
+The leading terms tell us which multiplier to use: multiplying our
+equation by $y_{n+1}$ makes the leading terms agree. This gives:
 $$
 \eqalign{
 y_{n+1} x_{n+1} - (a\, y_{n+1}) x_n & = b_n y_{n+1} \cr
 x_0 & = L \cr
 }
 $$
-If we chose the sequence $y$ so that $a\, y_{n+1} = y_n$, then we would have 
-a \index{telescoping difference} on the left hand side 
+Comparing the trailing terms then forces the choice of the sequence $y$: the left
+hand side is {\it exactly\/} the telescoping difference $\Delta(y_n x_n)$ provided
+$$
+a\, y_{n+1} = y_n
+$$
+Notice that nothing was pulled out of a hat. The multiplier $y_{n+1}$ and
+the condition on $y$ were both {\it forced\/} on us by matching our equation
+against the one difference-of-a-product formula we own. With this choice of $y$ we have
+a \index{telescoping difference} on the left hand side
 $$
 \eqalign{
 y_{n+1} x_{n+1} - y_n x_n & = b_n y_{n+1} \cr
@@ -255,7 +276,9 @@ Such a multiplier sequence $y$ is called a {\it \index{summing factor}\/} -- and
 when we solve differential equations in the next chapter, we will meet its
 continuous twin, the {\it integrating factor\/}.
 
-Summing from $0$ to $N-1$ gives us $y_N x_N - y_0 x_0 = \sum_{n=0}^{N-1} b_n y_{n+1} $. Solving for $x_N$ 
+The unknowns now sit under a telescoping difference, and summing is its
+inverse -- the {\it isolate and invert\/} move finishes the job.
+Summing from $0$ to $N-1$ gives us $y_N x_N - y_0 x_0 = \sum_{n=0}^{N-1} b_n y_{n+1} $. Solving for $x_N$
 gives
 $$
 x_N = \biggl( {y_0 L + \sum_{n=0}^{N-1} b_n y_{n+1} \over y_N}\biggr)
@@ -334,12 +357,29 @@ solution compare, term by term, with the loan formula above?}
 
 
 \section{Summary}
-We are able to solve a simple \index{difference equation} by first 
-rewriting the tangling of $x$'s as a \index{telescoping difference} and then use 
-the \index{Fundamental Theorem of Difference Calculus} to ``sum away'' the 
-tangles. This leaves one element of the sequence, $x_N$, on one 
-side of the equation and the sum of 
+We are able to solve a simple \index{difference equation} by first
+rewriting the tangling of $x$'s as a \index{telescoping difference} and then use
+the \index{Fundamental Theorem of Difference Calculus} to ``sum away'' the
+tangles. This leaves one element of the sequence, $x_N$, on one
+side of the equation and the sum of
 the known values on the other side of the equation.
+
+In fact, this whole chapter was first year algebra replayed with a new kind
+of unknown -- the same game on a bigger board. Here is the dictionary:
+\bigskip
+\centerline{\vbox{\halign{\quad\hfil#\hfil\quad&\quad\hfil#\hfil\quad\cr
+{\bf Algebra}&{\bf Difference Equations}\cr
+\noalign{\smallskip\hrule\smallskip}
+unknown is a number $x$&unknown is a sequence $\{x_n\}$\cr
+find an equation $x$ satisfies&find an equation $\{x_n\}$ satisfies\cr
+do the same to both sides (balance scale)&multiply both sides by a summing factor\cr
+undo multiplication by dividing&undo $\Delta$ by summing (the FTDC)\cr
+isolate $x$; a number remains&isolate $x_N$; a formula remains\cr
+}}}
+\bigskip
+The strategic moves were the ones we have played since algebra:
+{\it change the representation\/} (make the left hand side a telescoping
+difference), then {\it isolate and invert\/} (sum away the difference).
 
 \section{What's Left}
 A difference equation is effectively any equation which relates a given element of a sequence with previous values of the 
@@ -366,8 +406,12 @@ $$
 This is categorized as a second order difference equation because a given element in the sequence is a
 function of the previous two values.
 
-How might one solve it? A change of representation does the trick: try a
-solution of the form $x_n = \lambda^n$. Substituting into the recurrence and
+How might one solve it? Recall that earlier in this chapter the first order
+equation $x_{n+1} = a\, x_n$ had a {\it geometric\/} solution: $x_n = a^n L$.
+A second order equation is the same game on a bigger board, so we try the
+same {\it shape\/} of solution -- a change of representation: try
+a solution of the form $x_n = \lambda^n$, where the number $\lambda$ is left
+to be determined. Substituting into the recurrence and
 dividing by $\lambda^n$ forces $\lambda^2 = \lambda + 1$, a quadratic
 whose roots, $(1 \pm \sqrt{5})/2$, involve the famous {\it \index{golden ratio}\/}.
 Because the recurrence is {\it linear\/}, any combination

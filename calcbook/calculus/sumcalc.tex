@@ -79,7 +79,9 @@ both constant multipliers and sums.
 From this it follows that $\sum_{n=1}^N a x_n = a \sum_{n=1}^N x_n$ and $\Delta (a x_n) = a \Delta x_n$. 
 This can be seen by taking $y_n = 0$.
 
-This allows us to more easily compute sums and differences of
+This is the {\it exploit linearity\/} move of the preface making its first
+formal appearance: break a problem into pieces, handle each piece, and add
+the answers. It allows us to more easily compute sums and differences of
 sequences in terms of their component parts. We will need this property almost
 immediately, to split differences like $\Delta (n^2 - n)$ into pieces we
 already know.%
@@ -197,11 +199,18 @@ $n^{\underline{2}} = n(n-1)$ and use it, with the FTDC, to compute
 $\sum_{n=1}^N n(n-1)$.}
 
 \section{Summation By Parts}
-Powerful applications of the \index{FTDC} result from equations that have 
+Consider the sum $\sum_{n=1}^{N} n \, 2^n$. The method of the last section
+is of no help here: that method hunted for an anti-difference of $n^2$
+among linear combinations of the powers $n$, $n^2$, $n^3$, but no
+combination of the sequences we have differenced so far has $n \, 2^n$ as
+its difference. The trouble is that $n \, 2^n$ is a {\it product\/} of two
+very different sequences. We need a tool built for products.
+
+Powerful applications of the \index{FTDC} result from equations that have
 a difference on one side. By summing both sides of the equation, the FTDC
-implies that the difference side is easy to compute. This means that there 
+implies that the difference side is easy to compute. This means that there
 is a simple formula for the summation of the other side of the equation.
-We do have such a formula; it is the
+We do have such a formula for products; it is the
 Discrete Product Rule from the last chapter. It states that:
 $$
 \Delta (x_n y_n) = \Delta x_n y_{n+1} + x_n \Delta y_n
@@ -220,10 +229,9 @@ $$
 $$
 This formula is referred to as ``Summation by Parts''. It relates one sum
 to another. If one sum is known, we can find the other from this formula.
-To be honest, the applications below re-derive results we already know -- that
-is how we test a new tool; its real power shows on sums that the
-linear-combination method above cannot easily crack, such as $\sum n \, 2^n$
--- taken up as an exercise in the next section.
+Before unleashing it on the sum $\sum n \, 2^n$ that opened this section,
+we first test the new tool by re-deriving two results we already know --
+that is how one learns to trust a new tool.
 
 \section{Applications of Summation By Parts}
 Let's try to apply \index{summation by parts} to the previous example of 
@@ -309,11 +317,32 @@ $$}
 
 \exercise{Find a formula for the sum: $\sum_{n=1}^{N} n^3$.}
 
-\exercise{Find a formula for the sum: $\sum_{n=1}^{N} n \, 2^n$. Hint: note
-that $\Delta 2^n = 2^{n+1} - 2^n = 2^n$; so, in the Summation by Parts
-formula let $x_n = n$ and $y_n = 2^n$. You will also need the sum
-$\sum_{n=1}^{N} 2^{n+1}$, which telescopes for the same reason:
-$2^{n+1} = \Delta 2^{n+1}$.}
+Now for the payoff -- the sum that opened this section, the one the
+linear-combination method could not touch.
+\example{Find a formula for the sum: $\sum_{n=1}^{N} n \, 2^n$.
+Recall from the first chapter that $\Delta 2^n = 2^{n+1} - 2^n = 2^n$; the
+sequence $2^n$ is its own difference. So, in the Summation by Parts formula
+let $x_n = n$ and $y_n = 2^n$; then $\Delta y_n = 2^n$ and $\Delta x_n = 1$.
+The formula gives:
+$$
+\sum_{n=1}^{N} \obrace{n \, 2^n}{$x_n \Delta y_n$} =
+\obrace{(N+1) \, 2^{N+1}}{$x_{N+1} y_{N+1}$} - \obrace{1 * 2}{$x_1 y_1$}
+- \sum_{n=1}^{N} \obrace{1 * 2^{n+1}}{$\Delta x_n \, y_{n+1}$}
+$$
+The remaining sum telescopes for the same reason: $2^{n+1} = \Delta 2^{n+1}$,
+so by the FTDC, $\sum_{n=1}^{N} 2^{n+1} = \sum_{n=1}^{N} \Delta 2^{n+1} =
+2^{N+2} - 2^2 = 2^{N+2} - 4$. Therefore,
+$$
+\sum_{n=1}^{N} n \, 2^n = (N+1)\, 2^{N+1} - 2 - \bigl(2^{N+2} - 4\bigr)
+= (N+1)\, 2^{N+1} - 2 * 2^{N+1} + 2 = (N-1)\, 2^{N+1} + 2
+$$
+As a check, for $N = 2$ the formula gives $1 * 8 + 2 = 10$, which agrees
+with $1 * 2 + 2 * 4 = 10$.}
+
+\exercise{Find a formula for the sum: $\sum_{n=1}^{N} n^2 \, 2^n$. Hint: in
+the Summation by Parts formula let $x_n = n^2$ and $y_n = 2^n$; the sums that
+appear can be handled with the formula just derived for
+$\sum_{n=1}^{N} n \, 2^n$ and the telescoping of $2^{n+1}$.}
 
 
 \section{Summary}

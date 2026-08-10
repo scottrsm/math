@@ -390,6 +390,101 @@ below and is non-increasing it also has a limit.
 
 There are other criteria, but they are outside the scope of this book.
 
+\section{Two Trigonometric Limits}
+In the chapter on Differential Calculus, computing the derivative of the
+sine function came down to two limits: for any sequence
+$\{h_n\}_{n=1}^\infty$ which converges to $0$ with the property that
+$h_n \ne 0$ for all $n$,
+$$
+\lim_{n\rightarrow \infty} \frac{\sin(h_n)}{h_n} = 1
+\qquad {\rm and} \qquad
+\lim_{n\rightarrow \infty} \frac{\cos(h_n) - 1}{h_n} = 0
+$$
+In the chapter these were taken on faith; here we pay the debt. The first
+limit is a fine application of the \index{Squeeze Limit} Theorem of this
+appendix; the second follows from the first.
+
+Examining the figure below and comparing the areas of the triangular region ABC to 
+the sector ADC to the triangle ADE we find that 
+$$
+\obrace{\frac{\cos(\theta)\sin(\theta)}{2}}{Area of triangle ABC} \le 
+\obrace{\frac{\theta}{2}}{Area of sector ADC} \le 
+\obrace{\frac{1 * \tan(\theta)}{2}}{Area of triangle ADE}
+$$
+\epsfigure{eps/sinderiv.eps}{Comparison of triangle ABC, sector ADC, 
+and triangle ADE.}
+Here, we are assuming $\theta$ is positive, measured in radians, and 
+is less than $\pi/2$. The area of each triangle is found using the formula, 
+base * height / 2, while the area of the sector is determined by the formula 
+$\theta r^2/2$. In our case, $r = 1$, giving $\theta/2$; again, 
+provided $\theta$ is measured in \index{radian}s. We briefly describe 
+radian measure for those who have not seen it before.
+
+The radian measure of an angle is the arc 
+length of the angular sector 
+formed by this angle on the unit circle. That is, if a sector has angle $\theta$ in 
+radians, then the corresponding arc (on the unit circle) has length $\theta$ (see 
+the figure above).
+The arc length of a complete circle 
+(360 degrees) is $2\pi$; therefore, there are $2\pi$ radians in 360 degrees. This means
+that there are ${360 \over 2 \pi }= {180 \over \pi}$ (which  is approximately 57) degrees per radian. 
+Also, the area of the unit circle is $\pi$; so, 
+the area of a sector of $\theta$ radians (on the unit circle) is a fraction of the area of the 
+full circle $\pi$. What fraction? Well, the sector of $\theta$ radians has an arc length of $\theta$ while
+the arc length of a complete circle is $2 \pi$. Since the area of a complete circle is $\pi$, the area
+of the sector must be ${\theta \over 2 \pi}$ of $\pi$. So, the area of the sector is $\theta / 2$.
+One can use other angular measures (such as degrees or grads) 
+but the formulas for the area of a sector have messy constants; and, in turn, 
+the derivatives of the trig functions using these angular measures also 
+have messy constants. Note that this is not unlike the derivative 
+of the logarithmic functions; any choice of base other than $e$ leads to a messier 
+formula.
+
+Continuing with our calculations, the first inequality gives 
+the relation:
+$$
+\frac{\sin(\theta)}{\theta} \le \frac{1}{\cos(\theta)}
+$$
+while the second inequality yields the relation:
+$$
+\cos(\theta) \le \frac{\sin(\theta)}{\theta}
+$$
+Combining these gives:
+$$
+\cos(\theta) \le \frac{\sin(\theta)}{\theta} \le \frac{1}{\cos(\theta)}
+$$
+A similar argument shows that the relation holds when $\theta$ is negative and larger 
+than $-\pi/2$. We may replace $\theta$ with the $n^{\rm th}$ element of our sequence $h$ giving:
+$$
+\cos(h_n) \le \frac{\sin(h_n)}{h_n} \le \frac{1}{\cos(h_n)}
+$$
+Now, since the limit of the first and third terms exists and is $1$, it is the case that the middle term has 
+the same limit.\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{This follows from the Squeeze Limit Theorem of this appendix.} Therefore,
+$$
+\lim_{n\rightarrow \infty} \frac{\sin(h_n)}{h_n} = 1
+$$
+We can use this result to compute the other limit of interest, 
+$(\cos(h_n) - 1)/h_n$. First note that 
+$$
+\frac{\cos(h_n) - 1}{h_n} = \frac{(\cos(h_n) - 1) (\cos(h_n) + 1)}{h_n (\cos(h_n) + 1)}
+= \frac{\cos^2(h_n) - 1}{h_n(\cos(h_n) + 1)}
+$$
+This may be written 
+$$
+\frac{-\sin^2(h_n)}{h_n(\cos(h_n) + 1)} = -\frac{\sin^2(h_n)}{h_n^2} \frac{h_n}{\cos(h_n) + 1}
+$$
+Since the last expression is a product of expressions which have limits, we may 
+write:\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}{This follows from the Product of Limits Theorem of this appendix.}
+$$
+\lim_{n\rightarrow \infty}\frac{\cos(h_n) - 1}{h_n} = -\lim_{n\rightarrow \infty}
+\frac{\sin^2(h_n)}{h_n^2} \lim_{n\rightarrow \infty}\frac{h_n}{\cos(h_n) + 1}
+= -(1^2)
+ * (0 / 2) = -1 * 0 = 0
+$$
+
+These are the two limits used in the chapter on Differential Calculus to
+show that $\sin'(x) = \cos(x)$ and $\cos'(x) = -\sin(x)$.
+
 \section{Sequences without Limits}
 Not all sequences have limits, in fact most do not. 
 In this section we give examples of sequences which don't have limits.

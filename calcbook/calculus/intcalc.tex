@@ -435,7 +435,10 @@ $$
 $$
 
 This follows from the theorem on linearity and mathematical induction.
-The corollary and the results for the base family can be combined to find an anti-derivative of {\it any\/} 
+This is the {\it exploit linearity\/} move played for the third time -- first
+with $\Delta$ and $\sum$, then with the derivative, and now with the integral:
+break the function into pieces, integrate each piece, and add the answers.
+The corollary and the results for the base family can be combined to find an anti-derivative of {\it any\/}
 polynomial.
 
 \proclaim Theorem(Anti-derivative of a Polynomial). An anti-derivative of the 
@@ -456,8 +459,14 @@ theorem of calculus: $\int_1^2 (1 + 2x + x^2) \, dx =
 
 Here is another result from stage 2 of our program.
 \subsection{Integration by Parts}
-This is a technique which is essentially a way of computing an integral by 
-using the \index{product rule} from \index{differential calculus}. The product rule states
+Consider the integral $\int_0^{\pi/2} x \sin(x) \, dx$. Linearity is no help
+here -- the integrand is a {\it product\/}, not a linear combination of
+functions we can already integrate. We faced exactly this predicament on the
+discrete board: the sum $\sum n \, 2^n$, a product of two very different
+sequences, defeated the linear-combination method, and Summation by Parts --
+built from the Discrete Product Rule -- rescued us. We now build its
+continuous twin the same way, from
+the \index{product rule} of \index{differential calculus}. The product rule states
 that $(f\,g)' = f'\,g + f\,g'$. We rewrite this as: $f\, g' = (f\,g)' - f'\, g$. Integrating both sides over the interval $[a,b]$ 
 gives
 $$
@@ -475,8 +484,8 @@ It relates one integral to another. This is useful (just as it was for summing s
 one of the integrals can be easily evaluated we get the value of the other one for free.
 
 \example{Compute the integral $\int_0^{\pi/2} x\sin(x) \, dx$.}
-We can use the integration by parts formula here.
-Notice it would be convenient 
+This is the integral that opened this subsection; the new tool cracks it.
+Notice it would be convenient
 to treat $\sin$ as the derivative of a function and then pass the derivative 
 onto $x$. Let $g(x) = -\cos(x)$ and $f(x) = x$. Then $g'(x) = \sin(x)$. 
 Integration by parts gives us:
