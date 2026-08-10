@@ -336,9 +336,39 @@ This says that $e^x$ can be thought of as an ``infinite polynomial''. Many other
 be represented in this way, for instance the trig functions, $\sin$ and $\cos$.
 Such representations can be used to find (among other things) an approximation to a function, its derivative, or its integral.
 
-Finally, notice that the value $e$ itself can be approximated for a given $N$ by 
+Finally, notice that the value $e$ itself can be approximated for a given $N$ by
 $$
 e = e^1 = \sum_{n=0}^\infty {1^n \over n!}  = \sum_{n=0}^\infty {1 \over n!} \approx 1 + 1 + {1 \over 2!} + {1 \over 3!} + \ldots + {1 \over N!}
 $$
+
+\section{Summary}
+This chapter recast the derivative: not just a slope, but the best
+{\it linear approximation\/} to a function near a point.
+\beginEnum
+\enum{Bounded an integral above and below by rectangles, then ``leveled the
+dust'' to get the \index{Mean Value Theorem}: $f(b) = f(a) + f'(\mu)(b-a)$.}
+\enum{Read the Mean Value Theorem as an approximation:
+$f(x+h) \approx f(x) + f'(x)\,h$ -- the \index{tangent line approximation}.}
+\enum{Saw in what sense the tangent line is the {\it best\/} line through
+$(x, f(x))$: its error dies faster than $h$ itself, while any other line's
+error is proportional to $h$.}
+\enum{Used the approximation to estimate how errors propagate (the concrete
+wall problem).}
+\enum{Extended the tangent line to higher degree polynomials --
+\index{Taylor's Theorem} -- with an explicit formula for the error, made
+rigorous in the appendix ``Taylor's Theorem''.}
+\endEnum
+And once more it is the {\it same game, bigger board\/} theme of the
+preface at work: the ``best linear approximation'' view of the derivative is
+the one that survives every enlargement of the playing field.
+\bigskip
+\centerline{\vbox{\halign{\quad\hfil#\hfil\quad&\quad\hfil#\hfil\quad\cr
+{\bf Function}&{\bf Derivative (best linear approximation)}\cr
+\noalign{\smallskip\hrule\smallskip}
+$f: R \rightarrow R$&a number (the slope)\cr
+$f: R^n \rightarrow R$&a vector (the gradient)\cr
+$f: R^n \rightarrow R^m$&a matrix (the Jacobian)\cr
+}}}
+\bigskip
 % \bye
 

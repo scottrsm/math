@@ -359,8 +359,22 @@ All polynomials are continuous for all inputs; the logarithm functions
 are continuous for positive inputs; the \index{exponential function}s, $a^x$, for $a>0$ 
 are all continuous for all inputs. Sums, products, and differences of continuous 
 functions are continuous. Ratios of continuous functions are continuous provided the denominator 
-stays away from 0. For an example of a discontinuous function see 
+stays away from 0. For an example of a discontinuous function see
 example 3 in appendix A.
+
+One more fact ties continuity to the derivative: a function which is
+{\it differentiable\/} at $a$ is automatically {\it continuous\/} at $a$.
+Why? Let $\{x_n\}_{n=1}^\infty$ be a sequence converging to $a$. For the
+terms with $x_n \ne a$ we may write
+$$
+f(x_n) - f(a) = \biggl( {f(x_n) - f(a) \over x_n - a} \biggr) (x_n - a)
+$$
+The first factor is an approximating slope, which tends to $f'(a)$ since $f$
+is differentiable at $a$; the second factor tends to $0$. By the Product of
+Limits Theorem their product tends to $f'(a) * 0 = 0$. (For any terms with
+$x_n = a$ the difference $f(x_n) - f(a)$ is already exactly $0$.) That is,
+$\lim_{n \rightarrow \infty} f(x_n) = f(a)$ -- which is precisely the
+definition of continuity at $a$.
 
 \section{Convergence Based on Properties of a Sequence}
 We have seen how to show a sequence converges to a given value. What if 

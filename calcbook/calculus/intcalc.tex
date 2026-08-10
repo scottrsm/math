@@ -185,8 +185,14 @@ the interval $[a,b]$. We call the process of computing the
 integral {\it \index{integration}\/}.
 
 {\bf Note:\/} The symbol, $\int$, is a stretched out `S', the first letter
-of ``Sum'', while $dt$ is interpreted as a single symbol -- not multiplication of $d$ times $t$ -- 
+of ``Sum'', while $dt$ is interpreted as a single symbol -- not multiplication of $d$ times $t$ --
 and is an echo of the symbols $\Delta t_n$ used in the approximating \index{discrete sum}s.
+
+{\bf Note:\/} We chopped $[a,b]$ into {\it uniform\/} pieces only for
+simplicity; the general partitions $t_0 < t_1 < \cdots < t_N$ used earlier in
+this chapter work as well, provided all the widths shrink to $0$. For the
+well behaved functions of this book every such scheme produces the same
+limiting value.
 
 {\bf Note:\/} The variable $t$ (and its cousin $dt$) in the expression $\int_{a}^{b} f(t) \, dt$
 are ``dummy'' variables. Their notational purpose is to represent
@@ -488,7 +494,9 @@ $\sin(\pi/2) = 1$ and $\cos(\pi/2) = 0$.
 Consider the integral $\int \sin^2(x) \cos(x) \, dx$. None of the rules we have
 developed so far will crack it -- the integrand is not a polynomial, nor is it a
 combination of our base functions that linearity or integration by parts can untangle.
-We need one more technique.
+We need one more technique. It is the {\it change the representation\/} move
+of the preface: rewrite the integrand until a form we already know how to
+integrate appears.
 This technique uses the \index{chain rule} (from \index{differential calculus}) to compute
 an integral.
 The chain rule states that $f(u(x))' = f'(u(x)) u'(x)$. Integrating both 

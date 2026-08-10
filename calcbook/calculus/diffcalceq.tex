@@ -217,6 +217,13 @@ so the population starts out decreasing. A smaller population makes
 $p'(t) = r \, p(t) - b$ even more negative, and the decline feeds on itself.
 So, once the population starts to shrink it becomes a death spiral for the bacteria.
 
+The whole family of solutions can be seen in one picture.
+\epsfigure{eps/bacteria.eps}{The family of solutions
+$p(t) = {b \over r} + (P - {b \over r})\, e^{r\,t}$ for several starting
+populations $P$. The dashed line is the equilibrium $p = b/r$: populations
+starting above it grow without bound, populations starting below it spiral
+down to extinction.}
+
 It is interesting to note that the formula for $p(t)$ becomes negative for $t > t^*$. Obviously, this
 doesn't make physical sense -- the model no longer holds after the critical time $t^*$.
 Notice also that our model predicts that there are a non integral number of bacteria at almost any given time.

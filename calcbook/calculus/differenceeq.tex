@@ -18,9 +18,9 @@ the outstanding debt we owe to the bank. The bank has decided that
 at the end of each month we pay $p$ dollars for the loan. Also, 
 during the month, we are charged interest (for that month) on the 
 outstanding debt as 
-of the beginning of that month. The rate of interest is given as an annual interest rate (AIR) 
-and so must be divided by $12$ to get the monthly interest rate, 
-$r = {\rm AIR}/12$. At the beginning (month zero) the outstanding 
+of the beginning of that month. The rate of interest is given as an annual percentage rate (APR)
+and so must be divided by $12$ to get the monthly interest rate,
+$r = {\rm APR}/12$. At the beginning (month zero) the outstanding 
 debt is known, it is just the loan amount; we'll call it $L$.
 
 We would like to know what the outstanding debt is at any given month. 
@@ -315,6 +315,13 @@ $x_{60} = 93,023$.
 This is the outstanding debt after $5$ years of monthly payments.
 During this time you will have paid $5 * 12 * 600 = 36,000$
 dollars to the bank.
+
+The graph of the solution over the full $30$ years tells the story at a
+glance.
+\epsfigure{eps/loanbalance.eps}{Outstanding debt $x_N$ for the loan of the
+example ($L = \$100{,}000$, $r = 0.005$, $p = \$600$). The dashed line shows
+what a straight-line payoff would look like. Notice how slowly the debt falls
+in the early years: at first nearly all of each payment goes to interest.}
 
 \exercise{Solve the difference equation $x_{n+1} = 2\, x_n + 1$, $x_0 = 0$,
 using the formula of this section. (The answer, $x_N = 2^N - 1$, counts the

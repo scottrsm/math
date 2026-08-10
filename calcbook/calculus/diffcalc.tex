@@ -80,9 +80,14 @@ So, here is a strategy for finding the \index{maximum}: If someone gives us a
 graph of this function, place a level at some point on the graph 
 and move it along the graph. Notice that at a bump in the graph -- where 
 potentially there is a maximum or minimum  value -- the level is flat. If we 
-mark the point or points where this occurs 
-you have a set of input candidates for the maximum. You need 
-only compare the value of 
+mark the point or points where this occurs
+you have a set of input candidates for the maximum.%
+\footnote{\kern 0.5pt \raise 0.5ex \hbox{*}}{We are quietly using a fact
+about continuous functions: a continuous function on a closed interval
+$[a,b]$ actually {\it attains\/} a maximum value somewhere on the interval.
+For the nice functions of this book this may be taken on faith.}
+You need
+only compare the value of
 the function to maximize at these points and at the end points
 of the interval over which you are searching for a maximum. This, in general,
 should be a small number of points. See the figures below.
@@ -180,13 +185,15 @@ What we have now done, in effect, is represent our {\it geometric\/}
 notion of a \index{tangent} line in an {\it algebraic\/} way as
 a single number. This is important enough to state formally.
 
-\proclaim Theorem(Slope Representation). A non-vertical \index{straight line} passing
-through the origin can be represented by a {\it single\/} number - its \index{slope}.
+\proclaim Theorem(Slope Representation). The steepness of a non-vertical
+\index{straight line} is captured by a {\it single\/} number - its \index{slope}.
+The line itself is pinned down by its slope together with any one of its points.
 
-{\bf proof:\/} From the appendix on straight line functions we see that 
-a line with slope $m$ passing through the origin is the graph 
-of the {\it linear function\/} $f(x) = m\,x$. Thus $m$ completely characterizes
-such a line.
+{\bf proof:\/} From the appendix on straight line functions we see that
+a non-vertical line with slope $m$ and $y$-intercept $b$ is the graph
+of the function $f(x) = m\,x + b$. Two lines with the same slope $m$ differ
+only in $b$ -- a vertical shift -- so they have the same steepness everywhere,
+and knowing any one point on the line determines the shift $b$.
 
 The big question now is: How do we compute this measure of 
 steepness for a given function?
@@ -711,8 +718,10 @@ To make the chain rule plausible, write $u = h(x)$ and $y = g(u) = f(x)$ and
 think of an approximating slope as a ratio of small changes; then
 $\frac{\Delta y}{\Delta x} = \frac{\Delta y}{\Delta u} \frac{\Delta u}{\Delta x}$,
 and letting the step shrink, the two factors on the right tend to $g'(h(x))$
-and $h'(x)$. A careful proof, however, needs the limit machinery of the
-appendix ``Infinite Sequences and Limits''.
+and $h'(x)$. A careful proof, however, must handle a subtlety this argument
+hides -- the inner change $\Delta u$ can be zero even when $\Delta x$ is
+not, making the ratio $\Delta y / \Delta u$ meaningless -- and is beyond
+the scope of this book.
 
 We derive the product rule as it is similar to the product rule in the Discrete Calculus.
 Let $h$ be a sequence with $h_n \ne 0$ such that $h_n$ goes to $0$ as $n$ goes to infinity. 
