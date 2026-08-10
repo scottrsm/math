@@ -4,15 +4,24 @@
 \chapter{Summation Calculus}
 
 \section{Telescoping Sums}
-In the last chapter we had a sequence of distance data, $\{x_n\}_{n=0}^{N}$
-(this time starting the count at $0$, the morning reading).
-If $x_0$ is the odometer reading at the beginning of the day and 
-$x_N$ is the reading at the end of the day, then the distance traveled 
-that day is $x_N - x_0$. Notice also that the distance traveled over 
-the $i^{\rm th}$ interval (our time intervals were every $1/10^{\rm th}$ of a second) is
-$x_{i+1} - x_i$. The distance traveled for the whole day should be just 
-the sum of all the distances traveled over each small interval. In 
-mathematical terms, this would be written:
+Here is a question left over from the police work of the last chapter. The
+crime lab, double-checking its analysis, asks: how far did the suspect car
+actually travel on the day of the robbery? What the lab has on hand is the
+velocity record $\{v_n\}$ it computed -- one value for every $1/10^{\rm th}$
+of a second, on the order of a million values for the day. Since distance is
+velocity times time, the distance traveled over the $n^{\rm th}$ interval is
+$v_n\, h$ (with $h = 1/10$), and the total distance is the sum of all these
+small distances. A computer can add a million numbers, of course -- the loop
+would look much like the find-max program of the last chapter. But a million
+additions to produce one number should make us pause: is there a shortcut?
+
+There is, and it comes from remembering where the velocities came from. Each
+$v_n$ was computed from a {\it difference\/} of odometer readings,
+$v_n = \Delta x_n / h$; so $v_n \, h = \Delta x_n$, where
+$\{x_n\}_{n=0}^{N}$ is the odometer data (this time starting the count at
+$0$, the morning reading). The distance traveled over the $i^{\rm th}$
+interval is $x_{i+1} - x_i$, and the total distance for the day is the sum
+of all of these. In mathematical terms, this would be written:
 $$
 \obrace{(x_1 - x_0)}{first interval}  + 
 \obrace{(x_2 - x_1)}{second interval} + 
@@ -23,9 +32,12 @@ It seems like we have taken something obvious and produced a deep formula.
 If you look at the left hand side of the formula you will see that after 
 adding the first and second distances the $x_1$'s cancel. If we 
 then add the third distance the $x_2$'s cancel. And so on, all the intermediate 
-$x$'s cancel except the first and the last. It isn't that mysterious after all. 
-We say that such a sum is a 
+$x$'s cancel except the first and the last. It isn't that mysterious after all.
+We say that such a sum is a
 \index{telescoping sum}; the sum acts like a collapsible telescope.
+And there is the crime lab's shortcut, in full: because the summands are
+differences, the million additions collapse to a single subtraction -- the
+evening odometer reading minus the morning one, $x_N - x_0$.
 
 \section{Fundamental Theorem of Difference Calculus}
 Previously, we introduced a notation to describe sequences and their differences; now, since we are talking 
@@ -199,8 +211,8 @@ $n^{\underline{2}} = n(n-1)$ and use it, with the FTDC, to compute
 $\sum_{n=1}^N n(n-1)$.}
 
 \section{Summation By Parts}
-Consider the sum $\sum_{n=1}^{N} n \, 2^n$. The method of the last section
-is of no help here: that method hunted for an anti-difference of $n^2$
+Consider the sum $\sum_{n=1}^{N} n \, 2^n$. The linear-combination method
+of the Applications section is of no help here: that method hunted for an anti-difference of $n^2$
 among linear combinations of the powers $n$, $n^2$, $n^3$, but no
 combination of the sequences we have differenced so far has $n \, 2^n$ as
 its difference. The trouble is that $n \, 2^n$ is a {\it product\/} of two
@@ -317,8 +329,8 @@ $$}
 
 \exercise{Find a formula for the sum: $\sum_{n=1}^{N} n^3$.}
 
-Now for the payoff -- the sum that opened this section, the one the
-linear-combination method could not touch.
+Now for the payoff -- the sum that opened the Summation by Parts section,
+the one the linear-combination method could not touch.
 \example{Find a formula for the sum: $\sum_{n=1}^{N} n \, 2^n$.
 Recall from the first chapter that $\Delta 2^n = 2^{n+1} - 2^n = 2^n$; the
 sequence $2^n$ is its own difference. So, in the Summation by Parts formula

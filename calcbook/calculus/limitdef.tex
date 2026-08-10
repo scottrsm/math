@@ -390,6 +390,38 @@ below and is non-increasing it also has a limit.
 
 There are other criteria, but they are outside the scope of this book.
 
+\section{An Application: The Number $e$}
+The chapter on Differential Calculus used, on faith, the fact that the
+sequence $x_n = (1 + 1/n)^n$ has a limit -- the number called $e$. The
+\index{Monotone Sequence} Theorem is exactly the right tool to pay this
+debt: we need only check that the sequence is bounded above and
+non-decreasing. We sketch both checks.
+
+{\bf Bounded above.} Expanding by the binomial theorem and regrouping each
+term,
+$$
+\Bigl(1 + {1\over n}\Bigr)^n = \sum_{k=0}^n {n \choose k} {1 \over n^k}
+= \sum_{k=0}^{n} {1 \over k!}
+\obrace{\Bigl(1 - {1\over n}\Bigr)\Bigl(1 - {2 \over n}\Bigr)
+\cdots\Bigl(1 - {k-1 \over n}\Bigr)}{$k-1$ factors, each less than $1$}
+$$
+Each product of factors is at most $1$, so the $k^{\rm th}$ term is at most
+$1/k!$; and since $k! \ge 2^{k-1}$ for $k \ge 1$,
+$$
+x_n \le \sum_{k=0}^{n} {1 \over k!} \le 1 + 1 + {1 \over 2} + {1 \over 4} +
+{1 \over 8} + \cdots \le 3
+$$
+{\bf Non-decreasing.} In the displayed sum, passing from $n$ to $n+1$ does
+two things: every factor $(1 - j/n)$ grows to $(1 - j/(n+1))$, so every
+existing term grows; and one more (positive) term appears, at $k = n+1$.
+Both effects push the sum up, so $x_{n+1} \ge x_n$.
+
+Bounded above and non-decreasing: by the Monotone Sequence Theorem the
+limit exists. The value of the limit, $2.718281828\ldots$, is the
+number $e$. (The
+chapter on The Derivative As Approximation offers the fast route to its
+digits: $e = \sum_{n=0}^{\infty} 1/n!$, from Taylor's Theorem.)
+
 \section{Two Trigonometric Limits}
 In the chapter on Differential Calculus, computing the derivative of the
 sine function came down to two limits: for any sequence

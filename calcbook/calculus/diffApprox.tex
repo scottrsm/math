@@ -3,11 +3,33 @@
 
 \chapter{The Derivative As Approximation}
 
-Here is the kind of question this chapter answers: suppose you are pouring a
-concrete wall and your measurement of its height is off by an inch -- how far off
-is the volume of concrete you computed? The tool that answers this turns out to be
-the derivative, viewed in a new way. But before we get to the wall, let us warm up
-by approximating integrals.
+Here is the kind of question this chapter answers. Suppose you need to pour
+a concrete wall 100 ft long and 5 ft high. Builders size the depth of such a
+wall from its height: depth (in inches) = height (in inches) / 10. So if the
+wall's height is $x$ inches, the volume of concrete needed, in cubic inches,
+is $V(x) = 12 \times 100 \, x \, (x/10) = 120\, x^2$. For a 5 ft wall
+($x = 60$ inches) that is $V(60) = 432{,}000$ cubic inches -- about
+$9\,1/4$ cubic yards. But there is always error in measurement. Suppose,
+because of the ground conditions, the height measurement could be off by an
+inch. How much extra concrete should we order? We could simply compute
+$V(61)$ for this one case; but we would like an estimate for {\it any\/}
+small error $h$ -- and a way of thinking that transfers to problems where
+recomputing is not so easy. We don't want to guess high and waste money; we
+want an {\it estimate of the error\/}: how far off is $V$ when $x$ is off by
+a small amount $h$?
+
+In symbols, we want to understand the difference $V(x+h) - V(x)$ for small
+$h$, using only information at the height we actually measured, $x$. What do
+we know that connects the values of a function {\it near\/} $x$ to
+information {\it at\/} $x$? We know the derivative -- and by the
+\index{Fundamental Theorem of Calculus} the connection is exact:
+$$
+V(x + h) - V(x) = \int_x^{x+h} V'(s) \, ds
+$$
+The question ``how far off is the volume?''\ has become the question ``how
+big is this integral?''\ We do not need its exact value -- an estimate with
+a guarantee will do. So the first order of business is learning to estimate
+integrals we would rather not compute.
 
 Sometimes, in fact many times, it may not be clear or even possible to evaluate an integral. It is
 often the case that one can at least approximate the integral by bounding the value from above and below.
@@ -134,22 +156,13 @@ Such functions come under the general heading of ``Advanced Calculus'',
 and are beyond the scope of this book.
 
 \section{Approximation Application}
-Suppose that you needed to build a concrete wall 100 ft long and 5 ft high. Builders tell you to set the depth of the wall
-based on the height of the wall by the  following formula: depth (in inches) = height (in inches) / 10. So, for a given height $x$ in inches the volume of concrete
-needed is $V(x) = 100\,{\rm ft} \times x\,{\rm in} \times (x/10)\,{\rm in}$. Using the units of inches, the formula for $V$ (in cubic inches) in
-terms of height, $x$, in
-inches is $V(x) = 12 \times 100 x^2/10 = 120 x^2$. To pour a 5 ft wall we need (x = 60 inches) $V(60) = 432{,}000$ cubic inches of
-concrete, which is approximately 9 1/4 cubic yards.
-But there is always error in measurement. What if, due to the ground conditions, we are off by 1 inch when measuring the
-height? We need to order extra concrete to be sure we have enough. How much more should we order to take care of this 1 inch
-error? We don't want to order too much extra because we want to control our costs. We could simply compute $V(60 + 1)$ easily
-enough -- this gives an upper bound on the amount of concrete to use.
-However, we would like to estimate the error  for {\it any\/} small error in height.% 
-\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}{In our case, $V(60+h) - V(60)$ is the extra amount of concrete to use. 
-However, in many similar problems the approximation formula (1a) 
-is often simpler and provides more insight into how sensitive the original function is to {\it all\/} small errors at a given input.}
+Back to the concrete wall that opened this chapter. There we found
+$V(x) = 120\, x^2$ and asked how much extra concrete a small error $h$ in
+the measured height costs -- that is, for the difference
+$V(x+h) - V(x) = \int_x^{x+h} V'(s)\, ds$. The Mean Value Theorem was built
+to size exactly this kind of integral, and equation (1a) is its answer.
 
-Equation (1a) tells us that if there is a small error in the height then  the 
+Equation (1a) tells us that if there is a small error in the height then  the
 approximate change in the volume is given by $V(x+h) \approx V(x) + V'(x) h$. Let's say that we are concerned with an error of
 1 in when the height is 5 ft (60 inches). The magnitude of the change is $|V'(x)h|$. It is easy to see that $V'(x) = 240
 x$.  When $x = 60$ we have
@@ -166,9 +179,12 @@ Is your answer exactly twice the $1$ inch answer? Compare with the exact extra
 amount, $V(62) - V(60)$.}
 
 \section{Taylor's Theorem}
-We now describe a result that is more difficult but which is quite impressive%
+The tangent line approximation leaves two questions hanging: exactly how big
+is the error we make when we replace $f(x+h)$ by $f(x) + f'(x)\,h$, and can
+we shrink it by adding a quadratic correction -- or a cubic one, and so on?
+The answer to both questions is a result called Taylor's Theorem%
 \footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{This section stands by itself and may be skipped if you wish.}.
-Let us first 
+Let us first
 describe a notation for differentiation.
 We have used $f'$ to denote the derivative of $f$. We will use the notation $f''$ to denote the 
 derivative of the function $f'$. Similarly, we use the notation $f'''$ to denote the derivative 
@@ -352,8 +368,8 @@ $f(x+h) \approx f(x) + f'(x)\,h$ -- the \index{tangent line approximation}.}
 \enum{Saw in what sense the tangent line is the {\it best\/} line through
 $(x, f(x))$: its error dies faster than $h$ itself, while any other line's
 error is proportional to $h$.}
-\enum{Used the approximation to estimate how errors propagate (the concrete
-wall problem).}
+\enum{Answered the problem that opened the chapter: used the approximation
+to estimate how a measurement error propagates to the concrete order.}
 \enum{Extended the tangent line to higher degree polynomials --
 \index{Taylor's Theorem} -- with an explicit formula for the error, made
 rigorous in the appendix ``Taylor's Theorem''.}

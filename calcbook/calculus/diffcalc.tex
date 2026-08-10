@@ -761,6 +761,24 @@ that $\lim_{n \rightarrow \infty} h(x+z_n) = h(\lim_{n\rightarrow \infty} (x + z
 for {\it all\/} such sequences $z$, the derivative of $f$ exists and is equal to this value. That is,
 $f'(x) = g'(x) h(x) + g(x) h'(x)$.
 
+The quotient rule need not be taken on faith either -- it is the product and
+chain rules in disguise, and the reader owns every piece needed to unmask it.
+Write the quotient as a product: $f(x) = g(x)/h(x) = g(x)\, h(x)^{-1}$. The
+inner function of $h(x)^{-1}$ is $h$ and the outer function is the power
+function $z^{-1}$, whose derivative, by the power rule, is $-z^{-2}$. So the
+chain rule gives
+$$
+\bigl(h(x)^{-1}\bigr)' = -h(x)^{-2}\, h'(x) = -\,{h'(x) \over h^2(x)}
+$$
+and then the product rule finishes the job:
+$$
+f'(x) = g'(x)\, h(x)^{-1} + g(x) \biggl(-{h'(x) \over h^2(x)}\biggr)
+      = {g'(x) h(x) - g(x) h'(x) \over h^2(x)}
+$$
+which is exactly the quotient rule stated above. (This is the {\it change
+the representation\/} move in miniature: rewrite the quotient as a product,
+and tools we already trust take over.)
+
 So, given a function $f$, we can find its derivative if we can
 recognize it as being either:
 
@@ -848,12 +866,16 @@ a population of bacteria doubling again and again -- force exponential
 functions on us, and the chapter ahead on differential equations will
 need their derivatives.
 We now enlarge this base collection to include formulas for computing the
-derivatives of \index{logarithmic function}s (and their inverses) as well as 
-\index{trigonometric function}s. The next subsections help to explain the number $e$ that 
-you may have heard of as well as the angle measure called \index{radian}s.
-This section is not really needed to understand the essential aspects
-of Calculus; you may safely skip the next two subsections if these functions don't interest you.
-You will, however, need to know about the log and exponential functions for the chapter on differential equations.
+derivatives of \index{logarithmic function}s (and their inverses) as well as
+\index{trigonometric function}s. Along the way the next subsections help to
+explain the number $e$ that you may have heard of (the story of the angle
+measure called \index{radian}s is told alongside the trigonometric limits in
+the appendix ``Infinite Sequences and Limits'').
+The {\it derivations\/} in the next two subsections may be skimmed on a
+first reading without harm to the essential aspects of Calculus; the
+{\it results\/}, however, will be used -- the log and exponential functions
+in the chapter on differential equations, and the sine and cosine
+derivatives as soon as the chapter on Integral Calculus.
 
 \subsection{Derivatives of Log and Exponential Functions}
 Let's try to compute the derivative at a given point $x$ of the log 
@@ -883,9 +905,11 @@ for a discussion of continuous functions.} yielding
 $\log_b\left[\lim_{n\rightarrow \infty}(1 + h_n/x)^{x/h_n}\right]^{1/x}$. It turns out that
 the limit
 inside the \index{log} (regardless of $x>0$)  is the same as the limit:
-$\lim_{n \rightarrow \infty}(1 + 1/n)^n$ -- a step we take on faith here;
-its justification belongs to the theory of limits (see the appendix
-``Infinite Sequences and Limits''). This limit exists and its limiting
+$\lim_{n \rightarrow \infty}(1 + 1/n)^n$ -- the reduction to this special
+sequence is a step we take on faith here. That this special limit {\it
+exists\/} is shown in the section ``An Application: The Number $e$'' of the
+appendix ``Infinite Sequences and Limits'', by way of the Monotone Sequence
+Theorem. Its limiting
 value
 is called $e$ which is approximately $2.718281828459045$. So the limit becomes
 $\log_b\bigl(e^{1/x} \bigr)= (1/x)\log_b(e)$. Therefore, we have the formula:
@@ -945,9 +969,10 @@ We list our main results:\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{The dom
 Why should the trigonometric functions join our base collection? Because
 they are the functions that {\it oscillate\/} -- and nature is full of
 oscillation: a weight bobbing on a spring, a pendulum swinging, alternating
-current in a wire. When we reach the chapter on differential equations we
-will see oscillating systems demanding these functions; to be ready for
-them we need their derivatives now.
+current in a wire. At the close of the chapter on differential equations we
+will meet the equation of the swinging pendulum, $x'' + x = 0$, and check
+that sine and cosine are the functions that solve it; to be ready for that
+we need their derivatives now.
 
 Let us attempt to compute the derivative of the sine function, $\sin$,
 at a point $x$. Again, let $\{h_n\}_{n=1}^\infty$ be a sequence which converges to $0$ with the
