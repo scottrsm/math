@@ -25,18 +25,36 @@ $\dot{\mathbf{x}} = A \mathbf{x}$.
 \end{abstract}
 
 \section{From oriented volume to the determinant formula}
-The determinant of an $n\times n$ matrix $A$ is the {\em signed\/} factor by which
-the volume of the unit cube is changed upon the action of $A$. (We will see
+Most of us meet the determinant as a formula -- $a_{1,1} a_{2,2} - a_{1,2} a_{2,1}$
+for a $2 \times 2$ matrix, with a cofactor recipe for anything larger -- together
+with instructions to compute it, but with no hint of where the formula comes from
+or what it is {\em for\/}. This paper takes the opposite route: we start from a
+question one might actually ask, and let the formula be forced.
+
+Here is the question. When an $n \times n$ matrix $A$ acts on $R^n$, every region
+of space is stretched, sheared, or flipped. {\em By what factor does volume
+change?\/} This one number is worth wanting for at least two reasons: it is
+exactly the factor that the change-of-variables formula of multivariable calculus
+must insert; and -- as will fall out of the theory almost for free -- a matrix
+that flattens volume to zero cannot be inverted.
+
+The answer will turn out to be the {\em signed\/} factor by which
+the volume of the unit cube is changed upon the action of $A$ -- the
+{\em determinant\/} of $A$. (We will see
 that the sign is forced by the algebra; for now treat it as a feature, not a bug.)
 The cube is transformed into a parallelepiped. The $n$ edges of the unit cube
 meeting at the origin are the standard basis vectors:
 $\{ [1, 0, \ldots, 0], [0, 1, 0, \ldots, 0], \ldots, [0, \ldots, 0, 1]\}$.
 When $A$ acts on these vectors through matrix multiplication it
-produces the column vectors of $A$ -- by the definition of matrix multiplication.
+produces the column vectors of $A$ -- by the definition of matrix multiplication.%
+\footnote{That $A {\bf e}_j$ is the $j^{\rm th}$ column of $A$ is itself forced,
+not decreed: in the companion paper ``Origins of Matrix/Vector and Matrix/Matrix
+Multiplication'' the definition of matrix multiplication is derived from the
+demand that the scalar solution of $a\,x = b$ replay for systems of equations.}
 
 So, to find the determinant -- the stretching factor of $A$ -- we need to compute the volume of the parallelepiped formed
-from the column vectors of $A$. This is enough as the stretching factor is the ratio of the 
-change in volume after applying $A$ to the volume of what we started with.  Since the starting 
+from the column vectors of $A$. This is enough as the stretching factor is the ratio of the
+volume after applying $A$ to the volume of what we started with.  Since the starting
 point is the unit cube which has a volume of 1, the ratio {\em is\/} the volume of the stretched unit cube
 under the action of $A$.
 
@@ -44,7 +62,7 @@ Given $n$ vectors in $R^n$, how do we find a formula for the parallelepiped volu
 A good way is to use the properties of the function to help find a formula.
 
 Let's call our volume function $V({\bf x}_1, {\bf x}_2, \ldots, {\bf x}_n)$.
-Here's some properties we should agree on:
+Here are some properties we should agree on:
 \begin{description}
 \item[Multi-linear Property:] $V$ is linear in each slot. That is,
     it is a multi-linear function.
@@ -146,6 +164,13 @@ Therefore,
   V({\bf x}_1, {\bf x}_2) &= a_{1,1} a_{2,2} - a_{1,2} a_{2,1}
 \end{align}
 This corresponds with the usual definition of the determinant of the matrix $A$.
+Pause on that: this is a {\em calibration\/}. The machine built from the three
+properties reproduces the $2 \times 2$ formula the reader already owns -- which
+is how one learns to trust a new tool. It is also the one place we can audit the
+postulates against honest geometry: a base-times-height computation gives the
+area of the parallelogram with edges ${\bf x}_1$, ${\bf x}_2$ as
+$|a_{1,1} a_{2,2} - a_{1,2} a_{2,1}|$, so the postulated additivity has not led
+us away from true area.
 
 In the general case, we will have to do all of the permutations of the indices of $a$
 upon re-ordering the base vectors into standard form.
@@ -340,7 +365,21 @@ $W({\bf e}_1, \ldots, {\bf e}_n) = V(A {\bf e}_1, \ldots, A {\bf e}_n) = |A|$:
 This is the {\em Multiplicative Property\/} of the determinant; we will use
 it in the next section.
 
+It also pays an immediate dividend, promised in the opening: if $A^{-1}$ exists,
+then $|A| \, |A^{-1}| = |A A^{-1}| = |I| = 1$, so $|A| \neq 0$. Read
+contrapositively: a matrix with determinant $0$ -- one that flattens the unit
+cube to zero volume -- cannot be inverted. (The converse -- that $|A| \neq 0$
+guarantees $A^{-1}$ exists -- is also true, but requires machinery we do not
+build here; we flag it as an honest debt.)
+
 \section{Derivative of the Determinant}
+Here is a question to hold while we build the next tool. Suppose $n$ vectors in
+$R^n$ are being stirred by a flow -- each evolving according to
+$\dot{\bf x} = A {\bf x}$. The parallelepiped they span is carried along;
+{\em how does its volume evolve in time?\/} The volume at time $t$ is a
+determinant, so to track it we will need the derivative of the determinant.
+That is what this section computes; the next section collects the payoff.
+
 The determinant is a function from the space of matrices to $R$; that is,
 $\det : R^{n \times n} \rightarrow R$.
 Therefore, its derivative at a particular ``point'' $A$, $L_A$, should satisfy:%
@@ -398,6 +437,29 @@ expression is polynomial in the entries of $A$ and so is defined for all $A$,
 singular or not. When $A$ is invertible, ${\rm adj}(A) = |A| \, A^{-1}$ and the
 two forms agree; when $A$ is singular, the adjugate form is the right one.}
 
+Notice the strategy just used: we computed the derivative where it is easy --
+at the identity -- and then let the Multiplicative Property {\em transport\/}
+the answer to every invertible point, by rewriting $A + H$ as
+$A\left(I + A^{-1}H\right)$. A question about a general point became a question
+about the easiest point; this is the ``change the representation'' move, and it
+is worth remembering.
+
+It is also worth pausing to see which game this section has been playing.
+``Derivative $=$ best linear approximation'' is a definition the reader already
+owns for functions of one variable; nothing about it changed except the size of
+the board:
+\begin{center}
+\begin{tabular}{l|l|l}
+{\bf Function} & {\bf Derivative at a point} & {\bf Acting on an increment} \\
+\hline
+$f: R \rightarrow R$ & a number, $f^\prime(x)$ & $f^\prime(x) \, h$ \\
+$f: R^n \rightarrow R$ & a vector, $\nabla f({\bf x})$ & $\nabla f({\bf x}) \cdot {\bf h}$ \\
+$\det: R^{n \times n} \rightarrow R$ & a linear form, $L_A$ & $|A| \, {\rm tr}(A^{-1} H)$ \\
+\end{tabular}
+\end{center}
+Same definition, bigger board; the only thing that grows is what ``a linear
+function of the increment'' can look like.
+
 \paragraph{Exercise.} Check that $L_A$ is a linear function.
 
 \section{Applications: Liouville's Theorem}
@@ -452,7 +514,9 @@ This is much easier to solve; the solution is $|X(t)| = |X_0| \, e^{{\rm tr}(A)\
 This is {\em Liouville's formula\/}; it is a special case of Liouville's theorem
 on phase-space volume preservation in dynamical systems. (The chain-rule step
 above used $X(t)^{-1}$, which is legitimate because we established up front
-that $X(t)$ remains invertible for all time.)
+that $X(t)$ remains invertible for all time.) Note the move: a matrix
+differential equation we could not track directly became a scalar differential
+equation solvable by first-year calculus -- change the representation, again.
 
 \paragraph{Question.} What kind of systems (defined by $A$) leave the volumes unchanged?
 
@@ -491,6 +555,39 @@ preserved by the flow.
 
 \paragraph{Exercise.} Suppose $X_0 = I$. In this case, what kind of matrix
 is $X(t)$?
+
+\paragraph{Curtain call.} We can now answer the opening question in its own
+words. The determinant was never a formula to memorize; it was the answer to
+``by what factor does $A$ change volume?'' Three properties that any oriented
+volume should have {\em forced\/} the formula \eqref{det_formula} -- the sign
+was the price the algebra charged, and what it bought was orientation. The
+same three properties, through the uniqueness statement \eqref{uniqueness},
+delivered $|AB| = |A| \, |B|$, which told us that a matrix that flattens
+volume can never be inverted, and which transported the derivative from the
+identity to every invertible matrix: $L_A(H) = |A| \, {\rm tr}(A^{-1} H)$.
+And that trace formula answered a question about motion: under the flow
+$\dot{\bf x} = A {\bf x}$, volume grows like $e^{{\rm tr}(A)\, t}$ -- so
+volume is conserved exactly when ${\rm tr}(A) = 0$.
+
+\paragraph{Companion papers.} The step ``$A {\bf e}_j$ is the $j^{\rm th}$
+column of $A$,'' on which the whole derivation stands, is itself derived --
+forced by the demand that the scalar solution of $a\,x = b$ generalize to
+systems -- in ``Origins of Matrix/Vector and Matrix/Matrix Multiplication.''
+The volume-stretch question survives even when the matrix is not square: in
+``Singular Transformations of Probability Density Functions,'' a matrix
+$A: R^n \rightarrow R^m$ stretches $n$-dimensional volume by the {\em Gram
+factor\/} $\sqrt{|A^T A|}$; when $A$ is square, the two theorems proved here
+collapse that factor to the present answer,
+$\sqrt{|A^T A|} = \sqrt{|A^T| \, |A|} = \sqrt{|A|^2} = \bigl| \, |A| \, \bigr|$
+-- the transpose rule and the product rule working together in one line. The
+ladder of section 2 -- derivative as best linear approximation, with the board
+growing from slopes to gradients to a trace form -- is the backbone of ``What
+is a Derivative'' and of the differential-approximation chapter of the
+author's calculus book, where $|{\rm det}\, Df|$ reappears as the local volume
+ledger of a nonlinear map. And lengths and angles -- the quantities the
+anti-symmetric flows above preserve -- are exactly what the inner product
+measures; where {\em that\/} object comes from is the subject of ``Where does
+the Dot Product Come From?''
 
 \paragraph{Further reading.} The axiomatic treatment of the determinant
 given here follows the classical route; see K. Hoffman and R. Kunze,
