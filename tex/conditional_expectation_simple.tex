@@ -24,10 +24,14 @@
 {R. Scott McIntire}{May 2, 2026}
 
 \section{Overview}
-The measure theoretic approach to conditional expectation can be confusing
+Roll a die behind a screen. You are not shown the result; you are told
+only whether it came up even or odd. What is your best guess of the value
+showing? This small question is enough to force every idea in the measure
+theoretic definition of conditional expectation into the open -- and that
+definition can be confusing
 when compared to the traditional approach.
-In what follows we go through a conditional 
-expectation problem within a discrete and familiar setting in an attempt 
+In what follows we work through this question within a discrete and familiar
+setting in an attempt
 to reduce this confusion. One of the most confusing/disturbing ideas that 
 one must confront from the very definition of conditional expectation is 
 the notion of non-measurable functions. We work through an explicit
@@ -238,10 +242,14 @@ $$
 \E{f \mid {\cal F}}\!(\Lambda_2)  & = 4 & \cr
 }
 $$
-Since a function is determined once we know what its values are on every $x \in X$, 
-we have found the conditional expectation function, $\E{f \mid {\cal F}}$, as we know 
+Since a function is determined once we know what its values are on every $x \in X$,
+we have found the conditional expectation function, $\E{f \mid {\cal F}}$, as we know
 its values on every $x \in X$.\footnote{\kern 0.5pt \raise 0.5ex \hbox{$\dag$}}{%
 In the ``Redux'' section we examine more closely what ``knowing the value on every $x$'' means.}
+
+And there is the answer to the {\bf Question\/} that opened this paper:
+told the die is ``odd'', your best guess of its value is $3$; told
+``even'', your best guess is $4$.
 
 From equation $(**)$ we see that the value of the function $\E{f \mid {\cal F}}$ 
 evaluated on any `x' value in a minimal set, $\Lambda$, is% 
@@ -260,6 +268,66 @@ determined by normalizing the probability measure $P$ over the minimal set.
 
 This is the view that was promised at the beginning of this paper.
 
+\section{``Best'' Means Projection}
+Up to now the word ``best'' has appeared in quotation marks, because we
+never said best {\it in what sense\/}. We can now remove the quotation
+marks. The ${\cal F}$-measurable functions form a {\it subspace\/} of the
+space of all random variables on $X$: by the Claim of the second section
+they are exactly the functions constant on each minimal set, and sums and
+scalar multiples of such functions are again such functions. Among all
+functions $h$ in this subspace, the conditional expectation is the one
+{\it closest\/} to $f$ in the least squares sense -- it minimizes
+$E[(f-h)^2]$. In other words, $\E{f \mid {\cal F}}$ is the {\it orthogonal
+projection\/} of $f$ onto the subspace of ${\cal F}$-measurable functions,
+with respect to the inner product $\langle u, v \rangle = E[u\,v]$.
+
+In the die example this can be checked directly. A function $h$ that is
+constant on the odds -- with value $a$ -- and constant on the evens --
+with value $b$ -- misses $f$ by
+$$
+E[(f-h)^2] = {(1-a)^2 + (3-a)^2 + (5-a)^2 \over 6} +
+             {(2-b)^2 + (4-b)^2 + (6-b)^2 \over 6}
+$$
+Setting the derivatives with respect to $a$ and $b$ to zero gives
+$a = (1+3+5)/3 = 3$ and $b = (2+4+6)/3 = 4$ -- exactly the values that
+equation (4) produced. The weighted average {\it is\/} the least squares
+solution.
+
+This is a game the reader has played before. The ordinary average of a
+list of numbers is the projection of the data vector onto the constants;
+the least squares solution of an overdetermined system $Ax = b$ projects
+$b$ onto the column space of $A$; downscaling an image projects it onto
+the images that are constant on each coarse pixel. Conditional expectation
+is the same move played on a probability space. Even the tower property
+proved in the appendix, $E[\E{f \mid {\cal F}}] = E[f]$, becomes
+structural from this viewpoint: projecting onto the
+${\cal F}$-measurable functions and then onto the constants is the same
+as projecting onto the constants directly -- a composition of projections
+along nested subspaces.
+
+The dictionary of the three settings:
+\bigskip
+\centerline{\vbox{\halign{\quad#\hfil\quad&\quad#\hfil\quad&\quad#\hfil\quad\cr
+{\bf Image downscaling}&{\bf Probability}&{\bf Linear algebra}\cr
+\noalign{\smallskip\hrule\smallskip}
+fine pixel grid&fine $\sigma$-algebra ${\cal E}$&${\bbb R}^6$: all functions on $X$\cr
+coarse pixel grid&sub $\sigma$-algebra ${\cal F}$&subspace of ${\cal F}$-measurable functions\cr
+one coarse pixel&a minimal set $\Lambda$&a coordinate direction $\chi_{\Lambda}$\cr
+the downscaled image&$\E{f \mid {\cal F}}$&the orthogonal projection of $f$\cr
+average over the pixel&weighted average, equation (4)&least squares fit\cr
+total brightness preserved&$E[\E{f \mid {\cal F}}] = E[f]$&projections along nested subspaces compose\cr
+}}}
+\bigskip
+
+In our six-point example the function space is just ${\bbb R}^6$ and all
+of this is elementary linear algebra. In the general, continuous, setting
+the space is $L^2$ -- built from the Lebesgue integral -- and the
+existence of the nearest point is exactly what the {\it completeness\/}
+of $L^2$ delivers. The companion paper ``Why Lebesgue Integration''
+constructs precisely this space, and ends by observing that completeness
+is what guarantees orthogonal projections onto closed subspaces exist;
+the conditional expectation is the most important such projection in
+probability theory.
 
 \section{Example Redux}
 Let's adjust the die example probabilities and redo the calculation of the
@@ -357,15 +425,18 @@ The set $Z_0$ cannot be minimal as we have already accounted for all minimal
 sets in our collection. Set ${\cal H} = 2^{Z_0} \setminus \{\emptyset, Z_0\}$ -- the
 power set of $Z_0$ less $Z_0$ and $\emptyset$. Note that for $Z_0$ to be non-minimal, it 
 cannot consist of $1$ element. Therefore, ${\cal H}$ is a non-empty collection 
-of sets. If none of the non-empty sets are in ${\cal F}$, then $Z_0$ is 
-minimal  -- a contradiction. Therefore, there must be a non-trivial strict subset of 
-$Z_0$, $Z_1$, that is in ${\cal F}$. We can repeat this argument with $Z_1$ to 
+of sets. If none of the non-empty sets are in ${\cal F}$, then $Z_0$ is
+minimal -- a contradiction, since $Z_0$ would then be a minimal set
+disjoint from the union of {\it all\/} minimal sets. Therefore, there must
+be a non-trivial strict subset of
+$Z_0$, $Z_1$, that is in ${\cal F}$. We can repeat this argument with $Z_1$ to
 produce, $Z_2$, $\ldots Z_i$ producing $Z_{i+1}$, etc; noting, that each time this
-is done the number of elements in the current ``$Z$ set'' decreases by at least $1$. 
-Consequently, the process cannot proceed indefinitely. Let $m$ be the step 
-where this process fails; that is, there is no strict subset, $Z_m$, of set $Z_{m-1}$
-which is a subset of ${\cal F}$. But this means that 
-$Z_m$ is minimal by definition -- contradiction.
+is done the number of elements in the current ``$Z$ set'' decreases by at least $1$.
+Consequently, the process cannot proceed indefinitely. Let $m$ be the step
+at which this process fails; that is, there is no non-empty strict subset of
+$Z_{m-1}$ which is an element of ${\cal F}$. But this means that
+$Z_{m-1}$ is minimal by definition -- again a contradiction, as $Z_{m-1}$,
+being a subset of $Z_0$, is disjoint from the union of all minimal sets.
 Consequently, the second property holds.
 
 The third property follows as none of the $\mathop{\{M_i\}}_{i=1}^N$ can produce sets of 
@@ -385,7 +456,7 @@ been shown to be a member of ${\cal G}$. Consequently, ${\cal G} = {\cal F}$.
 
 Let $(X, {\cal E}, P)$ be a probability space with $X$ discrete, let $f$ be measurable on it,
 and let ${\cal F}$ be a sub $\sigma$-algebra of ${\cal E}$. We
-examine the expectation of the conditional expectation, $\E{f / {\cal F}}$.%
+examine the expectation of the conditional expectation, $\E{f \mid {\cal F}}$.%
 \footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{%
 Remember, the conditional expectation is not a number; it is a random variable
 (a measurable function on $(X, {\cal F})$). As such, it too has an expectation.
@@ -393,14 +464,14 @@ Remember, the conditional expectation is not a number; it is a random variable
 
 $$
 \eqalignno{
-E[\E{f / {\cal F}}] & = \int_{X} \E{f / {\cal F}} \, dP_{\cal F}  = \int_{X} f \, dP & (6) \cr
+E[\E{f \mid {\cal F}}] & = \int_{X} \E{f \mid {\cal F}} \, dP_{\cal F}  = \int_{X} f \, dP & (6) \cr
      & = \int_{\mathop{\cup}_{i=1}^N\limits M_i} f \, dP & \cr
      & = \sum_{i=1}^N \int_{M_i} f \, dP & \cr
-     & = \sum_{i=1}^N \int_{M_i} \E{f / {\cal F}} \, dP_{\cal F} &\cr
-     & = \sum_{i=1}^N \E{f / {\cal F}}\!(M_i)\, P(M_i) & (7) \cr
+     & = \sum_{i=1}^N \int_{M_i} \E{f \mid {\cal F}} \, dP_{\cal F} &\cr
+     & = \sum_{i=1}^N \E{f \mid {\cal F}}\!(M_i)\, P(M_i) & (7) \cr
 }
 $$
-In equation (6) we have the following identity: $E[\E{f /{\cal F}}]= E[f]$.
+In equation (6) we have the following identity: $E[\E{f \mid {\cal F}}]= E[f]$.
 From equation (7) we have that the expectation of the conditional expectation
 of a $\sigma$-algebra generated by minimal sets is just the weighted sum of
 the values of the conditional expectation on these sets.
@@ -416,7 +487,7 @@ integer $N$.%
 The collection of the union of
 each element from the power set of these sets
 generates an algebra, ${\cal F}$, with each $M_i\; (1 \le i \le N)$ being
-the minimal sets in this algebra. We write $\E{f \mid g}$ to mean $\E{f / {\cal F}}$.
+the minimal sets in this algebra. We write $\E{f \mid g}$ to mean $\E{f \mid {\cal F}}$.
 Consequently, we may write the above as:
 
 $$
@@ -428,8 +499,8 @@ $$
 											 & = \sum_{i=1}^N \E{f \mid g}(M_i)\, P(M_i) & (7') \cr
 }
 $$
-Here, the term, $\E{f \mid g}(M_i)$ is interpreted as the value of $\E{f / {\cal F}}$ on {\it any\/} element of the set $M_i$ -- 
-as the value of the function $\E{f / {\cal F}}$ is constant on $M_i$.
+Here, the term, $\E{f \mid g}(M_i)$ is interpreted as the value of $\E{f \mid {\cal F}}$ on {\it any\/} element of the set $M_i$ -- 
+as the value of the function $\E{f \mid {\cal F}}$ is constant on $M_i$.
 We also drop the $dP_{\cal F}$ notation, which was only used as a crutch in the previous part of the paper.
 Lastly, we know from equation (5) how to compute the values of $\E{f \mid g}$ for all $M_i$ -- even when the probability of
 a ``g'' event is $0$.
