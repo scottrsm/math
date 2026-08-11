@@ -120,13 +120,32 @@ simplest examples. The simplest such fractals are ones which have a
 one magnifies a piece of the fractal by a certain amount, the original
 fractal is recovered. This regular structure makes them easier to
 study mathematically than a general fractal. However, before we start
-with more specific examples of fractals, we need to understand what 
+with more specific examples of fractals, we need to understand what
 one might mean by fractal dimension.
+
+Here is the plan. To measure the size of a set whose dimension we do
+not yet know, we do what one always does with a set of unknown size:
+cover it with small, simple sets; charge each covering set a price;
+total the bill; and then refine the covers, taking a limit. This is
+the same approximate-then-take-a-limit strategy that defines arc
+length and the integral itself, so the reader already owns the move.
+The only new ingredient is the {\it price\/}: what should an
+$\alpha$-dimensional accounting charge for a covering set of diameter
+$d$? In an integer dimension $n$ the natural charge is the volume of a
+ball of radius $d/2$, which scales like $d^n$. So the first thing we
+want is a formula for the volume of an $n$-dimensional ball in which
+the dimension appears as a {\it parameter\/} -- one free to take
+non-integer values. Producing that formula is the business of the next
+section; the Gamma function is what lets the dimension come unstuck
+from the integers.
 
 \eject
 
 \subsection{Volume of an n-Dimensional Sphere}
-The n-dimensional volume of any sphere is easy to compute if one 
+The goal of this section is the formula promised in the introduction:
+the volume of an n-dimensional sphere, derived in a form where the
+dimension appears as a parameter that need not be an integer.
+The n-dimensional volume of any sphere is easy to compute if one
 knows its surface area. Since the surface area of an n-dimensional sphere 
 with radius, $r$, is $r^{n-1}$ times the surface of the unit sphere, 
 it suffices to know the surface area of the unit sphere.
@@ -143,7 +162,7 @@ ${V}_n(r) =  \int_{\partial B_n} \int_0^r \tau^{n-1} \,d\tau \,dS = \left(\int_{
 The iterated integrals on the right hand side of the above equation can 
 be easily computed, yielding: ${V}_n(r) = {S}_n(1) \frac{r^n}{n}$.
 
-What remains now is to find a formula for $S_n(r).$
+What remains now is to find a formula for $S_n(r)$.
 This can be done by expressing an easily computable 
 n-dimensional integral in $R^n$ as $n$ iterated integrals. 
 And more importantly, this integral may be represented as a {\it different\/} 
@@ -181,8 +200,11 @@ $$
 {S}_n(1) = \frac{2 \pi^{n/2}}{\Gamma(n/2)}
 $$
 Consequently,%
-\ftn{The surface area of an n-dimensional sphere scales by the radius to 
-the $(n-1)^{\rm th}$ power.}
+\ftn{The surface area of an n-dimensional sphere scales by the radius to
+the $(n-1)^{\rm th}$ power. This surface-area formula also does duty in
+the companion paper ``Singular Transformations of Probability Density
+Functions'', where it supplies the areas of the level-set spheres in a
+coarea computation.}
 $$
 {S}_n(r) = \frac{2 \pi^{n/2}}{\Gamma(n/2)}r^{n-1}
 $$
@@ -531,6 +553,79 @@ $$
 {\cal V}_{\alpha^*}(C) = c_{\alpha^*} \approx 1.03505.
 $$
 
+\subsection{A Shortcut for Self-Similar Fractals}
+Looking back, the Cantor computation used only two numbers about the
+Cantor set: at stage $n$ of the construction the natural cover
+consisted of $N^n$ pieces (here $N = 2$), each a copy of the whole set
+scaled by $r^n$ (here $r = 1/3$). That is worth replaying in general,
+because it is {\it all\/} that self-similarity supplies. Suppose a
+bounded set $S$, with $d = {\rm Diam}(S)$, is the union of $N$ copies
+of itself, each scaled by a factor $r < 1$. Applying this description
+to each copy, then to each copy of a copy, the $n^{\rm th}$ stage
+presents $S$ as a union of $N^n$ copies of itself scaled by $r^n$.
+These copies form a cover by sets of diameter $\epsilon_n = r^n d$, so
+$$
+{\cal V}_{\alpha, \epsilon_n}(S) \le \sum_{i=1}^{N^n}
+c_\alpha \left(r^n d\right)^\alpha
+= c_\alpha \, d^\alpha \left(N r^\alpha\right)^n
+$$
+Exactly as with the Cantor set, the fate of this bound as
+$n \rightarrow \infty$ is decided by the factor $N r^\alpha$: the
+bound collapses to zero when $N r^\alpha < 1$ and is useless when
+$N r^\alpha > 1$. The threshold sits where $N r^\alpha = 1$; solving
+for $\alpha$,
+$$
+\alpha^* = \frac{\ln N}{\ln (1/r)}
+$$
+For the Cantor set ($N = 2$, $r = 1/3$) the shortcut returns
+$\ln 2 / \ln 3$ -- the answer of the previous section without a single
+new integral.
+
+The same honest caveat applies here as there: these covers force the
+volume to zero {\it above\/} the threshold, so by themselves they show
+only that the fractal dimension is {\it at most\/}
+$\ln N / \ln(1/r)$. That it is not smaller requires a lower-bound
+argument, such as the mass distribution argument cited earlier,
+together with a condition that the $N$ copies do not overlap too much
+(in the literature, the {\it open set condition\/}); for the standard
+examples below both requirements hold, and the shortcut gives the true
+dimension. See Falconer [1].
+
+As with any new machine, the shortcut should first be calibrated
+against sets whose dimension we already know. A line segment is two
+copies of itself at scale $1/2$: dimension $\ln 2 / \ln 2 = 1$. A
+filled triangle is four copies of itself at scale $1/2$ (the middle
+copy inverted): dimension $\ln 4 / \ln 2 = 2$. The new machine
+reproduces the answers the reader already owns -- which is how one
+learns to trust a new tool. Now the interesting sets. The
+Sierpi\'nski triangle of Appendix A keeps only three of the filled
+triangle's four half-scale copies, and dropping the count from $4$ to
+$3$ drops the dimension from $2$ to $\ln 3 / \ln 2 \approx 1.585$.
+The idealized coastline of the introduction can be modeled by the
+{\it Koch curve\/} -- four copies of itself at scale $1/3$ -- giving
+$\ln 4 / \ln 3 \approx 1.262$. And the idealized sponge is the
+{\it Menger sponge\/}: a cube is divided into $27$ third-scale
+subcubes and the $20$ avoiding the center are kept, the process
+repeating in each. Having no interior, the sponge is all surface, and
+its dimension is $\ln 20 / \ln 3 \approx 2.727$.
+
+\bigskip
+\centerline{\vbox{\halign{\quad#\hfil\quad&\quad\hfil#\quad&\quad\hfil#\quad&\quad#\hfil\quad\cr
+{\bf Set}&{\bf Copies $N$}&{\bf Scale $r$}&{\bf Dimension $\ln N / \ln(1/r)$}\cr
+\noalign{\smallskip\hrule\smallskip}
+line segment&2&$1/2$&$\ln 2/\ln 2 = 1$\cr
+filled triangle&4&$1/2$&$\ln 4/\ln 2 = 2$\cr
+Cantor set&2&$1/3$&$\ln 2/\ln 3 \approx 0.631$\cr
+Koch curve (coastline)&4&$1/3$&$\ln 4/\ln 3 \approx 1.262$\cr
+Sierpi\'nski triangle&3&$1/2$&$\ln 3/\ln 2 \approx 1.585$\cr
+Menger sponge&20&$1/3$&$\ln 20/\ln 3 \approx 2.727$\cr
+}}}
+\bigskip
+
+The first two rows are the calibration; the remaining rows interpolate
+between the integers -- which is precisely what fractal dimension was
+invented to do.
+
 \subsection{Conclusion}
 We have shown that there are sets with sufficient complexity that the
 usual categorization of dimension as a measure of size is lacking. 
@@ -538,6 +633,16 @@ We have further shown
 that the notion of fractal dimension, as an extension to the usual
 notion of dimension, provides a more discriminating view of the size
 of a set.
+
+The introduction promised numbers: a dimension between one and two
+where an idealized coastline naturally lives, and one between two and
+three for the surface of an idealized sponge. The machinery delivers
+them. Modeling the coastline by the Koch curve gives
+$\ln 4 / \ln 3 \approx 1.26$ -- denser than any curve of finite
+length, yet far from filling the plane. Modeling the sponge by the
+Menger sponge gives $\ln 20 / \ln 3 \approx 2.73$ -- more than a
+surface, not quite a solid. These are exactly the more precise
+comparisons of ``size'' that the introduction asked for.
 
 While physical examples like a coastline or the surface of a sponge do 
 not really have
@@ -610,10 +715,12 @@ $C_5$:\ \cantor{5}{1.48148}
 The second self-similar set lives in 2 dimensions while its
 fractal dimension is between $1$ and $2$. It is the
 {\it Sierpi\'{n}ski triangle\/} (a different object from the 3-dimensional
-Menger sponge mentioned in the introduction, although both are sometimes
-loosely called ``sponges''); it is ``best'' described in a recursive way
-as a scaled version of the lower triangular portion of itself, and its
-fractal dimension is $\ln 3 / \ln 2 \approx 1.585$.
+Menger sponge discussed in the body of the paper, although both are
+sometimes loosely called ``sponges''); it is ``best'' described in a
+recursive way as a scaled version of the lower triangular portion of
+itself -- three copies of itself at scale $1/2$ -- so the
+self-similarity shortcut derived in the body computes its fractal
+dimension: $\ln 3 / \ln 2 \approx 1.585$.
 
 Similar to the graphical display of the Cantor set construction, below we show
 a graph of 8 ``levels'' of its construction without going into construction details.
