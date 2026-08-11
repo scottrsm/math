@@ -104,7 +104,19 @@
 
 
 \section{Overview}
-We discuss the set $\mathcal{H}$ of primitive Pythagorean hypotenuses --
+Some numbers carry a right triangle on their backs and some do not.
+The number $5$ is the hypotenuse of the right triangle with sides
+$(3,4,5)$; the numbers $7$ and $11$ are hypotenuses of no integer right
+triangle at all. The number $25$ is a hypotenuse in exactly one
+primitive way, $(7,24,25)$, while $65$ manages it twice:
+$(16,63,65)$ and $(33,56,65)$. Two questions suggest themselves:
+{\em which\/} numbers occur as hypotenuses of primitive Pythagorean
+triples, and {\em in how many ways\/}? Classical number theory answers
+both questions completely -- and the answers set up a third question,
+about the primes among these hypotenuses, that appears to be genuinely
+open.
+
+In this note we discuss the set $\mathcal{H}$ of primitive Pythagorean hypotenuses --
 the ``hypotenuse'' values that arise from primitive Pythagorean triples
 (right triangles with integer sides sharing no common factor) --
 recall the classical theorems describing its structure, and state
@@ -193,27 +205,6 @@ This is the set of all powers of Pythagorean primes.
 \end{defn}
 
 
-\begin{defn}
-The {\em Prime Parity\/} function, $\Pi$, is defined on any prime $p$ with $p \ge 5$ by:
-\begin{equation}
-  \Pi(p) = \begin{cases}
-  \hphantom{-}1 & \exists n \in \mathbb{N}, \; p = 6n + 1 \\
-            -1  & \exists n \in \mathbb{N}, \; p = 6n - 1
-             \end{cases}
-\end{equation}
-\end{defn}
-
-\begin{defn}
-The {\em First Deviation\/} function, $\Delta_p$, is defined by:%
-\footnote{If the set on the right-hand side is empty, we set $\Delta_p(n) = \infty$.}
-\begin{equation}
-\Delta_p(n) = \min \left\{ m \;\middle|\; n \le \sum_{i=1}^m \Pi(\mathcal{H}_p[i]) - \sum_{i=3}^{m+2} \Pi(\mathbb{P}[i]) \right\}
-\end{equation}
-The second sum starts at index $3$ so as to skip the primes $2$ and $3$, on which
-$\Pi$ is undefined; both sums thus range over primes $\ge 5$.
-\end{defn}
-
-\newpage
 \textbf{Notes:}
 \begin{itemize}
   \item The subscript $u$ in the name $\mathcal{H}_u$ stands for {\em unique\/}:
@@ -221,8 +212,16 @@ $\Pi$ is undefined; both sums thus range over primes $\ge 5$.
     exactly the hypotenuses arising from a unique primitive Pythagorean triple.
   \item $\mathcal{H}_p$ is a {\em proper\/} subset of the primes: $\mathcal{H}_p \subset \mathbb{P}$.
   \item If the sets above are treated as lists, they are indexed in sorted order.
-  \item Clearly, $\Delta_p$ is a non-decreasing function.
 \end{itemize}
+
+The ground floor of this discussion is the parity structure of a primitive
+triple: the hypotenuse is odd, one leg is even, and the even leg is
+divisible by $4$. These facts follow from elementary parity arguments; an
+alternative {\em geometric\/} proof -- via the inscribed circle of the right
+triangle, which turns out to have integer radius -- appears in the companion
+note~\cite{mcintire-prop}. The present paper starts where that one stops:
+knowing the shape of a primitive triple, we ask which numbers occur as its
+hypotenuse.
 
 First we list a few facts and state a couple of known theorems before proceeding:
 \begin{enumerate}
@@ -300,12 +299,98 @@ is infinite by Dirichlet's theorem -- so $\mathcal{H}$ is indeed partitioned
 into two disjoint {\em infinite\/} sets, as described in the overview.
 \end{remark}
 
+It is worth naming the single strategic move behind all of the classical
+results quoted above: {\em change the representation}. In the Gaussian
+integers $\mathbb{Z}[i]$, the statement ``$z$ is a primitive Pythagorean
+hypotenuse'' becomes ``$z^2 = (x + iy)(x - iy)$ with $x, y$ coprime'' -- a
+statement about {\em factorization\/} -- and questions about triples become
+bookkeeping about how $z$ factors: Fermat's theorem classifies which primes
+survive the change of representation, and the $2^{k-1}$ count records how
+many essentially distinct ways the prime factors of $z$ can be split
+between $x + iy$ and its conjugate. Once the representation is right, the
+theorems are inventory.
+
+The following table shows the inventory for the smallest members of each
+family, with the number of primitive triples doubling at each new distinct
+prime factor (each row verified by direct computation):
+\begin{center}
+\begin{tabular}{c|c|l|c}
+ distinct primes $k$ & triples $2^{k-1}$ & smallest example & lies in \\
+\hline
+ $1$ & $1$ & $5$: $\;(3,4,5)$ & $\mathcal{H}_u$ \\
+ $1$ & $1$ & $25 = 5^2$: $\;(7,24,25)$ & $\mathcal{H}_u$ \\
+ $2$ & $2$ & $65 = 5 \cdot 13$: $\;(16,63,65),\ (33,56,65)$ & $\mathcal{H}_d$ \\
+ $3$ & $4$ & $1105 = 5 \cdot 13 \cdot 17$: $\;(47,1104,1105), \ldots$ & $\mathcal{H}_d$ \\
+ $4$ & $8$ & $32045 = 5 \cdot 13 \cdot 17 \cdot 29$: $\;(716,32037,32045), \ldots$ & $\mathcal{H}_d$ \\
+\end{tabular}
+\end{center}
+Theorem~\ref{thm:partition} is this table read down its last column: the
+$k = 1$ rows -- the prime powers -- are exactly $\mathcal{H}_u$, and every
+other row lands in $\mathcal{H}_d$.
+
 \newpage
 \section{McIntire's Pythagorean Triple Conjecture}
 
-This section concerns the {\em cumulative parity\/} of
-$\mathcal{H}_p$ -- the running sum $\sum_{i=1}^n \Pi(\mathcal{H}_p[i])$ -- and how
-it compares to the corresponding sum over all primes $\geq 5$.
+Having settled which numbers are hypotenuses and in how many ways, we turn
+to the open question: how do the {\em prime\/} hypotenuses sit inside the
+primes? Both $\mathcal{H}_p$ and $\mathbb{P}$ are infinite sorted lists,
+and every prime $p \ge 5$ falls into one of two camps -- $p \equiv 1$ or
+$p \equiv -1 \pmod 6$. Assign each camp a value:
+
+\begin{defn}
+The {\em Prime Parity\/} function, $\Pi$, is defined on any prime $p$ with $p \ge 5$ by:
+\begin{equation}
+  \Pi(p) = \begin{cases}
+  \hphantom{-}1 & \exists n \in \mathbb{N}, \; p = 6n + 1 \\
+            -1  & \exists n \in \mathbb{N}, \; p = 6n - 1
+             \end{cases}
+\end{equation}
+\end{defn}
+
+Now run a race between two walkers on the integers, both starting at $0$.
+The first walker steps through the Pythagorean primes
+$5, 13, 17, 29, 37, \ldots$ in order, moving up or down by
+$\Pi$ at each step; the second steps through {\em all\/} primes
+$\ge 5$: that is, $5, 7, 11, 13, 17, \ldots$.
+After $m$ steps the walkers stand at the {\em cumulative parities\/}
+$\sum_{i=1}^m \Pi(\mathcal{H}_p[i])$ and
+$\sum_{i=3}^{m+2} \Pi(\mathbb{P}[i])$ respectively (the second sum starts
+at index $3$ so as to skip the primes $2$ and $3$, on which $\Pi$ is
+undefined; both sums thus range over primes $\ge 5$). The first few steps
+of the race, with $D(m)$ the first walker's lead:
+\begin{center}
+\begin{tabular}{c|ccc|ccc|c}
+ $m$ & $\mathcal{H}_p[m]$ & $\Pi$ & $\sum \Pi(\mathcal{H}_p[i])$
+     & $\mathbb{P}[m+2]$ & $\Pi$ & $\sum \Pi(\mathbb{P}[i])$ & $D(m)$ \\
+\hline
+ $1$ & $5$  & $-1$ & $-1$ & $5$  & $-1$ & $-1$ & $\hphantom{-}0$ \\
+ $2$ & $13$ & $+1$ & $\hphantom{-}0$ & $7$  & $+1$ & $\hphantom{-}0$ & $\hphantom{-}0$ \\
+ $3$ & $17$ & $-1$ & $-1$ & $11$ & $-1$ & $-1$ & $\hphantom{-}0$ \\
+ $4$ & $29$ & $-1$ & $-2$ & $13$ & $+1$ & $\hphantom{-}0$ & $-2$ \\
+ $5$ & $37$ & $+1$ & $-1$ & $17$ & $-1$ & $-1$ & $\hphantom{-}0$ \\
+ $6$ & $41$ & $-1$ & $-2$ & $19$ & $+1$ & $\hphantom{-}0$ & $-2$ \\
+\end{tabular}
+\end{center}
+The natural question about any race is: how long must one wait for the
+trailing runner to lead, and by how much? That waiting time is the
+machinery this section needs:
+
+\begin{defn}
+The {\em First Deviation\/} function, $\Delta_p$, is defined by:%
+\footnote{If the set on the right-hand side is empty, we set $\Delta_p(n) = \infty$.}
+\begin{equation}
+\Delta_p(n) = \min \left\{ m \;\middle|\; n \le \sum_{i=1}^m \Pi(\mathcal{H}_p[i]) - \sum_{i=3}^{m+2} \Pi(\mathbb{P}[i]) \right\}
+\end{equation}
+That is, $\Delta_p(n)$ is the number of steps until the Pythagorean walker
+first leads by at least $n$.
+\end{defn}
+
+Two immediate observations. First, $\Delta_p$ is non-decreasing: the set
+being minimized over shrinks as $n$ grows. Second, since both partial sums
+are congruent to $m$ modulo $2$, the lead $D(m)$ is always {\em even\/};
+consequently $\Delta_p(2k-1) = \Delta_p(2k)$ for all $k$. As an entry
+fact: the Pythagorean walker first noses ahead only at step $41$ --
+that is, $\Delta_p(1) = \Delta_p(2) = 41$.
 
 We first record a fact that we had originally stated as a conjecture, but
 which follows from the prime number theorem for arithmetic progressions:
@@ -325,7 +410,9 @@ is the difference of these two counts, hence is $o(n)$.\hfill$\square$
 Thus the $\pm 1$ values $\Pi(\mathcal{H}_p[i])$ average to zero, so
 $\mathcal{H}_p$ is spread evenly between residues $1$ and $-1 \pmod 6$ in the
 long run, mirroring $\mathbb{P}$ itself. Numerically, however, the cumulative
-parity of $\mathcal{H}_p$ tends to run {\em lower\/} than that of $\mathbb{P}$.
+parity of $\mathcal{H}_p$ tends to run {\em lower\/} than that of $\mathbb{P}$:
+over all primes below $2 \times 10^7$, the lead $D(m)$ is negative for
+about $78\%$ of the steps and positive for only $21\%$.
 The remaining open conjecture quantifies how often and how far the
 $\mathcal{H}_p$ sum nonetheless overtakes the $\mathbb{P}$ sum:
 
@@ -335,9 +422,17 @@ The cumulative parity of $\mathcal{H}_p$ exhibits the following non-trivial beha
   \item[(a)] $\forall n\in \mathbb{N}, \Delta_p(n) < \infty$;
   \item[(b)] $\lim\limits_{n \rightarrow \infty} \dfrac{\Delta_p(n)}{n^{\ln(2 \pi)}} = 41$.%
 \footnote{The exponent $\ln(2\pi) \approx 1.838$ and the constant $41$ are
-based on numerical fitting; we do not have a heuristic derivation. Readers
-should treat the precise values as empirical, subject to revision as more
-data becomes available.}
+based on numerical fitting; we do not have a heuristic derivation, and the
+reader should know how thin the evidence is. Computing with all primes below
+$2 \times 10^7$ (the first $635{,}170$ Pythagorean primes, reaching leads
+$n \le 136$), the ratio $\Delta_p(n)/n^{\ln(2\pi)}$ oscillates between
+roughly $11$ and $112$ -- falling along each plateau of $\Delta_p$ and
+jumping at each new record -- with no visible convergence over this range;
+note also that $41$ is exactly $\Delta_p(1)$, so the constant is anchored
+by the $n = 1$ data point. What the data defensibly supports is polynomial
+growth with exponent near $1.8$; the precise limit and constant should be
+treated as provisional, subject to revision as more data becomes
+available.}
 \end{enumerate}
 \end{conjecture}
 
@@ -355,6 +450,16 @@ measured by their parity behavior: deviations of any size $n$ do occur
 ($\Delta_p(n) < \infty$), and they grow at the polynomial rate
 $n^{\ln(2\pi)}$. This ``mixing'' is what we mean by saying $\mathcal{H}_p$ is
 non-trivial in a way similar to $\mathbb{P}$.
+
+To return to where we began: the numbers $5, 13, 25, 65, \ldots$ that
+carry primitive right triangles on their backs are completely classified --
+which numbers occur (Theorem~\ref{thm:structure}), and in how many ways
+(Theorem~\ref{thm:partition}). What remains open is subtler. The primes
+among them, $5, 13, 17, 29, \ldots$, run their $\pm 1$ race against the
+full sequence of primes, usually trailing; Conjecture~\ref{conj:parity}
+asserts that they nonetheless take the lead by every margin eventually --
+on a schedule that appears to be polynomial. Proving even part (a) would
+be a satisfying close to the story that $(3,4,5)$ begins.
 
 \newpage
 \appendix
@@ -424,6 +529,12 @@ with no classical inputs assumed beyond what is already in Mathlib.
 \bibitem{sierpinski} W. Sierpi\'nski,
   {\em Pythagorean Triangles}, Dover Publications, 2003.
   (The $2^{k-1}$ count of primitive triples with a given hypotenuse.)
+
+\bibitem{mcintire-prop} R.~S. McIntire,
+  {\em An Alternative Proof of an Elementary Property of Pythagorean
+  Triples}, companion note in this repository
+  (\verb|tex/prop_pythag_triple.tex|), 2026.
+  (The parity structure of a primitive triple via the inscribed circle.)
 
 \end{thebibliography}
 
