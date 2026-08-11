@@ -60,7 +60,7 @@ equals sign is harmless.}
 \end{align}
 So that%
 \footnote{Geometrically, we are approximating the tangent line with lines passing
-through approximating cords to the function, $f$.}
+through approximating chords to the function, $f$.}
 \begin{align}
   f^\prime(x) &= \lim_{h \rightarrow 0} \left( \frac{f(x+h) - f(x)}{h} + \frac{o(h)}{h} \right) \nonumber \\
   &= \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h} + 0 \nonumber \\
@@ -118,6 +118,16 @@ above.
 
 
 \section{Extension to $f:R^n \rightarrow R$}
+Imagine standing on a hillside in a thick fog. You cannot see the summit;
+all you can sense is the tilt of the ground under your feet. Which
+direction is uphill -- and which direction is {\em steepest\/}? The
+altitude is a function of two map coordinates -- a function from $R^2$ to
+$R$ -- and the question is purely local: whatever answer there is must
+come from the way the hill is tilted right where you stand; that is, from
+a linear approximation at your feet. To pose such questions -- and answer
+them -- we extend the derivative to functions $f: R^n \rightarrow R$. The
+definition is forced on us by the same idea as before: the derivative is
+the best linear approximation.
 \begin{align}
   f({\bf x} + {\bf h}) &= f({\bf x}) + Df({\bf x})({\bf h}) + o({\bf h}) \label{vderdef}
 \end{align}
@@ -136,6 +146,10 @@ $\nabla f({\bf x})$. Equation \eqref{vderdef} becomes:
 \begin{align}
   f({\bf x} + {\bf h}) &= f({\bf x}) + \nabla f({\bf x}) \cdot {\bf h} + o({\bf h})
 \end{align}
+As a calibration, take $n = 1$: the dot product collapses to ordinary
+multiplication and the representing ``vector''{} collapses to the single
+number $f^\prime(x)$ -- the new machinery reproduces the previous section,
+which is how one learns to trust it.
 As in the scalar case, we use equation \eqref{vderdef}
 to compute the components of the vector $\nabla f({\bf x})$ once we choose
 a coordinate system. To this end let $\{{\bf e}_i\}$ be an {\em orthonormal\/}
@@ -188,7 +202,11 @@ maximum increase (locally) is $\nabla f({\bf x})$ (normalized).
 \begin{align}
   f({\bf x} + h {\bf w})  - f({\bf x}) &= \nabla f({\bf x}) \cdot h {\bf w} + o(h {\bf w})
 \end{align}
-But the Cauchy-Schwarz inequality says:
+But the Cauchy-Schwarz inequality%
+\footnote{For a proof of the Cauchy-Schwarz inequality -- derived from the
+projection problem that gives birth to the dot product itself -- see the
+companion paper ``Where does the Dot Product Come From?''.}
+says:
 $|\nabla f({\bf x}) \cdot h{\bf w}| \le \|\nabla f({\bf x})\| |h|$.
 The maximum is only achieved if $\nabla f({\bf x})$ and ${\bf w}$ are in the
 same direction. That is ${\bf w} = \frac{\nabla f({\bf x})}{\|\nabla f({\bf x})\|}$.
@@ -196,6 +214,10 @@ same direction. That is ${\bf w} = \frac{\nabla f({\bf x})}{\|\nabla f({\bf x})\
 Therefore, to increase $f$ in the fastest possible way (locally) move in the direction
 of $\nabla f({\bf x})$; conversely, to decrease $f$ in the
 fastest possible way (locally) move in the direction of $-\nabla f({\bf x})$.
+This answers the hillside question that opened the section: the fog is no
+obstacle, because the question was local all along -- the steepest way up
+is the direction of the gradient, and the steepest way down is its
+negative.
 
 \subsection{Application to Optimization and Data Science}
 By the same reasoning of the last section in order to find a maximum or minimum
@@ -246,6 +268,11 @@ deep neural networks.
 
 
 \section{Extension to $f:R^n \rightarrow R^m$}
+Most models take several inputs to several outputs: a robot arm's $n$
+joint angles determine the three coordinates of its hand; a weather model
+takes today's $n$ readings to tomorrow's $m$. What plays the role of the
+derivative for a function ${\bf f}: R^n \rightarrow R^m$? The same
+definition, once more:
 \begin{align}
   {\bf f}({\bf x} + {\bf h}) &= {\bf f}({\bf x}) + {\bf Df}({\bf x})({\bf h})
   + {\bf o}({\bf h}) \label{mderdef}
@@ -269,7 +296,13 @@ $(i, j)$ entry (row $i$, column $j$) is:
 \end{align}
 That is, row $i$ corresponds to the $i^{\rm th}$ output component
 $\tilde f_i$, and column $j$ corresponds to the $j^{\rm th}$ input variable
-$x_j$.
+$x_j$. The payoff is the same as at every level: near ${\bf x}$ the
+complicated map ${\bf f}$ may be traded for the linear model
+${\bf f}({\bf x}) + [{\bf Df}({\bf x})]\,{\bf h}$ -- the robot arm's
+response to small joint adjustments is just a matrix acting on them. And
+composition of maps becomes multiplication of their Jacobians (the chain
+rule) -- one answer to the question of why matrices multiply the way they
+do.
 
 Why do we study matrices? One answer is that they represent the linear mappings
 from $R^n \rightarrow R^m$ and so if we want to use calculus%
@@ -281,7 +314,18 @@ from $R^n$ to $R^m$ we need to understand the linear functions, on these
 spaces and their representations -- matrices.
 
 \section{Extension to $f:R^\infty \rightarrow R$}
-Consider the function $J(y) = \int_{a}^b F(x, y(x), y^\prime(x)) \, dx$. $J$ is
+A mass hangs from a spring. Between two observed configurations, nature
+moves it along one particular trajectory out of all the conceivable ones.
+Which one -- and why that one? Physics has a remarkable answer (Hamilton's
+principle, taken up at the end of this section): nature's trajectory
+renders a certain number, computed from the {\em whole path\/}, stationary
+-- a flat spot, just as in the optimization problems of the previous
+sections. But now the thing being varied is not a number or a vector; it
+is an entire function. If ``set the derivative to zero''{} is to make
+sense here, we need a derivative for functions {\em of functions\/}.
+
+Consider, then, the general shape of such a path-to-number rule:
+$J(y) = \int_{a}^b F(x, y(x), y^\prime(x)) \, dx$. $J$ is
 a function from a {\em function space\/}, $H$, to $R$; that is, $J: H \rightarrow R$.
 This is similar to functions,
 $f:R^n \rightarrow R$, but where $n$ is infinity. One can show that, for instance, the
@@ -306,7 +350,14 @@ functions which is a generalization of the dot product for vectors in
 a finite dimensional space. In turn, this inner product defines a norm on the space
 of functions, $H$.
 We define the following inner product function,
-$\langle \cdot, \cdot \rangle$ by:
+$\langle \cdot, \cdot \rangle$ by:%
+\footnote{One caveat inherited from the integral: a function that is zero
+except at a few isolated points has $\langle f, f \rangle = 0$ without
+being the zero function. For the {\em continuous\/} functions we work with
+here this cannot happen, so the inner product is honest; the general
+remedy -- identify functions that agree ``almost everywhere''{} -- and the
+geometry of this inner product are taken up in the companion paper
+``Where does the Dot Product Come From?''.}
 \begin{align}
   \langle f, g \rangle &\equiv \int_a^b f(x) g(x)\, dx \label{inner_prod}
 \end{align}
@@ -449,8 +500,9 @@ second term in \eqref{rinfder}:
   \right]
   h(x) \, dx
 \end{align}
-If we restrict our function space, $H$, to the functions
-which have the restriction that $h(a) = h(b) = 0$, then
+If we restrict the {\em perturbations\/} $h$ to functions with
+$h(a) = h(b) = 0$ -- that is, we hold the endpoint values of $y$ fixed, so
+that the perturbed path $y + h$ must keep them -- then
 the previous equation becomes:
 \begin{align}
 \int_a^b \frac{\partial F}{\partial y^\prime}(x, y(x), y^\prime(x))h^\prime(x) \, dx
@@ -515,6 +567,8 @@ equation\/} of the calculus of variations.
 
 {\bf Example.}
 
+We can now answer the question that opened this section: which trajectory
+does the mass on the spring actually follow?
 The dynamics of a mass is determined by finding a trajectory at which the
 {\em action\/} $J$ is stationary -- a place where the derivative of the
 action is the zero function. The integrand $F$ of the action is called the
@@ -550,14 +604,53 @@ Or,
 \begin{align}
   m y^{\prime\prime}(t) + k y(t) = 0
 \end{align}
-This is a second order linear differential equation. Adding initial conditions, one can
-solve for the particle dynamics.
+Pause on what just happened: this is exactly Newton's second law, $F = ma$,
+for the Hooke spring force $F = -k\,y$. The new machine -- action,
+representative, Euler--Lagrange -- reproduces the answer the reader
+already owns, which is how one learns to trust a new tool.
 
+This is a second order linear differential equation.
 The general form of a solution to this differential equation is:
 \begin{align}
   y(t) &= a_1 \cos(\sqrt{k/m}\, t) + a_2 \sin(\sqrt{k/m}\, t)
 \end{align}
-Given the initial position and velocity we can determine $a_1$ and $a_2$.
+The variational problem above held the positions at times $0$ and $T$
+fixed; but once the differential equation is in hand, any equivalent data
+determine the two constants -- given, say, the initial position and
+velocity we can determine $a_1$ and $a_2$.
+
+\section{The Same Game on Four Boards}
+This paper has been one game played four times. At every level the two
+moves were the same: {\em define\/} the derivative as the best linear
+approximation, then {\em trade\/} the abstract linear map for a concrete
+representative you can compute with. Only the board changed:
+
+\begin{center}
+\begin{tabular}{l|l|l|l}
+{\bf Function} & {\bf Representative} & {\bf Pairing} & {\bf ``Set it to zero''} \\
+\hline
+$f: R \rightarrow R$ & slope $f^\prime(x)$ & multiplication & critical points (the box) \\
+$f: R^n \rightarrow R$ & gradient $\nabla f({\bf x})$ & dot product & gradient descent \\
+${\bf f}: R^n \rightarrow R^m$ & Jacobian $[{\bf Df}({\bf x})]$ & matrix product & (local linear model) \\
+$J: H \rightarrow R$ & function $\nabla J(y)$ & $\langle f, g \rangle = \int_a^b f g\, dx$ & Euler--Lagrange \\
+\end{tabular}
+\end{center}
+
+What ``multiply''{} means changes from row to row -- a product of numbers,
+a dot product, a matrix acting on a vector, an integral -- but the
+strategy never does. A reader who owns the first row already owns the
+last; the only new work at each level was finding the right
+representation.
+
+This representative-of-a-linear-functional theme is one strand of a larger
+web. The dot product and its inner product generalizations -- including
+the Cauchy--Schwarz inequality used in section 2 and the integral inner
+product built in section 4 -- are derived from a single projection problem
+in the companion paper ``Where does the Dot Product Come From?''. And the
+``best approximation''{} idea that defined the derivative reappears, in
+the same integral inner product, as the best guess of probability theory
+in ``Measure Theoretic Conditional Expectation in an Elementary
+Setting''. Same game; bigger boards still.
 
 \paragraph{Further reading.} For the derivative as a linear map, see
 M. Spivak, {\it Calculus on Manifolds\/}. For the calculus of variations
