@@ -3,6 +3,9 @@
 \usepackage{amsthm, amsmath, amssymb}
 \usepackage{tikz}
 
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{8.0in}
 \setlength{\hoffset}{-0.75in}
@@ -125,7 +128,27 @@ an integer, which means the product $ab$ is even.
 This knowledge eliminates the first choice; namely, that $c$ is even with
 both $a$ and $b$ odd. Consequently, $c$ is odd, with exactly one of $a$ and $b$ even
 (the other being odd).
-Without loss of generality we assume that $b$ is even; in which case, $a$ is odd.
+
+The whole elimination tournament can now be seen at a glance. Writing E
+for even and O for odd, there are six possible parity patterns for
+$(a, b, c)$ (up to a swap of the legs -- we write the mixed-leg cases with
+$b$ even); each losing pattern is eliminated by a specific weapon, and
+exactly one pattern survives:
+\begin{center}
+\begin{tabular}{ccc|l}
+$a$ & $b$ & $c$ & fate \\
+\hline
+E & E & O & eliminated: parities must match in $a^2 + b^2 = c^2$ \\
+O & O & O & eliminated: parities must match in $a^2 + b^2 = c^2$ \\
+O & E & E & eliminated: parities must match in $a^2 + b^2 = c^2$ \\
+E & E & E & eliminated: the triple is in reduced form \\
+O & O & E & eliminated: the area equation forces $ab$ even \\
+O & E & O & {\bf survives} --- the only possibility \\
+\end{tabular}
+\end{center}
+
+Following the surviving row, we assume (without loss of generality) that
+$b$ is even; in which case, $a$ is odd.
 
 Now, the left hand side of \eqref{area} simplifies to
 $r(a + b - r) = r(r + c)$ by \eqref{radius}; with $c$ odd, this is even
@@ -136,13 +159,44 @@ And we know that $a$ is odd; therefore, $\frac{b}{2}$ is even.
 This means that $b$ is divisible by $4$.
 
 In summary, we have deduced the following properties for primitive Pythagorean triangles.
+
+\begin{proposition}\label{prop:parity}
+Let $(a, b, c)$ be a primitive Pythagorean triple. Then:
 \begin{itemize}
   \item One of the legs is odd; the other leg is even; and the hypotenuse
       is odd.
   \item The even leg is divisible by $4$.
-  \item The radius of the inscribed circle in the Pythagorean triangle
-      is an integer (necessarily positive).
+  \item The radius, $r = (a + b - c)/2$, of the inscribed circle in the
+      associated Pythagorean triangle is an integer (necessarily positive).
 \end{itemize}
+\end{proposition}
+
+{\bf Remark (what is ``alternative'' here).} The standard routes to the
+first two facts are arithmetic. One goes through Euclid's parametrization
+of primitive triples, $(a, b, c) = (m^2 - n^2,\, 2mn,\, m^2 + n^2)$ with
+$m > n$ coprime and of opposite parity, from which divisibility of the
+even leg by $4$ is immediate (in $2mn$, one of $m$ and $n$ is even).
+Another works modulo $8$: odd squares are congruent to $1$ mod $8$, so
+with $a$ and $c$ odd, $b^2 = c^2 - a^2 \equiv 0 \pmod 8$, which forces
+$4 \mid b$. The proof above replaces both with a single strategic move ---
+{\em compute one quantity two ways\/}. The area of the triangle, reckoned
+whole and reckoned piece by piece, changes the representation of the
+algebraic identity $a^2 + b^2 = c^2$ into the integrality of the inradius
+$r = (a + b - c)/2$, and elementary even/odd bookkeeping does the rest.
+The dividend of the geometric route is the third conclusion --- the
+integer inradius --- which the arithmetic proofs never see, because their
+machinery never draws the circle.
+
+The freshman project paid off after all: with no machinery beyond a
+dissected figure and parity arithmetic, the area accounting reproduced two
+classical theorems and added a third fact for free. And the story
+continues from here. Knowing now that the hypotenuse of a primitive triple
+must be odd, one can ask {\em which\/} odd numbers actually occur as
+hypotenuses, in how many ways, and how the prime hypotenuses are
+distributed among the primes. Those questions --- one of which remains
+open --- are the subject of the companion note,
+{\em A Conjecture on Primitive Pythagorean Triples\/}
+(\texttt{tex/conj\_pythag\_triple.tex} in this repository).
 
 \begin{figure}[!ht]
 \begin{center}
