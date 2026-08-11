@@ -11,13 +11,25 @@
 {R. Scott McIntire}{Aug 1, 2026}
 
 \section{Overview}
-For non-singular transformations of variables with distributions, there 
-are standard formulas that describe the probability distribution 
+Suppose you know the joint density of a pair of random variables,
+$(X_1, X_2)$. What is the density of their sum, $X_1 + X_2$? Every
+probability student knows the answer -- the convolution formula -- but it
+is worth asking where that formula comes from, because the map
+$(x_1, x_2) \mapsto x_1 + x_2$ is {\it singular\/}: it sends two dimensions
+to one, so the standard change-of-variables formula, which requires an
+invertible map, does not apply. What machine produces the convolution
+formula -- and will the same machine answer the harder questions: the
+density of $X_1/X_2$? of $X_1^2 + \cdots + X_n^2$?
+
+For non-singular transformations of variables with distributions, there
+are standard formulas that describe the probability distribution
 of the target variable. However, in the case of singular transformations,
-there is no immediate formula. Often what is done is to add independent 
-variables in a somewhat ad hoc fashion to make the transformation 
-non-singular, and then ``integrate out'' -- if possible -- 
-the independent variables from the resulting formula. 
+there is no immediate formula. Often what is done is to add independent
+variables in a somewhat ad hoc fashion to make the transformation
+non-singular, and then ``integrate out'' -- if possible --
+the independent variables from the resulting formula; we exhibit this
+maneuver after Example 1 below, so its reliance on a lucky choice of
+invented variables can be seen next to the systematic alternative.
 Below we describe a procedure to determine the
 target distribution with a more systematic process.
 
@@ -66,6 +78,24 @@ $$
 Formula (1) is a form of the smooth coarea formula of geometric measure
 theory [1, 2]. The aim of this note is a self-contained derivation and a
 collection of worked examples.
+
+The theorem is best understood as the change-of-variables formula the
+reader already knows, played on a bigger board. The dictionary:
+\bigskip
+\centerline{\vbox{\halign{\quad#\hfil\quad&\quad#\hfil\quad\cr
+{\bf Non-singular ($m = n$)}&{\bf Singular ($m < n$)}\cr
+\noalign{\smallskip\hrule\smallskip}
+preimage of ${\bf y}$: a single point&preimage of ${\bf y}$: an $(n-m)$-dimensional manifold\cr
+Jacobian factor $|{\rm det}\, Df({\bf x})|$&Gram factor $\sqrt{|Df({\bf x})\, Df^T({\bf x})|}$\cr
+the inverse map $f^{-1}$&the pseudo inverse $Df^T (Df\, Df^T)^{-1}$\cr
+$P_Y({\bf y}) = P_X(f^{-1}({\bf y}))/|{\rm det}\, Df|$&$P_Y({\bf y}) = \int_{f^{-1}({\bf y})} P_X/\sqrt{|Df\,Df^T|}\; dS$\cr
+change of variables&coarea formula\cr
+}}}
+\bigskip
+Each entry on the right reduces to the one on the left when $m = n$: the
+level set collapses to a point, the fiber integral to a single evaluation,
+the Gram determinant to $|{\rm det}\, Df|$, and the pseudo inverse to the
+inverse.
 
 \smallskip
 
@@ -117,6 +147,14 @@ $\lambda = 2 (A A^T)^{-1} {\bf y}$.
 This implies that ${\bf x}^* = A^T \left(A A^T\right)^{-1} {\bf y}$.
 Since $\|{\bf x}\|^2$ is strictly convex and the constraint set is affine,
 this stationary point is indeed the unique minimum.
+
+Note the shape of this argument: ${\bf x}_p$ is a {\it best
+approximation\/} -- the point of the affine solution set nearest the
+origin -- found through the orthogonal decomposition
+$R(A^T) \perp N(A)$. The pseudo inverse is a projection construction, the
+same ``best approximation in a subspace'' game that underlies least
+squares -- and, in function space, the conditional expectation of
+probability theory.
 
 \bigskip
 
@@ -191,12 +229,23 @@ $$
 P_X({\bf x}({\bf x}_1, {\bf x}_2)) \, d{\bf x}_1 \, d{\bf x}_2.
 $$
 For a given ${\bf x}_2$, ${\bf y}$ maps to the manifold $\Omega_{X_1}$ in an
-invertible way (locally). The linear approximation to the map $f$ is $Df$; by
+invertible way (locally). The linear approximation to the map $f$ is $Df$ --
+the derivative playing its role as {\it best linear approximation\/}; by
 Lemma 1 its pseudo inverse is $Df^T (Df \, Df^T)^{-1}$, so that locally
 $$
 {\bf x}_1 \approx Df^T({\bf x}) \left(Df({\bf x}) \, Df^T({\bf x})\right)^{-1} {\bf y}.
 $$
-Using ${\bf y}$ to express ${\bf x}_1$ combined with Lemma 2 we have
+The map carrying ${\bf y}$ to ${\bf x}_1$ is thus (locally) the linear map
+$B = Df^T \left(Df \, Df^T\right)^{-1}$, and Lemma 2 prices its volume
+distortion:
+$$
+\sqrt{|B^T B|} =
+\sqrt{\left|\left(Df\,Df^T\right)^{-1} Df\, Df^T \left(Df\,Df^T\right)^{-1}\right|}
+= \sqrt{\left|\left(Df \, Df^T\right)^{-1}\right|}
+= {1 \over \sqrt{\left|Df\,Df^T\right|}}
+$$
+-- and there is the divisor of formula (1), born as a Gram determinant.
+Using ${\bf y}$ to express ${\bf x}_1$ we have
 $$
 \nu(\Omega_Y) =
 \int_{\Omega_Y} \int_{\Omega_{X_2}}
@@ -287,6 +336,19 @@ Therefore, by Theorem 1 we have:
 $$
 P_Y(y) = \int_{-\infty}^{\infty} P_{X_1 X_2}(\mu, y - \mu) \, d\mu
 $$
+
+This is the familiar convolution formula: the new machine reproduces the
+one answer the reader already owns -- which is how one learns to trust a
+new tool. It is also the place to exhibit the ``ad hoc'' route mentioned
+in the Overview. There, one adjoins an invented variable, say $y_2 = x_2$,
+so that the augmented map $(x_1, x_2) \mapsto (x_1 + x_2, \, x_2)$ is
+non-singular with Jacobian determinant $1$; the standard
+change-of-variables formula gives
+$P_{Y Y_2}(y, y_2) = P_{X_1 X_2}(y - y_2, \, y_2)$; and integrating out
+$y_2$ recovers the same convolution integral. The maneuver works -- here --
+because $y_2 = x_2$ happens to be a convenient choice, and because the
+marginalization happens to be tractable. Theorem 1 asks for no invented
+variables and no luck.
 
 \example{Example 2}{$y = f({\bf x}) = x_1 / x_2 \quad (f:{\bf R}^2 \to {\bf R})$}
 Here the natural domain is ${\cal D} = \{ {\bf x} \in {\bf R}^2 \mid x_2 \neq 0 \}$.
@@ -441,7 +503,9 @@ Substituting $s = 2\mu_1$ shows that this equals the result of Example 5a.
 The two parameterizations cover the same manifold, and the surface-measure
 factor $\sqrt{|D_{\mu}{\bf x}^T D_{\mu}{\bf x}|}$ exactly compensates for the
 change of parameterization: formula (2) is independent of the choice of
-charts.
+charts. The answer belongs to the manifold, not to the coordinates we
+happen to lay on it -- a useful self-test the reader can apply to any
+computation with formula (2).
 
 \example{Example 6}{$y = \sum_{i=1}^n x_i^2 \quad
   (f:{\bf R}^n \to {\bf R})$}
@@ -484,7 +548,9 @@ $$
 	P_Y(y) & = \frac{e^{-y/(2\sigma^2)}}{(2\pi)^{n/2} \sigma^n 2\sqrt{y}} \int_{\partial B(\sqrt{y})} dS & \cr
 }
 $$
-The surface area of a sphere of radius $\sqrt{y}$ in $n$ dimensions is $2y^{(n-1)/2}\frac{\pi^{n/2}}{\Gamma(n/2)}$.
+The surface area of a sphere of radius $\sqrt{y}$ in $n$ dimensions is $2y^{(n-1)/2}\frac{\pi^{n/2}}{\Gamma(n/2)}$.%
+\ftn{This $\Gamma$-function formula for sphere volumes and surface areas
+is derived in the companion paper ``Defining Fractal Dimension''.}
 Therefore, $P_Y(y)$, may be written:
 $$
 \eqalignno{
@@ -514,7 +580,12 @@ P_Y(y) = \int_{-\infty}^{\infty} |s|P_{X_1 X_2}(sy,s) \, ds =
 \Sigma^{-1} [sy - \mu_1, s - \mu_2]^T \right)/2} \, ds
 $$
 Writing the exponent as $-(\alpha s^2 - 2 \beta s + 2\gamma)/2$, completing
-the square in $s$, and using the identity
+the square in $s$, and using the identity%
+\ftn{The identity is not deep: split the integral at $s = 0$ and fold the
+negative half onto the positive, giving
+$2\int_0^\infty s\, e^{-\alpha s^2/2}\cosh(\beta s)\, ds$; then complete
+the square in each of $e^{\pm\beta s}$ and substitute -- the surviving
+Gaussian integrals produce the ${\rm erf}$ term.}
 $$
 \int_{-\infty}^{\infty} |s| \, e^{-\alpha s^2/2 + \beta s} \, ds =
 {2 \over \alpha}\left[ 1 + \sqrt{\pi} \, \tau \, e^{\tau^2}
