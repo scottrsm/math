@@ -21,8 +21,33 @@
 \maketitle
 
 \section{Overview}
-Throughout this paper, $k \in {\bf Z}^+$ with $k \le n$.
-Consider the function, $f: {\bf R}^n \to {\bf R}$, defined by%
+When one constructs (or modifies) a long-only portfolio of $n$ securities
+--- a vector ${\bf x} \succeq {\bf 0}$ of notional positions%
+\footnote{A bold font is used to denote vectors. We refer to a
+vector of $0$s as ${\bf 0}$, and likewise we refer to a vector of $1$s
+as ${\bf 1}$. The mathematical expression, ${\bf a} \preceq {\bf b}$, is to be
+interpreted as the statement that every element of the vector ${\bf a}$ is
+less than or equal to the corresponding element in the vector ${\bf b}$.
+Similarly, the expression, ${\bf a} \succeq {\bf b}$, is the statement that
+each element of ${\bf a}$ is greater than or equal to each
+corresponding element of ${\bf b}$.
+}
+--- a diversification mandate will often demand that the largest positions
+not dominate the book: {\it the $k$ largest positions may not, together,
+exceed a fraction $p$ of the portfolio's total notional}.%
+\footnote{Rules of this shape occur in practice; the European UCITS
+``5/10/40'' rule is a well-known relative.}
+The difficulty in enforcing such a rule inside an optimization is that
+{\it which\/} $k$ positions are the largest depends on ${\bf x}$ --- the
+very variable being optimized. One way out is to write down, for every
+set of $k$ securities, a constraint bounding the sum of those positions;
+but the number of constraints that one has to write is $\binom{n}{k}$.
+This becomes combinatorially large very quickly. In this paper we use LP
+duality to replace these $\binom{n}{k}$ constraints with $O(n)$ linear
+constraints.
+
+To formalize, let $k \in {\bf Z}^+$ with $k \le n$ throughout, and
+consider the function, $f: {\bf R}^n \to {\bf R}$, defined by%
 \footnote{
 For a given vector, ${\bf x} \in {\bf R}^n$, create a vector ${\bf x}^\prime$
 by sorting ${\bf x}$ from highest to lowest (ties broken arbitrarily, as the
@@ -38,37 +63,25 @@ ${\bf x} \mapsto \sum_{i \in S} x_i$.  This convexity is the reason the
 constraint $f({\bf x}) \le M$ can admit a linear representation at all.
 We are interested in optimization problems involving a vector ${\bf x}$
 where the sum of the top $k$ entries is bounded; that is, $f({\bf x}) \le M$
-for a given $M$.
-How could we do this? One way is to write down all possible combinations of $k$
-elements from ${\bf x}$ and write a constraint that bounds their sum to be
-less than or equal to $M$.  But the number of constraints that one has to
-write is $\binom{n}{k}$. This becomes combinatorially large very quickly.
-In the next sections we use LP duality to replace these $\binom{n}{k}$ constraints
-with $O(n)$ linear constraints.%
-\footnote{A bold font is used to denote vectors. We refer to a  
-vector of $0$s as ${\bf 0}$, and likewise we refer to a vector of $1$s
-as ${\bf 1}$. The mathematical expression, ${\bf a} \preceq {\bf b}$, is to be 
-interpreted as the statement that every element of the vector ${\bf a}$ is 
-less than or equal to the corresponding element in the vector ${\bf b}$. 
-Similarly, the expression, ${\bf a} \succeq {\bf b}$, is the statement that
-each element of ${\bf a}$ is greater than or equal to each
-corresponding element of ${\bf b}$.
-}
-This reformulation is classical --- it appears in Ogryczak and
-Tamir~\cite{ogryczak-tamir}; see also Boyd and
-Vandenberghe~\cite{boyd} --- but the derivation below is self-contained.
-
-In finance, this constraint arises when one wants to create (or modify) a
-long-only portfolio (${\bf x} \succeq {\bf 0}$) so that its top $k$
-securities (notionally) do not exceed a fixed percentage $p$ of its total
-notional.  In that case the bound is $M = p \, {\bf 1}^T {\bf x}$, which
-depends on the variable ${\bf x}$ --- but only {\it linearly\/}, so the
-constraint (\ref{opp1}) below remains linear with $M$ replaced by
-$p \, {\bf 1}^T {\bf x}$.  The function $f$ is also $k$ times the
+for a given $M$.  The portfolio mandate is the case
+$M = p \, {\bf 1}^T {\bf x}$.  This bound depends on the variable
+${\bf x}$ --- but only {\it linearly\/}, so the constraint (\ref{opp1})
+below remains linear with $M$ replaced by $p \, {\bf 1}^T {\bf x}$.
+The function $f$ is also $k$ times the
 {\it conditional value-at-risk\/} (CVaR) of the empirical distribution of
 the entries of ${\bf x}$ at level $k/n$; the reformulation below is
 precisely the linearization of Rockafellar and
 Uryasev~\cite{rockafellar-uryasev} in that setting.
+
+This reformulation is classical --- it appears in Ogryczak and
+Tamir~\cite{ogryczak-tamir}; see also Boyd and
+Vandenberghe~\cite{boyd} --- but the derivation below is self-contained.
+The route is a {\it change of representation\/}, made three times: the
+sorted sum becomes a $0$--$1$ integer program; the integer program
+becomes a continuous linear program; and the linear program is traded for
+its {\it dual\/}.  Each trade is forced by a defect of {\it shape\/} in
+the current description; the table at the end of the paper collects the
+ladder.
 
 \section{The Function $f$ as an Optimization Problem}
 We wish to characterize $f({\bf x})$ as the value of an optimization.
@@ -121,7 +134,8 @@ increases the objective by $\epsilon (x_i - x_j) > 0$ --- contradicting the
 optimality of ${\bf y}^*$. Therefore, all of the entries of ${\bf x}$
 associated with non-integer components of ${\bf y}^*$ have the same
 value. As previously stated, the sum of these non-integer values is an integer,
-which is necessarily less than the number of non-integer components in ${\bf y}^*$.
+which is positive and necessarily less than the number of non-integer
+components in ${\bf y}^*$ (each such component lies strictly between $0$ and $1$).
 Let $j$ denote this integer sum.
 Pick any $j$ of these non-integer values, and let $J$ be the set of their index
 values in ${\bf y}^*$.
@@ -162,6 +176,16 @@ The continuous problem above is equivalent to the following minimization:
 Treating ${\bf x}$ as a constant, this is a {\it convex\/} optimization problem.
 
 \section{A Dual Description of the Optimization}
+Pause to ask what shape of description we {\it want\/}.  Every
+description of $f({\bf x})$ so far is a {\it maximum\/}.  A maximum is
+the wrong shape to sit inside the constraint $f({\bf x}) \le M$: to
+certify that a maximum is at most $M$ one must check {\it every\/}
+candidate --- for us, all $\binom{n}{k}$ of them (the last section makes
+this precise).  What we want is a description of $f({\bf x})$ as a
+{\it minimum\/}: to certify that a minimum is at most $M$ it suffices to
+exhibit {\it one\/} feasible point with objective value at most $M$.
+Duality is precisely the machine that converts the one into the other.
+
 Since the problem described by (\ref{op1})--(\ref{op3}) is
 {\it convex\/}, the value of its solution is the same as the value of
 its associated {\it dual\/} problem.%
@@ -172,7 +196,16 @@ For linear programs, strong duality holds whenever the primal is feasible and bo
 The bilinear term $-{\bf y}^T {\bf x}$ becomes linear in ${\bf y}$ once we fix
 ${\bf x}$ as a parameter.}
 
-To form the dual problem we need the Lagrangian, which is:%
+To form the dual problem we need the Lagrangian,%
+\footnote{In companion papers --- ``Properties of a Linear Unbiased
+Minimum Variance Estimator'', and the minimum-norm lemma of ``Singular
+Transformations of Probability Density Functions'' --- Lagrange
+multipliers are scaffolding: introduced to locate a minimizer, then
+discarded.  Here the multipliers are the {\it deliverable\/}:
+${\boldsymbol \lambda}$ and $\nu$ survive into the final answer as the
+new decision variables of the next section, and $\nu$ will even acquire
+a meaning --- see the Remark below.}
+which is:%
 \footnote{${\bf x}$ is a parameter (constant for the optimization) -- separated from
 the optimization variables by a semi-colon.}
 \begin{align*}
@@ -244,12 +277,41 @@ directly, without appeal to LP theory.  The multiplier $\nu$ acts as a
 threshold, and ${\boldsymbol \lambda}$ pays for the excess of each entry
 above it.
 
+The Remark buys more than an interpretation.  Weak duality is here a
+one-line computation: if ${\bf x} \preceq {\boldsymbol \lambda} + \nu {\bf 1}$
+with ${\boldsymbol \lambda} \succeq {\bf 0}$, and $S$ is an index set of
+the $k$ largest entries of ${\bf x}$, then
+\begin{align*}
+	f({\bf x}) = \sum_{i \in S} x_i
+	\;\le\; \sum_{i \in S} (\lambda_i + \nu)
+	\;=\; \nu \, k + \sum_{i \in S} \lambda_i
+	\;\le\; \nu \, k + {\bf 1}^T {\boldsymbol \lambda}.
+\end{align*}
+So every feasible $({\boldsymbol \lambda}, \nu)$ bounds $f({\bf x})$ from
+above, and the point exhibited above attains the bound.  Together the two
+lines prove --- elementarily --- the strong duality that the next section
+uses.
+
+\textbf{A calibration.} Take $n = 4$, ${\bf x} = (3, 1, 2, 2)^T$, and
+$k = 2$.  Sorting gives $f({\bf x}) = 3 + 2 = 5$.  The recipe above says
+$\nu^* = x_{[2]} = 2$ and
+${\boldsymbol \lambda}^* = \bigl((3-2)_+,\, (1-2)_+,\, (2-2)_+,\, (2-2)_+\bigr)^T
+= (1, 0, 0, 0)^T$,
+with dual value $\nu^* k + {\bf 1}^T {\boldsymbol \lambda}^* = 4 + 1 = 5$.
+The new machine reproduces the answer the reader already owns by sorting
+--- which is how one learns to trust a new tool.  The example also
+realizes the tie that the equivalence proof of Section 2 labors over:
+since $x_3 = x_4 = 2$, the continuous problem has optimal solutions
+${\bf y}^* = (1, 0, t, 1-t)^T$ for every $t \in [0, 1]$, all of value
+$5$; the proof's rounding sends each of them to $(1,0,1,0)^T$ or
+$(1,0,0,1)^T$.
+
 \section{Characterization of $f$ as $O(n)$ Linear Constraints}
 We now apply the results of the previous sections to the following problem:
 Add constraints to an optimization problem that includes a {\it variable} ${\bf x} \in {\bf R}^n$
 so that $f({\bf x}) \le M$ for a given $M$.
 
-We claim that one can bound $f({\bf x})$ by adding $n+1$ new scalar variables
+We claim that one can bound $f({\bf x})$ by adding $n+1$ new variables
 (a vector ${\boldsymbol \lambda} \in {\bf R}^n$ and a scalar $\nu \in {\bf R}$),
 along with the following:
 \begin{align}
@@ -265,7 +327,8 @@ $f({\bf x}) \le \nu \, k + {\bf 1}^T {\boldsymbol \lambda} \le M$.
 The only concern remaining is that there may be a gap between the values of 
 $\nu \, k + {\bf 1}^T {\boldsymbol \lambda}$ 
 and $f({\bf x})$ -- making (\ref{opp1}) too restrictive. 
-But this is not the case: by strong duality, the minimum of
+But this is not the case: by strong duality (proved elementarily in the
+Remark of the previous section), the minimum of
 $\nu \, k + {\bf 1}^T {\boldsymbol \lambda}$ over ${\boldsymbol \lambda}, \nu$
 (subject to (\ref{opp2}) and (\ref{opp3})) equals $f({\bf x})$.
 So there always exist ${\boldsymbol \lambda}, \nu$ feasible for (\ref{opp2}) and (\ref{opp3})
@@ -293,6 +356,38 @@ In contrast to this ``simpler'' characterization and the original na\"\i ve
 combinatorial approach, we have shown that
 by examining an associated dual problem, $f({\bf x})$ can be bounded by
 adding $(n+1)$ new variables and $(2n + 1)$ {\it linear\/} constraints.
+
+Return, finally, to the portfolio mandate that opened this paper.  To
+require that the top $k$ positions of a long-only portfolio not exceed
+the fraction $p$ of its total notional, adjoin the variables
+${\boldsymbol \lambda} \in {\bf R}^n$ and $\nu \in {\bf R}$ to the
+portfolio problem and impose (\ref{opp1})--(\ref{opp3}) with
+$M = p \, {\bf 1}^T {\bf x}$:
+\begin{align*}
+	\nu \, k + {\bf 1}^T {\boldsymbol \lambda} \le p \, {\bf 1}^T {\bf x},
+	\qquad
+	{\bf x} \preceq {\boldsymbol \lambda} + \nu {\bf 1},
+	\qquad
+	{\boldsymbol \lambda} \succeq {\bf 0}.
+\end{align*}
+Every constraint is linear in $({\bf x}, {\boldsymbol \lambda}, \nu)$, so
+any LP or QP solver accepts them unchanged, and the mandate is enforced
+exactly --- no sorting, and no enumeration of $\binom{n}{k}$ subsets.
+
+In summary, the paper has been one number wearing five descriptions, each
+traded for the next because of a defect of shape:
+\begin{center}
+\begin{tabular}{l|l|l}
+description of $f({\bf x})$ & shape & defect forcing the next rung \\ \hline
+sum of the $k$ largest entries & a sort & a sort is not a constraint \\
+$\max_{|S|=k} \sum_{i \in S} x_i$ & max of $\binom{n}{k}$ linear pieces & too many pieces \\
+$0$--$1$ program (\ref{discrete_objective})--(\ref{discrete_card}) & max over a discrete set & combinatorial search \\
+linear program (\ref{bound})--(\ref{cont_card}) & max over a polytope & a max needs {\it every\/} ${\bf y}$ checked \\
+dual program (\ref{opp1})--(\ref{opp3}) & min & none --- {\it one\/} witness certifies \\
+\end{tabular}
+\end{center}
+The same strategic move --- change the representation until its shape
+fits the intended use --- carried each rung of the ladder.
 
 \begin{thebibliography}{9}
 
