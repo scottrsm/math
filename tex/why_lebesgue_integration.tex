@@ -26,7 +26,21 @@ We wish to find minimal conditions to place on $f_n$ so that the following occur
 	\lim_{n \to \infty} \int f_n(x) \, dx = \int \lim_{n \to \infty} f_n(x) \, dx \label{theorem}
 \end{equation}
 
-Like any good technology this simplifies the work of mathematicians 
+Here is a concrete instance of the question. Every calculus student has
+integrated a power series term by term:
+\begin{align*}
+	\int_0^{1/2} \frac{1}{1-x}\, dx
+		&= \int_0^{1/2} \lim_{n \to \infty} \left(1 + x + x^2 + \cdots + x^n\right) dx \\
+		&\overset{?}{=} \lim_{n \to \infty} \int_0^{1/2} \left(1 + x + x^2 + \cdots + x^n\right) dx
+		 = \frac{1/2}{1} + \frac{(1/2)^2}{2} + \frac{(1/2)^3}{3} + \cdots
+\end{align*}
+The step marked ``?'' is exactly an application of \eqref{theorem}: a limit
+has been interchanged with an integral. In this instance the move is
+legitimate -- the partial sums converge uniformly on $[0, 1/2]$ -- and both
+sides equal $\ln 2$. But the student who did this never asked permission,
+and the question of this paper is: when is the move legal?
+
+Like any good technology this simplifies the work of mathematicians
 and applied scientists. For instance, suppose the $f_n$ converge to the function $f$
 which is the zero function. Also suppose that it is difficult or impossible to 
 find an analytic expression for some, most, or all of the integrals of $f_n$. 
@@ -107,6 +121,12 @@ integration over $[0,1]$.)
 Consider the sets, $\{E_{i,n}\}$, defined by:
 
 $E_{i,n} = \left[r_i - \frac{1}{n 2^{i}}, r_i + \frac{1}{n 2^{i}}\right]$
+
+The choice of widths is the whole trick: give the $i^{th}$ rational an
+interval ``budget'' that halves at each step, so that the total budget,
+$\sum_{i=1}^\infty 2/(n 2^{i}) = 2/n$, is finite -- and can be made as small
+as we please by increasing $n$. (Keep this halving-budget device in mind; it
+will return.)
 
 A given rational number lies in potentially many of the $E_{i,n}$.
 
@@ -273,7 +293,9 @@ compactness (Heine--Borel) argument -- and also on a finite collection of
 Well, what is the outer measure of the set $Q_{[0,1]}$? We claim that the ``length'' 
 (outer-measure) of the set of rationals on the interval $[0,1]$ is $0$.
 
-Consider the coverings $\left(r_i - \frac{\epsilon}{2^i}, r_i + \frac{\epsilon}{2^i}\right)$.
+Consider the coverings $\left(r_i - \frac{\epsilon}{2^i}, r_i + \frac{\epsilon}{2^i}\right)$
+-- the halving budget of the last section again, this time with total
+length $2\epsilon$.
 Then for any
 $\epsilon > 0$, $Q_{[0,1]} \subset \mathop{\cup}_{i=1}^\infty \left(r_i - \frac{\epsilon}{2^i}, r_i + \frac{\epsilon}{2^i}\right)$.
 Then $\forall \epsilon > 0$:
@@ -473,8 +495,15 @@ It turns out that if we restrict ourselves to using only measurable sets,
 the resulting sets have the property that they are an 
 {\em algebra\/} with respect to unions, intersections and complements. 
 In fact, the set of measurable sets is a {\em $\sigma$-algebra\/}:
-the measurable sets are closed under all finite or countably infinite unions, 
+the measurable sets are closed under all finite or countably infinite unions,
 intersections and the complements of sets within this algebra.
+Two of these closure properties can at least be made plausible in a line
+each. Complements come for free because Carath\'eodory's condition
+\eqref{caratheodory} is {\em symmetric\/} in $C$ and $C^c$ -- swap them and
+you get the same equation back. And countable unions are tamed by -- for
+the third time in this paper -- the halving-budget device: to fit countably
+many small errors under one overall tolerance $\epsilon$, allow the $i^{th}$
+set an error of $\epsilon / 2^{i}$.
 
 Being an algebra, we can get a good handle on what sets are measurable if we 
 can come up with a good {\em base\/} collection of sets that are {\em easily\/} shown
@@ -614,6 +643,34 @@ of rational numbers. The vector properties would be there -- even
 perpendicularity is fine -- but the important {\em analytic\/} properties
 would be missing: Cauchy sequences need not converge, and nearest points
 (orthogonal projections onto closed subspaces) need not exist.
+
+The dictionary of the whole story, in one place:
+
+\begin{center}
+\begin{tabular}{l|l}
+{\bf Riemann} & {\bf Lebesgue} \\
+\hline
+partition the {\em domain} & partition the {\em range} \\
+step functions & simple functions \\
+length of an interval, $|I|$ & measure of a set, $\mu(E)$ \\
+upper and lower Darboux sums & supremum over simple minorants \\
+uniform convergence & domination $+$ pointwise convergence a.e. \\
+Riemann integrable functions & measurable functions \\
+the rationals: arithmetic, no limits & the reals: arithmetic {\em and} limits \\
+$Q^n$: geometry, no projections & $L^2$: geometry {\em and} projections \\
+\end{tabular}
+\end{center}
+
+Same game -- integrate by approximating with functions you can already
+handle -- on a bigger board: the pieces that changed are listed on the
+right.
+
+One of the projections that completeness delivers deserves special mention:
+the {\em conditional expectation\/} of probability theory is exactly the
+nearest-point (orthogonal) projection of a random variable onto a subspace
+of $L^2$. The companion paper ``Measure Theoretic Conditional Expectation
+in an Elementary Setting'' works this out concretely in a six-point
+discrete world, where the projection is elementary linear algebra.
 
 We should mention that, technically, the function space $L^2$ does not 
 consist of functions, it consists of 
