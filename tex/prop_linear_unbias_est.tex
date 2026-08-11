@@ -10,6 +10,16 @@
 {R. Scott McIntire}{Aug 1, 2026}
 
 \section{Overview}
+Here is the simplest instance of the problem of this paper. You have $n$
+measurements $b_1, \ldots, b_n$ of a single unknown quantity $x$, with
+independent errors of differing precisions $\sigma_1^2, \ldots,
+\sigma_n^2$. Every laboratory scientist knows what to do: combine the
+measurements with weights proportional to $1/\sigma_i^2$. But why that
+weight -- and in what sense is the result ``best''? The answer this paper
+gives: in {\it every\/} reasonable sense at once (see the Special Cases
+section for the return to this instance). The general setting is as
+follows.
+
 A standard problem is to find the linear unbiased ``minimum'' variance estimator
 for the overdetermined problem%
 \ftn{This means that $n > m$.}: $A {\bf x} = {\bf b}$, where
@@ -117,8 +127,14 @@ $$
 L^* = (A^TV^{-1}A)^{-1}A^TV^{-1}
 $$
 
-We now proceed with the case when $k > 1$. Given any ${\tilde H} \in {\bf R}^{m \times m}$, 
-let $H = {\tilde H}A^TV^{-1}$. Then equation (1) becomes:
+We now proceed with the case when $k > 1$. Equation (1) contains the test
+direction $H$ in two costumes -- multiplied against $VL^{*T}$ and
+against $A$ -- so a good choice of $H$ should simplify both occurrences
+at once. Routing an arbitrary ${\tilde H} \in {\bf R}^{m \times m}$
+through $A^TV^{-1}$ does exactly that: with $H = {\tilde H}A^TV^{-1}$,
+the $V$ cancels in the first occurrence (leaving
+$HVL^{*T} = {\tilde H}A^TL^{*T} = {\tilde H}$) while the second becomes
+$HA = {\tilde H}\,A^TV^{-1}A$. Then equation (1) becomes:
 
 $$
 \eqalignno{
@@ -236,6 +252,17 @@ so that
 $$
 L V L^T = L^* V L^{*T} + D V D^T \; \succeq \; L^* V L^{*T}.
 $$
+The shape of this argument deserves its name: the vanishing cross term
+says the deviation $D$ is {\it orthogonal\/} to the solution in the inner
+product weighted by $V^{-1}$, and the conclusion is then Pythagoras.
+That is, $L^*$ is a {\it projection\/} construction -- the ``best
+approximation in a subspace'' game of least squares. It is the same game
+played by the pseudo inverse $A^T(AA^T)^{-1}$ of the companion paper on
+singular transformations of densities -- the two pseudo inverses are
+dual: there, the minimum-norm solution of an {\it underdetermined\/}
+system; here, the least-squares estimate for an {\it overdetermined\/}
+one -- and, in function space, by the conditional expectation of
+probability theory.
 Every norm considered in this paper -- each trace norm, and the maximum
 eigenvalue used in the next section -- is {\it monotone\/} in this partial
 order (by Weyl's eigenvalue monotonicity, $X \succeq Y \succ 0$ implies the
@@ -245,10 +272,57 @@ by norm, what the Gauss--Markov inequality delivers all at once; their
 value is that they {\it find\/} $L^*$ rather than merely verify it.
 
 \vskip .25in
+\section{Special Cases: Recovering Known Estimators}
+Two specializations of $L^*$ recover formulas the reader already owns --
+which is how one learns to trust a general machine.
+
+{\bf Ordinary least squares.} If the observation errors are uncorrelated
+and of equal precision, $V = \sigma^2 I$, then the $\sigma^2$'s cancel and
+$$
+L^* = (A^TA)^{-1}A^T
+$$
+-- the ordinary least squares pseudo inverse. A general $V$ thus enters
+the estimator exactly as a re-weighting of the data by reliability.
+
+{\bf The inverse-variance weighted mean.} Return to the instance that
+opened this paper. Let $m = 1$ with $A = (1, 1, \ldots, 1)^T$ -- that is,
+${\bf b}$ consists of $n$ direct measurements $b_i$ of a single unknown
+number $x$ -- and let $V = {\rm diag}(\sigma_1^2, \ldots, \sigma_n^2)$
+(independent errors of differing precisions). Then
+$A^TV^{-1}A = \sum_i 1/\sigma_i^2$ and
+$$
+x^* = L^*{\bf b} = {\sum_{i=1}^n b_i/\sigma_i^2 \over
+\sum_{i=1}^n 1/\sigma_i^2},
+\qquad
+{\rm Var}(x^*) = L^*VL^{*T} =
+\left(\sum_{i=1}^n {1 \over \sigma_i^2}\right)^{-1}
+$$
+-- the inverse-variance weighted average used to combine measurements of
+unequal precision. The weight $1/\sigma_i^2$ is not a convention: by the
+results above it is optimal in every trace norm, in the spectral norm
+(next section), and -- by the Gauss--Markov remark -- in the partial order
+of covariance matrices itself.
+
+The ladder of specializations in one place:
+\bigskip
+\centerline{\vbox{\halign{\quad#\hfil\quad&\quad#\hfil\quad&\quad#\hfil\quad\cr
+{\bf Setting}&{\bf Estimator}&{\bf Known as}\cr
+\noalign{\smallskip\hrule\smallskip}
+$V = \sigma^2 I$&$(A^TA)^{-1}A^T$&ordinary least squares\cr
+general $V$&$(A^TV^{-1}A)^{-1}A^TV^{-1}$&generalized least squares\cr
+$m = 1$, $A = (1,\ldots,1)^T$, $V$ diagonal&weights $1/\sigma_i^2$&inverse-variance mean\cr
+}}}
+\bigskip
+
+\vskip .25in
 \section{Best Estimator under the Spectral Norm}
-We now use the results of the trace norms above to show that 
-the estimator obtained has the smallest maximum eigenvalue 
-over all linear estimators.
+We now use the results of the trace norms above to show that
+the estimator obtained has the smallest maximum eigenvalue
+over all linear estimators. The strategy is approximate-then-take-a-limit,
+played with whole optimization problems as the approximants: the spectral
+norm is the $k \to \infty$ limit of the Schatten norms, the problem has
+been solved for {\it every\/} finite $k$, and the lemma below is the
+license to pass the minimizer through the limit.
 
 \proclaim Lemma 1. Let $\Omega$ be a closed set in a finite-dimensional
 space ${\bf R}^d$, and suppose the feasible set
