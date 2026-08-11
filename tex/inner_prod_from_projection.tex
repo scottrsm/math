@@ -384,6 +384,22 @@ of two vectors that share no components between them?
  \ee
 
 
+Before moving on, notice that the machinery just assembled proves a famous
+inequality with almost no additional work. The leftover has non-negative
+length: $0 \le \|{\bf w}\|^2 = \|{\bf p} - P_{\bf v}({\bf p})\|^2$.
+Expanding with the multiplicative properties -- a worthwhile exercise;
+every piece is in hand -- gives
+$$ 0 \; \le \; \left\|{\bf p} - \frac{{\bf p} \cdot {\bf v}}{{\bf v} \cdot {\bf v}}\,{\bf v}\right\|^2
+ \; = \; {\bf p} \cdot {\bf p} \, - \, \frac{({\bf p} \cdot {\bf v})^2}{{\bf v} \cdot {\bf v}} $$
+Multiplying through by ${\bf v} \cdot {\bf v} > 0$ and rearranging:
+$$ ({\bf p} \cdot {\bf v})^2 \; \le \; ({\bf p} \cdot {\bf p})({\bf v} \cdot {\bf v});
+\qquad \hbox{that is,} \qquad
+|{\bf p} \cdot {\bf v}| \; \le \; \|{\bf p}\| \, \|{\bf v}\| $$
+This is the celebrated {\em Cauchy--Schwarz inequality\/} -- and the
+derivation tells us when equality holds: exactly when $\|{\bf w}\| = 0$;
+that is, when ${\bf p}$ is a multiple of ${\bf v}$ -- when the destination
+lies on the road.
+
 In two and three dimensions, the vectors ${\bf p}$, ${\bf p}_v$, and ${\bf w}$
 form a right triangle (with ${\bf p}_v$ perpendicular to ${\bf w}$), and
 the Pythagorean theorem and its converse make
@@ -455,7 +471,10 @@ are all orthogonal to each other, then by the same reasoning
 \footnote{It turns out, as you might imagine, that $n$ pairwise-orthogonal
 {\em nonzero\/} vectors (each pointing in a ``different direction'') are
 always able to span ${\bf R}^n$ -- and unit-length vectors are in
-particular nonzero.}
+particular nonzero. Half of this is one line with the trick used above:
+dotting a vanishing combination $\sum_i c_i {\bf v}_i = {\bf 0}$ with
+${\bf v}_j$ gives $c_j = 0$, so the vectors are independent; and $n$
+independent vectors in an $n$-dimensional space must span it.}
 
 {\bf Theorem.} If ${\bf x}$ is a vector in ${\bf R}^n$, and
 $\{{\bf v}_i\}_{i=1}^n$ are vectors of unit length pairwise orthogonal
@@ -512,8 +531,11 @@ $g'(t) = 2 f'(t, {\bf a}) \cdot f(t, {\bf a})$.}
   -2 {\bf v}_1 \cdot \left({\bf p} - \left( u_1 {\bf v}_1 + u_2 {\bf v}_2 \right) \right) & = & 0 \\
   -2 {\bf v}_2 \cdot \left({\bf p} -  \left( u_1 {\bf v}_1 + u_2 {\bf v}_2 \right) \right) & = & 0 
 \ee
+These two equations are the {\em normal equations\/} -- the reader who has
+met ``least squares'' has seen them before. They are solvable for any two
+independent directions, but the system couples $u_1$ and $u_2$.
 If we use orthonormal vectors ${\bf v}_1$ and ${\bf v}_2$,
-then this simplifies greatly to:
+the coupling vanishes and this simplifies greatly to:
 
 \be
   u_1 & = & {\bf p} \cdot {\bf v}_1 \\
@@ -523,6 +545,14 @@ then this simplifies greatly to:
 ${\bf v}_1, {\bf v}_2$ the objective expands to
 $(u_1 - {\bf p} \cdot {\bf v}_1)^2 + (u_2 - {\bf p} \cdot {\bf v}_2)^2$
 plus a constant.)
+
+Nor is orthonormality a real restriction. Given any two independent
+directions, keep the first; subtract from the second its projection onto
+the first -- the leftover construction ${\bf w} = {\bf p} - P_{\bf v}({\bf p})$
+yet again -- and scale both to unit length. Iterating this recipe on any
+spanning collection is called the {\em Gram--Schmidt process\/}: it
+manufactures an orthonormal set out of whatever directions you were
+handed.
 
 If we use the notation $\mathrm{span}\{{\bf v}_1, {\bf v}_2\}$ to indicate
 the set of points {\em spanned\/} (swept out) by ${\bf v}_1$ and ${\bf v}_2$,
@@ -606,9 +636,11 @@ giving a notion of length of vectors. The induced ``length'' has the properties 
   \item $\|\lambda {\bf x}\| = |\lambda| \|{\bf x}\|\quad \forall \lambda \in {\bf R} \quad \forall {\bf x} \in V$. -- Homogeneity.
   \item $\|{\bf x} + {\bf y} \| \le \|{\bf x}\| + \|{\bf y}\| \quad {\bf x}, {\bf y} \in V.$ -- Triangle inequality.%
 \footnote{The first two properties follow directly from the inner-product
-axioms, but the triangle inequality requires the {\em Cauchy--Schwarz
-inequality\/}, $|\langle{\bf x}, {\bf y}\rangle| \le \|{\bf x}\|\,\|{\bf y}\|$,
-which we omit.}
+axioms; the triangle inequality requires the {\em Cauchy--Schwarz
+inequality\/}, $|\langle{\bf x}, {\bf y}\rangle| \le \|{\bf x}\|\,\|{\bf y}\|$
+-- which we proved for the dot product from the leftover's non-negative
+length, $\|{\bf w}\|^2 \ge 0$. That two-line proof used only the
+multiplicative properties, so it runs verbatim for any inner product.}
 \ei
 
 If we repeat the exercise to determine the projection of one vector onto 
@@ -616,7 +648,7 @@ another by the length induced by an inner product, then all of the
 formulas above are duplicated with the only change being the replacement 
 of ${\bf x} \cdot {\bf y}$ with $\langle{\bf x}, {\bf y}\rangle$.
 
-The length and projection formulas becomes:
+The length and projection formulas become:
 \be
   \|{\bf p}\|^2 & = & \langle {\bf p}, {\bf p} \rangle \\
   P_{\bf v}({\bf p}) & = & \frac{\langle {\bf p}, {\bf v} \rangle}{\langle {\bf v}, {\bf v} \rangle} {\bf v}
@@ -698,9 +730,45 @@ the function ${\bf v}$. You can evaluate it on a number just like
 any other function:
 $$\left(P_{\bf v}({\bf p})\right)(x) = \frac{\int_\Omega p(s) \, v(s) \, ds}{\int_\Omega v(s)^2 \, ds} \, v(x)$$
 
+\section{The Whole Story in One Table}
+The paper has been one formula surviving ever larger boards:
+
+\begin{center}
+\begin{tabular}{l|l|l}
+{\bf Board} & {\bf ``Divide by ${\bf v}$''} & {\bf Formula} \\
+\hline
+${\bf R}^1$ & honest division & $t^* = (p_1 - p_0)/v$ \\
+${\bf R}^n$, a line & divide as best you can & $t^* = {\bf p} \cdot {\bf v} \, / \, {\bf v} \cdot {\bf v}$ \\
+${\bf R}^n$, a subspace & one division per direction & $u_i = {\bf x} \cdot {\bf v}_i$ \ (orthonormal) \\
+inner product space & same, new product & $\langle {\bf p}, {\bf v}\rangle \, / \, \langle {\bf v}, {\bf v}\rangle$ \\
+$L^2$ (functions) & same, product is an integral & $\int p\, v \, \big/ \int v^2$ \\
+\end{tabular}
+\end{center}
+
+What changes at each rung is only what ``multiply and divide by
+${\bf v}$'' means; the strategic move -- get as close as you can, and the
+leftover is orthogonal -- never changes.
+
+{\bf Companion papers.} This projection idea is the trunk of several
+companion papers. The weighted inner product example above is not
+hypothetical: in ``Properties of a Linear Unbiased Minimum Variance
+Estimator'' the weights are the reciprocals $1/\sigma_i^2$ of measurement
+variances, and the Gauss--Markov argument there is exactly this paper's
+orthogonality-plus-Pythagoras step. In ``Measure Theoretic Conditional
+Expectation in an Elementary Setting'' the projection is taken in $L^2$ --
+onto the subspace of functions measurable with respect to a coarser
+$\sigma$-algebra -- and the ``best guess'' of probability theory is
+revealed as $P_{\bf v}$ played in function space. What makes the geometric
+intuition safe in $L^2$ -- the {\em completeness\/} that guarantees
+nearest points exist -- is the subject of ``Why Lebesgue Integration''.
+And in ``Singular Transformations of Probability Density Functions'' the
+minimum-norm pseudo inverse is this same best-approximation construction,
+run from the other side.
+
 \section{Coda: the Angle}
 There is one more classical piece of the story.  The Cauchy--Schwarz
-inequality mentioned earlier says that for nonzero vectors,
+inequality -- proved earlier from the leftover's non-negative length --
+says that for nonzero vectors,
 $$ -1 \; \le \; \frac{{\bf p} \cdot {\bf v}}{\|{\bf p}\| \, \|{\bf v}\|}
 \; \le \; 1. $$
 In two and three dimensions this ratio is exactly the cosine of the angle
@@ -716,7 +784,9 @@ product acquires its familiar geometric reading,
 ${\bf p} \cdot {\bf v} = \|{\bf p}\| \, \|{\bf v}\| \cos \theta$: it
 measures {\em how aligned\/} two vectors are, scaled by their lengths --
 which is exactly the role it played in the projection formula where it
-was born.
+was born. And the equality case of Cauchy--Schwarz gives the angle its
+extremes: $\cos\theta = \pm 1$ exactly when the leftover ${\bf w}$
+vanishes -- when the destination lies on the road.
 
 {\bf Further reading.} Any linear algebra text develops these ideas in
 full; see, for example, G. Strang, {\it Introduction to Linear
