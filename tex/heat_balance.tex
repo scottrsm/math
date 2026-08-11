@@ -11,10 +11,26 @@
 
 \section{Overview}
 
-In this paper we use a balance law to derive the heat equation in one and 
-several dimensions. We also use it to study the propagation of a probability
-density function driven by a differential equation. Finally, we combine the 
-two derivations and provide a derivation of the Fokker-Planck equation.
+Heat a small spot on a metal bar and the hot spot spreads and smooths.
+Drop a speck of dye into still water and it does the same. Now let a
+particle be carried along by a known differential equation while being
+jostled at random: our knowledge of where it is --- a probability
+density --- spreads and smooths in just the same way. Why do all three
+spread by the same law? Because all three are governed by the same
+piece of bookkeeping, a {\it balance law\/}: whatever accumulates in a
+region must have crossed its boundary.
+
+In this paper we play this one game on ever larger boards. First we
+use a balance law to derive the heat equation, in one and then in
+several dimensions. Next we use the same balance law --- with
+probability in place of heat, and with regions that move with the flow
+of a differential equation --- to derive the equation governing the
+propagation of a probability density function driven by that
+differential equation. Finally, we observe that a balance law is
+linear in the flux, so fluxes add: crediting a moving region with both
+mechanisms of transfer at once --- probability carried by the flow,
+and probability diffusing through the boundary as heat does ---
+yields the Fokker-Planck equation.
 
 
 \section{Derivation of the Heat Equation}
@@ -24,17 +40,31 @@ problem in one dimension and then see how it generalizes to arbitrary
 dimensions. The strategy is to write a balance law for the heat in 
 an arbitrary region in $R^n$ based on the conservation of energy. 
 This will lead to a local expression of heat flow;
-namely, a partial differential equation. By relating heat to temperature, 
-an equation for the temperature is obtained. 
-The resulting partial differential equation for temperature is called 
+namely, a partial differential equation. By relating heat to temperature,
+an equation for the temperature is obtained.
+The resulting partial differential equation for temperature is called
 {\it the heat equation\/}.
+
+The derivation is a four step template: balance the quantity of
+interest in an arbitrary region over an arbitrary time interval;
+shrink the time interval to get an instantaneous balance; use the
+arbitrariness of the region to localize --- converting an integral
+statement into a pointwise one; and close with an assumption relating
+the flux to the quantity being balanced. Every equation in this paper
+--- the Fokker-Planck equation included --- comes from replaying
+these four steps on a bigger board.
 
 
 \subsection{The Heat Equation in One Dimension}
-We derive a partial differential equation for the temperature distribution 
-in a one dimensional material. To do this we 
-derive a balance law for the heat contained in an arbitrary interval 
-$[x_1,x_2]$ over an arbitrary time interval $[t_1, t_2]$. 
+We derive a partial differential equation for the temperature distribution
+in a one dimensional material. The reader has likely already solved the
+lumped version of this problem: Newton's law of cooling, in which the whole
+object has a single temperature $T(t)$ satisfying $\dot T = -r(T - T_a)$.
+The heat equation is what replaces Newton's law when the temperature is
+allowed to vary from point to point, so that the object must do its
+bookkeeping locally. To do this we
+derive a balance law for the heat contained in an arbitrary interval
+$[x_1,x_2]$ over an arbitrary time interval $[t_1, t_2]$.
 Let $h(t,x)$ be the 
 heat per unit length at time $t$ and position $x$. Let 
 $f(t,x)$ be the heat flux at time $t$ and position $x$, where heat
@@ -312,8 +342,10 @@ $$
 \fracd{d}{d\tau} \int_{\Omega_\tau} p(\tau,{\bf x}) \; d{\bf x} & 
 = 0 & (6) \cr}
 $$
-To compute the derivative we change the integration variable so as to 
-keep the region constant. To this end, let 
+The new difficulty, compared with the heat sections, is that the region
+itself moves. We handle it by changing the representation: change the
+integration variable so as to keep the region constant, differentiate,
+and change back. To this end, let
 ${\bf x} = {\cal X}(\tau, {\bf z})$. The integral becomes:
 $$
 \fracd{d}{d\tau} \int_{\Omega}
@@ -337,8 +369,18 @@ $$
 It turns out that the derivative, $\frac{d}{d\tau} 
 \big| \frac{\partial {\cal X}(\tau,{\bf z})}
 {\partial {\bf z}} \big|$, may be written 
-as\footnote{\kern 1pt \raise 0.5ex \hbox{\dag}}{This is a consequence of
-Liouville's Theorem.}
+as\footnote{\kern 1pt \raise 0.5ex \hbox{\dag}}{This is Liouville's
+formula, and it is four lines from tools we already have. First,
+differentiating (5a) with respect to ${\bf z}$ gives
+$\frac{d}{d\tau} \frac{\partial {\cal X}}{\partial {\bf z}} =
+\nabla {\bf f}(\tau, {\cal X}(\tau, {\bf z})) \,
+\frac{\partial {\cal X}}{\partial {\bf z}}$.
+Second, Jacobi's formula for differentiating a determinant states
+$\frac{d}{d\tau} \det M = \det M \; {\rm tr}\big(M^{-1}
+\frac{dM}{d\tau}\big)$. Applying Jacobi's formula with
+$M = \frac{\partial {\cal X}}{\partial {\bf z}}$ and substituting the
+first fact, the factors $M$ and $M^{-1}$ cancel inside the trace,
+leaving ${\rm tr}\big(\nabla {\bf f}\big)$.}
 $$
 \frac{d}{d\tau} 
 \bigg| \frac{\partial {\cal X}(\tau,{\bf z})}
@@ -476,11 +518,15 @@ We now consider the evolution of a probability density function
 driven primarily by the differential system (5a-b), but which incorporates
 the dynamics of diffusion as well. 
 Such a governing equation is called a Fokker-Planck
-equation. If $X$ is a random variable and ${\cal X}(t; {\bf x}_0)$
-is the solution of (5a-b), then let
-$p(t, {\bf x}) = P_{{\cal X}(t; X)}({\bf x})$
-be the probability density function for the random variable $X$ transformed
-by ${\cal X}(t; \cdot)$. As before, 
+equation. Note that $p(t, {\bf x})$ can no longer be the transported
+density of the last section: for that density, equation (6) says the
+probability in a moving region never changes, which is exactly what
+diffusion violates. Instead, let $X$ be a random variable with density
+$P_X({\bf x})$, let ${\cal X}(t; {\bf x}_0)$ be the solution of (5a-b),
+and let $p(t, {\bf x})$ denote the (as yet unknown) probability density
+of the state at time $t$, whose primary dynamics is the flow of (5a-b).
+We replace assumption (6): a moving region now also gains or loses
+probability by diffusion through its boundary. As before,
 let $\widehat \Omega$ be an arbitrary region in $R^n$ and let 
 $\Omega_\tau$ parameterize a family 
 of regions such that $\Omega_0 = \Omega$ and $\Omega_t = \widehat \Omega$.
@@ -498,7 +544,10 @@ probability gradient on the boundary. This is the same mechanism as
 the heat equation. In the general case, the diffusion behaves as 
 the diffusion in the generalized heat equation.
 
-We have already done the computation for the left hand side of (16), so we 
+The computation (7)--(9) of the last section nowhere used the fact that
+$p$ was the transported density: it is an identity, valid for any smooth
+density $p$, expressing the derivative of the left hand side of (16) when
+the regions $\Omega_\tau$ move with the flow of (5a-b). Reusing it, we
 may write
 $$
 \eqalignno{
@@ -549,19 +598,31 @@ f_i(t, {\bf x}) \bigg) & =
 & (20a) \cr
 p(0, {\bf x}) = P_X({\bf x}) & & (20b) \cr }
 $$
+A remark on the form of the diffusion term is in order. The balance
+law (16) models the diffusive flux as $-A({\bf x}) \nabla p$ ---
+Fick's law, exactly as in the heat equation --- which produces the
+diffusion term $\nabla \cdot \big(A({\bf x}) \nabla p\big)$. The
+Fokker-Planck equation associated with a stochastic differential
+equation is often written instead with diffusion term
+$\sum_{i,j} \fracd{\partial^2}{\partial x_i \partial x_j}
+\big(D_{ij}({\bf x}) \, p\big)$.
+The two forms agree when the diffusion matrix is constant; when it
+varies with ${\bf x}$ they differ by a term of first order, which may
+be absorbed into the drift ${\bf f}$. The form derived here is the one
+dictated by a Fickian flux assumption.
 
 \subsection{The Fokker-Planck Equation II}
 We now consider the evolution of a probability density function 
 driven primarily by the second order differential system (12a-d), 
 but which incorporates the dynamics of diffusion as well. 
-If $X$ and $V$ are random variables and 
+If $X$ and $V$ are random variables with joint density
+$P_{X,V}({\bf x}, {\bf v})$, and
 $\{{\cal X}(t; {\bf x}_0, {\bf v}_0)~,~{\cal V}(t; {\bf x}_0, {\bf v}_0)\}$
-is the pair of functions representing the solution of (12a-d), then
-let $p(t, {\bf x}, {\bf v}) =
-P_{{\cal X}(t; X, V), {\cal V}(t; X, V)}({\bf x}, {\bf v})$
-be the joint probability density function for the 
-random variables $\{X, V\}$ transformed 
-by $\{{\cal X}(t; \cdot)~,~{\cal V}(t; \cdot)\}$. 
+is the pair of functions representing the solution of (12a-d), then ---
+as in the last section --- let $p(t, {\bf x}, {\bf v})$ denote the
+(as yet unknown) joint probability density of the state
+$({\bf x}, {\bf v})$ at time $t$, whose primary dynamics is the
+flow of (12a-d).
 As before, let $\widehat \Omega$ be an arbitrary region in $R^n \times R^n$, 
 and let 
 $\Omega_\tau$ parameterize a family 
@@ -582,8 +643,11 @@ d{\bf x} \, d{\bf v} &
 = \oint_{\partial \Omega_\tau} \pmatrix{ 0 \! \! &, \;
 A({\bf x}, {\bf v}) \nabla_{\bf v}
 p(\tau, {\bf x}, {\bf v})} \cdot \pmatrix{{\bf n}_x \cr
-{\bf n}_v} \; d{\bf S}_x \, d{\bf S}_v & (21) \cr}
+{\bf n}_v} \; d{\bf S} & (21) \cr}
 $$
+Here $({\bf n}_x, {\bf n}_v)$ is the outward normal to the boundary of
+$\Omega_\tau$, a surface in $R^n \times R^n$ with surface measure
+$d{\bf S}$.
 The left hand side has been previously calculated; so, using the
 {\it Divergence Theorem\/} on the right hand side, we may
 write
@@ -666,6 +730,39 @@ $$
 \kappa \fracd{\partial^2 p(t, x, v)} {\partial v^2} & (27a) \cr
 p(0, x, v) = P_{X,V}(x, v) & & (27b) \cr }
 $$
+
+\section{One Game, Five Boards}
+
+Every equation in this paper came from the same four steps: balance a
+quantity in an arbitrary region; shrink the time interval to get an
+instantaneous balance; use the arbitrariness of the region to
+localize; and close with an assumption about the flux. Only the board
+changed.
+
+\centerline{\vbox{\halign{\quad#\hfil\quad&\quad#\hfil\quad&\quad#\hfil\quad\cr
+{\bf Board} & {\bf Flux through the boundary} & {\bf Resulting equation}\cr
+\noalign{\smallskip\hrule\smallskip}
+interval $[x_1, x_2]$ & $-k u_x$ & $u_t = \kappa u_{xx}$\cr
+region $\Omega \subset R^n$ & $-K \nabla u$ & $u_t = \kappa \, \Delta u$\cr
+moving region $\Omega_\tau$ & none: the region rides the flow &
+$p_t + \nabla \cdot (p {\bf f}) = 0$\cr
+moving region $\Omega_\tau$ & $-A \nabla p$ &
+$p_t + \nabla \cdot (p {\bf f}) = \nabla \cdot (A \nabla p)$\cr
+phase space $({\bf x}, {\bf v})$ & $-A \nabla_{\bf v} p$, in ${\bf v}$ only &
+equation (23a)\cr
+}}}
+
+This table answers the question posed in the Overview. The hot spot on
+the bar, the speck of dye, and the randomly jostled particle spread by
+the same law because they are governed by the same bookkeeping:
+whatever accumulates in a region must have crossed its boundary. And
+the Fokker-Planck equation, which can appear as a pronouncement when
+first met, is from this point of view not a new kind of equation at
+all. A balance law is linear in the flux, so fluxes add: credit a
+moving region with the flow's transport and with a Fickian diffusion
+through its boundary, and the Fokker-Planck equation is what the four
+steps produce. The reader who can replay the four steps of Section 2
+owns every equation in this paper.
 \bye
 
 
