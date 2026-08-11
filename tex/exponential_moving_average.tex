@@ -25,7 +25,17 @@
 
 \section{Overview}
 
-The essence of the {\em exponential moving average\/} (EMA) is to provide 
+Picture a stream of data arriving one value at a time -- the daily price
+of a stock, an hourly temperature reading. Two things are wanted of a
+running summary of such a stream. It should track the {\em recent\/}
+behavior of the series, discounting old data smoothly rather than
+abruptly. And it should be cheap to update: when the next value arrives,
+we should not have to recompute a large sum from scratch. The exponential
+moving average delivers both, and this paper derives it -- together with a
+matching local standard deviation and the correction factor that makes
+the variance estimate unbiased.
+
+The essence of the {\em exponential moving average\/} (EMA) is to provide
 a {\em localized\/} estimate of a time series as it proceeds. It does 
 this by using a weighted average of the values in a ``window'' around each point 
 of the series in a way that each summand in
@@ -68,11 +78,14 @@ indices less than 1 as:
     z_{k} &\equiv  z_{\max(k,\, 1)} \label{o:var_extend}
 \end{align}
 
-While we can use \eqref{ema_def} to compute the EMA it is {\em inefficient\/}.
-The purpose of this
-paper is to derive a recursive formula that is fast to compute.
+While we can use \eqref{ema_def} to compute the EMA it is {\em inefficient\/}:
+each new point costs $m$ multiplications, so the full series costs on the
+order of $N m$ operations -- and the cost of keeping the average local
+grows with how local we want it to be. The purpose of this
+paper is to derive a recursive formula that is fast to compute: a fixed
+handful of operations per point, {\em independent\/} of the window length $m$.
 The formula takes advantage of the fact that when the weights are exponentials
-(powers of $\lambda$) we don't have to recompute the bulk of the sums in the 
+(powers of $\lambda$) we don't have to recompute the bulk of the sums in the
 averaging window.
 
 Regardless of the averaging scheme, we want our weights to sum to one.%
@@ -119,7 +132,8 @@ are solutions of the following difference equation:
 	w_1 & =  \alpha
 \end{align}
 
-The solution to this difference equation is:
+This is the geometric difference equation -- the discrete analog of
+exponential decay -- and its solution is:
 \begin{equation}
 	w_n = \alpha \, \lambda^{n-1} \quad n \ge 1
 \end{equation}
@@ -169,8 +183,34 @@ Finally, we may write%
 $e_1 = \sum_{k=0}^{m-1} x_{1-k} w_{k+1} = x_1 \sum_{k=0}^{m-1} w_{k+1} = x_1 \sum_{k=1}^m w_k = x_1$.}
 \begin{align}
     e_{n+1} &=  \lambda \left(e_n - x_{(n+1) - m} w_m \right) + \alpha x_{n+1} \quad \forall n \in [1, N-1] \\
-    e_1     &=  x_1 
+    e_1     &=  x_1
 \end{align}
+
+In words: as the window slides one step, three things happen. The old
+average is decayed by $\lambda$ -- which promotes every weight one slot,
+turning each $w_{k+1}$ into $w_{k+2}$; the datum that slid out the back of
+the window is removed (the $x_{(n+1)-m}\, w_m$ term); and the new datum is
+admitted at the top weight, $\alpha$. One could have guessed a formula of
+this shape from the picture of a sliding window alone; the algebra above
+confirms the guess and pins down the coefficients.
+
+It is worth naming the game being played here. Writing
+$b_n = \alpha x_{n+1} - \lambda w_m x_{(n+1)-m}$, the result reads
+$e_{n+1} = \lambda e_n + b_n$ -- a first-order linear difference equation,
+the same equation $x_{n+1} = a x_n + b_n$ that models, say, a loan being
+paid down, and whose closed-form solution is found by summing factors.
+The usual traffic on that road runs from recursion to closed form; here we
+have traveled it in reverse, from the closed form (a windowed sum) back to
+the recursion. In both directions the trip is powered by the same fact:
+a geometric sequence is self-similar under a shift of index.
+
+As a calibration, feed the recursion a series it cannot mistake: the
+constant series $x_n = c$. The definition \eqref{ema_def} gives $e_n = c$,
+since the weights sum to one. The recursion agrees:
+$\lambda(c - c\, w_m) + \alpha c = c\left(\lambda - \alpha \lambda^m + \alpha\right) = c$,
+using $w_m = \alpha \lambda^{m-1}$ and $\alpha (1 - \lambda^m) = 1 - \lambda$.
+The new machine reproduces the answer we already own -- which is how one
+learns to trust a new tool.
 
 The corresponding 0-based index formula is:%
 \footnote{We write the formulas down for both 1- and 0-based vector indices because
@@ -211,7 +251,7 @@ require a separate derivation.}
 Note, that the form of the two equations is identical; that is, 
 they both have the form:
 \begin{align}
-	g_n &= \sum_{k=0}^{m-1} f(x_{n-k} - c_{n-k}) w_{k+1} 
+	g_n &= \sum_{k=0}^{m-1} f(x_{n-k} - c_{n-k}) w_{k+1} \label{gen_form}
 \end{align}
 In equation \eqref{ema_cmp}, $c_{n-k} \equiv 0$; while in equation
 \eqref{var}, $c_{n-k} = e_{n-k}$.
@@ -243,8 +283,23 @@ The corresponding 0-based index formula is:
 
 \begin{align}
     v_{n} &= \lambda \left( v_{n-1} - ( x_{n-m} - e_{n-m} )^2 w_{m-1}\right) + \alpha ( x_{n} - e_{n} )^2 \quad \forall n \in [1, N-1] \\
-    v_0   &= (x_0 - e_0)^2 = 0 
+    v_0   &= (x_0 - e_0)^2 = 0
 \end{align}
+
+The dictionary in one place -- one recursion, several customers:
+\begin{center}
+\begin{tabular}{l|l|l|l}
+{\bf quantity} & {\bf $f(x)$} & {\bf center $c_{n-k}$} & {\bf initial value} \\
+\hline
+mean $e_n$ & $x$ & $0$ & $e_1 = x_1$ \\
+variance $v_n$ & $x^2$ & $e_{n-k}$ & $v_1 = 0$ \\
+general $g_n$ & any $f$ & any series & $g_1 = f(x_1 - c_1)$ \\
+\end{tabular}
+\end{center}
+Any localized statistic of the form \eqref{gen_form} rides the same
+machine; for instance, a localized third moment takes $f(x) = x^3$ with
+center $e_{n-k}$, and the appendix prices the bias correction for such
+higher moments as well.
 
 Finally, the localized estimate of the standard deviation of the
 {\em process\/} is:%
@@ -342,6 +397,16 @@ And in this case we see that it is a good estimate in that the expected value of
 of the random variables is $\mu$. 
 
 We refer to such ``good'' estimates as {\em unbiased estimators\/}.
+
+Note what this computation shows: {\em every\/} choice of normalized
+weights gives an unbiased estimate of the mean, so unbiasedness leaves
+the weights free to serve another master. The companion paper
+``Properties of a Linear Unbiased Minimum Variance Estimator'' chooses
+them to minimize the variance of the estimate -- for measurements of
+unequal precision the answer there is inverse-variance weighting,
+$w_i \propto 1/\sigma_i^2$. The exponential weights of the present paper
+are chosen instead to localize the average in time: they favor recency,
+not precision. Locality is bought with variance.
 
 Now consider the sum $\sum_{i=1}^N (x_i - \mu)^2 w_i$.
 People use this as an estimate of the variance of the random variables. Is this a ``good'' (unbiased) estimate?
