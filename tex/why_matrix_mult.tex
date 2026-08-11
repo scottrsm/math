@@ -24,7 +24,7 @@
 \section{Generalizing $a \, x = b$}
 Why is matrix/vector and matrix/matrix multiplication defined the way it is?
 One motivation is to try to extend the (albeit trivial) solution of linear
-equations in 1-dimension to n dimensions. To do this, we go through the solution
+equations in 1-dimension to $n$ dimensions. To do this, we go through the solution
 of the 1-dimensional case in careful detail.
 
 The scalar problem is:
@@ -40,6 +40,17 @@ Here is a very explicit solution keeping an eye towards generalization.
   1 \, x &= a^{-1} b \quad \quad \text{(What Inverse multiplication does)} \\
   x &= a^{-1} b \quad \quad \text{(What Identity multiplication does)}
 \end{align}
+
+Keep this five-line ritual in view; it is the engine of the whole paper. The
+strategic move is one the reader has used since grade school: {\em isolate and
+invert\/} -- get the unknown under a single operation, then apply that
+operation's inverse. Our plan is to play the {\em same game on a bigger
+board\/}: replace the numbers by vectors and rectangular arrays of
+coefficients, and then ask what ``multiply,'' ``associate,'' ``identity,'' and
+``inverse'' must {\em mean\/} for the five lines to remain legal. The payoff
+of this approach is that the definitions of matrix/vector and matrix/matrix
+multiplication will not be conventions handed down to be memorized; each will
+be {\em forced\/}.
 
 The multi-dimensional problem has a lot more variables and coefficients.
 To start, we need to be more systematic about the naming of these coefficients.
@@ -144,7 +155,7 @@ multiplication -- something we need to work out.
 We proceed to try solving \eqref{concise-matrix-form} using the solution 
 procedure used above for the scalar case. In the process, we need to:
 \begin{itemize}
-    \item Vectorize the input variable $x$ and the outputs $b$. -- {\bf Done}.
+    \item Vectorize the input variables, $x_i$, and the outputs, $b_i$. -- {\bf Done}.
     \item Define an ``$a$'' matrix. -- {\bf Done}.
     \item Define matrix-vector multiplication.
     \item Define matrix-matrix multiplication.
@@ -265,6 +276,16 @@ combination:
 	A\left( \sum_{j=1}^m c_j {\bf x}_j \right) &= \sum_{j=1}^m c_j A {\bf x}_j
 \end{align}
 
+Between them, the last two observations -- the ${\bf e}_j$ pick off columns,
+and linearity extends a fact about the ${\bf e}_j$ to a fact about every vector
+-- form a move we will replay several times below. Call it {\em probe with the
+standard basis, then extend by linearity\/}. We have just used the probing half
+to show that a matrix is completely determined by its action on the
+${\bf e}_j$; the same probe will shortly force the formula for matrix/matrix
+multiplication and pin down the identity matrix, and the extend-by-linearity
+half will each time upgrade what happens on the ${\bf e}_j$ to what happens
+everywhere.
+
 Continuing with our solution outline, matrix/matrix multiplication is needed
 to go from equation \eqref{inv-vec} to \eqref{assoc-vec}. How must this be defined?
 Well, we need to make sense of:
@@ -298,7 +319,7 @@ $C \equiv D$.
 
 We apply this idea to \eqref{ASSOC} to find a formula for matrix/matrix multiplication.
 Since \eqref{ASSOC} must be true {\em for all\/} ${\bf x}$; in particular, it must be
-true for the vectors $\{{\bf e}_j\}_{j=1}^n$.
+true for the vectors $\{{\bf e}_j\}_{j=1}^n$ -- the probing half of our move.
 This gives us the following equations:
 \begin{align}
 	(B \, A) {\bf e}_j &= B (A \, {\bf e}_j) \quad\quad \text{$j \in [1,n]$} 
@@ -322,7 +343,7 @@ So using the set of vectors, $\{{\bf e}_j\}_{j=1}^n$, we have completely determi
 the matrix multiplication of $B \, A$ is in order that matrix/matrix multiplication be 
 associative when using these vectors. Does this mean that associativity works for 
 {\em arbitrary\/} vectors? The answer is yes, by the linearity of
-matrix/vector multiplication. Any given ${\bf x}$ can be written as a {\em linear combination\/}%
+matrix/vector multiplication -- the extend-by-linearity half of our move. Any given ${\bf x}$ can be written as a {\em linear combination\/}%
 \footnote{Again, we assume the reader is familiar with expanding a vector in terms of the standard basis vectors.}
 of the vectors $\{{\bf e}_j\}_{j=1}^n$: ${\bf x} = a_1 {\bf e}_1 + a_2 {\bf e}_2 + \cdots + a_n {\bf e}_n$.
 Matrix multiply the left and right hand sides by the matrix, $B\,A$. This gives
@@ -342,9 +363,9 @@ multiplication, as we have defined it, is associative -- {\em irrespective\/} of
 The next order of business is to identify an $n \times n$ matrix which serves as an
 identity (in terms of matrix/vector multiplication).
 Let us suppose that we have such a matrix and let's call it $I$.
-Then we must have $I \, {\bf x} = {\bf x} \quad \forall {\bf x} \in {\bf R}^n$. 
-Then, in particular,  
-$I \, {\bf e}_{j} = {\bf e}_j \quad \forall j \in [1, n]$. 
+Then we must have $I \, {\bf x} = {\bf x} \quad \forall {\bf x} \in {\bf R}^n$.
+Then, in particular (probing with the standard basis once more),
+$I \, {\bf e}_{j} = {\bf e}_j \quad \forall j \in [1, n]$.
 However, we know that $I \, {\bf e}_j = {\bf I}^j$. Therefore, $I$
 must have the property that ${\bf I}^j = {\bf e}_j$. Consequently, $I$ must have the form:
 \begin{align}
@@ -376,9 +397,35 @@ matrix/matrix multiplication: applying $(IA){\bf e}_j = I(A {\bf e}_j) = A {\bf 
 to each $j$ shows $(IA)^j = A^j$ for all $j$, hence $IA = A$; the same argument
 on the columns of $A$ gives $AI = A$.
 
-The only remaining piece is to determine when a matrix inverse exists and how
-to compute it. We do not attempt to do this in this paper. In the next section we continue with
-a qualitative comparison of the solution to the scalar problem, $a\, x = b$, 
+The only remaining piece of the ritual is the inverse: when does a matrix
+$A^{-1}$ exist, and how might one compute it? We do not attempt this here --
+it is genuine unfinished business, and we flag exactly where the difficulty
+lives: an inverse must undo $A$ on {\em every\/} vector, and whether that is
+possible depends on whether the columns of $A$ are rich enough to reach all of
+${\bf R}^n$ (a first taste of this appears in the next section). The companion
+paper ``What is a Determinant'' builds the tool that detects the failure: a
+single number, the signed factor by which $A$ scales volume, whose
+multiplicative property shows that if $A^{-1}$ exists then
+$|A| \, |A^{-1}| = |I| = 1$ -- so a matrix with determinant $0$, one that
+flattens the unit cube, can have no inverse.
+
+Here is the state of the dictionary between the scalar world and its
+vectorized cousin:
+\begin{center}
+\begin{tabular}{l|l|l}
+{\bf Scalar world} & {\bf Matrix world} & {\bf Status} \\
+\hline
+$a \, x = b$ & $A \, {\bf x} = {\bf b}$ & the problem, repackaged \\
+product $a \, x$ & $\left[A \, {\bf x}\right]_i = \sum_{j} A_{ij} x_j$ & forced: must preserve the equations \\
+$(b \, a) \, x = b \, (a \, x)$ & $(B A) {\bf x} = B (A {\bf x})$, all ${\bf x}$ & imposed; forces $(BA)_{ij} = \sum_{k} B_{ik} A_{kj}$ \\
+the number $1$ & the matrix $I$ & forced: $I {\bf e}_j = {\bf e}_j$ picks its columns \\
+$a^{-1}$ (exists iff $a \neq 0$) & $A^{-1}$ & deferred: see ``What is a Determinant'' \\
+range of $a$: $\{0\}$ or ${\bf R}$ & range of $A$: span of its columns & next section \\
+\end{tabular}
+\end{center}
+
+With the dictionary in hand, we continue with
+a qualitative comparison of the solution to the scalar problem, $a\, x = b$,
 and its vectorized cousin.
 
 
@@ -420,6 +467,20 @@ Here is the analog of this solution categorization for the multi-dimensional cas
 		${\bf b}$ is in the range of $A$ (that is: ${\bf b} \in {\cal R}(A)$),
 		then there are an {\bf infinite\/} number of solutions.
 \end{description}
+
+\section{Curtain Call}
+We can now answer the opening question in the paper's own words.
+Matrix/vector multiplication is defined the way it is because it is the only
+definition under which a rectangular array of coefficients can act on the
+unknowns-as-a-unit while {\em preserving the meaning\/} of the original system
+of equations. Matrix/matrix multiplication is defined the way it is because it
+is the only definition under which the five-line scalar ritual -- multiply by
+the inverse, reassociate, cancel -- remains legal on the bigger board: we
+{\em imposed\/} associativity for all inputs, probed with the standard basis,
+and the row-by-column recipe $(BA)_{ij} = \sum_k B_{ik} A_{kj}$ fell out. The
+recipe usually handed down as a convention is not one; it is what
+associativity looks like in coordinates. And the game itself -- isolate and
+invert -- is unchanged from the one-dimensional case; only the board grew.
 
 \end{document}
 
