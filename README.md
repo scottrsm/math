@@ -10,14 +10,14 @@ moving to the 'tex' directory and issuing the command: grep -l 'input macro'  *.
 In any event the corresponding PDF's are in the directory **pdf/**.
 
 ### Math Education
-- The Essentials of Calculus (Discrete and Continuous): **pdf**/essential_calculus.pdf.
-    This is a small book which tries to motivate differential and integral Calculus through
+- The Essentials of Calculus (Discrete and Continuous): calcbook/calculus/**pdf**/essential_calculus.pdf.
+    **calcbook/calculus**/main.tex
+    This is a small book *anti-tome* which tries to motivate differential and integral Calculus through
     motivating problems.
     - Provides a view connecting the continuous Calculus with the Discrete Calculus.
-    - In addition, it connects differential equations with difference equations.
+    - It connects differential equations with difference equations.
     - Background material and tangential topics have been placed in appendices to keep
       the focus on the bigger picture.
-    - **NOTE:** The TeX document for this PDF has not been provided.
 - What is a Derivative: **tex**/what_is_a_derivative.tex.
     - This is such an important idea, but viewing it in the right way can bring
        fantastic generalizations.
