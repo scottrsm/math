@@ -11,7 +11,7 @@ README -- This file.
 calculus/
    
    This calculus book is written in TeX (not LaTeX).
-   The file calculus/HOW_TO_BUILD_THIS_PROJECT.txt describes how to work with and build the document.
+   The file calculus/HOW_TO_BUILD_PROJECT.md describes how to work with and build the document.
    
    The book cover is jpg/frontcover.jpg.
    
@@ -23,22 +23,25 @@ calculus/
 ## TeX FILES:
    blank.tex          # Used to create a blank page.
    diffApprox.tex     # The derivative as approximation (mean value and Taylor's theorem).
-   diffasapprox.tex   # UNUSED SECTION -- another look at the derivative
    diffcalc.tex       # Differential Calculus
    diffcalceq.tex     # Differential Equations
    differencecalc.tex # Difference Calculus
    differenceeq.tex   # Difference Equations
    functions.tex      # Function Appendix
+   howtostudy.tex     # Appendix F: How to Study from This Book (retention/study strategies).
    induction.tex      # Induction Appendix
    intcalc.tex        # Integral Calculus
    limitdef.tex       # Limit Appendix
    linfunc.tex        # Linear Function Appendix
    main.tex           # MAIN TEX FILE
-   main_prod.tex      # MAIN PRODUCTION TEX FILE
    preface.tex        # Preface text.
+   references.tex     # References section: works cited and kindred educational works.
    sumcalc.tex        # Summation Calculus
    taylor.tex         # Appendix on Taylor's theorem and the generalized mean value theorem
    title.tex          # Title with cover used in main.tex (uses eps/cover.eps)
+
+   ## Standalone companion document (not \input by main.tex; produces pdf/math_education_ideas.pdf)
+   math_education_ideas.tex # Notes on the calcbook's educational philosophy.
    
 ## Utility scripts/auxillary files
    make            # Used to preview a draft

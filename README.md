@@ -62,10 +62,24 @@ In any event the corresponding PDF's are in the directory **pdf/**.
     - Alternative Proof of an elementary Property of Primitive Pythagorean Triples: **tex**/prop_pythag_triple.tex.
     - Conjectures regarding Primitive Pythagorean Triples: **tex**/conj_pythag_triple.tex.
     - Julia code supporting the Pythagorean triples conjecture via a Jupyter notebook: **src**/Pythag.ipynb.
+    - Lean 4 formalization of the partition theorem for primitive Pythagorean hypotenuses: **lean/PythHyp**/PythHyp/Basic.lean.
+
+### Lean Formalization
+- **lean/PythHyp** is a Lean 4 / Mathlib project that formalizes results about
+  primitive Pythagorean hypotenuses, complementing the conjecture and proof
+  papers above (**tex**/conj_pythag_triple.tex, **tex**/prop_pythag_triple.tex).
+    - It defines the set **H** of primitive Pythagorean hypotenuses, the subset
+      **Hd** of hypotenuses with multiple distinct primitive representations,
+      and the subset **Hu** of powers of Pythagorean primes.
+    - It proves the partition theorem: ${H = H_d \cup H_u}$, ${H_d \cap H_u = \emptyset}$,
+      and ${H_d}$ is infinite.
+    - Built with [Lake](https://github.com/leanprover/lake) against
+      `leanprover/lean4:v4.29.1` and Mathlib `v4.29.1`. To build, run
+      `lake build` from **lean/PythHyp**.
 
 ### Podcast
 - There is a **podcast** directory that discusses each of the papers in the directory **pdf**/.
-- The format is mp4.
+- Of the 15 files, 14 are audio (.m4a) and 1 is video (.mp4).
 - There is also an RSS feed for the podcast at: https://media.rss.com/motivating-mathematical-concepts-through-problems/feed.xml
 
 #### Version 1.5.40
