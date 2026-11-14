@@ -68,16 +68,16 @@ The assignment is $P(A) = \frac{|A|}{6}$; that is, the cardinality of the set di
 We now have a measure space; in fact, a probability space: $(X,{\cal E},P)$.
 Note that for a probability space we need a sample space, $X$, a $\sigma$-algebra of sets
 (in the discrete case just an algebra) -- whose elements are the {\it events\/} -- and a function $P$ which takes
-elements of the $\sigma$-algebra to [0,1] with the following properties:
+elements of the $\sigma$-algebra to $[0,1]$ with the following properties:
 
 \beginEnum
 \item{$P(X) = 1$.}
-\item{$P(\emptyset) = 0$.}
 \item{$
 P\bigl(\mathop{\bigcup}_{i=1}^\infty A_i\bigr) = \sum_{i=1}^\infty P(A_i)
 \quad {\rm when}\;  A_k \cap A_j = \emptyset \quad k\neq j
-$;}
+$.}
 \endEnum
+(It follows from these two properties that $P(\emptyset) = 0$.)
 
 We now consider a random variable from which we will get a sub $\sigma$-algebra.
 Let 
@@ -103,9 +103,10 @@ This has implications for the $\sigma$-algebra ${\cal F}$.
 which is measurable over ${\cal F}$ has the property that $f$ is constant on the sets 
 $\{D_1,D_3,D_5\}$ and $\{D_2,D_4,D_6\}$. More generally, we claim that any 
 measurable function, $f$, in a given $\sigma$-algebra must be constant on 
-the {\it minimal\/} elements of the algebra --  elements which have no non-trivial subsets.%
+the {\it minimal\/} elements of the algebra --  non-empty elements which have no non-trivial subsets
+in the algebra.%
 \footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{%
-	Specifically, in a discrete setting, a set $Z$ in a $\sigma$-algebra, 
+	Specifically, in a discrete setting, a non-empty set $Z$ in a $\sigma$-algebra, 
 	${\cal H}$, is {\it minimal\/} in ${\cal H}$ if 
 there is no non-empty, strict subset, $Y$, of $Z$ with $Y \in {\cal H}$.}
 
@@ -134,7 +135,9 @@ Given a probability space $(X,{\cal E},P)$, the conditional expectation of an
 ${\cal E}$-measurable, $P$-integrable function $f$ with respect to a sub $\sigma$-algebra ${\cal F}$ is the {\it unique\/} ${\cal F}$-{\it measurable\/}
 function labeled, $\E{f \mid {\cal F}}$, such that%
 \footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}{%
-That such a unique function exists is a consequence of the Radon-Nikodym theorem.}
+That such a function exists is a consequence of the Radon-Nikodym theorem. It is unique
+only up to sets of probability zero: two functions satisfying (1a) may differ on a set
+of probability $0$. The ``Redux'' section examines exactly this point.}
 $$
 \eqalignno{
 \int_{\Lambda} \E{f \mid {\cal F}} \, dP & 
@@ -172,9 +175,17 @@ specific examples are hard to come by. However, non-measurable functions appear
 {\it implicitly\/} in the definition of conditional expectation 
 in that if they didn't the definition wouldn't be of any interest.
 
+These are two different situations, and it helps to keep them apart.
+Measurability is always {\it relative to a $\sigma$-algebra\/}. A set that is
+non-measurable in the Lebesgue sense fails to belong to a very rich $\sigma$-algebra,
+which is why examples are exotic. A function that is non-measurable with respect to a
+{\it sub\/} $\sigma$-algebra, ${\cal F}$, merely carries more detail than the coarse
+collection ${\cal F}$ can express -- as the die function $f(D_i) = i$ did above --
+and examples are everywhere.
+
 If one started out learning measure theory from the Lebesgue theory, the 
 definition of conditional expectation might make readers somewhat uneasy as 
-we are confronted with non-measurable sets from the very start.
+we are confronted with non-measurable functions from the very start.
 From this context, it is harder to get an intuitive idea of conditional expectation. 
 
 In the next section we compute the measure theoretic conditional expectation 
@@ -298,14 +309,16 @@ list of numbers is the projection of the data vector onto the constants;
 the least squares solution of an overdetermined system $Ax = b$ projects
 $b$ onto the column space of $A$; downscaling an image projects it onto
 the images that are constant on each coarse pixel. Conditional expectation
-is the same move played on a probability space. Even the tower property
-proved in the appendix, $E[\E{f \mid {\cal F}}] = E[f]$, becomes
+is the same move played on a probability space. Even the identity
+shown in the appendix, $E[\E{f \mid {\cal F}}] = E[f]$ -- the law of total
+expectation, the simplest case of the tower property -- becomes
 structural from this viewpoint: projecting onto the
 ${\cal F}$-measurable functions and then onto the constants is the same
 as projecting onto the constants directly -- a composition of projections
 along nested subspaces.
 
-The dictionary of the three settings:
+The dictionary of the three settings (here $\chi_{\Lambda}$ denotes the
+indicator function of the set $\Lambda$: equal to $1$ on $\Lambda$ and $0$ elsewhere):
 \bigskip
 \centerline{\vbox{\halign{\quad#\hfil\quad&\quad#\hfil\quad&\quad#\hfil\quad\cr
 {\bf Image downscaling}&{\bf Probability}&{\bf Linear algebra}\cr
@@ -327,7 +340,10 @@ of $L^2$ delivers. The companion paper ``Why Lebesgue Integration''
 constructs precisely this space, and ends by observing that completeness
 is what guarantees orthogonal projections onto closed subspaces exist;
 the conditional expectation is the most important such projection in
-probability theory.
+probability theory. (The projection picture requires $f$ to be square
+integrable. The definition of the previous sections asks only that $f$ be
+integrable; the general case is reached by extending the projection from
+$L^2$ to $L^1$, or directly from the Radon-Nikodym theorem.)
 
 \section{Example Redux}
 Let's adjust the die example probabilities and redo the calculation of the
@@ -382,15 +398,20 @@ freedom (afforded by the equivalence-class viewpoint) to assign that value arbit
 
 Here, with a measure theoretic methodology, we have an elegant way to talk about 
 conditional expectation in a singular context that doesn't exist in the 
-traditional approach.
+traditional approach. In our finite example the gain is modest -- the
+traditional approach simply declines to condition on an event of probability
+$0$, and little is lost. The gain becomes essential when one conditions on a
+{\it continuous\/} random variable, $g$: there {\it every\/} event of the form
+$g = a$ has probability $0$, the traditional formula (4) is never available,
+and yet equation (1a) continues to define $\E{f \mid g}$ without any change.
 
 \appendix{A Discrete Conditional Expectation Result}
 We generalize the discussion from the previous sections and work with functions
 on discrete sets with a given algebra of sets.
 
 {\bf Definition:} Given a discrete set $X$ and an algebra of sets ${\cal F}$,
-a set $A$ is minimal in $X$ with respect to ${\cal F}$ iff $A \in {\cal F}$
-and no non-empty proper subset of $A$ is contained in ${\cal F}$.
+a set $A$ is minimal in $X$ with respect to ${\cal F}$ iff $A \in {\cal F}$,
+$A$ is non-empty, and no non-empty proper subset of $A$ is contained in ${\cal F}$.
 
 Let $X$ be a set with a finite number of elements.
 For any given $\sigma$-algebra, ${\cal F}$, (in this case algebra) of sets of $X$, 
@@ -402,8 +423,8 @@ The set $M_{\cal F}$ is formed simply by examining each element in the power
 set of $X$ and adding it to $M_{\cal F}$ if it is minimal in ${\cal F}$.
 
 {\bf Claim:\/} 
-The set $M_{\cal F}$ is a {\it partition\/} of the set $X$.
-Meaning:
+The set $M_{\cal F}$ is a {\it partition\/} of the set $X$ (the first two
+properties below) which generates ${\cal F}$ (the third):
 
 \beginEnum
 	\item{$\forall i, j \in \{1, \ldots, N\} \quad M_i \cap M_j = \emptyset \quad (i \ne j)$;}
@@ -419,25 +440,22 @@ algebra, $M_i \cap M_j \in {\cal F}$. It is a non-empty subset of $M_i$, so by
 minimality of $M_i$ it must equal $M_i$; hence $M_i \subseteq M_j$. By
 minimality of $M_j$, this in turn gives $M_i = M_j$, contradicting $M_i \ne M_j$.
 
-We prove the second property by contradiction. If the union of minimal sets did not span $X$,
-then the set, $Z_0 = \bigl\{\mathop{\cup}_{i=1}^N\limits M_i\bigr\}^c$, is non-empty. 
-The set $Z_0$ cannot be minimal as we have already accounted for all minimal 
-sets in our collection. Set ${\cal H} = 2^{Z_0} \setminus \{\emptyset, Z_0\}$ -- the
-power set of $Z_0$ less $Z_0$ and $\emptyset$. Note that for $Z_0$ to be non-minimal, it 
-cannot consist of $1$ element. Therefore, ${\cal H}$ is a non-empty collection 
-of sets. If none of the non-empty sets are in ${\cal F}$, then $Z_0$ is
-minimal -- a contradiction, since $Z_0$ would then be a minimal set
-disjoint from the union of {\it all\/} minimal sets. Therefore, there must
-be a non-trivial strict subset of
-$Z_0$, $Z_1$, that is in ${\cal F}$. We can repeat this argument with $Z_1$ to
-produce, $Z_2$, $\ldots Z_i$ producing $Z_{i+1}$, etc; noting, that each time this
-is done the number of elements in the current ``$Z$ set'' decreases by at least $1$.
-Consequently, the process cannot proceed indefinitely. Let $m$ be the step
-at which this process fails; that is, there is no non-empty strict subset of
-$Z_{m-1}$ which is an element of ${\cal F}$. But this means that
-$Z_{m-1}$ is minimal by definition -- again a contradiction, as $Z_{m-1}$,
-being a subset of $Z_0$, is disjoint from the union of all minimal sets.
-Consequently, the second property holds.
+We prove the second property by contradiction. First, an observation:
+every non-empty set $F \in {\cal F}$ contains a minimal set. Indeed, among
+the non-empty subsets of $F$ that belong to ${\cal F}$ (there is at least
+one, $F$ itself) choose one, $Z$, with the fewest elements -- possible as
+$X$ is finite. Any non-empty strict subset of $Z$ belonging to ${\cal F}$
+would be a subset of $F$ in ${\cal F}$ with fewer elements than $Z$; so
+there is none, and $Z$ is minimal.
+
+Now suppose the union of the minimal sets is not all of $X$. Then the set
+$Z_0 = \bigl\{\mathop{\cup}_{i=1}^N\limits M_i\bigr\}^c$ is non-empty.
+Moreover, $Z_0 \in {\cal F}$: each $M_i$ is in ${\cal F}$, and an algebra is
+closed under finite unions and complements. By the observation, $Z_0$
+contains a minimal set. But that minimal set is one of the $M_i$, and so
+lies in the union of the minimal sets -- which is disjoint from $Z_0$.
+This is a contradiction (a minimal set is non-empty); consequently, the
+second property holds.
 
 The third property follows as none of the $\mathop{\{M_i\}}_{i=1}^N$ can produce sets of 
 finer granularity than themselves; they behave as if they were single elements. Therefore,
@@ -454,7 +472,7 @@ the intersection must be either $M_i$ or $\emptyset$. Consequently, $F$ is
 a union of an element of the power set of $\{M_i\}_{i=1}^N$, which has
 been shown to be a member of ${\cal G}$. Consequently, ${\cal G} = {\cal F}$.
 
-Let $(X, {\cal E}, P)$ be a probability space with $X$ discrete, let $f$ be measurable on it,
+Let $(X, {\cal E}, P)$ be a probability space with $X$ finite, let $f$ be measurable on it,
 and let ${\cal F}$ be a sub $\sigma$-algebra of ${\cal E}$. We
 examine the expectation of the conditional expectation, $\E{f \mid {\cal F}}$.%
 \footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{%
@@ -472,9 +490,8 @@ E[\E{f \mid {\cal F}}] & = \int_{X} \E{f \mid {\cal F}} \, dP_{\cal F}  = \int_{
 }
 $$
 In equation (6) we have the following identity: $E[\E{f \mid {\cal F}}]= E[f]$.
-From equation (7) we have that the expectation of the conditional expectation
-of a $\sigma$-algebra generated by minimal sets is just the weighted sum of
-the values of the conditional expectation on these sets.
+Equation (7) says that this expectation is a weighted sum: the (constant) value of
+the conditional expectation on each minimal set, weighted by the probability of that set.
 
 Finally, if $g$ is a discrete function, the collection of all non-empty sets
 of the form $g^{-1}(a)$, $a \in (-\infty, \infty)$,
@@ -502,13 +519,13 @@ $$
 Here, the term, $\E{f \mid g}(M_i)$ is interpreted as the value of $\E{f \mid {\cal F}}$ on {\it any\/} element of the set $M_i$ -- 
 as the value of the function $\E{f \mid {\cal F}}$ is constant on $M_i$.
 We also drop the $dP_{\cal F}$ notation, which was only used as a crutch in the previous part of the paper.
-Lastly, we know from equation (5) how to compute the values of $\E{f \mid g}$ for all $M_i$ -- even when the probability of
-a ``g'' event is $0$.
+Lastly, equation (5) tells us what is required of the value of $\E{f \mid g}$ on each $M_i$: when $P(M_i) > 0$ it
+determines the value; when the probability of a ``g'' event is $0$ it imposes no constraint, and any value may be assigned.
 
 Equation (6') says that $E[\E{f \mid g}] = E[f]$; that is, the expectation of the conditional expectation of $f$
-is the same as the expectation of $f$. Equation (7') states that on each level set of $g$,
-$M_i = g^{-1}(a_i)$, the conditional expectation $\E{f \mid g}$ is the $P$-weighted average of $f$ over $M_i$;
-summing those values weighted by $P(M_i)$ recovers $E[f]$.
+is the same as the expectation of $f$. Recall from equation (4) that on each level set of $g$,
+$M_i = g^{-1}(a_i)$, with $P(M_i) > 0$, the conditional expectation $\E{f \mid g}$ is the $P$-weighted average of $f$ over $M_i$.
+Equation (7') states that summing those values, weighted by $P(M_i)$, recovers $E[f]$.
 
 
 \bye
