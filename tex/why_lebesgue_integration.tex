@@ -50,13 +50,29 @@ derive upper bounds on the integrals to show that
 the sequence of integrals goes to $0$.
 
 However, a typical condition is that the $f_n$ converge
-uniformly to $f$ on a closed bounded interval. 
+uniformly to $f$ on a closed bounded interval.%
+\footnote{The Riemann theory can do somewhat better. Arzel\`a showed (1885)
+that if Riemann integrable functions $f_n$ are uniformly bounded and converge
+pointwise on $[a,b]$ to a function $f$ {\em which is itself Riemann
+integrable\/}, then \eqref{theorem} holds. Notice the last hypothesis: the
+limit function has to be assumed integrable. That turns out to be the real
+weakness of the Riemann theory, as we will see.}
+
 But this rarely happens in many real world examples and you can imagine that
 mathematicians back in the day
 were getting complaints about such restrictive 
 conditions. The people who want a better convergence theorem say that many 
 times they don't have this strong condition and yet \eqref{theorem}
-holds. Unfortunately, other times it does not. So it seems that there are 
+holds. Unfortunately, other times it does not. Here is the standard example
+of failure. On $[0,1]$ let $f_n$ take the value $n$ on the interval
+$(0, 1/n)$ and $0$ elsewhere -- a spike that gets taller and thinner. Each
+$f_n$ has integral $n \cdot \frac{1}{n} = 1$. Yet the $f_n$ converge
+point-wise to the zero function: any $x > 0$ is eventually to the right of
+the spike, and $f_n(0) = 0$ for all $n$. So the limit of the integrals is
+$1$ while the integral of the limit is $0$. (Keep this example in mind too:
+the theorem we end up with has to rule it out.)
+
+So it seems that there are 
 conditions less rigid than uniform convergence of the sequence of 
 functions which allow \eqref{theorem} to hold.
 
@@ -81,22 +97,22 @@ let's start with discontinuous functions
 and see what can go wrong -- this should be easier. This will also free us from 
 trying to make complicated continuous functions that behave badly in the limit.
 
-We restrict ourselves to functions in the domain $[0, 1]$.
+We restrict ourselves to functions on the domain $[0, 1]$.
 Consider the following sequence of functions: 
 
-\begin{align}
+\begin{align*}
 	f_n(x) &= \begin{cases}  1 \quad \text{if $x = \frac{p}{q}$ for some integers $p, q$ with $0 \le p \le q$ and $1 \le q \le n$;} \\
 	  			        		0 \quad \text{otherwise.}
 			   	 \end{cases}
-\end{align}
+\end{align*}
 
 You can see that the sequence, $f_n$, converges point-wise to the function 
 
-\begin{align}
+\begin{align*}
 	f(x) &= \begin{cases} 1 \quad \text{if $x$ is rational;} \\ 
 			                 0 \quad \text{otherwise.} 
 			   \end{cases}
-\end{align}
+\end{align*}
 
 What can we say about the limit of the integrals of $f_n$?
 
@@ -105,11 +121,8 @@ Therefore the limit of integrals is $0$.
 
 What about the integral of $f$? We will show that this integral is bounded above
 and below by $0$; meaning that the integral is $0$. The below part is obvious. 
-For the upper bound one usually creates a sequence of functions which bound $f$ 
-from above and yet as you move out in the sequence their integrals go to $0$.
-We will do something a little different. We instead  
-construct a sequence of functions $g_n$ which {\em represent\/} $f$ 
-in increasing refined ways whose integrals are more amenable to estimation from above.
+For the upper bound we create a sequence of functions, $g_n$, which bound $f$ 
+from above and yet, as you move out in the sequence, their integrals go to $0$.
 
 First, let $\{r_i\}$ be an enumeration of the rationals -- a bijection
 between the positive integers and the rationals. We know we can do this as
@@ -119,8 +132,9 @@ is harmless because covers in $E_{i,n}$ outside $[0,1]$ contribute zero to
 integration over $[0,1]$.)
 
 Consider the sets, $\{E_{i,n}\}$, defined by:
-
-$E_{i,n} = \left[r_i - \frac{1}{n 2^{i}}, r_i + \frac{1}{n 2^{i}}\right]$
+\[
+E_{i,n} = \left[r_i - \frac{1}{n 2^{i}}, r_i + \frac{1}{n 2^{i}}\right]
+\]
 
 The choice of widths is the whole trick: give the $i^{th}$ rational an
 interval ``budget'' that halves at each step, so that the total budget,
@@ -128,43 +142,39 @@ $\sum_{i=1}^\infty 2/(n 2^{i}) = 2/n$, is finite -- and can be made as small
 as we please by increasing $n$. (Keep this halving-budget device in mind; it
 will return.)
 
-A given rational number lies in potentially many of the $E_{i,n}$.
-
-Define the functions, $S_i$ by
-\begin{align}
-	S_{i}(x) &= \begin{cases} 1 \quad \text{if $x = r_i$}; \\ 
-	 							  0 \quad \text{otherwise.} 
-					\end{cases}
-\end{align}
+A given rational number lies in potentially many of the $E_{i,n}$; but it
+certainly lies in at least one, as $r_i \in E_{i,n}$.
 
 Below we make use of the notation: 
 
-\begin{align}
+\begin{align*}
 I_X(x) &= \begin{cases} 1 \quad \text{if $x \in X$}; \\ 0 \quad \text{otherwise.} \end{cases}
-\end{align}
+\end{align*}
 
 Finally, define, $g_n$ by
 
-\begin{align}
-	g_{n}(x) &= \sum_{i=1}^\infty S_{i}(x) I_{E_{i,n}}(x)
-\end{align}
+\begin{align*}
+	g_{n}(x) &= \sum_{i=1}^\infty I_{E_{i,n}}(x)
+\end{align*}
 
-It is easy to see that each $g_n$ is a {\em representation\/} of the function $f$; 
-that is, $f \equiv g_n$.
+The value $g_n(x)$ counts the number of the intervals $E_{i,n}$ that contain
+$x$. Since every rational lies in at least one of them, $g_n(x) \ge 1$
+whenever $x$ is rational; and $g_n(x) \ge 0$ always. That is, each $g_n$
+bounds $f$ from above: $f(x) \le g_n(x)$ for all $x$.
 
 Note the following facts:
 \begin{align}
-	\int_0^1 S_{i}(x) I_{E_{i,n}}(x)\, dx \le \int_{0}^1 I_{E_{i,n}}(x) \, dx &\le \frac{2}{n2^{i}} \nonumber \\
-	\int_0^1 f(x) \, dx = \int_0^1 g_n(x) \, dx &= \int_0^1 \sum_{i=1}^\infty  S_{i}(x) I_{E_{i,n}}(x)\, dx  \label{sum-limit-exchange} \\
-												&\le  \sum_{i=1}^\infty \int_0^1   S_{i}(x) I_{E_{i,n}}(x)\, dx  \nonumber \\
+	\int_{0}^1 I_{E_{i,n}}(x) \, dx &\le \frac{2}{n2^{i}} \nonumber \\
+	\int_0^1 f(x) \, dx \le \int_0^1 g_n(x) \, dx &= \int_0^1 \sum_{i=1}^\infty  I_{E_{i,n}}(x)\, dx  \nonumber \\
+												&=  \sum_{i=1}^\infty \int_0^1 I_{E_{i,n}}(x)\, dx  \label{sum-limit-exchange} \\
 												&\le  \sum_{i=1}^\infty \frac{2}{n2^{i}} \nonumber \\
 												&=  \frac{2}{n} \sum_{i=1}^\infty \frac{1}{2^{i}} \nonumber \\
 												&=  \frac{2}{n} \nonumber
  \end{align}
 
 For the sake of the argument above -- to get an upper bound on the integral of $f$ -- we are assuming that
-$f(x)$ (and consequently, $g_n(x)$) is Riemann integrable and that we
-can exchange the integral and sum in equation \eqref{sum-limit-exchange}.
+$f(x)$ is Riemann integrable and that we
+can exchange the integral and sum to arrive at line \eqref{sum-limit-exchange}.
 (Strictly, the interchange would require uniform convergence or a Lebesgue-style
 dominated/monotone result -- neither of which we have here. The point of the
 heuristic is to show what value the integral of $f$ would have to take if it
@@ -174,7 +184,7 @@ What does this say about the integral of $f$?
 Given any $n \in {\bf Z}^+$, we can bound the integral of $f$
 (assuming it is Riemann integrable) by
 \begin{align*}
-	\int_0^1 f(x) \, dx &= \int_0^1 g_{n}(x) \, dx \\
+	\int_0^1 f(x) \, dx &\le \int_0^1 g_{n}(x) \, dx \\
 						&\le  \frac{2}{n}.
 \end{align*}
 
@@ -254,7 +264,9 @@ In our case there are only two ``Range'' values: $0$ and $1$. From this we get a
 analog of Riemann's step functions: characteristic (indicator) functions of
 (possibly complicated) sets:
 
-$\chi_{S}(x) = \begin{cases} 1 \quad \text{if $x \in  S$;} \\ 0 \quad \text{otherwise.} \end{cases}$
+\[
+\chi_{S}(x) = \begin{cases} 1 \quad \text{if $x \in  S$;} \\ 0 \quad \text{otherwise.} \end{cases}
+\]
 
 Although approximating the function, $f$, from the last section using step 
 functions is unpleasant, it is very easy using characteristic functions -- the complexity 
@@ -279,9 +291,9 @@ the sum of the lengths of the covering intervals.
 We would then define the length of a set to be the infimum over all such covering bounds.
 We call this ``length'' the {\em Lebesgue outer measure\/}. It is defined more precisely by:
 
-\begin{align}
+\begin{align*}
 	\mu^*(S) &= \inf_{S \subseteq \mathop{\cup}_{i=1}^\infty I_i} \sum_{i=1}^\infty |I_i|
-\end{align}
+\end{align*}
 
 This notion of measure (length) would not be of much use if the Lebesgue outer measure of
 an interval was not its length.
@@ -313,9 +325,9 @@ as $1 \cdot \mu^*(Q_{[0,1]}) = 1 \cdot 0 = 0$.
 In general, if a function can be written as a finite linear combination of
 characteristic functions: $h(x) = \sum_{i=1}^N c_i \chi_{E_i}(x)$,
 then we would {\em define\/} the Lebesgue integral for such functions as:
-\begin{align}
+\begin{align*}
 	\int h(x) \, dx &= \sum_{i=1}^N c_i \, \mu^*(E_i)
-\end{align}
+\end{align*}
 (There is a hidden obligation here: the same function $h$ can be written in
 many ways as such a combination, and the definition is only sensible if
 every way of writing $h$ gives the same value.  Making this work is another
@@ -347,7 +359,7 @@ area of an object $C$.
 
 One day a friend of his pulled out his comb from his pocket and asked him to 
 find the surface area. The technique seemed to work fine, it registered that 
-the comb was a little more than half the area as the comb's container.
+the comb was a little more than half the area of the comb's container.
 
 A few days later the friend came by with a new comb. It was actually a comb 
 set, consisting of two combs that fit together perfectly to form a rectangle.
@@ -369,23 +381,27 @@ The entrepreneur had to admit that his technique failed on the combs;
 there were clearly limitations to his technique. 
 But how would he describe the limitation? Basically, the entrepreneur wanted to 
 be able to advertise that his measurement method could be used for all 
-``reasonable'' objects. Exceptions would be objects that needed restoration 
-that were broken into two pieces with extremely jagged edges.
+``reasonable'' objects. The exceptions would be things like a broken object
+whose two pieces have extremely jagged, interlocking edges.
 
 What he wanted to say is that given an object, $C$, it could be $\mu$ measured 
 {\em if\/} $C$ was inside another object, $O$ and the following was true:
 
-$\mu(C) + \mu(C^c) = \mu(O)$
+\[
+\mu(C) + \mu(C^c) = \mu(O)
+\]
 
 Here, $C^c$ is the complementary set inside of $O$.
 
-In some cases, it wasn't clear what the ``natural'' bound box of $C$ should be. A better way 
+In some cases, it wasn't clear what the ``natural'' bounding box of $C$ should be. A better way 
 to describe the limitation was to say that his measurement system was accurate 
 when -- for {\em any\/} given bounding frame $X$ containing a set $C$ -- 
 the measures of $C$ and 
 its complement in $X$ added to the measure of $X$. That is,
 
-$\mu(X) = \mu(X \cap C) + \mu(X \cap C^c)$
+\[
+\mu(X) = \mu(X \cap C) + \mu(X \cap C^c)
+\]
 
 Using ``any'' bounding box got rid of the need to describe ``the'' bounding box -- which
 was problematic to do in practice.
@@ -442,7 +458,7 @@ gives back the measure of the bounding box.
 Without some restriction, the complement could be 
 an infinitely large set.
 
-The problem now becomes: ``What is the 'natural' bounding box for the set $C$''?
+The problem now becomes: ``What is the `natural' bounding box for the set $C$?''
 Unfortunately, this is virtually impossible to say with any precision.
 
 We can get around this problem by requiring that it be true for {\em all\/}
@@ -500,10 +516,13 @@ intersections and the complements of sets within this algebra.
 Two of these closure properties can at least be made plausible in a line
 each. Complements come for free because Carath\'eodory's condition
 \eqref{caratheodory} is {\em symmetric\/} in $C$ and $C^c$ -- swap them and
-you get the same equation back. And countable unions are tamed by -- for
-the third time in this paper -- the halving-budget device: to fit countably
-many small errors under one overall tolerance $\epsilon$, allow the $i^{th}$
-set an error of $\epsilon / 2^{i}$.
+you get the same equation back. And countable unions rest on a property of
+outer measure itself, {\em countable subadditivity\/} --
+$\mu^*\bigl(\mathop{\cup}_{i=1}^\infty A_i\bigr) \le \sum_{i=1}^\infty \mu^*(A_i)$ --
+which is proved by -- for the third time in this paper -- the halving-budget
+device: cover the $i^{th}$ set by intervals to within an error of
+$\epsilon / 2^{i}$, so that all of the errors together fit under the one
+overall tolerance $\epsilon$.
 
 Being an algebra, we can get a good handle on what sets are measurable if we 
 can come up with a good {\em base\/} collection of sets that are {\em easily\/} shown
@@ -548,7 +567,7 @@ integral of any base component of a simple function -- a characteristic function
 is 1 * (outer measure (length) of the characteristic set).
 Finally, a given measurable function, $f$, can be decomposed into a positive and
 a negative function. The integral of each can be done separately and then combined
-to get the Lebesgue integral of $f$.
+-- provided the two are not both infinite -- to get the Lebesgue integral of $f$.
 
 Restricting ourselves to measurable sets does have a consequence: just like 
 Riemann integration, we will not be able to integrate all functions, only 
@@ -574,7 +593,15 @@ $0$ elsewhere are bounded above by the integrable function $0$ and converge
 pointwise to $0$ everywhere, yet $\int_0^1 f_n \, dx = -1$ for every $n$.}
 This is the kind of result we were hoping for and did see evidence for with 
 the functions converging to our strange function which was $1$ on rationals
-and $0$ otherwise.
+and $0$ otherwise. That example is now settled: those $f_n$ are dominated by
+the constant function $g = 1$, which is integrable on $[0,1]$; each $f_n$ has
+integral $0$; and the Lebesgue integral of the limit is
+$1 \cdot \mu(Q_{[0,1]}) = 0$ -- limit and integral interchange, exactly as the
+theorem promises. And the spike example of the first section, where the
+interchange failed, is ruled out just as it should be: the spikes of height
+$n$ on $(0, 1/n)$ are not dominated by any integrable function -- a function
+lying above all of them must be at least roughly $1/x$ near $0$, and $1/x$
+has infinite integral on $[0,1]$.
 
 
 \section{Conclusion}
@@ -599,10 +626,11 @@ that are not Riemann integrable -- including the function we started out with, $
 that was $1$ on the rationals and $0$ on the irrationals.
 
 One can also show that the Lebesgue integral coincides with the Riemann integral 
-for ``nice'' functions.
+not just for ``nice'' functions but for {\em every\/} function that is Riemann
+integrable on a bounded interval.
 
 Finally, from this theory one does indeed get less stringent convergence 
-criterion than the Riemann counterpart. One can have a criterion that avoids 
+criteria than the Riemann counterpart. One can have a criterion that avoids 
 ``uniform'' convergence. In fact, essentially, you get a convergence theorem 
 that requires only that a sequence of functions converge pointwise to a function%
 \footnote{In fact, one only requires that a sequence of functions converge point-wise
@@ -616,19 +644,19 @@ system ``completes'' the Rational number system, the Lebesgue integration
 theory ``completes'' the Riemann theory. In fact, with the Lebesgue theory 
 one can create function spaces with a metric that makes them ``complete'' 
 in the same sense as Real numbers; namely, Cauchy sequences always converge 
-in that space. The function space $L^2$ consists of all functions $f$ 
+in that space. The function space $L^2$ consists of all measurable functions $f$ 
 (say over the interval $[0,1]$) that satisfy:
 
-\begin{align}
+\begin{align*}
 \int_0^1 f^2(x) \, dx < \infty
-\end{align}
+\end{align*}
 
 Here, the integral is the Lebesgue integral. This space also has an inner 
 product defined, for two functions $f, g \in L^2$ by
 
-\begin{align}
+\begin{align*}
 \langle f, g \rangle \; \equiv \; \int_0^1 f(x)\, g(x)\, dx
-\end{align}
+\end{align*}
 
 And since it is a complete space, it is what is known as a {\em Hilbert Space\/}.
 A Hilbert space is a vector space with an inner product that is complete with 
@@ -637,12 +665,16 @@ That is, Cauchy sequences converge to an element in this
 space, just like they do for the finite dimensional Hilbert spaces: $R, R^2, R^3, \ldots$.
 And, much of the behavior of the function space, $L^2$ is replicated from 
 the finite dimensional $R^n$ spaces. This wouldn't be the case if we used
-the Riemann integral for the inner product/norm. It would be like
+the Riemann integral for the inner product/norm. It would be a little like
 working with the vector spaces $Q, Q^2, Q^3, \ldots$, where $Q$ is the set
-of rational numbers. The vector properties would be there -- even
-perpendicularity is fine -- but the important {\em analytic\/} properties
-would be missing: Cauchy sequences need not converge, and nearest points
-(orthogonal projections onto closed subspaces) need not exist.
+of rational numbers. The vector properties would be there -- perpendicularity
+is fine, and so (in these finite dimensional spaces) are projections onto
+subspaces, which need only rational arithmetic -- but the important
+{\em analytic\/} properties would be missing: the length of the vector
+$(1,1)$ is not a rational number, and Cauchy sequences need not converge.
+In an infinite dimensional function space the loss is greater still:
+without completeness, the nearest point of a closed subspace to a given
+function -- its orthogonal projection -- need not exist.
 
 The dictionary of the whole story, in one place:
 
@@ -654,10 +686,10 @@ partition the {\em domain} & partition the {\em range} \\
 step functions & simple functions \\
 length of an interval, $|I|$ & measure of a set, $\mu(E)$ \\
 upper and lower Darboux sums & supremum over simple minorants \\
-uniform convergence & domination $+$ pointwise convergence a.e. \\
+uniform convergence, or bounded with an integrable limit & domination $+$ pointwise convergence a.e. \\
 Riemann integrable functions & measurable functions \\
 the rationals: arithmetic, no limits & the reals: arithmetic {\em and} limits \\
-$Q^n$: geometry, no projections & $L^2$: geometry {\em and} projections \\
+an incomplete function space: geometry, no projections & $L^2$: geometry {\em and} projections \\
 \end{tabular}
 \end{center}
 
@@ -679,7 +711,7 @@ that they are identical except possibly on a set of measure $0$.
 
 If this seems strange to you, it shouldn't. The rational numbers are, strictly 
 speaking, equivalence classes of integer pairs.
-For instance, the fraction that we write as '1/2' is really the 
+For instance, the fraction that we write as `1/2' is really the 
 equivalence class (set) of pairs of integers: 
 \{(1,2), (2,4), (3, 6), (4,8), \ldots \}.
 To be equivalent, any two pairs, $(a, b)$ and $(c, d)$ must satisfy: 
