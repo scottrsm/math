@@ -68,17 +68,16 @@ $[x_1,x_2]$ over an arbitrary time interval $[t_1, t_2]$.
 Let $h(t,x)$ be the 
 heat per unit length at time $t$ and position $x$. Let 
 $f(t,x)$ be the heat flux at time $t$ and position $x$, where heat
-flux is defined as the rate at which heat flows
-\footnote{\kern -2pt \raise 0.5ex \hbox{\dag}}{Positive heat flux $f$ means
-heat flowing in the direction of increasing $x$.}. The increase (or decrease) in 
+flux is defined as the rate at which heat flows.\footnote{\raise 0.5ex \hbox{\dag}}{Positive heat flux $f$ means
+heat flowing in the direction of increasing $x$.} The increase (or decrease) in 
 the heat of 
 the interval $[x_1, x_2]$ over $[t_1, t_2]$ is equal to the integral of
 the rate at 
 which heat has moved into (or out of) the region through the boundaries.
 Mathematically, this balance may be expressed as:
 $$
-\int_{x_1}^{x_2} h(t_2,x) - h(t_1,x) \; dx  = 
-\int_{t_1}^{t_2} f(t, x_1) - f(t,x_2) \; dt
+\int_{x_1}^{x_2} \big( h(t_2,x) - h(t_1,x) \big) \; dx  = 
+\int_{t_1}^{t_2} \big( f(t, x_1) - f(t,x_2) \big) \; dt
 $$
 Now, divide this expression by $(t_2 - t_1)$ and take the
 limit as $t_2 \rightarrow t_1$. This gives:
@@ -104,7 +103,7 @@ $\int_{x_1}^{x_2} f_x(t_1, x) \, dx = f(t_1, x_2) - f(t_1, x_1)$.
 Therefore, bringing the right hand side to the left hand side in equation 
 (1) we may write:
 $$
-\int_{x_1}^{x_2} h_t(t_1,x) + f_x(t_1,x) \; dx = 0
+\int_{x_1}^{x_2} \big( h_t(t_1,x) + f_x(t_1,x) \big) \; dx = 0
 $$
 If we {\it assume\/} that the integrand is continuous, then since the 
 interval $[x_1, x_2]$ is arbitrary, the integrand must 
@@ -121,8 +120,8 @@ To get an equation for the temperature, $u$, we must relate it to
 the heat and the heat flux. To do so, we must make 
 {\it assumptions\/} about properties of the material.
 The simplest assumption about the heat is that it is
-proportional to temperature:\footnote{\raise 0.5ex \hbox{\dag}}{%
-The temperature of a substance is the average kinetic energy of the
+proportional to temperature:\footnote{\raise 0.5ex \hbox{\ddag}}{%
+The temperature of a substance is proportional to the average kinetic energy of the
 material's molecules. When we refer to heat we mean the heat density, the
 amount of heat energy per unit volume. The constant $c$ used here is the
 {\it volumetric\/} heat capacity (energy per unit volume per kelvin),
@@ -186,8 +185,8 @@ Let $h(t,{\bf x})$ be the
 heat per unit volume at time $t$ and position ${\bf x}$. Let 
 ${\bf f}(t,{\bf x})$ be the heat flux at time $t$ and position ${\bf x}$,
 where heat flux is defined as a vector describing the rate at which heat flows
-per area\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}
-{By ``area'' we mean the $(n-1)$-dimensional measure of the boundary $\partial \Omega$.}.
+per area.\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}
+{By ``area'' we mean the $(n-1)$-dimensional measure of the boundary $\partial \Omega$.}
 The increase (or decrease) in 
 the heat of 
 the region $\Omega$ over $[t_1, t_2]$ is equal to the integral of the 
@@ -195,7 +194,7 @@ rate at which heat has moved into (or out of) the region through the
 boundaries.
 Mathematically, this may be expressed as:
 $$
-\int_{\Omega} h(t_2, {\bf x}) - h(t_1, {\bf x}) \; d{\bf x} = -
+\int_{\Omega} \big( h(t_2, {\bf x}) - h(t_1, {\bf x}) \big) \; d{\bf x} = -
 \int_{t_1}^{t_2} \!\! 
 \mathop{\underbrace{\oint_{\partial \Omega} 
 \mathop{\overbrace{{\bf f}(t, {\bf x}) \cdot {\bf n}}}\limits^
@@ -231,7 +230,7 @@ $\int_{\Omega} \nabla \cdot {\bf f}(t_1, {\bf x}) \, d{\bf x} =
 Therefore, bringing the right hand side to the left hand side in equation 
 (3) we may write:
 $$
-\int_{\Omega} h_t(t_1, {\bf x}) + \nabla \cdot {\bf f}(t_1, {\bf x}) 
+\int_{\Omega} \big( h_t(t_1, {\bf x}) + \nabla \cdot {\bf f}(t_1, {\bf x}) \big)
 \; d{\bf x} = 0
 $$
 If we {\it assume\/} that the integrand is continuous, then since the
@@ -308,11 +307,13 @@ $$
 \dot {\bf x} =  {\bf f}(t, {\bf x}) & & (5a) \cr
 {\bf x}(0) = {\bf x}_0  & & (5b) \cr }
 $$
-let ${\cal X}(t; {\bf x}_0)$ be the solution; 
-which is assumed to be invertible 
-on the interval $[0,T)$.
-That is, for each $t \in [0,T)$, ${\cal X}(t; \cdot): R^n \to R^n$
-is invertible. If $X$ is a random variable with 
+let ${\cal X}(t; {\bf x}_0)$ be the solution, 
+which we assume exists on the interval $[0,T)$ for every ${\bf x}_0$.
+(From here on ${\bf f}$ denotes the right hand side of the differential
+equation -- the velocity field of the flow -- and no longer the heat flux
+of the previous section.)
+By the uniqueness of solutions, for each $t \in [0,T)$ the map
+${\cal X}(t; \cdot): R^n \to R^n$ is invertible. If $X$ is a random variable with 
 probability density function $P_X({\bf x})$, then we wish to compute 
 the probability density function of the random variable induced by 
 applying the transformation
@@ -335,7 +336,7 @@ under the action of the differential equation (5a-b).
 Let 
 $p(t,{\bf x}) = P_{{\cal X}(t;X)}({\bf x})$ be the probability
 density function of the induced random variable ${\cal X}(t; X)$. 
-The conservation of probability of $P_{{\cal X}(t; X)}(\Omega_t)$
+The conservation of the probability contained in $\Omega_\tau$
 is expressed mathematically as an instantaneous balance law:
 $$
 \eqalignno{
@@ -346,76 +347,81 @@ The new difficulty, compared with the heat sections, is that the region
 itself moves. We handle it by changing the representation: change the
 integration variable so as to keep the region constant, differentiate,
 and change back. To this end, let
-${\bf x} = {\cal X}(\tau, {\bf z})$. The integral becomes:
+${\bf x} = {\cal X}(\tau; {\bf z})$. The integral becomes:
 $$
 \fracd{d}{d\tau} \int_{\Omega}
-p(\tau,{\cal X}(\tau, {\bf z})) \bigg|
-\frac{\partial {\cal X}(\tau,{\bf z})}
+p(\tau,{\cal X}(\tau; {\bf z})) \bigg|
+\frac{\partial {\cal X}(\tau;{\bf z})}
 {\partial {\bf z}} \bigg| \; d{\bf z} = 0
 $$
-which is 
+(Here $| \cdot |$ denotes the determinant. It is positive -- it equals $1$
+at $\tau = 0$ and, the flow being invertible, never vanishes -- so no
+absolute value is needed in the change of variables.)
+The derivative is 
 $$
 \eqalignno{
-\int_{\Omega} \big( p_{\tau}(\tau, {\cal X}(\tau, {\bf z})) + 
-\nabla p(\tau, {\cal X}(\tau, {\bf z})) \cdot \dot 
-{\cal X}(\tau, {\bf z})
+\int_{\Omega} \bigg[ \big( p_{\tau}(\tau, {\cal X}(\tau; {\bf z})) + 
+\nabla p(\tau, {\cal X}(\tau; {\bf z})) \cdot \dot 
+{\cal X}(\tau; {\bf z})
   \big) 
-\bigg| \frac{\partial {\cal X}(\tau,{\bf z})}
+\bigg| \frac{\partial {\cal X}(\tau;{\bf z})}
 {\partial {\bf z}} \bigg| + 
-p(\tau, {\cal X}(\tau, {\bf z})) \frac{d}{d\tau}  \bigg| 
-\frac{\partial {\cal X}(\tau,{\bf z})}
-{\partial {\bf z}} \bigg| \; d{\bf z} & = 0 & (7) \cr }
+p(\tau, {\cal X}(\tau; {\bf z})) \frac{d}{d\tau}  \bigg| 
+\frac{\partial {\cal X}(\tau;{\bf z})}
+{\partial {\bf z}} \bigg| \bigg] \; d{\bf z} & = 0 & (7) \cr }
 $$
 It turns out that the derivative, $\frac{d}{d\tau} 
-\big| \frac{\partial {\cal X}(\tau,{\bf z})}
+\big| \frac{\partial {\cal X}(\tau;{\bf z})}
 {\partial {\bf z}} \big|$, may be written 
 as\footnote{\kern 1pt \raise 0.5ex \hbox{\dag}}{This is Liouville's
 formula, and it is four lines from tools we already have. First,
 differentiating (5a) with respect to ${\bf z}$ gives
 $\frac{d}{d\tau} \frac{\partial {\cal X}}{\partial {\bf z}} =
-\nabla {\bf f}(\tau, {\cal X}(\tau, {\bf z})) \,
+\nabla {\bf f}(\tau, {\cal X}(\tau; {\bf z})) \,
 \frac{\partial {\cal X}}{\partial {\bf z}}$.
 Second, Jacobi's formula for differentiating a determinant states
 $\frac{d}{d\tau} \det M = \det M \; {\rm tr}\big(M^{-1}
 \frac{dM}{d\tau}\big)$. Applying Jacobi's formula with
 $M = \frac{\partial {\cal X}}{\partial {\bf z}}$ and substituting the
 first fact, the factors $M$ and $M^{-1}$ cancel inside the trace,
-leaving ${\rm tr}\big(\nabla {\bf f}\big)$.}
+leaving ${\rm tr}\big(\nabla {\bf f}\big)$. Both Jacobi's formula and
+Liouville's formula are derived in the companion paper ``What is a
+Determinant''.}
 $$
 \frac{d}{d\tau} 
-\bigg| \frac{\partial {\cal X}(\tau,{\bf z})}
+\bigg| \frac{\partial {\cal X}(\tau;{\bf z})}
 {\partial {\bf z}} \bigg| =
-\bigg| \frac{\partial {\cal X}(\tau,{\bf z})}
+\bigg| \frac{\partial {\cal X}(\tau;{\bf z})}
 {\partial {\bf z}} \bigg| \; {\rm tr}\big(\nabla {\bf f}
-(\tau, {\cal X}(\tau, {\bf z}))\big) =
-\bigg| \frac{\partial {\cal X}(\tau,{\bf z})}
+(\tau, {\cal X}(\tau; {\bf z}))\big) =
+\bigg| \frac{\partial {\cal X}(\tau;{\bf z})}
 {\partial {\bf z}} \bigg| \; 
-\nabla \cdot {\bf f}(\tau, {\cal X}(\tau, {\bf z}))
+\nabla \cdot {\bf f}(\tau, {\cal X}(\tau; {\bf z}))
 $$
 Therefore, (7) becomes
 $$
 \eqalignno{
-\int_{\Omega} \bigg( p_\tau(\tau, {\cal X}(\tau, {\bf z})) +
-\nabla p(\tau, {\cal X}(\tau, {\bf z})) \cdot 
-{\bf f}(\tau, {\cal X}(\tau, {\bf z}))
-+ p(\tau, {\cal X}(\tau, {\bf z}))
-\nabla \cdot {\bf f}(\tau, {\cal X}(\tau, {\bf z}))
+\int_{\Omega} \bigg( p_\tau(\tau, {\cal X}(\tau; {\bf z})) +
+\nabla p(\tau, {\cal X}(\tau; {\bf z})) \cdot 
+{\bf f}(\tau, {\cal X}(\tau; {\bf z}))
++ p(\tau, {\cal X}(\tau; {\bf z}))
+\nabla \cdot {\bf f}(\tau, {\cal X}(\tau; {\bf z}))
 \bigg) 
-\bigg| \frac{\partial {\cal X}(\tau,{\bf z})}
+\bigg| \frac{\partial {\cal X}(\tau;{\bf z})}
 {\partial {\bf z}} \bigg| \; d{\bf z} & = 0 & (8) \cr }
 $$
 Changing coordinates back, (8) becomes
 $$
 \eqalign{
-\int_{\Omega_\tau} p_{\tau}(\tau, {\bf x}) + \nabla p(\tau, {\bf x}) 
+\int_{\Omega_\tau} \big( p_{\tau}(\tau, {\bf x}) + \nabla p(\tau, {\bf x}) 
 \cdot {\bf f}(\tau, {\bf x}) 
-+ p(\tau, {\bf x}) \nabla \cdot {\bf f}(\tau, {\bf x}) \; d{\bf x} & = 0 \cr }
++ p(\tau, {\bf x}) \nabla \cdot {\bf f}(\tau, {\bf x}) \big) \; d{\bf x} & = 0 \cr }
 $$
 This may be written as
 $$
 \eqalignno{
-\int_{\Omega_\tau} p_\tau(\tau, {\bf x}) + \nabla \cdot 
-\big( p(\tau, {\bf x}) {\bf f}(\tau, {\bf x}) \big)
+\int_{\Omega_\tau} \Big( p_\tau(\tau, {\bf x}) + \nabla \cdot 
+\big( p(\tau, {\bf x}) {\bf f}(\tau, {\bf x}) \big) \Big)
  \; d{\bf x} & = 0 & (9) \cr }
 $$
 Equation (9) is true for all $\tau \in [0, T)$, 
@@ -438,8 +444,9 @@ $$
 p(0, {\bf x})  = P_X({\bf x})&  \cr} 
 $$
 Equations (10a-b) constitute a first-order initial-value problem
-for the probability density function
-$P_X({\bf x})$ with respect to the differential equation (5a-b).
+for the density $p(t, {\bf x})$, which starts from $P_X({\bf x})$ and is
+carried along by the differential equation (5a-b). Equation (10a) is
+known as the {\it continuity equation\/} (or Liouville equation).
 
 \subsection{A Second Order System}
 Many physical systems are more naturally described by a system of second 
@@ -551,8 +558,8 @@ the regions $\Omega_\tau$ move with the flow of (5a-b). Reusing it, we
 may write
 $$
 \eqalignno{
-\int_{\Omega_\tau} p_\tau(\tau, {\bf x}) + \nabla \cdot 
-\big( p(\tau, {\bf x}) {\bf f}(\tau, {\bf x}) \big) \, d{\bf x} & = 
+\int_{\Omega_\tau} \Big( p_\tau(\tau, {\bf x}) + \nabla \cdot 
+\big( p(\tau, {\bf x}) {\bf f}(\tau, {\bf x}) \big) \Big) \, d{\bf x} & = 
 \oint_{\partial \Omega_\tau} \big(A({\bf x}) \nabla p(\tau, {\bf x}) \big)
 \cdot {\bf n} \; d{\bf S} & (17) \cr}
 $$
@@ -560,15 +567,15 @@ Using the {\it Divergence Theorem\/} on the right hand side
 of (17) and combining with the left hand side, we have
 $$
 \eqalignno{
-\int_{\Omega_\tau} p_\tau(\tau, {\bf x}) + \nabla \cdot 
+\int_{\Omega_\tau} \Big( p_\tau(\tau, {\bf x}) + \nabla \cdot 
 \big( p(\tau, {\bf x}) {\bf f}(\tau, {\bf x}) \big) -
-\nabla \cdot \big( A({\bf x}) \nabla p(\tau, {\bf x}) \big) \, d{\bf x}
+\nabla \cdot \big( A({\bf x}) \nabla p(\tau, {\bf x}) \big) \Big) \, d{\bf x}
 & = 0 & (18) \cr}
 $$
 Since this is true for all $\tau \in [0, t]$; and, $t$ and 
 $\Omega_t = \widehat \Omega$ are arbitrary, we may write
-the Fokker-Planck equation governing the evolution of 
-$P_X({\bf x})$\footnote{\raise 0.5ex \hbox{\dag}}
+the Fokker-Planck equation governing the evolution of the density $p$
+from its initial value $P_X({\bf x})$:\footnote{\raise 0.5ex \hbox{\dag}}
 {We make the same assumptions about $A({\bf x})$ 
 (in this section and the next) that were made when 
 deriving the heat equation in $n$ dimensions:
@@ -577,7 +584,7 @@ deriving the heat equation in $n$ dimensions:
 \enum{The smallest eigenvalue of $A({\bf x})$ is greater than $a_0$ for some
 $a_0 > 0$;}
 \enum{$A({\bf x})$ is continuously differentiable with respect to ${\bf x}$.}
-\endEnum}.
+\endEnum}
 $$
 \eqalignno{
 p_t(t, {\bf x}) + \nabla \cdot 
@@ -610,6 +617,13 @@ The two forms agree when the diffusion matrix is constant; when it
 varies with ${\bf x}$ they differ by a term of first order, which may
 be absorbed into the drift ${\bf f}$. The form derived here is the one
 dictated by a Fickian flux assumption.
+For orientation: when the random jostling of the Overview is modeled by
+the stochastic differential equation
+$d{\bf x} = {\bf f} \, dt + \sigma \, d{\bf W}$ with a constant matrix
+$\sigma$, the density of the state satisfies (19a) with
+$A = \frac{1}{2} \sigma \sigma^T$. We do not derive this here: our
+derivation {\it assumes\/} the Fickian flux rather than deducing it from
+the randomness.
 
 \subsection{The Fokker-Planck Equation II}
 We now consider the evolution of a probability density function 
@@ -653,17 +667,17 @@ The left hand side has been previously calculated; so, using the
 write
 $$
 \eqalignno{
-\int_{\Omega_\tau} p_\tau(\tau,{\bf x}, {\bf v}) +
+\int_{\Omega_\tau} \Big( p_\tau(\tau,{\bf x}, {\bf v}) +
 \nabla_{\bf x} p(\tau, {\bf x}, {\bf v}) \cdot {\bf v} + 
 \nabla_{\bf v} \cdot \big( p(\tau, {\bf x}, {\bf v}) 
 {\bf f}(\tau, {\bf x}, {\bf v}) \big) & & \cr
  - \nabla_{\bf v} \cdot \big(A({\bf x}, {\bf v}) \nabla_{\bf v}
-p(\tau, {\bf x}, {\bf v})\big) \; d{\bf x} \, d{\bf v}
+p(\tau, {\bf x}, {\bf v})\big) \Big) \; d{\bf x} \, d{\bf v}
  & = 0 & (22) \cr}
 $$
 Again, since $\widehat \Omega = \Omega_t$ and $t$ are arbitrary, the
-Fokker-Planck equation governing the evolution of 
-$P_{X,V}({\bf x}, {\bf v})$ is
+Fokker-Planck equation governing the evolution of the density $p$ from
+its initial value $P_{X,V}({\bf x}, {\bf v})$ is
 $$
 \eqalignno{
 p_t(t,{\bf x}, {\bf v}) +
@@ -674,6 +688,8 @@ p_t(t,{\bf x}, {\bf v}) +
 p(t, {\bf x}, {\bf v})\big)  & (23a) \cr
 p(0, {\bf x}, {\bf v}) = P_{X,V}({\bf x}, {\bf v}) & & (23b) \cr}
 $$
+Equation (23a) is known as the {\it kinetic\/} Fokker-Planck equation, or
+{\it Kramers equation\/}.
 The coordinates for the right-hand side were written in the last section,
 so we may write the coordinate version of this Fokker-Planck equation as
 $$
