@@ -21,6 +21,7 @@ calculus/
    
 
 ## TeX FILES:
+   answers.tex        # Appendix G: Answers to the Exercises.
    blank.tex          # Used to create a blank page.
    diffApprox.tex     # The derivative as approximation (mean value and Taylor's theorem).
    diffcalc.tex       # Differential Calculus

@@ -1,0 +1,229 @@
+%\input ../util/bookmacros
+%\input ../util/docparams
+
+\appendix{Appendix G}{Answers to the Exercises}
+A word before you look. The appendix ``How to Study from This Book''
+argues that an answer you fought for sticks far better than one you were
+shown. So use these pages the way you would use an examiner: {\it commit\/}
+to your own answer first -- in writing -- and only then compare. If your
+answer differs, find the step where the two part ways before reading
+on; that step is the most valuable thing these pages can give you.
+
+The answers are brief. They show the move that was played and the result,
+not every line of algebra.
+
+\def\ans#1{\medskip\noindent{\bf Exercise #1.}\ }
+
+\section{Difference Calculus}
+
+\ans{1.1} Factor out $2^n$:
+$\Delta 2^n = 2^{n+1} - 2^n = 2^n (2 - 1) = 2^n$.
+
+\ans{1.2} The difference sequence is $\{1,\,3,\,5,\,7,\,9\}$ and the second
+difference is $\{2,\,2,\,2,\,2\}$ -- a constant sequence. The original
+sequence is $n^2$ (starting at $n = 0$), so this is $\Delta n^2 = 2n + 1$
+followed by $\Delta (2n + 1) = 2$. Each differencing lowers the degree of a
+polynomial by one, so two of them reduce a quadratic to a constant.
+
+\ans{1.3} Group the product as $x_n (y_n z_n)$ and use the Discrete Product
+Rule twice:
+$$
+\eqalign{
+\Delta (x_n y_n z_n) & = \Delta x_n \, (y_{n+1} z_{n+1}) + x_n \, \Delta (y_n z_n) \cr
+& = \Delta x_n \, y_{n+1} z_{n+1} + x_n \, \Delta y_n \, z_{n+1} + x_n y_n \, \Delta z_n \cr
+}
+$$
+Each term differences exactly one factor; the factors to its right are
+evaluated at $n+1$ and those to its left at $n$. (Other groupings give
+other, equally correct, forms.)
+
+\section{Summation Calculus}
+
+\ans{2.1} By the falling power rule $\Delta n^{\underline{3}} = 3\, n^{\underline{2}}$,
+so an anti-difference of $n^{\underline{2}}$ is $n^{\underline{3}}/3$. By the FTDC
+$$
+\sum_{n=1}^N n(n-1) = {(N+1)^{\underline{3}} \over 3} - {1^{\underline{3}} \over 3}
+= {(N+1)\,N\,(N-1) \over 3}
+$$
+since $1^{\underline{3}} = 1 * 0 * (-1) = 0$. Check: for $N = 3$ the sum is
+$0 + 2 + 6 = 8$ and the formula gives $4 * 3 * 2 / 3 = 8$.
+
+\ans{2.2} Use Summation by Parts with $x_n = n^3$ and $y_n = n$, exactly as in
+the example for $\sum n^2$. Since $\Delta n^3 \, (n+1) = (3n^2 + 3n + 1)(n+1) =
+3n^3 + 6n^2 + 4n + 1$, we get
+$$
+4 \sum_{n=1}^N n^3 = (N+1)^4 - 1 - 6 \sum_{n=1}^N n^2 - 4 \sum_{n=1}^N n - N
+$$
+Substituting the formulas already found for $\sum n^2$ and $\sum n$ and
+simplifying, the right hand side becomes $N^2 (N+1)^2$. Therefore
+$$
+\sum_{n=1}^N n^3 = {N^2 (N+1)^2 \over 4} = \biggl( {N(N+1) \over 2} \biggr)^2
+$$
+-- the square of the sum of the first $N$ integers. Check: for $N = 2$,
+$1 + 8 = 9 = 3^2$.
+
+\ans{2.3} With $x_n = n^2$ and $y_n = 2^n$ we have $\Delta x_n = 2n + 1$ and
+$\Delta y_n = 2^n$, so Summation by Parts gives
+$$
+\sum_{n=1}^N n^2 \, 2^n = (N+1)^2 \, 2^{N+1} - 2 - \sum_{n=1}^N (2n+1)\, 2^{n+1}
+$$
+The remaining sum is $4 \sum n\, 2^n + \sum 2^{n+1} =
+4\bigl((N-1)\,2^{N+1} + 2\bigr) + \bigl(2^{N+2} - 4\bigr) = (4N - 2)\, 2^{N+1} + 4$.
+Therefore
+$$
+\sum_{n=1}^N n^2 \, 2^n = (N^2 - 2N + 3)\, 2^{N+1} - 6
+$$
+Check: for $N = 2$ the sum is $2 + 16 = 18$ and the formula gives
+$3 * 8 - 6 = 18$.
+
+\section{Differential Calculus}
+
+\ans{3.1} For a sequence $h_n \ne 0$ tending to $0$, expand the cube:
+$$
+{(x + h_n)^3 - x^3 \over h_n} = {3x^2 h_n + 3x h_n^2 + h_n^3 \over h_n}
+= 3x^2 + 3x\, h_n + h_n^2
+$$
+The last two terms tend to $0$, so $f'(x) = 3x^2$. (Compare
+$\Delta n^3 = 3n^2 + 3n + 1$: the same expression with step size $1$.)
+
+\ans{3.2} Let $x$ be the length of each side perpendicular to the river; the
+side along the river is then $100 - 2x$, and $x$ lies in $[0, 50]$. The
+area is $A(x) = x(100 - 2x) = 100x - 2x^2$, so $A'(x) = 100 - 4x$, which
+is $0$ only at $x = 25$. The candidates are $\{0, 25, 50\}$ with
+$A(0) = A(50) = 0$ and $A(25) = 1250$. The best pen is $25$ feet by $50$
+feet (the long side along the river), enclosing $1250$ square feet.
+
+\ans{3.3} (1) Chain rule, with outer function $z^{10}$ and inner function
+$1 + x^3$: $f'(x) = 10 (1 + x^3)^9 * 3x^2 = 30\, x^2 (1 + x^3)^9$.
+
+\noindent (2) Product rule, with the chain rule for the second factor:
+$f'(x) = 2x (1+x)^5 + 5x^2 (1+x)^4 = x\,(1+x)^4 (2 + 7x)$.
+
+\noindent (3) Quotient rule:
+$f'(x) = {1 * (1 + x^2) - x * 2x \over (1 + x^2)^2} = {1 - x^2 \over (1 + x^2)^2}$.
+
+\section{Integral Calculus}
+
+\ans{4.1} Let $H = F - G$. By linearity $H' = F' - G' = f - f = 0$, so the
+graph of $H$ has a flat tangent at every point. A function whose slope is
+$0$ everywhere never rises or falls: it is a constant function. (The Mean
+Value Theorem of the chapter ``The Derivative As Approximation'' makes
+this airtight: $H(b) - H(a) = H'(\mu)(b - a) = 0$ for any $a$ and $b$.)
+So $F(x) - G(x) = c$; that is, $F(x) = G(x) + c$.
+
+\ans{4.2} (1) Substitution with $u(x) = 1 + x$, $u'(x) = 1$:
+$\int_0^1 (1+x)^7 \, dx = {(1+x)^8 \over 8}\,\big|_{x=1} - {(1+x)^8 \over 8}\,\big|_{x=0}
+= {2^8 - 1 \over 8} = {255 \over 8}$.
+
+\noindent (2) Integration by parts with $f(x) = x$ and $g(x) = \sin(x)$, so
+that $g'(x) = \cos(x)$:
+$\int_0^{\pi/2} x \cos(x) \, dx = \bigl( (\pi/2) \sin(\pi/2) - 0 \bigr) -
+\int_0^{\pi/2} \sin(x) \, dx = \pi/2 - 1$.
+
+\noindent (3) Substitution with $u(x) = x^2$, $u'(x) = 2x$; the integrand is
+${1 \over 2} e^{u(x)} u'(x)$:
+$\int_0^1 x\, e^{x^2} \, dx = {1 \over 2} e^{x^2}\,\big|_{x=1} - {1 \over 2} e^{x^2}\,\big|_{x=0}
+= {e - 1 \over 2}$.
+
+\ans{4.3} An anti-derivative of $\sin$ is $-\cos$, so
+$\int_0^{\pi} \sin(x) \, dx = -\cos(\pi) + \cos(0) = 1 + 1 = 2$, while
+$\int_0^{2\pi} \sin(x) \, dx = -\cos(2\pi) + \cos(0) = -1 + 1 = 0$. On
+$[\pi, 2\pi]$ the sine is negative, so the terms $f(t_n) \Delta t_n$ of the
+approximating sums are negative there: the integral counts area below the
+axis as negative, and the two humps cancel. The area actually enclosed is
+$2 + 2 = 4$.
+
+\section{The Derivative As Approximation}
+
+\ans{5.1} With $f(x) = x^5$ we have $f'(x) = 5x^4$, so $f(2) = 32$ and
+$f'(2) = 80$. Then $(2.01)^5 \approx 32 + 80 * 0.01 = 32.8$. The estimate
+is low by about $0.008$ -- an error of roughly $0.025$\%.
+
+\ans{5.2} The estimate is $|V'(60) * 2| = 14{,}400 * 2 = 28{,}800$ cubic
+inches, about $0.62$ cubic yards. Yes, this is exactly twice the $1$ inch
+estimate: the tangent line approximation is {\it linear\/} in $h$. The
+exact extra amount is $V(62) - V(60) = 120\,(62^2 - 60^2) = 29{,}280$ cubic
+inches, which is {\it not\/} twice the exact $1$ inch amount
+($2 * 14{,}520 = 29{,}040$). The estimate is short by $480 = 120 * 2^2$
+cubic inches -- the error grows like $h^2$, as Taylor's Theorem predicts.
+
+\ans{5.3} With $f = \cos$ and $c = 0$: $f(0) = 1$, $f'(0) = -\sin(0) = 0$,
+$f''(0) = -\cos(0) = -1$, and $f''' = \sin$. Taylor's Theorem with
+$n = 3$ gives
+$$
+\cos(x) = 1 - {x^2 \over 2} + \sin(\mu(x)) {x^3 \over 3!}
+$$
+Since the sine is never bigger than $1$ in size, the error is at most
+$|x|^3/6$. For $|x| \le 0.1$ that is at most $(0.1)^3/6 \approx 1.7 \times
+10^{-4}$.
+
+\section{Difference Equations}
+
+\ans{6.1} Here $a = 2$, $b = 1$, and $L = 0$, so
+$x_N = a^N L + b\,{1 - a^N \over 1 - a} = 0 + {1 - 2^N \over 1 - 2} = 2^N - 1$.
+
+\ans{6.2} The balance grows by the interest and by the deposit:
+$x_{n+1} = (1 + r)\, x_n + p$, with $x_0 = L$. This is the equation of the
+chapter with $a = 1 + r$ and $b = p$, so
+$$
+x_N = (1+r)^N L + p \biggl( {(1+r)^N - 1 \over r} \biggr)
+$$
+It is the loan formula with the sign of the second term reversed: in the
+loan the payments work against the compounding; in the savings account
+the deposits work with it.
+
+\ans{6.3} Write $\lambda_1 = (1 + \sqrt 5)/2$ and $\lambda_2 = (1 - \sqrt 5)/2$;
+note that $\lambda_1 + \lambda_2 = 1$ and $\lambda_1 - \lambda_2 = \sqrt 5$.
+The initial values require $A + B = 1$ and $A \lambda_1 + B \lambda_2 = 1$.
+Solving, $A = \lambda_1 / \sqrt 5$ and $B = -\lambda_2 / \sqrt 5$. Therefore
+$$
+F_n = {\lambda_1^{n+1} - \lambda_2^{n+1} \over \sqrt 5}
+$$
+Check: since each $\lambda$ satisfies $\lambda^2 = \lambda + 1$, we have
+$\lambda^3 = 2 \lambda + 1$ and $\lambda^4 = 3 \lambda + 2$. So
+$F_2 = 2 (\lambda_1 - \lambda_2)/\sqrt 5 = 2$ and
+$F_3 = 3 (\lambda_1 - \lambda_2)/\sqrt 5 = 3$, in agreement with
+$1, 1, 2, 3, \ldots$
+
+\section{Differential Equations}
+
+\ans{7.1} Group the unknowns: $T'(t) + k\, T(t) = k A$. Multiplying by $y(t)$
+and matching against $(y\, T)' = y\, T' + y'\, T$ requires $y' = k\, y$; so
+the integrating factor is $e^{k t}$, and
+$\bigl( e^{k t}\, T(t) \bigr)' = k A\, e^{k t}$. Integrating from $0$ to $t$
+gives $e^{k t}\, T(t) - T_0 = A\, (e^{k t} - 1)$; that is,
+$$
+T(t) = A + (T_0 - A)\, e^{-k t}
+$$
+As $t$ grows large $e^{-k t}$ tends to $0$, so the coffee's temperature
+tends to the room temperature $A$ -- quickly at first, then ever more
+slowly.
+
+\ans{7.2} The amount is $a(t) = Q\, e^{-r t}$. The half-life gives
+$e^{-100\, r} = {1 \over 2}$, so $r = \ln(2)/100$. We need
+$e^{-r t} = {1 \over 10}$, so
+$t = \ln(10)/r = 100 \ln(10)/\ln(2) \approx 332$ years -- a little more
+than three half-lives, as it should be, since three half-lives leave
+$1/8 = 12.5$\%.
+
+\ans{7.3} $(1.005)^{60} \approx 1.3489$ while $e^{0.3} \approx 1.3499$. They
+differ by about $0.001$ -- less than a tenth of a percent.
+
+\ans{7.4} Differentiating twice: $\sin' = \cos$ and $\cos' = -\sin$, so
+$\sin'' = -\sin$; likewise $(-\sin)' = -\cos$, so
+$\cos'' = -\cos$. In both cases $x'' + x = 0$. For the combination
+$x(t) = A \sin(t) + B \cos(t)$, linearity of differentiation gives
+$x''(t) = -A \sin(t) - B \cos(t) = -x(t)$, so again $x'' + x = 0$.
+
+\section{The Exercise Left to the Reader in Appendix D}
+The appendix on Mathematical Induction left one claim unproved:
+$(x^{-1})' = -x^{-2}$ for $x \ne 0$. From the definition, for a sequence
+$h_n \ne 0$ tending to $0$ (and far enough out that $x + h_n \ne 0$),
+$$
+{1 \over h_n} \biggl( {1 \over x + h_n} - {1 \over x} \biggr)
+= {1 \over h_n} \biggl( {x - (x + h_n) \over x\,(x + h_n)} \biggr)
+= {-1 \over x\,(x + h_n)}
+$$
+which tends to $-1/x^2$ as $h_n$ tends to $0$.
+
+\vfil
