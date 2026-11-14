@@ -164,7 +164,7 @@ Specifically,
 {\em Primitive Pythagorean Triples\/}, denoted $\mathcal{T}_p$, are
 Pythagorean triples whose legs share no common factor:%
 \footnote{Since any common divisor of $x$ and $y$ also divides $z$,
-$\gcd(x,y) = 1$ is equivalent to $\gcd(x,y,z) = 1$, the usual primality condition.}
+$\gcd(x,y) = 1$ is equivalent to $\gcd(x,y,z) = 1$, the usual primitivity condition.}
 \begin{equation}
   \mathcal{T}_p = \{ (x,y,z) \; | \; (x,y,z) \in \mathbb{N}^3 \; \wedge \; \gcd(x,y) = 1 \; \wedge \; x^2 + y^2 = z^2 \}.
 \end{equation}
@@ -223,7 +223,7 @@ note~\cite{mcintire-prop}. The present paper starts where that one stops:
 knowing the shape of a primitive triple, we ask which numbers occur as its
 hypotenuse.
 
-First we list a few facts and state a couple of known theorems before proceeding:
+First we list two facts and state a couple of known theorems before proceeding:
 \begin{enumerate}
   \item The Pythagorean primes are exactly the primes of the form $4n + 1$.
       The key input is a theorem of Pierre de Fermat, known as
@@ -247,7 +247,7 @@ First we list a few facts and state a couple of known theorems before proceeding
         that for any two positive coprime numbers $a$ and $d$,
       there are infinitely many primes of the form $a + nd$, where $n$ is a
         non-negative integer.
-  \item In the case of Pythagorean primes, we can take $a = 1$ and $d = 4$ to
+      In the case of Pythagorean primes, we can take $a = 1$ and $d = 4$ to
       get the form $4n + 1$.
         Dirichlet's theorem thus guarantees that there are infinitely
         many Pythagorean primes.
@@ -310,12 +310,14 @@ many essentially distinct ways the prime factors of $z$ can be split
 between $x + iy$ and its conjugate. Once the representation is right, the
 theorems are inventory.
 
-The following table shows the inventory for the smallest members of each
-family, with the number of primitive triples doubling at each new distinct
+The following table shows the inventory for small members of each
+family -- the smallest prime, the smallest proper prime power, and the
+smallest products of two, three, and four distinct Pythagorean primes --
+with the number of primitive triples doubling at each new distinct
 prime factor (each row verified by direct computation):
 \begin{center}
 \begin{tabular}{c|c|l|c}
- distinct primes $k$ & triples $2^{k-1}$ & smallest example & lies in \\
+ distinct primes $k$ & triples $2^{k-1}$ & example & lies in \\
 \hline
  $1$ & $1$ & $5$: $\;(3,4,5)$ & $\mathcal{H}_u$ \\
  $1$ & $1$ & $25 = 5^2$: $\;(7,24,25)$ & $\mathcal{H}_u$ \\
@@ -412,7 +414,8 @@ $\mathcal{H}_p$ is spread evenly between residues $1$ and $-1 \pmod 6$ in the
 long run, mirroring $\mathbb{P}$ itself. Numerically, however, the cumulative
 parity of $\mathcal{H}_p$ tends to run {\em lower\/} than that of $\mathbb{P}$:
 over all primes below $2 \times 10^7$, the lead $D(m)$ is negative for
-about $78\%$ of the steps and positive for only $21\%$.
+$78.4\%$ of the steps, positive for only $20.5\%$, and zero for the
+remaining $1.1\%$.
 The remaining open conjecture quantifies how often and how far the
 $\mathcal{H}_p$ sum nonetheless overtakes the $\mathbb{P}$ sum:
 
@@ -442,6 +445,39 @@ $\Delta_p(n_0) = \infty$ for some $n_0$, then $\Delta_p(n) = \infty$ for all
 $n \ge n_0$, contradicting the finiteness of the limit in (b). We state the
 parts separately because (a) may well be provable without any understanding
 of the growth rate in (b).
+\end{remark}
+
+\begin{remark}[Relation to prime number races]
+The lead $D(m)$ is a comparison of counts of primes in residue classes. The
+first walker's position is the number of primes $\equiv 1 \pmod{12}$ minus
+the number $\equiv 5 \pmod{12}$ among the first $m$ Pythagorean primes; the
+second's is the number of primes $\equiv 1 \pmod 6$ minus the number
+$\equiv 5 \pmod 6$ among the first $m$ primes $\ge 5$. Comparisons of this
+kind are the subject of the theory of {\em prime number races\/} and
+{\em Chebyshev's bias\/}~\cite{rubinstein-sarnak, granville-martin}, and the
+conjecture should be read against that background. Our race compares the
+walkers after equal numbers of {\em steps\/}, not at equal heights $x$, so
+the known results do not apply verbatim; but two things from that theory
+bear on it.
+
+First, in such races the classes of non-squares tend to lead -- and $5$ is a
+non-square both modulo $6$ and modulo $12$ -- so both walkers drift
+negative. The lopsidedness of $D(m)$ reported above belongs to this family
+of bias phenomena.
+
+Second, in those races the lead at height $x$ fluctuates on the scale
+$\sqrt{x} / \log x$. If the same holds here, a lead of size $n$ is first
+expected near $x \approx n^2 \log^2 x$; that is, after on the order of
+$n^2 \log n$ steps. This heuristic suggests
+$\Delta_p(n) = n^{2 + o(1)}$ -- in which case the ratio in part (b) would
+tend to infinity, and the fitted exponent $\ln(2\pi) \approx 1.84$ would be
+an artifact of the short range of the data. We have left part (b) as the
+numerical observation it is, and record $n^{2 + o(1)}$ here as the growth
+this heuristic predicts. Likewise, under the hypotheses that are standard
+in this area (the generalized Riemann hypothesis together with linear
+independence of the relevant zeros), races of this type attain arbitrarily
+large leads in both directions; this suggests that part (a) may be within
+reach as a conditional theorem.
 \end{remark}
 
 Together with Proposition~\ref{prop:mean-zero}, the conjecture suggests that
@@ -530,10 +566,18 @@ with no classical inputs assumed beyond what is already in Mathlib.
   {\em Pythagorean Triangles}, Dover Publications, 2003.
   (The $2^{k-1}$ count of primitive triples with a given hypotenuse.)
 
+\bibitem{rubinstein-sarnak} M. Rubinstein and P. Sarnak,
+  Chebyshev's bias,
+  {\em Experimental Mathematics} {\bf 3} (1994), 173--197.
+
+\bibitem{granville-martin} A. Granville and G. Martin,
+  Prime number races,
+  {\em American Mathematical Monthly} {\bf 113} (2006), 1--33.
+
 \bibitem{mcintire-prop} R.~S. McIntire,
   {\em An Alternative Proof of an Elementary Property of Pythagorean
   Triples}, companion note in this repository
-  (\verb|tex/prop_pythag_triple.tex|), 2026.
+  (\verb|pdf/prop_pythag_triple.pdf|), 2026.
   (The parity structure of a primitive triple via the inscribed circle.)
 
 \end{thebibliography}
