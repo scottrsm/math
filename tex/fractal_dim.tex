@@ -62,7 +62,6 @@
 \baselineskip = 1.1\baselineskip
 
 \subsection{Introduction}
-{\parindent=0pt
 In this paper we examine a notion of the size of a set called 
 {\it fractal dimension} that enables one to more
 finely distinguish the density of a given set than the usual
@@ -141,28 +140,30 @@ from the integers.
 
 \eject
 
-\subsection{Volume of an n-Dimensional Sphere}
+\subsection{Volume of an n-Dimensional Ball}
 The goal of this section is the formula promised in the introduction:
-the volume of an n-dimensional sphere, derived in a form where the
+the volume of an n-dimensional ball, derived in a form where the
 dimension appears as a parameter that need not be an integer.
-The n-dimensional volume of any sphere is easy to compute if one
-knows its surface area. Since the surface area of an n-dimensional sphere 
-with radius, $r$, is $r^{n-1}$ times the surface of the unit sphere, 
-it suffices to know the surface area of the unit sphere.
-In what follows we will refer to an n-dimensional sphere of radius, $r$, 
-as $B_n(r)$, and $B_n$ as the specific n-dimensional sphere of radius $1$.
+The n-dimensional volume of any ball is easy to compute if one
+knows its surface area. Since the surface area of an n-dimensional ball 
+with radius, $r$, is $r^{n-1}$ times the surface area of the unit ball, 
+it suffices to know the surface area of the unit ball.
+In what follows we will refer to an n-dimensional ball of radius, $r$, 
+as $B_n(r)$, and $B_n$ as the specific n-dimensional ball of radius $1$.
 We will use the notation, $S_n(r)$ and $V_n(r)$ for the surface area and volume 
 of $B_n(r)$ respectively.
 
 The relationship between $V_n(r)$ and $S_n(1)$ 
 follows from the following formula:%
 
-${V}_n(r) =  \int_{\partial B_n} \int_0^r \tau^{n-1} \,d\tau \,dS = \left(\int_{\partial B_n} \, dS\right) \left( \int_0^r \tau^{n-1} \, d\tau \right)$
+$$
+{V}_n(r) =  \int_{\partial B_n} \int_0^r \tau^{n-1} \,d\tau \,dS = \left(\int_{\partial B_n} \, dS\right) \left( \int_0^r \tau^{n-1} \, d\tau \right)
+$$
 
 The iterated integrals on the right hand side of the above equation can 
 be easily computed, yielding: ${V}_n(r) = {S}_n(1) \frac{r^n}{n}$.
 
-What remains now is to find a formula for $S_n(r)$.
+What remains now is to find a formula for $S_n(1)$.
 This can be done by expressing an easily computable 
 n-dimensional integral in $R^n$ as $n$ iterated integrals. 
 And more importantly, this integral may be represented as a {\it different\/} 
@@ -200,7 +201,7 @@ $$
 {S}_n(1) = \frac{2 \pi^{n/2}}{\Gamma(n/2)}
 $$
 Consequently,%
-\ftn{The surface area of an n-dimensional sphere scales by the radius to
+\ftn{The surface area of an n-dimensional ball scales by the radius to
 the $(n-1)^{\rm th}$ power. This surface-area formula also does duty in
 the companion paper ``Singular Transformations of Probability Density
 Functions'', where it supplies the areas of the level-set spheres in a
@@ -208,24 +209,21 @@ coarea computation.}
 $$
 {S}_n(r) = \frac{2 \pi^{n/2}}{\Gamma(n/2)}r^{n-1}
 $$
-And so the volume of an n-dimensional sphere, $B_n(r)$, of radius $r$ is:%
-$$
-{V}_n(r) = \int_{B_n(r)} \, d\mu = \int_{\partial B_n} 
-\int_0^r \tau^{n-1} \, d\tau \, dS = \left(\frac{r^n}{n}\right){S}_n(1)
-$$
-Which is
+And so, from ${V}_n(r) = {S}_n(1) \frac{r^n}{n}$, the volume of an
+n-dimensional ball, $B_n(r)$, of radius $r$ is:
 $$
 {V}_n(r) = \frac{2\pi^{n/2}}{n \, \Gamma(n/2)} r^n
 $$
 
 \subsection{Fractal Dimension and Associated Volume of a Set}
-We derived the formula for the n-dimensional volume of a sphere,
-and the formula may take non-integral values. 
+We derived the formula for the n-dimensional volume of a ball,
+and the formula makes sense when $n$ is not an integer.
+
 Armed with this formula, we make
 the following definition.
 
 \proclaim Definition. For any $\alpha \in R^+$, the $\alpha$-dimensional
-volume, $V_\alpha$, of an n-dimensional sphere
+volume, $V_\alpha$, of a ball
 of radius $r$ is defined to be:%
 \ftn{The set $R^+$ is defined
 by: $R^+ = \{x \, | \, x\in R \; \wedge \; x > 0\}$.}
@@ -246,7 +244,7 @@ here of a physical fractional dimension. Also, note that the value is
 independent of the ambient space in which the ball might live, say $R^n$. 
 That is, $\alpha$ may be taken to be larger or smaller than $n$.
 
-Given that we have defined the fractional dimensional volume of a sphere 
+Given that we have defined the fractional dimensional volume of a ball 
 in ``dimension'' $\alpha$ we wish to extend this to a definition of the 
 fractional dimensional volume of {\it any\/} set.
 
@@ -267,7 +265,7 @@ $$
 Roughly speaking, for any given finite covering,
 $\left\{ O_i \right\}_{i=1}^N$, and value $\epsilon$,
 we estimate the $\alpha$-dimensional volume of the set, $S$, by charging
-each covering set $O_i$ the $\alpha$-dimensional volume of a sphere of
+each covering set $O_i$ the $\alpha$-dimensional volume of a ball of
 radius ${\rm Diam}(O_i)/2$. That is, each summand may be written
 $$
 V_\alpha({\rm Diam}(O_i)/2) = c_\alpha \, {\rm Diam}(O_i)^\alpha,
@@ -276,9 +274,9 @@ V_\alpha({\rm Diam}(O_i)/2) = c_\alpha \, {\rm Diam}(O_i)^\alpha,
 $$
 The factor $c_\alpha$ is a normalization, chosen so that for integer
 $\alpha$ the covering volume of ordinary solids agrees with their usual
-volume. It is {\it not\/} literally the volume of the smallest sphere
-containing $O_i$: a set of diameter $d$ need not fit inside a sphere of
-radius $d/2$ (by Jung's theorem the smallest enclosing sphere in $R^n$ can
+volume. It is {\it not\/} literally the volume of the smallest ball
+containing $O_i$: a set of diameter $d$ need not fit inside a ball of
+radius $d/2$ (by Jung's theorem the smallest enclosing ball in $R^n$ can
 have radius as large as $d \sqrt{n/(2n + 2)}$).
 The $\alpha$ covering volume of a set, $S$, is the infimum over all
 such covers. The only restrictions on the covering sets are that they
@@ -328,11 +326,11 @@ $$
 $$
 
 While these statements define the $\alpha$ volume for any given set, $S$,
-they do not tell us the ``natural'' fractal volume of $S$.
+they do not tell us the ``natural'' dimension of $S$.
 The following definition does precisely that.
 
 \proclaim Definition. The {\bf fractal dimension} of a
-set $S \subseteq R^m$ is defined as
+set $S \subseteq R^n$ is defined as
 $\alpha^* = \inf\{\alpha : {\cal V}_\alpha(S) = 0 \}$; the associated
 {\bf fractal volume} of $S$ is defined to be ${\cal V}_{\alpha^*}(S)$.
 
@@ -397,8 +395,8 @@ as a cover for $L$; that is, $L =
 covering volume of $L$ with $\epsilon = \frac{1}{n} \|{\bf x} - {\bf y}\|$ 
 is bounded above by
 $$
-\sum_{i=0}^{n-1} {\rm V}_\alpha({\rm Diam}(O_{n,i})/2) = \sum_{i=0}^{n-1}
-{\rm V}_\alpha(\|{\bf x} - {\bf y}\|/(2n)) =  \sum_{i=0}^{n-1} \frac{2
+\sum_{i=0}^{n-1} V_\alpha({\rm Diam}(O_{n,i})/2) = \sum_{i=0}^{n-1}
+V_\alpha(\|{\bf x} - {\bf y}\|/(2n)) =  \sum_{i=0}^{n-1} \frac{2
 \pi^{\alpha / 2}}{\alpha \Gamma(\alpha / 2)} \frac{\|{\bf x} - {\bf
 y}\|^\alpha}{(2n)^\alpha} = \frac{2 \pi^{\alpha / 2} \|{\bf x} - {\bf
 y}\|^\alpha}{2^\alpha \alpha \Gamma(\alpha / 2)} \frac{n}{n^\alpha}
@@ -460,7 +458,7 @@ middle third of each of these two intervals, this gives four
 intervals.
 If we repeat this process indefinitely with the remaining
 intervals, the resulting set is called the Cantor set, C. See 
-the appendix for a graphical depiction of the construction process.
+Appendix A for a graphical depiction of the construction process.
 The Cantor
 set has the property that $3 \cdot \left([0,1/3] \cap C\right) = C$; that is,
 it is a self-similar fractal (where $\lambda \cdot S \equiv \{\lambda x : x \in S\}$).
@@ -493,11 +491,11 @@ Clearly, $C \subseteq C_n$, and $C = \bigcap_{n=0}^\infty\limits C_n$
 We label $I_{n,i}$ as the $i^{th}$ interval in the set
 $C_n$. Each of these intervals has a diameter, $\epsilon_n = \left(\frac{1}{3}\right)^n$.
 The collection, $\bigcup_{i=1}^{2^n}\limits I_{n,i}$, provides an
-approximation to ${\cal V}_{\alpha, \epsilon_n}(C)$:
+upper bound for ${\cal V}_{\alpha, \epsilon_n}(C)$:
 
 
 $$
-{\cal V}_{\alpha, \epsilon_n}(C) \le \sum_{i=1}^{2^n} {\rm V}_\alpha({\rm
+{\cal V}_{\alpha, \epsilon_n}(C) \le \sum_{i=1}^{2^n} V_\alpha({\rm
   Diam}(I_{n,i}) / 2)
 $$
 
@@ -605,7 +603,8 @@ The idealized coastline of the introduction can be modeled by the
 {\it Koch curve\/} -- four copies of itself at scale $1/3$ -- giving
 $\ln 4 / \ln 3 \approx 1.262$. And the idealized sponge is the
 {\it Menger sponge\/}: a cube is divided into $27$ third-scale
-subcubes and the $20$ avoiding the center are kept, the process
+subcubes; the $7$ at the center of the cube and at the centers of its
+six faces are removed and the remaining $20$ are kept, the process
 repeating in each. Having no interior, the sponge is all surface, and
 its dimension is $\ln 20 / \ln 3 \approx 2.727$.
 
@@ -684,7 +683,7 @@ $$
 As the sets, $C_n$, are nested, each successive set is an improved approximation to the Cantor set.
 The first 6 intermediate sets are graphed below:
 
-\vfil\break
+\medskip
 {
 $C_0$:\ \cantor{0}{360}
 }
@@ -714,11 +713,10 @@ $C_5$:\ \cantor{5}{1.48148}
 
 The second self-similar set lives in 2 dimensions while its
 fractal dimension is between $1$ and $2$. It is the
-{\it Sierpi\'{n}ski triangle\/} (a different object from the 3-dimensional
-Menger sponge discussed in the body of the paper, although both are
-sometimes loosely called ``sponges''); it is ``best'' described in a
-recursive way as a scaled version of the lower triangular portion of
-itself -- three copies of itself at scale $1/2$ -- so the
+{\it Sierpi\'{n}ski triangle\/}, also known as the Sierpi\'{n}ski gasket
+(a different object from the 3-dimensional Menger sponge discussed in the
+body of the paper). It is ``best'' described in a recursive way: it is
+three copies of itself at scale $1/2$, so the
 self-similarity shortcut derived in the body computes its fractal
 dimension: $\ln 3 / \ln 2 \approx 1.585$.
 
