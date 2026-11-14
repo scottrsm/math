@@ -70,7 +70,7 @@ points (tuples) and the ability to divide by {\em numbers\/}.
 
 We do this by replacing our ``tuple'' notation of $(x,y)$ with the {\em vector\/}
 notation: $[x, y]$. Whether using tuple or vector notation, both
-represent an ordered set of numbers. We will use the vector notation
+represent an ordered list of numbers. We will use the vector notation
 because that is what mathematicians use. 
 
 We also want to simplify the number of names we use; this is especially useful
@@ -83,7 +83,7 @@ But this is something we learn in high school -- we simply add/subtract the comp
 and for multiplication by numbers we just multiply each component separately.
 
 We generalize this from 2 or 3 dimensions so that vectors may represent $n$ dimensions.
-All this means is that a vector is an ordered set of numbers of a specific length.
+All this means is that a vector is an ordered list of numbers of a specific length.
 Here is the formal definition of how to add/subtract them and multiply them by scalars.
 
 {\bf Definition.} Let ${\bf x}, {\bf y}$ be vectors in $n$ dimensions
@@ -146,6 +146,9 @@ destination, ${\bf p}_1$.
 
 Need to solve: Find $t^*$ so that the distance between 
 ${\bf p}_0 + t \, {\bf v}$ and ${\bf p}_1$ is minimized.
+(Unlike the one-dimensional problem, we no longer insist that $t \ge 0$:
+a negative $t^*$ simply means that the closest point is reached by driving
+in reverse along the same road.)
 This can be written as: find the time, $t^*$, which minimizes the length of the
 vector:
 ${\bf p}_0 + t\, {\bf v} - {\bf p}_1 =  t \, {\bf v} - ({\bf p}_1 - {\bf p}_0)$.
@@ -161,9 +164,10 @@ this assumption, without further comment, whenever we project onto a vector.
 We will also generalize this to $n$ dimensions and {\em define\/} the 
 length of a vector, ${\bf x}$, as a generalization of the distance formula 
 for vectors in 2 and 3  dimensions; namely, 
-length(${\bf x}$) = $\sqrt{\sum_{i=1}^n x_i^2}$.%
-\footnote{Minimizing the square of the distance is the same as minimizing 
-the distance, and it's also easier from the perspective of calculus.}
+length(${\bf x}$) = $\sqrt{\sum_{i=1}^n x_i^2}$.
+The problem to solve is then:%
+\footnote{We minimize the {\em square\/} of the distance: this is the same
+as minimizing the distance, and it's easier from the perspective of calculus.}
 $$ \min_{t} \sum_{i=1}^n (p_i - t v_i)^2 $$
 Using calculus, the minimum distance is achieved when the derivative
 at $t^*$ is $0$:
@@ -219,7 +223,7 @@ It has most of the properties of a multiplication operator.
   \item $\left(\lambda_1 {\bf p}_1 + \lambda_2 {\bf p}_2\right) 
       \cdot {\bf v} = \lambda_1 {\bf p}_1 \cdot {\bf v} + 
       \lambda_2 {\bf p}_2 \cdot {\bf v} $ 
-    -- Dot product distributes addition and scalar multiplication on the left. 
+    -- Dot product distributes over addition and scalar multiplication on the left. 
     And since this operator is symmetric, it distributes on the right as well.
   \item $\|{\bf p}\| = \sqrt{{\bf p} \cdot {\bf p}}$ --
     The dot product {\em induces\/} the length function.
@@ -273,9 +277,11 @@ ${\bf p}$ onto $\lambda {\bf v}$ we have:
 $$ P_{\lambda {\bf v}}({\bf p}) = \frac{{\bf p} \cdot \lambda {\bf v}}{\|\lambda {\bf v}\|^2} \lambda {\bf v} =
 \frac{\lambda \, {\bf p} \cdot {\bf v}}{\lambda^2 \|{\bf v}\|^2} \lambda {\bf v}
 = \frac{{\bf p} \cdot {\bf v}}{\|{\bf v}\|^2} {\bf v} = P_{{\bf v}}({\bf p})$$
-This says that the projection of ${\bf p}$ onto ${\bf v}$ is independent of 
-the length of the vector ${\bf v}$. That is, it only depends on its ``direction''.
-(It doesn't matter how fast you drive me in a given direction, the place 
+This confirms it -- and a little more, since $\lambda$ may be negative: the
+projection depends only on the {\em line\/} spanned by ${\bf v}$, not on the
+length of ${\bf v}$ nor on which way along the line it points.
+(It doesn't matter how fast you drive me along a given road, nor whether
+you drive forwards or in reverse, the place 
 you drop me off to be as close to ${\bf p}$ is going to be the same.)
 
 What about the projection of a multiple of ${\bf p}$ onto ${\bf v}$, or
@@ -316,8 +322,8 @@ One way to talk about the direction of this collection is to
 pick a {\em canonical\/} representative. The simplest thing to do is to 
 pick the one in the same direction (orientation -- it is a positive 
 multiple of ${\bf v}$) with unit length.
-If ${\bf u}$ is this vector, then the projection onto the direction ${\bf v}$ is:
-$$ P_{{\bf u}}({\bf p}) = \left({\bf p} \cdot {\bf u}\right) {\bf u}$$
+If $\hat{\bf v} = {\bf v} / \|{\bf v}\|$ is this vector, then the projection onto the direction ${\bf v}$ is:
+$$ P_{\hat{\bf v}}({\bf p}) = \left({\bf p} \cdot \hat{\bf v}\right) \hat{\bf v}$$
 If we continue to think of $P_{\bf v}({\bf p})$ as the component in the 
 ${\bf v}$ direction, then what is the other component that we add to this 
 to get ${\bf p}$?
@@ -358,29 +364,32 @@ meets that line at a right angle -- it has no component along ${\bf v}$.}
 Does ${\bf w}$ have a component in the ${\bf v}$ direction or vice versa?
 The component of ${\bf w}$ onto ${\bf v}$ is:
 $$ P_{\bf v}({\bf w}) = P_{\bf v} \left({\bf p} - P_{\bf v}({\bf p})\right) =
-    P_{\bf v}({\bf p}) - P_{\bf v}(P_{\bf v}({\bf p})) = P_{\bf v}({\bf p}) - P_{\bf v}({\bf p}) = 0 $$
+    P_{\bf v}({\bf p}) - P_{\bf v}(P_{\bf v}({\bf p})) = P_{\bf v}({\bf p}) - P_{\bf v}({\bf p}) = {\bf 0} $$
 This computation is the algebraic form of the right angle in
 Figure~\ref{fig:decomp}: the leftover ${\bf w}$ has no component along
 ${\bf v}$.
 
-By symmetry of the dot product, ${\bf v} \cdot {\bf w}
-= {\bf w} \cdot {\bf v} = 0$; so, provided ${\bf w} \neq {\bf 0}$ (that is,
+Since $P_{\bf v}({\bf w}) = \frac{{\bf w} \cdot {\bf v}}{{\bf v} \cdot {\bf v}} {\bf v}$
+and ${\bf v} \neq {\bf 0}$, this says that ${\bf w} \cdot {\bf v} = 0$.
+By symmetry of the dot product, ${\bf v} \cdot {\bf w} = 0$ too; so, provided
+${\bf w} \neq {\bf 0}$ (that is,
 provided ${\bf p}$ is not itself a multiple of ${\bf v}$),
-$P_{\bf w}({\bf v}) = 0$ as well: there
+$P_{\bf w}({\bf v}) = {\bf 0}$ as well: there
 is no component of ${\bf v}$ along ${\bf w}$ either. The vectors
 ${\bf v}$ and ${\bf w}$ are as ``independent'' as possible.
 
 We know that the length of a vector can be described in terms of the dot
-product, and we now know that ${\bf p} = {\bf p}_v + {\bf w}$, where
-${\bf p}_v = P_{\bf v}({\bf p})$ is the component along ${\bf v}$ and
-${\bf w}$ is orthogonal to it.
+product, and we now know that ${\bf p} = {\bf p}_{\bf v} + {\bf w}$, where
+${\bf p}_{\bf v} = P_{\bf v}({\bf p})$ is the component along ${\bf v}$ and
+${\bf w}$ has no component along it: ${\bf p}_{\bf v} \cdot {\bf w} = 0$, since
+${\bf p}_{\bf v}$ is a multiple of ${\bf v}$.
 What is the length of ${\bf p}$ when it is a sum
 of two vectors that share no components between them?
 \be
-  \|{\bf p}\|^2 & = & {\bf p} \cdot {\bf p} = ({\bf p}_v + {\bf w}) \cdot ({\bf p}_v + {\bf w}) \nonumber \\
-                & = & {\bf p}_v \cdot {\bf p}_v + 2 \, {\bf p}_v \cdot {\bf w} + {\bf w} \cdot {\bf w} \nonumber \\
-                & = & \| {\bf p}_v \|^2 + 2 \cdot 0 + \| {\bf w} \|^2 \nonumber \\
-                & = & \| {\bf p}_v \|^2 + \| {\bf w} \|^2
+  \|{\bf p}\|^2 & = & {\bf p} \cdot {\bf p} = ({\bf p}_{\bf v} + {\bf w}) \cdot ({\bf p}_{\bf v} + {\bf w}) \nonumber \\
+                & = & {\bf p}_{\bf v} \cdot {\bf p}_{\bf v} + 2 \, {\bf p}_{\bf v} \cdot {\bf w} + {\bf w} \cdot {\bf w} \nonumber \\
+                & = & \| {\bf p}_{\bf v} \|^2 + 2 \cdot 0 + \| {\bf w} \|^2 \nonumber \\
+                & = & \| {\bf p}_{\bf v} \|^2 + \| {\bf w} \|^2
  \ee
 
 
@@ -400,11 +409,11 @@ derivation tells us when equality holds: exactly when $\|{\bf w}\| = 0$;
 that is, when ${\bf p}$ is a multiple of ${\bf v}$ -- when the destination
 lies on the road.
 
-In two and three dimensions, the vectors ${\bf p}$, ${\bf p}_v$, and ${\bf w}$
-form a right triangle (with ${\bf p}_v$ perpendicular to ${\bf w}$), and
+In two and three dimensions, the vectors ${\bf p}$, ${\bf p}_{\bf v}$, and ${\bf w}$
+form a right triangle (with ${\bf p}_{\bf v}$ perpendicular to ${\bf w}$), and
 the Pythagorean theorem and its converse make
-$\|{\bf p}\|^2 = \|{\bf p}_v\|^2 + \|{\bf w}\|^2$ equivalent to
-${\bf p}_v \cdot {\bf w} = 0$. In higher dimensions we have no a priori
+$\|{\bf p}\|^2 = \|{\bf p}_{\bf v}\|^2 + \|{\bf w}\|^2$ equivalent to
+${\bf p}_{\bf v} \cdot {\bf w} = 0$. In higher dimensions we have no a priori
 geometric notion of perpendicularity, so we adopt the dot-product
 condition as the {\em definition\/}: two vectors are {\em orthogonal\/}
 if their dot product is zero. 
@@ -511,14 +520,14 @@ The solution to the problem is similar to the last section:
     \min_{u_1,u_2} \| {\bf p} - \left( u_1 {\bf v}_1 + u_2 {\bf v}_2 \right)\|^2
 \ee
 Just as before, we solve to find $u_1^*$, $u_2^*$ that minimize the above. 
-This occurs when the {\em partial\/} derivatives of $u_1$ and $u_2$ are $0$.
+This occurs when the {\em partial\/} derivatives with respect to $u_1$ and $u_2$ are $0$.
 Since the distance can be written in terms of the dot product we may 
 rewrite this minimization problem as:%
 \footnote{We are assuming that the mountain is represented by a plane that 
 goes through the origin.}
 
 \be
-  \min_{u_1,u_2} \left( {\bf p} - \left( u_1 {\bf v}_1 + u_2 {\bf v}_2 \right) \right) \cdot \left( {\bf p} - \left( u_1 {\bf v}_1 + u_2 {\bf v}_2 \right) \right) & & \nonumber \\
+  \min_{u_1,u_2} \left( {\bf p} - \left( u_1 {\bf v}_1 + u_2 {\bf v}_2 \right) \right) \cdot \left( {\bf p} - \left( u_1 {\bf v}_1 + u_2 {\bf v}_2 \right) \right) & & \nonumber
 \ee
 Taking the derivatives of this with respect to $u_1$ and $u_2$ we have:%
 \footnote{This follows since the dot product behaves like multiplication
@@ -621,12 +630,13 @@ as $P_{\mathrm{span}\{{\bf v}_1, \ldots, {\bf v}_n\}}({\bf x}) = {\bf x}$.
 
 One can repeat the above notion of projection using a distance measure created from a generalization of the dot product.
 The generalization is called an {\em inner product}. We will use an ``infix'' form of such a function and use the notation
-$\langle{\bf x}, {\bf y}\rangle$. An inner product is any function
+$\langle{\bf x}, {\bf y}\rangle$. An inner product on a vector space $V$ -- any collection of objects that can be
+added and multiplied by scalars the way our vectors can -- is any function
 $\langle \cdot, \cdot \rangle : V \times V \rightarrow {\bf R}$ with the following properties:
 \bi
   \item  $ \langle {\bf x}, {\bf y}\rangle \, = \, \langle{\bf y}, {\bf x}\rangle$ -- Symmetry.
   \item  $ \langle \lambda_1 {\bf x}_1 + \lambda_2 {\bf x}_2, {\bf y}\rangle \, = \, 
-      \lambda_1 \langle{\bf x}_1, {\bf y}\rangle + \lambda_2 \langle{\bf x}_2, {\bf y}\rangle $ -- Distributes addition and scalar multiplication.
+      \lambda_1 \langle{\bf x}_1, {\bf y}\rangle + \lambda_2 \langle{\bf x}_2, {\bf y}\rangle $ -- Distributes over addition and scalar multiplication.
   \item $\langle {\bf x}, {\bf x}\rangle \ge 0$, with equality iff ${\bf x} = {\bf 0}$ -- Positive definiteness.
 \ei
 The inner product {\em induces\/} a norm $\|{\bf x}\| \equiv \sqrt{\langle{\bf x}, {\bf x}\rangle}$,
@@ -666,7 +676,7 @@ Let ${\bf w}$ be a given vector with strictly positive entries:
 $w_i > 0 \quad \forall i \in [1, n]$.
 Then we can define an inner product, $\langle \cdot, \cdot \rangle$ as:
 $$ \langle {\bf x}, {\bf y} \rangle \equiv \sum_{i=1}^n w_i x_i y_i$$
-(positive weights are all that is needed for symmetry, bilinearity, and
+(Positive weights are all that is needed for symmetry, bilinearity, and
 positive definiteness; the additional normalization $\sum_i w_i = 1$ is
 standard when the $w_i$ are interpreted as probability weights but is
 not required for the inner-product property.)
@@ -676,7 +686,7 @@ over others. This is often used in data science.
 The generalization is powerful and we can apply the geometric intuition of 
 projections to sets of objects like functions and 
 produce remarkable results.
-For instance, we can define a function space
+For instance, we can define a function space%
 \footnote{The exact notion of ``measurable'' requires further
 explanation which we won't provide.  (One might expect the word
 ``integrable'' here, but square-integrability does not require
@@ -707,6 +717,10 @@ $\lambda \, {\bf f}$, instead of  $\lambda * {\bf f} $.
 
 With these definitions this space of functions behaves like
 vectors of numbers.
+(Two things should be checked: that the sum of two square-integrable
+functions is again square-integrable, and that the integral defining the
+inner product below is finite. Both follow from the elementary inequality
+$|f(x)\, g(x)| \le \frac{1}{2}\left(f(x)^2 + g(x)^2\right)$.)
 
 Define $\langle{\bf f}, {\bf g}\rangle \equiv \int_\Omega f(x) g(x) \, dx$.
 This induces the length $\| {\bf f} \| = \, \sqrt{\langle {\bf f}, {\bf f} \rangle} = \sqrt{\int_\Omega f(x)^2 \, dx}$.%
