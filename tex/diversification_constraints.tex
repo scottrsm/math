@@ -69,13 +69,14 @@ ${\bf x}$ --- but only {\it linearly\/}, so the constraint (\ref{opp1})
 below remains linear with $M$ replaced by $p \, {\bf 1}^T {\bf x}$.
 The function $f$ is also $k$ times the
 {\it conditional value-at-risk\/} (CVaR) of the empirical distribution of
-the entries of ${\bf x}$ at level $k/n$; the reformulation below is
+the entries of ${\bf x}$ for the upper tail of mass $k/n$ (confidence level
+$1 - k/n$ in the usual convention); the reformulation below is
 precisely the linearization of Rockafellar and
 Uryasev~\cite{rockafellar-uryasev} in that setting.
 
 This reformulation is classical --- it appears in Ogryczak and
 Tamir~\cite{ogryczak-tamir}; see also Boyd and
-Vandenberghe~\cite{boyd} --- but the derivation below is self-contained.
+Vandenberghe~\cite{boyd}, Exercise~5.19 --- but the derivation below is self-contained.
 The route is a {\it change of representation\/}, made three times: the
 sorted sum becomes a $0$--$1$ integer program; the integer program
 becomes a continuous linear program; and the linear program is traded for
@@ -95,7 +96,7 @@ This is $f({\bf x})$ written as a 0-1 integer program (IP).
 Although succinct, this optimization still requires examining $\binom{n}{k}$
 candidate solutions.
 
-\textbf{Claim.} The discrete optimization problem is equivalent to the following continuous problem:%
+\textbf{Claim.} The discrete optimization problem has the same optimal value as the following continuous problem, and the two share an optimal solution:%
 \footnote{%
 The objective ${\bf y}^T {\bf x}$ is continuous and the feasible set is closed and bounded
 (a compact polytope in ${\bf R}^n$); the supremum is therefore attained, so we may
@@ -159,7 +160,8 @@ contribution from ${\bf y}^\prime$ on the same indices.
 Therefore, ${\bf y}^\prime$ is in the feasible set of the discrete problem and
 attains the optimal value of the continuous problem; that is, the
 optimal value of the discrete problem is at least the optimal value of the
-continuous problem. Consequently, the two optimization problems are equivalent.
+continuous problem. Consequently, the two optimization problems have the same
+optimal value, and it is attained in both by the $0$--$1$ vector ${\bf y}^\prime$.
 
 \textbf{Remark.} The equivalence is no accident: the vertices of the polytope
 $\{ {\bf y} : {\bf 0} \preceq {\bf y} \preceq {\bf 1},\; {\bf y}^T {\bf 1} = k \}$
@@ -173,26 +175,26 @@ The continuous problem above is equivalent to the following minimization:
 	\text{s.t.} \quad & {\bf 0} \preceq {\bf y} \preceq {\bf 1} \label{op2} \\
 	& {\bf y}^T {\bf 1} = k \label{op3}
 \end{align}
-Treating ${\bf x}$ as a constant, this is a {\it convex\/} optimization problem.
+Treating ${\bf x}$ as a constant, this is a {\it linear program\/} (LP) --- in particular, a convex optimization problem.
 
 \section{A Dual Description of the Optimization}
 Pause to ask what shape of description we {\it want\/}.  Every
 description of $f({\bf x})$ so far is a {\it maximum\/}.  A maximum is
 the wrong shape to sit inside the constraint $f({\bf x}) \le M$: to
 certify that a maximum is at most $M$ one must check {\it every\/}
-candidate --- for us, all $\binom{n}{k}$ of them (the last section makes
+candidate --- for us, all $\binom{n}{k}$ of them (Section 4 makes
 this precise).  What we want is a description of $f({\bf x})$ as a
 {\it minimum\/}: to certify that a minimum is at most $M$ it suffices to
 exhibit {\it one\/} feasible point with objective value at most $M$.
 Duality is precisely the machine that converts the one into the other.
 
-Since the problem described by (\ref{op1})--(\ref{op3}) is
-{\it convex\/}, the value of its solution is the same as the value of
+Since the problem described by (\ref{op1})--(\ref{op3}) is a feasible and
+bounded {\it linear program\/}, the value of its solution is the same as the value of
 its associated {\it dual\/} problem.%
-\footnote{Normally one needs to show that a convex problem satisfies Slater's condition
+\footnote{For a general convex problem one needs a condition such as Slater's
 	in order to invoke strong duality.
 For linear programs, strong duality holds whenever the primal is feasible and bounded
--- no Slater check needed.
+--- no Slater check needed.
 The bilinear term $-{\bf y}^T {\bf x}$ becomes linear in ${\bf y}$ once we fix
 ${\bf x}$ as a parameter.}
 
@@ -206,7 +208,7 @@ ${\boldsymbol \lambda}$ and $\nu$ survive into the final answer as the
 new decision variables of the next section, and $\nu$ will even acquire
 a meaning --- see the Remark below.}
 which is:%
-\footnote{${\bf x}$ is a parameter (constant for the optimization) -- separated from
+\footnote{${\bf x}$ is a parameter (constant for the optimization) --- separated from
 the optimization variables by a semi-colon.}
 \begin{align*}
 	L({\bf y}, {\boldsymbol \lambda}_1, {\boldsymbol \lambda}_2, \nu; {\bf x}) &=
@@ -321,19 +323,19 @@ along with the following:
 \end{align}
 
 Why? Because for any $({\boldsymbol \lambda}, \nu)$ satisfying (\ref{opp2}) and (\ref{opp3}),
-$\nu \, k + {\bf 1}^T {\boldsymbol \lambda}$ is an upper bound on $f({\bf x})$ -- this is weak duality.
+$\nu \, k + {\bf 1}^T {\boldsymbol \lambda}$ is an upper bound on $f({\bf x})$ --- this is weak duality.
 Consequently, we have the inequality: 
 $f({\bf x}) \le \nu \, k + {\bf 1}^T {\boldsymbol \lambda} \le M$.
 The only concern remaining is that there may be a gap between the values of 
 $\nu \, k + {\bf 1}^T {\boldsymbol \lambda}$ 
-and $f({\bf x})$ -- making (\ref{opp1}) too restrictive. 
+and $f({\bf x})$ --- making (\ref{opp1}) too restrictive. 
 But this is not the case: by strong duality (proved elementarily in the
 Remark of the previous section), the minimum of
 $\nu \, k + {\bf 1}^T {\boldsymbol \lambda}$ over ${\boldsymbol \lambda}, \nu$
 (subject to (\ref{opp2}) and (\ref{opp3})) equals $f({\bf x})$.
 So there always exist ${\boldsymbol \lambda}, \nu$ feasible for (\ref{opp2}) and (\ref{opp3})
 with $\nu \, k + {\bf 1}^T {\boldsymbol \lambda} = f({\bf x})$, and (\ref{opp1}) is satisfiable
-for ${\bf x}$ exactly when $f({\bf x}) \le M$ -- the new constraints introduce no
+for ${\bf x}$ exactly when $f({\bf x}) \le M$ --- the new constraints introduce no
 restrictions on ${\bf x}$ beyond $f({\bf x}) \le M$ itself.
 
 One might ask why we couldn't do exactly the same procedure with the ``simpler''
@@ -346,7 +348,7 @@ bound on a ``given'' ${\bf x}$ and place it into an optimization problem, that
 ``given'' ${\bf x}$ is no longer a constant. It is now part of the
 optimization. The primal characterizes $f({\bf x})$ as a {\it maximum\/} over ${\bf y}$;
 to enforce $f({\bf x}) \le M$ we would need ${\bf y}^T {\bf x} \le M$ for {\it every\/}
-feasible ${\bf y}$ -- which is exactly the original combinatorial blow-up. The only way
+feasible ${\bf y}$ --- which is exactly the original combinatorial blow-up. The only way
 to collapse it into a finite set of constraints is to encode the LP's optimality
 conditions, which introduce bilinear terms in the (now) {\it variable\/} ${\bf x}$
 and the new {\it variable\/} ${\bf y}$. These terms are decidedly {\it non-linear\/};
@@ -374,6 +376,12 @@ Every constraint is linear in $({\bf x}, {\boldsymbol \lambda}, \nu)$, so
 any LP or QP solver accepts them unchanged, and the mandate is enforced
 exactly --- no sorting, and no enumeration of $\binom{n}{k}$ subsets.
 
+One caution on the choice of $p$.  The $k$ largest positions always hold at
+least the fraction $k/n$ of the total --- their average is at least the
+overall average --- so $f({\bf x}) \ge \frac{k}{n} \, {\bf 1}^T {\bf x}$.
+The mandate can therefore be met by a non-zero long-only portfolio only
+when $p \ge k/n$; for smaller $p$ the constraints force ${\bf x} = {\bf 0}$.
+
 In summary, the paper has been one number wearing five descriptions, each
 traded for the next because of a defect of shape:
 \begin{center}
@@ -383,7 +391,7 @@ sum of the $k$ largest entries & a sort & a sort is not a constraint \\
 $\max_{|S|=k} \sum_{i \in S} x_i$ & max of $\binom{n}{k}$ linear pieces & too many pieces \\
 $0$--$1$ program (\ref{discrete_objective})--(\ref{discrete_card}) & max over a discrete set & combinatorial search \\
 linear program (\ref{bound})--(\ref{cont_card}) & max over a polytope & a max needs {\it every\/} ${\bf y}$ checked \\
-dual program (\ref{opp1})--(\ref{opp3}) & min & none --- {\it one\/} witness certifies \\
+dual program of Section 3 & min & none --- {\it one\/} witness certifies \\
 \end{tabular}
 \end{center}
 The same strategic move --- change the representation until its shape
