@@ -32,171 +32,7 @@ by examining a dissected square composed of
 an inscribed square and triangles. 
 
 I tried to do something similar with a more complicated geometric figure and 
-I came up with figure \ref{fig:geo}.
-
-By inscribing a circle%
-\footnote{Existence and uniqueness of the inscribed circle in a triangle is
-a standard fact: the angle bisectors of the triangle are concurrent at the
-incenter, which is then equidistant from the three sides.}
-in a {\em right\/} triangle, one can decompose the triangle 
-into two pairs of right triangles and a square. The fact that the sub-triangles
-are right triangles follows using the fact that 
-any radial segment of a circle is perpendicular to its
-associated tangent line. 
-
-From the figure, the lower right four sided sub-figure has equal sides, $r$.
-I claim that this sub-figure is a square and not a rhombus.
-This can be seen as three of its interior angles are
-$90^\circ$; and, as the interior angles of a four-sided {\em convex\/}
-polygon must sum to $360^\circ$, the last interior angle must also be $90^\circ$.
-Consequently, the four-sided figure is a square.
-
-Below we find a well known relation between the sides, $a$, $b$, and $c$ of the
-original triangle when the sides are integers in {\em reduced form\/}.%
-\footnote{A triple of integers, $(a, b, c)$ is in reduced form if 
-they have no common integer divisor.}
-This is done by investigating the fact that the sum of the areas
-of these component triangles 
-and square must be the same as the area of the original triangle. 
-
-\section{A Basic Property of Primitive Pythagorean Triples}
-Writing the equivalence of the area of the figure and its parts we have:
-
-\begin{eqnarray}
-    \overbrace{\vphantom{\frac{X^1}{X}}r^2}^{\text{Square}} 
-    + \overbrace{2 \frac{r(a - r)}{2}}^{\text{Two lower triangles}} 
-    + \overbrace{2 \frac{r(b-r)}{2}}^{\text{Two upper triangles}}  
-    &=& \overbrace{\frac{a\, b}{2}}^{\text{Original triangle}}  
-\end{eqnarray}
-
-Simplifying, this is:
-\begin{eqnarray}
-r^2 + r(a - r) + r(b-r) = \frac{a\, b}{2} \label{area} 
-\end{eqnarray}
-
-One can solve the quadratic for $r$ (the quadratic formula gives
-$r = (a + b \pm c)/2$; only the minus sign is geometrically valid, since
-$r < a$ and $r < b$) or read off from the figure
-that $(a-r) + (b-r) = c$. Solving this last equation for $r$ gives:
-\begin{eqnarray}
-  r & = & \frac{a + b - c}{2} \label{radius}
-\end{eqnarray}
-
-A {\em primitive Pythagorean triple\/} $(a,b,c)$ is a triple of positive
-integers in reduced form satisfying $a^2 + b^2 = c^2$; it gives the side
-lengths of a {\em primitive Pythagorean triangle\/}, where $c$ is the
-hypotenuse and $a$, $b$ are the legs.
-What can we say about the evenness or oddness of the sides when they have no
-common factor? Since $a^2 + b^2 = c^2$, taking parities mod $2$ gives
-$a^2 + b^2 \equiv c^2 \pmod 2$, so the combined parity of $a, b$ must match
-the parity of $c$. This rules out three of the six naive combinations and
-leaves:%
-\footnote{We list the results of all combinations of even and odd numbers with
-respect to: addition, subtraction, and multiplication:
-\begin{enumerate}
-    \item $E \pm E = E$; $E \times E = E$;
-    \item $E \pm O = O$; $E \times O = E$;
-    \item $O \pm O = E$; $O \times O = O$.
-\end{enumerate}
-These equations are to be read: An even integer plus (or minus) an even integer
-is an even integer.
-Likewise, an even integer plus (or minus) an odd integer is an odd integer, etc.
-These results are used throughout the rest of the document.
-}
-\begin{itemize}
-    \item $c$ is even AND {\em exactly\/} one of the following is true:
-        \begin{itemize}
-            \item Both $a$ and $b$ are even;
-            \item Both $a$ and $b$ are odd;
-        \end{itemize}
-    \item $c$ is odd AND exactly one of $a$ and $b$ is even (the other being odd).
-\end{itemize}
-Since the triple $(a,b,c)$ is in reduced form, we can eliminate the case of
-$a$, $b$, and $c$ all being even. Eliminating that case leaves the following
-two possibilities:
-\begin{itemize}
-  \item $c$ is even AND both $a$ and $b$ are odd;
-  \item $c$ is odd AND exactly one of $a$ and $b$ is even (the other being odd).
-\end{itemize}
-
-In both cases $a + b - c$ is even (odd $+$ odd $-$ even,
-or odd $+$ even $-$ odd),
-so equation \eqref{radius} implies that the radius of the circle, $r$,
-is an integer.
-Using this fact and equation \eqref{area} we see that $\frac{ab}{2}$ must be
-an integer, which means the product $ab$ is even.
-This knowledge eliminates the first choice; namely, that $c$ is even with
-both $a$ and $b$ odd. Consequently, $c$ is odd, with exactly one of $a$ and $b$ even
-(the other being odd).
-
-The whole elimination tournament can now be seen at a glance. Writing E
-for even and O for odd, there are six possible parity patterns for
-$(a, b, c)$ (up to a swap of the legs -- we write the mixed-leg cases with
-$b$ even); each losing pattern is eliminated by a specific weapon, and
-exactly one pattern survives:
-\begin{center}
-\begin{tabular}{ccc|l}
-$a$ & $b$ & $c$ & fate \\
-\hline
-E & E & O & eliminated: parities must match in $a^2 + b^2 = c^2$ \\
-O & O & O & eliminated: parities must match in $a^2 + b^2 = c^2$ \\
-O & E & E & eliminated: parities must match in $a^2 + b^2 = c^2$ \\
-E & E & E & eliminated: the triple is in reduced form \\
-O & O & E & eliminated: the area equation forces $ab$ even \\
-O & E & O & {\bf survives} --- the only possibility \\
-\end{tabular}
-\end{center}
-
-Following the surviving row, we assume (without loss of generality) that
-$b$ is even; in which case, $a$ is odd.
-
-Now, the left hand side of \eqref{area} simplifies to
-$r(a + b - r) = r(r + c)$ by \eqref{radius}; with $c$ odd, this is even
-regardless of $r$'s parity. This implies that $\frac{ab}{2}$
-is even. Since $b$ is even, we can write this fraction as: $a \frac{b}{2}$.
-So we know that $a \frac{b}{2}$ (the product of two integers) is even.
-And we know that $a$ is odd; therefore, $\frac{b}{2}$ is even.
-This means that $b$ is divisible by $4$.
-
-In summary, we have deduced the following properties for primitive Pythagorean triangles.
-
-\begin{proposition}\label{prop:parity}
-Let $(a, b, c)$ be a primitive Pythagorean triple. Then:
-\begin{itemize}
-  \item One of the legs is odd; the other leg is even; and the hypotenuse
-      is odd.
-  \item The even leg is divisible by $4$.
-  \item The radius, $r = (a + b - c)/2$, of the inscribed circle in the
-      associated Pythagorean triangle is an integer (necessarily positive).
-\end{itemize}
-\end{proposition}
-
-{\bf Remark (what is ``alternative'' here).} The standard routes to the
-first two facts are arithmetic. One goes through Euclid's parametrization
-of primitive triples, $(a, b, c) = (m^2 - n^2,\, 2mn,\, m^2 + n^2)$ with
-$m > n$ coprime and of opposite parity, from which divisibility of the
-even leg by $4$ is immediate (in $2mn$, one of $m$ and $n$ is even).
-Another works modulo $8$: odd squares are congruent to $1$ mod $8$, so
-with $a$ and $c$ odd, $b^2 = c^2 - a^2 \equiv 0 \pmod 8$, which forces
-$4 \mid b$. The proof above replaces both with a single strategic move ---
-{\em compute one quantity two ways\/}. The area of the triangle, reckoned
-whole and reckoned piece by piece, changes the representation of the
-algebraic identity $a^2 + b^2 = c^2$ into the integrality of the inradius
-$r = (a + b - c)/2$, and elementary even/odd bookkeeping does the rest.
-The dividend of the geometric route is the third conclusion --- the
-integer inradius --- which the arithmetic proofs never see, because their
-machinery never draws the circle.
-
-The freshman project paid off after all: with no machinery beyond a
-dissected figure and parity arithmetic, the area accounting reproduced two
-classical theorems and added a third fact for free. And the story
-continues from here. Knowing now that the hypotenuse of a primitive triple
-must be odd, one can ask {\em which\/} odd numbers actually occur as
-hypotenuses, in how many ways, and how the prime hypotenuses are
-distributed among the primes. Those questions --- one of which remains
-open --- are the subject of the companion note,
-{\em A Conjecture on Primitive Pythagorean Triples\/}
-(\texttt{tex/conj\_pythag\_triple.tex} in this repository).
+I came up with Figure~\ref{fig:geo}.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -304,6 +140,181 @@ open --- are the subject of the companion note,
 \caption{Dissected Right Triangle}
 \label{fig:geo}
 \end{figure}
+
+By inscribing a circle%
+\footnote{Existence and uniqueness of the inscribed circle in a triangle is
+a standard fact: the angle bisectors of the triangle are concurrent at the
+incenter, which is then equidistant from the three sides.}
+in a {\em right\/} triangle, one can decompose the triangle 
+into two pairs of right triangles and a square. The fact that the sub-triangles
+are right triangles follows using the fact that 
+any radial segment of a circle is perpendicular to its
+associated tangent line. 
+The two triangles of each pair are congruent: they share a hypotenuse
+(the segment from a vertex of the original triangle to the center of the
+circle) and each has a leg of length $r$; so, by the Pythagorean theorem,
+their remaining legs -- the two tangent segments from that vertex -- are equal.
+
+From the figure, the lower right four sided sub-figure has two adjacent sides
+of length $r$ (the radii) and three interior angles of $90^\circ$: the two at
+the tangent points and the right angle of the original triangle.
+As the interior angles of a four-sided {\em convex\/}
+polygon must sum to $360^\circ$, the last interior angle must also be $90^\circ$.
+So the sub-figure is a rectangle; and a rectangle with two equal adjacent
+sides is a square -- all four of its sides have length $r$.
+Consequently, the tangent segments along the legs have lengths $a - r$ and
+$b - r$, and -- by the congruence just noted -- so do the two pieces of the
+hypotenuse, as labeled in the figure.
+
+Below we find a well known relation between the sides, $a$, $b$, and $c$ of the
+original triangle when the sides are integers in {\em reduced form\/}%
+\footnote{A triple of integers, $(a, b, c)$ is in reduced form if 
+they have no common divisor greater than $1$.}
+-- a {\em primitive Pythagorean triple\/}.
+This is done by investigating the fact that the sum of the areas
+of these component triangles 
+and square must be the same as the area of the original triangle. 
+
+\section{A Basic Property of Primitive Pythagorean Triples}
+Writing the equivalence of the area of the figure and its parts we have:
+
+\begin{eqnarray}
+    \overbrace{\vphantom{\frac{X^1}{X}}r^2}^{\text{Square}} 
+    + \overbrace{2 \frac{r(a - r)}{2}}^{\text{Two lower triangles}} 
+    + \overbrace{2 \frac{r(b-r)}{2}}^{\text{Two upper triangles}}  
+    &=& \overbrace{\frac{a\, b}{2}}^{\text{Original triangle}}  
+\end{eqnarray}
+
+Simplifying, this is:
+\begin{eqnarray}
+r^2 + r(a - r) + r(b-r) = \frac{a\, b}{2} \label{area} 
+\end{eqnarray}
+
+One can solve the quadratic for $r$ (the quadratic formula gives
+$r = (a + b \pm c)/2$; only the minus sign is geometrically valid, since
+$r < a$ and $r < b$) or read off from the figure
+that $(a-r) + (b-r) = c$. Solving this last equation for $r$ gives:
+\begin{eqnarray}
+  r & = & \frac{a + b - c}{2} \label{radius}
+\end{eqnarray}
+
+Formally, a {\em primitive Pythagorean triple\/} $(a,b,c)$ is a triple of positive
+integers in reduced form satisfying $a^2 + b^2 = c^2$; it gives the side
+lengths of a {\em primitive Pythagorean triangle\/}, where $c$ is the
+hypotenuse and $a$, $b$ are the legs.
+What can we say about the evenness or oddness of the sides when they have no
+common factor? Since $a^2 + b^2 = c^2$, taking parities mod $2$ gives
+$a^2 + b^2 \equiv c^2 \pmod 2$, so the combined parity of $a, b$ must match
+the parity of $c$. This rules out three of the six naive combinations and
+leaves:%
+\footnote{We list the results of all combinations of even and odd numbers with
+respect to: addition, subtraction, and multiplication:
+\begin{enumerate}
+    \item $E \pm E = E$; $E \times E = E$;
+    \item $E \pm O = O$; $E \times O = E$;
+    \item $O \pm O = E$; $O \times O = O$.
+\end{enumerate}
+These equations are to be read: An even integer plus (or minus) an even integer
+is an even integer.
+Likewise, an even integer plus (or minus) an odd integer is an odd integer, etc.
+These results are used throughout the rest of the document.
+}
+\begin{itemize}
+    \item $c$ is even AND {\em exactly\/} one of the following is true:
+        \begin{itemize}
+            \item Both $a$ and $b$ are even;
+            \item Both $a$ and $b$ are odd;
+        \end{itemize}
+    \item $c$ is odd AND exactly one of $a$ and $b$ is even (the other being odd).
+\end{itemize}
+Since the triple $(a,b,c)$ is in reduced form, we can eliminate the case of
+$a$, $b$, and $c$ all being even. Eliminating that case leaves the following
+two possibilities:
+\begin{itemize}
+  \item $c$ is even AND both $a$ and $b$ are odd;
+  \item $c$ is odd AND exactly one of $a$ and $b$ is even (the other being odd).
+\end{itemize}
+
+In both cases $a + b - c$ is even (odd $+$ odd $-$ even,
+or odd $+$ even $-$ odd),
+so equation \eqref{radius} implies that the radius of the circle, $r$,
+is an integer.
+Using this fact and equation \eqref{area} we see that $\frac{ab}{2}$ must be
+an integer, which means the product $ab$ is even.
+This knowledge eliminates the first choice; namely, that $c$ is even with
+both $a$ and $b$ odd. Consequently, $c$ is odd, with exactly one of $a$ and $b$ even
+(the other being odd).
+
+The whole elimination tournament can now be seen at a glance. Writing E
+for even and O for odd, there are six possible parity patterns for
+$(a, b, c)$ (up to a swap of the legs -- we write the mixed-leg cases with
+$b$ even); each losing pattern is eliminated by a specific weapon, and
+exactly one pattern survives:
+\begin{center}
+\begin{tabular}{ccc|l}
+$a$ & $b$ & $c$ & fate \\
+\hline
+E & E & O & eliminated: parities must match in $a^2 + b^2 = c^2$ \\
+O & O & O & eliminated: parities must match in $a^2 + b^2 = c^2$ \\
+O & E & E & eliminated: parities must match in $a^2 + b^2 = c^2$ \\
+E & E & E & eliminated: the triple is in reduced form \\
+O & O & E & eliminated: the area equation forces $ab$ even \\
+O & E & O & {\bf survives} --- the only possibility \\
+\end{tabular}
+\end{center}
+
+Following the surviving row, we assume (without loss of generality) that
+$b$ is even; in which case, $a$ is odd.
+
+Now, the left hand side of \eqref{area} simplifies to
+$r(a + b - r) = r(r + c)$ by \eqref{radius}; with $c$ odd, this is even
+regardless of $r$'s parity. This implies that $\frac{ab}{2}$
+is even. Since $b$ is even, we can write this fraction as: $a \frac{b}{2}$.
+So we know that $a \frac{b}{2}$ (the product of two integers) is even.
+And we know that $a$ is odd; therefore, $\frac{b}{2}$ is even.
+This means that $b$ is divisible by $4$.
+
+In summary, we have deduced the following properties for primitive Pythagorean triangles.
+
+\begin{proposition}\label{prop:parity}
+Let $(a, b, c)$ be a primitive Pythagorean triple. Then:
+\begin{itemize}
+  \item One of the legs is odd; the other leg is even; and the hypotenuse
+      is odd.
+  \item The even leg is divisible by $4$.
+  \item The radius, $r = (a + b - c)/2$, of the inscribed circle in the
+      associated Pythagorean triangle is an integer (necessarily positive).
+\end{itemize}
+\end{proposition}
+
+{\bf Remark (what is ``alternative'' here).} The standard routes to the
+first two facts are arithmetic. One goes through Euclid's parametrization
+of primitive triples, $(a, b, c) = (m^2 - n^2,\, 2mn,\, m^2 + n^2)$ with
+$m > n$ coprime and of opposite parity, from which divisibility of the
+even leg by $4$ is immediate (in $2mn$, one of $m$ and $n$ is even).
+Another works modulo $8$: odd squares are congruent to $1$ mod $8$, so
+with $a$ and $c$ odd, $b^2 = c^2 - a^2 \equiv 0 \pmod 8$, which forces
+$4 \mid b$. The proof above replaces both with a single strategic move ---
+{\em compute one quantity two ways\/}. The area of the triangle, reckoned
+whole and reckoned piece by piece, changes the representation of the
+algebraic identity $a^2 + b^2 = c^2$ into the integrality of the inradius
+$r = (a + b - c)/2$, and elementary even/odd bookkeeping does the rest.
+The dividend of the geometric route is the third conclusion --- the
+integer inradius --- which arrives here without any parametrization, simply
+because the argument draws the circle. (Euclid's formula yields it too, in
+one line: $r = (a + b - c)/2 = n(m - n)$.)
+
+The freshman project paid off after all: with no machinery beyond a
+dissected figure and parity arithmetic, the area accounting reproduced two
+classical theorems and delivered a third classical fact for free. And the story
+continues from here. Knowing now that the hypotenuse of a primitive triple
+must be odd, one can ask {\em which\/} odd numbers actually occur as
+hypotenuses, in how many ways, and how the prime hypotenuses are
+distributed among the primes. Those questions --- one of which remains
+open --- are the subject of the companion note,
+{\em A Conjecture on Primitive Pythagorean Triples\/}
+(\texttt{pdf/conj\_pythag\_triple.pdf} in this repository).
+
 
 \end{document}
 
