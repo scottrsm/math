@@ -45,7 +45,7 @@ Keep this five-line ritual in view; it is the engine of the whole paper. The
 strategic move is one the reader has used since grade school: {\em isolate and
 invert\/} -- get the unknown under a single operation, then apply that
 operation's inverse. Our plan is to play the {\em same game on a bigger
-board\/}: replace the numbers by vectors and rectangular arrays of
+board\/}: replace the numbers by vectors and square arrays of
 coefficients, and then ask what ``multiply,'' ``associate,'' ``identity,'' and
 ``inverse'' must {\em mean\/} for the five lines to remain legal. The payoff
 of this approach is that the definitions of matrix/vector and matrix/matrix
@@ -58,7 +58,7 @@ With this in mind, the multi-dimensional linear problem can be written:
 \begin{align*}
   a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n &= b_1 \\
   a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n &= b_2 \\
-  \specialcell{\hfil\cdots\hfil} &= \vdots \\
+  \specialcell{\hfil\vdots\hfil} &= \vdots \\
   a_{n1} x_1 + a_{n2} x_2 + \cdots + a_{nn} x_n &= b_n 
 \end{align*}
 Here, $a_{ij}$ is the coefficient in the $i^{\rm th}$ row and $j^{\rm th}$ column.
@@ -134,7 +134,7 @@ This is done in the most natural of ways:
                 \end{array}
   \right] \label{matrix-form2}
 \end{align}
-Taking the rectangular collection (matrix) of $a$'s to be represented by 
+Taking the square collection (matrix) of $a$'s to be represented by 
 $A$; the (vector) collection
 of $x$'s to be ${\bf x}$; and the collection of the $b$'s to be ${\bf b}$;
 we may write \eqref{matrix-form2} as:%
@@ -143,7 +143,7 @@ for vectors; and lowercase italic letters for scalars.}
 \begin{align}
   A \, {\bf x} &= {\bf b} \label{concise-matrix-form}
 \end{align}
-Here, $A$ represents the ``matrix'' of the $a$'s, with $A_{i,j} = a_{ij}$; meaning, that the
+Here, $A$ represents the ``matrix'' of the $a$'s, with $A_{ij} = a_{ij}$; meaning, that the
 $i^{\rm th}$ row and $j^{\rm th}$ column of $A$ is $a_{ij}$.
 This now looks like the scalar problem, \eqref{scalar-problem}.
 Just as one writes $a \, x = b$, interpreting the proximity of $a$ and $x$ to mean
@@ -249,7 +249,7 @@ its columns would have to match $A$.
 
 We note the following for future reference.
 \begin{align}
-	[{\bf A}^j]_i = A_{i, j} \label{vec-matrix-index}
+	[{\bf A}^j]_i = A_{ij} \label{vec-matrix-index}
 \end{align}
 That is, the $i^{\rm th}$ entry of the column vector, ${\bf A}^j$, is the
 $i^{\rm th}$ row,  $j^{\rm th}$ column of the matrix $A$. 
@@ -303,7 +303,9 @@ Specifically, the condition we impose is:
 Notice that we are imposing what matrix/matrix multiplication is by saying how the 
 new matrix formed, $B \, A$, acts on an {\em arbitrary\/} vector, ${\bf x}$. And we 
 specify that action by the right hand side of \eqref{ASSOC}, which involves only matrix/vector
-multiplication -- something we have defined.
+multiplication -- something we have defined. In words: $B \, A$ is to be the single
+matrix that does the work of applying $A$ and then applying $B$ -- the
+{\em composition\/} of the two actions.
 
 We want to emphasize that this is a strong condition to impose; meaning, that the 
 requirement that this is true for {\em all\/} ${\bf x}$ gives us a lot to work with.
@@ -326,39 +328,54 @@ This gives us the following equations:
 \end{align}
 Or,
 \begin{align}
-	(B \, A)^j &= B \, {\bf A}^j \quad\quad \text{$j \in [1, n]$}
+	{\bf (B \, A)}^j &= B \, {\bf A}^j \quad\quad \text{$j \in [1, n]$}
 \end{align}
 For any given, $i$, the $i^{\rm th}$ entry of the left and right hand side is
 (after using the definition of matrix/vector 
 multiplication, \eqref{matrix-vector-mult}, on the right hand side)
 \begin{align}
-	\left[(B \, A)^j\right]_i &= \sum_{k=1}^n B_{i,k} \left[{\bf A}^j\right]_k \quad \forall i, j \in [1, n]
+	\left[{\bf (B \, A)}^j\right]_i &= \sum_{k=1}^n B_{ik} \left[{\bf A}^j\right]_k \quad \forall i, j \in [1, n]
 \end{align}
 Using \eqref{vec-matrix-index} on the left and right hand sides of the previous equation we have
 \begin{align}
-	(B \, A)_{i, j} &= \sum_{k=1}^n B_{i, k} A_{k, j} \quad \forall i, j \in [1, n]
+	(B \, A)_{ij} &= \sum_{k=1}^n B_{ik} A_{kj} \quad \forall i, j \in [1, n]
 \end{align}
-And we are done: we have shown what the new matrix $B \, A$ is by giving every entry $(B\, A)_{i, j}$.
+And we are done: we have shown what the new matrix $B \, A$ is by giving every entry $(B\, A)_{ij}$.
 So using the set of vectors, $\{{\bf e}_j\}_{j=1}^n$, we have completely determined what 
 the matrix multiplication of $B \, A$ is in order that matrix/matrix multiplication be 
 associative when using these vectors. Does this mean that associativity works for 
 {\em arbitrary\/} vectors? The answer is yes, by the linearity of
 matrix/vector multiplication -- the extend-by-linearity half of our move. Any given ${\bf x}$ can be written as a {\em linear combination\/}%
 \footnote{Again, we assume the reader is familiar with expanding a vector in terms of the standard basis vectors.}
-of the vectors $\{{\bf e}_j\}_{j=1}^n$: ${\bf x} = a_1 {\bf e}_1 + a_2 {\bf e}_2 + \cdots + a_n {\bf e}_n$.
+of the vectors $\{{\bf e}_j\}_{j=1}^n$: ${\bf x} = c_1 {\bf e}_1 + c_2 {\bf e}_2 + \cdots + c_n {\bf e}_n$.
 Matrix multiply the left and right hand sides by the matrix, $B\,A$. This gives
 \begin{align}
-	(B\, A){\bf x} &= (B \, A)\left(\sum_{j=1}^n a_j {\bf e}_j\right) \quad\quad \text{Replace ${\bf x}$ with its components, ${\bf e}_j$.}\nonumber \\
-				   &=\sum_{j=1}^n a_j (B \, A){\bf e}_j \quad\quad \text{{\em Linearity\/} of matrix/vector multiplication by $(B \, A)$ (itself a matrix).}\nonumber \\
-				   &=\sum_{j=1}^n a_j B (A{\bf e}_j) \quad\quad \text{{\em Associativity\/} of matrix/matrix multiplication on components, ${\bf e}_j$.}\nonumber \\
-				   &=B\left(\sum_{j=1}^n a_j A{\bf e}_j\right) \quad\quad \text{{\em Linearity\/} of matrix/vector multiplication by $B$.}\nonumber \\
-				   &=B\left( A\left(\sum_{j=1}^n a_j {\bf e}_j\right)\right) \quad\quad \text{{\em Linearity\/} of matrix/vector multiplication by  $A$.}\nonumber \\
-				   &=B( A {\bf x}) \quad\quad \text{Replace components with ${\bf x}$.}
+	(B\, A){\bf x} &= (B \, A)\left(\sum_{j=1}^n c_j {\bf e}_j\right) \quad\quad \text{Expand ${\bf x}$ in the ${\bf e}_j$.}\nonumber \\
+				   &=\sum_{j=1}^n c_j (B \, A){\bf e}_j \quad\quad \text{{\em Linearity\/} of matrix/vector multiplication by $(B \, A)$ (itself a matrix).}\nonumber \\
+				   &=\sum_{j=1}^n c_j B (A{\bf e}_j) \quad\quad \text{{\em Associativity\/} of matrix/matrix multiplication on the ${\bf e}_j$.}\nonumber \\
+				   &=B\left(\sum_{j=1}^n c_j A{\bf e}_j\right) \quad\quad \text{{\em Linearity\/} of matrix/vector multiplication by $B$.}\nonumber \\
+				   &=B\left( A\left(\sum_{j=1}^n c_j {\bf e}_j\right)\right) \quad\quad \text{{\em Linearity\/} of matrix/vector multiplication by  $A$.}\nonumber \\
+				   &=B( A {\bf x}) \quad\quad \text{Collapse the expansion back to ${\bf x}$.}
 \end{align}
 In the above calculations, we applied our new matrix, $(B \, A)$ to an arbitrary ${\bf x}$, and 
 used the {\em linearity\/} of matrix/vector multiplication and the {\em associativity\/}
-of matrix/matrix multiplication on the components, $\{{\bf e}_j\}_{j=1}^n$, to show that matrix/matrix
+of matrix/matrix multiplication on the basis vectors, $\{{\bf e}_j\}_{j=1}^n$, to show that matrix/matrix
 multiplication, as we have defined it, is associative -- {\em irrespective\/} of the input vector.
+
+One consequence: matrix/matrix multiplication is associative in the ordinary
+sense as well. For matrices $C$, $B$, $A$ and any vector ${\bf x}$,
+\begin{align}
+	\left((C \, B) A\right) {\bf x} = (C \, B)(A {\bf x}) = C\left(B (A {\bf x})\right)
+	= C\left((B \, A) {\bf x}\right) = \left(C (B \, A)\right) {\bf x}
+\end{align}
+and two matrices that act identically on every ${\bf x}$ are equal; so
+$(C \, B) A = C (B \, A)$.
+
+We have worked with square, $n \times n$, matrices because our problem has as
+many equations as unknowns. Nothing in the argument depends on that: the same
+probe gives the product of an $m \times n$ matrix $B$ with an $n \times p$
+matrix $A$ -- and shows why the sizes must match: $A \, {\bf x}$ has to be a
+vector that $B$ can act on.
 
 The next order of business is to identify an $n \times n$ matrix which serves as an
 identity (in terms of matrix/vector multiplication).
@@ -387,17 +404,23 @@ That is, do we have $I \, {\bf x} = {\bf x}$ for all ${\bf x} \in {\bf R}^n$?
 As before, we can express ${\bf x}$ as: ${\bf x} = \sum_{j=1}^n c_j {\bf e}_j$.
 By the {\em linearity\/} of matrix/vector multiplication, we have
 \begin{align}
-	I {\bf x} &= I\left( \sum_{j=1}^n c_j {\bf e}_j \right)  \quad\quad \text{Replace ${\bf x}$ with components, ${\bf e}_j$.} \nonumber \\
+	I {\bf x} &= I\left( \sum_{j=1}^n c_j {\bf e}_j \right)  \quad\quad \text{Expand ${\bf x}$ in the ${\bf e}_j$.} \nonumber \\
 							 &= \sum_{j=1}^n c_j  I{\bf e}_j \quad\quad \text{{\em Linearity\/} of matrix/vector multiplication.} \nonumber \\
-							 &= \sum_{j=1}^n c_j {\bf e}_j \quad\quad \text{{\em Identity\/} of $I$ on components, ${\bf e}_j$.}\nonumber \\
-							 &= {\bf x} \quad\quad \text{Replace components with ${\bf x}$.}
+							 &= \sum_{j=1}^n c_j {\bf e}_j \quad\quad \text{{\em Identity\/} of $I$ on the ${\bf e}_j$.}\nonumber \\
+							 &= {\bf x} \quad\quad \text{Collapse the expansion back to ${\bf x}$.}
 \end{align}
 One can show that this identity matrix, $I$, is also the identity operator for
 matrix/matrix multiplication: applying $(IA){\bf e}_j = I(A {\bf e}_j) = A {\bf e}_j$
-to each $j$ shows $(IA)^j = A^j$ for all $j$, hence $IA = A$; the same argument
-on the columns of $A$ gives $AI = A$.
+to each $j$ shows ${\bf (IA)}^j = {\bf A}^j$ for all $j$, hence $IA = A$; likewise
+$(AI){\bf e}_j = A(I {\bf e}_j) = A {\bf e}_j$ gives $AI = A$.
 
-The only remaining piece of the ritual is the inverse: when does a matrix
+The only remaining piece of the ritual is the inverse. Its {\em definition\/}
+is forced like the others: an inverse of $A$ is a matrix, $A^{-1}$, with
+$A^{-1} A = I$ and $A \, A^{-1} = I$. The first property is the one the ritual
+uses: it shows that if $A \, {\bf x} = {\bf b}$ then ${\bf x}$ can only be
+$A^{-1} {\bf b}$. The second confirms that this candidate really is a
+solution: $A (A^{-1} {\bf b}) = (A \, A^{-1}) {\bf b} = I \, {\bf b} = {\bf b}$.
+What remains is harder: when does a matrix
 $A^{-1}$ exist, and how might one compute it? We do not attempt this here --
 it is genuine unfinished business, and we flag exactly where the difficulty
 lives: an inverse must undo $A$ on {\em every\/} vector, and whether that is
@@ -419,7 +442,7 @@ $a \, x = b$ & $A \, {\bf x} = {\bf b}$ & the problem, repackaged \\
 product $a \, x$ & $\left[A \, {\bf x}\right]_i = \sum_{j} A_{ij} x_j$ & forced: must preserve the equations \\
 $(b \, a) \, x = b \, (a \, x)$ & $(B A) {\bf x} = B (A {\bf x})$, all ${\bf x}$ & imposed; forces $(BA)_{ij} = \sum_{k} B_{ik} A_{kj}$ \\
 the number $1$ & the matrix $I$ & forced: $I {\bf e}_j = {\bf e}_j$ picks its columns \\
-$a^{-1}$ (exists iff $a \neq 0$) & $A^{-1}$ & deferred: see ``What is a Determinant'' \\
+$a^{-1}$ (exists iff $a \neq 0$) & $A^{-1}$ ($A^{-1}A = AA^{-1} = I$) & existence: see ``What is a Determinant'' \\
 range of $a$: $\{0\}$ or ${\bf R}$ & range of $A$: span of its columns & next section \\
 \end{tabular}
 \end{center}
@@ -467,11 +490,17 @@ Here is the analog of this solution categorization for the multi-dimensional cas
 		${\bf b}$ is in the range of $A$ (that is: ${\bf b} \in {\cal R}(A)$),
 		then there are an {\bf infinite\/} number of solutions.
 \end{description}
+The last case uses a fact we have not proved: when $A$ has no inverse there
+is a non-zero vector ${\bf z}$ with $A \, {\bf z} = {\bf 0}$ (the scalar
+analog: when $a = 0$, every $z$ satisfies $a \, z = 0$). Granting this, if
+${\bf x}$ is one solution then, by linearity, so is ${\bf x} + t \, {\bf z}$
+for every number $t$:
+$A({\bf x} + t\, {\bf z}) = A \, {\bf x} + t \, A \, {\bf z} = {\bf b}$.
 
 \section{Curtain Call}
 We can now answer the opening question in the paper's own words.
 Matrix/vector multiplication is defined the way it is because it is the only
-definition under which a rectangular array of coefficients can act on the
+definition under which an array of coefficients can act on the
 unknowns-as-a-unit while {\em preserving the meaning\/} of the original system
 of equations. Matrix/matrix multiplication is defined the way it is because it
 is the only definition under which the five-line scalar ritual -- multiply by
