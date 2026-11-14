@@ -37,7 +37,7 @@ the variance estimate unbiased.
 
 The essence of the {\em exponential moving average\/} (EMA) is to provide
 a {\em localized\/} estimate of a time series as it proceeds. It does 
-this by using a weighted average of the values in a ``window'' around each point 
+this by using a weighted average of the values in a trailing ``window'' ending at each point 
 of the series in a way that each summand in
 the average is multiplied by powers of a factor, $\lambda$,
 in the interval $(0,1)$.
@@ -84,6 +84,9 @@ order of $N m$ operations -- and the cost of keeping the average local
 grows with how local we want it to be. The purpose of this
 paper is to derive a recursive formula that is fast to compute: a fixed
 handful of operations per point, {\em independent\/} of the window length $m$.
+(Independent in {\em arithmetic\/}, that is: the recursion does need the
+value that is leaving the window, so the most recent $m$ data values must be
+kept in a buffer.)
 The formula takes advantage of the fact that when the weights are exponentials
 (powers of $\lambda$) we don't have to recompute the bulk of the sums in the
 averaging window.
@@ -125,34 +128,19 @@ property? The answer is no, the property remains:
     \lambda w_{i} &= w_{i+1} \quad \forall i \in [1, m-1].  \label{o:weights_power}
 \end{align}
 
-More generally, we can find {\em all\/} weights that have a decay factor of $\lambda$ as they
-are solutions of the following difference equation:
-\begin{align}
-	w_{n+1} & =  \lambda \, w_n \\
-	w_1 & =  \alpha
-\end{align}
-
-This is the geometric difference equation -- the discrete analog of
-exponential decay -- and its solution is:
+It is convenient to have these weights in closed form. Since
+${\hat w}_i = \lambda^i$ and
+$\sum_{k=1}^m \lambda^k = \lambda \, \frac{1 - \lambda^m}{1 - \lambda}$, we have
 \begin{equation}
-	w_n = \alpha \, \lambda^{n-1} \quad n \ge 1
-\end{equation}
-
-However, we need the weights to be {\em normalized\/} over a window of length, $m$:
-\begin{equation}
-\sum_{i=1}^m w_i = 1
-\end{equation}
-Plugging in our general formula for an exponential sequence we have:
-\begin{align}
-	\sum_{i=1}^m \alpha \lambda^{i-1} & =  1 \\
-	\alpha \frac{1 - \lambda^m}{1 - \lambda} & =  1	
-\end{align}
-Therefore, a decay factor, $\lambda$, and averaging window length, $m$, 
-determine {\em the\/} initial weight, $\alpha$, and thus determine {\em the\/}
-associated normalized weights:
-\begin{equation}
+	w_n = \alpha \, \lambda^{n-1} \quad n \in [1, m], \qquad \hbox{where} \quad
 	\alpha = \frac{1 - \lambda}{1 - \lambda^m} \label{o:weights_alpha}
 \end{equation}
+So a decay factor, $\lambda$, and an averaging window length, $m$, determine
+{\em the\/} first (largest) weight, $\alpha = w_1$, and thus {\em the\/}
+normalized weights. (Said another way: the weights solve the geometric
+difference equation $w_{n+1} = \lambda \, w_n$, $w_1 = \alpha$ -- the discrete
+analog of exponential decay -- and $\alpha$ is fixed by requiring the weights
+to sum to $1$ over the window.)
 
 {\bf Note.} We will use \eqref{o:var_extend}, \eqref{o:weights_normalized},
 \eqref{o:weights_power}, and \eqref{o:weights_alpha} in our derivations below.
@@ -179,7 +167,7 @@ and try to relate it to the present element at index $n$.
 
 Finally, we may write%
 \footnote{From the definition of $e_n$ and using
-	\eqref{o:var_extend}, \eqref{o:weights_normalized}, and \eqref{o:weights_alpha},
+	\eqref{o:var_extend} and \eqref{o:weights_normalized},
 $e_1 = \sum_{k=0}^{m-1} x_{1-k} w_{k+1} = x_1 \sum_{k=0}^{m-1} w_{k+1} = x_1 \sum_{k=1}^m w_k = x_1$.}
 \begin{align}
     e_{n+1} &=  \lambda \left(e_n - x_{(n+1) - m} w_m \right) + \alpha x_{n+1} \quad \forall n \in [1, N-1] \\
@@ -222,9 +210,28 @@ weights are re-indexed as well: they are $w_0, \ldots, w_{m-1}$, so the first
     e_0   &=  x_0
 \end{align}
 
+{\bf The usual EMA.} What most practitioners -- and most software
+libraries -- call the exponential moving average has no window at all:
+\begin{align}
+    e_{n+1} &= \lambda \, e_n + (1 - \lambda) \, x_{n+1}
+\end{align}
+It is the limit of our formula as the window length $m \rightarrow \infty$:
+then $\alpha = (1 - \lambda)/(1 - \lambda^m) \rightarrow 1 - \lambda$ and
+$w_m = \alpha \lambda^{m-1} \rightarrow 0$, so the term that removes the
+departing datum disappears. The windowed version treated here gives up a
+little simplicity for a guarantee: data older than $m$ steps carries exactly
+zero weight.
+
+{\bf A practical caution.} A recursion that adds the arriving term and
+subtracts the departing one accumulates floating point rounding error over
+a long series. A standard remedy is to recompute $e_n$ directly from the
+definition \eqref{ema_def} every so often -- say, once every few thousand
+points -- and to continue the recursion from that fresh value. The same
+applies to the variance recursion of the next section.
+
 \section{Recursive Formula for a Local Standard Deviation}
 In practice, one also wants to know a localized standard deviation of the process.
-In applications, one can provide ``Bollinger'' bands around the EMA estimate.
+In applications, one can provide ``Bollinger''-style bands around the EMA estimate.
 These bands are (typically) some multiple of the standard deviation of the process.
 
 We derive a localized standard deviation of the process starting
@@ -232,8 +239,9 @@ with the definition of the exponential moving average and its moving variance.%
 \footnote{This variance formula needs to be corrected by a factor which we 
 leave to the end. The correction is a factor that is used to make the 
 estimated standard deviation of the moving average {\em unbiased\/}.
-The formula for this factor is independent of the structure of the weights.
-This means that it can be pre-computed independently of the data series.}
+The formula for this factor is the same for any normalized weights, and it
+does not involve the data. This means that it can be pre-computed
+independently of the data series.}
 
 \begin{align}
     e_n &=  \sum_{k=0}^{m-1} x_{n-k} w_{k+1} \label{ema_cmp} \\
@@ -285,6 +293,9 @@ The corresponding 0-based index formula is:
     v_{n} &= \lambda \left( v_{n-1} - ( x_{n-m} - e_{n-m} )^2 w_{m-1}\right) + \alpha ( x_{n} - e_{n} )^2 \quad \forall n \in [1, N-1] \\
     v_0   &= (x_0 - e_0)^2 = 0
 \end{align}
+As with the mean, this recursion needs the term that is leaving the window;
+so the most recent $m$ squared deviations, $(x_k - e_k)^2$, must be kept in
+a buffer as well.
 
 The dictionary in one place -- one recursion, several customers:
 \begin{center}
@@ -368,6 +379,9 @@ is $e^{-\frac{\log(2)}{4}} \approx 0.8409$.
 
 \section{Unbiased Estimator for a Sequence of IID Random Variables}
 In this section we derive the corrective formula for computing the empirical variance.
+(In the application to the moving average, the $N$ random variables below
+are the $m$ data values in a window and the weights are the window weights;
+so $N$ here plays the role of $m$ in the main text.)
 
 In what follows we assume that we are given a sequence of independent identically distributed random variables (IID):
 $\{x_i\}_{i=1}^N$ and corresponding weights: $\{w_i\}_{i=1}^N$.
@@ -484,7 +498,7 @@ In this case the estimate for the standard deviation of the random variables is:
 \end{align*}
 We see that we end up with the usual ``sample'' standard deviation.
 
-\subsection{Bias of Arbitrary Sample Moments.}
+\subsection{Bias of Arbitrary Sample Moments}
 
 We now proceed in the same way as above to compute the bias of more general moments.
 Throughout this subsection we assume the central moments
@@ -530,7 +544,7 @@ multinomial sum to indices with $k_n \neq 1$ and obtain
     & \quad  \times  \sum_{\substack{k_1 + k_2 + \, \cdots\,  + k_N = k \\ \forall n, k_n \ge 0 \, \wedge \,k_n \neq 1 \\ k_i = 0}} \binom{k}{k_1, k_2, \, \ldots\, , k_N} 
     \left(\prod_{l=1}^N M_{k_l} w_l^{k_l}\right) w_i^{j+1-k}
 \end{align}
-Here, we use the notation $M_r \equiv \E{(x_i - \mu)^r}$ for the $r^{\it th}$ central moment of the distribution of the $\{x_i\}_{i=1}^N$ (so that $M_2 = \sigma^2$).
+Recall that $M_r$ is the $r^{\it th}$ central moment of the distribution of the $\{x_i\}_{i=1}^N$; in particular $M_0 = 1$, $M_1 = 0$, and $M_2 = \sigma^2$.
 
 We now drop the $k_i = 0$ constraint by allowing $k_i$ to take any value in
 $\{0\} \cup \{2, 3, \ldots, k\}$ -- this makes the {\em first\/} inner sum below
@@ -656,7 +670,9 @@ The corresponding relation for the kurtosis, $M_4 / M_2^2$, is:
 Since we don't know $M_2 = \sigma^2$, we use our unbiased estimate
 ${\widehat M}_2 = \frac{\sum_{j=1}^N (x_j - {\bar x})^2 w_j}{1 - W_2}$.
 We also replace $\E{\sum_{i=1}^N (x_i - {\bar x})^4 w_i}$ with the sample estimate
-$\sum_{i=1}^N (x_i - {\bar x})^4 w_i$. Our estimate of the kurtosis is then:
+$\sum_{i=1}^N (x_i - {\bar x})^4 w_i$. (Because a ratio and the square of an
+estimate are involved, this plug-in estimate is no longer exactly unbiased.)
+Our estimate of the kurtosis is then:
 \begin{align}
     \frac{M_4}{M_2^2} &\approx \frac{
         \displaystyle \frac{(1 - W_2)^2 \sum_{i=1}^N (x_i - {\bar x})^4 w_i}{\left(\sum_{j=1}^N (x_j - {\bar x})^2 w_j\right)^2}
