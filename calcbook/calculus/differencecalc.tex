@@ -4,7 +4,7 @@
 \chapter{Difference Calculus}
 
 \section{Motivational Problem for Differencing}
-Suppose there are several cars suspected in the use of an armed 
+Suppose there are several cars suspected of having been used in an armed
 robbery, all of a particular make and model. Soon after the robbery,
 a high-speed chase ensued between the police and the getaway car. The
 car used had no license plates at the time of the crime; however, it's now believed that 
@@ -12,15 +12,17 @@ the getaway car has legitimate plates. There are not enough visual clues
 to distinguish the getaway car from the group of suspected cars. The police 
 would like to be able to give enough evidence to a judge in order to 
 get a search warrant for the owner of one of the cars. The one thing the 
-police have going for them is that each car has a sensor which records the 
-odometer reading every $1/10$ of a second. The odometer data is stored on an 
-internal disk in feet. They want to examine 
+police have going for them is that each car has a sensor which records the
+reading of a daily trip odometer every $1/10$ of a second. This odometer
+is reset to zero at the start of each day, so a reading is the distance the
+car has been driven so far that day. One day of this odometer data is stored
+on an internal disk in feet. They want to examine
 the data in order to find out if there were high speeds occurring in any 
 of these cars during the time of the getaway. 
 
-Each car would have a 
-very long list of numbers
-representing odometer readings -- meaning distance. How should 
+Each car would have a
+very long list of numbers -- one day of readings is $864{,}000$ of them --
+representing odometer readings; meaning distance driven since the start of the day. How should 
 we analyze the data to find velocity? Well, from physics we know the 
 average velocity over a time interval is the distance traveled divided by 
 the time. So, the average velocity over each time interval of $1/10$th of 
@@ -277,13 +279,28 @@ But we are not necessarily looking for an exact solution; we would be
 happy with a statement which said $v_n = \Delta x_n / h \ge 80$ for some value of $n$. This 
 is actually more incriminating than saying $v_n = 80$. 
 
-Since $f$ changes over a very long scale in comparison with 
-$x$, it is essentially constant for the purposes of our calculations. That is, 
+Since $f$ changes over a very long scale in comparison with
+$x$, it is essentially constant for the purposes of our calculations. That is,
 for all intents and purposes over the short time span of the robbery $f_n$ can be treated as a constant
 equal to some value, say $F$. Replacing a slowly varying quantity by a constant is an
 approximation -- the first half of the {\it approximate, then take a limit\/} move
 we will use throughout this book. If a sequence, $f_n$, is constant
-then $\Delta f_n = 0$. Therefore, the last equation becomes%
+then $\Delta f_n = 0$.
+
+Is it safe to throw away the term $x_n \Delta f_n$? A small number times a
+large one need not be small, so we should check. The factor $f_n$ swings
+through a range of $1.5$ over more than $5{,}000{,}000$ steps, so it changes by
+roughly $0.0000003$ per step. Here is where it matters that the disk holds
+only {\it one day\/} of trip data: $x_n$ is the distance driven so far that day
+-- for a car driven, say, $100$ miles, at most about $500{,}000$ feet. So
+$x_n \Delta f_n$ is at most about $0.15$ feet. Compare this with the term we
+are keeping: at the speeds in question the car covers about $12$ feet in each
+$1/10$ of a second, so $\Delta x_n \, f_{n+1}$ is on the order of $10$ feet.
+The discarded term is a correction of a percent or two. (Had the disk stored
+the car's {\it lifetime\/} odometer reading -- hundreds of millions of feet --
+the ``small'' term would have swamped the one we want. An approximation
+should always be checked against the sizes of the things it multiplies.)
+Therefore, the last equation becomes%
 \footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{The symbol $\approx$
   means approximately equal.}
 $$
@@ -320,7 +337,8 @@ and $\Delta n^3 = 3n^2 + 3n + 1$.}
 \enum{The {\it isolate and invert\/} strategy: to recover an unknown from an equation,
 get it by itself under one operation and then undo that operation.}
 \enum{The first half of the {\it approximate, then take a limit\/} strategy:
-replace a slowly varying quantity (the fuzzing factor $f_n$) by a constant.
+replace a slowly varying quantity (the fuzzing factor $f_n$) by a constant --
+after checking that the term thrown away really is small.
 The second half -- refining the approximation with a limit -- arrives in the
 chapter on Differential Calculus.}
 \endEnum

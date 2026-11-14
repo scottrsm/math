@@ -18,7 +18,7 @@
         - ps2pdf main.ps  (giving main.pdf)
         - cp main.pdf to pdf/essential_calculus.pdf
 
-    - Finally, update the PDF hash files in tex/ (the hashes bind to the
+    - Finally, update the PDF hash files in this directory (the hashes bind to the
       exact PDF bytes, so they must be regenerated after EVERY rebuild of
       pdf/essential_calculus.pdf). Run from this directory:
         - sha256sum pdf/essential_calculus.pdf | awk '{print $1}' | fold -w2 | sed 's/^/ 0x/' > essential_calculus_pdf_sha256.txt

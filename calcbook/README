@@ -1,7 +1,7 @@
 OVERVIEW:
 
 This document describes the project files used to produce two versions of the file essential.pdf
-The project is version controled using git. The backup git repository is at /Volumes/Store/calcbook.
+The project is version controled using git. 
 
 PROJECT MANIFEST:
 
@@ -62,7 +62,7 @@ util/
 
 
 ## Mathematica notebook which has the figures used in the book.
-calculus.nb   
+calcbook.nb   
 
 
 ## Finished Papers

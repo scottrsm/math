@@ -62,22 +62,22 @@ $f$ from $a$ to $b$ ($a<b$)\footnote{\kern 0.5pt \raise 0.5ex \hbox{\ddag}}%
 : $\int_a^b f(s) \, ds$.
 You can think of the graph as the outline of 
 fine dust in a very narrow rectangular glass container. If we shift the dust around so that the dust
-is level with height, say $h$, we must have (since the area of the dust is conserved)
+is level with height, say $H$, we must have (since the area of the dust is conserved)
 $$
 \eqalign {
-\int_{a}^b f(s) \, ds & = h\,  (b - a) \cr
+\int_{a}^b f(s) \, ds & = H\,  (b - a) \cr
 }
 $$
 If $m$ and $M$ are the minimum and maximum values that $f$ takes on 
-in the interval $[a,b]$, then $m \le h \le M$. It turns out that continuous functions have 
+in the interval $[a,b]$, then $m \le H \le M$. It turns out that continuous functions have 
 the property that they attain all intermediate values. That is, if $f$ is a continuous 
 function which hits the values $m$
-and $M$ over the interval $[a,b]$, then for any $ m \le h \le M$ there exists a value 
-$\mu \in [a,b]$ such that $f(\mu) = h$. Collecting these ideas we have:
+and $M$ over the interval $[a,b]$, then for any $ m \le H \le M$ there exists a value 
+$\mu \in [a,b]$ such that $f(\mu) = H$. Collecting these ideas we have:
 
 \proclaim Theorem(\index{Intermediate Value Theorem}). If $f$ is a \index{continuous function} on the interval $[a, b]$ attaining values
-$m$ and $M$ with $m \le M$, then for any \index{intermediate value} $h$ with $m \le h \le M$ 
-there exists a value $\mu \in [a,b]$ such that $h = f(\mu)$.
+$m$ and $M$ with $m \le M$, then for any \index{intermediate value} $H$ with $m \le H \le M$ 
+there exists a value $\mu \in [a,b]$ such that $H = f(\mu)$.
 
 \proclaim Theorem(\index{Mean Value Theorem}). If $f$ is a continuous function on the interval $[a,b]$,
 then there exists a value, $\mu \in [a,b]$, such that
@@ -285,13 +285,13 @@ $$
 f(x) - f(a) &= f'(a) (x - a) + f''(a) {(x - a)^2 \over 2} + \int_a^x f^{(3)}(\mu_3) {(s-a)^2 \over 2}\, ds \cr
 }
 $$
-As an \index{anti-derivative} of $(s-a)^2/2$ is ${(s-a)^3 \over 3 * 2}$, the above becomes
+Pulling the constant $f^{(3)}(\mu_3)$ outside of the integral, the above becomes
 $$
 \eqalign{
 f(x) - f(a) &= f'(a) (x - a) + f''(a) {(x - a)^2 \over 2} + f^{(3)}(\mu_3) \int_a^x {(s-a)^2 \over 2}\, ds \cr
 }
 $$
-Which is
+As an \index{anti-derivative} of $(s-a)^2/2$ is ${(s-a)^3 \over 3 * 2}$, this is
 $$
 \eqalignno{
 f(x) &= f(a) + f'(a) (x - a) + f''(a) {(x - a)^2 \over 2} + f^{(3)}(\mu_3) {(x-a)^3 \over 3 * 2} & (4) \cr
@@ -314,9 +314,12 @@ $$
 where $\mu$ is a function such that $\mu(x) \in [a,x]$.
 
 Notice what this theorem says: from the values of $f$ and its derivatives at
-the {\it single\/} point $a$, we can rebuild $f$ across the whole interval.
-This is the same game we have been playing since the discrete chapters:
-reconstruct the whole from its rates of change at a single point.
+the {\it single\/} point $a$, we can build a polynomial that approximates $f$
+across the whole interval -- and the last term tells us how far off the
+approximation can be. We do not know the value $\mu(x)$, but we rarely need
+it: a bound on the size of $f^{(n)}$ over the interval is enough to fence in
+the error. This is the same game we have been playing since the discrete
+chapters: reconstruct the whole from its rates of change.
 
 Our derivations for Taylor's Theorem in the cases $n=2$ and $n=3$ are not correct 
 since we assumed at each stage that the various ``$\mu$'' were the 

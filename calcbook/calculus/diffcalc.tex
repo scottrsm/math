@@ -90,7 +90,11 @@ You need
 only compare the value of
 the function to maximize at these points and at the end points
 of the interval over which you are searching for a maximum. This, in general,
-should be a small number of points. See the figures below.
+should be a small number of points. (If the graph has a sharp corner -- a
+point where the level can teeter and no single tangent exists; we will meet
+one shortly -- that point must be added to the list of candidates as well.
+The smooth functions of our examples have no such points.)
+See the figures below.
 \epsfigure{eps/humpfunc.eps}{Find the maximum of 
 $f(x)$ on the interval [0,4]}
 \epsfigure{eps/humpfunc2.eps}{Find the maximum of 
@@ -174,7 +178,7 @@ Therefore,
 the steepness at a point on the graph of a function $f$ at $x$ is the 
 slope of the line tangent to the graph of $f$ at $x$. Let's formalize this.
 
-\proclaim Definition Steepness. The steepness of a function $f$ at $x$ is
+\proclaim Definition(Steepness). The steepness of a function $f$ at $x$ is
 the slope of the line tangent to the graph of $f$ at $x$ 
 (provided the tangent exists).
 
@@ -317,7 +321,8 @@ We list a few examples of functions with points on their graphs
 where the tangent line does not exist. 
 \epsfigure{eps/discount.eps}%
 {This function does not have a \index{tangent line} at $(5,f(5))$.
-All of the possible approximating slopes tend to $\infty$ -- not a number.}
+The approximating slopes taken from the left tend to $\infty$ -- not a number --
+while those taken from the right are all $0$.}
 \epsfigure{eps/oscillating.eps}%
 {The function ${\rm Osc}(x) = \cases{x \sin(1/x) & if $x \neq 0$ \cr
 0 & if $x = 0$\cr}$
@@ -341,6 +346,12 @@ We say that we {\it \index{differentiate}\/} $f$ to get $f'$.
 We will also write $(f(x))^\prime$ to denote $f'(x)$ when $f$ is represented by an expression, or if it is more readable.
 For instance, $(g(x) h(x))^\prime$ means the derivative of the function represented by the expression of $g$ times $h$
 evaluated at $x$.
+
+One more piece of notation. The {\it operation\/} of differentiation -- the thing that takes in a function $f$ and
+hands back the function $f'$ -- is often written $d/dx$, as in ${d \over dx} f(x) = f'(x)$; when the input
+variable is a time $t$ one writes $d/dt$. It is the continuous counterpart of the symbol $\Delta$, which takes
+in a sequence and hands back its difference sequence. We will mostly use the prime, but $d/dx$ and $d/dt$ are the
+names we use for the operation in the tables that compare the discrete and continuous calculus.
 
 \section{Recap}
 
@@ -443,7 +454,7 @@ show that the derivative does not exist when $x=0$ according to our definition.
 Let $h_n = 1/n$ and try to take  the limit of $\frac{f(0 + h_n) - f(0)}{h_n}$.
 This is $\lim_{n\rightarrow \infty} (1/n - 0)/(1/n)$, since $h_n > 0$;  which is $\lim_{n\rightarrow \infty} 1 = 1$.
 Now let's try a different sequence converging to zero. Let $h_n = -1/n$, then
-$\lim_{n\rightarrow \infty} \frac{f(0+ h_n) - f(0)}{h_n} = (1/n - 0)/(-1/n)$, since $h_n < 0$; this is
+$\lim_{n\rightarrow \infty} \frac{f(0+ h_n) - f(0)}{h_n} = \lim_{n\rightarrow \infty} (1/n - 0)/(-1/n)$, since $h_n < 0$; this is
 $\lim_{n\rightarrow\infty} -1 = -1$. Since different \index{sequence}s converging to $0$ provide different
 limiting slopes, the derivative does not exist for this $f$ at $0$.
 
@@ -574,7 +585,7 @@ $$
 
 This follows from the previous theorem and mathematical induction.\footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}{See the appendix ``Mathematical Induction''.}
 The theorem and corollary say that the operation of differentiation is linear. This is directly analogous to the linearity
-result for the \index{difference operation}, $\Delta$, of chapter 1. In effect, differentiation (like differencing)
+result for the \index{difference operation}, $\Delta$, of chapter 2. In effect, differentiation (like differencing)
 passes through constants and sums. In the language of the preface, this is
 the {\it exploit linearity\/} move on the continuous board: to differentiate
 a complicated function, break it into pieces you can differentiate, and add
@@ -970,7 +981,9 @@ Why should the trigonometric functions join our base collection? Because
 they are the functions that {\it oscillate\/} -- and nature is full of
 oscillation: a weight bobbing on a spring, a pendulum swinging, alternating
 current in a wire. At the close of the chapter on differential equations we
-will meet the equation of the swinging pendulum, $x'' + x = 0$, and check
+will meet the equation of a weight bobbing on a spring -- and of a pendulum
+making small swings -- $x'' + x = 0$ (here $x''$ denotes the derivative of
+$x'$), and check
 that sine and cosine are the functions that solve it; to be ready for that
 we need their derivatives now.
 
@@ -1135,7 +1148,7 @@ distance function
 gives a maximum height of $80^2/(2 * 32) = 6400/64 = 100$ feet. 
 
 Where did this distance function come from? Can we derive this formula 
-ourselves with what we know? The answer is yes. The earth's gravitation pull 
+ourselves with what we know? The answer is yes. The earth's gravitational pull
 is constant. This is what Galileo observed: acceleration is constant for 
 any object. For our ball this means
 $$
@@ -1181,7 +1194,8 @@ flat points.}
 \enum{{\it Extended\/} this class to a much larger one by finding formulas for the derivative of 
 linear combinations, products, division, or composition of functions we already know how to differentiate.}
 \enum{Now finding the maximum of a {\it nice\/} function can be found from a handful of candidate values:
-the end points and the points where $f'(x) = 0$ -- {\bf this is often easy\/}.}
+the end points and the points where $f'(x) = 0$ (together with any sharp corners, where
+$f'$ fails to exist) -- {\bf this is often easy\/}.}
 \endEnum
 
 Finally, notice that this whole chapter has been the {\it same game, bigger

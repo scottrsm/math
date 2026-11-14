@@ -18,8 +18,8 @@ additions to produce one number should make us pause: is there a shortcut?
 There is, and it comes from remembering where the velocities came from. Each
 $v_n$ was computed from a {\it difference\/} of odometer readings,
 $v_n = \Delta x_n / h$; so $v_n \, h = \Delta x_n$, where
-$\{x_n\}_{n=0}^{N}$ is the odometer data (this time starting the count at
-$0$, the morning reading). The distance traveled over the $i^{\rm th}$
+$\{x_n\}_{n=0}^{N}$ is the day's odometer data (this time starting the count at
+$0$, the first reading of the day). The distance traveled over the $i^{\rm th}$
 interval is $x_{i+1} - x_i$, and the total distance for the day is the sum
 of all of these. In mathematical terms, this would be written:
 $$
@@ -37,13 +37,17 @@ We say that such a sum is a
 \index{telescoping sum}; the sum acts like a collapsible telescope.
 And there is the crime lab's shortcut, in full: because the summands are
 differences, the million additions collapse to a single subtraction -- the
-evening odometer reading minus the morning one, $x_N - x_0$.%
+last odometer reading of the day minus the first, $x_N - x_0$.%
 \footnote{\kern 0.5pt \raise 0.5ex \hbox{\dag}}%
 {Strictly speaking, the lab holds the ``fuzzed'' disk data of chapter 1,
-$d_n = x_n f_n$, not the odometer data itself; each velocity was recovered
-as $v_n \approx \Delta d_n / (F\, h)$. The shortcut is the same: the million
-additions collapse to the single subtraction $(d_N - d_0)/F$, which
-approximates the true difference $x_N - x_0$.}
+$d_n = x_n f_n$, not the odometer data itself. The shortcut survives: the
+differences of the disk data telescope in exactly the same way,
+$\sum_{n=0}^{N-1} \Delta d_n = d_N - d_0$. And because the trip odometer
+starts each day at zero, $x_0 = 0$ and so $d_0 = 0$; the day's distance is
+then $x_N = d_N / f_N$ -- one division by the value of the fuzzing factor at
+the end of the day. (Over a whole day $f_n$ drifts too much to be treated
+as the single constant $F$ of chapter 1; that approximation was only good
+over the few hours around the robbery.)}
 
 \section{Fundamental Theorem of Difference Calculus}
 Previously, we introduced a notation to describe sequences and their differences; now, since we are talking 
@@ -79,7 +83,20 @@ $\sum_{n=0}^{N-1} v_n = \sum_{n=0}^{N-1} \Delta x_n  = x_{N} - x_0$. The
 tricky part, of course, is finding the sequence $\{x_n\}_{n=0}^N$ 
 whose difference is $\{v_n\}_{n=0}^{N-1}$. 
 
-In later chapters we will introduce a notion of ``infinitesimal'' differences 
+The relationship between summing and differencing runs in the other
+direction as well. Given {\it any\/} sequence $\{v_n\}_{n=0}^{\infty}$, form
+its {\it running sum\/}: $s_0 = 0$ and $s_n = \sum_{k=0}^{n-1} v_k$ for
+$n \ge 1$. Then $s_{n+1}$ is just $s_n$ with one more term, $v_n$, added on;
+that is,
+$$
+\Delta s_n = s_{n+1} - s_n = v_n
+$$
+So differencing undoes summing, just as summing undoes differencing; and
+every sequence has a sequence whose difference it is -- its running sum.
+Of course, the running sum is only a {\it name\/} for the answer; the work
+lies in finding a formula for it.
+
+In later chapters we will introduce a notion of ``infinitesimal'' differences
 and ``continuous'' sums which will have a similar relationship. 
 The corresponding theorem is the ``Fundamental Theorem of Calculus''. 
 It is the cornerstone of calculus and it is a generalization of the
@@ -406,6 +423,7 @@ of our discrete tools has a continuous counterpart.
 $\Delta$ (difference)&$d/dx$ (derivative)\cr
 $\sum$ (summation)&$\int$ (integral)\cr
 FTDC&Fundamental Theorem of Calculus\cr
+$\Delta$ of a running sum returns the sequence&derivative of an area function returns the function\cr
 Discrete Product Rule&Product Rule\cr
 Summation by Parts&Integration by Parts\cr
 }}}

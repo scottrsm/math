@@ -100,7 +100,7 @@ velocity function but have been added so that the distance traveled can be
 seen geometrically as the {\it area under the velocity graph\/}. The distance 
 over the interval $[0,8]$ is the sum of the areas of each of the boxes in 
 the figure below. That is, 
-$x(t_8) - x(t_0) = 30 * 2 + 60 * 2 + 40 * 2 + 80 * 2 = 420$.
+$x(8) - x(0) = 30 * 2 + 60 * 2 + 40 * 2 + 80 * 2 = 420$.
 \epsfigure{eps/pwint.eps}{Piecewise constant velocity.}
 The corresponding graph of the distance function, $x$, appears below.
 \epsfigure{eps/pwintd.eps}{Piecewise linear distance function.}
@@ -270,8 +270,8 @@ To implement this program, note that each interval
 will have length $h_N = (b-a)/N$. Let $F$ be a sequence 
 (we use the same name as the function) whose 
 $n^{\rm th}$ element, 
-$F_n$,  is the value of left 
-end point of the $n^{\rm th}$ interval (intervals are labeled starting at zero). 
+$F_n$,  is the value of $F$ at the left
+end point of the $n^{\rm th}$ interval (intervals are labeled starting at zero).
 That is, $F_n = F(t_n)$ where $t_n$ represents the left end point of the
 $n^{\rm th}$ interval; i.e., $t_n = a + n \, h_N$.
 Notice that
@@ -492,8 +492,8 @@ Integration by parts gives us:
 $$
 \eqalign{
 \int_0^{\pi/2} \obrace{x\mathstrut}{$f(x)$} \obrace{\sin(x)}{$g'(x)$} \, dx &= 
-\obrace{\bigl((\pi/2) * (-\cos(\pi/2)) \; - \; 0  * (-\cos(0))\bigr)}{$f(\pi/2)  g(\pi/2) \;-\; f(0)  g(0)$} - \int_0^{\pi/2} \obrace{x'}{$f'(x)$} \obrace{-\cos(x)}{$g(x)$} \, dx   \cr
-&= - \int_0^{\pi/2} -\cos(x)\, dx =  \int_0^{\pi/2} \cos(x)\, dx = \sin(\pi/2) \;-\; \sin(0) \cr
+\obrace{\bigl((\pi/2) * (-\cos(\pi/2)) \; - \; 0  * (-\cos(0))\bigr)}{$f(\pi/2)  g(\pi/2) \;-\; f(0)  g(0)$} - \int_0^{\pi/2} \obrace{x'}{$f'(x)$} \obrace{\bigl(-\cos(x)\bigr)}{$g(x)$} \, dx   \cr
+&= - \int_0^{\pi/2} \bigl(-\cos(x)\bigr)\, dx =  \int_0^{\pi/2} \cos(x)\, dx = \sin(\pi/2) \;-\; \sin(0) \cr
 &= 1
 }
 $$
@@ -565,8 +565,29 @@ We can write the value down in our notation as: $A(x) = \int_0^x e^{-s^2} \, ds$
 However, there is no formula for this function in terms of powers of 
 $x$, logarithmic, exponential, or trig functions because there is no formula for an anti-derivative of $e^{-x^2}$. 
 The integral (the area under the graph)
-exists; that is, the function $A(x)$ is a valid function -- there is just no formula for it. See the 
+exists; that is, the function $A(x)$ is a valid function -- there is just no formula for it. See the
 appendix ``Functions, Formulas, Graphs, and Notation'' for other examples of functions without formulas.
+
+Why can we be sure that a continuous function $f$ always {\it has\/} an anti-derivative, formula or not?
+The discrete board shows the way. In chapter 2 we saw that every sequence $v$ has an anti-difference -- its
+running sum, $s_n = \sum_{k=0}^{n-1} v_k$ -- because $\Delta s_n = s_{n+1} - s_n = v_n$: the running sum
+grows by exactly the next term. The continuous twin of the running sum is the {\it area function\/}
+$$
+A(x) = \int_a^x f(s) \, ds
+$$
+How fast does it grow? Moving from $x$ to $x + h$ adds a thin strip of area:
+$A(x+h) - A(x) = \int_x^{x+h} f(s)\, ds$. For small $h$ this strip is very nearly a rectangle of width $h$
+and height $f(x)$ -- because $f$ is continuous, it hardly changes across the strip -- so
+$$
+{A(x+h) - A(x) \over h} \approx f(x)
+$$
+with the approximation becoming exact in the limit. That is, $A'(x) = f(x)$: the area function is an
+anti-derivative of $f$. (The Mean Value Theorem of the next chapter makes the strip argument precise: the
+strip's area is {\it exactly\/} $f(\mu)\, h$ for some $\mu$ between $x$ and $x+h$.) So the inverse
+relationship runs in both directions. Integrating a derivative returns the function, up to its values at
+the end points -- that is the Fundamental Theorem -- and differentiating an integral, viewed as a function
+of its upper end point, returns the integrand. As on the discrete board, though, the area function is only
+a {\it name\/} for an anti-derivative; whether a formula for it can be found is another matter.
  
 \section{Summary}
 The \index{fundamental theorem of calculus} can be stated succinctly:  
@@ -604,6 +625,7 @@ differences, and sums. Here is the dictionary:
 $\Delta$&$d/dx$\cr
 $\sum$&$\int$\cr
 Fundamental Theorem of Difference Calculus (telescoping)&Fundamental Theorem of Calculus\cr
+running sum: $\Delta \sum_{k=0}^{n-1} v_k = v_n$&area function: ${d \over dx} \int_a^x f(s)\, ds = f(x)$\cr
 Summation by Parts&Integration by Parts\cr
 anti-difference&anti-derivative\cr
 }}}
