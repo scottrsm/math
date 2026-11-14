@@ -20,8 +20,10 @@
 }
 
 \vskip 0.75in
-{\hsize=8.5in \hoffset=0.0in
-\hfil \epsfbox{eps/cover.eps} \hfil}
+% Scale the cover art to the width of the text block (it is naturally
+% wider than the page, which gave an overfull box and ran off the right edge).
+\epsfxsize=\hsize
+\line{\hfil \epsfbox{eps/cover.eps}\hfil}
 \vfil
 \supereject
 
