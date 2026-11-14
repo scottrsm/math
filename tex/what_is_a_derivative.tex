@@ -18,7 +18,7 @@
 
 \section{Derivative of a Function, $f: R\rightarrow R$}
 The derivative of a function, $f : R \rightarrow R$ is a linear approximation to
-a function. By placing a straight-edge up against the graph of a function at
+the {\em change\/} in the function near a point. By placing a straight-edge up against the graph of a function at
 a point we get not just any approximation but the ``best''{} one. Meaning,
 we could do no better with any other linear approximation. So, the error
 from this approximation should be higher order than linear. More specifically,
@@ -49,7 +49,7 @@ Again, this says nothing more than a linear function, $L$, can be completely det
 by its slope, $a_L$.
 
 For the linear function $Df(x)$ the associated scalar value we label $f^\prime(x)$
-and call it --as an abuse of language -- the derivative of $f$ at $x$.
+and call it -- as an abuse of language -- the derivative of $f$ at $x$.
 To compute this scalar value we use the definition, \eqref{simderdef}, at a point $x$:%
 \footnote{A convention used here and throughout: $o(h)$ denotes a
 {\em generic\/} higher-order term, possibly a different function from line
@@ -188,20 +188,20 @@ polar coordinates and the function ${\tilde f}$ is written using these coordinat
 the components of the gradient of $f$ in the $(\hat r, \hat\theta)$ basis are
 $\left[\frac{\partial {\tilde f}}{\partial r}, \frac{1}{r} \frac{\partial {\tilde f}}{\partial \theta}\right]$.
 
-{\bf Note.} The ``local'' direction of maximum increase at a point of the
-$f({\bf x})$ is given by the gradient of $f$. To see this notice that we can
-discuss direction of a vector in a unique sense by normalizing it to be of unit length.
-That is, we can speak of a vector's direction as its unit vector.
-
 {\bf Question.} In which direction should we perturb a given point ${\bf x}$ so as
-to increase $f$ as much as possible? That is, find a direction, ${\bf w}$ (unit vector),
-so that for all small enough steps $h > 0$, $f({\bf x} + h{\bf w})$ is at least
-as large as $f({\bf x} + h{\bf u})$ for every other unit vector ${\bf u}$.
-We claim that -- provided $\nabla f({\bf x}) \neq {\bf 0}$ -- the direction of
-maximum increase (locally) is $\nabla f({\bf x})$ (normalized).
+to increase $f$ as fast as possible? We can speak of a direction in a
+unique sense by normalizing: a direction is a vector of unit length.
+Moving from ${\bf x}$ a small step $h > 0$ in the direction of a unit
+vector ${\bf w}$ changes $f$ by
 \begin{align}
   f({\bf x} + h {\bf w})  - f({\bf x}) &= \nabla f({\bf x}) \cdot h {\bf w} + o(h {\bf w})
 \end{align}
+To first order in $h$, then, the change is $h \, \nabla f({\bf x}) \cdot {\bf w}$:
+the {\em rate\/} of increase of $f$ in the direction ${\bf w}$ is
+$\nabla f({\bf x}) \cdot {\bf w}$. So the question becomes: which unit
+vector ${\bf w}$ makes this rate as large as possible?
+We claim that -- provided $\nabla f({\bf x}) \neq {\bf 0}$ -- the direction of
+maximum increase (locally) is $\nabla f({\bf x})$ (normalized).
 But the Cauchy-Schwarz inequality%
 \footnote{For a proof of the Cauchy-Schwarz inequality -- derived from the
 projection problem that gives birth to the dot product itself -- see the
@@ -231,7 +231,7 @@ This might be hard in general -- true also in the scalar case from the previous
 section.
 How might one go about finding the minimum value of a function, $f({\bf x})$
 when solving for $\nabla f({\bf x}) = {\bf 0}$ is too hard?
-We know that at any point $x$, the ``local''{} direction to move to decrease $f$
+We know that at any point ${\bf x}$, the ``local''{} direction to move to decrease $f$
 as much as possible is to move along the direction of the negative gradient.
 This suggests an iterative scheme -- known as {\em gradient descent\/} --
 for finding the minimum.
@@ -265,6 +265,9 @@ numerically at each step -- iterative schemes like the one above are used
 to find solutions to sophisticated optimization problems.
 Gradient descent and its variants are also the workhorses used to train
 deep neural networks.
+Two cautions: the step size $\eta$ must be small enough, or the iteration
+can overshoot and diverge; and what the scheme finds is a point where the
+gradient (nearly) vanishes -- which may be only a {\em local\/} minimum.
 
 
 \section{Extension to $f:R^n \rightarrow R^m$}
@@ -286,13 +289,14 @@ be represented by a matrix once coordinates have been chosen.
 
 Using \eqref{mderdef} one can derive a representation of the derivative 
 using functions 
-commensurate with a choice of basis vectors, ${\bf e}_i \quad i \in [1, n]$. Given
-this choice of basis, let ${\tilde f}_j$ be the coordinate functions for ${\bf f}$.
+commensurate with a choice of basis vectors for $R^n$, ${\bf e}_i \quad i \in [1, n]$,
+and a choice of basis for $R^m$. Given
+these choices, let ${\tilde f}_j$ be the coordinate functions for ${\bf f}$.
 We claim without proof that the matrix representing the derivative is the
 {\em Jacobian\/} $[{\bf Df}({\bf x})]$, an $m \times n$ matrix whose
 $(i, j)$ entry (row $i$, column $j$) is:
 \begin{align}
-  [{\bf Df}({\bf x})]_{i,j} &= \frac{\partial {\tilde {\bf f}}_i}{\partial x_j}
+  [{\bf Df}({\bf x})]_{i,j} &= \frac{\partial {\tilde f}_i}{\partial x_j}
 \end{align}
 That is, row $i$ corresponds to the $i^{\rm th}$ output component
 $\tilde f_i$, and column $j$ corresponds to the $j^{\rm th}$ input variable
@@ -326,7 +330,8 @@ sense here, we need a derivative for functions {\em of functions\/}.
 
 Consider, then, the general shape of such a path-to-number rule:
 $J(y) = \int_{a}^b F(x, y(x), y^\prime(x)) \, dx$. $J$ is
-a function from a {\em function space\/}, $H$, to $R$; that is, $J: H \rightarrow R$.
+a function from a {\em function space\/}, $H$ -- say, the smooth functions on
+$[a,b]$ -- to $R$; that is, $J: H \rightarrow R$.
 This is similar to functions,
 $f:R^n \rightarrow R$, but where $n$ is infinity. One can show that, for instance, the
 functions $\{\sin(n\, x)\}_{n=1}^\infty$ are linearly independent; therefore,
@@ -408,7 +413,7 @@ dot product for vectors. It is a different inner product than the one we just de
 Going back to the problem at hand we note that there is
 a {\em representation\/} result for linear functions on our function space,
 $H$ -- technically, for a Hilbert space.
-All linear functions\footnote{There are some details we won't bother with.}, also called
+All {\em continuous\/} linear functions\footnote{Continuity is essential in infinite dimensions; there are further details we won't bother with.}, also called
 functionals, which map the function space to $R$
 can be represented by a function in the function space
 -- a generalization of $R^n$. In $R^n$ we found functionals could be
@@ -522,7 +527,7 @@ continuity; then $\int_a^b g\, h \, dx \neq 0$ -- a contradiction. Note that
 the earlier uniqueness argument -- setting $h = \nabla J(y) - w$ -- is no
 longer available here, since that particular $h$ need not vanish at the
 endpoints.)
-With this choice of $h$,
+With this restriction on $h$,
 equation \eqref{rinfder} becomes:
 \begin{align}
   \langle \nabla J(y), h \rangle  &= \int_a^b F(x, (y+h)(x), (y^\prime + h^\prime)(x) )\, dx
@@ -575,13 +580,15 @@ action is the zero function. The integrand $F$ of the action is called the
 {\em Lagrangian\/}; for a mechanical system it is the kinetic energy minus
 the potential energy.
 For a mass attached to a spring (with $y$ measuring displacement from the
-equilibrium position, so any constant gravitational potential drops out
-and the Lagrangian reduces to kinetic minus elastic potential energy)
+equilibrium position: gravity is then absorbed -- its potential, linear in
+the displacement, cancels against the spring's stretch at equilibrium,
+leaving only a constant -- and the Lagrangian reduces to kinetic minus
+elastic potential energy)
 the action is%
 \footnote{We replace the ``dummy''{} variable $x$ in our equations with $t$.}
 \begin{align}
-  J(y) &= \int_0^T \overbrace{\frac{1}{2} m {y^\prime(t)}^2}^{\text{Kinetic Energy}} 
-                    - \overbrace{\frac{1}{2}  k y(t)^2}^{\text{Potential Energy}}\, dt
+  J(y) &= \int_0^T \biggl( \overbrace{\frac{1}{2} m {y^\prime(t)}^2}^{\text{Kinetic Energy}} 
+                    - \overbrace{\frac{1}{2}  k y(t)^2}^{\text{Potential Energy}} \biggr) \, dt
 \end{align}
 In this case, the Lagrangian is
 $F(t, y, y^\prime) = \frac{1}{2} m {y^\prime}^2 - \frac{1}{2} k y^2 $.
@@ -604,8 +611,9 @@ Or,
 \begin{align}
   m y^{\prime\prime}(t) + k y(t) = 0
 \end{align}
-Pause on what just happened: this is exactly Newton's second law, $F = ma$,
-for the Hooke spring force $F = -k\,y$. The new machine -- action,
+Pause on what just happened: this is exactly Newton's second law -- mass
+times acceleration equals force, $m\, y^{\prime\prime} = -k\, y$ -- for the
+Hooke spring force $-k\,y$. The new machine -- action,
 representative, Euler--Lagrange -- reproduces the answer the reader
 already owns, which is how one learns to trust a new tool.
 
@@ -627,7 +635,7 @@ representative you can compute with. Only the board changed:
 
 \begin{center}
 \begin{tabular}{l|l|l|l}
-{\bf Function} & {\bf Representative} & {\bf Pairing} & {\bf ``Set it to zero''} \\
+{\bf Function} & {\bf Representative} & {\bf Pairing} & {\bf Application} \\
 \hline
 $f: R \rightarrow R$ & slope $f^\prime(x)$ & multiplication & critical points (the box) \\
 $f: R^n \rightarrow R$ & gradient $\nabla f({\bf x})$ & dot product & gradient descent \\
