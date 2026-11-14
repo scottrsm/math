@@ -39,11 +39,12 @@ density function of a random variable $Y$ which is a singular function of a
 random variable $X$. By singular, we mean that $Y = f(X)$ with $f$ a function
 such that $f: {\bf R}^n \to {\bf R}^m$ and $m < n$.
 
-\proclaim Theorem 1. Let $f : {\cal D} \subset {\bf R}^n \to {\bf R}^m$ be a continuously
+\proclaim Theorem 1. Let ${\cal D} \subset {\bf R}^n$ be an open set and let
+          $f : {\cal D} \to {\bf R}^m$ be a continuously
           differentiable function with $n > m$, such that $Df({\bf x})$ has
-          rank $m$ for all ${\bf x} \in {\cal D}$, and let $P_X$ be a
-          continuous probability density function of the random variable $X$
-          which vanishes outside ${\cal D}$. Then each nonempty level set
+          rank $m$ for all ${\bf x} \in {\cal D}$. Let $X$ be a random variable
+          which lies in ${\cal D}$ with probability $1$ and whose probability
+          density function, $P_X$, is continuous on ${\cal D}$. Then each nonempty level set
           $f^{-1}({\bf y})$ is an $(n-m)$-dimensional $C^1$ manifold, and the
           random variable $Y = f(X)$ has a density $P_Y$ given for almost
           every ${\bf y}$ by the surface integral
@@ -59,18 +60,24 @@ where $dS$ denotes $(n-m)$-dimensional surface measure on $f^{-1}({\bf y})$.
 If, in addition, the integral in (1) converges locally uniformly in ${\bf y}$,
 then this version of $P_Y$ is continuous and (1) holds for every ${\bf y}$.
 
+Note that ${\cal D}$ need not be all of ${\bf R}^n$: it may omit any closed
+set which $X$ avoids with probability $1$. This is what lets the theorem
+cover the examples below, where the omitted set is the place $f$ is undefined
+or its derivative loses rank -- the line $x_2 = 0$ for the ratio $x_1/x_2$,
+the origin for a sum of squares.
+
 For computation we use a parameterized form of (1). If $f^{-1}({\bf y})$ is
 covered -- up to a set of surface measure zero -- by $k({\bf y})$ disjoint
-injective $C^1$ parameterizations ${\bf x}_i(\mu ; {\bf y}), \;
+injective $C^1$ parameterizations ${\bf r}_i(\mu ; {\bf y}), \;
 i\in[1,k({\bf y})], \; \mu \in \Omega_i \subset {\bf R}^{n-m}$, then (1)
 becomes
 
 $$
 \eqalignno{
 P_Y({\bf y}) & = \sum_{i=1}^{k({\bf y})} \int_{\Omega_i}
-{P_X({\bf x}_i(\mu; {\bf y})) \over \sqrt{\left|Df({\bf x}_i(\mu; {\bf y})) \;
-Df^T({\bf x}_i(\mu; {\bf y}))\right|}}
-\; \sqrt{\left|D_{\mu} {\bf x}_i^T(\mu; {\bf y}) \; D_{\mu}{\bf x}_i(\mu; {\bf y})\right|}
+{P_X({\bf r}_i(\mu; {\bf y})) \over \sqrt{\left|Df({\bf r}_i(\mu; {\bf y})) \;
+Df^T({\bf r}_i(\mu; {\bf y}))\right|}}
+\; \sqrt{\left|D_{\mu} {\bf r}_i^T(\mu; {\bf y}) \; D_{\mu}{\bf r}_i(\mu; {\bf y})\right|}
 \; d \mu & (2) \cr
 }
 $$
@@ -129,7 +136,7 @@ minimization problem is:
 $$
 \min_{\bf x} F({\bf x}) = \min_{\bf x} \|{\bf x}\|^2 + \langle\lambda, {\bf y} - A{\bf x}\rangle
 $$
-At a minimum, ${\bf x}^*$, $DF({\bf x}^*) ({\bf h}) = {\bf 0}$. 
+At a minimum, ${\bf x}^*$, $DF({\bf x}^*) ({\bf h}) = 0$. 
 $DF({\bf x}^*)$ 
 can be computed from 
 $F({\bf x} + {\bf h}) = F({\bf x}) + DF({\bf x})({\bf h}) + o({\bf h})$. The order 
@@ -176,7 +183,7 @@ This says $P^TP$ acts as the identity on $R(A)$; in particular,
 $P^TP A = A$ since each column of $A$ lies in $R(A)$. The change in volume
 of the unit cube under $PA$ is the same as under $A$ since $P$ preserves
 volumes. However, $PA$ is a map from ${\bf R}^n$ to ${\bf R}^n$, so it changes
-the volume of the unit cube by $|PA|$. Since for given transformations
+the volume of the unit cube by the absolute value of the determinant $|PA|$. Since for given transformations
 $B, C: {\bf R}^n \to {\bf R}^n$ we have $|B^T| = |B|$ and $|BC| = |B|\,|C|$,
 it follows that
 $|PA|^2 = |PA|\,|PA| = |A^TP^T|\,|PA| = |A^TP^TPA| = |A^TA|$,
@@ -253,14 +260,9 @@ $$
 \sqrt{ |Df({\bf x}({\bf y}, {\bf x}_2)) Df^T({\bf x}({\bf y}, {\bf x}_2))| } }
 \, d{\bf x}_2 \, d{\bf y}.
 $$
-The integral above exhibits a Lebesgue density for $\nu$, so $\nu$ is absolutely
-continuous with respect to Lebesgue measure%
-\ftn{The existence of the density is the Radon--Nikodym theorem. Since
-Lebesgue measure is regular, the identity extends from Borel sets to all
-Lebesgue measurable sets.}
-and there exists a measurable function $P_Y({\bf y})$ such that
-$\nu(\Omega_Y) = \int_{\Omega_Y} P_Y({\bf y}) \, d{\bf y}$.
-So that
+The integral above exhibits a Lebesgue density for $\nu$: the inner integral,
+as a function of ${\bf y}$. Writing $P_Y({\bf y})$ for the density of $Y$, so that
+$\nu(\Omega_Y) = \int_{\Omega_Y} P_Y({\bf y}) \, d{\bf y}$, we have
 $$
 \int_{\Omega_Y} P_Y({\bf y})\, d{\bf y} =
 \int_{\Omega_Y} \int_{\Omega_{X_2}} 
@@ -289,16 +291,16 @@ P_Y({\bf y}) & =
 }
 $$
 But in this case the component manifold, $\Omega_{X_2}$, is just $f^{-1}({\bf y})$.
-If we parameterize this as ${\bf x}(\mu; {\bf y})$, then by Lemma 2 we
+If we parameterize this as ${\bf r}(\mu; {\bf y})$, then by Lemma 2 we
 have
 $$
 \eqalignno{
-P_Y({\bf y}) =
+P_Y({\bf y}) & =
 \int_{f^{-1}({\bf y})}
-{P_X({\bf x}(\mu; {\bf y})) \over
-\sqrt{ |Df({\bf x}(\mu; {\bf y})) Df^T({\bf x}(\mu; {\bf y})) | } }
-\,  \sqrt{|D_{\mu}{\bf x}^T(\mu; {\bf y})
-D_{\mu}{\bf x}(\mu; {\bf y}) | } \, d\mu
+{P_X({\bf r}(\mu; {\bf y})) \over
+\sqrt{ |Df({\bf r}(\mu; {\bf y})) Df^T({\bf r}(\mu; {\bf y})) | } }
+\,  \sqrt{|D_{\mu}{\bf r}^T(\mu; {\bf y})
+D_{\mu}{\bf r}(\mu; {\bf y}) | } \, d\mu & \cr
 }
 $$
 which is (2) with $k({\bf y}) = 1$.
@@ -320,16 +322,21 @@ We apply Theorem 1 with various types of singular mappings.
 \example{Example 1}{$y = f({\bf x}) = x_1 + x_2 \quad (f:{\bf R}^2 \to {\bf R})$}
 
 The set $f^{-1}(y)$ can be
-parameterized as ${\bf x}_1(\mu; y) = (\mu, y - \mu)^T$ with $\mu \in
+parameterized as ${\bf r}_1(\mu; y) = (\mu, y - \mu)^T$ with $\mu \in
 (-\infty, \infty)$.
 
-$ \sqrt{|D_{\mu}{\bf x}_1^T(\mu; y)
-\; D_{\mu}{\bf x}_1(\mu; y)|}
-= \|(1,-1)\| = \sqrt{2}$. 
+$$
+\sqrt{|D_{\mu}{\bf r}_1^T(\mu; y)
+\; D_{\mu}{\bf r}_1(\mu; y)|}
+= \|(1,-1)\| = \sqrt{2}
+$$
 
-Also, $\sqrt{|Df({\bf x}_1(\mu; y)) \;
-Df^T({\bf x}_1(\mu; y))|} = \| \nabla_{\bf x}
-f({\bf x}_1(\mu; y)) \| = \|(1,1)\| = \sqrt{2}$. 
+Also,
+$$
+\sqrt{|Df({\bf r}_1(\mu; y)) \;
+Df^T({\bf r}_1(\mu; y))|} = \| \nabla_{\bf x}
+f({\bf r}_1(\mu; y)) \| = \|(1,1)\| = \sqrt{2}
+$$
 
 Therefore, by Theorem 1 we have:
 
@@ -353,19 +360,26 @@ variables and no luck.
 \example{Example 2}{$y = f({\bf x}) = x_1 / x_2 \quad (f:{\bf R}^2 \to {\bf R})$}
 Here the natural domain is ${\cal D} = \{ {\bf x} \in {\bf R}^2 \mid x_2 \neq 0 \}$.
 The set $f^{-1}(y)$ can be
-parameterized as ${\bf x}_1(\mu; y) = (y\mu, \mu)^T$ with $\mu \in
+parameterized as ${\bf r}_1(\mu; y) = (y\mu, \mu)^T$ with $\mu \in
 (-\infty, 0) \cup (0, \infty)$.
+(The level set is a line through the origin with the origin removed -- two
+rays, one for each sign of $\mu$. In the notation of formula (2),
+$k(y) = 2$, and the single integral below over $\mu \neq 0$ is the sum of
+the two.)
 We label the first and second components of 
-${\bf x}_1$ as $x_{1,1}$ and $x_{1,2}$ respectively.
+${\bf r}_1$ as $r_{1,1}$ and $r_{1,2}$ respectively.
 
-$ \sqrt{|D_{\mu}{\bf x}_1^T(\mu; y)
-\; D_{\mu}{\bf x}_1(\mu; y)|} =
-\|(y,1)\| = \sqrt{1 + y^2}$. And,
+$$
+\sqrt{|D_{\mu}{\bf r}_1^T(\mu; y)
+\; D_{\mu}{\bf r}_1(\mu; y)|} =
+\|(y,1)\| = \sqrt{1 + y^2}
+$$
+And,
 
 $$
 \eqalign{
-\sqrt{|Df({\bf x}_1(\mu; y)) \; Df^T({\bf x}_1(\mu; y))|} & = \|\nabla_{\bf x}  f({\bf x}_1(\mu; y)) \| \cr
-& = \|(1/x_{1,2}(\mu; y), -x_{1,1}(\mu; y)/x_{1,2}(\mu; y)^2)\| \cr
+\sqrt{|Df({\bf r}_1(\mu; y)) \; Df^T({\bf r}_1(\mu; y))|} & = \|\nabla_{\bf x}  f({\bf r}_1(\mu; y)) \| \cr
+& = \|(1/r_{1,2}(\mu; y), -r_{1,1}(\mu; y)/r_{1,2}(\mu; y)^2)\| \cr
 & = \sqrt{1 + y^2} / |\mu|
 }
 $$
@@ -379,36 +393,44 @@ $$
 (f:{\bf R}^2 \to {\bf R})$}
 
 The set $f^{-1}(y)$ is the union of the 
-parameterizations: ${\bf x}_1(\mu; y) = (\mu, \sqrt{y - \mu^2})^T$ 
+parameterizations: ${\bf r}_1(\mu; y) = (\mu, \sqrt{y - \mu^2})^T$ 
 
 and 
-${\bf x}_2(\mu; y) = (\mu, - \sqrt{y - \mu^2})^T$ with $\mu \in
+${\bf r}_2(\mu; y) = (\mu, - \sqrt{y - \mu^2})^T$ with $\mu \in
 [-\sqrt{y}, \sqrt{y}]$.
 (The two charts overlap only at the endpoints $\mu = \pm\sqrt{y}$, a set of
 surface measure zero, as permitted by Theorem 1.)
 
-$ \sqrt{|D_{\mu}{\bf x}_1^T(\mu; y)
-\; D_{\mu}{\bf x}_1(\mu; y)|} = \|(1, -\mu/\sqrt{y - \mu^2})\| =
- \sqrt{y/(y - \mu^2)}$.
+$$
+\sqrt{|D_{\mu}{\bf r}_1^T(\mu; y)
+\; D_{\mu}{\bf r}_1(\mu; y)|} = \|(1, -\mu/\sqrt{y - \mu^2})\| =
+ \sqrt{y/(y - \mu^2)}
+$$
 
-$ \sqrt{|D_{\mu}{\bf x}_2^T(\mu; y)
-\; D_{\mu}{\bf x}_2(\mu; y)|} = \|(1, \mu/\sqrt{y - \mu^2})\| =
- \sqrt{y/(y - \mu^2)}$. 
+$$
+\sqrt{|D_{\mu}{\bf r}_2^T(\mu; y)
+\; D_{\mu}{\bf r}_2(\mu; y)|} = \|(1, \mu/\sqrt{y - \mu^2})\| =
+ \sqrt{y/(y - \mu^2)}
+$$
 
-$\sqrt{|Df({\bf x}_1(\mu; y)) \;
-Df^T({\bf x}_1(\mu; y))|} =  2 \| (\mu, \sqrt{y - \mu^2}) \|
-=  2 \sqrt{y}$.
- 
-$\sqrt{|Df({\bf x}_2(\mu; y)) \;
-Df^T({\bf x}_2(\mu; y))|} = 2 \|(\mu, -\sqrt{y - \mu^2}) \|
-= 2 \sqrt{y}$. 
+$$
+\sqrt{|Df({\bf r}_1(\mu; y)) \;
+Df^T({\bf r}_1(\mu; y))|} =  2 \| (\mu, \sqrt{y - \mu^2}) \|
+=  2 \sqrt{y}
+$$
+
+$$
+\sqrt{|Df({\bf r}_2(\mu; y)) \;
+Df^T({\bf r}_2(\mu; y))|} = 2 \|(\mu, -\sqrt{y - \mu^2}) \|
+= 2 \sqrt{y}
+$$
 
 Therefore, Theorem 1 gives:
 $$
   P_Y(y) = \cases{ \int_{-\sqrt{y}}^{\sqrt{y}}  \frac{P_{X_1 X_2}(\mu,
   \sqrt{y - \mu^2}) \; 
 + P_{X_1 X_2}(\mu, -\sqrt{y - \mu^2})}{2 \sqrt{y - \mu^2}} \, d\mu &
-  $y \ge 0$; \cr
+  $y > 0$; \cr
 0 & otherwise.}
 $$
 
@@ -416,19 +438,24 @@ $$
 \example{Example 4}{$y_1 = x_1 + x_2 + x_3 \;;\; y_2 = x_1 - x_2 \quad
   (f:{\bf R}^3 \to {\bf R}^2)$}
 The set $f^{-1}({\bf y})$ can be
-parameterized as ${\bf x}_1(\mu; y_1, y_2) = (\mu, \mu - y_2, y_1 +
+parameterized as ${\bf r}_1(\mu; y_1, y_2) = (\mu, \mu - y_2, y_1 +
 y_2 - 2\mu)^T$
 with $\mu \in
 (-\infty, \infty)$. 
 
-$ \sqrt{|D_{\mu}{\bf x}_1^T(\mu; {\bf y})
-\; D_{\mu}{\bf x}_1(\mu; {\bf y})|} =
-\|(1, 1, -2)\| = \sqrt{6}$
+$$
+\sqrt{|D_{\mu}{\bf r}_1^T(\mu; {\bf y})
+\; D_{\mu}{\bf r}_1(\mu; {\bf y})|} =
+\|(1, 1, -2)\| = \sqrt{6}
+$$
 
-And, $\sqrt{|Df({\bf x}_1(\mu; {\bf y})) \;
-Df^T({\bf x}_1(\mu; {\bf y}))|} = 
+And,
+$$
+\sqrt{|Df({\bf r}_1(\mu; {\bf y})) \;
+Df^T({\bf r}_1(\mu; {\bf y}))|} = 
 \sqrt{\left|\pmatrix{1 & 1 & 1 \cr 1 & -1 & 0\cr} 
-\pmatrix{1 & 1 \cr 1 & -1 \cr 1 & 0 \cr} \right|} = \sqrt{6} $
+\pmatrix{1 & 1 \cr 1 & -1 \cr 1 & 0 \cr} \right|} = \sqrt{6}
+$$
 
 Therefore, Theorem 1 gives:
 $$
@@ -442,23 +469,28 @@ $$
   (f:{\bf R}^4 \to {\bf R}^2)$}
 The set $f^{-1}({\bf y})$ can be
 parameterized as 
-${\bf x}_1(\mu_1, \mu_2; y_1, y_2) = (\mu_1, \mu_2, y_1 - \mu_1 - \mu_2, y_2 - \mu_1 + \mu_2)^T$ 
+${\bf r}_1(\mu_1, \mu_2; y_1, y_2) = (\mu_1, \mu_2, y_1 - \mu_1 - \mu_2, y_2 - \mu_1 + \mu_2)^T$ 
 with $\mu_1, \mu_2 \in
 (-\infty, \infty) $. 
 
-$ \sqrt{|D_{\mu}{\bf x}_1^T(\mu; {\bf y})
-\; D_{\mu}{\bf x}_1(\mu; {\bf y})|} =
+$$
+\sqrt{|D_{\mu}{\bf r}_1^T(\mu; {\bf y})
+\; D_{\mu}{\bf r}_1(\mu; {\bf y})|} =
 \sqrt{\left| \pmatrix{1 & 0 & -1 & -1 \cr 
                       0 & 1 & -1 &  1 \cr } 
 \pmatrix{1 &  0 \cr 
          0 &  1 \cr 
         -1 & -1 \cr 
-        -1 &  1 \cr} \right|} = 3$
+        -1 &  1 \cr} \right|} = 3
+$$
 
-And, $\sqrt{|Df({\bf x}_1(\mu; {\bf y})) \;
-Df^T({\bf x}_1(\mu; {\bf y}))|} = \sqrt{\left|\pmatrix{1 & 1 &
+And,
+$$
+\sqrt{|Df({\bf r}_1(\mu; {\bf y})) \;
+Df^T({\bf r}_1(\mu; {\bf y}))|} = \sqrt{\left|\pmatrix{1 & 1 &
 1 & 0 \cr 1 & -1 & 0 & 1\cr} \pmatrix{1 & 1 \cr 1 & -1 \cr 1 & 0 \cr 0
-& 1 \cr} \right|} = 3 $
+& 1 \cr} \right|} = 3
+$$
 
 Therefore, Theorem 1 gives:
 $$
@@ -473,24 +505,29 @@ $$
 This is the same function as in Example 5a. The difference in this example
 is how we parameterize the set $f^{-1}({\bf y})$.
 In this example we parameterize this set in the following way:
-${\bf x}_1(\mu_1, \mu_2; y_1, y_2) = (2\mu_1, \mu_2, y_1 - 2\mu_1 - \mu_2, y_2 - 2\mu_1 + \mu_2)^T$ 
+${\bf r}_1(\mu_1, \mu_2; y_1, y_2) = (2\mu_1, \mu_2, y_1 - 2\mu_1 - \mu_2, y_2 - 2\mu_1 + \mu_2)^T$ 
 with $\mu_1, \mu_2 \in
 (-\infty, \infty) $. 
 
 Continuing as in 5a we have:
-$ \sqrt{|D_{\mu}{\bf x}_1^T(\mu; {\bf y})
-\; D_{\mu}{\bf x}_1(\mu; {\bf y})|} =
+$$
+\sqrt{|D_{\mu}{\bf r}_1^T(\mu; {\bf y})
+\; D_{\mu}{\bf r}_1(\mu; {\bf y})|} =
 \sqrt{\left| \pmatrix{2 & 0 & -2 & -2 \cr 
                       0 & 1 & -1 &  1 \cr } 
 \pmatrix{2 &  0 \cr 
          0 &  1 \cr 
         -2 & -1 \cr 
-        -2 &  1 \cr} \right|} = 6$
+        -2 &  1 \cr} \right|} = 6
+$$
 
-And, $\sqrt{|Df({\bf x}_1(\mu; {\bf y})) \;
-Df^T({\bf x}_1(\mu; {\bf y}))|} = \sqrt{\left|\pmatrix{1 & 1 &
+And,
+$$
+\sqrt{|Df({\bf r}_1(\mu; {\bf y})) \;
+Df^T({\bf r}_1(\mu; {\bf y}))|} = \sqrt{\left|\pmatrix{1 & 1 &
 1 & 0 \cr 1 & -1 & 0 & 1\cr} \pmatrix{1 & 1 \cr 1 & -1 \cr 1 & 0 \cr 0
-& 1 \cr} \right|} = 3$
+& 1 \cr} \right|} = 3
+$$
 
 Therefore, Theorem 1 gives:
 $$
@@ -501,7 +538,7 @@ $$
 $$
 Substituting $s = 2\mu_1$ shows that this equals the result of Example 5a.
 The two parameterizations cover the same manifold, and the surface-measure
-factor $\sqrt{|D_{\mu}{\bf x}^T D_{\mu}{\bf x}|}$ exactly compensates for the
+factor $\sqrt{|D_{\mu}{\bf r}^T D_{\mu}{\bf r}|}$ exactly compensates for the
 change of parameterization: formula (2) is independent of the choice of
 charts. The answer belongs to the manifold, not to the coordinates we
 happen to lay on it -- a useful self-test the reader can apply to any
@@ -510,7 +547,7 @@ computation with formula (2).
 \example{Example 6}{$y = \sum_{i=1}^n x_i^2 \quad
   (f:{\bf R}^n \to {\bf R})$}
 We assume that the $x_i$ are independent normals with mean $0$ and variance $\sigma^2$.
-When $\sigma = 1$, $y$ has a Chi-squared distribution of order $n$.
+When $\sigma = 1$, $y$ has a Chi-squared distribution with $n$ degrees of freedom.
 We derive a generalization of this fact using our formula.
 The set $f^{-1}(y)$ is a sphere in ${\bf R}^n$ of radius $\sqrt{y}$.
 The density function of $y$ is:%
@@ -613,10 +650,17 @@ denominator is bounded away from $0$, and as $|y| \to \infty$,
 $\tau(y) \to |c\mu_1 - b\mu_2| / \sqrt{2c(ac - b^2)}$. A continuous
 function with finite limits at $\pm\infty$ is bounded.
 
-{\bf Note:} As a consequence, this distribution has no finite moments of order
-$\ge 1$. This follows since $P_Y(y)$ is $O(1/y^2)$ for large $|y|$, so $\int |y|^k P_Y(y)\, dy$
+{\bf Note:} This distribution has no finite moments of order
+$\ge 1$. The bracketed factor in the formula for $P_Y$ is at least $1$, so
+$$
+P_Y(y) \; \ge \; \frac{\sqrt{ac - b^2}\, e^{-\gamma}}{\pi (cy^2 - 2by + a)}
+$$
+which, for large $|y|$, is bounded {\it below\/} by a positive constant times
+$1/y^2$; so $\int |y|^k P_Y(y)\, dy$
 diverges for every $k \ge 1$. {\it Therefore, one cannot talk about the
-mean or standard deviation of this distribution.}
+mean or standard deviation of this distribution.} (Since $\tau$ is bounded,
+$P_Y(y)$ is also bounded {\it above\/} by a constant times $1/y^2$: the
+tails are exactly of Cauchy type.)
 
 This distribution is also not unimodal in general; Marsaglia [5] gives
 explicit bimodal examples.
